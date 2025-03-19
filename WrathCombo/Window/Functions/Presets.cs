@@ -89,7 +89,7 @@ namespace WrathCombo.Window.Functions
                 if (!Service.Configuration.AutoActions.ContainsKey(preset))
                     Service.Configuration.AutoActions[preset] = false;
 
-                var label = "Auto-Mode";
+                var label = "加入自动循环";
                 var labelSize = ImGui.CalcTextSize(label);
                 ImGui.SetCursorPosX(ImGui.GetContentRegionAvail().X - labelSize.X.Scale() - 64f.Scale());
                 bool autoOn = Service.Configuration.AutoActions[preset];
@@ -102,8 +102,8 @@ namespace WrathCombo.Window.Functions
                 }
                 ImGui.SameLine();
                 ImGui.Text(label);
-                ImGuiComponents.HelpMarker($"Add this feature to Auto-Rotation.\n" +
-                    $"Auto-Rotation will automatically use the actions selected within the feature, allowing you to focus on movement. Configure the settings in the 'Auto-Rotation' section.");
+                ImGuiComponents.HelpMarker($"将此功能添加到自动循环中。\n" +
+                    $"自动循环将自动使用勾选的功能，使你可以专注于移动。在“自动循环”选项卡中进行设置。");
                 ImGui.Separator();
             }
 
@@ -159,7 +159,7 @@ namespace WrathCombo.Window.Functions
 
             if (conflicts.Length > 0)
             {
-                ImGui.TextColored(ImGuiColors.DalamudRed, "Conflicts with:");
+                ImGui.TextColored(ImGuiColors.DalamudRed, "冲突：");
                 StringBuilder conflictBuilder = new();
                 ImGui.Indent();
                 foreach (var conflict in conflicts)
@@ -199,14 +199,14 @@ namespace WrathCombo.Window.Functions
                 if (blueAttr.Actions.Count > 0)
                 {
                     ImGui.PushStyleColor(ImGuiCol.Text, blueAttr.NoneSet ? ImGuiColors.DPSRed : ImGuiColors.DalamudOrange);
-                    ImGui.Text($"{(blueAttr.NoneSet ? "No Required Spells Active:" : "Missing active spells:")} {string.Join(", ", blueAttr.Actions.Select(x => ActionWatching.GetBLUIndex(x) + ActionWatching.GetActionName(x)))}");
+                    ImGui.Text($"{(blueAttr.NoneSet ? "需要的法术未激活：" : "缺少激活的法术：")} {string.Join(", ", blueAttr.Actions.Select(x => ActionWatching.GetBLUIndex(x) + ActionWatching.GetActionName(x)))}");
                     ImGui.PopStyleColor();
                 }
 
                 else
                 {
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-                    ImGui.Text("All required spells active!");
+                    ImGui.Text("所有需要的法术已激活！");
                     ImGui.PopStyleColor();
                 }
             }
@@ -214,7 +214,7 @@ namespace WrathCombo.Window.Functions
             if (variantParents is not null)
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-                ImGui.TextWrapped($"Part of normal combo{(variantParents.ParentPresets.Length > 1 ? "s" : "")}:");
+                ImGui.TextWrapped($"属于正常连击的一部分{(variantParents.ParentPresets.Length > 1 ? "（复数）" : "")}:");
                 StringBuilder builder = new();
                 foreach (var par in variantParents.ParentPresets)
                 {
@@ -240,7 +240,7 @@ namespace WrathCombo.Window.Functions
             if (bozjaParents is not null)
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-                ImGui.TextWrapped($"Part of normal combo{(variantParents.ParentPresets.Length > 1 ? "s" : "")}:");
+                ImGui.TextWrapped($"属于正常连击的一部分{(variantParents.ParentPresets.Length > 1 ? "（复数）" : "")}:");
                 StringBuilder builder = new();
                 foreach (var par in bozjaParents.ParentPresets)
                 {
@@ -266,7 +266,7 @@ namespace WrathCombo.Window.Functions
             if (eurekaParents is not null)
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-                ImGui.TextWrapped($"Part of normal combo{(variantParents.ParentPresets.Length > 1 ? "s" : "")}:");
+                ImGui.TextWrapped($"属于正常连击的一部分{(variantParents.ParentPresets.Length > 1 ? "（复数）" : "")}:");
                 StringBuilder builder = new();
                 foreach (var par in eurekaParents.ParentPresets)
                 {
@@ -433,7 +433,7 @@ namespace WrathCombo.Window.Functions
             {
                 string skills = string.Join(", ", att.ActionNames);
 
-                ImGuiComponents.HelpMarker($"Replaces: {skills}");
+                ImGuiComponents.HelpMarker($"替换：{skills}");
                 if (ImGui.IsItemHovered())
                 {
                     ImGui.BeginTooltip();

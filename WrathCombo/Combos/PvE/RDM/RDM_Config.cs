@@ -116,7 +116,7 @@ internal partial class RDM
                         DrawHorizontalMultiChoice(RDM_ST_MeleeCombo_OnAction, Riposte.ActionName(), "", 2, 1, descriptionColor: ImGuiColors.DalamudYellow);
                         if (P.IPC.GetComboOptionState(CustomComboPreset.RDM_ST_MeleeCombo.ToString()))
                         {
-                            ImGui.TextColored(ImGuiColors.DalamudYellow, $"Auto-Mode is enabled for this option.\n{Zwerchhau.ActionName()} & {Redoublement.ActionName()} will be placed on {Jolt.ActionName()}");
+                            ImGui.TextColored(ImGuiColors.DalamudYellow, $"此选项已启用自动模式。\n{Zwerchhau.ActionName()}和{Redoublement.ActionName()}将被放置在 {Jolt.ActionName()}上。");
                         }
                         ImGui.Unindent();
                     }
@@ -165,7 +165,7 @@ internal partial class RDM
                     break;
 
                 case CustomComboPreset.RDM_AoE_MeleeCombo:
-                    DrawSliderInt(3, 8, RDM_AoE_MoulinetRange, $"Range to use first {Moulinet.ActionName()}, no range restrictions after first {Moulinet.ActionName()}", sliderIncrement: Ones);
+                    DrawSliderInt(3, 8, RDM_AoE_MoulinetRange, $"使用第一个{Moulinet.ActionName()}的范围，第一个{Moulinet.ActionName()}后无范围限制", sliderIncrement: Ones);
                     DrawAdditionalBoolChoice(RDM_AoE_MeleeCombo_Adv, "Advanced Action Options", "Changes which action this option will replace.", isConditionalChoice: true);
                     if (RDM_AoE_MeleeCombo_Adv)
                     {

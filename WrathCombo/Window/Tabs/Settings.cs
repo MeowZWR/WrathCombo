@@ -19,51 +19,51 @@ namespace WrathCombo.Window.Tabs
         {
             using (ImRaii.Child("main", new Vector2(0, 0), true))
             {
-                ImGui.Text("This tab allows you to customise your options for Wrath Combo.");
+                ImGui.Text("此选项卡允许您自定义 Wrath Combo 的选项。");
 
                 #region UI Options
 
                 ImGuiEx.Spacing(new Vector2(0, 20));
-                ImGuiEx.TextUnderlined("Main UI Options");
+                ImGuiEx.TextUnderlined("主界面选项");
 
                 #region SubCombos
 
                 var hideChildren = Service.Configuration.HideChildren;
 
-                if (ImGui.Checkbox("Hide SubCombo Options", ref hideChildren))
+                if (ImGui.Checkbox("隐藏子连击选项", ref hideChildren))
                 {
                     Service.Configuration.HideChildren = hideChildren;
                     Service.Configuration.Save();
                 }
 
-                ImGuiComponents.HelpMarker("Hides the sub-options of disabled features.");
+                ImGuiComponents.HelpMarker("隐藏已禁用功能的子选项。");
 
                 #endregion
 
                 #region Conflicting
 
                 bool hideConflicting = Service.Configuration.HideConflictedCombos;
-                if (ImGui.Checkbox("Hide Conflicted Combos", ref hideConflicting))
+                if (ImGui.Checkbox("隐藏冲突的连击", ref hideConflicting))
                 {
                     Service.Configuration.HideConflictedCombos = hideConflicting;
                     Service.Configuration.Save();
                 }
 
-                ImGuiComponents.HelpMarker("Hides any combos that conflict with others you have selected.");
+                ImGuiComponents.HelpMarker("隐藏与您选择的连击产生冲突的选项。");
 
                 #endregion
 
                 #region Open to Current Job
 
-                if (ImGui.Checkbox("Open PvE Features UI to Current Job on Opening", ref Service.Configuration.OpenToCurrentJob))
+                if (ImGui.Checkbox("打开PvE设置面板时自动切换到当前职业设置界面", ref Service.Configuration.OpenToCurrentJob))
                     Service.Configuration.Save();
 
-                ImGuiComponents.HelpMarker("When you open Wrath's UI, it will automatically open to the job you are currently playing.");
+                ImGuiComponents.HelpMarker("当你切换到Wrath的PVE设置时，将自动打开你当前职业的设置界面。");
 
-                if (ImGui.Checkbox("Open PvE Features UI to Current Job on Switching Jobs", ref Service.Configuration.OpenToCurrentJobOnSwitch))
+                if (ImGui.Checkbox("切换职业时自动切换到当前职业的PvE设置界面", ref Service.Configuration.OpenToCurrentJobOnSwitch))
                     Service.Configuration.Save();
 
-                ImGuiComponents.HelpMarker("When you switch jobs, it will automatically open to the job you are currently playing.");
+                ImGuiComponents.HelpMarker("当您切换职业时，将自动打开你当前职业的设置界面。");
 
                 #endregion
 
@@ -71,17 +71,17 @@ namespace WrathCombo.Window.Tabs
 
                 bool shortDTRText = Service.Configuration.ShortDTRText;
 
-                if (ImGui.Checkbox("Shorten Server Info Bar Text", ref shortDTRText))
+                if (ImGui.Checkbox("缩短服务器信息栏文本", ref shortDTRText))
                 {
                     Service.Configuration.ShortDTRText = shortDTRText;
                     Service.Configuration.Save();
                 }
 
                 ImGuiComponents.HelpMarker(
-                    "By default, the Server Info Bar for Wrath Combo shows whether Auto-Rotation is on or off, " +
-                    "\nthen -if on- it will show how many active Auto-Mode combos you have enabled. " +
-                    "\nAnd finally, it will also show if another plugin is controlling that value." +
-                    "\nThis option will make the number of active Auto-Mode combos not show."
+                    "默认情况下，Wrath Combo在服务器信息栏会显示自动循环是否开启，" +
+                    "\n如果开启自动循环，它将显示您启用了多少个自动循环。" +
+                    "\n最后，它还会显示是否有其他插件控制该值。" +
+                    "\n启用此选项将隐藏已启用的自动循环数量"
                 );
 
                 #endregion
@@ -90,29 +90,29 @@ namespace WrathCombo.Window.Tabs
 
                 bool motd = Service.Configuration.HideMessageOfTheDay;
 
-                if (ImGui.Checkbox("Hide Message of the Day", ref motd))
+                if (ImGui.Checkbox("隐藏每日消息", ref motd))
                 {
                     Service.Configuration.HideMessageOfTheDay = motd;
                     Service.Configuration.Save();
                 }
 
-                ImGuiComponents.HelpMarker("Disables the Message of the Day message in your chat when you login.");
+                ImGuiComponents.HelpMarker("禁用登录时在聊天窗口中显示的每日消息。");
 
                 #endregion
 
                 #region TargetHelper
 
                 Vector4 colour = Service.Configuration.TargetHighlightColor;
-                if (ImGui.ColorEdit4("Target Highlight Colour", ref colour, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.AlphaPreview | ImGuiColorEditFlags.AlphaBar))
+                if (ImGui.ColorEdit4("目标高亮颜色", ref colour, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.AlphaPreview | ImGuiColorEditFlags.AlphaBar))
                 {
                     Service.Configuration.TargetHighlightColor = colour;
                     Service.Configuration.Save();
                 }
 
-                ImGuiComponents.HelpMarker("Draws a box around party members in the vanilla Party List, as targeted by certain features.\nSet Alpha to 0 to hide the box.");
+                ImGuiComponents.HelpMarker("在游戏原生队伍列表中的队友周围绘制方框（被特定功能选定时生效）\n将透明度设为0可隐藏方框");
 
                 ImGui.SameLine();
-                ImGui.TextColored(ImGuiColors.DalamudGrey, $"(Only used by {CustomComboFunctions.JobIDs.JobIDToName(33)} currently)");
+                ImGui.TextColored(ImGuiColors.DalamudGrey, $"(当前仅供{CustomComboFunctions.JobIDs.JobIDToName(33)}使用)");
 
                 #endregion
 
@@ -121,39 +121,39 @@ namespace WrathCombo.Window.Tabs
                 #region Rotation Behavior Options
 
                 ImGuiEx.Spacing(new Vector2(0, 20));
-                ImGuiEx.TextUnderlined("Rotation Behavior Options");
+                ImGuiEx.TextUnderlined("循环行为选项");
 
 
                 #region Performance Mode
 
-                if (ImGui.Checkbox("Performance Mode", ref Service.Configuration.PerformanceMode))
+                if (ImGui.Checkbox("性能模式", ref Service.Configuration.PerformanceMode))
                     Service.Configuration.Save();
 
-                ImGuiComponents.HelpMarker("This mode will disable actions being changed on your hotbar, but will still continue to work in the background as you press your buttons.");
+                ImGuiComponents.HelpMarker("此模式将禁用热键栏上的技能替换，但仍会在后台运行，并在你按下技能时生效。");
 
                 #endregion
 
                 #region Spells while Moving
 
-                if (ImGui.Checkbox("Block spells if moving", ref Service.Configuration.BlockSpellOnMove))
+                if (ImGui.Checkbox("移动时阻止咏唱", ref Service.Configuration.BlockSpellOnMove))
                     Service.Configuration.Save();
 
-                ImGuiComponents.HelpMarker("Completely blocks spells from being used if you are moving, by replacing your actions with Savage Blade.\nThis would supersede combo-specific movement options, available for most jobs.");
+                ImGuiComponents.HelpMarker("在移动时阻止咏唱，将技能替换为狂怒剑。\n此选项将优先于大部分职业的特定连击移动选项。");
 
                 #endregion
 
                 #region Action Changing
 
-                if (ImGui.Checkbox("Action Replacing", ref Service.Configuration.ActionChanging))
+                if (ImGui.Checkbox("技能替换", ref Service.Configuration.ActionChanging))
                     Service.Configuration.Save();
 
-                ImGuiComponents.HelpMarker("Controls whether Actions will be Intercepted Replaced with combos from the plugin.\nIf disabled, your manual presses of abilities will no longer be affected by your Wrath settings.\n\nAuto-Rotation will work regardless of the setting.\n\nControlled by /wrath combo");
+                ImGuiComponents.HelpMarker("控制是否允许插件拦截并替换技能为连击。\n如果禁用，你手动释放的技能将不再受 Wrath 设定影响。\n\n自动循环不会受到此设置影响。\n\n可通过 /wrath combo 指令控制。");
 
                 #endregion
 
                 #region Throttle
 
-                var len = ImGui.CalcTextSize("milliseconds").X;
+                var len = ImGui.CalcTextSize("咏唱百分比").X;
 
                 ImGui.PushItemWidth(75);
                 var throttle = Service.Configuration.Throttle;
@@ -166,21 +166,21 @@ namespace WrathCombo.Window.Tabs
 
                 ImGui.SameLine();
                 var pos = ImGui.GetCursorPosX() + len;
-                ImGui.Text($"milliseconds");
+                ImGui.Text($"毫秒");
                 ImGui.SameLine(pos);
-                ImGui.Text($"   -   Action Updater Throttle");
+                ImGui.Text($"   -   动作更新频率限制");
 
 
                 ImGuiComponents.HelpMarker(
-                    "This is the restriction for how often combos will update the action on your hotbar." +
-                    "\nBy default this isn't restricting the combos, so you always get an up-to-date action." +
-                    "\n\nIf you have minor FPS issues, you can increase this value to make combos run less often." +
-                    "\nThis makes your combos less responsive, and perhaps even clips GCDs." +
-                    "\nAt high values, this can break your rotation entirely." +
-                    "\nMore severe FPS issues should instead be handled with Performance Mode option above." +
-                    "\n\n200ms can make a reasonable difference in your FPS." +
-                    "\nValues over 500ms are NOT recommended." +
-                    "\nDefault: 50");
+                    "此设置决定连击系统多久更新一次热键栏中的技能。" +
+                    "\n默认情况下不会进行限制，始终在第一时间进行技能替换。" +
+                    "\n\n如果你遇到轻微的降帧问题，可以增加此值，使连击更新频率降低。" +
+                    "\n但这会降低连击的响应速度，甚至可能影响GCD循环。" +
+                    "\n如果值设定的较高，可能会完全破坏你的技能循环。" +
+                    "\n如果遇到严重的降帧问题，建议使用性能模式进行优化。" +
+                    "\n\n200毫秒可能会对帧数产生一定影响。" +
+                    "\n不推荐设置超过500毫秒。" +
+                    "\n默认值：50");
 
                 #endregion
 
@@ -191,13 +191,13 @@ namespace WrathCombo.Window.Tabs
                     Service.Configuration.Save();
 
                 ImGui.SameLine();
-                ImGui.Text("seconds");
+                ImGui.Text("秒");
 
                 ImGui.SameLine(pos);
 
-                ImGui.Text($"   -   Movement Check Delay");
+                ImGui.Text($"   -   移动检测延迟");
 
-                ImGuiComponents.HelpMarker("Many features check if you are moving to decide actions, this will allow you to set a delay on how long you need to be moving before it recognizes you as moving.\nThis allows you to not have to worry about small movements affecting your rotation, primarily for casters.\n\nIt is recommended to keep this value between 0 and 1 seconds.\nDefault: 0.0");
+                ImGuiComponents.HelpMarker("许多功能会检测你的移动状态来决定使用的技能，此设置允许你设定一个延迟，在移动达到一定时间后才会被识别为移动中。\n这样可以避免小幅度的移动影响你的技能循环，主要适用于施法职业。\n\n建议将该值保持在 0 到 1 秒之间。\n默认值：0.0");
 
                 #endregion
 
@@ -207,13 +207,13 @@ namespace WrathCombo.Window.Tabs
                     Service.Configuration.Save();
 
                 ImGui.SameLine();
-                ImGui.Text("seconds");
+                ImGui.Text("秒");
 
                 ImGui.SameLine(pos);
 
-                ImGui.Text($"   -   Opener Failure Timeout");
+                ImGui.Text($"   -   起手失败超时");
 
-                ImGuiComponents.HelpMarker("During an opener if this amount of time has passed since your last action, it will fail the opener and resume with non-opener functionality.\n\nIt is recommended to keep this value below 6.\nDefault: 4.0");
+                ImGuiComponents.HelpMarker("在起手技能循环期间，如果距离你上一个技能已超过此设定时间，系统将判定起手循环失败并恢复常规技能循环。\n\n推荐将此值保持在6以下。\n默认值：4.0");
 
                 #endregion
 
@@ -227,12 +227,12 @@ namespace WrathCombo.Window.Tabs
                 }
 
                 ImGui.SameLine();
-                ImGui.Text($"yalms");
+                ImGui.Text($"米");
                 ImGui.SameLine(pos);
 
-                ImGui.Text($"   -   Melee Distance Offset");
+                ImGui.Text($"   -   近战距离偏移");
 
-                ImGuiComponents.HelpMarker("Offset of melee check distance.\nFor those who don't want to immediately use their ranged attack if the boss walks slightly out of range.\n\nFor example, a value of -0.5 would make you have to be 0.5 yalms closer to the target,\nor a value of 2 would disable triggering of ranged features until you are 2 yalms further from the hitbox.\n\nIt is recommended to keep this value at 0.\nDefault: 0.0");
+                ImGuiComponents.HelpMarker("偏移近战检测的距离数值。\n适用于当Boss略微超出近战范围时，不希望立即使用远程攻击的玩家。\n\n示例：\n设为 -0.5 时：需比标准近战距离再接近目标0.5米；\n设为 2 时：需距离目标碰撞箱超出2yalms才会触发远程技能。\n\n推荐保持默认值0。\n默认值：0.0");
                 #endregion
 
                 #region Interrupt Delay
@@ -248,11 +248,11 @@ namespace WrathCombo.Window.Tabs
                     Service.Configuration.Save();
                 }
                 ImGui.SameLine();
-                ImGui.Text($"%% of cast");
+                ImGui.Text($"咏唱百分比");
                 ImGui.SameLine( pos);
-                ImGui.Text($"   -   Interrupt Delay");
+                ImGui.Text($"   -   打断延迟");
 
-                ImGuiComponents.HelpMarker("The percentage of a total cast time to wait before interrupting.\nApplies to all interrupts, in every job's combos.\n\nIt is recommend to keep this value below 50%.\nDefault: 0%");
+                ImGuiComponents.HelpMarker("等待打断的咏唱条总时间的百分比。\n适用于所有打断，所有职业的连击。\n\n建议将该值保持在50%以下。\n默认值：0%");
 
                 #endregion
 
@@ -261,32 +261,32 @@ namespace WrathCombo.Window.Tabs
                 #region Troubleshooting Options
 
                 ImGuiEx.Spacing(new Vector2(0, 20));
-                ImGuiEx.TextUnderlined("Troubleshooting / Analysis Options");
+                ImGuiEx.TextUnderlined("故障排查/数据分析选项");
 
                 #region Combat Log
 
                 bool showCombatLog = Service.Configuration.EnabledOutputLog;
 
-                if (ImGui.Checkbox("Output Log to Chat", ref showCombatLog))
+                if (ImGui.Checkbox("输出战斗日志到聊天窗", ref showCombatLog))
                 {
                     Service.Configuration.EnabledOutputLog = showCombatLog;
                     Service.Configuration.Save();
                 }
 
-                ImGuiComponents.HelpMarker("Every time you use an action, the plugin will print it to the chat.");
+                ImGuiComponents.HelpMarker("每次使用技能时，插件会将技能信息输出至聊天窗。");
                 #endregion
 
                 #region Opener Log
 
-                if (ImGui.Checkbox($"Output opener status to chat", ref Service.Configuration.OutputOpenerLogs))
+                if (ImGui.Checkbox($"输出起手式状态到聊天窗", ref Service.Configuration.OutputOpenerLogs))
                     Service.Configuration.Save();
 
-                ImGuiComponents.HelpMarker("Every time your class's opener is ready, fails, or finishes as expected, it will print to the chat.");
+                ImGuiComponents.HelpMarker("当职业的起手式准备就绪、失败或按预期完成时，相关信息将输出至聊天窗。");
                 #endregion
 
                 #region Debug File
 
-                if (ImGui.Button("Create Debug File"))
+                if (ImGui.Button("生成调试文件"))
                 {
                     if (Player.Available)
                         DebugFile.MakeDebugFile();
@@ -294,7 +294,7 @@ namespace WrathCombo.Window.Tabs
                         DebugFile.MakeDebugFile(allJobs:true);
                 }
 
-                ImGuiComponents.HelpMarker("Will generate a debug file on your desktop.\nUseful to give developers to help troubleshoot issues.\nThe same as using the following command: /wrath debug");
+                ImGuiComponents.HelpMarker("将在桌面生成调试文件。\n便于提供给开发者以协助排查问题。\n等同于使用指令：/wrath debug");
 
                 #endregion
 

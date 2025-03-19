@@ -33,7 +33,7 @@ namespace WrathCombo.Window.Tabs
                         ImGui.TextWrapped($"{FontAwesomeIcon.SkullCrossbones.ToIconString()}");
                         ImGui.PopFont();
                         ImGui.SameLine();
-                        ImGui.TextWrapped("These are PvP features. They will only work in PvP-enabled zones.");
+                        ImGui.TextWrapped("这些是 PvP 功能，它们仅在启用 PvP 的区域内生效。");
                         ImGui.SameLine();
                         ImGui.PushFont(UiBuilder.IconFont);
                         ImGui.TextWrapped($"{FontAwesomeIcon.SkullCrossbones.ToIconString()}");
@@ -41,7 +41,7 @@ namespace WrathCombo.Window.Tabs
                     });
                     ImGuiEx.LineCentered($"pvpDesc2", () =>
                     {
-                        ImGuiEx.TextUnderlined("Select a job from below to enable and configure features for it.");
+                        ImGuiEx.TextUnderlined("从下面选择一个职业，以启用并配置其功能。");
                     });
                     ImGui.Spacing();
 
@@ -64,7 +64,7 @@ namespace WrathCombo.Window.Tabs
                                 ImGui.Image(icon.ImGuiHandle, new Vector2(icon.Size.X, icon.Size.Y).Scale() / 2f);
                                 ImGui.SameLine(indentwidth2);
                             }
-                            ImGui.Text($"{header} {(disabled ? "(Disabled due to update)" : "")}");
+                            ImGui.Text($"{header} {(disabled ? "（因更新已禁用）" : "")}");
                         }
                     }
                 }
@@ -75,7 +75,7 @@ namespace WrathCombo.Window.Tabs
 
                     using (var headingTab = ImRaii.Child("PvPHeadingTab", new Vector2(ImGui.GetContentRegionAvail().X, icon is null ? 24f.Scale() : (icon.Size.Y / 2f).Scale() + 4f)))
                     {
-                        if (ImGui.Button("Back", new Vector2(0, 24f.Scale())))
+                        if (ImGui.Button("返回", new Vector2(0, 24f.Scale())))
                         {
                             OpenJob = "";
                             return;
@@ -100,7 +100,7 @@ namespace WrathCombo.Window.Tabs
                         {
                             if (ImGui.BeginTabBar($"subTab{OpenJob}", ImGuiTabBarFlags.Reorderable | ImGuiTabBarFlags.AutoSelectNewTabs))
                             {
-                                if (ImGui.BeginTabItem("Normal"))
+                                if (ImGui.BeginTabItem("普通"))
                                 {
                                     DrawHeadingContents(OpenJob);
                                     ImGui.EndTabItem();

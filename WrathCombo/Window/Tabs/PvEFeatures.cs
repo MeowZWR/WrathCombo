@@ -40,7 +40,7 @@ namespace WrathCombo.Window.Tabs
                     ImGui.SameLine(indentwidth);
                     ImGuiEx.LineCentered(() =>
                     {
-                        ImGuiEx.TextUnderlined("Select a job from below to enable and configure features for it.");
+                        ImGuiEx.TextUnderlined("从下面选择一个职业，以启用并配置其功能。");
                     });
 
                     foreach (string? jobName in groupedPresets.Keys)
@@ -82,7 +82,7 @@ namespace WrathCombo.Window.Tabs
 
                     using (var headingTab = ImRaii.Child("HeadingTab", new Vector2(ImGui.GetContentRegionAvail().X, icon is null ? 24f.Scale() : (icon.Size.Y / 2f).Scale() + 4f)))
                     {
-                        if (ImGui.Button("Back", new Vector2(0, 24f.Scale())))
+                        if (ImGui.Button("返回", new Vector2(0, 24f.Scale())))
                         {
                             OpenJob = "";
                             return;
@@ -114,7 +114,7 @@ namespace WrathCombo.Window.Tabs
                         {
                             if (ImGui.BeginTabBar($"subTab{OpenJob}", ImGuiTabBarFlags.Reorderable | ImGuiTabBarFlags.AutoSelectNewTabs))
                             {
-                                if (ImGui.BeginTabItem("Normal"))
+                                if (ImGui.BeginTabItem("普通场景"))
                                 {
                                     DrawHeadingContents(OpenJob);
                                     ImGui.EndTabItem();
@@ -122,7 +122,7 @@ namespace WrathCombo.Window.Tabs
 
                                 if (groupedPresets[OpenJob].Any(x => PresetStorage.IsVariant(x.Preset)))
                                 {
-                                    if (ImGui.BeginTabItem("Variant Dungeons"))
+                                    if (ImGui.BeginTabItem("多变迷宫"))
                                     {
                                         DrawVariantContents(OpenJob);
                                         ImGui.EndTabItem();
@@ -131,7 +131,7 @@ namespace WrathCombo.Window.Tabs
 
                                 if (groupedPresets[OpenJob].Any(x => PresetStorage.IsBozja(x.Preset)))
                                 {
-                                    if (ImGui.BeginTabItem("Field Operations"))
+                                    if (ImGui.BeginTabItem("特殊场景"))
                                     {
                                         DrawBozjaContents(OpenJob);
                                         ImGui.EndTabItem();
@@ -140,7 +140,7 @@ namespace WrathCombo.Window.Tabs
 
                                 if (groupedPresets[OpenJob].Any(x => PresetStorage.IsEureka(x.Preset)))
                                 {
-                                    if (ImGui.BeginTabItem("Eureka"))
+                                    if (ImGui.BeginTabItem("优雷卡"))
                                     {
                                         ImGui.EndTabItem();
                                     }

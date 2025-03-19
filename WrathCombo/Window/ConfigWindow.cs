@@ -142,29 +142,29 @@ namespace WrathCombo.Window
                 ImGui.Spacing();
                 ImGui.Separator();
 
-                if (ImGui.Selectable("PvE Features", OpenWindow == OpenWindow.PvE))
+                if (ImGui.Selectable("PvE功能", OpenWindow == OpenWindow.PvE))
                 {
                     OpenWindow = OpenWindow.PvE;
                 }
                 ImGui.Spacing();
-                if (ImGui.Selectable("PvP Features", OpenWindow == OpenWindow.PvP))
+                if (ImGui.Selectable("PvP功能", OpenWindow == OpenWindow.PvP))
                 {
                     OpenWindow = OpenWindow.PvP;
                 }
                 ImGui.Spacing();
-                if (ImGui.Selectable("Auto-Rotation", OpenWindow == OpenWindow.AutoRotation))
+                if (ImGui.Selectable("自动循环", OpenWindow == OpenWindow.AutoRotation))
                 {
                     OpenWindow = OpenWindow.AutoRotation;
                 }
                 ImGui.Spacing();
                 ImGui.Spacing();
                 ImGui.Spacing();
-                if (ImGui.Selectable("Settings", OpenWindow == OpenWindow.Settings))
+                if (ImGui.Selectable("插件设置", OpenWindow == OpenWindow.Settings))
                 {
                     OpenWindow = OpenWindow.Settings;
                 }
                 ImGui.Spacing();
-                if (ImGui.Selectable("About", OpenWindow == OpenWindow.About))
+                if (ImGui.Selectable("关于", OpenWindow == OpenWindow.About))
                 {
                     OpenWindow = OpenWindow.About;
                 }
@@ -201,11 +201,9 @@ namespace WrathCombo.Window
                         {
                             var conflictingPluginsText = "- " + string.Join("\n- ", conflictingPlugins);
                             var tooltipText =
-                                "The following plugins are known to conflict " +
-                                $"with {Svc.PluginInterface.InternalName}:\n" +
+                                $"以下插件已知与 {Svc.PluginInterface.InternalName} 冲突：\n" +
                                 conflictingPluginsText +
-                                "\n\nIt is recommended you disable these plugins to prevent\n" +
-                                "unexpected behavior and bugs.";
+                                "\n\n建议禁用这些插件以避免意外行为和错误。";
 
                             ImGui.SetTooltip(tooltipText);
                         }

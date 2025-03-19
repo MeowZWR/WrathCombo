@@ -31,7 +31,7 @@ internal partial class DNC
         private static void DrawAntiDriftOptions()
         {
             ImGuiEx.Spacing(new Vector2(40, 12));
-            ImGui.Text("Anti-Drift Options:     (hover each for more info)");
+            ImGui.Text("防偏移选项：     （悬停以查看更多信息）");
 
             #region Show a colored display of the user's current detected GCD
 
@@ -82,7 +82,7 @@ internal partial class DNC
             var pos = ImGui.GetCursorPos();
 
             // Determine which recommendation text to show
-            const string rec = "(Recommended)";
+            const string rec = "（推荐）";
             var recTriple = GCDValue is GCDRange.Perfect ? rec : "";
             var recHold = GCDValue is not GCDRange.Perfect ? rec : "";
 
@@ -112,15 +112,15 @@ internal partial class DNC
 
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
                     ImGui.TextWrapped(
-                        "NO SUPPORT is provided for setting up this feature!");
+                        "此功能的设置不提供支持！");
                     ImGui.PopStyleColor();
 
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
                     ImGui.TextWrapped(
-                        "\nYou can change the respective actions by inputting action IDs below for each dance step." +
-                        "\nThe defaults are Cascade, Flourish, Fan Dance, and Fan Dance II." +
-                        "\nIf set to 0, they will reset to these actions." +
-                        "\n(You can get Action IDs with Garland Tools by searching for the action and clicking the cog.)");
+                        "\n你可以通过为每个舞步输入技能ID来更改相应的动作。" +
+                        "\n默认值为瀑泻、百花争艳、扇舞·序和扇舞·破。" +
+                        "\n如果设置为0，它们将重置为这些技能。" +
+                        "\n（你可以通过Garland Tools搜索技能并点击齿轮图标获取技能ID。）");
                     ImGui.PopStyleColor();
 
                     int[] actions = Service.Configuration.DancerDanceCompatActionIDs
@@ -129,29 +129,29 @@ internal partial class DNC
                     bool inputChanged = false;
                     ImGuiEx.SetNextItemWidthScaled(50);
                     inputChanged |= ImGui.InputInt(
-                        "(Red) Emboite replacement Action ID",
+                        "（红色）蔷薇曲脚步 替换技能ID",
                         ref actions[0], 0);
                     ImGuiEx.SetNextItemWidthScaled(50);
                     inputChanged |= ImGui.InputInt(
-                        "(Blue) Entrechat replacement Action ID",
+                        "（蓝色）小鸟交叠跳 替换技能ID",
                         ref actions[1], 0);
                     ImGuiEx.SetNextItemWidthScaled(50);
                     inputChanged |= ImGui.InputInt(
-                        "(Green) Jete replacement Action ID",
+                        "（绿色）绿叶小踢腿 替换技能ID",
                         ref actions[2], 0);
                     ImGuiEx.SetNextItemWidthScaled(50);
                     inputChanged |= ImGui.InputInt(
-                        "(Yellow) Pirouette replacement Action ID",
+                        "（黄色）金冠趾尖转 替换技能ID",
                         ref actions[3], 0);
 
                     ImGuiEx.Spacing(new Vector2(0, 12));
 
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
                     ImGui.TextWrapped(
-                        "This WILL let you set up a conflict!");
+                        "这可能会导致冲突！");
                     ImGui.PopStyleColor();
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
-                    ImGui.TextWrapped("Double check the actions you are setting do not conflict with other combos you are using, or enable the feature below!");
+                    ImGui.TextWrapped("请仔细检查你设置的技能是否与你使用的其他连击冲突，或启用以下功能！");
                     ImGui.PopStyleColor();
 
                     if (inputChanged)
@@ -172,7 +172,7 @@ internal partial class DNC
                     ImGui.Indent();
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
                     ImGui.TextWrapped(
-                        "Opener variations:     (hover each for more info)");
+                        "起手式变体：     （悬停以查看更多信息）");
                     ImGui.PopStyleColor();
                     ImGui.Unindent();
 

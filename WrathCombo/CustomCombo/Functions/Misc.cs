@@ -71,7 +71,7 @@ namespace WrathCombo.CustomComboNS.Functions
             public static string JobIDToName(uint key)
             {
                 if (key == 0)
-                    return "General/Multiple Jobs";
+                    return "通用/多职业";
 
                 //Override DOH/DOL
                 if (key is DOH.JobID) key = 08; //Set to Carpenter

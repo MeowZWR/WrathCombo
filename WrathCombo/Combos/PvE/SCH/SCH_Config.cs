@@ -44,7 +44,7 @@ internal partial class SCH
 
                     ImGui.Indent();
 
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查可应用于哪种类型的敌人：");
 
                     DrawHorizontalRadioButton(SCH_DPS_BioSubOption,
                         "Non-Bosses", "Only applies the HP check above to non-bosses.\nAllows you to only stop DoTing early when it's not a boss.", 0);
@@ -143,7 +143,7 @@ internal partial class SCH
                     break;
 
                 case CustomComboPreset.SCH_AoE_Heal:
-                    ImGui.TextUnformatted("Note: Succor will always be available. These options are to provide optional priority to Succor.");
+                    ImGui.TextUnformatted("注意：士气高扬之策总是可用。这些选项用于为士气高扬之策提供可选优先级。");
                     DrawSliderInt(0, 100, SCH_AoE_Heal_SuccorShieldOption, "Shield Check: Percentage of Party Members without shields to check for.", sliderIncrement: 25);
                     DrawPriorityInput(SCH_AoE_Heals_Priority, 7, 6, $"{Succor.ActionName()} Priority: ");
                     break;
