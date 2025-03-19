@@ -12,12 +12,60 @@ using WrathCombo.Extensions;
 using WrathCombo.Services;
 using WrathCombo.Services.IPC;
 using WrathCombo.Services.IPC_Subscriber;
+using System.Collections.Generic;
+using WrathCombo.AutoRotation;
 
 namespace WrathCombo.Window.Tabs
 {
     internal class AutoRotationTab : ConfigWindow
     {
         private static uint _selectedNpc = 0;
+
+        private static readonly Dictionary<DPSRotationMode, string> DPSRotationModeTranslations = new()
+        {
+            { DPSRotationMode.Manual, "手动" },
+            { DPSRotationMode.Highest_Max, "最高最大生命值" },
+            { DPSRotationMode.Lowest_Max, "最低最大生命值" },
+            { DPSRotationMode.Highest_Current, "最高当前生命值" },
+            { DPSRotationMode.Lowest_Current, "最低当前生命值" },
+            { DPSRotationMode.Tank_Target, "坦克目标" },
+            { DPSRotationMode.Nearest, "最近" },
+            { DPSRotationMode.Furthest, "最远" },
+        };
+
+        private static readonly Dictionary<HealerRotationMode, string> HealerRotationModeTranslations = new()
+        {
+            { HealerRotationMode.Manual, "手动" },
+            { HealerRotationMode.Highest_Current, "最高当前生命值" },
+            { HealerRotationMode.Lowest_Current, "最低当前生命值" },
+        };
+
+        private static bool ShowTranslatedCombo<TEnum>(string label, Dictionary<TEnum, string> translations, ref TEnum currentMode) where TEnum : Enum
+        {
+            // 获取当前模式的中文翻译
+            if (!translations.TryGetValue(currentMode, out var currentLabel))
+                currentLabel = currentMode.ToString();
+
+            // 显示下拉菜单
+            if (ImGui.BeginCombo(label, currentLabel))
+            {
+                foreach (var translation in translations)
+                {
+                    bool isSelected = currentMode.Equals(translation.Key);
+                    if (ImGui.Selectable(translation.Value, isSelected))
+                    {
+                        currentMode = translation.Key;
+                    }
+
+                    if (isSelected)
+                        ImGui.SetItemDefaultFocus();
+                }
+                ImGui.EndCombo();
+                return true;
+            }
+            return false;
+        }
+
         internal static new void Draw()
         {
             ImGui.TextWrapped($"你可以在此处配置自动循环操作参数。" +
@@ -67,18 +115,11 @@ namespace WrathCombo.Window.Tabs
                 ImGuiEx.TextUnderlined($"目标选择模式");
 
                 P.UIHelper.ShowIPCControlledIndicatorIfNeeded("DPSRotationMode");
-                changed |= P.UIHelper.ShowIPCControlledComboIfNeeded(
-                    "###DPSTargetingMode", true, ref cfg.DPSRotationMode,
-                    ref cfg.HealerRotationMode, "DPSRotationMode");
+                changed |= ShowTranslatedCombo<DPSRotationMode>(
+                    "###DPSTargetingMode",
+                    DPSRotationModeTranslations,
+                    ref cfg.DPSRotationMode);
 
-                ImGuiComponents.HelpMarker("Manual - Leaves all targeting decisions to you.\n" +
-                    "Highest Max - Prioritises enemies with the highest max HP.\n" +
-                    "Lowest Max - Prioritises enemies with the lowest max HP.\n" +
-                    "Highest Current - Prioritises the enemy with the highest current HP.\n" +
-                    "Lowest Current - Prioritises the enemy with the lowest current HP.\n" +
-                    "Tank Target - Prioritises the same target as the first tank in your group.\n" +
-                    "Nearest - Prioritises the closest target to you.\n" +
-                    "Furthest - Prioritises the furthest target from you.");
                 ImGuiComponents.HelpMarker("手动 - 所有目标选择由你决定。\n" +
                     "最高最大生命值 - 优先选择最大生命值最高的敌人。\n" +
                     "最低最大生命值 - 优先选择最大生命值最低的敌人。\n" +
@@ -181,9 +222,10 @@ namespace WrathCombo.Window.Tabs
             {
                 ImGuiEx.TextUnderlined($"治疗目标选择模式");
                 P.UIHelper.ShowIPCControlledIndicatorIfNeeded("HealerRotationMode");
-                changed |= P.UIHelper.ShowIPCControlledComboIfNeeded(
-                    "###HealerTargetingMode", false, ref cfg.DPSRotationMode,
-                    ref cfg.HealerRotationMode, "HealerRotationMode");
+                changed |= ShowTranslatedCombo<HealerRotationMode>(
+                    "###HealerTargetingMode",
+                    HealerRotationModeTranslations,
+                    ref cfg.HealerRotationMode);
                 ImGuiComponents.HelpMarker("手动模式 - 只有当你手动选择目标时才会进行治疗。如果目标不符合下方治疗阈值条件，将跳过治疗优先进行DPS输出（如果启用了DPS功能）。\n" +
                     "最高当前生命值 - 优先选择当前生命值百分比最高的队员。\n" +
                     "最高当前生命值 - 优先选择当前生命值百分比最低的队员。");
