@@ -2,11 +2,11 @@
   {
     "Author": "Team Wrath",
     "Name": "Wrath Combo",
-    "Punchline": "\u5c06\u8fde\u51fb\u4e0e\u4e92\u65a5\u6280\u80fd\u6574\u5408\u81f3\u5355\u4e2a\u6309\u952e\u2014\u2014\u529f\u80fd\u8fdc\u4e0d\u6b62\u4e8e\u6b64\u3002",
-    "Description": "\u5316\u7e41\u4e3a\u7b80\uff0c\u4e00\u51fb\u5343\u53d8\uff01\u501f\u9274PvP\u6280\u80fd\u8bbe\u8ba1\u7406\u5ff5\uff0c\u6211\u4eec\u5c06\u5355\u4e00\u52a8\u4f5c\u62d3\u5c55\u4e3a\u5b8c\u6574\u8fde\u62db\u4f53\u7cfb\u3002\u53ef\u80fd\u662f\u57fa\u7840\u76841-2-3\u5f0f\u8fde\u51fb\uff0c\u4e5f\u53ef\u80fd\u662f\u7cbe\u5bc6\u7684\u804c\u4e1a\u5faa\u73af\u7cfb\u7edf\u3002\u6839\u636e\u4f60\u7684\u6218\u6597\u9700\u6c42\uff0c\u6253\u9020\u4e13\u5c5e\u8f93\u51fa\u8282\u594f\u3002",
+    "Punchline": "将连击与互斥技能整合至单个按键——功能远不止于此。",
+    "Description": "化繁为简，一击千变！借鉴PvP技能设计理念，我们将单一动作拓展为完整连招体系。可能是基础的1-2-3式连击，也可能是精密的职业循环系统。根据你的战斗需求，打造专属输出节奏。",
     "InternalName": "WrathCombo",
-    "AssemblyVersion": "1.0.0.13",
-    "TestingAssemblyVersion": "1.0.0.13",
+    "AssemblyVersion": "1.0.0.14",
+    "TestingAssemblyVersion": "1.0.0.14",
     "RepoUrl": "https://github.com/MeowZWR/WrathCombo",
     "ApplicableVersion": "any",
     "Tags": [],
@@ -16,6 +16,6 @@
     "DownloadLinkUpdate": "https://meowrs.com/https://github.com/MeowZWR/WrathCombo/releases/download/1.0.0.13/latest.zip",
     "DownloadLinkTesting": "https://meowrs.com/https://github.com/MeowZWR/WrathCombo/releases/download/1.0.0.13/latest.zip",
     "IconUrl": "https://s3.puni.sh/media/plugin/60/icon-2bwhkn3zf1f.png",
-    "Changelog": "\u4e2a\u4eba\u81ea\u7528\uff0c\u4e34\u65f6\u63e3\u4e86\u4e2a\u70c2\u5de5\u5177\u8c03\u7528DeepSeek-v3 API\u5b9e\u73b0\u57fa\u7840\u7ffb\u8bd1\n\u54b8\u9c7c\u8ba4\u8bc1\uff0c7.0\u7248\u672c\u5f00\u670d\u534a\u5e74\u4ec57\u4e2a\u6ee1\u7ea7\u804c\u4e1a\uff0c\u5168\u9760\u6478\u9c7c\u65e5\u968f\u5347\u7ea7\uff0c\u5bf9\u9ad8\u96be\u673a\u5236/\u804c\u4e1a\u5faa\u73af\u4e00\u7a7a\u4e0d\u901a\uff0c\u672c\u7248\u672c\u4ec5\u4f9b\u5a31\u4e50\n\u8bf7\u4f7f\u7528\u7531[44451516]\u6216[guilyou]\u5927\u4f6c\u53d1\u5e03\u7684\u4e13\u4e1a\u6c49\u5316\u7248\u672c\uff0c\u6709\u66f4\u591a\u7684\uff1a\n- \u5faa\u73af\u4f18\u5316\n- \u4e2a\u6027\u529f\u80fd"
+    "Changelog": "个人自用，临时揣了个烂工具调用DeepSeek-v3 API实现基础翻译\n咸鱼认证，7.0版本开服半年仅7个满级职业，全靠摸鱼日随升级，对高难机制/职业循环一空不通，本版本仅供娱乐\n请使用由[44451516]或[guilyou]大佬发布的专业汉化版本，有更多的：\n- 循环优化\n- 个性功能"
   }
 ]
