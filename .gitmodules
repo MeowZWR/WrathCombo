@@ -7,7 +7,7 @@
 	url = https://github.com/aers/FFXIVClientStructs.git
 [submodule "ECommons"]
 	path = ECommons
-	url = https://github.com/NightmareXIV/ECommons.git
+	url = https://github.com/MeowZWR/ECommons.git
 [submodule "PunishLib"]
 	path = PunishLib
-	url = https://github.com/PunishXIV/PunishLib.git
+	url = https://github.com/MeowZWR/PunishLib.git
