@@ -114,6 +114,11 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
 
                 // Manually added
                 KeyValuePair.Create("Use Ruin III instead of Emerald Ruin III when standing still", "站立不动时使用毁荡代替绿宝石毁荡"),
+                KeyValuePair.Create("Swiftcasts the first available Egi when Swiftcast is ready.", "即刻咏唱冷却即用，不管是哪个蛮神"),
+                KeyValuePair.Create("Swiftcasts Slipstream", "即刻咏唱螺旋气流"),
+                KeyValuePair.Create("Swiftcasts Ruby Ruin/Ruby Rite", "即刻咏唱红宝石毁灭（毁荡/毁坏）/红宝石之仪"),
+                KeyValuePair.Create("Summons Titan, Garuda then Ifrit.", "召唤顺序：土神->风神->火神"),
+                KeyValuePair.Create("Summons Garuda, Titan then Ifrit.", "召唤顺序：风土神->土神->火神"),
                 KeyValuePair.Create("Garuda", "风神"),
                 KeyValuePair.Create("Ifrit", "火神"),
                 KeyValuePair.Create("Titan", "土神"),
