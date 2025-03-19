@@ -10,6 +10,7 @@ using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Services;
 using WrathCombo.Window.Functions;
 using ECommons.DalamudServices;
+using WrathCombo.Resources.Dictionary.Chinese;
 
 namespace WrathCombo.Window.Tabs
 {
@@ -297,6 +298,15 @@ namespace WrathCombo.Window.Tabs
                 ImGuiComponents.HelpMarker("将在桌面生成调试文件。\n便于提供给开发者以协助排查问题。\n等同于使用指令：/wrath debug");
 
                 #endregion
+
+                #if DEBUG
+                // 在生成调试文件按钮下方添加
+                if (ImGui.Button("生成键值对调试文件"))
+                {
+                    DictionaryDebugger.ExportDebugFile();
+                }
+                ImGuiComponents.HelpMarker("将在桌面生成中文翻译键值对调试文件。\n包含未被替换的英文文本和未被使用的键值对词典。");
+                #endif
 
                 #endregion
             }
