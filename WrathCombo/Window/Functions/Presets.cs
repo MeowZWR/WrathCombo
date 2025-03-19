@@ -20,6 +20,7 @@ using WrathCombo.Core;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Dictionary.Chinese;
 using WrathCombo.Services;
 
 namespace WrathCombo.Window.Functions
@@ -179,7 +180,11 @@ namespace WrathCombo.Window.Functions
                     }
 
                     if (!string.IsNullOrEmpty(comboInfo.JobShorthand))
-                        conflictBuilder.Insert(0, $"[{comboInfo.JobShorthand}] ");
+                    {
+                        // 替换冲突职业缩写
+                        var jobShorthand = comboInfo.JobShorthand.ReplaceWithChinese();
+                        conflictBuilder.Insert(0, $"[{jobShorthand}] ");
+                    }
 
                     ImGuiEx.Text(GradientColor.Get(ImGuiColors.DalamudRed, CustomComboFunctions.IsEnabled(conflict) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed, 1500), $"- {conflictBuilder}");
                     conflictBuilder.Clear();

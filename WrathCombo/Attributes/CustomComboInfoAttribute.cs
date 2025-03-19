@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using WrathCombo.Combos.PvE;
 using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Resources.Dictionary.Chinese;
 
 namespace WrathCombo.Attributes
 {
@@ -25,6 +26,8 @@ namespace WrathCombo.Attributes
         {
             Name = name;
             Description = description;
+            Name = name.ReplaceWithChinese();
+            Description = description.ReplaceWithChinese();
             JobID = jobID;
             Order = order;
         }

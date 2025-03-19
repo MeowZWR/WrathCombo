@@ -16,6 +16,7 @@ using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
 using WrathCombo.Services;
 using static FFXIVClientStructs.FFXIV.Client.UI.RaptureAtkHistory.Delegates;
+using WrathCombo.Resources.Dictionary.Chinese;
 
 
 namespace WrathCombo.Window.Functions
@@ -33,6 +34,8 @@ namespace WrathCombo.Window.Functions
         /// <param name="additonalChoiceCondition">What the condition is to convey to the user what triggers it.</param>
         public static bool DrawSliderInt(int minValue, int maxValue, string config, string sliderDescription, float itemWidth = 150, uint sliderIncrement = SliderIncrements.Ones, bool hasAdditionalChoice = false, string additonalChoiceCondition = "")
         {
+            sliderDescription = sliderDescription.ReplaceWithChinese();
+
             ImGui.Indent();
             int output = PluginConfiguration.GetCustomIntValue(config, minValue);
             if (output < minValue)
@@ -153,6 +156,8 @@ namespace WrathCombo.Window.Functions
         /// <param name="additonalChoiceCondition"></param>
         public static void DrawSliderFloat(float minValue, float maxValue, string config, string sliderDescription, float itemWidth = 150, bool hasAdditionalChoice = false, string additonalChoiceCondition = "")
         {
+            sliderDescription = sliderDescription.ReplaceWithChinese();
+
             float output = PluginConfiguration.GetCustomFloatValue(config, minValue);
             if (output < minValue)
             {
@@ -249,6 +254,8 @@ namespace WrathCombo.Window.Functions
         /// <param name="digits"></param>
         public static void DrawRoundedSliderFloat(float minValue, float maxValue, string config, string sliderDescription, float itemWidth = 150, bool hasAdditionalChoice = false, string additonalChoiceCondition = "", int digits = 1)
         {
+            sliderDescription = sliderDescription.ReplaceWithChinese();
+
             float output = PluginConfiguration.GetCustomFloatValue(config, minValue);
             if (output < minValue)
             {
@@ -344,6 +351,9 @@ namespace WrathCombo.Window.Functions
         /// <param name="descriptionAsTooltip">Whether to only show the Description as a tooltip</param>
         public static void DrawRadioButton(string config, string checkBoxName, string checkboxDescription, int outputValue, float itemWidth = 150, Vector4 descriptionColor = new Vector4(), bool descriptionAsTooltip = false)
         {
+            checkBoxName = checkBoxName.ReplaceWithChinese();
+            checkboxDescription = checkboxDescription.ReplaceWithChinese();
+
             ImGui.Indent();
             if (descriptionColor == new Vector4()) descriptionColor = ImGuiColors.DalamudYellow;
             int output = PluginConfiguration.GetCustomIntValue(config, outputValue);
@@ -391,6 +401,9 @@ namespace WrathCombo.Window.Functions
         /// <param name="descriptionColor"></param>
         public static bool DrawHorizontalRadioButton(string config, string checkBoxName, string checkboxDescription, int outputValue, float itemWidth = 150, Vector4 descriptionColor = new Vector4())
         {
+            checkBoxName = checkBoxName.ReplaceWithChinese();
+            checkboxDescription = checkboxDescription.ReplaceWithChinese();
+
             if (descriptionColor == new Vector4()) descriptionColor = ImGuiColors.DalamudYellow;
             int output = PluginConfiguration.GetCustomIntValue(config);
             ImGui.SameLine();
@@ -440,6 +453,9 @@ namespace WrathCombo.Window.Functions
         public static void DrawHorizontalBoolRadioButton(string config, string
                 checkBoxName, string checkboxDescription, int choice, float itemWidth = 150, Vector4 descriptionColor = new Vector4())
         {
+            checkBoxName = checkBoxName.ReplaceWithChinese();
+            checkboxDescription = checkboxDescription.ReplaceWithChinese();
+
             if (descriptionColor == new Vector4()) descriptionColor = ImGuiColors.DalamudYellow;
             bool[]? values = PluginConfiguration.GetCustomBoolArrayValue(config);
             ImGui.PushItemWidth(itemWidth);
@@ -477,6 +493,9 @@ namespace WrathCombo.Window.Functions
         /// <param name="isConditionalChoice"></param>
         public static void DrawAdditionalBoolChoice(string config, string checkBoxName, string checkboxDescription, float itemWidth = 150, bool isConditionalChoice = false)
         {
+            checkBoxName = checkBoxName.ReplaceWithChinese();
+            checkboxDescription = checkboxDescription.ReplaceWithChinese();
+
             bool output = PluginConfiguration.GetCustomBoolValue(config);
             ImGui.PushItemWidth(itemWidth);
             if (!isConditionalChoice)
@@ -523,6 +542,9 @@ namespace WrathCombo.Window.Functions
         /// <param name="descriptionColor"></param>
         public static void DrawHorizontalMultiChoice(string config, string checkBoxName, string checkboxDescription, int totalChoices, int choice, Vector4 descriptionColor = new Vector4())
         {
+            checkBoxName = checkBoxName.ReplaceWithChinese();
+            checkboxDescription = checkboxDescription.ReplaceWithChinese();
+
             ImGui.Indent();
             if (descriptionColor == new Vector4()) descriptionColor = ImGuiColors.DalamudWhite;
             bool[]? values = PluginConfiguration.GetCustomBoolArrayValue(config);
@@ -672,6 +694,12 @@ namespace WrathCombo.Window.Functions
         public static void DrawDifficultyMultiChoice
             (string config, ContentCheck.ListSet configListSet, string overrideText = "")
         {
+            // 对 overrideText 进行中文替换
+            if (!overrideText.IsNullOrEmpty())
+            {
+                overrideText = overrideText.ReplaceWithChinese();
+            }
+
             switch (configListSet)
             {
                 case ContentCheck.ListSet.Halved:
@@ -713,7 +741,7 @@ namespace WrathCombo.Window.Functions
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
             ImGui.Indent();
             ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-                ? "Select what difficulty the above should apply to:"
+                ? "选择上述设置应适用的难度："
                 : overrideText);
             ImGui.PopStyleColor();
             ImGui.Unindent();
@@ -757,7 +785,7 @@ namespace WrathCombo.Window.Functions
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
             ImGui.Indent();
             ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-                ? "Select what difficulty the above should apply to:"
+                ? "选择上述设置应适用的难度："
                 : overrideText);
             ImGui.PopStyleColor();
             ImGui.Unindent();
@@ -804,7 +832,7 @@ namespace WrathCombo.Window.Functions
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
             ImGui.Indent();
             ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-                ? "Select what difficulty the above should apply to:"
+                ? "选择上述设置应适用的难度："
                 : overrideText);
             ImGui.PopStyleColor();
             ImGui.Unindent();
@@ -853,7 +881,7 @@ namespace WrathCombo.Window.Functions
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudYellow))
             {
                 ImGui.Text(overrideText.IsNullOrEmpty()
-                    ? "Select what kind of content this option applies to:"
+                    ? "选择此选项适用的内容类型："
                     : overrideText);
             }
 
@@ -898,7 +926,7 @@ namespace WrathCombo.Window.Functions
             {
 
                 ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-                    ? "Select what kind of content this option applies to:"
+                    ? "选择此选项适用的内容类型："
                     : overrideText);
             }
 
@@ -931,6 +959,12 @@ namespace WrathCombo.Window.Functions
             int curVal = config[currentItem];
             int oldVal = config[currentItem];
 
+            // 对 customLabel 进行中文替换
+            if (!customLabel.IsNullOrEmpty())
+            {
+                customLabel = customLabel.ReplaceWithChinese();
+            }
+
             InfoBox box = new()
             {
                 Color = Colors.Blue,
@@ -943,7 +977,7 @@ namespace WrathCombo.Window.Functions
                 {
                     if (customLabel.IsNullOrEmpty())
                     {
-                        ImGui.TextUnformatted($"Priority: ");
+                        ImGui.TextUnformatted($"优先级：");
                     }
                     else
                     {
@@ -975,7 +1009,7 @@ namespace WrathCombo.Window.Functions
             if (ImGui.IsItemHovered())
             {
                 ImGui.BeginTooltip();
-                ImGui.Text("Smaller Number = Higher Priority");
+                ImGui.Text("更小的数字代表更高的优先级");
                 ImGui.EndTooltip();
             }
             ImGui.Unindent();
