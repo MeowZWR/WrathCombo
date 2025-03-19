@@ -34,6 +34,28 @@
 
 <br><br>
 
+<section id="localization">
+
+## 关于汉化
+
+>机翻自用，创建此仓库只为将更新推送给CP。<br>
+>咸鱼玩家，大部分职业未满级，对输出循环毫无理解。<br>
+>调用 DeepSeek-V3 API 进行自动翻译，可能并不符合游戏术语。<br>
+>部分代码调整可能影响原有功能，没有维护能力。<br>
+>实现十分粗糙，维护成本较高，项目随时停止更新。<br>
+
+**推荐使用更专业的汉化版本，有更优化的循环以及实用的个性功能：**
+- [44451516/WrathCombo](https://github.com/44451516/WrathCombo)
+- [guilyou/WrathCombo](https://github.com/guilyou/WrathCombo)
+
+<details>
+  <summary>📖感受AI为我们带来的诗意瞬间</summary>
+
+  > 闲庭利欲染青衿<br>鱼跃龙门化赤鳞<br>司隶应挥除恶锏<br>马踏浊浪复清音<br>
+
+</details>
+</section>
+
 <section id="about">
 
 # About Wrath Combo
