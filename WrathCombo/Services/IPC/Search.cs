@@ -44,19 +44,18 @@ public class Search(Leasing leasing)
     /// <summary>
     ///     Lists all auto-rotation configurations controlled under leases.
     /// </summary>
-    [field: AllowNull, MaybeNull]
-    internal Dictionary<AutoRotationConfigOption, Dictionary<string, int>>
-        AllAutoRotationConfigsControlled
+    internal Dictionary<AutoRotationConfigOption, Dictionary<string, int>>? _allAutoRotationConfigsControlled;
+    internal Dictionary<AutoRotationConfigOption, Dictionary<string, int>> AllAutoRotationConfigsControlled
     {
         get
         {
-            if (field is not null &&
+            if (_allAutoRotationConfigsControlled is not null &&
                 LastCacheUpdateForAutoRotationConfigs is not null &&
                 _leasing.AutoRotationConfigsUpdated ==
                 LastCacheUpdateForAutoRotationConfigs)
-                return field;
+                return _allAutoRotationConfigsControlled;
 
-            field = _leasing.Registrations.Values
+            _allAutoRotationConfigsControlled = _leasing.Registrations.Values
                 .SelectMany(registration => registration
                     .AutoRotationConfigsControlled
                     .Select(pair => new
@@ -75,7 +74,7 @@ public class Search(Leasing leasing)
 
             LastCacheUpdateForAutoRotationConfigs =
                 _leasing.AutoRotationConfigsUpdated;
-            return field;
+            return _allAutoRotationConfigsControlled;
         }
     }
 
@@ -88,17 +87,17 @@ public class Search(Leasing leasing)
     /// <summary>
     ///     Lists all jobs controlled under leases.
     /// </summary>
-    [field: AllowNull, MaybeNull]
+    internal Dictionary<Job, Dictionary<string, bool>>? _allJobsControlled;
     internal Dictionary<Job, Dictionary<string, bool>> AllJobsControlled
     {
         get
         {
-            if (field is not null &&
+            if (_allJobsControlled is not null &&
                 LastCacheUpdateForAllJobsControlled is not null &&
                 _leasing.JobsUpdated == LastCacheUpdateForAllJobsControlled)
-                return field;
+                return _allJobsControlled;
 
-            field = _leasing.Registrations.Values
+            _allJobsControlled = _leasing.Registrations.Values
                 .SelectMany(registration => registration.JobsControlled
                     .Select(pair => new
                     {
@@ -115,7 +114,7 @@ public class Search(Leasing leasing)
                 );
 
             LastCacheUpdateForAllJobsControlled = _leasing.JobsUpdated;
-            return field;
+            return _allJobsControlled;
         }
     }
 
@@ -130,10 +129,8 @@ public class Search(Leasing leasing)
     ///     Lists all presets controlled under leases.<br />
     ///     Include both combos and options, but also jobs' options.
     /// </summary>
-    [field: AllowNull, MaybeNull]
-    internal Dictionary<CustomComboPreset,
-            Dictionary<string, (bool enabled, bool autoMode)>>
-        AllPresetsControlled
+    internal Dictionary<CustomComboPreset, Dictionary<string, (bool enabled, bool autoMode)>>? _allPresetsControlled;
+    internal Dictionary<CustomComboPreset, Dictionary<string, (bool enabled, bool autoMode)>> AllPresetsControlled
     {
         get
         {
@@ -143,12 +140,12 @@ public class Search(Leasing leasing)
                     ? _leasing.CombosUpdated
                     : _leasing.OptionsUpdated ?? DateTime.MinValue);
 
-            if (field is not null &&
+            if (_allPresetsControlled is not null &&
                 LastCacheUpdateForAllPresetsControlled is not null &&
                 presetsUpdated == LastCacheUpdateForAllPresetsControlled)
-                return field;
+                return _allPresetsControlled;
 
-            field = _leasing.Registrations.Values
+            _allPresetsControlled = _leasing.Registrations.Values
                 .SelectMany(registration => registration.CombosControlled
                     .Select(pair => new
                     {
@@ -187,7 +184,7 @@ public class Search(Leasing leasing)
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
 
             LastCacheUpdateForAllPresetsControlled = presetsUpdated;
-            return field;
+            return _allPresetsControlled;
         }
     }
 
@@ -246,15 +243,12 @@ public class Search(Leasing leasing)
     ///     Cached list of <see cref="CustomComboPreset">Presets</see>, and most of
     ///     their attribute-based information.
     /// </summary>
-    [field: AllowNull, MaybeNull]
-    // ReSharper disable once MemberCanBePrivate.Global
-    internal Dictionary<string, (Job Job, CustomComboPreset ID,
-        CustomComboInfoAttribute Info, bool HasParentCombo, bool IsVariant, string
-        ParentComboName)> Presets
+    internal Dictionary<string, (Job Job, CustomComboPreset ID, CustomComboInfoAttribute Info, bool HasParentCombo, bool IsVariant, string ParentComboName)>? _presets;
+    internal Dictionary<string, (Job Job, CustomComboPreset ID, CustomComboInfoAttribute Info, bool HasParentCombo, bool IsVariant, string ParentComboName)> Presets
     {
         get
         {
-            return field ??= PresetStorage.AllPresets!
+            return _presets ??= PresetStorage.AllPresets!
                 .Cast<CustomComboPreset>()
                 .Select(preset => new
                 {
@@ -287,8 +281,7 @@ public class Search(Leasing leasing)
     ///     updated since
     ///     <see cref="_lastCacheUpdateForPresetStates">last cached</see>.
     /// </remarks>
-    [field: AllowNull, MaybeNull]
-    // ReSharper disable once MemberCanBePrivate.Global
+    internal Dictionary<string, Dictionary<ComboStateKeys, bool>>? _presetStates;
     internal Dictionary<string, Dictionary<ComboStateKeys, bool>> PresetStates
     {
         get
@@ -301,22 +294,22 @@ public class Search(Leasing leasing)
 
             if (!Debug.DebugConfig)
             {
-                if (field != null &&
+                if (_presetStates != null &&
                     File.GetLastWriteTime(ConfigFilePath) <=
                     _lastCacheUpdateForPresetStates &&
                     presetsUpdated <= _lastCacheUpdateForPresetStates)
-                    return field;
+                    return _presetStates;
             }
             else
             {
-                if (field != null &&
+                if (_presetStates != null &&
                     DateTime.Now.AddSeconds(-1) <=
                     _lastCacheUpdateForPresetStates &&
                     presetsUpdated <= _lastCacheUpdateForPresetStates)
-                    return field;
+                    return _presetStates;
             }
 
-            field = Presets
+            _presetStates = Presets
                 .ToDictionary(
                     preset => preset.Key,
                     preset =>
@@ -338,7 +331,7 @@ public class Search(Leasing leasing)
                 );
             _lastCacheUpdateForPresetStates = DateTime.Now;
             UpdatePresetCount = Svc.Framework.RunOnTick(() => UpdateActiveJobPresets(), TimeSpan.FromSeconds(1), 0, Cancel.Token);
-            return field;
+            return _presetStates;
         }
     }
 
@@ -378,9 +371,7 @@ public class Search(Leasing leasing)
     ///     <see cref="ComboStateKeys">State Key</see> -><br />
     ///     <c>bool</c> - Whether the state is enabled or not.
     /// </value>
-    internal Dictionary<Job,
-            Dictionary<string, Dictionary<ComboStateKeys, bool>>>
-        ComboStatesByJob =>
+    internal Dictionary<Job, Dictionary<string, Dictionary<ComboStateKeys, bool>>> ComboStatesByJob =>
         ComboNamesByJob
             .ToDictionary(
                 job => job.Key,
@@ -407,22 +398,18 @@ public class Search(Leasing leasing)
     ///     <see cref="ComboStateKeys">State Key</see> -><br />
     ///     <c>bool</c> - Whether the state is enabled or not.
     /// </value>
-    [field: AllowNull, MaybeNull]
-    internal Dictionary<Job,
-            Dictionary<ComboTargetTypeKeys,
-                Dictionary<ComboSimplicityLevelKeys,
-                    Dictionary<string, Dictionary<ComboStateKeys, bool>>>>>
-        ComboStatesByJobCategorized
+    internal Dictionary<Job, Dictionary<ComboTargetTypeKeys, Dictionary<ComboSimplicityLevelKeys, Dictionary<string, Dictionary<ComboStateKeys, bool>>>>>? _comboStatesByJobCategorized;
+    internal Dictionary<Job, Dictionary<ComboTargetTypeKeys, Dictionary<ComboSimplicityLevelKeys, Dictionary<string, Dictionary<ComboStateKeys, bool>>>>> ComboStatesByJobCategorized
     {
         get
         {
             if (File.GetLastWriteTime(ConfigFilePath) <=
                 _lastCacheUpdateForComboStatesByJobCategorized)
-                return field ?? [];
+                return _comboStatesByJobCategorized ?? [];
 
             Task.Run(() =>
             {
-                field = Presets
+                _comboStatesByJobCategorized = Presets
                     .Where(preset =>
                         preset.Value is
                         { IsVariant: false, HasParentCombo: false } &&
@@ -481,7 +468,7 @@ public class Search(Leasing leasing)
                 _lastCacheUpdateForComboStatesByJobCategorized = DateTime.Now;
             });
 
-            return field ?? [];
+            return _comboStatesByJobCategorized ?? [];
         }
     }
 
@@ -496,10 +483,7 @@ public class Search(Leasing leasing)
     ///     Job -> Parent Combo Internal Name ->
     ///     <c>list</c> of option internal names.
     /// </value>
-    internal Dictionary<Job,
-            Dictionary<string,
-                List<string>>>
-        OptionNamesByJob =>
+    internal Dictionary<Job, Dictionary<string, List<string>>> OptionNamesByJob =>
         Presets
             .Where(preset =>
                 preset.Value is { IsVariant: false, HasParentCombo: true } &&
@@ -522,11 +506,7 @@ public class Search(Leasing leasing)
     ///     State Key (really just <see cref="ComboStateKeys.Enabled" />) ->
     ///     <c>bool</c> - Whether the option is enabled or not.
     /// </value>
-    internal Dictionary<Job,
-            Dictionary<string,
-                Dictionary<string,
-                    Dictionary<ComboStateKeys, bool>>>>
-        OptionStatesByJob =>
+    internal Dictionary<Job, Dictionary<string, Dictionary<string, Dictionary<ComboStateKeys, bool>>>> OptionStatesByJob =>
         OptionNamesByJob
             .ToDictionary(
                 job => job.Key,

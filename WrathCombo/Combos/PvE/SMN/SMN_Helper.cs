@@ -164,6 +164,8 @@ internal partial class SMN
     internal static bool IsPhoenixReady => Gauge.AetherFlags.HasFlag((AetherFlags)4) && !Gauge.AetherFlags.HasFlag((AetherFlags)8);
     internal static bool IsSolarBahamutReady => Gauge.AetherFlags.HasFlag((AetherFlags)8) || Gauge.AetherFlags.HasFlag((AetherFlags)12);
 
+    // Github Build
+    private static DateTime field;
     private static DateTime SummonTime
     {
         get

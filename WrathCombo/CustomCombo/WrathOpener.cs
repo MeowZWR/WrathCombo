@@ -120,13 +120,18 @@ namespace WrathCombo.CustomComboNS
         private int DelayedStep = 0;
         private DateTime DelayedAt;
 
-        public uint CurrentOpenerAction { get; 
-            set 
+        // Github Build
+        private uint _currentOpenerActionField;
+        public uint CurrentOpenerAction
+        {
+            get => _currentOpenerActionField;
+            set
             {
                 if (value != All.SavageBlade)
-                    field = value;
-            } 
+                    _currentOpenerActionField = value;
+            }
         }
+
         public uint PreviousOpenerAction { get; set; }
 
         public abstract int MinOpenerLevel { get; }

@@ -147,29 +147,38 @@ namespace WrathCombo.CustomComboNS.Functions
         public bool MPUpdatePending = false;
         public ulong GameObjectId;
         public IBattleChara BattleChara = null!;
+
+        // Github Build
+        private uint _currentHP;
+        private uint _currentMP;
         public uint CurrentHP
         {
             get
             {
-                if ((field > BattleChara.CurrentHp && !HPUpdatePending) || field < BattleChara.CurrentHp)
-                    field = BattleChara.CurrentHp;
+                if ((_currentHP > BattleChara.CurrentHp && !HPUpdatePending) || _currentHP < BattleChara.CurrentHp)
+                    _currentHP = BattleChara.CurrentHp;
 
-                return field;
+                return _currentHP;
             }
-
-            set;
+            set
+            {
+                _currentHP = value;
+            }
         }
 
         public uint CurrentMP
         {
             get
             {
-                if ((field > BattleChara.CurrentMp && !MPUpdatePending) || field < BattleChara.CurrentMp)
-                    field = BattleChara.CurrentMp;
+                if ((_currentMP > BattleChara.CurrentMp && !MPUpdatePending) || _currentMP < BattleChara.CurrentMp)
+                    _currentMP = BattleChara.CurrentMp;
 
-                return field;
+                return _currentMP;
             }
-            set;
+            set
+            {
+                _currentMP = value;
+            }
         }
     }
 }
