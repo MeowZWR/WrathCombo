@@ -31,6 +31,7 @@ namespace WrathCombo.Window.Tabs
             { DPSRotationMode.Tank_Target, "坦克目标" },
             { DPSRotationMode.Nearest, "最近" },
             { DPSRotationMode.Furthest, "最远" },
+            { DPSRotationMode.ManualNonPlayer, "手动非玩家目标" },
         };
 
         private static readonly Dictionary<HealerRotationMode, string> HealerRotationModeTranslations = new()

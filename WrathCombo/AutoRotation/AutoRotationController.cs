@@ -1,4 +1,5 @@
 ﻿using Dalamud.Game.ClientState.Conditions;
+using Dalamud.Game.ClientState.Objects.Enums;
 using Dalamud.Game.ClientState.Objects.Types;
 using ECommons;
 using ECommons.DalamudServices;
@@ -359,6 +360,7 @@ namespace WrathCombo.AutoRotation
                             DPSRotationMode.Tank_Target => Svc.Targets.Target,
                             DPSRotationMode.Nearest => DPSTargeting.GetNearestTarget(),
                             DPSRotationMode.Furthest => DPSTargeting.GetFurthestTarget(),
+                            DPSRotationMode.ManualNonPlayer => CustomTargeting.GetManualNonPlayerTarget(),
                             _ => Svc.Targets.Target,
                         };
                         return target;
@@ -375,6 +377,7 @@ namespace WrathCombo.AutoRotation
                             DPSRotationMode.Tank_Target => DPSTargeting.GetTankTarget(),
                             DPSRotationMode.Nearest => DPSTargeting.GetNearestTarget(),
                             DPSRotationMode.Furthest => DPSTargeting.GetFurthestTarget(),
+                            DPSRotationMode.ManualNonPlayer => CustomTargeting.GetManualNonPlayerTarget(),
                             _ => Svc.Targets.Target,
                         };
                         return target;
@@ -722,5 +725,55 @@ namespace WrathCombo.AutoRotation
                     .ThenBy(x => GetTargetHPPercent(x)).FirstOrDefault();
             }
         }
+
+        public static class CustomTargeting
+        {
+            /// <summary>
+            /// 获取手动选择的非玩家目标。
+            /// </summary>
+            public static IGameObject? GetManualNonPlayerTarget()
+            {
+                IGameObject? target = Svc.Targets.Target;
+
+                if (IsValidNonPlayerTarget(target))
+                {
+                    return target;
+                }
+
+                return null;
+            }
+
+            /// <summary>
+            /// 检查目标是否为有效的非玩家目标。
+            /// </summary>
+            private static bool IsValidNonPlayerTarget(IGameObject? target)
+            {
+                if (target == null)
+                    return false;
+
+                if (target.ObjectKind == ObjectKind.Player)
+                    return false;
+
+                if (target is not IBattleChara chara || chara.IsDead || !chara.IsTargetable)
+                    return false;
+
+                if (GetTargetDistance(target) > 30)
+                    return false;
+
+                if (cfg.DPSSettings.OnlyAttackInCombat && !chara.Struct()->InCombat)
+                    return false;
+
+                return true;
+            }
+
+            /// <summary>
+            /// 获取目标与玩家的距离。
+            /// </summary>
+            private static float GetTargetDistance(IGameObject target)
+            {
+                return Vector3.Distance(Player.Object.Position, target.Position);
+            }
+        }
+
     }
 }
