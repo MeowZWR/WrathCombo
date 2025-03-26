@@ -535,6 +535,7 @@ public class Search(Leasing leasing)
     /// </summary>
     internal Dictionary<CustomComboPreset, bool> AutoActions =>
         PresetStates
+        .Where(x => Enum.Parse<CustomComboPreset>(x.Key).Attributes().AutoAction is not null)
             .ToDictionary(
                 preset => Enum.Parse<CustomComboPreset>(preset.Key),
                 preset => preset.Value[ComboStateKeys.AutoMode]

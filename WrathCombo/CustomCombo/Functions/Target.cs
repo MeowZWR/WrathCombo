@@ -53,6 +53,22 @@ namespace WrathCombo.CustomComboNS.Functions
             return Math.Max(0, Vector2.Distance(position, selfPosition) - chara.HitboxRadius - sourceChara.HitboxRadius);
         }
 
+        public static float GetTargetHeightDifference(IGameObject? target = null, IGameObject? source = null)
+        {
+            if (LocalPlayer is null)
+                return 0;
+
+            IGameObject? chara = target != null ? target : CurrentTarget != null ? CurrentTarget : null;
+            if (chara is null) return 0;
+
+            IGameObject? sourceChara = source != null ? source : LocalPlayer;
+
+            if (chara.GameObjectId == sourceChara.GameObjectId)
+                return 0;
+
+            return Math.Max(0, Math.Abs(chara.Position.Y - sourceChara.Position.Y));
+        }
+
         /// <summary> Gets a value indicating whether you are in melee range from the current target. </summary>
         /// <returns> Bool indicating whether you are in melee range. </returns>
         public static bool InMeleeRange()

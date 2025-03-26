@@ -320,6 +320,7 @@ namespace WrathCombo.Window.Tabs
                 CustomStyleText("Is BattleChara:", target is IBattleChara);
                 CustomStyleText("Is PlayerCharacter:", target is IPlayerCharacter);
                 CustomStyleText("Distance:", $"{Math.Round(GetTargetDistance(), 2)}y");
+                CustomStyleText("Height:", $"{Math.Round(GetTargetHeightDifference(), 2)}y");
                 CustomStyleText("Hitbox Radius:", target?.HitboxRadius);
                 CustomStyleText("In Melee Range:", InMeleeRange());
                 CustomStyleText("Requires Postionals:", TargetNeedsPositionals());

@@ -562,7 +562,7 @@ namespace WrathCombo.AutoRotation
 
         public class DPSTargeting
         {
-            private static bool Query(IGameObject x) => x is IBattleChara chara && chara.IsHostile() && IsInRange(chara, cfg.DPSSettings.MaxDistance) && !chara.IsDead && chara.IsTargetable && IsInLineOfSight(chara) && !TargetIsInvincible(chara) && !Service.Configuration.IgnoredNPCs.Any(x => x.Key == chara.DataId) &&
+            private static bool Query(IGameObject x) => x is IBattleChara chara && chara.IsHostile() && IsInRange(chara, cfg.DPSSettings.MaxDistance) && GetTargetHeightDifference(chara) <= 3 && !chara.IsDead && chara.IsTargetable && IsInLineOfSight(chara) && !TargetIsInvincible(chara) && !Service.Configuration.IgnoredNPCs.Any(x => x.Key == chara.DataId) &&
                 ((cfg.DPSSettings.OnlyAttackInCombat && chara.Struct()->InCombat) || !cfg.DPSSettings.OnlyAttackInCombat);
             public static IEnumerable<IGameObject> BaseSelection => Svc.Objects.Any(x => Query(x) && IsPriority(x)) ?
                                                                     Svc.Objects.Where(x => Query(x) && IsPriority(x)) :
