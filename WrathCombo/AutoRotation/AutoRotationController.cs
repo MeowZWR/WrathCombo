@@ -757,7 +757,7 @@ namespace WrathCombo.AutoRotation
                 if (target is not IBattleChara chara || chara.IsDead || !chara.IsTargetable)
                     return false;
 
-                if (GetTargetDistance(target) > 30)
+                if (GetTargetDistance(target) > 25)
                     return false;
 
                 if (cfg.DPSSettings.OnlyAttackInCombat && !chara.Struct()->InCombat)
