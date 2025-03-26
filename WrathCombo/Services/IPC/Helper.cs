@@ -333,7 +333,7 @@ public partial class Helper(ref Leasing leasing)
     ///     necessary.
     /// </summary>
     private const string IPCStatusEndpoint =
-        "https://raw.githubusercontent.com/PunishXIV/WrathCombo/main/res/ipc_status.txt";
+        "https://raw.githubusercontent.com/MeowZWR/WrathCombo/cn/res/ipc_status.txt";
 
     /// <summary>
     ///     The cached backing field for the IPC status.
