@@ -21,8 +21,8 @@ jobs:
         run: dotnet restore
       - name: Download Dalamud
         run: |
-          Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/latest.zip -OutFile latest.zip
-          Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev"
+          Invoke-WebRequest -Uri https://ottercorp.github.io/dalamud-distrib/latest.7z -OutFile latest.7z
+          7z x latest.7z -o"$env:AppData\XIVLauncher\addon\Hooks\dev" -y
       - name: Build
         run: |
           $ver = '${{ github.ref_name }}' -replace '-cn'
