@@ -90,6 +90,11 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Marksmans Spite to Burst Mode when the target is below specified HP.", "当目标生命值低于指定值时，将Marksmans Spite加入Burst Mode。"),
                 KeyValuePair.Create("Adds Barrel Stabilizer to Burst Mode.", "将Barrel Stabilizer加入Burst Mode。"),
                 KeyValuePair.Create("Alternate Drill Option", "保留钻头"),
+                KeyValuePair.Create("Full Metal Field Wildfire combo", "全金属爆发野火连击"),
+                KeyValuePair.Create("Uses Full Metal Field when Wildfire is ready.", "当野火准备就绪时使用全金属爆发"),
+                KeyValuePair.Create("Full Metal Field only when Overheated", "仅在过热时使用全金属爆发"),
+                KeyValuePair.Create("Only uses Full Metal Field while Overheated.", "只在过热状态下使用全金属爆发"),
+                KeyValuePair.Create("Use Marksman's Spite when the target is below set HP", "当目标血量低于设定值时使用魔弹射手"),
                 #endregion
             ];
         }

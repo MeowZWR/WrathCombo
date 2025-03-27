@@ -83,6 +83,11 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
 
                 #region BRDPvP
                 KeyValuePair.Create("Turns Powerful Shot into an all-in-one damage button.", "将强劲射击变为一个全能伤害技能按钮。"),
+                KeyValuePair.Create("How many Charges to use it at", "使用多少充能次数"),
+                KeyValuePair.Create("1 charge 8000 damage", "1次充能: 8000伤害"),
+                KeyValuePair.Create("2 charge 12000 damage", "2次充能: 12000伤害"),
+                KeyValuePair.Create("3 charge 15000 damage", "3次充能: 15000伤害"),
+                KeyValuePair.Create("4 charge 17000 damage", "4次充能: 17000伤害")
                 #endregion
             ];
         }

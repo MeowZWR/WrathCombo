@@ -94,6 +94,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Uses Zantetsuken when available.", "在可用时使用Zantetsuken。"),
                 KeyValuePair.Create("- Will not use if target is invulnerable.", "- 如果目标处于无敌状态则不会使用。"),
                 KeyValuePair.Create("- Requires target to have player's Kuzushi.", "- 需要目标带有玩家的Kuzushi效果。"),
+                KeyValuePair.Create("Burst Preparation", "爆发准备"),
+                KeyValuePair.Create("Also uses Mineuchi before Tendo Setsugekka.", "在天道雪月花前额外使用刀背击打"),
+                KeyValuePair.Create("Yukikaze Only", "仅限雪风"),
+                KeyValuePair.Create("Also requires next weaponskill to be Yukikaze.", "同时要求下一个战技必须是雪风")
                 #endregion                
             ];
         }

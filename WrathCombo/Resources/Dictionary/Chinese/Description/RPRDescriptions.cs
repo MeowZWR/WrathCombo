@@ -87,6 +87,12 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Lemure's Slice/Scythe Option", "Lemure's Slice/Lemure's Scythe"),
                 KeyValuePair.Create("Void/Cross Reaping Option", "Void Reaping/Cross Reaping"),
                 KeyValuePair.Create("Arcane Circle Harvest Feature", "Arcane Circle大丰收特性"),
+
+                #region RPR
+                KeyValuePair.Create("Set a value of Immortal Sacrifice Stacks to hold for burst.", "设置保留的死亡祭品层数以用于爆发"),
+                KeyValuePair.Create("Set a HP percentage value.", "设置血量百分比阈值。"),
+                KeyValuePair.Create("Caps at 90 to prevent waste.", "最高90%以避免浪费")
+                #endregion
             ];
         }
     }

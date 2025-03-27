@@ -75,6 +75,15 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Set percentage value", "设置百分比值"),
                 KeyValuePair.Create("Will only weave this action.", "仅会穿插此技能。"),
                 #endregion
+
+                #region ASTPvP
+                KeyValuePair.Create("Lord and Lady card play", "领主和贵妇卡组合使用"),
+                KeyValuePair.Create("Uses Lord and Lady of Crowns when available.", "当王冠之贵妇和王冠之领主可用时同时使用"),
+                KeyValuePair.Create("Lord of Crowns card play", "仅使用王冠之领主卡"),
+                KeyValuePair.Create("Only uses Lord of Crowns when available.", "仅当王冠之领主卡可用时使用"),
+                KeyValuePair.Create("Lady of Crowns card play", "仅使用王冠之贵妇卡"),
+                KeyValuePair.Create("Only uses Lady of Crowns when available.", "仅当王冠之贵妇卡可用时使用")
+                #endregion
             ];
         }
     }

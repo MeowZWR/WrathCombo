@@ -70,6 +70,13 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create(" Disables Elusive Jump if Burst is not ready.", "如果Burst未准备就绪，则禁用Elusive Jump。"),
                 KeyValuePair.Create("Stop Using When Target HP% is at or Below (Set to 0 to Disable This Check)", "当目标生命值百分比达到或低于此值时停止使用（设置为0以禁用此检查）"),
                 #endregion
+
+                #region DRGPvP
+                KeyValuePair.Create("Ends Life of the Dragon if HP falls below the set percentage", "当你的血量低于设定百分比时结束红莲龙血状态"),
+                KeyValuePair.Create("Seconds remaining of Life of the Dragon buff before using Nastrond if you are still above the set HP percentage.", "当血量高于设定百分比时，在红莲龙血状态剩余指定秒数时使用死者之岸"),
+                KeyValuePair.Create("Chaotic Spring HP percentage threshold. Set to 100 to use on cd", "樱花缭乱血量百分比阈值。设为100则冷却完毕就使用"),
+                KeyValuePair.Create("Minimum Distance to use Wyrmwind Thrust. Maximum damage at 15 or more", "使用天龙点睛的最小距离。15米及以上时伤害最大化")
+                #endregion
             ];
         }
     }

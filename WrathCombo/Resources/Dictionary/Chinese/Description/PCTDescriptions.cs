@@ -72,8 +72,11 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Creature Motif to Burst Mode.", "在Burst Mode中添加Creature Motif。"),
                 KeyValuePair.Create("Adds Living Muse to Burst Mode.", "在Burst Mode中添加Living Muse。"),
                 KeyValuePair.Create("Adds Mog Of The Ages to Burst Mode.", "在Burst Mode中添加Mog Of The Ages。"),
-                KeyValuePair.Create("Adds Holy In White to Burst Mode.", "在Burst Mode中添加Holy In White。"),
+                KeyValuePair.Create("Adds Holy In White to Burst Mode.", "将神圣之白加入爆发模式"),
                 KeyValuePair.Create("Adds Star Prism to Burst Mode.", "在Burst Mode中添加Star Prism。"),
+                KeyValuePair.Create("Burst Control Option", "爆发控制选项"),
+                KeyValuePair.Create("Smart Palette Option", "智能调色选项"),
+                KeyValuePair.Create("Holy In White Option", "神圣之白选项"),
                 #endregion
 
                 // Maunally added

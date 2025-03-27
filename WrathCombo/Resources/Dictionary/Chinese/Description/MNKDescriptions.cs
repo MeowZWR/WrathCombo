@@ -38,7 +38,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Perfect Balance becomes Masterful Blitz while you have 3 Beast Chakra.", "当拥有3个兽脉时，Perfect Balance变为Masterful Blitz。"),
                 KeyValuePair.Create("Turns Phantom Rush Combo into an all-in-one damage button.", "将Phantom Rush连击变为一个全能的伤害按钮。"),
                 KeyValuePair.Create("Adds Meteodrive Limit break to Burst Mode when target is below 20k and guarded", "当目标血量低于20k且处于防御状态时，将Meteodrive极限技加入爆发模式。"),
-                KeyValuePair.Create("Adds Thunderclap to Burst Mode when not buffed with Wind Resonance.", "当未获得疾风神髓增益时，将Thunderclap加入爆发模式。"),
+                KeyValuePair.Create("Adds Thunderclap to Burst Mode when not buffed with Wind Resonance.", "当未获得疾风神髓增益时，将轻身步伐加入爆发模式。"),
                 KeyValuePair.Create("Adds Riddle of Earth and Earth's Reply to Burst Mode when in combat.", "在战斗中，将Riddle of Earth和Earth's Reply加入爆发模式。"),
                 KeyValuePair.Create("Adds Flints Reply to Burst Mode.", "将Flint's Reply加入爆发模式。"),
                 KeyValuePair.Create("Adds Rising Phoenix to Burst Mode.", "将Rising Phoenix加入爆发模式。"),
@@ -62,6 +62,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Replace True Strike/Rising Raptor with Twin Snakes.", "将正拳/龙颚正拳添加到双掌打。"),
                 KeyValuePair.Create("Coeurl Option", "豹选项"),
                 KeyValuePair.Create("Replace Snap Punch/Pouncing Coeurl with Demolish.", "将崩拳/豹袭崩拳添加到破碎拳。"),
+                KeyValuePair.Create("Replaces Perfect Balance with Savage Blade when you already have Perfect Balance active.", "当震脚激活时，将震脚替换为狂怒剑"),
                                 #endregion
             ];
         }

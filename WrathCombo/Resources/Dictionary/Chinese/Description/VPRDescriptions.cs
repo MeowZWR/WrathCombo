@@ -77,6 +77,14 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("- Will not use if already under Slither's effect.", "- 如果已经处于Slither效果下则不会使用。"),
                 KeyValuePair.Create("Adds Rattling Coil to Snake Scales when available.", "在可用时将Rattling Coil添加到Snake Scales中。"),
                 KeyValuePair.Create("- Requires Snake Scales to be on cooldown.", "- 需要Snake Scales处于冷却中。"),
+                KeyValuePair.Create("Empowered Only", "仅强化状态"),
+                KeyValuePair.Create("Also requires Snake's Bane to be present.", "需要蛇血状态存在"),
+                KeyValuePair.Create("No Uncoiled Fury", "飞蛇之尾冷却中"),
+                KeyValuePair.Create("Must not have charges of Uncoiled Fury.", "必须没有飞蛇之尾的充能次数"),
+                KeyValuePair.Create("No Snake Scales", "蛇鳞术冷却中"),
+                KeyValuePair.Create("Snake Scales must be on cooldown.", "蛇鳞术必须处于未冷却好的状态"),
+                KeyValuePair.Create("Charges to Keep", "保留的充能次数"),
+                KeyValuePair.Create("Maximum Range", "最大距离"),
                 #endregion
             ];
         }

@@ -35,6 +35,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Thunder IV", BLM.Thunder4.ActionName()),
                 KeyValuePair.Create("Thunder III", BLM.Thunder3.ActionName()),
                 KeyValuePair.Create("Thunder II", BLM.Thunder2.ActionName()),
+                KeyValuePair.Create("Thunderclap", MNK.Thunderclap.ActionName()),
                 KeyValuePair.Create("Thunder", BLM.Thunder.ActionName()),
                 KeyValuePair.Create("Despair", BLM.Despair.ActionName()),
                 KeyValuePair.Create("Umbral Soul", BLM.UmbralSoul.ActionName()),

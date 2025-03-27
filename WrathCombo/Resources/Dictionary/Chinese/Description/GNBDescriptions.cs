@@ -154,6 +154,11 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create($"Early Opener", "提前起手"),
                 KeyValuePair.Create($"Starts opener with {GNB.KeenEdge.ActionName()} instead, skipping {GNB.LightningShot.ActionName()}", $"以{GNB.KeenEdge.ActionName()}开始起手，跳过{GNB.LightningShot.ActionName()}"),
                 #endregion
+
+                #region GNBPvP
+                KeyValuePair.Create("Hp % of target to use Blasting zone. Most powerful below 50%", "使用爆破领域的目标血量百分比。50%以下时威力最大"),
+                KeyValuePair.Create("HP% to be at or Below to use", "使用技能时的血量百分比上限（低于或等于该值时触发）"),
+                #endregion
             ];
         }
     }

@@ -69,6 +69,21 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Elemental Weave Option", "元素天赋穿插"),
                 KeyValuePair.Create("Uses Elemental Star when available.", "在可用时使用Elemental Star。"),
                 KeyValuePair.Create("- Prioritizes Flare Star unless expiring.", "- 优先使用耀星，除非即将结束。"),
+                KeyValuePair.Create("One Button Mode", "单按钮模式"),
+                KeyValuePair.Create("Combines Fire & Blizzard onto one button", "将火系与冰系技能合并到一个按钮"),
+                KeyValuePair.Create("Dual Button Mode", "双按钮模式"),
+                KeyValuePair.Create("Puts the combo onto separate Fire & Blizzard buttons, which will only use that element.", "将连击分配到独立的火系和冰系按钮，各按钮仅使用对应元素技能"),
+                KeyValuePair.Create("When under the effect of Astral Fire, must be moving this long before using Blizzard spells.", "处于星极火状态时，必须移动指定时长才能使用冰系法术"),
+                KeyValuePair.Create("Defensive Burst", "防御性爆发"),
+                KeyValuePair.Create("Also uses Burst when under 50% HP.", "50%血量以下时也会使用爆发"),
+                KeyValuePair.Create("Will not use outside combat.", "非战斗状态下不使用"),
+                KeyValuePair.Create("Defensive Xenoglossy", "防御性异言"),
+                KeyValuePair.Create("Also uses Xenoglossy when under 50% HP.", "50%血量以下时也会使用异言"),
+                KeyValuePair.Create("Defensive Lethargy", "防御性昏乱"),
+                KeyValuePair.Create("Also uses Lethargy when under 50% HP.", "50%血量以下时也会使用昏乱"),
+                KeyValuePair.Create("Uses only when targeted by enemy.", "仅在被敌人锁定目标时使用"),
+                KeyValuePair.Create("Defensive Elemental Weave", "防御性元素天赋穿插"),
+                KeyValuePair.Create("When under, uses Wreath of Ice instead.", "血量低下时改用寒冰环"),
                 #endregion
             ];
         }

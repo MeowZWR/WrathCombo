@@ -38,7 +38,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Rockbreaker", MNK.Rockbreaker.ActionName()),
 
                 // Riddle and Meditation Forms
-                KeyValuePair.Create("Thunderclap", MNK.Thunderclap.ActionName()),
                 KeyValuePair.Create("Howling Fist", MNK.HowlingFist.ActionName()),
                 KeyValuePair.Create("Four Point Fury", MNK.FourPointFury.ActionName()),
                 KeyValuePair.Create("Perfect Balance", MNK.PerfectBalance.ActionName()),

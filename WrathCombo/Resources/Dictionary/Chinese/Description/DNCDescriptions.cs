@@ -185,6 +185,11 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Change Devilment into Starfall Dance after use.", "使用后将进攻之探戈替换为流星舞。"),
                 KeyValuePair.Create("Dance Step Combo Feature", "舞步连击功能"),
                 #endregion
+
+                #region DNCPvP
+                KeyValuePair.Create("Curing Waltz HP% - caps at 90 to prevent waste.", "治疗之华尔兹血量百分比 - 上限90%以避免浪费"),
+                KeyValuePair.Create("How many to save for manual", "保留多少充能次数供手动使用")
+                #endregion
             ];
         }
     }
