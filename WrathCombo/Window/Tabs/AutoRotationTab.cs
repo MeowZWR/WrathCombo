@@ -128,7 +128,8 @@ namespace WrathCombo.Window.Tabs
                     "最低当前生命值 - 优先选择当前生命值最低的敌人。\n" +
                     "坦克目标 - 优先选择与你队伍中第一个坦克相同的目标。\n" +
                     "最近 - 优先选择离你最近的敌人。\n" +
-                    "最远 - 优先选择离你最远的敌人。");
+                    "最远 - 优先选择离你最远的敌人。" +
+                    "手动非玩家目标 - 你手动选择的非玩家目标，且与你的距离小于25米。");
                 ImGui.Spacing();
 
                 if (cfg.DPSRotationMode == AutoRotation.DPSRotationMode.Manual)

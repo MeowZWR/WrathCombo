@@ -771,7 +771,9 @@ namespace WrathCombo.AutoRotation
             /// </summary>
             private static float GetTargetDistance(IGameObject target)
             {
-                return Vector3.Distance(Player.Object.Position, target.Position);
+                var targetStruct = (FFXIVClientStructs.FFXIV.Client.Game.Object.GameObject*)target.Address;
+                float centerDistance = Vector3.Distance(Player.Object.Position, target.Position);
+                return Math.Max(0, centerDistance - targetStruct->HitboxRadius);
             }
         }
 
