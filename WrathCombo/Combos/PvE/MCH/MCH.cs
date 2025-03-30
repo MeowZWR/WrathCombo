@@ -515,7 +515,7 @@ internal partial class MCH : PhysRangedJob
 
                     //gauss and ricochet outside HC
                     if (IsEnabled(CustomComboPreset.MCH_AoE_Adv_GaussRicochet) &&
-                        Config.MCH_AoE_Hypercharge)
+                        Config.MCH_AoE_GaussOptions[0])
                     {
                         if (ActionReady(GaussRound) &&
                             !JustUsed(OriginalHook(GaussRound), 2.5f))
@@ -532,7 +532,7 @@ internal partial class MCH : PhysRangedJob
 
                 //AutoCrossbow, Gauss, Rico
                 if (IsEnabled(CustomComboPreset.MCH_AoE_Adv_GaussRicochet) &&
-                    !Config.MCH_AoE_Hypercharge &&
+                    Config.MCH_AoE_GaussOptions[1] &&
                     (JustUsed(OriginalHook(AutoCrossbow), 1f) ||
                      JustUsed(OriginalHook(Heatblast), 1f)) && HasNotWeaved)
                 {

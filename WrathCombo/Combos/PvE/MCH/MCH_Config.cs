@@ -1,4 +1,4 @@
-using ImGuiNET;
+﻿using ImGuiNET;
 using WrathCombo.Combos.PvP;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
@@ -28,10 +28,10 @@ internal partial class MCH
 
         public static UserBoolArray
             MCH_ST_Reassembled = new("MCH_ST_Reassembled"),
-            MCH_AoE_Reassembled = new("MCH_AoE_Reassembled");
+            MCH_AoE_Reassembled = new("MCH_AoE_Reassembled"),
+            MCH_AoE_GaussOptions = new("MCH_AoE_GaussOptions");
 
-        public static UserBool
-            MCH_AoE_Hypercharge = new("MCH_AoE_Hypercharge");
+        //public static UserBool
 
         internal static void Draw(CustomComboPreset preset)
         {
@@ -158,8 +158,10 @@ internal partial class MCH
                     break;
 
                 case CustomComboPreset.MCH_AoE_Adv_GaussRicochet:
-                    DrawAdditionalBoolChoice(MCH_AoE_Hypercharge,
-                        $"Use Outwith {ActionWatching.GetActionName(Hypercharge)}", "");
+                    DrawHorizontalMultiChoice(MCH_AoE_GaussOptions,
+                        $"在{ActionWatching.GetActionName(Hypercharge)}之外使用", "", 2, 0);
+                    DrawHorizontalMultiChoice(MCH_AoE_GaussOptions,
+                        $"在{ActionWatching.GetActionName(Hypercharge)}期间使用", "", 2, 1);
 
                     break;
 
