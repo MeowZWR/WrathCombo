@@ -19,14 +19,14 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Skill
                 // Generation Time: 2025-03-13 18:45:21  
                 #region PVE
                 // Tank
-                KeyValuePair.Create("Shield Wall", Tank.ShieldWall.ActionName()),
-                KeyValuePair.Create("Stronghold", Tank.Stronghold.ActionName()),
-                KeyValuePair.Create("Rampart", Tank.Rampart.ActionName()),
-                KeyValuePair.Create("Low Blow", Tank.LowBlow.ActionName()),
-                KeyValuePair.Create("Provoke", Tank.Provoke.ActionName()),
-                KeyValuePair.Create("Interject", Tank.Interject.ActionName()),
-                KeyValuePair.Create("Reprisal", Tank.Reprisal.ActionName()),
-                KeyValuePair.Create("Shirk", Tank.Shirk.ActionName()),
+                KeyValuePair.Create("Shield Wall", RoleActions.Tank.ShieldWall.ActionName()),
+                KeyValuePair.Create("Stronghold", RoleActions.Tank.Stronghold.ActionName()),
+                KeyValuePair.Create("Rampart", RoleActions.Tank.Rampart.ActionName()),
+                KeyValuePair.Create("Low Blow", RoleActions.Tank.LowBlow.ActionName()),
+                KeyValuePair.Create("Provoke", RoleActions.Tank.Provoke.ActionName()),
+                KeyValuePair.Create("Interject", RoleActions.Tank.Interject.ActionName()),
+                KeyValuePair.Create("Reprisal", RoleActions.Tank.Reprisal.ActionName()),
+                KeyValuePair.Create("Shirk", RoleActions.Tank.Shirk.ActionName()),
                 // Tank Descriptions
                 KeyValuePair.Create("one-button mitigation.", "一键减伤。"),
                 KeyValuePair.Create("when your target's cast is interruptible.", "(目标的施法可被打断时)。"),
@@ -34,41 +34,41 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Skill
                 KeyValuePair.Create("when your target is casting, interruptible or not.", "(目标正在施法时，无论是否可被打断。)。"),
 
                 // Healer
-                KeyValuePair.Create("Healing Wind", Healer.HealingWind.ActionName()),
-                KeyValuePair.Create("Breath of the Earth", Healer.BreathOfTheEarth.ActionName()),
-                KeyValuePair.Create("Repose", Healer.Repose.ActionName()),
-                KeyValuePair.Create("Esuna", Healer.Esuna.ActionName()),
-                KeyValuePair.Create("Rescue", Healer.Rescue.ActionName()),
+                KeyValuePair.Create("Healing Wind", RoleActions.Healer.HealingWind.ActionName()),
+                KeyValuePair.Create("Breath of the Earth", RoleActions.Healer.BreathOfTheEarth.ActionName()),
+                KeyValuePair.Create("Repose", RoleActions.Healer.Repose.ActionName()),
+                KeyValuePair.Create("Esuna", RoleActions.Healer.Esuna.ActionName()),
+                KeyValuePair.Create("Rescue", RoleActions.Healer.Rescue.ActionName()),
 
                 // Melee
-                KeyValuePair.Create("Braver", Melee.Braver.ActionName()),
-                KeyValuePair.Create("Bladedance", Melee.Bladedance.ActionName()),
-                KeyValuePair.Create("Leg Sweep", Melee.LegSweep.ActionName()),
-                KeyValuePair.Create("Bloodbath", Melee.Bloodbath.ActionName()),
-                KeyValuePair.Create("Feint", Melee.Feint.ActionName()),
-                KeyValuePair.Create("True North", Melee.TrueNorth.ActionName()),
+                KeyValuePair.Create("Braver", RoleActions.Melee.Braver.ActionName()),
+                KeyValuePair.Create("Bladedance", RoleActions.Melee.Bladedance.ActionName()),
+                KeyValuePair.Create("Leg Sweep", RoleActions.Melee.LegSweep.ActionName()),
+                KeyValuePair.Create("Bloodbath", RoleActions.Melee.Bloodbath.ActionName()),
+                KeyValuePair.Create("Feint", RoleActions.Melee.Feint.ActionName()),
+                KeyValuePair.Create("True North", RoleActions.Melee.TrueNorth.ActionName()),
 
                 // PhysRanged
-                KeyValuePair.Create("Big Shot", PhysRanged.BigShot.ActionName()),
-                KeyValuePair.Create("Desperado", PhysRanged.Desperado.ActionName()),
-                KeyValuePair.Create("Leg Graze", PhysRanged.LegGraze.ActionName()),
-                KeyValuePair.Create("Foot Graze", PhysRanged.FootGraze.ActionName()),
-                KeyValuePair.Create("Peloton", PhysRanged.Peloton.ActionName()),
-                KeyValuePair.Create("Head Graze", PhysRanged.HeadGraze.ActionName()),
+                KeyValuePair.Create("Big Shot", RoleActions.PhysRanged.BigShot.ActionName()),
+                KeyValuePair.Create("Desperado", RoleActions.PhysRanged.Desperado.ActionName()),
+                KeyValuePair.Create("Leg Graze", RoleActions.PhysRanged.LegGraze.ActionName()),
+                KeyValuePair.Create("Foot Graze", RoleActions.PhysRanged.FootGraze.ActionName()),
+                KeyValuePair.Create("Peloton", RoleActions.PhysRanged.Peloton.ActionName()),
+                KeyValuePair.Create("Head Graze", RoleActions.PhysRanged.HeadGraze.ActionName()),
 
                 // Caster
-                KeyValuePair.Create("Skyshard", Caster.Skyshard.ActionName()),
-                KeyValuePair.Create("Starstorm", Caster.Starstorm.ActionName()),
-                KeyValuePair.Create("Addle", Caster.Addle.ActionName()),
-                KeyValuePair.Create("Sleep", Caster.Sleep.ActionName()),
+                KeyValuePair.Create("Skyshard", RoleActions.Caster.Skyshard.ActionName()),
+                KeyValuePair.Create("Starstorm", RoleActions.Caster.Starstorm.ActionName()),
+                KeyValuePair.Create("Addle", RoleActions.Caster.Addle.ActionName()),
+                KeyValuePair.Create("Sleep", RoleActions.Caster.Sleep.ActionName()),
 
                 // Multi-role actions
                 KeyValuePair.Create("Second Wind", "内丹"),
                 KeyValuePair.Create("Lucid Dreaming", "醒梦"),
                 KeyValuePair.Create("Swiftcast", "即刻咏唱"),
-                KeyValuePair.Create("Arm's Length", PhysicalRole.ArmsLength.ActionName()),
-                KeyValuePair.Create("Arms Length", PhysicalRole.ArmsLength.ActionName()),
-                KeyValuePair.Create("Surecast", MagicRole.Surecast.ActionName()),
+                KeyValuePair.Create("Arm's Length", RoleActions.Physical.ArmsLength.ActionName()),
+                KeyValuePair.Create("Arms Length", RoleActions.Physical.ArmsLength.ActionName()),
+                KeyValuePair.Create("Surecast", RoleActions.Magic.Surecast.ActionName()),
 
                 // Misc
                 KeyValuePair.Create("Resurrection", "复生"),
