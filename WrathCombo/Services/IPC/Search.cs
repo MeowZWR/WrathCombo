@@ -461,7 +461,7 @@ public class Search(Leasing leasing)
 
             Svc.Log.Verbose($"IPC Combo Built for {job}");
 
-            return _comboStatesByJobCategorized ?? [];
+            return field ?? [];
         }
     }
 
