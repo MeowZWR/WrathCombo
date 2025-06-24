@@ -52,7 +52,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
     internal Search IPCSearch = null!;
     internal UIHelper UIHelper = null!;
 
-    private readonly TextPayload starterMotd = new("[Wrath Message of the Day] ");
+    private readonly TextPayload starterMotd = new("[Wrath 日报] ");
     private static uint? jobID;
     private static bool inInstancedContent;
 
