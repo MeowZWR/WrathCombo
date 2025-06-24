@@ -5,37 +5,247 @@ using System;
 using System.Collections.Generic;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
+using static WrathCombo.Combos.PvE.VPR.Config;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class VPR
 {
-    internal static VPRGauge Gauge = GetJobGauge<VPRGauge>();
     internal static VPROpenerMaxLevel1 Opener1 = new();
 
-    internal static float GCD => GetCooldown(OriginalHook(ReavingFangs)).CooldownTotal;
+    #region Config
 
     internal static float IreCD => GetCooldownRemainingTime(SerpentsIre);
 
-    internal static bool In5Y => HasBattleTarget() && GetTargetDistance() <= 5;
+    internal static bool InRange() => IsInRange(CurrentTarget, 5f);
+    internal static bool CappedOnCoils() =>
+        TraitLevelChecked(Traits.EnhancedVipersRattle) && RattlingCoilStacks > 2 ||
+        !TraitLevelChecked(Traits.EnhancedVipersRattle) && RattlingCoilStacks > 1;
 
-    internal static bool CappedOnCoils =>
-        TraitLevelChecked(Traits.EnhancedVipersRattle) && Gauge.RattlingCoilStacks > 2 ||
-        !TraitLevelChecked(Traits.EnhancedVipersRattle) && Gauge.RattlingCoilStacks > 1;
+    internal static bool HasRattlingCoilStack() => RattlingCoilStacks > 0;
 
-    internal static bool VicewinderReady => Gauge.DreadCombo == DreadCombo.Dreadwinder;
+    internal static bool HasHindVenom() =>
+        HasStatusEffect(Buffs.HindstungVenom) ||
+        HasStatusEffect(Buffs.HindsbaneVenom);
 
-    internal static bool HuntersCoilReady => Gauge.DreadCombo == DreadCombo.HuntersCoil;
+    internal static bool HasFlankVenom() =>
+        HasStatusEffect(Buffs.FlankstungVenom) ||
+        HasStatusEffect(Buffs.FlanksbaneVenom);
 
-    internal static bool SwiftskinsCoilReady => Gauge.DreadCombo == DreadCombo.SwiftskinsCoil;
+    internal static bool NoSwiftscaled() => !HasStatusEffect(Buffs.Swiftscaled);
 
-    internal static bool VicepitReady => Gauge.DreadCombo == DreadCombo.PitOfDread;
+    internal static bool NoHuntersInstinct() => !HasStatusEffect(Buffs.HuntersInstinct);
 
-    internal static bool SwiftskinsDenReady => Gauge.DreadCombo == DreadCombo.SwiftskinsDen;
+    internal static bool NoVenom() =>
+        !HasStatusEffect(Buffs.FlanksbaneVenom) &&
+        !HasStatusEffect(Buffs.FlankstungVenom) &&
+        !HasStatusEffect(Buffs.HindsbaneVenom) &&
+        !HasStatusEffect(Buffs.HindstungVenom);
 
-    internal static bool HuntersDenReady => Gauge.DreadCombo == DreadCombo.HuntersDen;
+    #endregion Config
 
-    internal static bool HasRattlingCoilStack(VPRGauge gauge) => Gauge.RattlingCoilStacks > 0;
+    #region Awaken
+
+    internal static bool UseReawaken()
+    {
+        if (LevelChecked(Reawaken) && !HasStatusEffect(Buffs.Reawakened) && InActionRange(Reawaken) &&
+            !HasStatusEffect(Buffs.HuntersVenom) && !HasStatusEffect(Buffs.SwiftskinsVenom) &&
+            !HasStatusEffect(Buffs.PoisedForTwinblood) && !HasStatusEffect(Buffs.PoisedForTwinfang) &&
+            !IsEmpowermentExpiring(6))
+        {
+            //Use whenever
+            if (SerpentOffering >= 50 && TargetIsBoss() && GetTargetHPPercent() < VPR_ST_ReAwaken_Threshold)
+                return true;
+
+            //2min burst
+            if (!JustUsed(SerpentsIre, 2.2f) && HasStatusEffect(Buffs.ReadyToReawaken) ||
+                WasLastWeaponskill(Ouroboros) && SerpentOffering >= 50 && IreCD >= 50)
+                return true;
+
+            //1min
+            if (SerpentOffering is >= 50 and <= 80 &&
+                IreCD is >= 50 and <= 62)
+                return true;
+
+            //overcap protection
+            if (SerpentOffering >= 100)
+                return true;
+
+            //non boss encounters
+            if ((IsEnabled(CustomComboPreset.VPR_ST_SimpleMode) && !InBossEncounter() ||
+                 IsEnabled(CustomComboPreset.VPR_ST_AdvancedMode) && VPR_ST_SerpentsIre_SubOption == 1 && !InBossEncounter()) &&
+                SerpentOffering >= 50)
+                return true;
+
+            //Lower lvl
+            if (SerpentOffering >= 50 &&
+                WasLastWeaponskill(FourthGeneration) && !LevelChecked(Ouroboros))
+                return true;
+        }
+
+        return false;
+    }
+
+    internal static bool ReawakenComboST(ref uint actionID)
+    {
+        if (HasStatusEffect(Buffs.Reawakened))
+        {
+                #region Pre Ouroboros
+
+            if (!TraitLevelChecked(Traits.EnhancedSerpentsLineage))
+                switch (AnguineTribute)
+                {
+                    case 4:
+                        actionID = OriginalHook(SteelFangs);
+                        return true;
+
+                    case 3:
+                        actionID = OriginalHook(ReavingFangs);
+                        return true;
+
+                    case 2:
+                        actionID = OriginalHook(HuntersCoil);
+                        return true;
+
+                    case 1:
+                        actionID = OriginalHook(SwiftskinsCoil);
+                        return true;
+                }
+
+                #endregion
+
+                #region With Ouroboros
+
+            if (TraitLevelChecked(Traits.EnhancedSerpentsLineage))
+                switch (AnguineTribute)
+                {
+                    case 5:
+                        actionID = OriginalHook(SteelFangs);
+                        return true;
+
+                    case 4:
+                        actionID = OriginalHook(ReavingFangs);
+                        return true;
+
+                    case 3:
+                        actionID = OriginalHook(HuntersCoil);
+                        return true;
+
+                    case 2:
+                        actionID = OriginalHook(SwiftskinsCoil);
+                        return true;
+
+                    case 1:
+                        actionID = OriginalHook(Reawaken);
+                        return true;
+                }
+
+                #endregion
+        }
+
+        return false;
+    }
+
+    internal static bool ReawakenComboAoE(ref uint actionID)
+    {
+        if (HasStatusEffect(Buffs.Reawakened))
+        {
+                #region Pre Ouroboros
+
+            if (!TraitLevelChecked(Traits.EnhancedSerpentsLineage))
+                switch (AnguineTribute)
+                {
+                    case 4:
+                        actionID = OriginalHook(SteelMaw);
+                        return true;
+
+                    case 3:
+                        actionID = OriginalHook(ReavingMaw);
+                        return true;
+
+                    case 2:
+                        actionID = OriginalHook(HuntersDen);
+                        return true;
+
+                    case 1:
+                        actionID = OriginalHook(SwiftskinsDen);
+                        return true;
+                }
+
+                #endregion
+
+                #region With Ouroboros
+
+            if (TraitLevelChecked(Traits.EnhancedSerpentsLineage))
+                switch (AnguineTribute)
+                {
+                    case 5:
+                        actionID = OriginalHook(SteelMaw);
+                        return true;
+
+                    case 4:
+                        actionID = OriginalHook(ReavingMaw);
+                        return true;
+
+                    case 3:
+                        actionID = OriginalHook(HuntersDen);
+                        return true;
+
+                    case 2:
+                        actionID = OriginalHook(SwiftskinsDen);
+                        return true;
+
+                    case 1:
+                        actionID = OriginalHook(Reawaken);
+                        return true;
+                }
+
+                #endregion
+        }
+        return false;
+    }
+
+    #endregion
+
+    #region Combos
+
+    internal static float GCD => GetCooldown(OriginalHook(ReavingFangs)).CooldownTotal;
+
+    internal static bool IsHoningExpiring(float times)
+    {
+        float gcd = GCD * times;
+
+        return HasStatusEffect(Buffs.HonedSteel) && GetStatusEffectRemainingTime(Buffs.HonedSteel) < gcd ||
+               HasStatusEffect(Buffs.HonedReavers) && GetStatusEffectRemainingTime(Buffs.HonedReavers) < gcd;
+    }
+
+    internal static bool IsVenomExpiring(float times)
+    {
+        float gcd = GCD * times;
+
+        return HasStatusEffect(Buffs.FlankstungVenom) && GetStatusEffectRemainingTime(Buffs.FlankstungVenom) < gcd ||
+               HasStatusEffect(Buffs.FlanksbaneVenom) && GetStatusEffectRemainingTime(Buffs.FlanksbaneVenom) < gcd ||
+               HasStatusEffect(Buffs.HindstungVenom) && GetStatusEffectRemainingTime(Buffs.HindstungVenom) < gcd ||
+               HasStatusEffect(Buffs.HindsbaneVenom) && GetStatusEffectRemainingTime(Buffs.HindsbaneVenom) < gcd;
+    }
+
+    internal static bool IsEmpowermentExpiring(float times)
+    {
+        float gcd = GCD * times;
+
+        return GetStatusEffectRemainingTime(Buffs.Swiftscaled) < gcd || GetStatusEffectRemainingTime(Buffs.HuntersInstinct) < gcd;
+    }
+
+    internal static unsafe bool IsComboExpiring(float times)
+    {
+        float gcd = GCD * times;
+
+        return ActionManager.Instance()->Combo.Timer != 0 && ActionManager.Instance()->Combo.Timer < gcd;
+    }
+
+    #endregion
+
+    #region Openers
 
     internal static WrathOpener Opener()
     {
@@ -44,75 +254,6 @@ internal partial class VPR
 
         return WrathOpener.Dummy;
     }
-
-    internal static bool UseReawaken(VPRGauge gauge)
-    {
-        if (LevelChecked(Reawaken) && !HasEffect(Buffs.Reawakened) && InActionRange(Reawaken) &&
-            !HasEffect(Buffs.HuntersVenom) && !HasEffect(Buffs.SwiftskinsVenom) &&
-            !HasEffect(Buffs.PoisedForTwinblood) && !HasEffect(Buffs.PoisedForTwinfang) &&
-            !IsEmpowermentExpiring(6))
-        {
-            //2min burst
-            if (!JustUsed(SerpentsIre, 2.2f) && HasEffect(Buffs.ReadyToReawaken) ||
-                WasLastWeaponskill(Ouroboros) && Gauge.SerpentOffering >= 50 && IreCD >= 50)
-                return true;
-
-            //1min
-            if (Gauge.SerpentOffering is >= 50 and <= 80 && IreCD is >= 50 and <= 62)
-                return true;
-
-            //overcap protection
-            if (Gauge.SerpentOffering >= 100)
-                return true;
-
-            //non boss encounters
-            if ((IsEnabled(CustomComboPreset.VPR_ST_SimpleMode) && !InBossEncounter() ||
-                 IsEnabled(CustomComboPreset.VPR_ST_AdvancedMode) && Config.VPR_ST_SerpentsIre_SubOption == 1 && !InBossEncounter()) &&
-                gauge.SerpentOffering >= 50)
-                return true;
-
-            //Lower lvl
-            if (Gauge.SerpentOffering >= 50 &&
-                WasLastWeaponskill(FourthGeneration) && !LevelChecked(Ouroboros))
-                return true;
-        }
-
-        return false;
-    }
-
-    internal static bool IsHoningExpiring(float times)
-    {
-        float gcd = GetCooldown(SteelFangs).CooldownTotal * times;
-
-        return HasEffect(Buffs.HonedSteel) && GetBuffRemainingTime(Buffs.HonedSteel) < gcd ||
-               HasEffect(Buffs.HonedReavers) && GetBuffRemainingTime(Buffs.HonedReavers) < gcd;
-    }
-
-    internal static bool IsVenomExpiring(float times)
-    {
-        float gcd = GetCooldown(SteelFangs).CooldownTotal * times;
-
-        return HasEffect(Buffs.FlankstungVenom) && GetBuffRemainingTime(Buffs.FlankstungVenom) < gcd ||
-               HasEffect(Buffs.FlanksbaneVenom) && GetBuffRemainingTime(Buffs.FlanksbaneVenom) < gcd ||
-               HasEffect(Buffs.HindstungVenom) && GetBuffRemainingTime(Buffs.HindstungVenom) < gcd ||
-               HasEffect(Buffs.HindsbaneVenom) && GetBuffRemainingTime(Buffs.HindsbaneVenom) < gcd;
-    }
-
-    internal static bool IsEmpowermentExpiring(float times)
-    {
-        float gcd = GetCooldown(SteelFangs).CooldownTotal * times;
-
-        return GetBuffRemainingTime(Buffs.Swiftscaled) < gcd || GetBuffRemainingTime(Buffs.HuntersInstinct) < gcd;
-    }
-
-    internal static unsafe bool IsComboExpiring(float times)
-    {
-        float gcd = GetCooldown(SteelFangs).CooldownTotal * times;
-
-        return ActionManager.Instance()->Combo.Timer != 0 && ActionManager.Instance()->Combo.Timer < gcd;
-    }
-
-    #region Openers
 
     internal class VPROpenerMaxLevel1 : WrathOpener
     {
@@ -142,18 +283,18 @@ internal partial class VPR
             FourthGeneration,
             FourthLegacy,
             Ouroboros,
-            UncoiledFury,
-            UncoiledTwinfang,
-            UncoiledTwinblood,
-            UncoiledFury,
-            UncoiledTwinfang,
-            UncoiledTwinblood,
+            UncoiledFury, //21
+            UncoiledTwinfang, //22
+            UncoiledTwinblood, //23
+            UncoiledFury, //24
+            UncoiledTwinfang, //25
+            UncoiledTwinblood, //26
             HindstingStrike,
             DeathRattle,
             Vicewinder,
-            UncoiledFury,
-            UncoiledTwinfang,
-            UncoiledTwinblood,
+            UncoiledFury, //30
+            UncoiledTwinfang, //31
+            UncoiledTwinblood, //32
             HuntersCoil, //33
             TwinfangBite, //34
             TwinbloodBite, //35
@@ -165,29 +306,51 @@ internal partial class VPR
         public override List<(int[], uint, Func<bool>)> SubstitutionSteps { get; set; } =
         [
             ([33], SwiftskinsCoil, () => OnTargetsRear()),
-            ([34], TwinbloodBite, () => HasEffect(Buffs.SwiftskinsVenom)),
-            ([35], TwinfangBite, () => HasEffect(Buffs.HuntersVenom)),
+            ([34], TwinbloodBite, () => HasStatusEffect(Buffs.SwiftskinsVenom)),
+            ([35], TwinfangBite, () => HasStatusEffect(Buffs.HuntersVenom)),
             ([36], HuntersCoil, () => SwiftskinsCoilReady),
-            ([37], TwinfangBite, () => HasEffect(Buffs.HuntersVenom)),
-            ([38], TwinbloodBite, () => HasEffect(Buffs.SwiftskinsVenom))
+            ([37], TwinfangBite, () => HasStatusEffect(Buffs.HuntersVenom)),
+            ([38], TwinbloodBite, () => HasStatusEffect(Buffs.SwiftskinsVenom))
         ];
 
-        internal override UserData ContentCheckConfig => Config.VPR_Balance_Content;
+        public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
+        [
+            ([21, 22, 23, 24, 25, 26, 30, 31, 32], () => VPR_Opener_ExcludeUF)
+        ];
 
-        public override bool HasCooldowns()
-        {
-            if (!IsOriginal(ReavingFangs))
-                return false;
+        internal override UserData ContentCheckConfig => VPR_Balance_Content;
 
-            if (GetRemainingCharges(Vicewinder) < 2)
-                return false;
-
-            if (!IsOffCooldown(SerpentsIre))
-                return false;
-
-            return true;
-        }
+        public override bool HasCooldowns() =>
+            IsOriginal(ReavingFangs) &&
+            GetRemainingCharges(Vicewinder) is 2 &&
+            IsOffCooldown(SerpentsIre);
     }
+
+    #endregion
+
+    #region Gauge
+
+    internal static VPRGauge Gauge = GetJobGauge<VPRGauge>();
+
+    internal static byte RattlingCoilStacks => Gauge.RattlingCoilStacks;
+
+    internal static byte SerpentOffering => Gauge.SerpentOffering;
+
+    internal static byte AnguineTribute => Gauge.AnguineTribute;
+
+    internal static DreadCombo DreadCombo => Gauge.DreadCombo;
+
+    internal static bool VicewinderReady => DreadCombo is DreadCombo.Dreadwinder;
+
+    internal static bool HuntersCoilReady => DreadCombo is DreadCombo.HuntersCoil;
+
+    internal static bool SwiftskinsCoilReady => DreadCombo is DreadCombo.SwiftskinsCoil;
+
+    internal static bool VicepitReady => DreadCombo is DreadCombo.PitOfDread;
+
+    internal static bool SwiftskinsDenReady => DreadCombo is DreadCombo.SwiftskinsDen;
+
+    internal static bool HuntersDenReady => DreadCombo is DreadCombo.HuntersDen;
 
     #endregion
 

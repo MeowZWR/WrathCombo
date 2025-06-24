@@ -6,6 +6,9 @@ using ECommons.GameFunctions;
 using ECommons.GameHelpers;
 using ECommons.Throttlers;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using FFXIVClientStructs.FFXIV.Client.UI.Info;
+using Lumina.Excel.Sheets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.AutoRotation;
@@ -21,113 +24,109 @@ namespace WrathCombo.CustomComboNS.Functions
 
         /// <summary> Gets the party list </summary>
         /// <returns> Current party list. </returns>
-        public unsafe static List<WrathPartyMember> GetPartyMembers()
+        public static unsafe List<WrathPartyMember> GetPartyMembers(bool allowCache = true)
         {
-            if (!Player.Available) return new();
-            if (!EzThrottler.Throttle("PartyUpdateThrottle", 2000))
+            if (!Player.Available) return [];
+            if (allowCache && !EzThrottler.Throttle("PartyUpdateThrottle", 2000))
                 return _partyList;
+
+            var existingIds = _partyList.Select(x => x.GameObjectId).ToHashSet();
 
             for (int i = 1; i <= 8; i++)
             {
-                var member = GetPartySlot(i);
-                if (member != null)
+                var member = SimpleTarget.GetPartyMemberInSlotSlot(i);
+                if (member is IBattleChara chara)
                 {
-                    var chara = (member as IBattleChara);
-                    WrathPartyMember wmember = new()
+                    var existingMember = _partyList.FirstOrDefault(x => x.GameObjectId == chara.GameObjectId);
+                    if (existingMember != null)
                     {
-                        GameObjectId = chara.GameObjectId,
-                        BattleChara = chara,
-                        CurrentHP = chara.CurrentHp
-                    };
-
-                    if (!_partyList.Any(x => x.BattleChara.GameObjectId == chara.GameObjectId))
-                        _partyList.Add(wmember);
-
-                }
-            }
-
-            if (AutoRotationController.cfg is not null)
-            {
-                if (AutoRotationController.cfg.Enabled && AutoRotationController.cfg.HealerSettings.IncludeNPCs && Player.Job.IsHealer())
-                {
-                    foreach (var npc in Svc.Objects.Where(x => x is IBattleChara && x is not IPlayerCharacter).Cast<IBattleChara>())
-                    {
-                        if (ActionManager.CanUseActionOnTarget(Healer.Esuna, npc.GameObject()) && !_partyList.Any(x => x.BattleChara == npc))
+                        // Update existing member's properties as needed
+                        existingMember.CurrentHP = chara.CurrentHp;
+                        if (member is IBattleNpc)
                         {
-                            WrathPartyMember wmember = new()
+                            foreach (var p in InfoProxyPartyMember.Instance()->CharDataSpan)
                             {
-                                GameObjectId = npc.GameObjectId,
-                                BattleChara = npc,
-                                CurrentHP = npc.CurrentHp
-                            };
-
-                            if (!_partyList.Any(x => x.BattleChara.GameObjectId == npc.GameObjectId))
-                                _partyList.Add(wmember);
+                                if (p.Sort == i - 1)
+                                    existingMember.NPCClassJob = p.Job;
+                            }
                         }
+                    }
+                    else
+                    {
+                        WrathPartyMember wmember = new()
+                        {
+                            GameObjectId = chara.GameObjectId,
+                            CurrentHP = chara.CurrentHp
+                        };
+                        if (member is IBattleNpc)
+                        {
+                            foreach (var p in InfoProxyPartyMember.Instance()->CharDataSpan)
+                            {
+                                if (p.Sort == i - 1)
+                                    wmember.NPCClassJob = p.Job;
+                            }
+                        }
+                        _partyList.Add(wmember);
+                        existingIds.Add(chara.GameObjectId);
                     }
                 }
             }
 
-            _partyList.RemoveAll(x => !Svc.Objects.Any(y => y.GameObjectId == x.GameObjectId));
+            if (AutoRotationController.cfg?.Enabled == true && AutoRotationController.cfg.HealerSettings.IncludeNPCs && Player.Job.IsHealer())
+            {
+                foreach (var npc in Svc.Objects.OfType<IBattleChara>().Where(x => x is not IPlayerCharacter && !existingIds.Contains(x.GameObjectId)))
+                {
+                    if (ActionManager.CanUseActionOnTarget(RoleActions.Healer.Esuna, npc.GameObject()))
+                    {
+                        WrathPartyMember wmember = new()
+                        {
+                            GameObjectId = npc.GameObjectId,
+                            CurrentHP = npc.CurrentHp
+                        };
+                        _partyList.Add(wmember);
+                        existingIds.Add(npc.GameObjectId);
+                    }
+                }
+            }
+
+            _partyList.RemoveAll(x => x.BattleChara is null);
             return _partyList;
         }
 
         private static List<WrathPartyMember> _partyList = new();
 
-        public unsafe static IGameObject? GetPartySlot(int slot)
-        {
-            try
-            {
-                var o = slot switch
-                {
-                    1 => GetTarget(TargetType.Self),
-                    2 => GetTarget(TargetType.P2),
-                    3 => GetTarget(TargetType.P3),
-                    4 => GetTarget(TargetType.P4),
-                    5 => GetTarget(TargetType.P5),
-                    6 => GetTarget(TargetType.P6),
-                    7 => GetTarget(TargetType.P7),
-                    8 => GetTarget(TargetType.P8),
-                    _ => GetTarget(TargetType.Self),
-                };
-                return Svc.Objects.FirstOrDefault(x => x.GameObjectId == o->GetGameObjectId());
-            }
-
-            catch
-            {
-                return null;
-            }
-        }
-
         public static float GetPartyAvgHPPercent()
         {
-            float HP = 0;
-            byte Count = 0;
-            for (int i = 1; i <= 8; i++) //Checking all 8 available slots and skipping nulls & DCs
-            {
-                if (GetPartySlot(i) is not IBattleChara member) continue;
-                if (member is null) continue; //Skip nulls/disconnected people
-                if (member.IsDead) continue;
+            float totalHP = 0;
+            int count = 0;
 
-                HP += GetTargetHPPercent(member);
-                Count++;
+            for (int i = 1; i <= 8; i++)
+            {
+                if (SimpleTarget.GetPartyMemberInSlotSlot(i) is IBattleChara member && !member.IsDead)
+                {
+                    totalHP += GetTargetHPPercent(member);
+                    count++;
+                }
             }
-            return Count == 0 ? 0 : (float)HP / Count; //Div by 0 check...just in case....
+
+            return count == 0 ? 0 : totalHP / count;
         }
 
         public static float GetPartyBuffPercent(ushort buff)
         {
-            byte BuffCount = 0;
-            byte PartyCount = 0;
-            for (int i = 1; i <= 8; i++) //Checking all 8 available slots and skipping nulls & DCs
+            int buffCount = 0;
+            int partyCount = 0;
+
+            for (int i = 1; i <= 8; i++)
             {
-                if (GetPartySlot(i) is not IBattleChara member) continue;
-                if (member is null) continue; //Skip nulls/disconnected people
-                if (member.IsDead) continue;
-                if (FindEffectOnMember(buff, member) is not null) BuffCount++;
-                PartyCount++;
+                if (SimpleTarget.GetPartyMemberInSlotSlot(i) is IBattleChara member && !member.IsDead)
+                {
+                    if (HasStatusEffect(buff, member, true)) buffCount++;
+                    partyCount++;
+                }
             }
-            return PartyCount == 0 ? 0 : (float)BuffCount / PartyCount * 100f; //Div by 0 check...just in case....
+
+            return partyCount == 0 ? 0 : (float)buffCount / partyCount * 100f;
         }
 
         public static bool PartyInCombat() => PartyEngageDuration().Ticks > 0;
@@ -146,39 +145,45 @@ namespace WrathCombo.CustomComboNS.Functions
         public bool HPUpdatePending = false;
         public bool MPUpdatePending = false;
         public ulong GameObjectId;
-        public IBattleChara BattleChara = null!;
+        public uint NPCClassJob;
 
-        // Github Build
+        public ClassJob? RealJob => NPCClassJob > 0 && Svc.Data.Excel.GetSheet<ClassJob>().TryGetRow(NPCClassJob, out var r) ? r : BattleChara?.ClassJob.Value ?? Svc.Data.Excel.GetSheet<ClassJob>().GetRow(0);
+        public IBattleChara? BattleChara => Svc.Objects.FirstOrDefault(x => x.GameObjectId == GameObjectId) as IBattleChara;
+        public Dictionary<ushort, long> BuffsGainedAt = new();
+
         private uint _currentHP;
-        private uint _currentMP;
         public uint CurrentHP
         {
             get
             {
-                if ((_currentHP > BattleChara.CurrentHp && !HPUpdatePending) || _currentHP < BattleChara.CurrentHp)
-                    _currentHP = BattleChara.CurrentHp;
-
+                if (BattleChara != null)
+                {
+                    if ((_currentHP > BattleChara.CurrentHp && !HPUpdatePending) || _currentHP < BattleChara.CurrentHp)
+                        _currentHP = BattleChara.CurrentHp;
+                }
                 return _currentHP;
             }
-            set
-            {
-                _currentHP = value;
-            }
+            set => _currentHP = value;
         }
 
+        private uint _currentMP;
         public uint CurrentMP
         {
             get
             {
-                if ((_currentMP > BattleChara.CurrentMp && !MPUpdatePending) || _currentMP < BattleChara.CurrentMp)
-                    _currentMP = BattleChara.CurrentMp;
-
+                if (BattleChara != null)
+                {
+                    if ((_currentMP > BattleChara.CurrentMp && !MPUpdatePending) || _currentMP < BattleChara.CurrentMp)
+                        _currentMP = BattleChara.CurrentMp;
+                }
                 return _currentMP;
             }
-            set
-            {
-                _currentMP = value;
-            }
+            set => _currentMP = value;
+        }
+
+        public float TimeSinceBuffApplied(ushort buff)
+        {
+            return BuffsGainedAt.TryGetValue(buff, out var timestamp) ? (Environment.TickCount64 - timestamp) / 1000f : 0;
         }
     }
 }

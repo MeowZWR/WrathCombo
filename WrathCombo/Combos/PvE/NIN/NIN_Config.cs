@@ -1,4 +1,3 @@
-using WrathCombo.Combos.PvP;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Window.Functions;
@@ -21,7 +20,6 @@ internal partial class NIN
             Advanced_DotonHP = new("Advanced_DotonHP", 20),
             BurnKazematoi = new("BurnKazematoi"),
             Advanced_TCJEnderAoE = new("Advanced_TCJEnderAoe", 0),
-            Advanced_ChargePool = new("Advanced_ChargePool"),
             SecondWindThresholdST = new("SecondWindThresholdST", 20),
             ShadeShiftThresholdST = new("ShadeShiftThresholdST"),
             BloodbathThresholdST = new("BloodbathThresholdST"),
@@ -32,6 +30,8 @@ internal partial class NIN
             NIN_Adv_Opener_Selection = new("NIN_Adv_Opener_Selection", 0),
             NIN_Balance_Content = new("NIN_Balance_Content", 1),
             Advanced_TrueNorth = new("Advanced_TrueNorth");
+        public static UserBool
+            Advanced_ChargePool = new("Advanced_ChargePool");
 
         internal static void Draw(CustomComboPreset preset)
         {
@@ -166,14 +166,7 @@ internal partial class NIN
                     UserConfig.DrawSliderInt(1, 100, NIN_VariantCure, "HP% to be at or under", 200);
 
                     break;
-
-                //PVP
-                case CustomComboPreset.NINPvP_ST_SeitonTenchu:
-                    UserConfig.DrawSliderInt(1, 50, NINPvP.Config.NINPVP_SeitonTenchu, "Target's HP% to be at or under", 200);
-                    break;
-                case CustomComboPreset.NINPvP_AoE_SeitonTenchu:
-                    UserConfig.DrawSliderInt(1, 50, NINPvP.Config.NINPVP_SeitonTenchuAoE, "Target's HP% to be at or under", 200);
-                    break;
+                                   
             }
         }
     }

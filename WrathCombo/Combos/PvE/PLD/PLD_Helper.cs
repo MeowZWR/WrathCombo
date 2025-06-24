@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Dalamud.Game.ClientState.JobGauge.Types;
+using System.Collections.Generic;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
@@ -9,84 +10,8 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class PLD
 {
-    #region ID's
-
-    public const byte ClassID = 1;
-    public const byte JobID = 19;
-
-    public const float CooldownThreshold = 0.5f;
-
-    public const uint
-        FastBlade = 9,
-        RiotBlade = 15,
-        ShieldBash = 16,
-        Sentinel = 17,
-        RageOfHalone = 21,
-        Bulwark = 22,
-        CircleOfScorn = 23,
-        ShieldLob = 24,
-        IronWill = 28,
-        SpiritsWithin = 29,
-        HallowedGround = 30,
-        GoringBlade = 3538,
-        DivineVeil = 3540,
-        RoyalAuthority = 3539,
-        Guardian = 36920,
-        TotalEclipse = 7381,
-        Intervention = 7382,
-        Requiescat = 7383,
-        Imperator = 36921,
-        HolySpirit = 7384,
-        Prominence = 16457,
-        HolyCircle = 16458,
-        Confiteor = 16459,
-        Expiacion = 25747,
-        BladeOfFaith = 25748,
-        BladeOfTruth = 25749,
-        BladeOfValor = 25750,
-        FightOrFlight = 20,
-        Atonement = 16460,
-        Supplication = 36918, // Second Atonement
-        Sepulchre = 36919, // Third Atonement
-        Intervene = 16461,
-        BladeOfHonor = 36922,
-        Sheltron = 3542,
-        Clemency = 3541;
-
-    public static class Buffs
-    {
-        public const ushort
-            IronWill = 79,
-            Requiescat = 1368,
-            AtonementReady = 1902, // First Atonement Buff
-            SupplicationReady = 3827, // Second Atonement Buff
-            SepulchreReady = 3828, // Third Atonement Buff
-            GoringBladeReady = 3847,
-            BladeOfHonor = 3831,
-            FightOrFlight = 76,
-            ConfiteorReady = 3019,
-            DivineMight = 2673,
-            HolySheltron = 2674,
-            Sheltron = 1856;
-    }
-
-    public static class Debuffs
-    {
-        public const ushort
-            BladeOfValor = 2721,
-            GoringBlade = 725;
-    }
-
-    #endregion
-
     internal static PLDOpenerMaxLevel1 Opener1 = new();
-    internal static WrathOpener Opener()
-    {
-        if (Opener1.LevelChecked)
-            return Opener1;
-
-        return WrathOpener.Dummy;
-    }
+    internal static PLDGauge Gauge = GetJobGauge<PLDGauge>();
 
     #region Mitigation Priority
 
@@ -102,7 +27,7 @@ internal partial class PLD
     /// </value>
     /// <remarks>
     ///     Each logic check is already combined with checking if the preset
-    ///     <see cref="IsEnabled(uint)">is enabled</see>
+    ///     <see cref="IsEnabled(CustomComboPreset)">is enabled</see>
     ///     and if the action is <see cref="ActionReady(uint)">ready</see> and
     ///     <see cref="LevelChecked(uint)">level-checked</see>.<br />
     ///     Do not add any of these checks to <c>Logic</c>.
@@ -115,7 +40,7 @@ internal partial class PLD
             () => Gauge.OathGauge >= 50),
         // Reprisal
         (Role.Reprisal, CustomComboPreset.PLD_Mit_Reprisal,
-            () => Role.CanReprisal(checkTargetForDebuff:false)),
+            () => Role.CanReprisal(checkTargetForDebuff: false)),
         //Divine Veil
         (DivineVeil, CustomComboPreset.PLD_Mit_DivineVeil,
             () => Config.PLD_Mit_DivineVeil_PartyRequirement ==
@@ -144,7 +69,7 @@ internal partial class PLD
         //Clemency
         (Clemency, CustomComboPreset.PLD_Mit_Clemency,
             () => LocalPlayer.CurrentMp >= 2000 &&
-                  PlayerHealthPercentageHp() <= Config.PLD_Mit_Clemency_Health),
+                  PlayerHealthPercentageHp() <= Config.PLD_Mit_Clemency_Health)
     ];
 
     /// <summary>
@@ -173,6 +98,16 @@ internal partial class PLD
     }
 
     #endregion
+
+    #region Openers
+
+    internal static WrathOpener Opener()
+    {
+        if (Opener1.LevelChecked)
+            return Opener1;
+
+        return WrathOpener.Dummy;
+    }
 
     internal class PLDOpenerMaxLevel1 : WrathOpener
     {
@@ -203,18 +138,90 @@ internal partial class PLD
         public override int MinOpenerLevel => 100;
         public override int MaxOpenerLevel => 109;
 
-        internal override UserData? ContentCheckConfig => Config.PLD_Balance_Content;
+        internal override UserData ContentCheckConfig => Config.PLD_Balance_Content;
 
-        public override bool HasCooldowns()
-        {
-            if (!IsOffCooldown(FightOrFlight)) return false;
-            if (!IsOffCooldown(Imperator)) return false;
-            if (!IsOffCooldown(CircleOfScorn)) return false;
-            if (!IsOffCooldown(Expiacion)) return false;
-            if (GetRemainingCharges(Intervene) < 2) return false;
-            if (!IsOffCooldown(GoringBlade)) return false;
-
-            return true;
-        }
+        public override bool HasCooldowns() =>
+            IsOffCooldown(FightOrFlight) &&
+            IsOffCooldown(Imperator) &&
+            IsOffCooldown(CircleOfScorn) &&
+            IsOffCooldown(Expiacion) &&
+            GetRemainingCharges(Intervene) >= 2 &&
+            IsOffCooldown(GoringBlade);
     }
+
+    #endregion
+
+    #region ID's
+
+    public const byte ClassID = 1;
+    public const byte JobID = 19;
+
+    public const float CooldownThreshold = 0.5f;
+
+    public const uint
+        FastBlade = 9,
+        RiotBlade = 15,
+        ShieldBash = 16,
+        Sentinel = 17,
+        RageOfHalone = 21,
+        Bulwark = 22,
+        CircleOfScorn = 23,
+        ShieldLob = 24,
+        IronWill = 28,
+        SpiritsWithin = 29,
+        HallowedGround = 30,
+        GoringBlade = 3538,
+        DivineVeil = 3540,
+        PassageOfArms = 7385,
+        RoyalAuthority = 3539,
+        Guardian = 36920,
+        TotalEclipse = 7381,
+        Intervention = 7382,
+        Requiescat = 7383,
+        Imperator = 36921,
+        HolySpirit = 7384,
+        Prominence = 16457,
+        HolyCircle = 16458,
+        Confiteor = 16459,
+        Expiacion = 25747,
+        BladeOfFaith = 25748,
+        BladeOfTruth = 25749,
+        BladeOfValor = 25750,
+        FightOrFlight = 20,
+        Atonement = 16460,
+        Supplication = 36918, // Second Atonement
+        Sepulchre = 36919, // Third Atonement
+        Intervene = 16461,
+        BladeOfHonor = 36922,
+        Sheltron = 3542,
+        HolySheltron = 25746,
+        Clemency = 3541;
+
+    public static class Buffs
+    {
+        public const ushort
+            IronWill = 79,
+            Requiescat = 1368,
+            AtonementReady = 1902, // First Atonement Buff
+            SupplicationReady = 3827, // Second Atonement Buff
+            SepulchreReady = 3828, // Third Atonement Buff
+            GoringBladeReady = 3847,
+            BladeOfHonor = 3831,
+            FightOrFlight = 76,
+            ConfiteorReady = 3019,
+            DivineMight = 2673,
+            HolySheltron = 2674,
+            PassageOfArms = 1175,
+            Sheltron = 1856,
+            Intervention = 2020;
+    }
+
+    public static class Debuffs
+    {
+        public const ushort
+            BladeOfValor = 2721,
+            GoringBlade = 725;
+    }
+
+    #endregion
 }

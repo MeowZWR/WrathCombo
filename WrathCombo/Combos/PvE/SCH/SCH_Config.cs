@@ -33,7 +33,12 @@ internal partial class SCH
                         ImGui.Unindent();
                     }
                     break;
-
+                
+                case CustomComboPreset.SCH_AoE_Heal_Recitation:
+                    DrawHorizontalMultiChoice(SCH_AoE_Heal_Recitation_Actions, "On Indomitability", "", 2, 0);
+                    DrawHorizontalMultiChoice(SCH_AoE_Heal_Recitation_Actions, "On Succor/Concitation", "", 2, 1);
+                    break;
+                
                 case CustomComboPreset.SCH_DPS_Lucid:
                     DrawSliderInt(4000, 9500, SCH_ST_DPS_LucidOption, "MP Threshold", 150, Hundreds);
                     break;
@@ -88,10 +93,6 @@ internal partial class SCH
                     if (SCH_ST_Heal_Adv)
                     {
                         ImGui.Indent();
-                        DrawAdditionalBoolChoice(SCH_ST_Heal_UIMouseOver,
-                            "Party UI Mouseover Checking",
-                            "Check party member's HP & Debuffs by using mouseover on the party list.\n" +
-                            "To be used in conjunction with Redirect/Reaction/etc");
                         DrawAdditionalBoolChoice(SCH_ST_Heal_IncludeShields, "Include Shields in HP Percent Sliders", "");
                         ImGui.Unindent();
                     }
@@ -178,19 +179,6 @@ internal partial class SCH
                     DrawPriorityInput(SCH_AoE_Heals_Priority, 7, 5, $"{Indomitability.ActionName()} Priority: ");
                     break;
 
-                case CustomComboPreset.SCH_DeploymentTactics:
-                    DrawAdditionalBoolChoice(SCH_DeploymentTactics_Adv, "Advanced Options", "", isConditionalChoice: true);
-                    if (SCH_DeploymentTactics_Adv)
-                    {
-                        ImGui.Indent();
-                        DrawAdditionalBoolChoice(SCH_DeploymentTactics_UIMouseOver,
-                            "Party UI Mouseover Checking",
-                            "Check party member's HP & Debuffs by using mouseover on the party list.\n" +
-                            "To be used in conjunction with Redirect/Reaction/etc");
-                        ImGui.Unindent();
-                    }
-                    break;
-
                 case CustomComboPreset.SCH_Aetherflow:
                     DrawRadioButton(SCH_Aetherflow_Display, "Show Aetherflow On Energy Drain Only", "", 0);
                     DrawRadioButton(SCH_Aetherflow_Display, "Show Aetherflow On All Aetherflow Skills", "", 1);
@@ -223,7 +211,7 @@ internal partial class SCH
                     DrawRadioButton(SCH_Recitation_Mode, "Succor", "", 1);
                     DrawRadioButton(SCH_Recitation_Mode, "Indomitability", "", 2);
                     DrawRadioButton(SCH_Recitation_Mode, "Excogitation", "", 3);
-                    break;
+                    break;               
             }
         }
           #region DPS
@@ -240,7 +228,6 @@ internal partial class SCH
             SCH_ST_DPS_ChainStratagemSubOption = new("SCH_ST_DPS_ChainStratagemSubOption", 1);
         public static UserBool
             SCH_ST_DPS_Adv = new("SCH_ST_DPS_Adv"),
-            SCH_ST_DPS_Bio_Adv = new("SCH_ST_DPS_Bio_Adv"),
             SCH_ST_DPS_EnergyDrain_Adv = new("SCH_ST_DPS_EnergyDrain_Adv");
         public static UserFloat
             SCH_DPS_BioUptime_Threshold = new("SCH_DPS_BioUptime_Threshold", 3.0f),
@@ -276,12 +263,10 @@ internal partial class SCH
             SCH_AoE_Heals_Priority = new("SCH_AoE_Heals_Priority");
         public static UserBool
             SCH_ST_Heal_Adv = new("SCH_ST_Heal_Adv"),
-            SCH_ST_Heal_UIMouseOver = new("SCH_ST_Heal_UIMouseOver"),
-            SCH_ST_Heal_IncludeShields = new("SCH_ST_Heal_IncludeShields"),
-            SCH_DeploymentTactics_Adv = new("SCH_DeploymentTactics_Adv"),
-            SCH_DeploymentTactics_UIMouseOver = new("SCH_DeploymentTactics_UIMouseOver");
+            SCH_ST_Heal_IncludeShields = new("SCH_ST_Heal_IncludeShields");
         public static UserBoolArray
-            SCH_ST_Heal_AldoquimOpts = new("SCH_ST_Heal_AldoquimOpts");
+            SCH_ST_Heal_AldoquimOpts = new("SCH_ST_Heal_AldoquimOpts"),
+            SCH_AoE_Heal_Recitation_Actions = new ("SCH_AoE_Heal_Recitation_Actions");
 
         #endregion
 

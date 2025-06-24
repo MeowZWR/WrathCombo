@@ -3,13 +3,18 @@ using ImGuiNET;
 using WrathCombo.Combos.PvE;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Window.Functions;
 using static WrathCombo.Window.Functions.UserConfig;
 
 namespace WrathCombo.Combos.PvP
 {
     internal static class RDMPvP
     {
+        #region IDs
+
         public const byte JobID = 35;
+
+        internal class Role : PvPCaster;
 
         public const uint
             EnchantedRiposte = 41488,
@@ -47,6 +52,10 @@ namespace WrathCombo.Combos.PvP
             public const ushort
                 Monomachy = 3242;
         }
+
+        #endregion
+
+        #region Config
         public static class Config
         {
             internal static UserInt
@@ -54,7 +63,8 @@ namespace WrathCombo.Combos.PvP
                 RDMPvP_Corps_Charges = new("RDMPvP_Corps_Charges", 1),
                 RDMPvP_Displacement_Charges = new("RDMPvP_Displacement_Charges", 1),
                 RDMPvP_Forte_PlayerHP = new("RDMPvP_Forte_PlayerHP", 50),
-                RDMPvP_Resolution_TargetHP = new("RDMPvP_Resolution_TargetHP", 50);
+                RDMPvP_Resolution_TargetHP = new("RDMPvP_Resolution_TargetHP", 50),
+                RDMPvP_PhantomDartThreshold = new("RDMPvP_PhantomDartThreshold", 50);
 
             public static UserBool
                 RDMPvP_Forte_SubOption = new("RDMPvP_Forte_SubOption"),
@@ -65,8 +75,6 @@ namespace WrathCombo.Combos.PvP
             {
                 switch (preset)
                 {
-                    // PvP
-
                     // Resolution
                     case CustomComboPreset.RDMPvP_Resolution:
                         DrawSliderInt(10, 100, RDMPvP_Resolution_TargetHP, "Target HP%", 210);
@@ -104,9 +112,17 @@ namespace WrathCombo.Combos.PvP
                             "Uses Vice of Thorns when available.");
 
                         break;
+
+                    // Phantom Dart
+                    case CustomComboPreset.RDMPvP_PhantomDart:
+                        UserConfig.DrawSliderInt(1, 100, RDMPvP.Config.RDMPvP_PhantomDartThreshold,
+                            "Target HP% to use Phantom Dart at or below");
+
+                        break;
                 }
             }
         }
+        #endregion
 
         internal class RDMPvP_BurstMode : CustomCombo
         {
@@ -127,13 +143,13 @@ namespace WrathCombo.Combos.PvP
                     bool hasTarget = HasTarget();
                     bool isTargetNPC = CurrentTarget is IBattleNpc && CurrentTarget.DataId != 8016;
                     bool inMeleeRange = targetDistance <= 5;
-                    bool hasBind = HasEffectAny(PvPCommon.Debuffs.Bind);
+                    bool hasBind = HasStatusEffect(PvPCommon.Debuffs.Bind, anyOwner: true);
                     bool isCorpsAvailable = chargesCorps > 0 && !hasBind;
                     bool hasScorch = OriginalHook(EnchantedRiposte) is Scorch;
                     bool hasViceOfThorns = OriginalHook(Forte) is ViceOfThorns;
                     bool hasPrefulgence = OriginalHook(Embolden) is Prefulgence;
                     bool hasGrandImpact = OriginalHook(actionID) is GrandImpact;
-                    bool targetHasGuard = TargetHasEffectAny(PvPCommon.Buffs.Guard);
+                    bool targetHasGuard = HasStatusEffect(PvPCommon.Buffs.Guard, CurrentTarget, true);
                     bool hasForte = IsOffCooldown(Forte) && OriginalHook(Forte) is Forte;
                     bool hasEmbolden = IsOffCooldown(Embolden) && OriginalHook(Embolden) is Embolden;
                     bool isEmboldenDelayDependant = !JustUsed(Embolden, 5f) || IsOnCooldown(EnchantedRiposte);
@@ -141,11 +157,11 @@ namespace WrathCombo.Combos.PvP
                     bool isEnabledViceOfThorns = IsEnabled(CustomComboPreset.RDMPvP_Forte) && Config.RDMPvP_Forte_SubOption;
                     bool isEnabledPrefulgence = IsEnabled(CustomComboPreset.RDMPvP_Embolden) && Config.RDMPvP_Embolden_SubOption;
                     bool hasEnchantedRiposte = IsOffCooldown(EnchantedRiposte) && OriginalHook(EnchantedRiposte) is EnchantedRiposte;
-                    bool isViceOfThornsExpiring = HasEffect(Buffs.ThornedFlourish) && GetBuffRemainingTime(Buffs.ThornedFlourish) <= 3;
-                    bool isPrefulgenceExpiring = HasEffect(Buffs.PrefulgenceReady) && GetBuffRemainingTime(Buffs.PrefulgenceReady) <= 3;
+                    bool isViceOfThornsExpiring = HasStatusEffect(Buffs.ThornedFlourish) && GetStatusEffectRemainingTime(Buffs.ThornedFlourish) <= 3;
+                    bool isPrefulgenceExpiring = HasStatusEffect(Buffs.PrefulgenceReady) && GetStatusEffectRemainingTime(Buffs.PrefulgenceReady) <= 3;
                     bool isMovementDependant = !Config.RDMPvP_Displacement_SubOption || (Config.RDMPvP_Displacement_SubOption && !isMoving);
-                    bool targetHasImmunity = TargetHasEffectAny(PLDPvP.Buffs.HallowedGround) || TargetHasEffectAny(DRKPvP.Buffs.UndeadRedemption);
-                    bool isDisplacementPrimed = !hasBind && !JustUsed(Displacement, 8f) && !HasEffect(Buffs.Displacement) && hasScorch && inMeleeRange;
+                    bool targetHasImmunity = HasStatusEffect(PLDPvP.Buffs.HallowedGround, CurrentTarget, true) || HasStatusEffect(DRKPvP.Buffs.UndeadRedemption, CurrentTarget, true);
+                    bool isDisplacementPrimed = !hasBind && !JustUsed(Displacement, 8f) && !HasStatusEffect(Buffs.Displacement) && hasScorch && inMeleeRange;
                     bool isCorpsPrimed = !hasBind && !JustUsed(CorpsACorps, 8f) && chargesCorps > Config.RDMPvP_Corps_Charges && targetDistance <= Config.RDMPvP_Corps_Range;
                     #endregion
 
@@ -158,6 +174,9 @@ namespace WrathCombo.Combos.PvP
                     {
                         if (!targetHasGuard)
                         {
+                            if (IsEnabled(CustomComboPreset.RDMPvP_PhantomDart) && Role.CanPhantomDart() && CanWeave() && GetTargetHPPercent() <= (Config.RDMPvP_PhantomDartThreshold))
+                                return Role.PhantomDart;
+
                             // Vice of Thorns
                             if (isEnabledViceOfThorns && hasViceOfThorns && (!isTargetNPC || isViceOfThornsExpiring))
                                 return OriginalHook(Forte);
@@ -231,9 +250,9 @@ namespace WrathCombo.Combos.PvP
             {
                 if (actionID is CorpsACorps)
                 {
-                    bool hasCrowdControl = HasEffectAny(PvPCommon.Debuffs.Stun) || HasEffectAny(PvPCommon.Debuffs.DeepFreeze) ||
-                                           HasEffectAny(PvPCommon.Debuffs.Bind) || HasEffectAny(PvPCommon.Debuffs.Silence) ||
-                                           HasEffectAny(PvPCommon.Debuffs.MiracleOfNature);
+                    bool hasCrowdControl = HasStatusEffect(PvPCommon.Debuffs.Stun, anyOwner: true) || HasStatusEffect(PvPCommon.Debuffs.DeepFreeze, anyOwner: true) ||
+                                           HasStatusEffect(PvPCommon.Debuffs.Bind, anyOwner: true) || HasStatusEffect(PvPCommon.Debuffs.Silence, anyOwner: true) ||
+                                           HasStatusEffect(PvPCommon.Debuffs.MiracleOfNature, anyOwner: true);
 
                     if (HasCharges(CorpsACorps) && IsOffCooldown(PvPCommon.Purify) && hasCrowdControl)
                         return OriginalHook(PvPCommon.Purify);
@@ -241,9 +260,9 @@ namespace WrathCombo.Combos.PvP
 
                 if (actionID is Displacement)
                 {
-                    bool hasCrowdControl = HasEffectAny(PvPCommon.Debuffs.Stun) || HasEffectAny(PvPCommon.Debuffs.DeepFreeze) ||
-                                           HasEffectAny(PvPCommon.Debuffs.Bind) || HasEffectAny(PvPCommon.Debuffs.Silence) ||
-                                           HasEffectAny(PvPCommon.Debuffs.MiracleOfNature);
+                    bool hasCrowdControl = HasStatusEffect(PvPCommon.Debuffs.Stun, anyOwner: true) || HasStatusEffect(PvPCommon.Debuffs.DeepFreeze, anyOwner: true) ||
+                                           HasStatusEffect(PvPCommon.Debuffs.Bind, anyOwner: true) || HasStatusEffect(PvPCommon.Debuffs.Silence, anyOwner: true) ||
+                                           HasStatusEffect(PvPCommon.Debuffs.MiracleOfNature, anyOwner: true);
 
                     if (HasCharges(Displacement) && IsOffCooldown(PvPCommon.Purify) && hasCrowdControl)
                         return OriginalHook(PvPCommon.Purify);

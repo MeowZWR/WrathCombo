@@ -1,12 +1,18 @@
 ﻿using Dalamud.Game.ClientState.Objects.Types;
+using ImGuiNET;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Window.Functions;
 
 namespace WrathCombo.Combos.PvP
 {
     internal static class BLMPvP
     {
+        #region IDs
+
         public const byte JobID = 25;
+        
+        internal class Role : PvPCaster;
 
         public const uint
             Fire = 29649,
@@ -53,7 +59,9 @@ namespace WrathCombo.Combos.PvP
                 DeepFreeze = 3219,
                 Lethargy = 4333;
         }
+        #endregion
 
+        #region Config
         public static class Config
         {
             public static UserInt
@@ -62,7 +70,8 @@ namespace WrathCombo.Combos.PvP
                 BLMPvP_BurstMode_WreathOfIce = new("BLMPvP_BurstMode_WreathOfIce", 0),
                 BLMPvP_BurstMode_WreathOfFireExecute = new("BLMPvP_BurstMode_WreathOfFireExecute", 0),
                 BLMPVP_BurstButtonOption = new("BLMPVP_BurstButtonOption"),
-                BLMPvP_Xenoglossy_TargetHP = new("BLMPvP_Xenoglossy_TargetHP", 50);
+                BLMPvP_Xenoglossy_TargetHP = new("BLMPvP_Xenoglossy_TargetHP", 50),
+                BLMPvP_PhantomDartThreshold = new("BLMPvP_PhantomDartThreshold", 50);
 
             public static UserBool
                 BLMPvP_Burst_SubOption = new("BLMPvP_Burst_SubOption"),
@@ -72,7 +81,74 @@ namespace WrathCombo.Combos.PvP
 
             public static UserFloat
                 BLMPvP_Movement_Threshold = new("BLMPvP_Movement_Threshold", 0.1f);
+
+            internal static void Draw(CustomComboPreset preset)
+            {
+                switch (preset)
+                {
+                    // Movement Threshold
+                    case CustomComboPreset.BLMPvP_BurstMode:
+                        UserConfig.DrawHorizontalRadioButton(BLMPvP.Config.BLMPVP_BurstButtonOption, "One Button Mode", "Combines Fire & Blizzard onto one button", 0);
+                        UserConfig.DrawHorizontalRadioButton(BLMPvP.Config.BLMPVP_BurstButtonOption, "Dual Button Mode", "Puts the combo onto separate Fire & Blizzard buttons, which will only use that element.", 1);
+
+                        if (BLMPvP.Config.BLMPVP_BurstButtonOption == 0)
+                        {
+                            ImGui.Indent();
+                            UserConfig.DrawRoundedSliderFloat(0.1f, 3, BLMPvP.Config.BLMPvP_Movement_Threshold, "Movement Threshold", 137);
+                            ImGui.Unindent();
+                            if (ImGui.IsItemHovered())
+                            {
+                                ImGui.BeginTooltip();
+                                ImGui.TextUnformatted("When under the effect of Astral Fire, must be\nmoving this long before using Blizzard spells.");
+                                ImGui.EndTooltip();
+                            }
+                        }
+                        break;
+
+                    // Burst
+                    case CustomComboPreset.BLMPvP_Burst:
+                        UserConfig.DrawAdditionalBoolChoice(BLMPvP.Config.BLMPvP_Burst_SubOption, "Defensive Burst",
+                            "Also uses Burst when under 50%% HP.\n- Will not use outside combat.");
+
+                        break;
+
+                    // Elemental Weave
+                    case CustomComboPreset.BLMPvP_ElementalWeave:
+                        UserConfig.DrawSliderInt(10, 100, BLMPvP.Config.BLMPvP_ElementalWeave_PlayerHP, "Player HP%", 180);
+                        ImGui.Spacing();
+                        UserConfig.DrawAdditionalBoolChoice(BLMPvP.Config.BLMPvP_ElementalWeave_SubOption, "Defensive Elemental Weave",
+                            "When under, uses Wreath of Ice instead.\n- Will not use outside combat.");
+
+                        break;
+
+                    // Lethargy
+                    case CustomComboPreset.BLMPvP_Lethargy:
+                        UserConfig.DrawSliderInt(10, 100, BLMPvP.Config.BLMPvP_Lethargy_TargetHP, "Target HP%", 180);
+                        ImGui.Spacing();
+                        UserConfig.DrawAdditionalBoolChoice(BLMPvP.Config.BLMPvP_Lethargy_SubOption, "Defensive Lethargy",
+                            "Also uses Lethargy when under 50%% HP.\n- Uses only when targeted by enemy.");
+
+                        break;
+
+                    // Xenoglossy
+                    case CustomComboPreset.BLMPvP_Xenoglossy:
+                        UserConfig.DrawSliderInt(10, 100, BLMPvP.Config.BLMPvP_Xenoglossy_TargetHP, "Target HP%", 180);
+                        ImGui.Spacing();
+                        UserConfig.DrawAdditionalBoolChoice(BLMPvP.Config.BLMPvP_Xenoglossy_SubOption, "Defensive Xenoglossy",
+                            "Also uses Xenoglossy when under 50%% HP.");
+
+                        break;
+
+                    // Phantom Dart
+                    case CustomComboPreset.BLMPvP_PhantomDart:
+                        UserConfig.DrawSliderInt(1, 100, BLMPvP.Config.BLMPvP_PhantomDartThreshold,
+                            "Target HP% to use Phantom Dart at or below");
+
+                        break;
+                }
+            }
         }
+        #endregion
 
         internal class BLMPvP_BurstMode : CustomCombo
         {
@@ -94,21 +170,21 @@ namespace WrathCombo.Combos.PvP
                     bool inCombat = InCombat();
                     bool hasTarget = HasTarget();
                     bool isTargetNPC = CurrentTarget is IBattleNpc && CurrentTarget.DataId != 8016;
-                    bool hasParadox = HasEffect(Buffs.Paradox);
-                    bool hasResonance = HasEffect(Buffs.SoulResonance);
-                    bool hasWreathOfFire = HasEffect(Buffs.WreathOfFire);
+                    bool hasParadox = HasStatusEffect(Buffs.Paradox);
+                    bool hasResonance = HasStatusEffect(Buffs.SoulResonance);
+                    bool hasWreathOfFire = HasStatusEffect(Buffs.WreathOfFire);
                     bool hasFlareStar = OriginalHook(SoulResonance) is FlareStar;
                     bool hasFrostStar = OriginalHook(SoulResonance) is FrostStar;
-                    bool targetHasGuard = TargetHasEffectAny(PvPCommon.Buffs.Guard);
-                    bool targetHasHeavy = TargetHasEffectAny(PvPCommon.Debuffs.Heavy);
+                    bool targetHasGuard = HasStatusEffect(PvPCommon.Buffs.Guard, CurrentTarget, true);
+                    bool targetHasHeavy = HasStatusEffect(PvPCommon.Debuffs.Heavy, CurrentTarget, true);
                     bool isPlayerTargeted = CurrentTarget?.TargetObjectId == LocalPlayer.GameObjectId;
-                    bool isParadoxPrimed = HasEffect(Buffs.UmbralIce1) || HasEffect(Buffs.AstralFire1);
+                    bool isParadoxPrimed = HasStatusEffect(Buffs.UmbralIce1) || HasStatusEffect(Buffs.AstralFire1);
                     bool isMovingAdjusted = TimeMoving.TotalMilliseconds / 1000f >= Config.BLMPvP_Movement_Threshold;
-                    bool isResonanceExpiring = HasEffect(Buffs.SoulResonance) && GetBuffRemainingTime(Buffs.SoulResonance) <= 10;
-                    bool hasUmbralIce = HasEffect(Buffs.UmbralIce1) || HasEffect(Buffs.UmbralIce2) || HasEffect(Buffs.UmbralIce3);
-                    bool isElementalStarDelayed = HasEffect(Buffs.ElementalStar) && GetBuffRemainingTime(Buffs.ElementalStar) <= 20;
-                    bool hasAstralFire = HasEffect(Buffs.AstralFire1) || HasEffect(Buffs.AstralFire2) || HasEffect(Buffs.AstralFire3);
-                    bool targetHasImmunity = TargetHasEffectAny(PLDPvP.Buffs.HallowedGround) || TargetHasEffectAny(DRKPvP.Buffs.UndeadRedemption);
+                    bool isResonanceExpiring = HasStatusEffect(Buffs.SoulResonance) && GetStatusEffectRemainingTime(Buffs.SoulResonance) <= 10;
+                    bool hasUmbralIce = HasStatusEffect(Buffs.UmbralIce1) || HasStatusEffect(Buffs.UmbralIce2) || HasStatusEffect(Buffs.UmbralIce3);
+                    bool isElementalStarDelayed = HasStatusEffect(Buffs.ElementalStar) && GetStatusEffectRemainingTime(Buffs.ElementalStar) <= 20;
+                    bool hasAstralFire = HasStatusEffect(Buffs.AstralFire1) || HasStatusEffect(Buffs.AstralFire2) || HasStatusEffect(Buffs.AstralFire3);
+                    bool targetHasImmunity = HasStatusEffect(PLDPvP.Buffs.HallowedGround, CurrentTarget, true) || HasStatusEffect(DRKPvP.Buffs.UndeadRedemption, CurrentTarget, true);
                     #endregion
 
                     if (inCombat)
@@ -143,6 +219,9 @@ namespace WrathCombo.Combos.PvP
                                 if (Config.BLMPvP_Lethargy_SubOption && playerCurrentPercentHp < 50 && isPlayerTargeted)
                                     return OriginalHook(Lethargy);
                             }
+
+                            if (IsEnabled(CustomComboPreset.BLMPvP_PhantomDart) && Role.CanPhantomDart() && CanWeave() && GetTargetHPPercent() <= Config.BLMPvP_PhantomDartThreshold)
+                                return Role.PhantomDart;
 
                             // Burst (Offensive)
                             if (IsEnabled(CustomComboPreset.BLMPvP_Burst) && IsOffCooldown(Burst) && targetDistance <= 4)
@@ -190,8 +269,8 @@ namespace WrathCombo.Combos.PvP
             {
                 if (actionID is AetherialManipulation)
                 {
-                    bool hasCrowdControl = HasEffectAny(PvPCommon.Debuffs.Stun) || HasEffectAny(PvPCommon.Debuffs.DeepFreeze) ||
-                                           HasEffectAny(PvPCommon.Debuffs.Bind) || HasEffectAny(PvPCommon.Debuffs.Silence) || HasEffectAny(PvPCommon.Debuffs.MiracleOfNature);
+                    bool hasCrowdControl = HasStatusEffect(PvPCommon.Debuffs.Stun, anyOwner: true) || HasStatusEffect(PvPCommon.Debuffs.DeepFreeze, anyOwner: true) ||
+                                           HasStatusEffect(PvPCommon.Debuffs.Bind, anyOwner: true) || HasStatusEffect(PvPCommon.Debuffs.Silence, anyOwner: true) || HasStatusEffect(PvPCommon.Debuffs.MiracleOfNature, anyOwner: true);
 
                     if (IsOffCooldown(AetherialManipulation) && IsOffCooldown(PvPCommon.Purify) && hasCrowdControl)
                         return OriginalHook(PvPCommon.Purify);

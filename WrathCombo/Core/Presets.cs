@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.Attributes;
 using WrathCombo.Combos;
+using WrathCombo.Extensions;
 using WrathCombo.Services;
 using WrathCombo.Window.Functions;
 using static FFXIVClientStructs.FFXIV.Client.UI.RaptureAtkHistory.Delegates;
@@ -18,6 +19,7 @@ namespace WrathCombo.Core
         private static HashSet<CustomComboPreset>? PvPCombos;
         private static HashSet<CustomComboPreset>? VariantCombos;
         private static HashSet<CustomComboPreset>? BozjaCombos;
+        private static HashSet<CustomComboPreset>? OccultCrescentCombos;
         private static HashSet<CustomComboPreset>? EurekaCombos;
         private static Dictionary<CustomComboPreset, CustomComboPreset[]>? ConflictingCombos;
         private static Dictionary<CustomComboPreset, CustomComboPreset?>? ParentCombos;  // child: parent
@@ -37,6 +39,10 @@ namespace WrathCombo.Core
 
             BozjaCombos = Enum.GetValues<CustomComboPreset>()
                 .Where(preset => preset.GetAttribute<BozjaAttribute>() != default)
+                .ToHashSet();
+
+            OccultCrescentCombos = Enum.GetValues<CustomComboPreset>()
+                .Where(preset => preset.GetAttribute<OccultCrescentAttribute>() != default)
                 .ToHashSet();
 
             EurekaCombos = Enum.GetValues<CustomComboPreset>()
@@ -68,7 +74,16 @@ namespace WrathCombo.Core
         /// <summary> Gets a value indicating whether a preset is enabled. </summary>
         /// <param name="preset"> Preset to check. </param>
         /// <returns> The boolean representation. </returns>
-        public static bool IsEnabled(CustomComboPreset preset) => Service.Configuration.EnabledActions.Contains(preset);
+        public static bool IsEnabled(CustomComboPreset preset) => Service.Configuration.EnabledActions.Contains(preset) && !ShouldBeHidden(preset);
+
+        /// <summary>
+        /// Gets a value indicating whether a preset is marked as hidden.
+        /// </summary>
+        /// <param name="preset"></param>
+        /// <returns></returns>
+        public static bool ShouldBeHidden(CustomComboPreset preset) =>
+            preset.Attributes().Hidden != null &&
+            !Service.Configuration.ShowHiddenFeatures;
 
         /// <summary> Gets a value indicating whether a preset is secret. </summary>
         /// <param name="preset"> Preset to check. </param>
@@ -80,10 +95,33 @@ namespace WrathCombo.Core
         /// <returns> The boolean representation. </returns>
         public static bool IsVariant(CustomComboPreset preset) => VariantCombos.Contains(preset);
 
+        /// <summary>
+        ///     Gets a value indicating whether a preset can be retargeted under some
+        ///     settings, with <see cref="ActionRetargeting" />.
+        /// </summary>
+        /// <param name="preset"> Preset to check. </param>
+        /// <returns> The boolean representation. </returns>
+        public static bool IsPossiblyRetargeted(CustomComboPreset preset) =>
+            preset.GetAttribute<RetargetedAttribute>() != null;
+
+        /// <summary>
+        ///     Gets a value indicating whether a preset is possibly retargeted with
+        ///     <see cref="ActionRetargeting" />.
+        /// </summary>
+        /// <param name="preset"> Preset to check. </param>
+        /// <returns> The boolean representation. </returns>
+        public static bool IsRetargeted(CustomComboPreset preset) =>
+            preset.GetAttribute<RetargetedAttribute>() != null;
+
         /// <summary> Gets a value indicating whether a preset is secret. </summary>
         /// <param name="preset"> Preset to check. </param>
         /// <returns> The boolean representation. </returns>
         public static bool IsBozja(CustomComboPreset preset) => BozjaCombos.Contains(preset);
+
+        /// <summary> Gets a value indicating whether a preset is secret. </summary>
+        /// <param name="preset"> Preset to check. </param>
+        /// <returns> The boolean representation. </returns>
+        public static bool IsOccultCrescent(CustomComboPreset preset) => OccultCrescentCombos.Contains(preset);
 
         /// <summary> Gets a value indicating whether a preset is secret. </summary>
         /// <param name="preset"> Preset to check. </param>

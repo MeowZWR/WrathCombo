@@ -2,6 +2,7 @@
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Hooking;
 using Dalamud.Utility;
+using ECommons;
 using ECommons.DalamudServices;
 using ECommons.GameFunctions;
 using ECommons.Logging;
@@ -10,14 +11,12 @@ using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using Lumina.Excel.Sheets;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
-using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
 using static FFXIVClientStructs.FFXIV.Client.Game.Character.ActionEffectHandler;
@@ -31,14 +30,10 @@ namespace WrathCombo.Data
             .Where(i => i.RowId is not 7)
             .ToDictionary(i => i.RowId, i => i);
 
-        internal static Dictionary<uint, Lumina.Excel.Sheets.Status> StatusSheet = Svc.Data.GetExcelSheet<Lumina.Excel.Sheets.Status>()!
-            .ToDictionary(i => i.RowId, i => i);
-
         internal static Dictionary<uint, Trait> TraitSheet = Svc.Data.GetExcelSheet<Trait>()!
             .Where(i => i.ClassJobCategory.IsValid) //All player traits are assigned to a category. Chocobo and other garbage lacks this, thus excluded.
             .ToDictionary(i => i.RowId, i => i);
         private static uint lastAction = 0;
-        private static readonly Dictionary<string, List<uint>> statusCache = [];
 
         internal static readonly Dictionary<uint, long> ChargeTimestamps = [];
         internal static readonly Dictionary<uint, long> ActionTimestamps = [];
@@ -81,7 +76,7 @@ namespace WrathCombo.Data
                     foreach (var eff in target.effects)
                     {
 #if DEBUG
-                        Svc.Log.Verbose($"{eff.Type}, {eff.Value} 0:{eff.Param0}, 1:{eff.Param1}, 2:{eff.Param2}, 3:{eff.Param3}, 4:{eff.Param4} | ({header->ActionId.ActionName()}) -> {Svc.Objects.First(x => x.GameObjectId == target.id).Name}, {eff.AtSource}/{eff.FromTarget}");
+                        Svc.Log.Verbose($"{eff.Type}, Val:{eff.Value} 0:{eff.Param0}, 1:{eff.Param1}, 2:{eff.Param2}, 3:{eff.Param3}, 4:{eff.Param4} | ({header->ActionId.ActionName()}) -> {Svc.Objects.FirstOrDefault(x => x.GameObjectId == target.id)?.Name}, {eff.AtSource}/{eff.FromTarget}");
 #endif
                         if (eff.Type is ActionEffectType.Heal or ActionEffectType.Damage)
                         {
@@ -103,12 +98,31 @@ namespace WrathCombo.Data
                                 Svc.Framework.RunOnTick(() => member.MPUpdatePending = false, TimeSpan.FromSeconds(1.5));
                             }
                         }
+                        if (eff.Type is ActionEffectType.ApplyStatusEffectSource)
+                        {
+                            if (GetPartyMembers().Any(x => x.GameObjectId == casterEntityId))
+                            {
+                                var member = GetPartyMembers().First(x => x.GameObjectId == (eff.AtSource ? casterEntityId : target.id));
+                                member.BuffsGainedAt[eff.Value] = Environment.TickCount64;
+                            }
+                        }
+                        if (eff.Type is ActionEffectType.ApplyStatusEffectTarget)
+                        {
+                            if (ICDTracker.Trackers.TryGetFirst(x => x.StatusID == eff.Value && x.GameObjectId == (eff.AtSource ? casterEntityId : target.id), out var icd))
+                            {
+                                icd.ICDClearedTime = DateTime.Now + TimeSpan.FromSeconds(60);
+                                icd.TimesApplied += 1;
+                            }
+                            else
+                                ICDTracker.Trackers.Add(new(eff.Value, (eff.AtSource ? casterEntityId : target.id), TimeSpan.FromSeconds(60)));
+                        }
+
                     }
                 }
 
 
 
-                if (ActionType is 13 or 2) return;
+                if ((byte)header->ActionType is 13 or 2) return;
                 if (header->ActionId != 7 &&
                     header->ActionId != 8 &&
                     casterEntityId == Svc.ClientState.LocalPlayer.GameObjectId)
@@ -146,9 +160,9 @@ namespace WrathCombo.Data
                         OutputLog();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                ex.Log();
             }
         }
 
@@ -169,7 +183,6 @@ namespace WrathCombo.Data
                 if (actionType == 1)
                     ActionTimestamps[actionId] = Environment.TickCount64;
 
-                CheckForChangedTarget(actionId, ref targetObjectId);
                 TimeLastActionUsed = DateTime.Now + TimeSpan.FromMilliseconds(ActionManager.GetAdjustedCastTime((ActionType)actionType, actionId));
                 LastAction = actionId;
                 ActionType = actionType;
@@ -187,9 +200,6 @@ namespace WrathCombo.Data
             }
         }
 
-        public unsafe delegate bool CanQueueActionDelegate(ActionManager* actionManager, uint actionType, uint actionID);
-        public static readonly Hook<CanQueueActionDelegate> canQueueAction;
-
         private static void UpdateHelpers(uint actionId)
         {
             if (actionId is NIN.Ten or NIN.Chi or NIN.Jin or NIN.TenCombo or NIN.ChiCombo or NIN.JinCombo)
@@ -198,34 +208,15 @@ namespace WrathCombo.Data
                 NIN.InMudra = false;
         }
 
-        private unsafe static void CheckForChangedTarget(uint actionId, ref ulong targetObjectId)
+        private static bool CheckForChangedTarget(uint actionId, ref ulong targetObjectId, out uint replacedWith)
         {
-            if (actionId is AST.Balance or AST.Spear &&
-                AST.QuickTargetCards.SelectedRandomMember is not null &&
-                !OutOfRange(actionId, Svc.ClientState.LocalPlayer!, AST.QuickTargetCards.SelectedRandomMember))
-            {
-                int targetOptions = AST.Config.AST_QuickTarget_Override;
+            replacedWith = actionId;
+            if (!P.ActionRetargeting.TryGetTargetFor(actionId, out var target, out replacedWith) ||
+                target is null)
+                return false;
 
-                switch (targetOptions)
-                {
-                    case 0:
-                        Svc.Log.Debug($"Switched to {AST.QuickTargetCards.SelectedRandomMember.Name}");
-                        targetObjectId = AST.QuickTargetCards.SelectedRandomMember.GameObjectId;
-                        break;
-                    case 1:
-                        if (HasFriendlyTarget())
-                            targetObjectId = Svc.Targets.Target.GameObjectId;
-                        else
-                            targetObjectId = AST.QuickTargetCards.SelectedRandomMember.GameObjectId;
-                        break;
-                    case 2:
-                        if (GetHealTarget(true, true) is not null)
-                            targetObjectId = GetHealTarget(true, true).GameObjectId;
-                        else
-                            targetObjectId = AST.QuickTargetCards.SelectedRandomMember.GameObjectId;
-                        break;
-                }
-            }
+            targetObjectId = target.GameObjectId;
+            return true;
         }
 
         public static unsafe bool OutOfRange(uint actionId, IGameObject source, IGameObject target)
@@ -240,16 +231,16 @@ namespace WrathCombo.Data
         /// <returns>Time in milliseconds if found, else -1.</returns>
         public static float TimeSinceActionUsed(uint actionId)
         {
-            if (ActionTimestamps.ContainsKey(actionId))
-                return Environment.TickCount64 - ActionTimestamps[actionId];
+            if (ActionTimestamps.TryGetValue(actionId, out long timestamp))
+                return Environment.TickCount64 - timestamp;
 
             return -1f;
         }
 
         public static float TimeSinceLastSuccessfulCast(uint actionId)
         {
-            if (LastSuccessfulUseTime.ContainsKey(actionId))
-                return Environment.TickCount64 - LastSuccessfulUseTime[actionId];
+            if (LastSuccessfulUseTime.TryGetValue(actionId, out long timestamp))
+                return Environment.TickCount64 - timestamp;
 
             return -1f;
         }
@@ -339,7 +330,6 @@ namespace WrathCombo.Data
             Disable();
             ReceiveActionEffectHook?.Dispose();
             SendActionHook?.Dispose();
-            canQueueAction?.Dispose();
             UseActionHook?.Dispose();
         }
 
@@ -348,29 +338,63 @@ namespace WrathCombo.Data
             ReceiveActionEffectHook ??= Svc.Hook.HookFromAddress<ReceiveActionEffectDelegate>(Addresses.Receive.Value, ReceiveActionEffectDetour);
             SendActionHook ??= Svc.Hook.HookFromSignature<SendActionDelegate>("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 8B E9 41 0F B7 D9", SendActionDetour);
             UseActionHook ??= Svc.Hook.HookFromAddress<UseActionDelegate>(ActionManager.Addresses.UseAction.Value, UseActionDetour);
-            canQueueAction ??= Svc.Hook.HookFromSignature<CanQueueActionDelegate>("E8 ?? ?? ?? ?? 84 C0 74 37 8B 84 24 ?? ?? 00 00", CanQueueDetour);
         }
 
         private unsafe static bool UseActionDetour(ActionManager* actionManager, ActionType actionType, uint actionId, ulong targetId, uint extraParam, ActionManager.UseActionMode mode, uint comboRouteId, bool* outOptAreaTargeted)
         {
-            if (Service.Configuration.PerformanceMode)
+            try
             {
-                var result = actionId;
-                foreach (var combo in ActionReplacer.FilteredCombos)
+                if (actionType is FFXIVClientStructs.FFXIV.Client.Game.ActionType.Action or FFXIVClientStructs.FFXIV.Client.Game.ActionType.Ability)
                 {
-                    if (combo.TryInvoke(actionId, out result))
+                    var original = actionId; //Save the original action, do not modify
+                    var originalTargetId = targetId; //Save the original target, do not modify
+
+                    if (Service.Configuration.PerformanceMode) //Performance mode only logic, to modify the actionId
                     {
-                        actionId = result;
-                        break;
+                        var result = actionId;
+                        foreach (var combo in ActionReplacer.FilteredCombos)
+                        {
+                            if (combo.TryInvoke(actionId, out result))
+                            {
+                                actionId = Service.ActionReplacer.LastActionInvokeFor[actionId] = result; //Sets actionId and the LastActionInvokeFor dictionary entry to the result of the combo
+                                break;
+                            }
+                        }
                     }
+
+                    var changed = CheckForChangedTarget(original, ref targetId,
+                        out var replacedWith); //Passes the original action to the retargeting framework, outputs a targetId and a replaced action
+
+                    var areaTargeted = Svc.Data
+                        .GetExcelSheet<Lumina.Excel.Sheets.Action>()
+                        .GetRow(replacedWith).TargetArea;
+
+                    if (changed && !areaTargeted) //Check if the action can be used on the target, and if not revert to original
+                        if (!ActionManager.CanUseActionOnTarget(replacedWith,
+                            Svc.Objects
+                                .FirstOrDefault(x => x.GameObjectId == targetId)
+                                .Struct()))
+                            targetId = originalTargetId;
+
+                    //Important to pass actionId here and not replaced. Performance mode = result from earlier, which could be modified. Non-performance mode = original action, which gets modified by the hook. Same result.
+                    var hookResult = UseActionHook.Original(actionManager, actionType, actionId, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
+
+                    // If the target was changed, support changing the target for ground actions, too
+                    if (changed)
+                        ActionManager.Instance()->AreaTargetingExecuteAtObject =
+                            targetId;
+
+                    return hookResult;
+                }
+                else
+                {
+                    return UseActionHook.Original(actionManager, actionType, actionId, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
                 }
             }
-            return UseActionHook.Original(actionManager, actionType, actionId, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
-        }
-
-        private static unsafe bool CanQueueDetour(ActionManager* actionManager, uint actionType, uint actionID)
-        {
-            return canQueueAction.Original(actionManager, actionType, actionID);
+            catch
+            {
+                return UseActionHook.Original(actionManager, actionType, actionId, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
+            }
         }
 
         public static void Enable()
@@ -399,7 +423,6 @@ namespace WrathCombo.Data
         {
             ReceiveActionEffectHook.Disable();
             SendActionHook?.Disable();
-            canQueueAction?.Disable();
             UseActionHook?.Disable();
             Svc.Condition.ConditionChange -= ResetActions;
         }
@@ -417,18 +440,6 @@ namespace WrathCombo.Data
             var index = Svc.Data.GetExcelSheet<AozActionTransient>().GetRow(aozKey).Number;
 
             return $"#{index} ";
-        }
-        public static string GetStatusName(uint id) => StatusSheet.TryGetValue(id, out var status) ? status.Name.ToString() : "Unknown Status";
-
-        public static List<uint>? GetStatusesByName(string status)
-        {
-            if (statusCache.TryGetValue(status, out List<uint>? list))
-                return list;
-
-            return statusCache.TryAdd(status, StatusSheet.Where(x => x.Value.Name.ToString().Equals(status, StringComparison.CurrentCultureIgnoreCase)).Select(x => x.Key).ToList())
-                ? statusCache[status]
-                : null;
-
         }
 
         public static ActionAttackType GetAttackType(uint id)

@@ -1,10 +1,16 @@
 ﻿using WrathCombo.CustomComboNS;
+using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Window.Functions;
 
 namespace WrathCombo.Combos.PvP
 {
     internal static class PLDPvP
     {
+        #region IDS
+
         public const byte JobID = 19;
+
+        internal class Role : PvPTank;
 
         public const uint
             FastBlade = 29058,
@@ -21,17 +27,16 @@ namespace WrathCombo.Combos.PvP
             BladeOfTruth = 29072,
             BladeOfValor = 29073;
 
-
         internal class Buffs
         {
             internal const ushort
+                Covered = 1301,
                 ConfiteorReady = 3028,
                 HallowedGround = 1302,
                 AttonementReady = 2015,
                 SupplicationReady = 4281,
                 SepulchreReady = 4282,
                 BladeOfFaithReady = 3250;
-
         }
 
         internal class Debuffs
@@ -40,6 +45,27 @@ namespace WrathCombo.Combos.PvP
                 Stun = 1343,
                 ShieldSmite = 4283;
         }
+        #endregion
+
+        #region Config
+        public static class Config
+        {
+            public static UserInt
+                PLDPvP_RampartThreshold = new("PLDPvP_RampartThreshold");
+
+            internal static void Draw(CustomComboPreset preset)
+            {
+                switch (preset)
+                {
+                    case CustomComboPreset.PLDPvP_Rampart:
+                        UserConfig.DrawSliderInt(1, 100, PLDPvP_RampartThreshold,
+                            "Use Rampart below set threshold for self");
+                        break;
+
+                }
+            }
+        }
+        #endregion
 
         internal class PLDPvP_Burst : CustomCombo
         {
@@ -49,6 +75,9 @@ namespace WrathCombo.Combos.PvP
             {
                 if (actionID is FastBlade or RiotBlade or RoyalAuthority)
                 {
+                    if (IsEnabled(CustomComboPreset.PLDPvP_Rampart) && PvPTank.CanRampart(Config.PLDPvP_RampartThreshold))
+                        return PvPTank.Rampart;
+
                     if (IsEnabled(CustomComboPreset.PLDPvP_Intervene) && !InMeleeRange() && IsOffCooldown(Intervene) || IsEnabled(CustomComboPreset.PLDPvP_Intervene_Melee) && InMeleeRange() && IsOffCooldown(Intervene))
                         return Intervene;
 
@@ -66,18 +95,18 @@ namespace WrathCombo.Combos.PvP
 
                     if (IsEnabled(CustomComboPreset.PLDPvP_PhalanxCombo))
                     {
-                        if (HasEffect(Buffs.BladeOfFaithReady) || WasLastSpell(BladeOfTruth) || WasLastSpell(BladeOfFaith))
+                        if (HasStatusEffect(Buffs.BladeOfFaithReady) || WasLastSpell(BladeOfTruth) || WasLastSpell(BladeOfFaith))
                             return OriginalHook(Phalanx);
                     }
 
                     // Check if the custom combo preset is enabled and ConfiteorReady is active
-                    if (IsEnabled(CustomComboPreset.PLDPvP_Confiteor) && HasEffect(Buffs.ConfiteorReady))
+                    if (IsEnabled(CustomComboPreset.PLDPvP_Confiteor) && HasStatusEffect(Buffs.ConfiteorReady))
                         return OriginalHook(Imperator);
 
 
                     if (IsEnabled(CustomComboPreset.PLDPvP_HolySpirit))
                     {
-                        if (IsOffCooldown(HolySpirit) && !InMeleeRange() || IsOffCooldown(HolySpirit) && (!HasEffect(Buffs.AttonementReady) && !HasEffect(Buffs.SupplicationReady) && !HasEffect(Buffs.SepulchreReady)))
+                        if (IsOffCooldown(HolySpirit) && !InMeleeRange() || IsOffCooldown(HolySpirit) && (!HasStatusEffect(Buffs.AttonementReady) && !HasStatusEffect(Buffs.SupplicationReady) && !HasStatusEffect(Buffs.SepulchreReady)))
                             return HolySpirit;
                     }
 

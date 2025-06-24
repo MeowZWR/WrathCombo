@@ -119,7 +119,7 @@ internal partial class RDM
         {
             if (LevelChecked(Manafication))
             {
-                byte magickedSword = GetBuffStacks(Buffs.MagickedSwordPlay);
+                ushort magickedSword = GetStatusEffectStacks(Buffs.MagickedSwordPlay);
                 byte magickedSwordMana = magickedSword switch
                 {
                     3 => 50,
@@ -134,44 +134,40 @@ internal partial class RDM
         }
     }
 
-    private static bool TryOGCDs(uint actionID, in bool SingleTarget, ref uint newActionID, bool AdvMode = false)
+    private static bool TryOGCDs(ref uint newActionID, bool engagepool = false, bool corpspool = false, bool corpsmelee = false, bool[]? oGCDs = null)
     {
         newActionID = 0; //reset just incase
         if (!CanSpellWeave()) return false;
 
         float distance = GetTargetDistance();
 
-        //Simple Settings
+        // Defaults
         bool fleche = true;
         bool contre = true;
         bool engagement = false;
+        bool corpacorps = false;
         bool vice = true;
         bool prefulg = true;
-        int engagementPool = 0;
-        bool corpacorps = false;
-        int corpsacorpsPool = 0;
-        int corpacorpsRange = 25;
 
-        if (AdvMode)
+        int engagementPool = engagepool ? 1 : 0;
+        int corpsacorpsPool = corpspool ? 1 : 0;
+        int corpacorpsRange = corpsmelee ? 3 : 25;
+
+        // Override defaults if bool array was passed
+        if (oGCDs != null && oGCDs.Length == 6)
         {
-            fleche = SingleTarget ? Config.RDM_ST_oGCD_Fleche : Config.RDM_AoE_oGCD_Fleche;
-            contre = SingleTarget ? Config.RDM_ST_oGCD_ContreSixte : Config.RDM_AoE_oGCD_ContreSixte;
-            engagement = SingleTarget ? Config.RDM_ST_oGCD_Engagement : Config.RDM_AoE_oGCD_Engagement;
-            vice = SingleTarget ? Config.RDM_ST_oGCD_ViceOfThorns : Config.RDM_AoE_oGCD_ViceOfThorns;
-            prefulg = SingleTarget ? Config.RDM_ST_oGCD_Prefulgence : Config.RDM_AoE_oGCD_Prefulgence;
-
-            engagementPool = (SingleTarget && Config.RDM_ST_oGCD_Engagement_Pooling) || (!SingleTarget && Config.RDM_AoE_oGCD_Engagement_Pooling) ? 1 : 0;
-            corpacorps = SingleTarget ? Config.RDM_ST_oGCD_CorpACorps : Config.RDM_AoE_oGCD_CorpACorps;
-            corpsacorpsPool = (SingleTarget && Config.RDM_ST_oGCD_CorpACorps_Pooling) || (!SingleTarget && Config.RDM_ST_oGCD_CorpACorps_Pooling) ? 1 : 0;
-            corpacorpsRange = (SingleTarget && Config.RDM_ST_oGCD_CorpACorps_Melee) || (!SingleTarget && Config.RDM_ST_oGCD_CorpACorps_Melee) ? 3 : 25;
+            fleche = oGCDs[0];
+            contre = oGCDs[1];
+            engagement = oGCDs[2];
+            corpacorps = oGCDs[3];
+            vice = oGCDs[4];
+            prefulg = oGCDs[5];
         }
-
-        //Grabs an oGCD to return based on radio options
 
         if (newActionID == 0
             && prefulg
             && TraitLevelChecked(Traits.EnhancedManaficationIII)
-            && HasEffect(Buffs.PrefulugenceReady))
+            && HasStatusEffect(Buffs.PrefulugenceReady))
             newActionID = Prefulgence;
 
         if (newActionID == 0
@@ -205,39 +201,17 @@ internal partial class RDM
         if (newActionID == 0
             && vice
             && TraitLevelChecked(Traits.EnhancedEmbolden)
-            && HasEffect(Buffs.ThornedFlourish)
+            && HasStatusEffect(Buffs.ThornedFlourish)
             && !JustUsed(Embolden, 2f)) //try not to double use, wait for next GCD
             newActionID = ViceOfThorns;
 
-        if (newActionID != 0) return true;
-
-        if (actionID is Fleche && newActionID == 0) // All actions are on cooldown, determine the lowest CD to display on Fleche.
-        {
-            newActionID = Fleche;
-            if (contre
-                && LevelChecked(ContreSixte)
-                && GetCooldownRemainingTime(newActionID) > GetCooldownRemainingTime(ContreSixte))
-                newActionID = ContreSixte;
-            if (corpacorps
-                && LevelChecked(Corpsacorps)
-                && !HasCharges(Corpsacorps)
-                && GetCooldownRemainingTime(newActionID) > GetCooldownRemainingTime(Corpsacorps))
-                newActionID = Corpsacorps;
-            if (engagement
-                && LevelChecked(Engagement)
-                && GetCooldownRemainingTime(Engagement) == 0
-                && GetCooldownRemainingTime(newActionID) > GetCooldownRemainingTime(Engagement))
-                newActionID = Engagement;
-        }
-        if (actionID is Fleche) return true;
-
-        return false;
+        return newActionID != 0;
     }
 
     private static bool TryLucidDreaming(int MPThreshold, uint ComboAction) =>
         Role.CanLucidDream(MPThreshold)
         && InCombat()
-        && !HasEffect(Buffs.Dualcast)
+        && !HasStatusEffect(Buffs.Dualcast)
         && ComboAction != EnchantedRiposte
         && ComboAction != EnchantedZwerchhau
         && ComboAction != EnchantedRedoublement
@@ -256,9 +230,9 @@ internal partial class RDM
             if (ManaEmbolden
                 && LevelChecked(Embolden)
                 && HasCondition(ConditionFlag.InCombat)
-                && !HasEffect(Buffs.Dualcast)
-                && !HasEffect(Role.Buffs.Swiftcast)
-                && !HasEffect(Buffs.Acceleration)
+                && !HasStatusEffect(Buffs.Dualcast)
+                && !HasStatusEffect(Role.Buffs.Swiftcast)
+                && !HasStatusEffect(Buffs.Acceleration)
                 && (GetTargetDistance() <= 3 || (GapCloser && HasCharges(Corpsacorps))))
             {
                 //Situation 1: Manafication first
@@ -319,7 +293,7 @@ internal partial class RDM
                     && ComboAction is not Verholy
                     && ComboAction is not Scorch
                     && RDMMana.Max <= 50
-                    && (HasEffect(Buffs.Embolden) || WasLastAction(Embolden))
+                    && (HasStatusEffect(Buffs.Embolden) || WasLastAction(Embolden))
                     && IsOffCooldown(Manafication))
                 {
                     newActionID = Manafication;
@@ -353,7 +327,7 @@ internal partial class RDM
                     && ComboAction is not Verholy
                     && ComboAction is not Scorch
                     && RDMMana.Max <= 50
-                    && (HasEffect(Buffs.Embolden) || WasLastAction(Embolden)))
+                    && (HasStatusEffect(Buffs.Embolden) || WasLastAction(Embolden)))
                 {
                     newActionID = Manafication;
                     return true;
@@ -378,16 +352,14 @@ internal partial class RDM
             if (GetTargetDistance() <= 3 || MeleeEnforced)
             {
                 if ((ComboAction is Riposte or EnchantedRiposte)
-                    && LevelChecked(Zwerchhau)
-                    && ComboTimer > 0f)
+                    && LevelChecked(Zwerchhau))
                 {
                     newActionID = OriginalHook(Zwerchhau);
                     return true;
                 }
 
                 if (ComboAction is Zwerchhau
-                    && LevelChecked(Redoublement)
-                    && ComboTimer > 0f)
+                    && LevelChecked(Redoublement))
                 {
                     newActionID = OriginalHook(Redoublement);
                     return true;
@@ -402,7 +374,7 @@ internal partial class RDM
             if (((RDMMana.Min >= 50 && LevelChecked(Redoublement))
                 || (RDMMana.Min >= 35 && !LevelChecked(Redoublement))
                 || (RDMMana.Min >= 20 && !LevelChecked(Zwerchhau)))
-                && !HasEffect(Buffs.Dualcast))
+                && !HasStatusEffect(Buffs.Dualcast))
             {
                 if (GapCloser
                     && ActionReady(Corpsacorps)
@@ -416,9 +388,9 @@ internal partial class RDM
                     && LevelChecked(Acceleration)
                     && RDMMana.Black == RDMMana.White
                     && RDMMana.Black >= 50
-                    && !HasEffect(Buffs.Embolden))
+                    && !HasStatusEffect(Buffs.Embolden))
                 {
-                    if (HasEffect(Buffs.Acceleration) || WasLastAction(Buffs.Acceleration))
+                    if (HasStatusEffect(Buffs.Acceleration) || WasLastAction(Buffs.Acceleration))
                     {
                         //Run the Mana Balance Computer
                         //SHUT UP ITS FINE
@@ -461,9 +433,9 @@ internal partial class RDM
             if (!CanSpellWeave()) return false;
 
             if (InCombat()
-                && !HasEffect(Buffs.Dualcast)
-                && !HasEffect(Role.Buffs.Swiftcast)
-                && !HasEffect(Buffs.Acceleration)
+                && !HasStatusEffect(Buffs.Dualcast)
+                && !HasStatusEffect(Role.Buffs.Swiftcast)
+                && !HasStatusEffect(Buffs.Acceleration)
                 && ((GetTargetDistance() <= MoulinetRange && RDMMana.ManaStacks == 0) || RDMMana.ManaStacks > 0))
             {
                 if (ActionReady(Manafication))
@@ -481,7 +453,7 @@ internal partial class RDM
                         && ComboAction is not Verholy
                         && ComboAction is not Scorch
                         && RDMMana.Max <= 50
-                        && (HasEffect(Buffs.Embolden) || WasLastAction(Embolden)))
+                        && (HasStatusEffect(Buffs.Embolden) || WasLastAction(Embolden)))
                     {
                         newActionID = Manafication;
                         return true;
@@ -505,7 +477,7 @@ internal partial class RDM
                         && ComboAction is not Scorch
                         && RDMMana.Max <= 50
                         && RDMMana.Min >= 10
-                        && (HasEffect(Buffs.Embolden) || WasLastAction(Embolden)))
+                        && (HasStatusEffect(Buffs.Embolden) || WasLastAction(Embolden)))
                     {
                         newActionID = Manafication;
                         return true;
@@ -533,8 +505,7 @@ internal partial class RDM
             {
                 //Finish the combo
                 if (LevelChecked(Moulinet)
-                && ComboAction is EnchantedMoulinet or EnchantedMoulinetDeux
-                && ComboTimer > 0f)
+                && ComboAction is EnchantedMoulinet or EnchantedMoulinetDeux)
                 {
                     newActionID = OriginalHook(Moulinet);
                     return true;
@@ -543,9 +514,9 @@ internal partial class RDM
 
             if (LevelChecked(Moulinet)
                 && LocalPlayer.IsCasting == false
-                && !HasEffect(Buffs.Dualcast)
-                && !HasEffect(Role.Buffs.Swiftcast)
-                && !HasEffect(Buffs.Acceleration)
+                && !HasStatusEffect(Buffs.Dualcast)
+                && !HasStatusEffect(Role.Buffs.Swiftcast)
+                && !HasStatusEffect(Buffs.Acceleration)
                 && RDMMana.Min >= 50)
             {
                 if (GapCloser
@@ -567,15 +538,15 @@ internal partial class RDM
             return false;
         }
 
-        internal static bool TryMeleeFinisher(ref uint newActionID)
+        internal static bool TryVerFlareVerHoly(ref uint newActionID)
         {
             if (RDMMana.ManaStacks >= 3)
             {
                 if (RDMMana.Black >= RDMMana.White && LevelChecked(Verholy))
                 {
-                    if ((!HasEffect(Buffs.Embolden) || GetBuffRemainingTime(Buffs.Embolden) < 10)
-                        && !HasEffect(Buffs.VerfireReady)
-                        && HasEffect(Buffs.VerstoneReady) && GetBuffRemainingTime(Buffs.VerstoneReady) >= 10
+                    if ((!HasStatusEffect(Buffs.Embolden) || GetStatusEffectRemainingTime(Buffs.Embolden) < 10)
+                        && !HasStatusEffect(Buffs.VerfireReady)
+                        && HasStatusEffect(Buffs.VerstoneReady) && GetStatusEffectRemainingTime(Buffs.VerstoneReady) >= 10
                         && (RDMMana.Black - RDMMana.White <= 18))
                     {
                         newActionID = Verflare;
@@ -586,9 +557,9 @@ internal partial class RDM
                 }
                 else if (LevelChecked(Verflare))
                 {
-                    if ((!HasEffect(Buffs.Embolden) || GetBuffRemainingTime(Buffs.Embolden) < 10)
-                        && HasEffect(Buffs.VerfireReady) && GetBuffRemainingTime(Buffs.VerfireReady) >= 10
-                        && !HasEffect(Buffs.VerstoneReady)
+                    if ((!HasStatusEffect(Buffs.Embolden) || GetStatusEffectRemainingTime(Buffs.Embolden) < 10)
+                        && HasStatusEffect(Buffs.VerfireReady) && GetStatusEffectRemainingTime(Buffs.VerfireReady) >= 10
+                        && !HasStatusEffect(Buffs.VerstoneReady)
                         && LevelChecked(Verholy)
                         && (RDMMana.White - RDMMana.Black <= 18))
                     {
@@ -599,23 +570,16 @@ internal partial class RDM
                     return true;
                 }
             }
-            if ((ComboAction is Verflare or Verholy)
-                && LevelChecked(Scorch))
-            {
-                newActionID = Scorch;
-                return true;
-            }
-
-            if (ComboAction is Scorch
-                && LevelChecked(Resolution))
-            {
-                newActionID = Resolution;
-                return true;
-            }
 
             //Else
             return false;
         }
+
+        // Makes sure we return Scorch or Resolution
+        internal static bool CanScorchResolution() =>
+            ((ComboAction is Verflare or Verholy) && LevelChecked(Scorch))
+            ||
+            (ComboAction is Scorch && LevelChecked(Resolution));
     }
 
     private class SpellCombo
@@ -623,8 +587,8 @@ internal partial class RDM
         private static bool TryGrandImpact(ref uint newActionID)
         {
             if (TraitLevelChecked(Traits.EnhancedAccelerationII)
-                && HasEffect(Buffs.GrandImpactReady)
-                && !HasEffect(Buffs.Dualcast))
+                && HasStatusEffect(Buffs.GrandImpactReady)
+                && !HasStatusEffect(Buffs.Dualcast))
             {
                 newActionID = GrandImpact;
                 return true;
@@ -632,11 +596,13 @@ internal partial class RDM
 
             return false;
         }
-        internal static bool TryAcceleration(ref uint newActionID, bool swiftcast = true, bool AoEWeave = false)
+        internal static bool TryAcceleration(
+            ref uint newActionID, bool swiftcast = true, bool AoEWeave = false, 
+            bool CheckMovement = false, int AccelCharges = 0, int AccelMoveCharges = 0)
         {
             if (!CanSpellWeave()) return false;
 
-            //RDM_ST_ACCELERATION
+            // ACCELERATION
             if (InCombat()
                 && LocalPlayer.IsCasting == false
                 && RDMMana.ManaStacks == 0
@@ -645,18 +611,18 @@ internal partial class RDM
                 && ComboAction is not Scorch
                 && !WasLastAction(Embolden)
                 && (!AoEWeave || CanSpellWeave())
-                && !HasEffect(Buffs.VerfireReady)
-                && !HasEffect(Buffs.VerstoneReady)
-                && !HasEffect(Buffs.Acceleration)
-                && !HasEffect(Buffs.Dualcast)
-                && !HasEffect(Role.Buffs.Swiftcast))
+                && !HasStatusEffect(Buffs.VerfireReady)
+                && !HasStatusEffect(Buffs.VerstoneReady)
+                && !HasStatusEffect(Buffs.Acceleration)
+                && !HasStatusEffect(Buffs.Dualcast)
+                && !HasStatusEffect(Role.Buffs.Swiftcast))
             {
                 if (ActionReady(Acceleration)
-                    && GetRemainingCharges(Acceleration) > Config.RDM_ST_Acceleration_Charges
-                    && (!IsEnabled(CustomComboPreset.RDM_ST_ThunderAero_Accel_Movement) 
-                    || (IsEnabled(CustomComboPreset.RDM_ST_ThunderAero_Accel_Movement) 
+                    && GetRemainingCharges(Acceleration) > AccelCharges
+                    && (!CheckMovement
+                    || (CheckMovement
                     && IsMoving() 
-                    && GetRemainingCharges(Acceleration) > Config.RDM_ST_AccelerationMovement_Charges)))
+                    && GetRemainingCharges(Acceleration) > AccelMoveCharges)))
                 {
                     newActionID = Acceleration;
                     return true;
@@ -684,8 +650,8 @@ internal partial class RDM
 
             //RDM_VERFIREVERSTONE
             if (FireStone
-                && !HasEffect(Buffs.Acceleration)
-                && !HasEffect(Buffs.Dualcast))
+                && !HasStatusEffect(Buffs.Acceleration)
+                && !HasStatusEffect(Buffs.Dualcast))
             {
                 //Run the Mana Balance Computer
                 if (actions.useFire)
@@ -767,24 +733,24 @@ internal partial class RDM
 
             //ST
             if (LevelChecked(Verthunder)
-                && (HasEffect(Buffs.Dualcast) || HasEffect(Role.Buffs.Swiftcast) || HasEffect(Buffs.Acceleration)))
+                && (HasStatusEffect(Buffs.Dualcast) || HasStatusEffect(Role.Buffs.Swiftcast) || HasStatusEffect(Buffs.Acceleration)))
             {
-                if (RDMMana.Black <= RDMMana.White || HasEffect(Buffs.VerstoneReady))
+                if (RDMMana.Black <= RDMMana.White || HasStatusEffect(Buffs.VerstoneReady))
                     useThunder = true;
 
-                if (RDMMana.White <= RDMMana.Black || HasEffect(Buffs.VerfireReady))
+                if (RDMMana.White <= RDMMana.Black || HasStatusEffect(Buffs.VerfireReady))
                     useAero = true;
 
                 if (!LevelChecked(Veraero))
                     useThunder = true;
             }
-            if (!HasEffect(Buffs.Dualcast)
-                && !HasEffect(Role.Buffs.Swiftcast)
-                && !HasEffect(Buffs.Acceleration))
+            if (!HasStatusEffect(Buffs.Dualcast)
+                && !HasStatusEffect(Role.Buffs.Swiftcast)
+                && !HasStatusEffect(Buffs.Acceleration))
             {
                 //Checking the time remaining instead of just the effect, to stop last second bad casts
-                bool VerFireReady = GetBuffRemainingTime(Buffs.VerfireReady) >= GetActionCastTime(Verfire);
-                bool VerStoneReady = GetBuffRemainingTime(Buffs.VerstoneReady) >= GetActionCastTime(Verstone);
+                bool VerFireReady = GetStatusEffectRemainingTime(Buffs.VerfireReady) >= GetActionCastTime(Verfire);
+                bool VerStoneReady = GetStatusEffectRemainingTime(Buffs.VerstoneReady) >= GetActionCastTime(Verstone);
 
                 //Prioritize mana balance
                 if (RDMMana.Black <= RDMMana.White && VerFireReady)
@@ -803,9 +769,9 @@ internal partial class RDM
 
             //AoE
             if (LevelChecked(Verthunder2)
-                && !HasEffect(Buffs.Dualcast)
-                && !HasEffect(Role.Buffs.Swiftcast)
-                && !HasEffect(Buffs.Acceleration))
+                && !HasStatusEffect(Buffs.Dualcast)
+                && !HasStatusEffect(Role.Buffs.Swiftcast)
+                && !HasStatusEffect(Buffs.Acceleration))
             {
                 if (RDMMana.Black <= RDMMana.White || !LevelChecked(Veraero2))
                     useThunder2 = true;

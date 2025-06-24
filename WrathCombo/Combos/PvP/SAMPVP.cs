@@ -1,11 +1,15 @@
 ﻿using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Window.Functions;
 
 namespace WrathCombo.Combos.PvP
-{
+{   
     internal static class SAMPvP
     {
+        #region IDS
         public const byte JobID = 34;
+
+        internal class Role : PvPMelee;
 
         public const uint
             KashaCombo = 58,
@@ -42,20 +46,63 @@ namespace WrathCombo.Combos.PvP
             public const ushort
                 Kuzushi = 3202;
         }
+        #endregion
 
+        #region Config
         public static class Config
         {
             public static UserInt
                 SAMPvP_Soten_Range = new("SAMPvP_Soten_Range", 3),
                 SAMPvP_Soten_Charges = new("SAMPvP_Soten_Charges", 1),
                 SAMPvP_Chiten_PlayerHP = new("SAMPvP_Chiten_PlayerHP", 70),
-                SAMPvP_Mineuchi_TargetHP = new("SAMPvP_Mineuchi_TargetHP", 40);
+                SAMPvP_Mineuchi_TargetHP = new("SAMPvP_Mineuchi_TargetHP", 40),
+                SAMPvP_SmiteThreshold = new("SAMPvP_SmiteThreshold", 25);
 
             public static UserBool
                 SAMPvP_Soten_SubOption = new("SAMPvP_Soten_SubOption"),
                 SAMPvP_Mineuchi_SubOption = new("SAMPvP_Mineuchi_SubOption");
-        }
 
+            internal static void Draw(CustomComboPreset preset)
+            {
+                switch (preset)
+                {
+                    // Chiten
+                    case CustomComboPreset.SAMPvP_Chiten:
+                        UserConfig.DrawSliderInt(10, 100, SAMPvP.Config.SAMPvP_Chiten_PlayerHP, "Player HP%", 210);
+
+                        break;
+
+                    // Mineuchi
+                    case CustomComboPreset.SAMPvP_Mineuchi:
+                        UserConfig.DrawSliderInt(10, 100, SAMPvP.Config.SAMPvP_Mineuchi_TargetHP, "Target HP%", 210);
+
+                        UserConfig.DrawAdditionalBoolChoice(SAMPvP.Config.SAMPvP_Mineuchi_SubOption, "Burst Preparation",
+                            "Also uses Mineuchi before Tendo Setsugekka.");
+
+                        break;
+
+                    // Soten
+                    case CustomComboPreset.SAMPvP_Soten:
+                        UserConfig.DrawSliderInt(0, 2, SAMPvP.Config.SAMPvP_Soten_Charges, "Charges to Keep", 178);
+                        UserConfig.DrawSliderInt(1, 10, SAMPvP.Config.SAMPvP_Soten_Range, "Maximum Range", 173);
+
+                        UserConfig.DrawAdditionalBoolChoice(SAMPvP.Config.SAMPvP_Soten_SubOption, "Yukikaze Only",
+                            "Also requires next weaponskill to be Yukikaze.");
+
+                        break;
+
+                    // Smite
+                    case CustomComboPreset.SAMPvP_Smite:
+                        UserConfig.DrawSliderInt(0, 100, SAMPvP.Config.SAMPvP_SmiteThreshold,
+                            "Target HP% to smite, Max damage below 25%");
+
+                        break;
+
+                }
+            }
+        }
+        #endregion
+       
         internal class SAMPvP_BurstMode : CustomCombo
         {
             protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAMPvP_Burst;
@@ -73,12 +120,12 @@ namespace WrathCombo.Combos.PvP
                     bool inCombat = InCombat();
                     bool hasTarget = HasTarget();
                     bool inMeleeRange = targetDistance <= 5;
-                    bool hasKaiten = HasEffect(Buffs.Kaiten);
+                    bool hasKaiten = HasStatusEffect(Buffs.Kaiten);
                     bool hasZanshin = OriginalHook(Chiten) is Zanshin;
-                    bool hasBind = HasEffectAny(PvPCommon.Debuffs.Bind);
+                    bool hasBind = HasStatusEffect(PvPCommon.Debuffs.Bind, anyOwner: true);
                     bool targetHasImmunity = PvPCommon.TargetImmuneToDamage();
                     bool isTargetPrimed = hasTarget && !targetHasImmunity;
-                    bool targetHasKuzushi = TargetHasEffect(Debuffs.Kuzushi);
+                    bool targetHasKuzushi = HasStatusEffect(Debuffs.Kuzushi, CurrentTarget);
                     bool hasKaeshiNamikiri = OriginalHook(OgiNamikiri) is Kaeshi;
                     bool hasTendo = OriginalHook(MeikyoShisui) is TendoSetsugekka;
                     bool isYukikazePrimed = ComboTimer == 0 || ComboAction is Kasha;
@@ -87,12 +134,17 @@ namespace WrathCombo.Combos.PvP
                     bool isMeikyoPrimed = IsOnCooldown(OgiNamikiri) && !hasKaeshiNamikiri && !hasKaiten && !isMoving;
                     bool isZantetsukenPrimed = IsLB1Ready && !hasBind && hasTarget && targetHasKuzushi && targetDistance <= 20;
                     bool isSotenPrimed = chargesSoten > Config.SAMPvP_Soten_Charges && !hasKaiten && !hasBind && !hasPrioWeaponskill;
-                    bool isTargetInvincible = TargetHasEffectAny(PLDPvP.Buffs.HallowedGround) || TargetHasEffectAny(DRKPvP.Buffs.UndeadRedemption);
+                    bool isTargetInvincible = HasStatusEffect(PLDPvP.Buffs.HallowedGround, CurrentTarget, true) || HasStatusEffect(DRKPvP.Buffs.UndeadRedemption, CurrentTarget, true);
                     #endregion
 
                     // Zantetsuken
                     if (IsEnabled(CustomComboPreset.SAMPvP_Zantetsuken) && isZantetsukenPrimed && !isTargetInvincible)
                         return OriginalHook(Zantetsuken);
+
+                    //Smite
+                    if (IsEnabled(CustomComboPreset.SAMPvP_Smite) && PvPMelee.CanSmite() && !PvPCommon.TargetImmuneToDamage() && GetTargetDistance() <= 10 && HasTarget() &&
+                        GetTargetHPPercent() <= Config.SAMPvP_SmiteThreshold)
+                        return PvPMelee.Smite;
 
                     // Chiten
                     if (IsEnabled(CustomComboPreset.SAMPvP_Chiten) && IsOffCooldown(Chiten) && inCombat && playerCurrentPercentHp < Config.SAMPvP_Chiten_PlayerHP)

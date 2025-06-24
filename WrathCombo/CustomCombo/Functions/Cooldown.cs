@@ -1,8 +1,6 @@
-﻿using Dalamud.Game.ClientState.Objects.Types;
-using ECommons.DalamudServices;
+using Dalamud.Game.ClientState.Objects.Types;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using System;
-using System.Linq;
 using WrathCombo.Data;
 using WrathCombo.Services;
 
@@ -40,21 +38,24 @@ namespace WrathCombo.CustomComboNS.Functions
         /// <returns> True or false. </returns>
         public static bool IsOffCooldown(uint actionID) => !GetCooldown(actionID).IsCooldown;
 
-        /// <summary> Check if the Cooldown was just used. </summary>
+        /// <summary> Check if an action was just used. </summary>
         /// <param name="actionID"> Action ID to check. </param>
-        /// <param name="variance"> Variance of how long to check the elapsed cooldown</param>
+        /// <param name="variance"> How far back to check for. </param>
         /// <returns> True or false. </returns>
-        public static bool JustUsed(uint actionID, float variance = 3f) => GetMaxCharges(actionID) == 0 ? IsOnCooldown(actionID) && GetCooldownElapsed(actionID) <= variance : ActionWatching.ChargeTimestamps.ContainsKey(actionID) ? (Environment.TickCount64 - ActionWatching.ChargeTimestamps[actionID]) / 1000f <= variance : false;
+        public static bool JustUsed(uint actionID, float variance = 3f)
+        {
+            if (!ActionWatching.ActionTimestamps.TryGetValue(actionID, out long timestamp))
+                return false;
 
+            return (Environment.TickCount64 - timestamp) <= (long)(variance * 1000f);
+        }
 
-        /// <summary>
-        /// Checks if an action has just been used on a given target
-        /// </summary>
+        /// <summary> Checks if an action has just been used on a given target. </summary>
         /// <param name="actionID"></param>
         /// <param name="target"></param>
         /// <param name="variance"></param>
         /// <returns></returns>
-        public static bool JustUsedOn(uint actionID, IGameObject? target, float variance = 3f) => target is null ? false : JustUsedOn(actionID, target.GameObjectId, variance);
+        public static bool JustUsedOn(uint actionID, IGameObject? target, float variance = 3f) => target is not null && JustUsedOn(actionID, target.GameObjectId, variance);
 
         /// <summary>
         /// See <see cref="JustUsedOn(uint, IGameObject?, float)"/>
@@ -65,14 +66,10 @@ namespace WrathCombo.CustomComboNS.Functions
         /// <returns></returns>
         public static bool JustUsedOn(uint actionID, ulong targetGameobjectId, float variance = 3f)
         {
-            if (!ActionWatching.UsedOnDict.ContainsKey((actionID, targetGameobjectId)))
+            if (!ActionWatching.UsedOnDict.TryGetValue((actionID, targetGameobjectId), out long timestamp))
                 return false;
 
-            var timestamp = ActionWatching.UsedOnDict[(actionID, targetGameobjectId)];
-
-            var timeDiff = (Environment.TickCount64 - timestamp) / 1000f;
-
-            return timeDiff <= variance;
+            return (Environment.TickCount64 - timestamp) <= (long)(variance * 1000f);
         }
 
         /// <summary> Gets a value indicating whether an action has any available charges. </summary>
@@ -90,20 +87,23 @@ namespace WrathCombo.CustomComboNS.Functions
         /// <returns> Number of charges. </returns>
         public static ushort GetMaxCharges(uint actionID) => GetCooldown(actionID).MaxCharges;
 
-        /// <summary> Get if an action is enabled.</summary>
-        /// <param name="actionID"> Action ID to check</param>
-        /// <returns> If the action is currently enabled.</returns>
-        public unsafe static bool IsEnabled(uint actionID) => ActionManager.Instance()->GetActionStatus(ActionType.Action, actionID) == 0;
+        public static uint Action1 => DutyActionManager.GetDutyActionId(0);
+        public static uint Action2 => DutyActionManager.GetDutyActionId(1);
+        public static uint Action3 => DutyActionManager.GetDutyActionId(2);
+        public static uint Action4 => DutyActionManager.GetDutyActionId(3);
+        public static uint Action5 => DutyActionManager.GetDutyActionId(4);
 
-        private static uint Action1 => ActionManager.GetDutyActionId(0);
-        private static uint Action2 => ActionManager.GetDutyActionId(1);
+        public static bool HasActionEquipped(uint actionId) =>
+            (Action1 == actionId && HasCharges(actionId)) ||
+            (Action2 == actionId && HasCharges(actionId)) ||
+            (Action3 == actionId && HasCharges(actionId)) ||
+            (Action4 == actionId && HasCharges(actionId)) ||
+            (Action5 == actionId && HasCharges(actionId));
 
-        public static bool HasActionEquipped(uint actionId) => (Action1 == actionId && HasCharges(actionId)) || (Action2 == actionId && HasCharges(actionId));
+        private static unsafe RecastDetail* GCD => ActionManager.Instance()->GetRecastGroupDetail(57);
 
-        private unsafe static RecastDetail* GCD => ActionManager.Instance()->GetRecastGroupDetail(57);
+        public static unsafe float GCDTotal => GCD->Total;
 
-        public unsafe static float GCDTotal => GCD->Total;
-
-        public unsafe static float RemainingGCD => GCDTotal - GCD->Elapsed;
+        public static unsafe float RemainingGCD => GCDTotal - GCD->Elapsed;
     }
 }

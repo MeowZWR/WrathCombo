@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Window.Functions;
+using EZ = ECommons.Throttlers.EzThrottler;
+using TS = System.TimeSpan;
 
 #endregion
 
@@ -102,6 +104,7 @@ public class ContentCheck
         }
     }
 
+    /// <seealso cref="IsInConfiguredContent(UserBoolArray, ListSet)"/>
     internal static bool IsInConfiguredContent
         (UserInt configuredContent, ListSet configListSet)
     {
@@ -119,6 +122,73 @@ public class ContentCheck
         }
 
         return false;
+    }
+
+    /// <summary>
+    ///     Check if the current area is PvP content.
+    /// </summary>
+    public static bool IsInPVPContent
+    {
+        get
+        {
+            if (!EZ.Throttle("contentCheckInPVP", TS.FromSeconds(5)))
+                return field;
+
+            field = (Content.ContentType is ContentType.OverWorld &&
+                     Content.TerritoryName == "Wolves' Den Pier") ||
+                    Content.ContentType is ContentType.PVP;
+            return field;
+        }
+    }
+
+    /// <summary>
+    ///     Check if the current instanced content is Savage or Ultimate.
+    /// </summary>
+    public static bool IsInSavagePlusContent
+    {
+        get
+        {
+            if (!EZ.Throttle("contentCheckInSavagePlus", TS.FromSeconds(5)))
+                return field;
+
+            field = Content.ContentDifficulty is ContentDifficulty.Savage or
+                ContentDifficulty.CriterionSavage or
+                ContentDifficulty.Ultimate;
+            return field;
+        }
+    }
+
+    /// <summary>
+    ///     Check if the current instance is a Field Operation.<br />
+    ///     (Bozja, Eureka, Occult Crescent, etc.)
+    /// </summary>
+    /// South Horn, Southern Front, etc.
+    public static bool IsInFieldOperations
+    {
+        get
+        {
+            if (!EZ.Throttle("contentCheckInFieldOperations", TS.FromSeconds(5)))
+                return field;
+
+            field = Content.ContentType is ContentType.FieldOperations;
+            return field;
+        }
+    }
+
+    /// <summary>
+    ///     Check if the current instance is a Field Raid.<br />
+    ///     (Delubrum Reginae, etc.)
+    /// </summary>
+    public static bool IsInFieldRaids
+    {
+        get
+        {
+            if (!EZ.Throttle("contentCheckInFieldOperations", TS.FromSeconds(5)))
+                return field;
+
+            field = Content.ContentType is ContentType.FieldRaid;
+            return field;
+        }
     }
 
     #region Halved Content Lists

@@ -1,11 +1,17 @@
-using WrathCombo.Core;
+using ImGuiNET;
 using WrathCombo.CustomComboNS;
+using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Window.Functions;
 
 namespace WrathCombo.Combos.PvP
 {
     internal static class MCHPvP
     {
+        #region IDS
+
         public const byte JobID = 31;
+
+        internal class Role : PvPPhysRanged;
 
         public const uint
             BlastCharge = 29402,
@@ -40,14 +46,48 @@ namespace WrathCombo.Combos.PvP
                 Wildfire = 1323;
         }
 
+        #endregion
+
+        #region Config
         public static class Config
         {
-            public const string
-                MCHPVP_MarksmanSpite = "MCHPVP_MarksmanSpite",
-                MCHPVP_FMFOption = "MCHPVP_FMFOption",
-                MCHPVP_Heat = "MCHPVP_Heat";
+            public static UserInt
+                MCHPvP_MarksmanSpite = new("MCHPvP_MarksmanSpite"),
+                MCHPvP_FMFOption = new("MCHPvP_FMFOption"),
+                MCHPvP_EagleThreshold = new("MCHPvP_EagleThreshold");
 
+            internal static void Draw(CustomComboPreset preset)
+            {
+                switch (preset)
+                {
+                    case CustomComboPreset.MCHPvP_BurstMode_MarksmanSpite:
+                        UserConfig.DrawSliderInt(0, 36000, MCHPvP_MarksmanSpite,
+                            "Use Marksman's Spite when the target is below set HP");
+
+                        break;
+
+                    case CustomComboPreset.MCHPvP_BurstMode_FullMetalField:
+                        ImGui.Indent();
+                        UserConfig.DrawHorizontalRadioButton(MCHPvP_FMFOption, "Full Metal Field Wildfire combo",
+                            "Uses Full Metal Field when Wildfire is ready.", 1);
+
+                        UserConfig.DrawHorizontalRadioButton(MCHPvP_FMFOption, "Full Metal Field only when Overheated",
+                            "Only uses Full Metal Field while Overheated.", 2);
+                        ImGui.Unindent();
+
+                        break;
+
+                    case CustomComboPreset.MCHPvP_Eagle:
+                        UserConfig.DrawSliderInt(0, 100, MCHPvP_EagleThreshold,
+                            "Target HP percent threshold to use Eagle Eye Shot Below.");
+
+                        break;
+
+
+                }
+            }            
         }
+#endregion
 
         internal class MCHPvP_BurstMode : CustomCombo
         {
@@ -57,16 +97,22 @@ namespace WrathCombo.Combos.PvP
             {
                 if (actionID == BlastCharge)
                 {
+                    #region Variables
+
                     var canWeave = CanWeave();
                     var analysisStacks = GetRemainingCharges(Analysis);
                     var bigDamageStacks = GetRemainingCharges(OriginalHook(Drill));
-                    var overheated = HasEffect(Buffs.Overheated);
-                    var FMFOption = PluginConfiguration.GetCustomIntValue(Config.MCHPVP_FMFOption);
+                    var overheated = HasStatusEffect(Buffs.Overheated);
+
+                    #endregion
+
+                    if (IsEnabled(CustomComboPreset.MCHPvP_Eagle) && PvPPhysRanged.CanEagleEyeShot() && (PvPCommon.TargetImmuneToDamage() || GetTargetHPPercent() <= Config.MCHPvP_EagleThreshold))
+                        return PvPPhysRanged.EagleEyeShot;
 
                     if (!PvPCommon.TargetImmuneToDamage() && HasBattleTarget())
                     {
                         // MarksmanSpite execute condition - todo add config
-                        if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_MarksmanSpite) && HasBattleTarget() && EnemyHealthCurrentHp() < GetOptionValue(Config.MCHPVP_MarksmanSpite) && IsLB1Ready)
+                        if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_MarksmanSpite) && HasBattleTarget() && EnemyHealthCurrentHp() < Config.MCHPvP_MarksmanSpite && IsLB1Ready)
                             return MarksmanSpite;
 
                         if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_Wildfire) && canWeave && overheated && IsOffCooldown(Wildfire))
@@ -75,12 +121,12 @@ namespace WrathCombo.Combos.PvP
                         // FullMetalField condition when not overheated or if overheated and FullMetalField is off cooldown
                         if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_FullMetalField) && IsOffCooldown(FullMetalField))
                         {
-                            if (FMFOption == 1)
+                            if (Config.MCHPvP_FMFOption == 1)
                             {
                                 if (!overheated && IsOffCooldown(Wildfire))
                                     return FullMetalField;
                             }
-                            if (FMFOption == 2)
+                            if (Config.MCHPvP_FMFOption == 2)
                             {
                                 if (overheated)
                                     return FullMetalField;
@@ -88,13 +134,13 @@ namespace WrathCombo.Combos.PvP
                         }
 
                         // Check if primed buffs and analysis conditions are met
-                        bool hasPrimedBuffs = HasEffect(Buffs.DrillPrimed) ||
-                                              (HasEffect(Buffs.ChainSawPrimed) && !IsEnabled(CustomComboPreset.MCHPvP_BurstMode_AltAnalysis)) ||
-                                              (HasEffect(Buffs.AirAnchorPrimed) && IsEnabled(CustomComboPreset.MCHPvP_BurstMode_AltAnalysis));
+                        bool hasPrimedBuffs = HasStatusEffect(Buffs.DrillPrimed) ||
+                                              (HasStatusEffect(Buffs.ChainSawPrimed) && !IsEnabled(CustomComboPreset.MCHPvP_BurstMode_AltAnalysis)) ||
+                                              (HasStatusEffect(Buffs.AirAnchorPrimed) && IsEnabled(CustomComboPreset.MCHPvP_BurstMode_AltAnalysis));
 
                         if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_Analysis))
                         {
-                            if (hasPrimedBuffs && !HasEffect(Buffs.Analysis) && analysisStacks > 0 &&
+                            if (hasPrimedBuffs && !HasStatusEffect(Buffs.Analysis) && analysisStacks > 0 &&
                                 (!IsEnabled(CustomComboPreset.MCHPvP_BurstMode_AltDrill) || IsOnCooldown(Wildfire)) &&
                                 !canWeave && !overheated && bigDamageStacks > 0)
                             {
@@ -105,16 +151,16 @@ namespace WrathCombo.Combos.PvP
                         // BigDamageStacks logic with checks for primed buffs
                         if (bigDamageStacks > 0)
                         {
-                            if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_Drill) && HasEffect(Buffs.DrillPrimed))
+                            if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_Drill) && HasStatusEffect(Buffs.DrillPrimed))
                                 return OriginalHook(Drill);
 
-                            if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_BioBlaster) && HasEffect(Buffs.BioblasterPrimed) && HasBattleTarget() && GetTargetDistance() <= 12)
+                            if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_BioBlaster) && HasStatusEffect(Buffs.BioblasterPrimed) && HasBattleTarget() && GetTargetDistance() <= 12)
                                 return OriginalHook(BioBlaster);
 
-                            if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_AirAnchor) && HasEffect(Buffs.AirAnchorPrimed))
+                            if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_AirAnchor) && HasStatusEffect(Buffs.AirAnchorPrimed))
                                 return OriginalHook(AirAnchor);
 
-                            if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_ChainSaw) && HasEffect(Buffs.ChainSawPrimed))
+                            if (IsEnabled(CustomComboPreset.MCHPvP_BurstMode_ChainSaw) && HasStatusEffect(Buffs.ChainSawPrimed))
                                 return OriginalHook(ChainSaw);
                         }
                     }

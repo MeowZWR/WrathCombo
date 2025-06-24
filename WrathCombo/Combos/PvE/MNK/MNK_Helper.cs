@@ -4,102 +4,62 @@ using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
+using static WrathCombo.Combos.PvE.MNK.Config;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class MNK
 {
-    internal static MNKGauge Gauge = GetJobGauge<MNKGauge>();
     internal static MNKOpenerLogicSL MNKOpenerSL = new();
     internal static MNKOpenerLogicLL MNKOpenerLL = new();
 
     internal static float GCD => GetCooldown(OriginalHook(Bootshine)).CooldownTotal;
 
-    internal static bool BothNadisOpen => Gauge.Nadi.ToString() == "LUNAR, SOLAR";
-
-    internal static bool SolarNadi => Gauge.Nadi == Nadi.SOLAR;
-
-    internal static bool LunarNadi => Gauge.Nadi == Nadi.LUNAR;
-
-    internal static int OpoOpoChakra => Gauge.BeastChakra.Count(x => x == BeastChakra.OPOOPO);
-
-    internal static int RaptorChakra => Gauge.BeastChakra.Count(x => x == BeastChakra.RAPTOR);
-
-    internal static int CoeurlChakra => Gauge.BeastChakra.Count(x => x == BeastChakra.COEURL);
+    #region 1-2-3
 
     internal static uint DetermineCoreAbility(uint actionId, bool useTrueNorthIfEnabled)
     {
-        if (HasEffect(Buffs.OpoOpoForm) || HasEffect(Buffs.FormlessFist))
-            return Gauge.OpoOpoFury == 0 && LevelChecked(DragonKick)
+        if (HasStatusEffect(Buffs.OpoOpoForm) || HasStatusEffect(Buffs.FormlessFist))
+            return OpoOpo is 0 && LevelChecked(DragonKick)
                 ? DragonKick
                 : OriginalHook(Bootshine);
 
-        if (HasEffect(Buffs.RaptorForm))
-            return Gauge.RaptorFury == 0 && LevelChecked(TwinSnakes)
+        if (HasStatusEffect(Buffs.RaptorForm))
+            return Raptor is 0 && LevelChecked(TwinSnakes)
                 ? TwinSnakes
                 : OriginalHook(TrueStrike);
 
-        if (HasEffect(Buffs.CoeurlForm))
+        if (HasStatusEffect(Buffs.CoeurlForm))
         {
-            if (Gauge.CoeurlFury == 0 && LevelChecked(Demolish))
-            {
-                if (!OnTargetsRear() &&
-                    TargetNeedsPositionals() &&
-                    !HasEffect(Buffs.TrueNorth) &&
-                    ActionReady(TrueNorth) &&
-                    useTrueNorthIfEnabled)
-                    return TrueNorth;
-
-                return Demolish;
-            }
+            if (Coeurl is 0 && LevelChecked(Demolish))
+                return !OnTargetsRear() &&
+                       Role.CanTrueNorth() &&
+                       useTrueNorthIfEnabled
+                    ? TrueNorth
+                    : Demolish;
 
             if (LevelChecked(SnapPunch))
-            {
-                if (!OnTargetsFlank() &&
-                    TargetNeedsPositionals() &&
-                    !HasEffect(Buffs.TrueNorth) &&
-                    ActionReady(TrueNorth) &&
-                    useTrueNorthIfEnabled)
-                    return TrueNorth;
-
-                return OriginalHook(SnapPunch);
-            }
+                return !OnTargetsFlank() &&
+                       Role.CanTrueNorth() &&
+                       useTrueNorthIfEnabled
+                    ? TrueNorth
+                    : OriginalHook(SnapPunch);
         }
 
         return actionId;
     }
 
-    internal static bool UsePerfectBalance()
-    {
-        if (ActionReady(PerfectBalance) && !HasEffect(Buffs.PerfectBalance) && !HasEffect(Buffs.FormlessFist))
-        {
-            // Odd window
-            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
-                !JustUsed(PerfectBalance, 20) &&
-                HasEffect(Buffs.RiddleOfFire) && !HasEffect(Buffs.Brotherhood))
-                return true;
+    #endregion
 
-            // Even window
-            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
-                (GetCooldownRemainingTime(Brotherhood) <= GCD * 3 || HasEffect(Buffs.Brotherhood)) &&
-                (GetCooldownRemainingTime(RiddleOfFire) <= GCD * 3 || HasEffect(Buffs.RiddleOfFire)))
-                return true;
-
-            // Low level
-            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
-                (HasEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
-                 !LevelChecked(RiddleOfFire)))
-                return true;
-        }
-
-        return false;
-    }
+    #region Masterfull Blitz
 
     internal static bool InMasterfulRange()
     {
         if (NumberOfEnemiesInRange(ElixirField, null) >= 1 &&
-            (OriginalHook(MasterfulBlitz) == ElixirField || OriginalHook(MasterfulBlitz) == FlintStrike ||
-             OriginalHook(MasterfulBlitz) == ElixirBurst || OriginalHook(MasterfulBlitz) == RisingPhoenix))
+            (OriginalHook(MasterfulBlitz) == ElixirField ||
+             OriginalHook(MasterfulBlitz) == FlintStrike ||
+             OriginalHook(MasterfulBlitz) == ElixirBurst ||
+             OriginalHook(MasterfulBlitz) == RisingPhoenix))
             return true;
 
         if (NumberOfEnemiesInRange(TornadoKick, CurrentTarget) >= 1 &&
@@ -111,14 +71,221 @@ internal partial class MNK
         return false;
     }
 
+    #endregion
+
+    #region Buffs
+
+    //RoF
+    internal static bool UseRoF() =>
+        ActionReady(RiddleOfFire) &&
+        !HasStatusEffect(Buffs.FiresRumination) &&
+        (JustUsed(Brotherhood, GCD) ||
+         (GetCooldownRemainingTime(Brotherhood) is > 50 and < 65) ||
+         !LevelChecked(Brotherhood) ||
+         HasStatusEffect(Buffs.Brotherhood));
+
+    //Brotherhood
+    internal static bool UseBrotherhood() =>
+        ActionReady(Brotherhood) &&
+        GetCooldownRemainingTime(RiddleOfFire) < 1;
+
+    //RoW
+    internal static bool UseRoW() =>
+        ActionReady(RiddleOfWind) &&
+        !HasStatusEffect(Buffs.WindsRumination);
+
+    #endregion
+
+    #region PB
+
+    internal static bool UsePerfectBalanceST()
+    {
+        if (ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) && !HasStatusEffect(Buffs.FormlessFist))
+        {
+            // Odd window
+            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
+                !JustUsed(PerfectBalance, 20) &&
+                HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.Brotherhood))
+                return true;
+
+            // Even window
+            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
+                (GetCooldownRemainingTime(Brotherhood) <= GCD * 2 || HasStatusEffect(Buffs.Brotherhood)) &&
+                (GetCooldownRemainingTime(RiddleOfFire) <= GCD * 2 || HasStatusEffect(Buffs.RiddleOfFire)))
+                return true;
+
+            // Low level
+            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
+                (HasStatusEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
+                 !LevelChecked(RiddleOfFire)))
+                return true;
+        }
+
+        return false;
+    }
+
+    internal static bool UsePerfectBalanceAoE()
+    {
+        if (ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) && !HasStatusEffect(Buffs.FormlessFist))
+        {
+            //Initial/Failsafe
+            if (GetRemainingCharges(PerfectBalance) == GetMaxCharges(PerfectBalance))
+                return true;
+
+            // Odd window
+            if (HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.Brotherhood))
+                return true;
+
+            // Even window
+            if ((GetCooldownRemainingTime(Brotherhood) <= GCD * 2 || HasStatusEffect(Buffs.Brotherhood)) &&
+                (GetCooldownRemainingTime(RiddleOfFire) <= GCD * 2 || HasStatusEffect(Buffs.RiddleOfFire)))
+                return true;
+
+            // Low level
+            if (HasStatusEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
+                !LevelChecked(RiddleOfFire))
+                return true;
+        }
+
+        return false;
+    }
+
+    #endregion
+
+    #region PB Combo
+
+    internal static bool DoPerfectBalanceComboST(ref uint actionID)
+    {
+        if (HasStatusEffect(Buffs.PerfectBalance))
+        {
+        #region Open Lunar
+
+            if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
+            {
+                switch (OpoOpo)
+                {
+                    case 0:
+                        actionID = DragonKick;
+                        return true;
+
+                    case > 0:
+                        actionID = OriginalHook(Bootshine);
+                        return true;
+                }
+            }
+
+        #endregion
+
+        #region Open Solar
+
+            if (!SolarNadi && !BothNadisOpen)
+            {
+                if (CoeurlChakra is 0)
+                {
+                    switch (Coeurl)
+                    {
+                        case 0:
+                            actionID = Demolish;
+                            return true;
+
+                        case > 0:
+                            actionID = OriginalHook(SnapPunch);
+                            return true;
+                    }
+                }
+
+                if (RaptorChakra is 0)
+                {
+                    switch (Raptor)
+                    {
+                        case 0:
+                            actionID = TwinSnakes;
+                            return true;
+
+                        case > 0:
+                            actionID = OriginalHook(TrueStrike);
+                            return true;
+                    }
+                }
+
+                if (OpoOpoChakra is 0)
+                {
+                    switch (OpoOpo)
+                    {
+                        case 0:
+                            actionID = DragonKick;
+                            return true;
+
+                        case > 0:
+                            actionID = OriginalHook(Bootshine);
+                            return true;
+                    }
+                }
+            }
+
+        #endregion
+        }
+        return false;
+    }
+
+    internal static bool DoPerfectBalanceComboAoE(ref uint actionID)
+    {
+        if (HasStatusEffect(Buffs.PerfectBalance))
+        {
+        #region Open Lunar
+
+            if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
+            {
+                if (LevelChecked(ShadowOfTheDestroyer))
+                {
+                    actionID = ShadowOfTheDestroyer;
+                    return true;
+                }
+
+                if (!LevelChecked(ShadowOfTheDestroyer))
+                {
+                    actionID = Rockbreaker;
+                    return true;
+                }
+            }
+
+        #endregion
+
+        #region Open Solar
+
+            if (!SolarNadi && !BothNadisOpen)
+            {
+                switch (GetStatusEffectStacks(Buffs.PerfectBalance))
+                {
+                    case 3:
+                        actionID = OriginalHook(ArmOfTheDestroyer);
+                        return true;
+
+                    case 2:
+                        actionID = FourPointFury;
+                        return true;
+
+                    case 1:
+                        actionID = Rockbreaker;
+                        return true;
+                }
+            }
+
+        #endregion
+        }
+        return false;
+    }
+
+    #endregion
+
     #region Openers
 
     internal static WrathOpener Opener()
     {
-        if (Config.MNK_SelectedOpener == 0)
+        if (MNK_SelectedOpener == 0)
             return MNKOpenerLL;
 
-        if (Config.MNK_SelectedOpener == 1)
+        if (MNK_SelectedOpener == 1)
             return MNKOpenerSL;
 
         return WrathOpener.Dummy;
@@ -154,32 +321,16 @@ internal partial class MNK
             LeapingOpo
         ];
 
-        internal override UserData ContentCheckConfig => Config.MNK_Balance_Content;
-        public override bool HasCooldowns()
-        {
-            if (GetRemainingCharges(PerfectBalance) < 2)
-                return false;
+        internal override UserData ContentCheckConfig => MNK_Balance_Content;
 
-            if (!IsOffCooldown(Brotherhood))
-                return false;
-
-            if (!IsOffCooldown(RiddleOfFire))
-                return false;
-
-            if (!IsOffCooldown(RiddleOfWind))
-                return false;
-
-            if (Gauge.Nadi != Nadi.NONE)
-                return false;
-
-            if (Gauge.RaptorFury != 0)
-                return false;
-
-            if (Gauge.CoeurlFury != 0)
-                return false;
-
-            return true;
-        }
+        public override bool HasCooldowns() =>
+            GetRemainingCharges(PerfectBalance) is 2 &&
+            IsOffCooldown(Brotherhood) &&
+            IsOffCooldown(RiddleOfFire) &&
+            IsOffCooldown(RiddleOfWind) &&
+            Nadi is Nadi.None &&
+            Raptor is 0 &&
+            Coeurl is 0;
     }
 
     internal class MNKOpenerLogicLL : WrathOpener
@@ -211,34 +362,46 @@ internal partial class MNK
             ElixirBurst,
             LeapingOpo
         ];
-        internal override UserData ContentCheckConfig => Config.MNK_Balance_Content;
 
-        public override bool HasCooldowns()
-        {
-            if (GetRemainingCharges(PerfectBalance) < 2)
-                return false;
+        internal override UserData ContentCheckConfig => MNK_Balance_Content;
 
-            if (!IsOffCooldown(Brotherhood))
-                return false;
-
-            if (!IsOffCooldown(RiddleOfFire))
-                return false;
-
-            if (!IsOffCooldown(RiddleOfWind))
-                return false;
-
-            if (Gauge.Nadi != Nadi.NONE)
-                return false;
-
-            if (Gauge.RaptorFury != 0)
-                return false;
-
-            if (Gauge.CoeurlFury != 0)
-                return false;
-
-            return true;
-        }
+        public override bool HasCooldowns() =>
+            GetRemainingCharges(PerfectBalance) is 2 &&
+            IsOffCooldown(Brotherhood) &&
+            IsOffCooldown(RiddleOfFire) &&
+            IsOffCooldown(RiddleOfWind) &&
+            Nadi is Nadi.None &&
+            Raptor is 0 &&
+            Coeurl is 0;
     }
+
+    #endregion
+
+    #region Gauge
+
+    internal static MNKGauge Gauge = GetJobGauge<MNKGauge>();
+
+    internal static byte Chakra => Gauge.Chakra;
+
+    internal static int OpoOpoChakra => Gauge.BeastChakra.Count(x => x == BeastChakra.OpoOpo);
+
+    internal static int OpoOpo => Gauge.OpoOpoFury;
+
+    internal static int RaptorChakra => Gauge.BeastChakra.Count(x => x == BeastChakra.Raptor);
+
+    internal static int Raptor => Gauge.RaptorFury;
+
+    internal static int CoeurlChakra => Gauge.BeastChakra.Count(x => x == BeastChakra.Coeurl);
+
+    internal static int Coeurl => Gauge.CoeurlFury;
+
+    internal static Nadi Nadi => Gauge.Nadi;
+
+    internal static bool BothNadisOpen => Nadi.ToString() == "Lunar, Solar";
+
+    internal static bool SolarNadi => Nadi is Nadi.Solar;
+
+    internal static bool LunarNadi => Nadi is Nadi.Lunar;
 
     #endregion
 

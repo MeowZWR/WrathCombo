@@ -92,8 +92,12 @@ namespace WrathCombo.Window.Tabs
                 if (inCombatOnly)
                 {
                     ImGuiExtensions.Prefix(false);
+                    changed |= ImGui.Checkbox($"连击自用技能时绕过", ref cfg.BypassBuffs);
+                    ImGuiComponents.HelpMarker($"许多职业拥有可在战斗外使用的技能（例如 {RPR.Soulsow.ActionName()} 或 {MNK.ForbiddenMeditation.ActionName()}. 此选项允许在非战斗状态下使用这些技能。");
+
+                    ImGuiExtensions.Prefix(false);
                     changed |= ImGui.Checkbox($"对任务目标绕过仅在战斗中的限制", ref cfg.BypassQuest);
-                    ImGuiComponents.HelpMarker("在战斗外禁用自动模式，除非你在任务目标的范围内。");
+                    ImGuiComponents.HelpMarker("在战斗外禁用自动模式，除非你在任务目标的范围内。're within range of a quest target.");
 
                     ImGuiExtensions.Prefix(false);
                     changed |= ImGui.Checkbox($"对FATE目标绕过仅在战斗中的限制", ref cfg.BypassFATE);
@@ -273,21 +277,21 @@ namespace WrathCombo.Window.Tabs
                     changed |= ImGui.Checkbox("需要即刻咏唱/双重咏唱", ref
                         cfg.HealerSettings.AutoRezRequireSwift);
                     ImGuiComponents.HelpMarker(
-                        $"需要{MagicRole.Swiftcast.ActionName()} " +
-                        $"（或赤魔的连续咏唱） " +
+                        $"需要 {RoleActions.Magic.Swiftcast.ActionName()} " +
+                        $"（或赤魔的连续咏唱）" +
                         $"可用来复活队员，以避免硬读条。");
 
                     ImGuiExtensions.Prefix(true);
                     P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoRezDPSJobs");
                     changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
                         $"适用于 {SMN.JobID.JobAbbreviation()} 和 {RDM.JobID.JobAbbreviation()}", ref cfg.HealerSettings.AutoRezDPSJobs, "AutoRezDPSJobs");
-                    ImGuiComponents.HelpMarker($"当作为 {SMN.JobID.JobAbbreviation()} 或 {RDM.JobID.JobAbbreviation()} 时，也会尝试复活队员。{RDM.JobID.JobAbbreviation()} 只有在 {MagicRole.Buffs.Swiftcast.StatusName()} 或 {RDM.Buffs.Dualcast.StatusName()} 激活时才会复活。");
+                    ImGuiComponents.HelpMarker($"当作为 {SMN.JobID.JobAbbreviation()} 或 {RDM.JobID.JobAbbreviation()} 时，也会尝试复活队员。{RDM.JobID.JobAbbreviation()} 只有在 {RoleActions.Magic.Buffs.Swiftcast.StatusName()} 或 {RDM.Buffs.Dualcast.StatusName()} 激活时才会复活。");
                 }
 
                 P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoCleanse");
                 changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                    $"自动使用-{Healer.Esuna.ActionName()}", ref cfg.HealerSettings.AutoCleanse, "AutoCleanse");
-                ImGuiComponents.HelpMarker($"将使用 {Healer.Esuna.ActionName()} 清除任何可清除的减益效果（治疗优先）。");
+                    $"自动使用-{RoleActions.Healer.Esuna.ActionName()}", ref cfg.HealerSettings.AutoCleanse, "AutoCleanse");
+                ImGuiComponents.HelpMarker($"将使用 {RoleActions.Healer.Esuna.ActionName()} 清除任何可清除的减益效果（治疗优先）。");
 
                 P.UIHelper.ShowIPCControlledIndicatorIfNeeded("ManageKardia");
                 changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(

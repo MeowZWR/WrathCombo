@@ -1,11 +1,17 @@
-﻿using WrathCombo.CustomComboNS;
+﻿using ECommons.GameHelpers;
+using WrathCombo.CustomComboNS;
+using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Window.Functions;
 
 namespace WrathCombo.Combos.PvP
 {
     internal static class NINPvP
     {
+        #region IDS
         public const byte ClassID = 29;
         public const byte JobID = 30;
+
+        internal class Role : PvPMelee;
 
         internal const uint
             SpinningEdge = 29500,
@@ -51,15 +57,72 @@ namespace WrathCombo.Combos.PvP
                 Dokumori = 4303;
         }
 
-        internal class Config
-        {
-            internal const string
-                NINPvP_Meisui_ST = "NINPvP_Meisui_ST",
-                NINPvP_Meisui_AoE = "NINPvP_Meisui_AoE",
-                NINPVP_SeitonTenchu = "NINPVP_SeitonTenchu",
-                NINPVP_SeitonTenchuAoE = "NINPVP_SeitonTenchuAoE";
-        }
+        #endregion
 
+        #region Config
+        public static class Config
+        {
+            public static UserInt
+                NINPvP_Meisui_ST = new("NINPvP_Meisui_ST"),
+                NINPvP_Meisui_AoE = new("NINPvP_Meisui_AoE"),
+                NINPVP_SeitonTenchu = new("NINPVP_SeitonTenchu"),
+                NINPVP_SeitonTenchuAoE = new("NINPVP_SeitonTenchuAoE"),
+                NINPvP_SmiteThreshold = new("NINPvP_SmiteThreshold");
+
+            internal static void Draw(CustomComboPreset preset)
+            {
+                switch (preset)
+                {
+                    case CustomComboPreset.NINPvP_ST_SeitonTenchu:
+                        UserConfig.DrawSliderInt(1, 50, NINPVP_SeitonTenchu, "Target's HP% to be at or under", 200);
+                        break;
+                    case CustomComboPreset.NINPvP_AoE_SeitonTenchu:
+                        UserConfig.DrawSliderInt(1, 50, NINPVP_SeitonTenchuAoE, "Target's HP% to be at or under", 200);
+                        break;
+                    case CustomComboPreset.NINPvP_Smite:
+                        UserConfig.DrawSliderInt(0, 100, NINPvP_SmiteThreshold,
+                            "Target HP% to smite, Max damage below 25%");
+                        break;
+
+                    case CustomComboPreset.NINPvP_ST_Meisui:
+                        string descriptionST = "Set the HP percentage to be at or under for the feature to kick in.\n100% is considered to start at 8,000 less than your max HP to prevent wastage.";
+
+                        if (Player.Object != null)
+                        {
+                            uint maxHP = Player.Object.MaxHp <= 8000 ? 0 : Player.Object.MaxHp - 8000;
+                            if (maxHP > 0)
+                            {
+                                float hpThreshold = (float)maxHP / 100 * NINPvP_Meisui_ST;
+
+                                descriptionST += $"\nHP Value to be at or under: {hpThreshold}";
+                            }
+                        }
+
+                        UserConfig.DrawSliderInt(1, 100, NINPvP_Meisui_ST, descriptionST);
+                        break;
+
+
+                    case CustomComboPreset.NINPvP_AoE_Meisui:
+                        string descriptionAoE = "Set the HP percentage to be at or under for the feature to kick in.\n100% is considered to start at 8,000 less than your max HP to prevent wastage.";
+
+                        if (Player.Object != null)
+                        {
+                            uint maxHP = Player.Object.MaxHp <= 8000 ? 0 : Player.Object.MaxHp - 8000;
+                            if (maxHP > 0)
+                            {
+                                float hpThreshold = (float)maxHP / 100 * NINPvP_Meisui_AoE;
+
+                                descriptionAoE += $"\nHP Value to be at or under: {hpThreshold}";
+                            }
+                        }
+
+                        UserConfig.DrawSliderInt(1, 100, NINPvP_Meisui_AoE, descriptionAoE);
+                        break;
+                }
+            }
+        }
+        #endregion
+       
         internal class NINPvP_ST_BurstMode : CustomCombo
         {
             protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.NINPvP_ST_BurstMode;
@@ -71,15 +134,15 @@ namespace WrathCombo.Combos.PvP
                     // Cached variables for repeated conditions
                     var threeMudrasCD = GetCooldown(ThreeMudra);
                     var fumaCD = GetCooldown(FumaShuriken);
-                    var bunshinStacks = HasEffect(Buffs.Bunshin) ? GetBuffStacks(Buffs.Bunshin) : 0;
+                    var bunshinStacks = HasStatusEffect(Buffs.Bunshin) ? GetStatusEffectStacks(Buffs.Bunshin) : 0;
                     bool canWeave = CanWeave();
-                    bool mudraMode = HasEffect(Buffs.ThreeMudra);
+                    bool mudraMode = HasStatusEffect(Buffs.ThreeMudra);
                     bool inMeleeRange = InMeleeRange();
-                    bool isHidden = HasEffect(Buffs.Hidden);
+                    bool isHidden = HasStatusEffect(Buffs.Hidden);
                     var jobMaxHp = LocalPlayer.MaxHp;
                     var maxHPThreshold = jobMaxHp - 8000;
                     float remainingPercentage = (float)LocalPlayer.CurrentHp / maxHPThreshold;
-                    bool inMeisuiRange = GetOptionValue(Config.NINPvP_Meisui_ST) >= (remainingPercentage * 100);
+                    bool inMeisuiRange = (Config.NINPvP_Meisui_ST) >= (remainingPercentage * 100);
 
                     // Hidden state actions
                     if (isHidden)
@@ -89,12 +152,17 @@ namespace WrathCombo.Combos.PvP
                     {
 
                         // Seiton Tenchu priority for targets below 50% HP
-                        if (IsEnabled(CustomComboPreset.NINPvP_ST_SeitonTenchu) && GetTargetHPPercent() < GetOptionValue(Config.NINPVP_SeitonTenchu) &&
-                            (IsLB1Ready || HasEffect(Buffs.SeitonUnsealed)))  // Limit Break or Unsealed buff
+                        if (IsEnabled(CustomComboPreset.NINPvP_ST_SeitonTenchu) && GetTargetHPPercent() < (Config.NINPVP_SeitonTenchu) &&
+                            (IsLB1Ready || HasStatusEffect(Buffs.SeitonUnsealed)))  // Limit Break or Unsealed buff
                             return OriginalHook(SeitonTenchu);
 
+                        //Smite
+                        if (IsEnabled(CustomComboPreset.NINPvP_Smite) && PvPMelee.CanSmite() && GetTargetDistance() <= 10 && HasTarget() &&
+                            GetTargetHPPercent() <= (Config.NINPvP_SmiteThreshold))
+                            return PvPMelee.Smite;
+
                         // Zesho Meppo
-                        if (HasEffect(Buffs.ZeshoMeppoReady) && InMeleeRange())
+                        if (HasStatusEffect(Buffs.ZeshoMeppoReady) && InMeleeRange())
                             return ZeshoMeppo;
 
                         if (canWeave)
@@ -110,7 +178,7 @@ namespace WrathCombo.Combos.PvP
                             // Three Mudra
                             if (IsEnabled(CustomComboPreset.NINPvP_ST_ThreeMudra) && threeMudrasCD.RemainingCharges > 0 && !mudraMode)
                             {
-                                if (!IsEnabled(CustomComboPreset.NINPvP_ST_ThreeMudraPool) || HasEffect(Buffs.Bunshin))
+                                if (!IsEnabled(CustomComboPreset.NINPvP_ST_ThreeMudraPool) || HasStatusEffect(Buffs.Bunshin))
                                     return OriginalHook(ThreeMudra);
                             }  
 
@@ -119,18 +187,18 @@ namespace WrathCombo.Combos.PvP
                         // Mudra mode actions
                         if (mudraMode)
                         {
-                            if (IsEnabled(CustomComboPreset.NINPvP_ST_Meisui) && inMeisuiRange && !HasEffect(Debuffs.SealedMeisui))
+                            if (IsEnabled(CustomComboPreset.NINPvP_ST_Meisui) && inMeisuiRange && !HasStatusEffect(Debuffs.SealedMeisui))
                                 return OriginalHook(Meisui);
 
                             if (IsEnabled(CustomComboPreset.NINPvP_ST_MudraMode))
                             {
-                                if (!HasEffect(Debuffs.SealedHyoshoRanryu))
+                                if (!HasStatusEffect(Debuffs.SealedHyoshoRanryu))
                                     return OriginalHook(HyoshoRanryu);
 
-                                if (!HasEffect(Debuffs.SeakedForkedRaiju) && bunshinStacks > 0)
+                                if (!HasStatusEffect(Debuffs.SeakedForkedRaiju) && bunshinStacks > 0)
                                     return OriginalHook(ForkedRaiju);
 
-                                if (!HasEffect(Debuffs.SealedHuton))
+                                if (!HasStatusEffect(Debuffs.SealedHuton))
                                     return OriginalHook(Huton);
                             }
                             else return actionID;
@@ -138,7 +206,7 @@ namespace WrathCombo.Combos.PvP
 
 
                         // Fuma Shuriken
-                        if (IsEnabled(CustomComboPreset.NINPvP_ST_FumaShuriken) && fumaCD.RemainingCharges > 0 && !HasEffect(Buffs.FleetingRaijuReady))
+                        if (IsEnabled(CustomComboPreset.NINPvP_ST_FumaShuriken) && fumaCD.RemainingCharges > 0 && !HasStatusEffect(Buffs.FleetingRaijuReady))
                             return OriginalHook(FumaShuriken);
                     }
 
@@ -159,24 +227,24 @@ namespace WrathCombo.Combos.PvP
                 {
                     var threeMudrasCD = GetCooldown(ThreeMudra);
                     var fumaCD = GetCooldown(FumaShuriken);
-                    bool meisuiLocked = HasEffect(Debuffs.SealedMeisui);
-                    bool dotonLocked = HasEffect(Debuffs.SealedDoton);
-                    bool gokaLocked = HasEffect(Debuffs.SealedGokaMekkyaku);
-                    bool mudraMode = HasEffect(Buffs.ThreeMudra);
+                    bool meisuiLocked = HasStatusEffect(Debuffs.SealedMeisui);
+                    bool dotonLocked = HasStatusEffect(Debuffs.SealedDoton);
+                    bool gokaLocked = HasStatusEffect(Debuffs.SealedGokaMekkyaku);
+                    bool mudraMode = HasStatusEffect(Buffs.ThreeMudra);
                     bool canWeave = CanWeave();
                     var jobMaxHp = LocalPlayer.MaxHp;
-                    var threshold = GetOptionValue(Config.NINPvP_Meisui_AoE);
+                    var threshold = Config.NINPvP_Meisui_AoE;
                     var maxHPThreshold = jobMaxHp - 8000;
                     var remainingPercentage = (float)LocalPlayer.CurrentHp / (float)maxHPThreshold;
                     bool inMeisuiRange = threshold >= (remainingPercentage * 100);
 
-                    if (HasEffect(Buffs.Hidden))
+                    if (HasStatusEffect(Buffs.Hidden))
                         return OriginalHook(Assassinate);
 
                     if (!PvPCommon.TargetImmuneToDamage())
                     {
                         // Seiton Tenchu priority for targets below 50% HP
-                        if (IsEnabled(CustomComboPreset.NINPvP_AoE_SeitonTenchu) && GetTargetHPPercent() < GetOptionValue(Config.NINPVP_SeitonTenchu) && IsLB1Ready)
+                        if (IsEnabled(CustomComboPreset.NINPvP_AoE_SeitonTenchu) && GetTargetHPPercent() < (Config.NINPVP_SeitonTenchu) && IsLB1Ready)
                             return OriginalHook(SeitonTenchu);
 
                         if (canWeave)
@@ -190,7 +258,7 @@ namespace WrathCombo.Combos.PvP
                             // Three Mudra
                             if (IsEnabled(CustomComboPreset.NINPvP_AoE_ThreeMudra) && threeMudrasCD.RemainingCharges > 0 && !mudraMode)
                             {
-                                if (!IsEnabled(CustomComboPreset.NINPvP_AoE_ThreeMudraPool) || HasEffect(Buffs.Bunshin))
+                                if (!IsEnabled(CustomComboPreset.NINPvP_AoE_ThreeMudraPool) || HasStatusEffect(Buffs.Bunshin))
                                     return OriginalHook(ThreeMudra);
                             }
                         }

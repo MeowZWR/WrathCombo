@@ -1,5 +1,4 @@
 using ImGuiNET;
-using WrathCombo.Combos.PvP;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Window.Functions;
@@ -74,17 +73,6 @@ internal partial class PCT
                         $"Add {StarPrism.ActionName()} when under the effect of {Buffs.Starstruck.StatusName()}.");
                     break;
 
-                case CustomComboPreset.PCT_ST_AdvancedMode_MovementOption_HolyInWhite:
-                    UserConfig.DrawAdditionalBoolChoice(WhiteHyperphantasiaOption, "Hyperphantasia Priority Option",
-                        $"Prioritizes {HolyInWhite.ActionName()} if {Buffs.Inspiration.StatusName()} and {Buffs.Hyperphantasia.StatusName()} are active.");
-                    break;
-
-                case CustomComboPreset.PCT_ST_AdvancedMode_MovementOption_CometinBlack:
-                    UserConfig.DrawAdditionalBoolChoice(BlackHyperphantasiaOption, "Hyperphantasia Priority Option",
-                        $"Prioritizes {CometinBlack.ActionName()} if {Buffs.Inspiration.StatusName()} and {Buffs.Hyperphantasia.StatusName()} are active.");
-                    break;
-
-
                 case CustomComboPreset.PCT_ST_AdvancedMode_LucidDreaming:
                     UserConfig.DrawSliderInt(0, 10000, PCT_ST_AdvancedMode_LucidOption,
                         "Add Lucid Dreaming when below this MP", sliderIncrement: SliderIncrements.Hundreds);
@@ -137,17 +125,7 @@ internal partial class PCT
                     UserConfig.DrawSliderInt(1, 100, PCT_VariantCure, "HP% to be at or under", 200);
 
                     break;
-
-                // PvP
-                case CustomComboPreset.PCTPvP_BurstControl:
-                    UserConfig.DrawSliderInt(1, 100, PCTPvP.Config.PCTPvP_BurstHP, "Target HP%", 200);
-
-                    break;
-
-                case CustomComboPreset.PCTPvP_TemperaCoat:
-                    UserConfig.DrawSliderInt(1, 100, PCTPvP.Config.PCTPvP_TemperaHP, "Player HP%", 200);
-
-                    break;
+                
             }
         }
     }

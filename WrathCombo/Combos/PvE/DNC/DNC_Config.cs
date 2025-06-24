@@ -5,9 +5,9 @@ using ECommons.ImGuiMethods;
 using ImGuiNET;
 using System.Linq;
 using System.Numerics;
-using WrathCombo.Combos.PvP;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
+using WrathCombo.Extensions;
 using WrathCombo.Services;
 using WrathCombo.Window.Functions;
 
@@ -101,6 +101,12 @@ internal partial class DNC
             ImGui.SetCursorPos(pos);
 
             #endregion
+        }
+
+        private static void DrawPartnerInfo()
+        {
+            ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
+                "This will check through your party members, and select the most desirable Partner, based on The Balance's priority list as well as stuff like Rez Sickness and Damage Downs.");
         }
 
         internal static void Draw(CustomComboPreset preset)
@@ -199,8 +205,36 @@ internal partial class DNC
                         (int)Openers.SevenSecondTech, descriptionAsTooltip: true);
 
                     ImGui.Indent();
-                    UserConfig.DrawBossOnlyChoice(DNC_ST_OpenerDifficulty);
+                    ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
+                    ImGui.TextWrapped(
+                        "Opener options:");
+                    ImGui.PopStyleColor();
+
+                    UserConfig.DrawAdditionalBoolChoice(DNC_ST_OpenerOption_Peloton,
+                        $"Include {Peloton.ActionName()}", "");
+
+                    UserConfig.DrawBossOnlyChoice(DNC_ST_OpenerDifficulty, "Select what kind of content to use this opener in:");
                     ImGui.Unindent();
+
+                    break;
+
+                case CustomComboPreset.DNC_ST_Adv_PartnerAuto:
+                    UserConfig.DrawAdditionalBoolChoice(DNC_Partner_FocusOverride,
+                        "Prioritize your Focus Target##DPFocusOver0",
+                        "If you have a focus target that is within range, it will be prioritized over The Balance's suggested Dance Partner.",
+                        indentDescription: true);
+
+                    break;
+
+                case CustomComboPreset.DNC_ST_Adv_AutoPartner:
+                    ImGui.Indent(29f.Scale());
+                    DrawPartnerInfo();
+                    ImGui.Unindent(29f.Scale());
+
+                    UserConfig.DrawAdditionalBoolChoice(DNC_Partner_FocusOverride,
+                        "Prioritize your Focus Target##DPFocusOver1",
+                        "If you have a focus target that is within range, alive, and has no rez sickness or damage down, it will be prioritized over The Balance's suggested Dance Partner.",
+                        indentDescription: true);
 
                     break;
 
@@ -389,6 +423,45 @@ internal partial class DNC
 
                 #endregion
 
+                case CustomComboPreset.DNC_DesirablePartner:
+                    ImGui.Indent(35f.Scale());
+                    DrawPartnerInfo();
+                    ImGui.Unindent(35f.Scale());
+                    ImGuiEx.Spacing(new Vector2(0, 12));
+
+                    UserConfig.DrawAdditionalBoolChoice(DNC_Partner_FocusOverride,
+                        "Prioritize your Focus Target##DPFocusOver2",
+                        "If you have a focus target that is within range, alive, and has no rez sickness or damage down, it will be prioritized over The Balance's suggested Dance Partner.",
+                        indentDescription: true);
+
+                    ImGuiEx.Spacing(new Vector2(29, 12));
+                    ImGui.Text("Action to Show when Partner is Optimal Options:     (hover each for more info)");
+                    ImGui.NewLine();
+                    UserConfig.DrawRadioButton(
+                        DNC_Partner_ActionToShow, "Let Game Decide",
+                        "Will not change the action shown in the hotbar from what FFXIV puts there.\n" +
+                        "When you have a Dance Partner, it will show Ending, as usual.\n\n" +
+                        "This is the default behavior.",
+                        outputValue: (int)PartnerShowAction.Default,
+                        descriptionAsTooltip: true);
+                    UserConfig.DrawRadioButton(
+                        DNC_Partner_ActionToShow, "Closed Position",
+                        "When your current partner is optimal Closed Position will be shown.\n" +
+                        "This will block you from using Closed Position or Ending\n(unless you hard target a friendly other than your partner).\n\n" +
+                        "This is less distracting than the Savage Blade option.",
+                        outputValue: (int)PartnerShowAction.ClosedPosition,
+                        descriptionAsTooltip: true);
+                    UserConfig.DrawRadioButton(
+                        DNC_Partner_ActionToShow, "Savage Blade",
+                        "When your current partner is optimal Savage Blade will be shown.\n" +
+                        "Savage Blade is a removed action that we use to block input.\n" +
+                        "This will block you from using Closed Position or Ending.\n\n" +
+                        "This is the recommended option, to keep you from mistakenly switching partners.",
+                        outputValue: (int)PartnerShowAction.SavageBlade,
+                        descriptionAsTooltip: true);
+
+                    break;
+
                 case CustomComboPreset.DNC_Variant_Cure:
                     UserConfig.DrawSliderInt(1, 80, DNCVariantCurePercent,
                         "HP% to be at or under",
@@ -396,23 +469,6 @@ internal partial class DNC
 
                     break;
 
-                #region PVP
-
-                case CustomComboPreset.DNCPvP_BurstMode_CuringWaltz:
-                    UserConfig.DrawSliderInt(0, 90,
-                        DNCPvP.Config.DNCPvP_WaltzThreshold,
-                        "Curing Waltz HP% - caps at 90 to prevent waste.");
-
-                    break;
-
-                case CustomComboPreset.DNCPvP_BurstMode_Dash:
-                    UserConfig.DrawSliderInt(0, 3,
-                        DNCPvP.Config.DNCPvP_EnAvantCharges,
-                        "How many to save for manual");
-
-                    break;
-
-                    #endregion
             }
         }
 
@@ -475,6 +531,17 @@ internal partial class DNC
         /// <seealso cref="CustomComboPreset.DNC_ST_BalanceOpener" />
         public static readonly UserInt DNC_ST_OpenerSelection =
             new("DNC_ST_OpenerSelection", (int) Openers.FifteenSecond);
+
+        /// <summary>
+        ///     Whether to include Peloton in the opener.
+        /// </summary>
+        /// <value>
+        ///     <b>Default</b>: <see langword="true"/><br />
+        ///     <b>Options</b>: <see langword="true"/> or <see langword="false"/>
+        /// </value>
+        /// <seealso cref="CustomComboPreset.DNC_ST_BalanceOpener" />
+        public static readonly UserBool DNC_ST_OpenerOption_Peloton =
+            new("DNC_ST_OpenerOption_Peloton", true);
 
         /// <summary>
         ///     Esprit threshold for Single Target.
@@ -701,6 +768,39 @@ internal partial class DNC
         /// <seealso cref="CustomComboPreset.DNC_AoE_Adv_PanicHeals" />
         public static readonly UserInt DNC_AoE_Adv_PanicHealWindPercent =
             new("DNC_AoE_Adv_PanicHealWindPercent", 20);
+
+        #endregion
+
+        #region Smaller Features
+
+        /// <summary>
+        ///     Whether the Focus Target should override the desired partner, while
+        ///     still valid.
+        /// </summary>
+        /// <value>
+        ///     <b>Default</b>: false
+        /// </value>
+        /// <seealso cref="CustomComboPreset.DNC_DesirablePartner" />
+        public static readonly UserBool DNC_Partner_FocusOverride =
+            new("DNC_Partner_FocusOverride", false);
+
+        public enum PartnerShowAction
+        {
+            Default,
+            ClosedPosition,
+            SavageBlade,
+        }
+
+        /// <summary>
+        ///     What action should be shown on the hotbar when the current dance
+        ///     partner is considered optimal.
+        /// </summary>
+        /// <value>
+        ///     Default: 0 <br />
+        ///     Options: <see cref="PartnerShowAction" /> Enum
+        /// </value>
+        public static readonly UserInt DNC_Partner_ActionToShow =
+            new("DNC_Partner_ActionToShow", (int)PartnerShowAction.Default);
 
         #endregion
 

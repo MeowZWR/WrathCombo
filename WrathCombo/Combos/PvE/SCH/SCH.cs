@@ -1,11 +1,12 @@
-using Dalamud.Game.ClientState.Objects.Types;
 using System.Linq;
+using WrathCombo.Combos.PvE.Content;
+using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
 namespace WrathCombo.Combos.PvE;
 
-internal partial class SCH : HealerJob
+internal partial class SCH : Healer
 {
     /*
      * SCH_Consolation
@@ -42,7 +43,7 @@ internal partial class SCH : HealerJob
         protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_Recitation;
         protected override uint Invoke(uint actionID)
         {
-            if (actionID is not Recitation || !HasEffect(Buffs.Recitation))
+            if (actionID is not Recitation || !HasStatusEffect(Buffs.Recitation))
                 return actionID;
 
             switch ((int)Config.SCH_Recitation_Mode)
@@ -75,7 +76,7 @@ internal partial class SCH : HealerJob
 
             if (IsEnabled(CustomComboPreset.SCH_Aetherflow_Recite) &&
                 LevelChecked(Recitation) &&
-                (IsOffCooldown(Recitation) || HasEffect(Buffs.Recitation)))
+                (IsOffCooldown(Recitation) || HasStatusEffect(Buffs.Recitation)))
             {
                 //Recitation Indominability and Excogitation, with optional check against AF zero stack count
                 bool alwaysShowReciteExcog = Config.SCH_Aetherflow_Recite_ExcogMode == 1;
@@ -85,7 +86,7 @@ internal partial class SCH : HealerJob
                      !alwaysShowReciteExcog && !hasAetherFlows) && actionID is Excogitation)
                 {
                     //Do not merge this nested if with above. Won't procede with next set
-                    return HasEffect(Buffs.Recitation) && IsOffCooldown(Excogitation)
+                    return HasStatusEffect(Buffs.Recitation) && IsOffCooldown(Excogitation)
                         ? Excogitation
                         : Recitation;
                 }
@@ -97,7 +98,7 @@ internal partial class SCH : HealerJob
                      !alwaysShowReciteIndom && !hasAetherFlows) && actionID is Indomitability)
                 {
                     //Same as above, do not nest with above. It won't procede with the next set
-                    return HasEffect(Buffs.Recitation) && IsOffCooldown(Excogitation)
+                    return HasStatusEffect(Buffs.Recitation) && IsOffCooldown(Excogitation)
                         ? Indomitability
                         : Recitation;
                 }
@@ -129,8 +130,11 @@ internal partial class SCH : HealerJob
     {
         protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SCH_Raise;
         protected override uint Invoke(uint actionID) =>
-            actionID is Role.Swiftcast && IsOnCooldown(Role.Swiftcast)
-                ? Resurrection
+            actionID == Role.Swiftcast && IsOnCooldown(Role.Swiftcast)
+                ? IsEnabled(CustomComboPreset.SCH_Raise_Retarget)
+                    ? Resurrection.Retarget(Role.Swiftcast,
+                        SimpleTarget.Stack.AllyToRaise)
+                    : Resurrection
                 : actionID;
     }
 
@@ -156,11 +160,11 @@ internal partial class SCH : HealerJob
             if (actionID is not DeploymentTactics || !ActionReady(DeploymentTactics))
                 return actionID;
 
-            //Grab our target (Soft->Hard->Self)
-            IGameObject? healTarget = GetHealTarget(Config.SCH_DeploymentTactics_Adv && Config.SCH_DeploymentTactics_UIMouseOver);
+            //Grab our target
+            var healTarget = OptionalTarget ?? SimpleTarget.Stack.AllyToHeal;
 
             //Check for the Galvanize shield buff. Start applying if it doesn't exist
-            if (FindEffect(Buffs.Galvanize, healTarget, LocalPlayer.GameObjectId) is null)
+            if (!HasStatusEffect(Buffs.Galvanize, healTarget)) 
             {
                 if (IsEnabled(CustomComboPreset.SCH_DeploymentTactics_Recitation) && ActionReady(Recitation))
                     return Recitation;
@@ -208,10 +212,13 @@ internal partial class SCH : HealerJob
             if (Variant.CanRampart(CustomComboPreset.SCH_DPS_Variant_Rampart))
                 return Variant.Rampart;
 
+            if (OccultCrescent.ShouldUsePhantomActions())
+                return OccultCrescent.BestPhantomAction();
+
             //Opener
-            if (IsEnabled(CustomComboPreset.SCH_DPS_Balance_Opener))
-                if (Opener().FullOpener(ref actionID))
-                    return actionID;
+            if (IsEnabled(CustomComboPreset.SCH_DPS_Balance_Opener) &&
+                Opener().FullOpener(ref actionID))
+                return actionID;
 
             // Aetherflow
             if (IsEnabled(CustomComboPreset.SCH_DPS_Aetherflow) &&
@@ -246,15 +253,15 @@ internal partial class SCH : HealerJob
                      Config.SCH_ST_DPS_ChainStratagemSubOption == 1 && InBossEncounter()))
                 {
                     // If CS is available and usable, or if the Impact Buff is on Player
-                    if (ActionReady(ChainStratagem) &&
-                        !TargetHasEffectAny(Debuffs.ChainStratagem) &&
+                    if (ActionReady(ChainStratagem) && CanApplyStatus(CurrentTarget, Debuffs.ChainStratagem) &&
+                        !HasStatusEffect(Debuffs.ChainStratagem, CurrentTarget, true) &&
                         GetTargetHPPercent() > Config.SCH_ST_DPS_ChainStratagemOption &&
                         InCombat() &&
                         CanSpellWeave())
                         return ChainStratagem;
 
                     if (LevelChecked(BanefulImpaction) &&
-                        HasEffect(Buffs.ImpactImminent) &&
+                        HasStatusEffect(Buffs.ImpactImminent) &&
                         InCombat() &&
                         CanSpellWeave())
                         return BanefulImpaction;
@@ -268,9 +275,9 @@ internal partial class SCH : HealerJob
                     if (Variant.CanSpiritDart(CustomComboPreset.SCH_DPS_Variant_SpiritDart))
                         return Variant.SpiritDart;
 
-                    float refreshTimer = Config.SCH_ST_DPS_Bio_Adv ? Config.SCH_DPS_BioUptime_Threshold : 3;
+                    float refreshTimer = Config.SCH_DPS_BioUptime_Threshold;
                     int hpThreshold = Config.SCH_DPS_BioSubOption == 1 || !InBossEncounter() ? Config.SCH_DPS_BioOption : 0;
-                    if (GetDebuffRemainingTime(dotDebuffID) <= refreshTimer &&
+                    if (GetStatusEffectRemainingTime(dotDebuffID, CurrentTarget) <= refreshTimer && CanApplyStatus(CurrentTarget, dotDebuffID) &&
                         GetTargetHPPercent() > hpThreshold)
                         return OriginalHook(Bio);
                 }
@@ -306,6 +313,9 @@ internal partial class SCH : HealerJob
 
             if (Variant.CanSpiritDart(CustomComboPreset.SCH_DPS_Variant_SpiritDart))
                 return Variant.SpiritDart;
+
+            if (OccultCrescent.ShouldUsePhantomActions())
+                return OccultCrescent.BestPhantomAction();
 
             // Aetherflow
             if (IsEnabled(CustomComboPreset.SCH_AoE_Aetherflow) &&
@@ -358,9 +368,16 @@ internal partial class SCH : HealerJob
             {
                 int index = Config.SCH_AoE_Heals_Priority.IndexOf(i + 1);
                 int config = GetMatchingConfigAoE(index, out uint spell, out bool enabled);
+                bool onIdom = IsEnabled(CustomComboPreset.SCH_AoE_Heal_Recitation) && 
+                              Config.SCH_AoE_Heal_Recitation_Actions[0] && spell is Indomitability;
+                bool onSuccor = IsEnabled(CustomComboPreset.SCH_AoE_Heal_Recitation) && 
+                                Config.SCH_AoE_Heal_Recitation_Actions[1] && spell is Succor or Concitation;
 
                 if (enabled && averagePartyHP <= config && ActionReady(spell))
-                    return spell;
+                     return ActionReady(Recitation) && (onIdom || onSuccor) ? 
+                        Recitation :
+                        spell;
+
             }
 
             return actionID;
@@ -437,13 +454,14 @@ internal partial class SCH : HealerJob
                 && GetTargetHPPercent(AetherPactTarget) >= Config.SCH_ST_Heal_AetherpactDissolveOption)
                 return DissolveUnion;
 
-            //Grab our target (Soft->Hard->Self)
-            IGameObject? healTarget = OptionalTarget ?? GetHealTarget(Config.SCH_ST_Heal_Adv && Config.SCH_ST_Heal_UIMouseOver);
+            //Grab our target
+            var healTarget = OptionalTarget ?? SimpleTarget.Stack.AllyToHeal;
 
             if (IsEnabled(CustomComboPreset.SCH_ST_Heal_Esuna) && ActionReady(Role.Esuna) &&
                 GetTargetHPPercent(healTarget, Config.SCH_ST_Heal_IncludeShields) >= Config.SCH_ST_Heal_EsunaOption &&
                 HasCleansableDebuff(healTarget))
-                return Role.Esuna;
+                return Role.Esuna
+                    .RetargetIfEnabled(OptionalTarget, Physick);
 
             for(int i = 0; i < Config.SCH_ST_Heals_Priority.Count; i++)
             {
@@ -454,7 +472,8 @@ internal partial class SCH : HealerJob
                 {
                     if (GetTargetHPPercent(healTarget, Config.SCH_ST_Heal_IncludeShields) <= config &&
                         ActionReady(spell))
-                        return spell;
+                        return spell
+                            .RetargetIfEnabled(OptionalTarget, Physick);
                 }
             }
 
@@ -466,14 +485,16 @@ internal partial class SCH : HealerJob
                 if (Config.SCH_ST_Heal_AldoquimOpts[2] && ActionReady(EmergencyTactics))
                     return EmergencyTactics;
 
-                if ((Config.SCH_ST_Heal_AldoquimOpts[0] || FindEffectOnMember(Buffs.Galvanize, healTarget) is null) && //Ignore existing shield check
+                if ((Config.SCH_ST_Heal_AldoquimOpts[0] || !HasStatusEffect(Buffs.Galvanize, healTarget, true)) && //Ignore existing shield check
                     (!Config.SCH_ST_Heal_AldoquimOpts[1] ||
-                     FindEffectOnMember(SGE.Buffs.EukrasianDiagnosis, healTarget) is null && FindEffectOnMember(SGE.Buffs.EukrasianPrognosis, healTarget) is null
+                     !HasStatusEffect(SGE.Buffs.EukrasianDiagnosis, healTarget, true) && !HasStatusEffect(SGE.Buffs.EukrasianPrognosis, healTarget, true)
                     )) //Eukrasia Shield Check
-                    return OriginalHook(Adloquium);
+                    return OriginalHook(Adloquium)
+                        .RetargetIfEnabled(OptionalTarget, Physick);
             }
 
-            return actionID;
+            return actionID
+                .RetargetIfEnabled(OptionalTarget, Physick);
         }
     }
 }

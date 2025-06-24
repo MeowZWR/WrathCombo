@@ -65,7 +65,7 @@ internal partial class SCH
                 return Config.SCH_ST_Heal_LustrateOption;
             case 1:
                 action = Excogitation;
-                enabled = IsEnabled(CustomComboPreset.SCH_ST_Heal_Excogitation) && (HasAetherflow() || HasEffect(Buffs.Recitation));
+                enabled = IsEnabled(CustomComboPreset.SCH_ST_Heal_Excogitation) && (HasAetherflow() || HasStatusEffect(Buffs.Recitation));
                 return Config.SCH_ST_Heal_ExcogitationOption;
             case 2:
                 action = Protraction;
@@ -185,6 +185,7 @@ internal partial class SCH
         Physick = 190,
         Adloquium = 185,
         Succor = 186,
+        Concitation = 37013,
         Lustrate = 189,
         SacredSoil = 188,
         Indomitability = 3583,

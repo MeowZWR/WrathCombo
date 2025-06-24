@@ -1,77 +1,24 @@
-using Dalamud.Game.ClientState.JobGauge.Enums;
 using WrathCombo.CustomComboNS;
-using WrathCombo.Extensions;
+using static WrathCombo.Combos.PvE.SAM.Config;
+using static WrathCombo.Data.ActionWatching;
 namespace WrathCombo.Combos.PvE;
 
-internal partial class SAM : MeleeJob
+internal partial class SAM : Melee
 {
-    internal class SAM_ST_YukikazeCombo : CustomCombo
-    {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_ST_YukikazeCombo;
-
-        protected override uint Invoke(uint actionID)
-        {
-            if (actionID is not Yukikaze)
-                return actionID;
-
-            if (Config.SAM_Yukaze_KenkiOvercap && CanWeave() &&
-                Gauge.Kenki >= Config.SAM_Yukaze_KenkiOvercapAmount && LevelChecked(Shinten))
-                return OriginalHook(Shinten);
-
-            if (HasEffect(Buffs.MeikyoShisui) && LevelChecked(Yukikaze))
-                return OriginalHook(Yukikaze);
-
-            if (ComboTimer > 0)
-                if (ComboAction == OriginalHook(Hakaze) && LevelChecked(Yukikaze))
-                    return OriginalHook(Yukikaze);
-
-            return OriginalHook(Hakaze);
-        }
-    }
-
-    internal class SAM_ST_KashaCombo : CustomCombo
-    {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_ST_KashaCombo;
-
-        protected override uint Invoke(uint actionID)
-        {
-            if (actionID is not Kasha)
-                return actionID;
-
-            if (Config.SAM_Kasha_KenkiOvercap && CanWeave() &&
-                Gauge.Kenki >= Config.SAM_Kasha_KenkiOvercapAmount && LevelChecked(Shinten))
-                return OriginalHook(Shinten);
-
-            if (HasEffect(Buffs.MeikyoShisui) && LevelChecked(Kasha))
-                return OriginalHook(Kasha);
-
-            if (ComboTimer > 0)
-            {
-                if (ComboAction == OriginalHook(Hakaze) && LevelChecked(Shifu))
-                    return OriginalHook(Shifu);
-
-                if (ComboAction is Shifu && LevelChecked(Kasha))
-                    return OriginalHook(Kasha);
-            }
-
-            return OriginalHook(Hakaze);
-        }
-    }
-
     internal class SAM_ST_GeckoCombo : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_ST_GekkoCombo;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_ST_GekkoCombo;
 
         protected override uint Invoke(uint actionID)
         {
             if (actionID is not Gekko)
                 return actionID;
 
-            if (Config.SAM_Gekko_KenkiOvercap && CanWeave() &&
-                Gauge.Kenki >= Config.SAM_Gekko_KenkiOvercapAmount && LevelChecked(Shinten))
+            if (SAM_Gekko_KenkiOvercap && CanWeave() &&
+                Kenki >= SAM_Gekko_KenkiOvercapAmount && LevelChecked(Shinten))
                 return OriginalHook(Shinten);
 
-            if (HasEffect(Buffs.MeikyoShisui) && LevelChecked(Gekko))
+            if (HasStatusEffect(Buffs.MeikyoShisui) && LevelChecked(Gekko))
                 return OriginalHook(Gekko);
 
             if (ComboTimer > 0)
@@ -87,168 +34,206 @@ internal partial class SAM : MeleeJob
         }
     }
 
+    internal class SAM_ST_KashaCombo : CustomCombo
+    {
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_ST_KashaCombo;
+
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID is not Kasha)
+                return actionID;
+
+            if (SAM_Kasha_KenkiOvercap && CanWeave() &&
+                Kenki >= SAM_Kasha_KenkiOvercapAmount && LevelChecked(Shinten))
+                return OriginalHook(Shinten);
+
+            if (HasStatusEffect(Buffs.MeikyoShisui) && LevelChecked(Kasha))
+                return OriginalHook(Kasha);
+
+            if (ComboTimer > 0)
+            {
+                if (ComboAction == OriginalHook(Hakaze) && LevelChecked(Shifu))
+                    return OriginalHook(Shifu);
+
+                if (ComboAction is Shifu && LevelChecked(Kasha))
+                    return OriginalHook(Kasha);
+            }
+
+            return OriginalHook(Hakaze);
+        }
+    }
+
+    internal class SAM_ST_YukikazeCombo : CustomCombo
+    {
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_ST_YukikazeCombo;
+
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID is not Yukikaze)
+                return actionID;
+
+            if (SAM_Yukaze_KenkiOvercap && CanWeave() &&
+                Kenki >= SAM_Yukaze_KenkiOvercapAmount && LevelChecked(Shinten))
+                return OriginalHook(Shinten);
+
+            if (HasStatusEffect(Buffs.MeikyoShisui) && LevelChecked(Yukikaze))
+                return OriginalHook(Yukikaze);
+
+            if (ComboTimer > 0 && ComboAction == OriginalHook(Hakaze) && LevelChecked(Yukikaze))
+                return OriginalHook(Yukikaze);
+
+            return OriginalHook(Hakaze);
+        }
+    }
+
     internal class SAM_ST_SimpleMode : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_ST_SimpleMode;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_ST_SimpleMode;
 
         protected override uint Invoke(uint actionID)
         {
             if (actionID is not (Hakaze or Gyofu))
                 return actionID;
 
-            if (Variant.CanCure(CustomComboPreset.SAM_Variant_Cure, Config.SAM_VariantCure))
-                return Variant.Cure;
-
-            if (Variant.CanRampart(CustomComboPreset.SAM_Variant_Rampart, WeaveTypes.Weave))
-                return Variant.Rampart;
-
             //Meikyo to start before combat
-            if (!HasEffect(Buffs.MeikyoShisui) && ActionReady(MeikyoShisui) &&
+            if (!HasStatusEffect(Buffs.MeikyoShisui) && ActionReady(MeikyoShisui) &&
                 !InCombat() && TargetIsHostile())
                 return MeikyoShisui;
 
-            if (LevelChecked(Enpi) && !InMeleeRange() && HasBattleTarget())
+            if (Variant.CanCure(CustomComboPreset.SAM_Variant_Cure, SAM_VariantCure))
+                return Variant.Cure;
+
+            if (Variant.CanRampart(CustomComboPreset.SAM_Variant_Rampart))
+                return Variant.Rampart;
+
+            if (OccultCrescent.ShouldUsePhantomActions())
+                return OccultCrescent.BestPhantomAction();
+
+            if (ActionReady(Enpi) &&
+                !InMeleeRange() &&
+                HasBattleTarget())
                 return Enpi;
 
-            //Meikyo Features
-            if (UseMeikyo())
-                return MeikyoShisui;
-
             //oGCDs
-            if (CanWeave())
+            if (CanWeave() && !HasDoubleWeaved() && M6SReady)
             {
+                //Meikyo Features
+                if (UseMeikyo())
+                    return MeikyoShisui;
+
                 //Ikishoten Features
-                if (LevelChecked(Ikishoten) && !HasEffect(Buffs.ZanshinReady))
+                if (ActionReady(Ikishoten) &&
+                    !HasStatusEffect(Buffs.ZanshinReady))
                 {
-                    switch (Gauge.Kenki)
+                    switch (Kenki)
                     {
                         //Dumps Kenki in preparation for Ikishoten
-                        case >= 40 when GetCooldownRemainingTime(Ikishoten) < 10:
+                        case >= 50:
                             return Shinten;
 
-                        case <= 50 when IsOffCooldown(Ikishoten):
+                        case < 50:
                             return Ikishoten;
                     }
                 }
 
-                //Senei Features
-                if (HasEffect(Buffs.Fugetsu) && HasEffect(Buffs.Fuka))
+                switch (Kenki)
                 {
-                    if (Gauge.Kenki >= 25 && ActionReady(Senei) &&
-                        (TraitLevelChecked(Traits.EnhancedHissatsu) &&
-                         (JustUsed(KaeshiSetsugekka, 5f) || JustUsed(TendoSetsugekka, 5f)) ||
-                         !TraitLevelChecked(Traits.EnhancedHissatsu)))
+                    //Senei Features
+                    case >= 25 when ActionReady(Senei):
                         return Senei;
 
                     //Guren if no Senei
-                    if (!LevelChecked(Senei) && InActionRange(Guren) &&
-                        Gauge.Kenki >= 25 && ActionReady(Guren))
+                    case >= 25 when !LevelChecked(Senei) && ActionReady(Guren) && InActionRange(Guren):
                         return Guren;
                 }
 
                 //Zanshin Usage
-                if (LevelChecked(Zanshin) && Gauge.Kenki >= 50 && InActionRange(Zanshin) &&
-                    HasEffect(Buffs.ZanshinReady) &&
-                    (GetDebuffRemainingTime(Debuffs.Higanbana) < 10 && SenCount is 1 ||
-                     GetBuffRemainingTime(Buffs.ZanshinReady) <= 6))
+                //TODO Buffcheck
+                if (ActionReady(Zanshin) && Kenki >= 50 &&
+                    InActionRange(Zanshin) &&
+                    HasStatusEffect(Buffs.ZanshinReady) &&
+                    (JustUsed(Higanbana) ||
+                     JustUsed(OriginalHook(OgiNamikiri)) ||
+                     GetStatusEffectRemainingTime(Buffs.ZanshinReady) <= 8))
                     return Zanshin;
 
-                if (LevelChecked(Shoha) && Gauge.MeditationStacks is 3 && InActionRange(Shoha))
+                if (ActionReady(Shoha) &&
+                    MeditationStacks is 3 &&
+                    InActionRange(Shoha))
                     return Shoha;
 
-                if (LevelChecked(Shinten) &&
-                    (LevelChecked(Zanshin) && (HasEffect(Buffs.ZanshinReady) && Gauge.Kenki >= 95 ||
-                                               !HasEffect(Buffs.ZanshinReady) && Gauge.Kenki >= 65 && GetCooldownRemainingTime(Ikishoten) >= 10) ||
-                     !LevelChecked(Zanshin) && Gauge.Kenki >= 65 ||
-                     GetTargetHPPercent() <= 1 && Gauge.Kenki >= 25))
+                if (ActionReady(Shinten) &&
+                    !HasStatusEffect(Buffs.ZanshinReady) && !ActionReady(Senei) &&
+                    (Kenki >= 65 || GetTargetHPPercent() <= 1 && Kenki >= 25))
                     return Shinten;
+
+                // healing
+                if (Role.CanSecondWind(25))
+                    return Role.SecondWind;
+
+                if (Role.CanBloodBath(40))
+                    return Role.Bloodbath;
             }
 
-            if (HasEffect(Buffs.Fugetsu) && HasEffect(Buffs.Fuka))
+            if (UseTsubame)
+                return OriginalHook(TsubameGaeshi);
+
+            //Ogi Namikiri Features
+            if (ActionReady(OgiNamikiri) && M6SReady &&
+                InActionRange(OriginalHook(OgiNamikiri)) &&
+                HasStatusEffect(Buffs.OgiNamikiriReady) &&
+                (JustUsed(Higanbana, 5f) ||
+                 !TargetIsBoss() ||
+                 GetStatusEffectRemainingTime(Buffs.OgiNamikiriReady) <= 8) || NamikiriReady)
+                return OriginalHook(OgiNamikiri);
+
+            // Iaijutsu Features
+            if (UseIaijutsu() && !IsMoving())
+                return OriginalHook(Iaijutsu);
+
+            if (HasStatusEffect(Buffs.MeikyoShisui))
             {
-                //Ogi Namikiri Features
-                if (!IsMoving() && ActionReady(OgiNamikiri) && InActionRange(OriginalHook(OgiNamikiri)) &&
-                    (JustUsed(Higanbana, 5f) && HasEffect(Buffs.OgiNamikiriReady) ||
-                     GetBuffRemainingTime(Buffs.OgiNamikiriReady) <= 8) &&
-                    HasEffect(Buffs.OgiNamikiriReady) || Gauge.Kaeshi == Kaeshi.NAMIKIRI)
-                    return OriginalHook(OgiNamikiri);
-
-                // Iaijutsu Features
-                if (LevelChecked(Iaijutsu))
-                {
-                    if (LevelChecked(TendoKaeshiSetsugekka) && HasEffect(Buffs.TendoKaeshiSetsugekkaReady))
-                        return OriginalHook(TsubameGaeshi);
-
-                    if (LevelChecked(TsubameGaeshi) && HasEffect(Buffs.TsubameReady) &&
-                        (TraitLevelChecked(Traits.EnhancedHissatsu) && GetCooldownRemainingTime(Senei) > 33 ||
-                         SenCount is 3))
-                        return OriginalHook(TsubameGaeshi);
-
-                    if (!IsMoving())
-                    {
-                        if (SenCount is 1 && GetTargetHPPercent() > 1 && TargetIsBoss() &&
-                            (GetDebuffRemainingTime(Debuffs.Higanbana) <= 10 && JustUsed(Gekko) && JustUsed(MeikyoShisui, 15f) ||
-                             !TargetHasEffect(Debuffs.Higanbana)))
-                            return OriginalHook(Iaijutsu);
-
-                        if (SenCount is 2 && !LevelChecked(MidareSetsugekka))
-                            return OriginalHook(Iaijutsu);
-
-                        if (SenCount is 3 && LevelChecked(MidareSetsugekka) && !HasEffect(Buffs.TsubameReady))
-                            return OriginalHook(Iaijutsu);
-                    }
-                }
-            }
-
-            if (HasEffect(Buffs.MeikyoShisui))
-            {
-                if (Role.CanTrueNorth() && CanDelayedWeave())
-                    return Role.TrueNorth;
-
                 if (LevelChecked(Gekko) &&
-                    (!HasEffect(Buffs.Fugetsu) ||
-                     !Gauge.Sen.HasFlag(Sen.GETSU) && HasEffect(Buffs.Fuka)))
-                    return Gekko;
+                    (!HasStatusEffect(Buffs.Fugetsu) ||
+                     !HasGetsu && HasStatusEffect(Buffs.Fuka)))
+                    return Role.CanTrueNorth() && !OnTargetsRear()
+                        ? Role.TrueNorth
+                        : Gekko;
 
                 if (LevelChecked(Kasha) &&
-                    (!HasEffect(Buffs.Fuka) ||
-                     !Gauge.Sen.HasFlag(Sen.KA) && HasEffect(Buffs.Fugetsu)))
-                    return Kasha;
+                    (!HasStatusEffect(Buffs.Fuka) ||
+                     !HasKa && HasStatusEffect(Buffs.Fugetsu)))
+                    return Role.CanTrueNorth() && !OnTargetsFlank()
+                        ? Role.TrueNorth
+                        : Kasha;
 
-                if (LevelChecked(Yukikaze) && !Gauge.Sen.HasFlag(Sen.SETSU))
+                if (LevelChecked(Yukikaze) && !HasSetsu)
                     return Yukikaze;
             }
-
-            // healing
-            if (Role.CanSecondWind(40))
-                return Role.SecondWind;
-
-            if (Role.CanBloodBath(25))
-                return Role.Bloodbath;
 
             if (ComboTimer > 0)
             {
                 if (ComboAction is Hakaze or Gyofu && LevelChecked(Jinpu))
                 {
-                    if (!Gauge.Sen.HasFlag(Sen.SETSU) && LevelChecked(Yukikaze) && HasEffect(Buffs.Fugetsu) &&
-                        HasEffect(Buffs.Fuka))
+                    if (LevelChecked(Yukikaze) && !HasSetsu &&
+                        HasStatusEffect(Buffs.Fugetsu) && HasStatusEffect(Buffs.Fuka))
                         return Yukikaze;
 
                     if (!LevelChecked(Kasha) &&
-                        (GetBuffRemainingTime(Buffs.Fugetsu) < GetBuffRemainingTime(Buffs.Fuka) ||
-                         !HasEffect(Buffs.Fugetsu)) ||
-                        LevelChecked(Kasha) && (!HasEffect(Buffs.Fugetsu) ||
-                                                HasEffect(Buffs.Fuka) && !Gauge.Sen.HasFlag(Sen.GETSU) ||
-                                                SenCount is 3 && GetBuffRemainingTime(Buffs.Fugetsu) < GetBuffRemainingTime(Buffs.Fuka)))
+                        (RefreshFugetsu || !HasStatusEffect(Buffs.Fugetsu)) ||
+                        LevelChecked(Kasha) &&
+                        (!HasStatusEffect(Buffs.Fugetsu) ||
+                         HasStatusEffect(Buffs.Fuka) && !HasGetsu ||
+                         SenCount is 3 && RefreshFugetsu))
                         return Jinpu;
 
                     if (LevelChecked(Shifu) &&
                         (!LevelChecked(Kasha) &&
-                         (GetBuffRemainingTime(Buffs.Fuka) < GetBuffRemainingTime(Buffs.Fugetsu) ||
-                          !HasEffect(Buffs.Fuka)) ||
-                         LevelChecked(Kasha) && (!HasEffect(Buffs.Fuka) ||
-                                                 HasEffect(Buffs.Fugetsu) && !Gauge.Sen.HasFlag(Sen.KA) ||
-                                                 SenCount is 3 && GetBuffRemainingTime(Buffs.Fuka) < GetBuffRemainingTime(Buffs.Fugetsu))))
+                         (RefreshFuka || !HasStatusEffect(Buffs.Fuka)) ||
+                         LevelChecked(Kasha) &&
+                         (!HasStatusEffect(Buffs.Fuka) ||
+                          HasStatusEffect(Buffs.Fugetsu) && !HasKa ||
+                          SenCount is 3 && RefreshFuka)))
                         return Shifu;
                 }
 
@@ -264,178 +249,165 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_ST_AdvancedMode : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_ST_AdvancedMode;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_ST_AdvancedMode;
 
         protected override uint Invoke(uint actionID)
         {
             if (actionID is not (Hakaze or Gyofu))
                 return actionID;
 
-            int kenkiOvercap = Config.SAM_ST_KenkiOvercapAmount;
-            int shintenTreshhold = Config.SAM_ST_ExecuteThreshold;
-            int higanbanaThreshold = Config.SAM_ST_Higanbana_Threshold;
-
-            if (Variant.CanCure(CustomComboPreset.SAM_Variant_Cure, Config.SAM_VariantCure))
-                return Variant.Cure;
-
-            if (Variant.CanRampart(CustomComboPreset.SAM_Variant_Rampart, WeaveTypes.Weave))
-                return Variant.Rampart;
+            int kenkiOvercap = SAM_ST_KenkiOvercapAmount;
+            int shintenTreshhold = SAM_ST_ExecuteThreshold;
 
             // Opener for SAM
-            if (IsEnabled(CustomComboPreset.SAM_ST_Opener))
-                if (Opener().FullOpener(ref actionID))
-                    return actionID;
+            if (IsEnabled(CustomComboPreset.SAM_ST_Opener) &&
+                Opener().FullOpener(ref actionID))
+                return actionID;
 
             //Meikyo to start before combat
             if (IsEnabled(CustomComboPreset.SAM_ST_CDs) &&
                 IsEnabled(CustomComboPreset.SAM_ST_CDs_MeikyoShisui) &&
-                !HasEffect(Buffs.MeikyoShisui) && ActionReady(MeikyoShisui) &&
+                ActionReady(MeikyoShisui) &&
+                !HasStatusEffect(Buffs.MeikyoShisui) &&
                 !InCombat() && TargetIsHostile())
                 return MeikyoShisui;
 
+            if (Variant.CanCure(CustomComboPreset.SAM_Variant_Cure, SAM_VariantCure))
+                return Variant.Cure;
+
+            if (Variant.CanRampart(CustomComboPreset.SAM_Variant_Rampart))
+                return Variant.Rampart;
+
+            if (OccultCrescent.ShouldUsePhantomActions())
+                return OccultCrescent.BestPhantomAction();
+
             if (IsEnabled(CustomComboPreset.SAM_ST_RangedUptime) &&
-                LevelChecked(Enpi) && !InMeleeRange() && HasBattleTarget())
+                ActionReady(Enpi) && !InMeleeRange() && HasBattleTarget())
                 return Enpi;
 
-            //Meikyo Features
-            if (IsEnabled(CustomComboPreset.SAM_ST_CDs) &&
-                IsEnabled(CustomComboPreset.SAM_ST_CDs_MeikyoShisui) &&
-                UseMeikyo())
-                return MeikyoShisui;
-
             //oGCDs
-            if (CanWeave())
+            if (CanWeave() && !HasDoubleWeaved() && M6SReady)
             {
                 if (IsEnabled(CustomComboPreset.SAM_ST_CDs))
                 {
+                    //Meikyo Features
+                    if (IsEnabled(CustomComboPreset.SAM_ST_CDs_MeikyoShisui) &&
+                        UseMeikyo())
+                        return MeikyoShisui;
+
                     //Ikishoten Features
                     if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Ikishoten) &&
-                        LevelChecked(Ikishoten) && !HasEffect(Buffs.ZanshinReady))
+                        ActionReady(Ikishoten) && !HasStatusEffect(Buffs.ZanshinReady))
                     {
-                        switch (Gauge.Kenki)
+                        switch (Kenki)
                         {
                             //Dumps Kenki in preparation for Ikishoten
-                            case >= 40 when GetCooldownRemainingTime(Ikishoten) < 10:
+                            case >= 50:
                                 return Shinten;
 
-                            case <= 50 when IsOffCooldown(Ikishoten):
+                            case < 50:
                                 return Ikishoten;
                         }
                     }
+                }
 
+                if (IsEnabled(CustomComboPreset.SAM_ST_Damage))
+                {
                     //Senei Features
-                    if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Senei) &&
-                        HasEffect(Buffs.Fugetsu) && HasEffect(Buffs.Fuka))
+                    if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Senei)
+                        && Kenki >= 25)
                     {
-                        if (Gauge.Kenki >= 25 && ActionReady(Senei) &&
-                            (TraitLevelChecked(Traits.EnhancedHissatsu) &&
-                             (JustUsed(KaeshiSetsugekka, 5f) || JustUsed(TendoSetsugekka, 5f)) ||
-                             !TraitLevelChecked(Traits.EnhancedHissatsu)))
+                        if (ActionReady(Senei))
                             return Senei;
 
                         //Guren if no Senei
                         if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Guren) &&
-                            !LevelChecked(Senei) && InActionRange(Guren) &&
-                            Gauge.Kenki >= 25 && ActionReady(Guren))
+                            !LevelChecked(Senei) &&
+                            ActionReady(Guren) && InActionRange(Guren))
                             return Guren;
                     }
 
                     //Zanshin Usage
+                    //TODO Buffcheck
                     if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Zanshin) &&
-                        LevelChecked(Zanshin) && Gauge.Kenki >= 50 && InActionRange(Zanshin) &&
-                        HasEffect(Buffs.ZanshinReady) &&
-                        (GetDebuffRemainingTime(Debuffs.Higanbana) < 10 && SenCount is 1 ||
-                         GetBuffRemainingTime(Buffs.ZanshinReady) <= 6))
+                        ActionReady(Zanshin) && Kenki >= 50 &&
+                        InActionRange(Zanshin) &&
+                        HasStatusEffect(Buffs.ZanshinReady) &&
+                        (JustUsed(Higanbana) ||
+                         JustUsed(OriginalHook(OgiNamikiri)) ||
+                         SAM_ST_Higanbana_Suboption == 1 && !TargetIsBoss() ||
+                         GetStatusEffectRemainingTime(Buffs.ZanshinReady) <= 8))
                         return Zanshin;
 
                     if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Shoha) &&
-                        LevelChecked(Shoha) && Gauge.MeditationStacks is 3 && InActionRange(Shoha))
+                        ActionReady(Shoha) && MeditationStacks is 3 &&
+                        InActionRange(Shoha))
                         return Shoha;
                 }
-
                 if (IsEnabled(CustomComboPreset.SAM_ST_Shinten) &&
-                    LevelChecked(Shinten) &&
-                    (LevelChecked(Zanshin) && (HasEffect(Buffs.ZanshinReady) && Gauge.Kenki >= 95 ||
-                                               !HasEffect(Buffs.ZanshinReady) && Gauge.Kenki >= kenkiOvercap && GetCooldownRemainingTime(Ikishoten) >= 10) ||
-                     !LevelChecked(Zanshin) && Gauge.Kenki >= kenkiOvercap ||
-                     GetTargetHPPercent() <= shintenTreshhold && Gauge.Kenki >= 25))
+                    ActionReady(Shinten) && !HasStatusEffect(Buffs.ZanshinReady) &&
+                    (IsEnabled(CustomComboPreset.SAM_ST_CDs_Senei) && !ActionReady(Senei) ||
+                     IsNotEnabled(CustomComboPreset.SAM_ST_CDs_Senei)) &&
+                    (Kenki >= kenkiOvercap || GetTargetHPPercent() <= shintenTreshhold && Kenki >= 25))
                     return Shinten;
+
+                // healing
+                if (IsEnabled(CustomComboPreset.SAM_ST_ComboHeals))
+                {
+                    if (Role.CanSecondWind(SAM_STSecondWindThreshold))
+                        return Role.SecondWind;
+
+                    if (Role.CanBloodBath(SAM_STBloodbathThreshold))
+                        return Role.Bloodbath;
+                }
             }
 
-            if (IsEnabled(CustomComboPreset.SAM_ST_CDs) &&
-                HasEffect(Buffs.Fugetsu) && HasEffect(Buffs.Fuka))
+            if (IsEnabled(CustomComboPreset.SAM_ST_Damage))
             {
+                if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Iaijutsu) &&
+                    SAM_ST_CDs_IaijutsuOption[3] && UseTsubame)
+                    return OriginalHook(TsubameGaeshi);
+
                 //Ogi Namikiri Features
                 if (IsEnabled(CustomComboPreset.SAM_ST_CDs_OgiNamikiri) &&
-                    (!IsEnabled(CustomComboPreset.SAM_ST_CDs_OgiNamikiri_Movement) ||
-                     IsEnabled(CustomComboPreset.SAM_ST_CDs_OgiNamikiri_Movement) && !IsMoving()) &&
+                    (!IsEnabled(CustomComboPreset.SAM_ST_CDs_OgiNamikiri_Movement) || !IsMoving()) &&
                     ActionReady(OgiNamikiri) && InActionRange(OriginalHook(OgiNamikiri)) &&
-                    (JustUsed(Higanbana, 5f) && HasEffect(Buffs.OgiNamikiriReady) ||
-                     Config.SAM_ST_Higanbana_Suboption == 1 && HasEffect(Buffs.OgiNamikiriReady) && !TargetIsBoss() ||
-                     GetBuffRemainingTime(Buffs.OgiNamikiriReady) <= 8) &&
-                    HasEffect(Buffs.OgiNamikiriReady) || Gauge.Kaeshi == Kaeshi.NAMIKIRI)
+                    HasStatusEffect(Buffs.OgiNamikiriReady) && M6SReady &&
+                    (JustUsed(Higanbana, 5f) ||
+                     SAM_ST_Higanbana_Suboption == 1 && !TargetIsBoss() ||
+                     GetStatusEffectRemainingTime(Buffs.OgiNamikiriReady) <= 8) || NamikiriReady)
                     return OriginalHook(OgiNamikiri);
 
                 // Iaijutsu Features
-                if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Iaijutsu) && LevelChecked(Iaijutsu))
-                {
-                    if (LevelChecked(TendoKaeshiSetsugekka) && HasEffect(Buffs.TendoKaeshiSetsugekkaReady))
-                        return OriginalHook(TsubameGaeshi);
-
-                    if (LevelChecked(TsubameGaeshi) && HasEffect(Buffs.TsubameReady) &&
-                        (TraitLevelChecked(Traits.EnhancedHissatsu) && GetCooldownRemainingTime(Senei) > 33 ||
-                         SenCount is 3))
-                        return OriginalHook(TsubameGaeshi);
-
-                    if (!IsEnabled(CustomComboPreset.SAM_ST_CDs_Iaijutsu_Movement) ||
-                        IsEnabled(CustomComboPreset.SAM_ST_CDs_Iaijutsu_Movement) && !IsMoving())
-                    {
-                        if (SenCount is 1 && GetTargetHPPercent() > higanbanaThreshold &&
-                            (Config.SAM_ST_Higanbana_Suboption == 0 ||
-                             Config.SAM_ST_Higanbana_Suboption == 1 && TargetIsBoss()) &&
-                            (GetDebuffRemainingTime(Debuffs.Higanbana) <= 10 && JustUsed(Gekko) && JustUsed(MeikyoShisui, 15f) ||
-                             !TargetHasEffect(Debuffs.Higanbana)))
-                            return OriginalHook(Iaijutsu);
-
-                        if (SenCount is 2 && !LevelChecked(MidareSetsugekka))
-                            return OriginalHook(Iaijutsu);
-
-                        if (SenCount is 3 && LevelChecked(MidareSetsugekka) && !HasEffect(Buffs.TsubameReady))
-                            return OriginalHook(Iaijutsu);
-                    }
-                }
+                if (IsEnabled(CustomComboPreset.SAM_ST_CDs_Iaijutsu) &&
+                    (!IsEnabled(CustomComboPreset.SAM_ST_CDs_Iaijutsu_Movement) || !IsMoving()) &&
+                    UseIaijutsu())
+                    return OriginalHook(Iaijutsu);
             }
 
-            if (HasEffect(Buffs.MeikyoShisui))
+            if (HasStatusEffect(Buffs.MeikyoShisui))
             {
-                if (IsEnabled(CustomComboPreset.SAM_ST_TrueNorth) &&
-                    Role.CanTrueNorth() && CanDelayedWeave())
-                    return Role.TrueNorth;
-
-                if (LevelChecked(Gekko) &&
-                    (!HasEffect(Buffs.Fugetsu) ||
-                     !Gauge.Sen.HasFlag(Sen.GETSU) && HasEffect(Buffs.Fuka)))
-                    return Gekko;
+                if (IsEnabled(CustomComboPreset.SAM_ST_Gekko) &&
+                    LevelChecked(Gekko) &&
+                    (!HasStatusEffect(Buffs.Fugetsu) ||
+                     !HasGetsu && HasStatusEffect(Buffs.Fuka)))
+                    return IsEnabled(CustomComboPreset.SAM_ST_TrueNorth) &&
+                           Role.CanTrueNorth() && !OnTargetsRear()
+                        ? Role.TrueNorth
+                        : Gekko;
 
                 if (IsEnabled(CustomComboPreset.SAM_ST_Kasha) &&
                     LevelChecked(Kasha) &&
-                    (!HasEffect(Buffs.Fuka) ||
-                     !Gauge.Sen.HasFlag(Sen.KA) && HasEffect(Buffs.Fugetsu)))
-                    return Kasha;
+                    (!HasStatusEffect(Buffs.Fuka) ||
+                     !HasKa && HasStatusEffect(Buffs.Fugetsu)))
+                    return IsEnabled(CustomComboPreset.SAM_ST_TrueNorth) &&
+                           Role.CanTrueNorth() && !OnTargetsFlank()
+                        ? Role.TrueNorth
+                        : Kasha;
 
                 if (IsEnabled(CustomComboPreset.SAM_ST_Yukikaze) &&
-                    LevelChecked(Yukikaze) && !Gauge.Sen.HasFlag(Sen.SETSU))
+                    LevelChecked(Yukikaze) && !HasSetsu)
                     return Yukikaze;
-            }
-
-            // healing
-            if (IsEnabled(CustomComboPreset.SAM_ST_ComboHeals))
-            {
-                if (Role.CanSecondWind(Config.SAM_STSecondWindThreshold))
-                    return Role.SecondWind;
-
-                if (Role.CanBloodBath(Config.SAM_STBloodbathThreshold))
-                    return Role.Bloodbath;
             }
 
             if (ComboTimer > 0)
@@ -443,25 +415,27 @@ internal partial class SAM : MeleeJob
                 if (ComboAction is Hakaze or Gyofu && LevelChecked(Jinpu))
                 {
                     if (IsEnabled(CustomComboPreset.SAM_ST_Yukikaze) &&
-                        !Gauge.Sen.HasFlag(Sen.SETSU) && LevelChecked(Yukikaze) && HasEffect(Buffs.Fugetsu) &&
-                        HasEffect(Buffs.Fuka))
+                        !HasSetsu && LevelChecked(Yukikaze) &&
+                        HasStatusEffect(Buffs.Fugetsu) && HasStatusEffect(Buffs.Fuka))
                         return Yukikaze;
 
-                    if (!LevelChecked(Kasha) &&
-                        (GetBuffRemainingTime(Buffs.Fugetsu) < GetBuffRemainingTime(Buffs.Fuka) ||
-                         !HasEffect(Buffs.Fugetsu)) ||
-                        LevelChecked(Kasha) && (!HasEffect(Buffs.Fugetsu) ||
-                                                HasEffect(Buffs.Fuka) && !Gauge.Sen.HasFlag(Sen.GETSU) ||
-                                                SenCount is 3 && GetBuffRemainingTime(Buffs.Fugetsu) < GetBuffRemainingTime(Buffs.Fuka)))
+                    if (IsEnabled(CustomComboPreset.SAM_ST_Gekko) &&
+                        !LevelChecked(Kasha) &&
+                        (RefreshFugetsu || !HasStatusEffect(Buffs.Fugetsu)) ||
+                        LevelChecked(Kasha) &&
+                        (!HasStatusEffect(Buffs.Fugetsu) ||
+                         HasStatusEffect(Buffs.Fuka) && !HasGetsu ||
+                         SenCount is 3 && RefreshFugetsu))
                         return Jinpu;
 
                     if (IsEnabled(CustomComboPreset.SAM_ST_Kasha) &&
                         LevelChecked(Shifu) &&
-                        (!LevelChecked(Kasha) && (GetBuffRemainingTime(Buffs.Fuka) < GetBuffRemainingTime(Buffs.Fugetsu) ||
-                                                  !HasEffect(Buffs.Fuka)) ||
-                         LevelChecked(Kasha) && (!HasEffect(Buffs.Fuka) ||
-                                                 HasEffect(Buffs.Fugetsu) && !Gauge.Sen.HasFlag(Sen.KA) ||
-                                                 SenCount is 3 && GetBuffRemainingTime(Buffs.Fuka) < GetBuffRemainingTime(Buffs.Fugetsu))))
+                        (!LevelChecked(Kasha) &&
+                         (RefreshFuka || !HasStatusEffect(Buffs.Fuka)) ||
+                         LevelChecked(Kasha) &&
+                         (!HasStatusEffect(Buffs.Fuka) ||
+                          HasStatusEffect(Buffs.Fugetsu) && !HasKa ||
+                          SenCount is 3 && RefreshFuka)))
                         return Shifu;
                 }
 
@@ -472,29 +446,29 @@ internal partial class SAM : MeleeJob
                     ComboAction is Shifu && LevelChecked(Kasha))
                     return Kasha;
             }
+
             return actionID;
         }
     }
 
     internal class SAM_AoE_OkaCombo : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_AoE_OkaCombo;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_AoE_OkaCombo;
 
         protected override uint Invoke(uint actionID)
         {
             if (actionID is not Oka)
                 return actionID;
 
-            if (Config.SAM_Oka_KenkiOvercap && Gauge.Kenki >= Config.SAM_Oka_KenkiOvercapAmount &&
+            if (SAM_Oka_KenkiOvercap &&
+                Kenki >= SAM_Oka_KenkiOvercapAmount &&
                 LevelChecked(Kyuten) && CanWeave())
                 return Kyuten;
 
-            if (HasEffect(Buffs.MeikyoShisui))
+            if (HasStatusEffect(Buffs.MeikyoShisui) ||
+                ComboTimer > 0 && LevelChecked(Oka) &&
+                ComboAction == OriginalHook(Fuko))
                 return Oka;
-
-            if (ComboTimer > 0 && LevelChecked(Oka))
-                if (ComboAction == OriginalHook(Fuko))
-                    return Oka;
 
             return OriginalHook(Fuko);
         }
@@ -502,23 +476,21 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_AoE_MangetsuCombo : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_AoE_MangetsuCombo;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_AoE_MangetsuCombo;
 
         protected override uint Invoke(uint actionID)
         {
             if (actionID is not Mangetsu)
                 return actionID;
 
-            if (Config.SAM_Mangetsu_KenkiOvercap && Gauge.Kenki >= Config.SAM_Mangetsu_KenkiOvercapAmount &&
+            if (SAM_Mangetsu_KenkiOvercap && Kenki >= SAM_Mangetsu_KenkiOvercapAmount &&
                 LevelChecked(Kyuten) && CanWeave())
                 return Kyuten;
 
-            if (HasEffect(Buffs.MeikyoShisui))
+            if (HasStatusEffect(Buffs.MeikyoShisui) ||
+                ComboTimer > 0 && LevelChecked(Mangetsu) &&
+                ComboAction == OriginalHook(Fuko))
                 return Mangetsu;
-
-            if (ComboTimer > 0 && LevelChecked(Mangetsu))
-                if (ComboAction == OriginalHook(Fuko))
-                    return Mangetsu;
 
             return OriginalHook(Fuko);
         }
@@ -526,101 +498,105 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_AoE_SimpleMode : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_AoE_SimpleMode;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_AoE_SimpleMode;
 
         protected override uint Invoke(uint actionID)
         {
-            // Don't change anything if not basic skill
             if (actionID is not (Fuga or Fuko))
                 return actionID;
 
-            if (Variant.CanCure(CustomComboPreset.SAM_Variant_Cure, Config.SAM_VariantCure))
+            if (Variant.CanCure(CustomComboPreset.SAM_Variant_Cure, SAM_VariantCure))
                 return Variant.Cure;
 
-            //oGCD Features
-            if (CanWeave())
-            {
-                if (Variant.CanRampart(CustomComboPreset.SAM_Variant_Rampart))
-                    return Variant.Rampart;
+            if (Variant.CanRampart(CustomComboPreset.SAM_Variant_Rampart))
+                return Variant.Rampart;
 
+            if (OccultCrescent.ShouldUsePhantomActions())
+                return OccultCrescent.BestPhantomAction();
+
+            //oGCD Features
+            if (CanWeave() && !HasDoubleWeaved() && M6SReady)
+            {
                 if (OriginalHook(Iaijutsu) is MidareSetsugekka && LevelChecked(Hagakure))
                     return Hagakure;
 
-                if (ActionReady(Guren) && Gauge.Kenki >= 25)
-                    return Guren;
-
-                if (LevelChecked(Ikishoten) && !HasEffect(Buffs.ZanshinReady))
+                if (ActionReady(Ikishoten) && !HasStatusEffect(Buffs.ZanshinReady))
                 {
-                    switch (Gauge.Kenki)
+                    switch (Kenki)
                     {
                         //Dumps Kenki in preparation for Ikishoten
-                        case > 50 when GetCooldownRemainingTime(Ikishoten) < 10:
+                        case >= 50:
                             return Kyuten;
 
-                        case <= 50 when IsOffCooldown(Ikishoten):
+                        case < 50:
                             return Ikishoten;
                     }
                 }
 
-                if (Kyuten.LevelChecked() && Gauge.Kenki >= 50 &&
-                    IsOnCooldown(Guren) && LevelChecked(Guren))
-                    return Kyuten;
+                if (ActionReady(MeikyoShisui) && !HasStatusEffect(Buffs.MeikyoShisui))
+                    return MeikyoShisui;
 
-                if (ActionReady(Shoha) && Gauge.MeditationStacks is 3)
+                if (ActionReady(Zanshin) && HasStatusEffect(Buffs.ZanshinReady) && Kenki >= 50)
+                    return Zanshin;
+
+                if (ActionReady(Guren) && Kenki >= 25)
+                    return Guren;
+
+                if (ActionReady(Shoha) && MeditationStacks is 3)
                     return Shoha;
 
-                if (ActionReady(MeikyoShisui) && !HasEffect(Buffs.MeikyoShisui))
-                    return MeikyoShisui;
+                if (ActionReady(Kyuten) && Kenki >= 50 &&
+                    !ActionReady(Guren))
+                    return Kyuten;
+
+                // healing
+                if (Role.CanSecondWind(25))
+                    return Role.SecondWind;
+
+                if (Role.CanBloodBath(40))
+                    return Role.Bloodbath;
             }
 
-            if (LevelChecked(Zanshin) && HasEffect(Buffs.ZanshinReady) && Gauge.Kenki >= 50)
-                return Zanshin;
-
-            if (LevelChecked(OgiNamikiri) &&
-                (!IsMoving() && HasEffect(Buffs.OgiNamikiriReady) || Gauge.Kaeshi is Kaeshi.NAMIKIRI))
+            if (ActionReady(OgiNamikiri) && M6SReady &&
+                !IsMoving() && (HasStatusEffect(Buffs.OgiNamikiriReady) || NamikiriReady))
                 return OriginalHook(OgiNamikiri);
 
             if (LevelChecked(TenkaGoken))
             {
-                if (!IsMoving() && OriginalHook(Iaijutsu) is TenkaGoken)
-                    return OriginalHook(Iaijutsu);
-
-                if (!IsMoving() && LevelChecked(TendoGoken) && OriginalHook(Iaijutsu) is TendoGoken)
-                    return OriginalHook(Iaijutsu);
-
                 if (LevelChecked(TsubameGaeshi) &&
-                    (HasEffect(Buffs.KaeshiGokenReady) || HasEffect(Buffs.TendoKaeshiGokenReady)))
+                    (HasStatusEffect(Buffs.KaeshiGokenReady) || HasStatusEffect(Buffs.TendoKaeshiGokenReady)))
                     return OriginalHook(TsubameGaeshi);
+
+                if (!IsMoving() &&
+                    (OriginalHook(Iaijutsu) is TenkaGoken ||
+                     OriginalHook(Iaijutsu) is TendoGoken))
+                    return OriginalHook(Iaijutsu);
             }
 
-            if (HasEffect(Buffs.MeikyoShisui))
+            if (HasStatusEffect(Buffs.MeikyoShisui))
             {
-                if (!Gauge.Sen.HasFlag(Sen.GETSU) && HasEffect(Buffs.Fuka) || !HasEffect(Buffs.Fugetsu))
+                if (!HasGetsu && HasStatusEffect(Buffs.Fuka) ||
+                    !HasStatusEffect(Buffs.Fugetsu))
                     return Mangetsu;
 
-                if (!Gauge.Sen.HasFlag(Sen.KA) && HasEffect(Buffs.Fugetsu) || !HasEffect(Buffs.Fuka))
+                if (!HasKa && HasStatusEffect(Buffs.Fugetsu) ||
+                    !HasStatusEffect(Buffs.Fuka))
                     return Oka;
             }
-
-            // healing - please move if not appropriate this high priority
-            if (Role.CanSecondWind(25))
-                return Role.SecondWind;
-
-            if (Role.CanBloodBath(40))
-                return Role.Bloodbath;
 
             if (ComboTimer > 0 &&
                 ComboAction is Fuko or Fuga && LevelChecked(Mangetsu))
             {
-                if (!Gauge.Sen.HasFlag(Sen.GETSU) ||
-                    GetBuffRemainingTime(Buffs.Fugetsu) < GetBuffRemainingTime(Buffs.Fuka) ||
-                    !HasEffect(Buffs.Fugetsu) || !LevelChecked(Oka))
+                if (!HasGetsu ||
+                    RefreshFugetsu ||
+                    !HasStatusEffect(Buffs.Fugetsu) ||
+                    !LevelChecked(Oka))
                     return Mangetsu;
 
                 if (LevelChecked(Oka) &&
-                    (!Gauge.Sen.HasFlag(Sen.KA) ||
-                     GetBuffRemainingTime(Buffs.Fuka) < GetBuffRemainingTime(Buffs.Fugetsu) ||
-                     !HasEffect(Buffs.Fuka)))
+                    (!HasKa ||
+                     RefreshFuka ||
+                     !HasStatusEffect(Buffs.Fuka)))
                     return Oka;
             }
 
@@ -630,115 +606,126 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_AoE_AdvancedMode : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_AoE_AdvancedMode;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_AoE_AdvancedMode;
 
         protected override uint Invoke(uint actionID)
         {
             if (actionID is not (Fuga or Fuko))
                 return actionID;
 
-            float kenkiOvercap = Config.SAM_AoE_KenkiOvercapAmount;
+            float kenkiOvercapAoE = SAM_AoE_KenkiOvercapAmount;
 
-            if (Variant.CanCure(CustomComboPreset.SAM_Variant_Cure, Config.SAM_VariantCure))
+            if (Variant.CanCure(CustomComboPreset.SAM_Variant_Cure, SAM_VariantCure))
                 return Variant.Cure;
 
-            //oGCD Features
-            if (CanWeave())
-            {
-                if (Variant.CanRampart(CustomComboPreset.SAM_Variant_Rampart))
-                    return Variant.Rampart;
+            if (Variant.CanRampart(CustomComboPreset.SAM_Variant_Rampart))
+                return Variant.Rampart;
 
+            if (OccultCrescent.ShouldUsePhantomActions())
+                return OccultCrescent.BestPhantomAction();
+
+            //oGCD Features
+            if (CanWeave() && !HasDoubleWeaved() && M6SReady)
+            {
                 if (IsEnabled(CustomComboPreset.SAM_AoE_Hagakure) &&
                     OriginalHook(Iaijutsu) is MidareSetsugekka && LevelChecked(Hagakure))
                     return Hagakure;
 
-                if (IsEnabled(CustomComboPreset.SAM_AoE_Guren) &&
-                    ActionReady(Guren) && Gauge.Kenki >= 25)
-                    return Guren;
-
-                if (IsEnabled(CustomComboPreset.SAM_AOE_CDs_Ikishoten) &&
-                    LevelChecked(Ikishoten) && !HasEffect(Buffs.ZanshinReady))
+                if (IsEnabled(CustomComboPreset.SAM_AoE_CDs))
                 {
-                    switch (Gauge.Kenki)
-                    {
-                        //Dumps Kenki in preparation for Ikishoten
-                        case > 50 when GetCooldownRemainingTime(Ikishoten) < 10:
-                            return Kyuten;
+                    if (IsEnabled(CustomComboPreset.SAM_AoE_MeikyoShisui) &&
+                        ActionReady(MeikyoShisui) && !HasStatusEffect(Buffs.MeikyoShisui))
+                        return MeikyoShisui;
 
-                        case <= 50 when IsOffCooldown(Ikishoten):
-                            return Ikishoten;
+                    if (IsEnabled(CustomComboPreset.SAM_AOE_CDs_Ikishoten) &&
+                        ActionReady(Ikishoten) && !HasStatusEffect(Buffs.ZanshinReady))
+                    {
+                        switch (Kenki)
+                        {
+                            //Dumps Kenki in preparation for Ikishoten
+                            case >= 50:
+                                return Kyuten;
+
+                            case < 50:
+                                return Ikishoten;
+                        }
                     }
                 }
 
+                if (IsEnabled(CustomComboPreset.SAM_AoE_Damage))
+                {
+                    if (IsEnabled(CustomComboPreset.SAM_AoE_Zanshin) &&
+                        ActionReady(Zanshin) && HasStatusEffect(Buffs.ZanshinReady) && Kenki >= 50)
+                        return Zanshin;
+
+                    if (IsEnabled(CustomComboPreset.SAM_AoE_Guren) &&
+                        ActionReady(Guren) && Kenki >= 25)
+                        return Guren;
+
+                    if (IsEnabled(CustomComboPreset.SAM_AoE_Shoha) &&
+                        ActionReady(Shoha) && MeditationStacks is 3)
+                        return Shoha;
+                }
+
                 if (IsEnabled(CustomComboPreset.SAM_AoE_Kyuten) &&
-                    Kyuten.LevelChecked() && Gauge.Kenki >= kenkiOvercap &&
-                    IsOnCooldown(Guren) && LevelChecked(Guren))
+                    ActionReady(Kyuten) && Kenki >= kenkiOvercapAoE &&
+                    !ActionReady(Guren))
                     return Kyuten;
 
-                if (IsEnabled(CustomComboPreset.SAM_AoE_Shoha) &&
-                    ActionReady(Shoha) && Gauge.MeditationStacks is 3)
-                    return Shoha;
+                if (IsEnabled(CustomComboPreset.SAM_AoE_ComboHeals))
+                {
+                    if (Role.CanSecondWind(SAM_AoESecondWindThreshold))
+                        return Role.SecondWind;
 
-                if (IsEnabled(CustomComboPreset.SAM_AoE_MeikyoShisui) &&
-                    ActionReady(MeikyoShisui) && !HasEffect(Buffs.MeikyoShisui))
-                    return MeikyoShisui;
+                    if (Role.CanBloodBath(SAM_AoEBloodbathThreshold))
+                        return Role.Bloodbath;
+                }
             }
 
-            if (IsEnabled(CustomComboPreset.SAM_AoE_Zanshin) &&
-                LevelChecked(Zanshin) && HasEffect(Buffs.ZanshinReady) && Gauge.Kenki >= 50)
-                return Zanshin;
-
-            if (IsEnabled(CustomComboPreset.SAM_AoE_OgiNamikiri) &&
-                LevelChecked(OgiNamikiri) && (!IsMoving() && HasEffect(Buffs.OgiNamikiriReady) ||
-                                              Gauge.Kaeshi is Kaeshi.NAMIKIRI))
-                return OriginalHook(OgiNamikiri);
-
-            if (IsEnabled(CustomComboPreset.SAM_AoE_TenkaGoken) && LevelChecked(TenkaGoken))
+            if (IsEnabled(CustomComboPreset.SAM_AoE_Damage))
             {
-                if (!IsMoving() && OriginalHook(Iaijutsu) is TenkaGoken)
-                    return OriginalHook(Iaijutsu);
+                if (IsEnabled(CustomComboPreset.SAM_AoE_OgiNamikiri) &&
+                    ActionReady(OgiNamikiri) && M6SReady &&
+                    (!IsMoving() && HasStatusEffect(Buffs.OgiNamikiriReady) || NamikiriReady))
+                    return OriginalHook(OgiNamikiri);
 
-                if (!IsMoving() && LevelChecked(TendoGoken) && OriginalHook(Iaijutsu) is TendoGoken)
-                    return OriginalHook(Iaijutsu);
+                if (IsEnabled(CustomComboPreset.SAM_AoE_TenkaGoken) &&
+                    LevelChecked(TenkaGoken))
+                {
+                    if (LevelChecked(TsubameGaeshi) &&
+                        (HasStatusEffect(Buffs.KaeshiGokenReady) || HasStatusEffect(Buffs.TendoKaeshiGokenReady)))
+                        return OriginalHook(TsubameGaeshi);
 
-                if (LevelChecked(TsubameGaeshi) &&
-                    (HasEffect(Buffs.KaeshiGokenReady) || HasEffect(Buffs.TendoKaeshiGokenReady)))
-                    return OriginalHook(TsubameGaeshi);
+                    if (!IsMoving() &&
+                        (OriginalHook(Iaijutsu) is TenkaGoken ||
+                         OriginalHook(Iaijutsu) is TendoGoken))
+                        return OriginalHook(Iaijutsu);
+                }
             }
 
-            if (HasEffect(Buffs.MeikyoShisui))
+            if (HasStatusEffect(Buffs.MeikyoShisui))
             {
-                if (!Gauge.Sen.HasFlag(Sen.GETSU) && HasEffect(Buffs.Fuka) || !HasEffect(Buffs.Fugetsu))
+                if (!HasGetsu && HasStatusEffect(Buffs.Fuka) || !HasStatusEffect(Buffs.Fugetsu))
                     return Mangetsu;
 
                 if (IsEnabled(CustomComboPreset.SAM_AoE_Oka) &&
-                    (!Gauge.Sen.HasFlag(Sen.KA) && HasEffect(Buffs.Fugetsu) || !HasEffect(Buffs.Fuka)))
+                    (!HasKa && HasStatusEffect(Buffs.Fugetsu) || !HasStatusEffect(Buffs.Fuka)))
                     return Oka;
-            }
-
-            if (IsEnabled(CustomComboPreset.SAM_AoE_ComboHeals))
-            {
-                if (Role.CanSecondWind(Config.SAM_AoESecondWindThreshold))
-                    return Role.SecondWind;
-
-                if (Role.CanBloodBath(Config.SAM_AoEBloodbathThreshold))
-                    return Role.Bloodbath;
             }
 
             if (ComboTimer > 0 &&
                 ComboAction is Fuko or Fuga && LevelChecked(Mangetsu))
             {
                 if (IsNotEnabled(CustomComboPreset.SAM_AoE_Oka) ||
-                    !Gauge.Sen.HasFlag(Sen.GETSU) ||
-                    GetBuffRemainingTime(Buffs.Fugetsu) < GetBuffRemainingTime(Buffs.Fuka) ||
-                    !HasEffect(Buffs.Fugetsu) || !LevelChecked(Oka))
+                    !HasGetsu || RefreshFugetsu ||
+                    !HasStatusEffect(Buffs.Fugetsu) ||
+                    !LevelChecked(Oka))
                     return Mangetsu;
 
                 if (IsEnabled(CustomComboPreset.SAM_AoE_Oka) &&
                     LevelChecked(Oka) &&
-                    (!Gauge.Sen.HasFlag(Sen.KA) ||
-                     GetBuffRemainingTime(Buffs.Fuka) < GetBuffRemainingTime(Buffs.Fugetsu) ||
-                     !HasEffect(Buffs.Fuka)))
+                    (!HasKa || RefreshFuka ||
+                     !HasStatusEffect(Buffs.Fuka)))
                     return Oka;
             }
             return actionID;
@@ -751,18 +738,18 @@ internal partial class SAM : MeleeJob
 
         protected override uint Invoke(uint actionID)
         {
-            if (actionID is not MeikyoShisui || !HasEffect(Buffs.MeikyoShisui))
+            if (actionID is not MeikyoShisui || !HasStatusEffect(Buffs.MeikyoShisui))
                 return actionID;
 
-            if (!HasEffect(Buffs.Fugetsu) ||
-                !Gauge.Sen.HasFlag(Sen.GETSU))
+            if (!HasStatusEffect(Buffs.Fugetsu) ||
+                !HasGetsu)
                 return Gekko;
 
-            if (!HasEffect(Buffs.Fuka) ||
-                !Gauge.Sen.HasFlag(Sen.KA))
+            if (!HasStatusEffect(Buffs.Fuka) ||
+                !HasKa)
                 return Kasha;
 
-            if (!Gauge.Sen.HasFlag(Sen.SETSU))
+            if (!HasSetsu)
                 return Yukikaze;
 
             return actionID;
@@ -771,7 +758,7 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_Iaijutsu : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_Iaijutsu;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_Iaijutsu;
 
         protected override uint Invoke(uint actionID)
         {
@@ -780,21 +767,23 @@ internal partial class SAM : MeleeJob
 
             bool canAddShoha = IsEnabled(CustomComboPreset.SAM_Iaijutsu_Shoha) &&
                                ActionReady(Shoha) &&
-                               Gauge.MeditationStacks is 3;
+                               MeditationStacks is 3;
 
             if (canAddShoha && CanWeave())
                 return Shoha;
 
-            if (IsEnabled(CustomComboPreset.SAM_Iaijutsu_OgiNamikiri) && (
-                LevelChecked(OgiNamikiri) && HasEffect(Buffs.OgiNamikiriReady) ||
-                Gauge.Kaeshi == Kaeshi.NAMIKIRI))
+            if (IsEnabled(CustomComboPreset.SAM_Iaijutsu_OgiNamikiri) &&
+                (ActionReady(OgiNamikiri) && HasStatusEffect(Buffs.OgiNamikiriReady) || NamikiriReady))
                 return OriginalHook(OgiNamikiri);
 
-            if (IsEnabled(CustomComboPreset.SAM_Iaijutsu_TsubameGaeshi) && (
-                LevelChecked(TsubameGaeshi) &&
-                (HasEffect(Buffs.TsubameReady) || HasEffect(Buffs.KaeshiGokenReady)) ||
-                LevelChecked(TendoKaeshiSetsugekka) && (HasEffect(Buffs.TendoKaeshiSetsugekkaReady) ||
-                                                        HasEffect(Buffs.TendoKaeshiGokenReady))))
+            if (IsEnabled(CustomComboPreset.SAM_Iaijutsu_TsubameGaeshi) &&
+                SenCount is not 1 &&
+                (LevelChecked(TsubameGaeshi) &&
+                 (HasStatusEffect(Buffs.TsubameReady) ||
+                  HasStatusEffect(Buffs.KaeshiGokenReady)) ||
+                 LevelChecked(TendoKaeshiSetsugekka) &&
+                 (HasStatusEffect(Buffs.TendoKaeshiSetsugekkaReady) ||
+                  HasStatusEffect(Buffs.TendoKaeshiGokenReady))))
                 return OriginalHook(TsubameGaeshi);
 
             if (canAddShoha)
@@ -806,31 +795,23 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_Shinten : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_Shinten;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_Shinten;
 
         protected override uint Invoke(uint actionID)
         {
-            switch (actionID)
+            if (actionID is Shinten)
             {
-                case Shinten:
-                {
-                    if (IsEnabled(CustomComboPreset.SAM_Shinten))
-                    {
-                        if (IsEnabled(CustomComboPreset.SAM_Shinten_Senei) &&
-                            ActionReady(Senei))
-                            return Senei;
+                if (IsEnabled(CustomComboPreset.SAM_Shinten_Senei) &&
+                    ActionReady(Senei))
+                    return Senei;
 
-                        if (IsEnabled(CustomComboPreset.SAM_Shinten_Zanshin) &&
-                            HasEffect(Buffs.ZanshinReady))
-                            return Zanshin;
+                if (IsEnabled(CustomComboPreset.SAM_Shinten_Zanshin) &&
+                    HasStatusEffect(Buffs.ZanshinReady))
+                    return Zanshin;
 
-                        if (IsEnabled(CustomComboPreset.SAM_Shinten_Shoha) &&
-                            ActionReady(Shoha) && Gauge.MeditationStacks is 3)
-                            return Shoha;
-                    }
-
-                    break;
-                }
+                if (IsEnabled(CustomComboPreset.SAM_Shinten_Shoha) &&
+                    ActionReady(Shoha) && MeditationStacks is 3)
+                    return Shoha;
             }
 
             return actionID;
@@ -839,51 +820,45 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_Kyuten : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_Kyuten;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_Kyuten;
 
         protected override uint Invoke(uint actionID)
         {
-            switch (actionID)
+            if (actionID is Kyuten)
             {
-                case Kyuten when IsEnabled(CustomComboPreset.SAM_Kyuten_Guren) &&
-                                 ActionReady(Guren):
+                if (IsEnabled(CustomComboPreset.SAM_Kyuten_Guren) &&
+                    ActionReady(Guren))
                     return Guren;
 
-                case Kyuten when IsEnabled(CustomComboPreset.SAM_Kyuten_Zanshin) &&
-                                 HasEffect(Buffs.ZanshinReady):
+                if (IsEnabled(CustomComboPreset.SAM_Kyuten_Zanshin) &&
+                    HasStatusEffect(Buffs.ZanshinReady))
                     return Zanshin;
 
-                case Kyuten when IsEnabled(CustomComboPreset.SAM_Kyuten_Shoha) &&
-                                 Gauge.MeditationStacks is 3 && ActionReady(Shoha):
+                if (IsEnabled(CustomComboPreset.SAM_Kyuten_Shoha) &&
+                    ActionReady(Shoha) && MeditationStacks is 3)
                     return Shoha;
-
-                default:
-                    return actionID;
             }
+            return actionID;
         }
     }
 
     internal class SAM_Ikishoten : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_Ikishoten;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_Ikishoten;
 
         protected override uint Invoke(uint actionID)
         {
             if (actionID is not Ikishoten)
                 return actionID;
 
-            if (!IsEnabled(CustomComboPreset.SAM_Ikishoten))
-                return actionID;
-
             if (IsEnabled(CustomComboPreset.SAM_Ikishoten_Shoha) &&
                 ActionReady(Shoha) &&
-                HasEffect(Buffs.OgiNamikiriReady) &&
-                Gauge.MeditationStacks is 3)
+                HasStatusEffect(Buffs.OgiNamikiriReady) &&
+                MeditationStacks is 3)
                 return Shoha;
 
             if (IsEnabled(CustomComboPreset.SAM_Ikishoten_Namikiri) &&
-                LevelChecked(OgiNamikiri) && HasEffect(Buffs.OgiNamikiriReady) ||
-                Gauge.Kaeshi == Kaeshi.NAMIKIRI)
+                (ActionReady(OgiNamikiri) && HasStatusEffect(Buffs.OgiNamikiriReady) || NamikiriReady))
                 return OriginalHook(OgiNamikiri);
 
             return actionID;
@@ -892,25 +867,17 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_GyotenYaten : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_GyotenYaten;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_GyotenYaten;
 
         protected override uint Invoke(uint actionID)
         {
-            switch (actionID)
+            if (actionID is Gyoten && Kenki >= 10)
             {
-                case Gyoten:
-                {
-                    if (Gauge.Kenki >= 10)
-                    {
-                        if (InMeleeRange())
-                            return Yaten;
+                if (InMeleeRange())
+                    return Yaten;
 
-                        if (!InMeleeRange())
-                            return Gyoten;
-                    }
-
-                    break;
-                }
+                if (!InMeleeRange())
+                    return Gyoten;
             }
 
             return actionID;
@@ -919,11 +886,23 @@ internal partial class SAM : MeleeJob
 
     internal class SAM_MeikyoShisuiProtection : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SAM_MeikyoShisuiProtection;
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_MeikyoShisuiProtection;
 
         protected override uint Invoke(uint actionID) =>
-            actionID is MeikyoShisui && HasEffect(Buffs.MeikyoShisui) && LevelChecked(MeikyoShisui)
+            actionID is MeikyoShisui &&
+            HasStatusEffect(Buffs.MeikyoShisui) &&
+            ActionReady(MeikyoShisui)
                 ? All.SavageBlade
+                : actionID;
+    }
+
+    internal class SAM_SeneiGuren : CustomCombo
+    {
+        protected internal override CustomComboPreset Preset => CustomComboPreset.SAM_SeneiGuren;
+
+        protected override uint Invoke(uint actionID) =>
+            actionID is Senei && !LevelChecked(Senei)
+                ? Guren
                 : actionID;
     }
 }

@@ -23,11 +23,14 @@ namespace WrathCombo.CustomComboNS
 
         private void UpdateOpener(Dalamud.Plugin.Services.IFramework framework)
         {
-            if (!Service.ActionReplacer.getActionHook.IsEnabled)
+            if (Service.Configuration.PerformanceMode)
             {
+                CurrentOpener = this;
                 uint _ = 0;
-                FullOpener(ref _);
+                CurrentOpener.FullOpener(ref _);
             }
+
+            
         }
 
         public void ProgressOpener(uint actionId)
@@ -73,8 +76,8 @@ namespace WrathCombo.CustomComboNS
                         else
                             Svc.Log.Information($"Opener Failed at step {OpenerStep}, {CurrentOpenerAction.ActionName()}");
 
-                        if (AllowReopener)
-                        ResetOpener();
+                        if (AllowReopener || !InCombat())
+                            ResetOpener();
                     }
 
                     if (value == OpenerState.OpenerFinished)
@@ -120,15 +123,13 @@ namespace WrathCombo.CustomComboNS
         private int DelayedStep = 0;
         private DateTime DelayedAt;
 
-        // Github Build
-        private uint _currentOpenerActionField;
         public uint CurrentOpenerAction
         {
-            get => _currentOpenerActionField;
+            get;
             set
             {
                 if (value != All.SavageBlade)
-                    _currentOpenerActionField = value;
+                    field = value;
             }
         }
 
@@ -158,7 +159,7 @@ namespace WrathCombo.CustomComboNS
 
             if (CurrentState == OpenerState.OpenerNotReady)
             {
-                if (HasCooldowns())
+                if (HasCooldowns() && !InCombat())
                 {
                     CurrentState = OpenerState.OpenerReady;
                     OpenerStep = 1;
@@ -176,15 +177,19 @@ namespace WrathCombo.CustomComboNS
 
                 if (OpenerStep > 1)
                 {
-                    var delay = PrepullDelays.FindFirst(x => x.Steps.Any(y => y == DelayedStep && y == OpenerStep), out var hold);
-                    if ((!delay && InCombat() && ActionWatching.TimeSinceLastAction.TotalSeconds >= Service.Configuration.OpenerTimeout) || (delay && (DateTime.Now - DelayedAt).TotalSeconds > hold.HoldDelay() + Service.Configuration.OpenerTimeout))
+                    bool prevStepSkipping = SkipSteps.FindFirst(x => x.Steps.FindFirst(y => y == OpenerStep  - 1, out var t), out var p);
+                    if (prevStepSkipping)
+                        prevStepSkipping = p.Condition();
+
+                    bool delay = PrepullDelays.FindFirst(x => x.Steps.Any(y => y == DelayedStep && y == OpenerStep), out var hold);
+                    if ((!delay && !prevStepSkipping && ActionWatching.TimeSinceLastAction.TotalSeconds >= Service.Configuration.OpenerTimeout) || (delay && (DateTime.Now - DelayedAt).TotalSeconds > hold.HoldDelay() + Service.Configuration.OpenerTimeout))
                     {
                         CurrentState = OpenerState.FailedOpener;
-                        return false; 
+                        return false;
                     }
                 }
 
-                if (OpenerStep < OpenerActions.Count)
+                if (OpenerStep <= OpenerActions.Count)
                 {
                     foreach (var (Step, Condition) in SkipSteps.Where(x => x.Steps.Any(y => y == OpenerStep)))
                     {
@@ -192,7 +197,7 @@ namespace WrathCombo.CustomComboNS
                             OpenerStep++;
                     }
 
-                    actionID = CurrentOpenerAction = OpenerActions[OpenerStep - 1];
+                    actionID = CurrentOpenerAction = AllowUpgradeSteps.Any(x => x == OpenerStep) ? OriginalHook(OpenerActions[OpenerStep - 1]) : OpenerActions[OpenerStep - 1];
 
                     double startValue = (VeryDelayedWeaveSteps.Any(x => x == OpenerStep)) ? 1 : 1.25;
                     if ((DelayedWeaveSteps.Any(x => x == OpenerStep) || VeryDelayedWeaveSteps.Any(x => x == OpenerStep)) && !CanDelayedWeave(startValue))
@@ -228,7 +233,7 @@ namespace WrathCombo.CustomComboNS
                         }
                     }
 
-                    if (CurrentOpenerAction == Melee.TrueNorth && !TargetNeedsPositionals())
+                    if (CurrentOpenerAction == RoleActions.Melee.TrueNorth && !TargetNeedsPositionals())
                     {
                         OpenerStep++;
                         CurrentOpenerAction = OpenerActions[OpenerStep - 1];
@@ -236,7 +241,7 @@ namespace WrathCombo.CustomComboNS
 
                     while (OpenerStep > 1 && !ActionReady(CurrentOpenerAction) &&
                            !SkipSteps.Any(x => x.Steps.Any(y => y == OpenerStep - 1)) &&
-                           ActionWatching.TimeSinceLastAction.TotalSeconds > Math.Max(1.5, GCDTotal)) 
+                           ActionWatching.TimeSinceLastAction.TotalSeconds > Math.Max(1.5, GCDTotal))
                     {
                         if (OpenerStep >= OpenerActions.Count)
                             break;
@@ -304,11 +309,12 @@ namespace WrathCombo.CustomComboNS
                     Svc.Framework.Update -= currentOpener.UpdateOpener;
                     OnCastInterrupted -= RevertInterruptedCasts;
                     Svc.Condition.ConditionChange -= ResetAfterCombat;
-                    Svc.Log.Debug($"Removed update hook");
+                    Svc.Log.Debug($"Removed update hook {value.GetType()} {currentOpener.GetType()}");
                 }
 
                 if (currentOpener != value)
                 {
+                    Svc.Log.Debug($"Setting CurrentOpener");
                     currentOpener = value;
                     Svc.Framework.Update += currentOpener.UpdateOpener;
                     OnCastInterrupted += RevertInterruptedCasts;
@@ -337,7 +343,7 @@ namespace WrathCombo.CustomComboNS
 
     public class DummyOpener : WrathOpener
     {
-        public override List<uint> OpenerActions { get; set; } = new();
+        public override List<uint> OpenerActions { get; set; } = [];
         public override int MinOpenerLevel => 1;
         public override int MaxOpenerLevel => 10000;
 

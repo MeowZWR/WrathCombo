@@ -1,13 +1,17 @@
-﻿using Dalamud.Game.ClientState.Objects.Types;
-using ECommons.DalamudServices;
-using WrathCombo.CustomComboNS;
+﻿using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Window.Functions;
 
 namespace WrathCombo.Combos.PvP
 {
     internal static class WHMPvP
     {
+        #region IDS
+
+        public const byte ClassID = 6;
         public const byte JobID = 24;
+
+        internal class Role : PvPHealer;
 
         public const uint
             Glare = 29223,
@@ -26,13 +30,37 @@ namespace WrathCombo.Combos.PvP
                 SacredSight = 4326;
         }
 
-        internal class Config
+        #endregion
+
+        #region Config
+        public static class Config
         {
-            internal static UserInt
-                WHMPVP_HealOrder = new("WHMPVP_HealOrder");
+            public static UserInt
+               WHMPvP_PurgationThreshold = new("WHMPvP_PurgationThreshold"),
+               WHMPvP_DiabrosisThreshold = new("WHMPvP_DiabrosisThreshold");
+
+            internal static void Draw(CustomComboPreset preset)
+            {
+                switch (preset)
+                {                    
+                    case CustomComboPreset.WHMPvP_Diabrosis:
+                        UserConfig.DrawSliderInt(1, 100, WHMPvP_DiabrosisThreshold,
+                            "Target HP% to use Diabrosis");
+
+                        break;
+
+                    case CustomComboPreset.WHMPvP_AfflatusPurgation:
+                        UserConfig.DrawSliderInt(1, 100, WHMPvP_PurgationThreshold,
+                            "Target HP% to use Line Aoe Limit Break");
+
+                        break;
+                }
+            }
         }
 
-        internal class WHMPvP_Burst : CustomCombo
+        #endregion       
+
+    internal class WHMPvP_Burst : CustomCombo
         {
             protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.WHMPvP_Burst;
 
@@ -42,59 +70,53 @@ namespace WrathCombo.Combos.PvP
                 {
                     if (!PvPCommon.TargetImmuneToDamage())
                     {
-                        var tar = OptionalTarget as IBattleChara ?? Svc.Targets.Target as IBattleChara;
-                        if (IsEnabled(CustomComboPreset.WHMPvP_AfflatusPurgation) && LimitBreakLevel == 1 && tar?.CurrentHp <= 40000)
+                        //Limit break, with health slider
+                        if (IsEnabled(CustomComboPreset.WHMPvP_AfflatusPurgation) && IsLB1Ready && GetTargetHPPercent() <= Config.WHMPvP_PurgationThreshold)
                             return AfflatusPurgation;
 
-                        // Afflatus Misery if enabled and off cooldown
-                        if (IsEnabled(CustomComboPreset.WHMPvP_Afflatus_Misery) && IsOffCooldown(AfflatusMisery))
-                            return AfflatusMisery;
+                        // Seraph Strike if enabled and off cooldown
+                        if (IsEnabled(CustomComboPreset.WHMPvP_Seraph_Strike) && IsOffCooldown(SeraphStrike))
+                            return SeraphStrike;
 
                         // Weave conditions
                         if (CanWeave())
                         {
+                            //Role Action Diabrosis Role action
+                            if (IsEnabled(CustomComboPreset.WHMPvP_Diabrosis) && PvPHealer.CanDiabrosis() && HasTarget() &&
+                            GetTargetHPPercent() <= Config.WHMPvP_DiabrosisThreshold)
+                                return PvPHealer.Diabrosis;
+
                             // Miracle of Nature if enabled and off cooldown and inrange 
                             if (IsEnabled(CustomComboPreset.WHMPvP_Mirace_of_Nature) && IsOffCooldown(MiracleOfNature) && InActionRange(MiracleOfNature))
                                 return MiracleOfNature;
-
-                            // Seraph Strike if enabled and off cooldown
-                            if (IsEnabled(CustomComboPreset.WHMPvP_Seraph_Strike) && IsOffCooldown(SeraphStrike))
-                                return SeraphStrike;
                         }
+
+                        // Afflatus Misery if enabled and off cooldown
+                        if (IsEnabled(CustomComboPreset.WHMPvP_Afflatus_Misery) && IsOffCooldown(AfflatusMisery))
+                            return AfflatusMisery;
                     }
+                    // Prevent waste cure 3 option
+                    if (IsEnabled(CustomComboPreset.WHMPvP_NoWasteCure) && HasStatusEffect(Buffs.Cure3Ready) && GetStatusEffectRemainingTime(Buffs.Cure3Ready) < 6)
+                        return Cure3;
                 }
 
                 return actionID;
             }
         }
-        internal class WHMPvP_Aquaveil : CustomCombo
+      
+       internal class WHMPvP_Aquaveil : CustomCombo
         {
             protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.WHMPvP_Heals;
 
             protected override uint Invoke(uint actionID)
             {
                 if (actionID is Cure2)
-                {
-                    bool aquaveil = IsEnabled(CustomComboPreset.WHMPvP_Aquaveil) && IsOffCooldown(Aquaveil);
-                    bool cure3 = IsEnabled(CustomComboPreset.WHMPvP_Cure3) && HasEffect(Buffs.Cure3Ready);
+                { 
+                    if (IsEnabled(CustomComboPreset.WHMPvP_Cure3) && HasStatusEffect(Buffs.Cure3Ready))
+                        return Cure3;
 
-                    if (Config.WHMPVP_HealOrder == 0)
-                    {
-                        if (aquaveil)
-                            return Aquaveil;
-
-                        if (cure3)
-                            return Cure3;
-                    }
-                    else
-                    {
-                        if (cure3)
-                            return Cure3;
-
-                        if (aquaveil)
-                            return Aquaveil;
-                    }
-                    
+                    if (IsEnabled(CustomComboPreset.WHMPvP_Aquaveil) && IsOffCooldown(Aquaveil))
+                        return Aquaveil;      
                 }
 
                 return actionID;

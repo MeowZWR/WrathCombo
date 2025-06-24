@@ -4,7 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using Dalamud.Networking.Http;
+using ECommons;
 using ECommons.ExcelServices;
 using ECommons.EzIpcManager;
 using ECommons.GameHelpers;
@@ -12,6 +15,8 @@ using ECommons.Logging;
 using WrathCombo.Combos;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
+using EZ = ECommons.Throttlers.EzThrottler;
+using TS = System.TimeSpan;
 
 #endregion
 
@@ -80,12 +85,11 @@ public partial class Helper(ref Leasing leasing)
             return null;
 
         // Detect the target type
-        var targetType = attr.CustomComboInfo.Name.Contains("single target", lower)
-            ? ComboTargetTypeKeys.SingleTarget
-            : (attr.CustomComboInfo.Name.Contains("- aoe", lower) ||
-               attr.CustomComboInfo.Name.Contains("aoe dps", lower))
-                ? ComboTargetTypeKeys.MultiTarget
-                : ComboTargetTypeKeys.Other;
+        var targetType = attr.CustomComboInfo.Name.Contains("single target", lower) ?
+            ComboTargetTypeKeys.SingleTarget :
+            (attr.CustomComboInfo.Name.Contains("- aoe", lower) ||
+             attr.CustomComboInfo.Name.Contains("aoe dps", lower)) ?
+                ComboTargetTypeKeys.MultiTarget : ComboTargetTypeKeys.Other;
 
         // Bail if it is not a Single-Target or Multi-Target primary preset
         if (targetType == ComboTargetTypeKeys.Other)
@@ -102,17 +106,26 @@ public partial class Helper(ref Leasing leasing)
                 ? ComboSimplicityLevelKeys.Advanced
                 : ComboSimplicityLevelKeys.Simple;
 
-        // Get the opposite mode
-        var categorizedPreset =
-            P.IPCSearch.ComboStatesByJobCategorized
-                [(Job)attr.CustomComboInfo.JobID]
-                [targetType][simplicityLevelToSearchFor];
+        try
+        {
+            // Get the opposite mode
+            var categorizedPreset =
+                P.IPCSearch.CurrentJobComboStatesCategorized
+                        [(Job)attr.CustomComboInfo.JobID]
+                    [targetType][simplicityLevelToSearchFor];
 
-        // Return the opposite mode, as a proper preset
-        var oppositeMode = categorizedPreset.FirstOrDefault().Key;
-        var oppositeModePreset = (CustomComboPreset)
-            Enum.Parse(typeof(CustomComboPreset), oppositeMode, true);
-        return oppositeModePreset;
+            // Return the opposite mode, as a proper preset
+            var oppositeMode = categorizedPreset.FirstOrDefault().Key;
+            var oppositeModePreset = (CustomComboPreset)
+                Enum.Parse(typeof(CustomComboPreset), oppositeMode, true);
+            return oppositeModePreset;
+        }
+        catch (Exception ex)
+        {
+            ex.LogWarning(
+                "No opposite combo found, this is probably correct if this is a healer.");
+            return null;
+        }
     }
 
     #region Auto-Rotation Ready
@@ -142,9 +155,9 @@ public partial class Helper(ref Leasing leasing)
     /// <seealso cref="Provider.IsCurrentJobConfiguredOn" />
     /// <seealso cref="Provider.IsCurrentJobAutoModeOn" />
     internal ComboSimplicityLevelKeys? CheckCurrentJobModeIsEnabled
-            (ComboTargetTypeKeys mode,
-            ComboStateKeys enabledStateToCheck,
-            ComboSimplicityLevelKeys? previousMatch = null)
+    (ComboTargetTypeKeys mode,
+        ComboStateKeys enabledStateToCheck,
+        ComboSimplicityLevelKeys? previousMatch = null)
     {
         if (CustomComboFunctions.LocalPlayer is null)
             return null;
@@ -152,18 +165,51 @@ public partial class Helper(ref Leasing leasing)
         // Convert current job/class to a job, if it is a class
         var job = (Job)CustomComboFunctions.JobIDs.ClassToJob((uint)Player.Job);
 
-        P.IPCSearch.ComboStatesByJobCategorized.TryGetValue(job,
+        // Get the user's settings for this job
+        P.IPCSearch.CurrentJobComboStatesCategorized.TryGetValue(job,
             out var comboStates);
 
+        // Bail if there are no combos found for this job
         if (comboStates is null || comboStates.Count == 0)
             return null;
 
+        // Try to get the Simple Mode settings
         comboStates[mode]
             .TryGetValue(ComboSimplicityLevelKeys.Simple, out var simpleResults);
-        var simple =
-            simpleResults?.FirstOrDefault().Value;
-        var advanced =
-            comboStates[mode][ComboSimplicityLevelKeys.Advanced].First().Value;
+        var simpleHigher = simpleResults?.FirstOrDefault();
+        var simple = simpleHigher?.Value;
+
+        #region Override the Values with any IPC-control
+
+        CustomComboPreset? simpleComboPreset = simpleHigher is null
+            ? null
+            : (CustomComboPreset)
+            Enum.Parse(typeof(CustomComboPreset), simpleHigher.Value.Key, true);
+        if (simpleComboPreset is not null)
+        {
+            simple[ComboStateKeys.AutoMode] =
+                P.IPCSearch.AutoActions[(CustomComboPreset)simpleComboPreset];
+            simple[ComboStateKeys.Enabled] =
+                P.IPCSearch.EnabledActions.Contains(
+                    (CustomComboPreset)simpleComboPreset);
+        }
+
+        #endregion
+
+        // Get the Advanced Mode settings
+        var (advancedKey, advancedValue) =
+            comboStates[mode][ComboSimplicityLevelKeys.Advanced].First();
+
+        #region Override the Values with any IPC-control
+
+        var advancedComboPreset = (CustomComboPreset)
+            Enum.Parse(typeof(CustomComboPreset), advancedKey, true);
+        advancedValue[ComboStateKeys.AutoMode] =
+            P.IPCSearch.AutoActions[advancedComboPreset];
+        advancedValue[ComboStateKeys.Enabled] =
+            P.IPCSearch.EnabledActions.Contains(advancedComboPreset);
+
+        #endregion
 
         // If the simplicity level is set, check that specifically instead of either
         if (previousMatch is not null)
@@ -171,16 +217,16 @@ public partial class Helper(ref Leasing leasing)
             if (previousMatch == ComboSimplicityLevelKeys.Simple &&
                 simple is not null && simple[enabledStateToCheck])
                 return ComboSimplicityLevelKeys.Simple;
-            return advanced[enabledStateToCheck]
+            return advancedValue[enabledStateToCheck]
                 ? ComboSimplicityLevelKeys.Advanced
                 : null;
         }
 
-        return simple is not null && simple[enabledStateToCheck]
-            ? ComboSimplicityLevelKeys.Simple
-            : advanced[enabledStateToCheck]
-                ? ComboSimplicityLevelKeys.Advanced
-                : null;
+        // Check for either Simple or Advanced being ready
+        return simple is not null && simple[enabledStateToCheck] ?
+            ComboSimplicityLevelKeys.Simple :
+            advancedValue[enabledStateToCheck] ? ComboSimplicityLevelKeys.Advanced :
+                null;
     }
 
     /// <summary>
@@ -208,7 +254,7 @@ public partial class Helper(ref Leasing leasing)
         if (CombosForARCache.TryGetValue(job, out var value))
             return value;
 
-        P.IPCSearch.ComboStatesByJobCategorized.TryGetValue(job,
+        P.IPCSearch.CurrentJobComboStatesCategorized.TryGetValue(job,
             out var comboStates);
 
         if (comboStates is null)
@@ -325,7 +371,17 @@ public partial class Helper(ref Leasing leasing)
 
     #region Checking the repo for live IPC status
 
-    private readonly HttpClient _httpClient = new();
+    /// Dalamud's happy eyeballs handler, which handles IPv6, among other things.
+    // ReSharper disable once InconsistentNaming
+    private static readonly SocketsHttpHandler _httpHandler = new()
+    {
+        AutomaticDecompression = DecompressionMethods.All,
+        ConnectCallback = new HappyEyeballsCallback().ConnectCallback,
+    };
+
+    /// The HTTP client, setup with a short timeout and Dalamud's happy handler.
+    private readonly HttpClient _httpClient = new(_httpHandler)
+        { Timeout = TS.FromSeconds(5) };
 
     /// <summary>
     ///     The endpoint for checking the IPC status straight from the repo,
@@ -338,16 +394,8 @@ public partial class Helper(ref Leasing leasing)
     /// <summary>
     ///     The cached backing field for the IPC status.
     /// </summary>
-    /// <seealso cref="_ipcStatusLastUpdated" />
     /// <seealso cref="IPCEnabled" />
     private bool? _ipcEnabled;
-
-    /// <summary>
-    ///     The time the IPC status was last checked.
-    /// </summary>
-    /// <seealso cref="_ipcEnabled" />
-    /// <seealso cref="IPCEnabled" />
-    private DateTime? _ipcStatusLastUpdated;
 
     /// <summary>
     ///     The lightly-cached live IPC status.<br />
@@ -355,19 +403,18 @@ public partial class Helper(ref Leasing leasing)
     /// </summary>
     /// <seealso cref="IPCStatusEndpoint" />
     /// <seealso cref="_ipcEnabled" />
-    /// <seealso cref="_ipcStatusLastUpdated" />
     public bool IPCEnabled
     {
         get
         {
-            // If the IPC status was checked within the last 5 minutes:
+            // If the IPC status was checked within the last 20 minutes:
             // return the cached value
             if (_ipcEnabled is not null &&
-                DateTime.Now - _ipcStatusLastUpdated < TimeSpan.FromMinutes(5))
+                !EZ.Throttle("ipcLastStatusChecked", TS.FromMinutes(20)))
                 return _ipcEnabled!.Value;
 
             // Otherwise, check the status and cache the result
-            var data = string.Empty;
+            string data;
             // Check the status
             try
             {
@@ -390,7 +437,6 @@ public partial class Helper(ref Leasing leasing)
             var ipcStatus = data.StartsWith("enabled");
             // Cache the status
             _ipcEnabled = ipcStatus;
-            _ipcStatusLastUpdated = DateTime.Now;
 
             // Handle suspended status
             if (!ipcStatus)
@@ -435,6 +481,9 @@ internal static class Logging
             return "[Unknown Method] ";
         }
     }
+
+    public static void Verbose(string message) =>
+        PluginLog.Verbose(Prefix + PrefixMethod + message);
 
     public static void Log(string message) =>
         PluginLog.Debug(Prefix + PrefixMethod + message);

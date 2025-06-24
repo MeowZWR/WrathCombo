@@ -31,7 +31,7 @@ namespace WrathCombo.CustomComboNS.Functions
 
         /// <summary> Find if the player is bound by duty. </summary>
         /// <returns> A value indicating whether the player is bound by duty. </returns>
-        public unsafe static bool InDuty() => GameMain.Instance()->CurrentContentFinderConditionId > 0;
+        public static unsafe bool InDuty() => GameMain.Instance()->CurrentContentFinderConditionId > 0;
 
         /// <summary> Find if the player has a pet present. </summary>
         /// <returns> A value indicating whether the player has a pet (fairy/carbuncle) present. </returns>
@@ -39,7 +39,7 @@ namespace WrathCombo.CustomComboNS.Functions
 
         /// <summary> Find if the player has a companion (chocobo) present. </summary>
         /// <returns> A value indicating whether the player has a companion (chocobo). </returns>
-        public static bool HasCompanionPresent() => Svc.Buddies.CompanionBuddy != null;
+        public static bool HasCompanionPresent() => Svc.Buddies.CompanionBuddy?.GameObject != null;
 
         /// <summary> Checks if the player is in a PVP enabled zone. </summary>
         /// <returns> A value indicating whether the player is in a PVP enabled zone. </returns>
@@ -54,22 +54,22 @@ namespace WrathCombo.CustomComboNS.Functions
             return UIState.Instance()->IsUnlockLinkUnlockedOrQuestCompleted(unlockLink);
         }
 
-        public unsafe static bool InFATE() => FateManager.Instance()->CurrentFate is not null && LocalPlayer.Level <= FateManager.Instance()->CurrentFate->MaxLevel;
+        public static unsafe bool InFATE() => FateManager.Instance()->CurrentFate is not null && LocalPlayer.Level <= FateManager.Instance()->CurrentFate->MaxLevel;
 
-        public unsafe static bool PlayerHasTankStance()
+        public static bool PlayerHasTankStance()
         {
             return LocalPlayer.ClassJob.RowId switch
             {
-                PLD.JobID or PLD.ClassID => HasEffect(PLD.Buffs.IronWill),
-                WAR.JobID or WAR.ClassID => HasEffect(WAR.Buffs.Defiance),
-                DRK.JobID => HasEffect(DRK.Buffs.Grit),
-                GNB.JobID => HasEffect(GNB.Buffs.RoyalGuard),
-                BLU.JobID => HasEffect(BLU.Buffs.TankMimicry),
+                PLD.JobID or PLD.ClassID => HasStatusEffect(PLD.Buffs.IronWill),
+                WAR.JobID or WAR.ClassID => HasStatusEffect(WAR.Buffs.Defiance),
+                DRK.JobID => HasStatusEffect(DRK.Buffs.Grit),
+                GNB.JobID => HasStatusEffect(GNB.Buffs.RoyalGuard),
+                BLU.JobID => HasStatusEffect(BLU.Buffs.TankMimicry),
                 _ => false
             };
         }
 
-        public unsafe static bool InBossEncounter()
+        public static unsafe bool InBossEncounter()
         {
             if (NearbyBosses.Count() == 0)
                 return false;
@@ -83,7 +83,7 @@ namespace WrathCombo.CustomComboNS.Functions
             return false;
         }
 
-        public unsafe static AllianceGroup GetAllianceGroup()
+        public static unsafe AllianceGroup GetAllianceGroup()
         {
             if (GroupManager.Instance()->MainGroup.IsAlliance)
             {

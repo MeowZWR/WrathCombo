@@ -1,8 +1,9 @@
-using ECommons.ExcelServices;
-using WrathCombo.Combos.PvP;
+using ImGuiNET;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Window.Functions;
+using static WrathCombo.Extensions.UIntExtensions;
+using static WrathCombo.Window.Functions.UserConfig;
 
 namespace WrathCombo.Combos.PvE;
 
@@ -11,15 +12,15 @@ internal partial class SMN
     internal static class Config
     {
         public static UserInt
+            SMN_ST_Advanced_Combo_AltMode = new("SMN_ST_Advanced_Combo_AltMode"),
             SMN_ST_Lucid = new("SMN_ST_Lucid", 8000),
             SMN_ST_BurstPhase = new("SMN_ST_BurstPhase", 1),
-            SMN_ST_PrimalChoice = new("SMN_PrimalChoice", 1),
             SMN_ST_SwiftcastPhase = new("SMN_SwiftcastPhase", 1),
             SMN_ST_Burst_Delay = new("SMN_Burst_Delay", 0),
+            SMN_Opener_SkipSwiftcast = new("SMN_Opener_SkipSwiftcast", 1),
 
             SMN_AoE_Lucid = new("SMN_AoE_Lucid", 8000),
             SMN_AoE_BurstPhase = new("SMN_AoE_BurstPhase", 1),
-            SMN_AoE_PrimalChoice = new("SMN_AoE_PrimalChoice", 1),
             SMN_AoE_SwiftcastPhase = new("SMN_AoE_SwiftcastPhase", 1),
             SMN_AoE_Burst_Delay = new("SMN_AoE_Burst_Delay", 0),
 
@@ -36,63 +37,61 @@ internal partial class SMN
             SMN_ST_Searing_Any = new("SMN_ST_Searing_Any"),
             SMN_AoE_Searing_Any = new("SMN_AoE_Searing_Any");
 
+        internal static UserIntArray 
+            SMN_ST_Egi_Priority = new("SMN_ST_Egi_Priority"),
+            SMN_AoE_Egi_Priority = new ("SMN_AoE_Egi_Priority");
+
         internal static void Draw(CustomComboPreset preset)
         {
             switch (preset)
             {
+                case CustomComboPreset.SMN_ST_Advanced_Combo:
+                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, $"On Ruin 1, 2, and 3", "", 0);
+                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, $"On Ruin 1 and 2 Only", $"Alternative DPS Mode. Leaves Ruin 3 alone for pure DPS.", 1);
+                    break;
+
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Balance_Opener:
+                    
                     UserConfig.DrawBossOnlyChoice(SMN_Balance_Content);
+
+                    ImGui.NewLine();
+
+                    UserConfig.DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "Use Swiftcast",
+                        "Will use Swiftcast in opener to try and snapshot in pots for lower gcds", 1);
+
+                    UserConfig.DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "Skip Swiftcast",
+                        "Will not use swiftcast in opener for higher gcds", 2);
                     break;
 
-                case CustomComboPreset.SMN_ST_Advanced_Combo_DemiEgiMenu_EgiOrder:
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_PrimalChoice, "Titan first",
-                        "Summons Titan, Garuda then Ifrit.", 1);
-
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_PrimalChoice, "Garuda first",
-                        "Summons Garuda, Titan then Ifrit.", 2);
-
+                case CustomComboPreset.SMN_ST_Advanced_Combo_Titan:                    
+                    UserConfig.DrawPriorityInput(SMN_ST_Egi_Priority, 3, 0,
+                        $"{SummonTopaz.ActionName()} Priority: ");
                     break;
 
-                case CustomComboPreset.SMN_AoE_Advanced_Combo_DemiEgiMenu_EgiOrder:
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_PrimalChoice, "Titan first",
-                        "Summons Titan, Garuda then Ifrit.", 1);
-
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_PrimalChoice, "Garuda first",
-                        "Summons Garuda, Titan then Ifrit.", 2);
-
+                case CustomComboPreset.SMN_ST_Advanced_Combo_Garuda:
+                    UserConfig.DrawPriorityInput(SMN_ST_Egi_Priority, 3, 1,
+                        $"{SummonEmerald.ActionName()} Priority: ");
                     break;
 
-                case CustomComboPreset.SMN_ST_Advanced_Combo_DemiEgiMenu_oGCDPooling:
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_BurstPhase, "Solar Bahamut/Bahamut",
-                        "Bursts during Bahamut phase.\nBahamut burst phase becomes Solar Bahamut at Lv100.", 1);
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_BurstPhase, "Phoenix", "Bursts during Phoenix phase.", 2);
-
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_BurstPhase, "Any Demi Phase",
-                        "Bursts during any Demi Summon phase.", 3);
-
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_BurstPhase, "Flexible (SpS) Option",
-                        "Bursts when Searing Light is ready, regardless of phase.", 4);
-
-                    UserConfig.DrawSliderInt(0, 3, SMN_ST_Burst_Delay,
-                        "Sets the amount of GCDs under Demi summon to wait for oGCD use.");
-
+                case CustomComboPreset.SMN_ST_Advanced_Combo_Ifrit:
+                    UserConfig.DrawPriorityInput(SMN_ST_Egi_Priority, 3, 2,
+                        $"{SummonRuby.ActionName()} Priority: ");
                     break;
 
-                case CustomComboPreset.SMN_AoE_Advanced_Combo_DemiEgiMenu_oGCDPooling:
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_BurstPhase, "Solar Bahamut/Bahamut",
-                        "Bursts during Bahamut phase.\nBahamut burst phase becomes Solar Bahamut at Lv100.", 1);
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_BurstPhase, "Phoenix", "Bursts during Phoenix phase.", 2);
-
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_BurstPhase, "Any Demi Phase",
-                        "Bursts during any Demi Summon phase.", 3);
-
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_BurstPhase, "Flexible (SpS) Option",
-                        "Bursts when Searing Light is ready, regardless of phase.", 4);
-
-                    UserConfig.DrawSliderInt(0, 3, SMN_AoE_Burst_Delay,
-                        "Sets the amount of GCDs under Demi summon to wait for oGCD use.");
-
+                case CustomComboPreset.SMN_AoE_Advanced_Combo_Titan:
+                    UserConfig.DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 0,
+                        $"{SummonTopaz.ActionName()} Priority: ");
                     break;
+
+                case CustomComboPreset.SMN_AoE_Advanced_Combo_Garuda:
+                    UserConfig.DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 1,
+                        $"{SummonEmerald.ActionName()} Priority: ");
+                    break;
+
+                case CustomComboPreset.SMN_AoE_Advanced_Combo_Ifrit:
+                    UserConfig.DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 2,
+                        $"{SummonRuby.ActionName()} Priority: ");
+                    break;              
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_DemiEgiMenu_SwiftcastEgi:
                     UserConfig.DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Garuda", "Swiftcasts Slipstream", 1);
@@ -161,21 +160,7 @@ internal partial class SMN
                                 "Enforced Crimson Cyclone Melee Check", "Only uses Crimson Cyclone within melee range.");
 
                         break;
-                    }
-
-                case CustomComboPreset.SMN_ST_Advanced_Combo_SearingLight:
-                    UserConfig.DrawAdditionalBoolChoice(SMN_ST_Searing_Any, $"Do not user when under another {Job.SMN.GetData().Abbreviation}'s {Buffs.SearingLight.StatusName()} buff.", $"Saves your {SearingLight.ActionName()} if you already have the buff from another {Job.SMN.GetData().Abbreviation}.");
-                    break;
-
-                case CustomComboPreset.SMN_AoE_Advanced_Combo_SearingLight:
-                    UserConfig.DrawAdditionalBoolChoice(SMN_AoE_Searing_Any, $"Do not user when under another {Job.SMN.GetData().Abbreviation}'s {Buffs.SearingLight.StatusName()} buff.", $"Saves your {SearingLight.ActionName()} if you already have the buff from another {Job.SMN.GetData().Abbreviation}.");
-                    break;
-
-                case CustomComboPreset.SMNPvP_BurstMode_RadiantAegis:
-                    UserConfig.DrawSliderInt(0, 90, SMNPvP.Config.SMNPvP_RadiantAegisThreshold,
-                        "Caps at 90 to prevent waste.");
-
-                    break;
+                    }  
             }
         }
     }

@@ -1,11 +1,17 @@
 ﻿using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
+using WrathCombo.Window.Functions;
 
 namespace WrathCombo.Combos.PvP
 {
     internal static class PCTPvP
     {
+
+        #region IDs
+
         public const byte JobID = 42;
+
+        internal class Role : PvPCaster;
 
         internal const uint
             FireInRed = 39191,
@@ -14,6 +20,7 @@ namespace WrathCombo.Combos.PvP
             HolyInWhite = 39198,
             CreatureMotif = 39204,
             LivingMuse = 39209,
+            Smudge = 39210,
             TemperaCoat = 39211,
             SubtractivePalette = 39213,
             StarPrism = 39216,
@@ -32,13 +39,41 @@ namespace WrathCombo.Combos.PvP
                 MadeenPortrait = 4104,
                 SubtractivePalette = 4102;
         }
+        #endregion
 
-        internal class Config
+        #region Config
+
+        public static class Config
         {
-            internal static UserInt
-                PCTPvP_BurstHP = new("PCTPvP_BurstHP", 100),
-                PCTPvP_TemperaHP = new("PCTPvP_TemperaHP", 50);
+            public static UserInt
+               PCTPvP_BurstHP = new("PCTPvP_BurstHP", 100),
+               PCTPvP_TemperaHP = new("PCTPvP_TemperaHP", 50),
+               PCTPvP_PhantomDartThreshold = new("PCTPvP_PhantomDartThreshold", 50);
+
+            internal static void Draw(CustomComboPreset preset)
+            {
+                switch (preset)
+                {
+                    // Phantom Dart
+                    case CustomComboPreset.PCTPvP_PhantomDart:
+                        UserConfig.DrawSliderInt(1, 100, PCTPvP.Config.PCTPvP_PhantomDartThreshold,
+                            "Target HP% to use Phantom Dart at or below");
+
+                        break;
+
+                    case CustomComboPreset.PCTPvP_BurstControl:
+                        UserConfig.DrawSliderInt(1, 100, PCTPvP.Config.PCTPvP_BurstHP, "Target HP%", 200);
+
+                        break;
+
+                    case CustomComboPreset.PCTPvP_TemperaCoat:
+                        UserConfig.DrawSliderInt(1, 100, PCTPvP.Config.PCTPvP_TemperaHP, "Player HP%", 200);
+
+                        break;
+                }
+            }            
         }
+        #endregion
 
         internal class PCTPvP_Burst : CustomCombo
         {
@@ -48,12 +83,12 @@ namespace WrathCombo.Combos.PvP
                 #region Variables
                 bool isMoving = IsMoving();
                 bool hasTarget = HasTarget();
-                bool hasStarPrism = HasEffect(Buffs.Starstruck);
-                bool hasSubtractivePalette = HasEffect(Buffs.SubtractivePalette);
-                bool hasPortrait = HasEffect(Buffs.MooglePortrait) || HasEffect(Buffs.MadeenPortrait);
-                bool isStarPrismExpiring = HasEffect(Buffs.Starstruck) && GetBuffRemainingTime(Buffs.Starstruck) <= 3;
-                bool isTemperaCoatExpiring = HasEffect(Buffs.TemperaCoat) && GetBuffRemainingTime(Buffs.TemperaCoat) <= 3;
-                bool hasMotifDrawn = HasEffect(Buffs.PomMotif) || HasEffect(Buffs.WingMotif) || HasEffect(Buffs.ClawMotif) || HasEffect(Buffs.MawMotif);
+                bool hasStarPrism = HasStatusEffect(Buffs.Starstruck);
+                bool hasSubtractivePalette = HasStatusEffect(Buffs.SubtractivePalette);
+                bool hasPortrait = HasStatusEffect(Buffs.MooglePortrait) || HasStatusEffect(Buffs.MadeenPortrait);
+                bool isStarPrismExpiring = HasStatusEffect(Buffs.Starstruck) && GetStatusEffectRemainingTime(Buffs.Starstruck) <= 3;
+                bool isTemperaCoatExpiring = HasStatusEffect(Buffs.TemperaCoat) && GetStatusEffectRemainingTime(Buffs.TemperaCoat) <= 3;
+                bool hasMotifDrawn = HasStatusEffect(Buffs.PomMotif) || HasStatusEffect(Buffs.WingMotif) || HasStatusEffect(Buffs.ClawMotif) || HasStatusEffect(Buffs.MawMotif);
                 bool isBurstControlled = IsNotEnabled(CustomComboPreset.PCTPvP_BurstControl) || (IsEnabled(CustomComboPreset.PCTPvP_BurstControl) && GetTargetHPPercent() < Config.PCTPvP_BurstHP);
                 #endregion
 
@@ -75,6 +110,9 @@ namespace WrathCombo.Combos.PvP
                             if (hasStarPrism && (isBurstControlled || isStarPrismExpiring))
                                 return StarPrism;
                         }
+
+                        if (IsEnabled(CustomComboPreset.PCTPvP_PhantomDart) && Role.CanPhantomDart() && CanWeave() && GetTargetHPPercent() <= (Config.PCTPvP_PhantomDartThreshold))
+                            return Role.PhantomDart;
 
                         // Moogle / Madeen Portrait
                         if (IsEnabled(CustomComboPreset.PCTPvP_MogOfTheAges) && hasPortrait && isBurstControlled)

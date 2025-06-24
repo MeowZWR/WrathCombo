@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FFXIVClientStructs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.Core;
@@ -6,17 +7,6 @@ using WrathCombo.Services;
 
 namespace WrathCombo.CustomComboNS.Functions
 {
-    internal abstract partial class CustomComboFunctions
-    {
-        public static int GetOptionValue(string SliderID) => PluginConfiguration.GetCustomIntValue(SliderID);
-
-        public static bool GetIntOptionAsBool(string SliderID) => Convert.ToBoolean(GetOptionValue(SliderID));
-
-        public static bool GetOptionBool(string SliderID) => PluginConfiguration.GetCustomBoolValue(SliderID);
-
-        public static float GetOptionFloat(string SliderID) => PluginConfiguration.GetCustomFloatValue(SliderID);
-    }
-
     internal abstract class UserData(string v)
     {
         public string pName = v;
@@ -79,6 +69,8 @@ namespace WrathCombo.CustomComboNS.Functions
 
         // Implicit conversion to int
         public static implicit operator int(UserInt o) => PluginConfiguration.GetCustomIntValue(o.pName);
+
+        public int Value { get { return this; } set { PluginConfiguration.SetCustomIntValue(this.pName, value); Service.Configuration.Save(); } }
 
         public override void ResetToDefault()
         {
