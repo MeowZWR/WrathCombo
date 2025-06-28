@@ -470,7 +470,7 @@ public enum CustomComboPreset
     ALL_Healer_Raise = 100010,
 
     [ParentCombo(ALL_Healer_Raise)]
-    [CustomComboInfo("Retarget Raises", "Will Retarget the Raises affected here to your Heal Stack.", ADV.JobID)]
+    [CustomComboInfo("重定向复活目标", "将此范围内受影响的复活技能目标，重新指定为你的治疗集合目标。", ADV.JobID)]
     [Retargeted]
     ALL_Healer_Raise_Retarget = 100011,
 
@@ -509,7 +509,7 @@ public enum CustomComboPreset
     ALL_Caster_Raise = 100021,
 
     [ParentCombo(ALL_Caster_Raise)]
-    [CustomComboInfo("Retarget Raises", "Will Retarget the Raises affected here to your Heal Stack.", ADV.JobID)]
+    [CustomComboInfo("重定向复活目标", "将此范围内受影响的复活技能目标，重新指定为你的治疗集合目标。", ADV.JobID)]
     [Retargeted]
     ALL_Caster_Raise_Retarget = 100022,
 
@@ -810,7 +810,7 @@ public enum CustomComboPreset
     AST_Raise_Alternative = 1003,
 
     [ParentCombo(AST_Raise_Alternative)]
-    [CustomComboInfo("Retarget Raise", "Will Retarget the Raise affected here to your Heal Stack.", AST.JobID)]
+    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的一键治疗上。", AST.JobID)]
     [Retargeted]
     AST_Raise_Alternative_Retarget = 1060,
 
@@ -5605,7 +5605,7 @@ public enum CustomComboPreset
     SGE_Raise = 14040,
 
     [ParentCombo(SGE_Raise)]
-    [CustomComboInfo("Retarget Raise", "Will Retarget the Raise affected here to your Heal Stack.", SGE.JobID)]
+    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的一键治疗上。", SGE.JobID)]
     [Retargeted]
     SGE_Raise_Retarget = 14061,
 
@@ -6223,7 +6223,7 @@ public enum CustomComboPreset
     SCH_Raise = 16032,
 
     [ParentCombo(SCH_Raise)]
-    [CustomComboInfo("Retarget Raise", "Will Retarget the Raise affected here to your Heal Stack.", SCH.JobID)]
+    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的一键治疗上。", SCH.JobID)]
     [Retargeted]
     SCH_Raise_Retarget = 16050,
 
@@ -6308,20 +6308,20 @@ public enum CustomComboPreset
     SMN_ST_Advanced_Combo_DemiSummons_Rekindle = 17028,
 
     [ParentCombo(SMN_ST_Advanced_Combo_DemiSummons_Rekindle)]
-    [CustomComboInfo("Retarget Rekindle Combo Option", "Will Retarget Rekindle to a tank that needs it, then a party member that need healing, before Self.", SMN.JobID)]
+    [CustomComboInfo("自动重定向苏生之炎", "将苏生之炎重新定向到需要治疗的坦克，然后是需要治疗的队友，最后是自己。", SMN.JobID)]
     [Retargeted]
     SMN_ST_Advanced_Combo_DemiSummons_Rekindle_Retarget = 17080,    
 
     [ParentCombo(SMN_ST_Advanced_Combo)]
-    [CustomComboInfo("Summon Titan", "Adds Titan to the Single Target Rotation", SMN.JobID)]
+    [CustomComboInfo("召唤土神", "将土神添加到单体目标循环中", SMN.JobID)]
     SMN_ST_Advanced_Combo_Titan = 17073,
 
     [ParentCombo(SMN_ST_Advanced_Combo)]
-    [CustomComboInfo("Summon Garuda", "Adds Garuda to the Single Target Rotation", SMN.JobID)]
+    [CustomComboInfo("召唤风神", "将风神添加到单体目标循环中", SMN.JobID)]
     SMN_ST_Advanced_Combo_Garuda = 17074,
 
     [ParentCombo(SMN_ST_Advanced_Combo)]
-    [CustomComboInfo("Summon Ifrit", "Adds Ifrit to the Single Target Rotation", SMN.JobID)]
+    [CustomComboInfo("召唤火神", "将火神添加到单体目标循环中", SMN.JobID)]
     SMN_ST_Advanced_Combo_Ifrit = 17075,
 
     [ParentCombo(SMN_ST_Advanced_Combo)]
@@ -6329,8 +6329,8 @@ public enum CustomComboPreset
     SMN_ST_Advanced_Combo_EgiSummons_Attacks = 17004,
 
     [ParentCombo(SMN_ST_Advanced_Combo_EgiSummons_Attacks)]
-    [CustomComboInfo("Use Ruin III instead of Emerald Ruin III when standing still between the levels of 54 and 72",
-        "Replaces Emerald Ruin III with Ruin III in the rotation when standing still and Ruin Mastery III is not active.",
+    [CustomComboInfo("在54到72级之间站立不动时使用毁荡而非绿宝石毁荡",
+        "当站立不动且毁灭精通III未激活时，在循环中用毁荡替换绿宝石毁荡。",
         SMN.JobID)]
     SMN_ST_Ruin3_Emerald_Ruin3 = 17067,
 
@@ -6348,8 +6348,8 @@ public enum CustomComboPreset
     SMN_ST_Advanced_Combo_EDFester = 17014,
 
     [ParentCombo(SMN_ST_Advanced_Combo_EDFester)]
-    [CustomComboInfo("Pooled oGCDs Option",
-        "Pools damage oGCDs for use while under the Searing Light buff.",
+    [CustomComboInfo("储备能力技",
+        "储备用于输出的能力技，在灼热之光增益效果期间使用。",
         SMN.JobID)]
     SMN_ST_Advanced_Combo_oGCDPooling = 17025,
 
@@ -6359,8 +6359,8 @@ public enum CustomComboPreset
     SMN_ST_Advanced_Combo_SearingLight = 17017,
 
     [ParentCombo(SMN_ST_Advanced_Combo_SearingLight)]
-    [CustomComboInfo("Searing Light Burst Option",
-        "Casts Searing Light only during Demi phases.\nSpellspeed builds would turn this off.",
+    [CustomComboInfo("灼热之光爆发",
+        "仅在亚灵神阶段施放灼热之光。\n咏速配装需关闭此功能。",
         SMN.JobID)]
     SMN_ST_Advanced_Combo_SearingLight_Burst = 17018,
 
@@ -6379,7 +6379,7 @@ public enum CustomComboPreset
     SMN_ST_Advanced_Combo_DemiSummons_LuxSolaris = 17029,
 
     [ParentCombo(SMN_ST_Advanced_Combo)]
-    [CustomComboInfo("Radiant Aegis Option", "Will use Radiant Aegis, 30 second self shield, when at 2 charges to prevent waste ", SMN.JobID)]
+    [CustomComboInfo("守护之光", "当拥有2层充能时使用守护之光（30秒自身护盾）以防止浪费", SMN.JobID)]
     SMN_ST_Advanced_Combo_Radiant = 17071,
 
     [ParentCombo(SMN_ST_Advanced_Combo)]
@@ -6412,20 +6412,20 @@ public enum CustomComboPreset
     SMN_AoE_Advanced_Combo_DemiSummons_Rekindle = 17056,
 
     [ParentCombo(SMN_AoE_Advanced_Combo_DemiSummons_Rekindle)]
-    [CustomComboInfo("Retarget Rekindle Combo Option", "Will Retarget Rekindle to a tank that needs it, then a party member that need healing, before Self.", SMN.JobID)]
+    [CustomComboInfo("自动重定向苏生之炎", "将苏生之炎重新定向到需要治疗的坦克，然后是需要治疗的队友，最后是自己。", SMN.JobID)]
     [Retargeted]
     SMN_AoE_Advanced_Combo_DemiSummons_Rekindle_Retarget = 17081,    
 
     [ParentCombo(SMN_AoE_Advanced_Combo)]
-    [CustomComboInfo("Summon Titan", "Adds Titan to the AoE Rotation", SMN.JobID)]
+    [CustomComboInfo("召唤土神", "将土神添加到多目标循环中", SMN.JobID)]
     SMN_AoE_Advanced_Combo_Titan = 17076,
 
     [ParentCombo(SMN_AoE_Advanced_Combo)]
-    [CustomComboInfo("Summon Garuda", "Adds Garuda to the AoE Rotation", SMN.JobID)]
+    [CustomComboInfo("召唤风神", "将风神添加到多目标循环中", SMN.JobID)]
     SMN_AoE_Advanced_Combo_Garuda = 17077,
 
     [ParentCombo(SMN_AoE_Advanced_Combo)]
-    [CustomComboInfo("Summon Ifrit", "Adds Ifrit to the AoE Rotation", SMN.JobID)]
+    [CustomComboInfo("召唤火神", "将火神添加到多目标循环中", SMN.JobID)]
     SMN_AoE_Advanced_Combo_Ifrit = 17078,
 
     [ParentCombo(SMN_AoE_Advanced_Combo)]
@@ -6446,8 +6446,8 @@ public enum CustomComboPreset
     SMN_AoE_Advanced_Combo_ESPainflare = 17051,
 
     [ParentCombo(SMN_AoE_Advanced_Combo_ESPainflare)]
-    [CustomComboInfo("Pooled oGCDs Option",
-        "Pools damage oGCDs for use inside the Searing Light buff",
+    [CustomComboInfo("储备能力技",
+        "储备用于输出的能力技，在灼热之光增益效果期间使用。",
         SMN.JobID)]
     SMN_AoE_Advanced_Combo_oGCDPooling = 17050,    
 
@@ -6457,8 +6457,8 @@ public enum CustomComboPreset
     SMN_AoE_Advanced_Combo_SearingLight = 17053,
 
     [ParentCombo(SMN_AoE_Advanced_Combo_SearingLight)]
-    [CustomComboInfo("Searing Light Burst Option",
-        "Casts Searing Light only during Demi phases.\nSpellspeed Builds would turn this off.",
+    [CustomComboInfo("灼热之光爆发",
+        "仅在亚灵神阶段施放灼热之光。\n咏速配装需关闭此功能。",
         SMN.JobID)]
     SMN_AoE_Advanced_Combo_SearingLight_Burst = 17054,
 
@@ -6477,7 +6477,7 @@ public enum CustomComboPreset
     SMN_AoE_Advanced_Combo_DemiSummons_LuxSolaris = 17059,
 
     [ParentCombo(SMN_AoE_Advanced_Combo)]
-    [CustomComboInfo("Radiant Aegis Option", "Will use Radiant Aegis, 30 second self shield, when at 2 charges to prevent waste ", SMN.JobID)]
+    [CustomComboInfo("守护之光", "当拥有2层充能时使用守护之光（30秒自身护盾）以防止浪费", SMN.JobID)]
     SMN_AoE_Advanced_Combo_Radiant = 17070,
 
     [ParentCombo(SMN_AoE_Advanced_Combo)]
@@ -6516,7 +6516,7 @@ public enum CustomComboPreset
     SMN_Raise = 17027,
 
     [ParentCombo(SMN_Raise)]
-    [CustomComboInfo("Retarget Raises", "Will Retarget the Raises affected here to your Heal Stack.", SMN.JobID)]
+    [CustomComboInfo("重定向复活", "Will Retarget the Raises affected here to your Heal Stack.", SMN.JobID)]
     [Retargeted]
     SMN_Raise_Retarget = 17079,
 
@@ -6536,8 +6536,8 @@ public enum CustomComboPreset
         SMN.JobID)]
     SMN_ESPainflare_Ruin4 = 17039,
 
-    [CustomComboInfo("Searing Light Waste Protection Feature",
-           "Changes Searing light to SavageBlade while under the affect of another summoners buff to prevent waste.", SMN.JobID)]
+    [CustomComboInfo("灼热之光防覆盖功能",
+           "当队伍中有其他召唤师的增益时，自动将灼热之光替换为狂怒剑，防止增益覆盖。", SMN.JobID)]
     SMN_Searing = 17072,
 
 
@@ -7613,7 +7613,7 @@ public enum CustomComboPreset
     WHM_ThinAirRaise = 19014,
 
     [ParentCombo(WHM_Raise)]
-    [CustomComboInfo("Retarget Raise", "Will Retarget the Raise affected here to your Heal Stack.", WHM.JobID)]
+    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的一键治疗上。", WHM.JobID)]
     [Retargeted]
     WHM_Raise_Retarget = 19029,
 

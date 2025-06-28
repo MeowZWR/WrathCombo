@@ -46,8 +46,8 @@ internal partial class SMN
             switch (preset)
             {
                 case CustomComboPreset.SMN_ST_Advanced_Combo:
-                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, $"On Ruin 1, 2, and 3", "", 0);
-                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, $"On Ruin 1 and 2 Only", $"Alternative DPS Mode. Leaves Ruin 3 alone for pure DPS.", 1);
+                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, $"在毁灭、毁坏和毁荡上", "", 0);
+                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, $"仅在毁灭和毁坏上", $"替代DPS模式。保持毁荡独立以获得纯DPS。", 1);
                     break;
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Balance_Opener:
@@ -56,11 +56,11 @@ internal partial class SMN
 
                     ImGui.NewLine();
 
-                    UserConfig.DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "Use Swiftcast",
-                        "Will use Swiftcast in opener to try and snapshot in pots for lower gcds", 1);
+                    UserConfig.DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "使用即刻咏唱",
+                        "将在起手式中插入即刻咏唱，确保药水效果覆盖到短GCD技能。", 1);
 
-                    UserConfig.DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "Skip Swiftcast",
-                        "Will not use swiftcast in opener for higher gcds", 2);
+                    UserConfig.DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "跳过即刻咏唱",
+                        "不在起手式中插入即刻咏唱，优先保证高GCD技能覆盖。", 2);
                     break;
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Titan:                    
