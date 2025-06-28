@@ -121,6 +121,16 @@ internal partial class NIN
     internal static NINOpenerMaxLevel3rdGCDDokumori Opener2 = new();
     internal static NINOpenerMaxLevel3rdGCDKunai Opener3 = new();
 
+    internal static List<uint> MudraSigns = new()
+    {
+        Ten,
+        Chi,
+        Jin,
+        TenCombo,
+        ChiCombo,
+        JinCombo
+    };
+
     internal static WrathOpener Opener()
     {
         if (IsEnabled(CustomComboPreset.NIN_ST_AdvancedMode))

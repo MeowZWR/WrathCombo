@@ -132,7 +132,6 @@ namespace WrathCombo.CustomComboNS
                     field = value;
             }
         }
-
         public uint PreviousOpenerAction { get; set; }
 
         public abstract int MinOpenerLevel { get; }

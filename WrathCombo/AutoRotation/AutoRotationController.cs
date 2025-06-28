@@ -46,8 +46,8 @@ namespace WrathCombo.AutoRotation
             get => _lockedST;
             set
             {
-                if (_lockedST != value)
-                    Svc.Log.Debug($"Locked ST updated to {value}");
+                //if (_lockedST != value)
+                //    Svc.Log.Debug($"Locked ST updated to {value}");
 
                 _lockedST = value;
             }
@@ -57,8 +57,8 @@ namespace WrathCombo.AutoRotation
             get => _lockedAoE;
             set
             {
-                if (_lockedAoE != value)
-                    Svc.Log.Debug($"Locked AoE updated to {value}");
+                //if (_lockedAoE != value)
+                //    Svc.Log.Debug($"Locked AoE updated to {value}");
 
                 _lockedAoE = value;
             }
@@ -200,7 +200,7 @@ namespace WrathCombo.AutoRotation
                     continue;
 
                 var outAct = OriginalHook(AutoRotationHelper.InvokeCombo(entry.Preset, attributes, ref _));
-                if (!CanQueue(outAct))
+                if (!CanQueue(outAct) && outAct is not All.SavageBlade)
                     continue;
 
                 if (action.IsHeal)
@@ -507,6 +507,7 @@ namespace WrathCombo.AutoRotation
                     }
 
                     uint outAct = OriginalHook(InvokeCombo(preset, attributes, ref gameAct));
+                    if (outAct is All.SavageBlade) return true;
                     if (!CanQueue(outAct)) return false;
                     if (!ActionReady(outAct))
                         return false;
@@ -562,7 +563,7 @@ namespace WrathCombo.AutoRotation
 
                 bool switched = SwitchOnDChole(attributes, outAct, ref target);
 
-                var canUseSelf = ActionManager.CanUseActionOnTarget(outAct, Player.GameObject);
+                var canUseSelf = NIN.MudraSigns.Any(x => x == outAct) ? target is not null && target.IsHostile() : ActionManager.CanUseActionOnTarget(outAct, Player.GameObject);
                 var blockedSelfBuffs = GetCooldown(outAct).CooldownTotal >= 5;
 
                 if (cfg.InCombatOnly && NotInCombat && !(canUseSelf && cfg.BypassBuffs && !blockedSelfBuffs))
@@ -573,7 +574,7 @@ namespace WrathCombo.AutoRotation
 
                 var areaTargeted = Svc.Data.GetExcelSheet<Action>().GetRow(outAct).TargetArea;
                 var canUseTarget = target is null ? false : ActionManager.CanUseActionOnTarget(outAct, target.Struct());
-                var inRange = target is null && canUseSelf ? true : target is null ? false : IsInLineOfSight(target) && InActionRange(outAct, target);
+                var inRange = target is null && canUseSelf ? true : target is null ? false : IsInLineOfSight(target) && NIN.MudraSigns.Any(x => x == outAct) ? GetTargetDistance(target) <= 20 : InActionRange(outAct, target);
 
                 var canUse = (canUseSelf || canUseTarget || areaTargeted) && (outAct.ActionType() is { } type && (type is ActionType.Ability || type is not ActionType.Ability && RemainingGCD == 0));
 
