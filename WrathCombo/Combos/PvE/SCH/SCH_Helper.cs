@@ -71,9 +71,9 @@ internal partial class SCH
         get
         {
             if (HasPetPresent() || FairyDismissed)
-                return _summonTimeField = DateTime.Now.AddSeconds(1);
+                return field = DateTime.Now.AddSeconds(1);
 
-            return _summonTimeField;
+            return field;
         }
     }
     
