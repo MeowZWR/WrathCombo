@@ -215,6 +215,12 @@ namespace WrathCombo.Data
                 target is null)
                 return false;
 
+            if (actionId == OccultCrescent.Revive)
+            {
+                target = SimpleTarget.Stack.AllyToRaise;
+                if (target is null) return false;
+            }
+
             targetObjectId = target.GameObjectId;
             return true;
         }

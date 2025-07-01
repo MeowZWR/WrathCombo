@@ -127,7 +127,7 @@ internal partial class DNC : PhysicalRanged
                 IsEnabled(CustomComboPreset.DNC_ST_Opener_BlockEarly))
                 return All.SavageBlade;
 
-            if (!InCombat() && TargetIsHostile())
+            if (!InCombat() && HasBattleTarget())
             {
                 // ST Standard Step (Pre-pull)
                 if (IsEnabled(CustomComboPreset.DNC_ST_Adv_SS) &&
@@ -469,7 +469,7 @@ internal partial class DNC : PhysicalRanged
                     (GetPartyMembers().Count > 1 || HasCompanionPresent()))
                     return ClosedPosition.Retarget(Cascade, DancePartnerResolver);
 
-                if (TargetIsHostile())
+                if (HasBattleTarget())
                 {
                     // ST Standard Step (Pre-pull)
                     if (ActionReady(StandardStep) &&

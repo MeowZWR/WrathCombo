@@ -10,10 +10,8 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class MNK
 {
-    internal static MNKOpenerLogicSL MNKOpenerSL = new();
-    internal static MNKOpenerLogicLL MNKOpenerLL = new();
-
-    internal static float GCD => GetCooldown(OriginalHook(Bootshine)).CooldownTotal;
+    internal static float GCD =>
+        GetCooldown(OriginalHook(Bootshine)).CooldownTotal;
 
     #region 1-2-3
 
@@ -282,16 +280,21 @@ internal partial class MNK
 
     internal static WrathOpener Opener()
     {
-        if (MNK_SelectedOpener == 0)
-            return MNKOpenerLL;
+        if (LLOpener.LevelChecked &&
+            MNK_SelectedOpener == 0)
+            return LLOpener;
 
-        if (MNK_SelectedOpener == 1)
-            return MNKOpenerSL;
+        if (SLOpener.LevelChecked &&
+            MNK_SelectedOpener == 1)
+            return SLOpener;
 
         return WrathOpener.Dummy;
     }
 
-    internal class MNKOpenerLogicSL : WrathOpener
+    internal static MNKLLOpener LLOpener = new();
+    internal static MNKSLOpener SLOpener = new();
+
+    internal class MNKLLOpener : WrathOpener
     {
         public override int MinOpenerLevel => 100;
 
@@ -301,14 +304,14 @@ internal partial class MNK
         [
             DragonKick,
             PerfectBalance,
-            TwinSnakes,
-            Demolish,
+            LeapingOpo,
+            DragonKick,
             Brotherhood,
             RiddleOfFire,
             LeapingOpo,
             TheForbiddenChakra,
             RiddleOfWind,
-            RisingPhoenix,
+            ElixirBurst,
             DragonKick,
             WindsReply,
             FiresReply,
@@ -333,7 +336,7 @@ internal partial class MNK
             Coeurl is 0;
     }
 
-    internal class MNKOpenerLogicLL : WrathOpener
+    internal class MNKSLOpener : WrathOpener
     {
         public override int MinOpenerLevel => 100;
 
@@ -343,14 +346,14 @@ internal partial class MNK
         [
             DragonKick,
             PerfectBalance,
-            LeapingOpo,
-            DragonKick,
+            TwinSnakes,
+            Demolish,
             Brotherhood,
             RiddleOfFire,
             LeapingOpo,
             TheForbiddenChakra,
             RiddleOfWind,
-            ElixirBurst,
+            RisingPhoenix,
             DragonKick,
             WindsReply,
             FiresReply,
