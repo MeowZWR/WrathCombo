@@ -368,16 +368,16 @@ namespace WrathCombo.Window.Tabs
                 else
                 {
                     if (Service.Configuration.UseUIMouseoverOverridesInDefaultHealStack)
-                        healStackText += "UI-MouseOver Target" + nextStackItemMarker;
+                        healStackText += "UI鼠标悬停目标" + nextStackItemMarker;
                     if (Service.Configuration.UseFieldMouseoverOverridesInDefaultHealStack)
-                        healStackText += "Field-MouseOver Target" + nextStackItemMarker;
-                    healStackText += "Soft Target" + nextStackItemMarker;
-                    healStackText += "Hard Target" + nextStackItemMarker;
+                        healStackText += "场地鼠标悬停目标" + nextStackItemMarker;
+                    healStackText += "软锁目标" + nextStackItemMarker;
+                    healStackText += "硬锁目标" + nextStackItemMarker;
                     if (Service.Configuration.UseFocusTargetOverrideInDefaultHealStack)
-                        healStackText += "Focus Target" + nextStackItemMarker;
+                        healStackText += "焦点目标" + nextStackItemMarker;
                     if (Service.Configuration.UseLowestHPOverrideInDefaultHealStack)
-                        healStackText += "Lowest HP% Ally" + nextStackItemMarker;
-                    healStackText += "Self";
+                        healStackText += "最低血量队友" + nextStackItemMarker;
+                    healStackText += "自己";
                 }
                 ImGuiEx.Spacing(new Vector2(10, 0));
                 ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey, healStackText);
