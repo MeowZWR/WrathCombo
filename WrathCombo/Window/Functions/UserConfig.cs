@@ -1051,13 +1051,13 @@ namespace WrathCombo.Window.Functions
             #region Adding to the Stack
 
             ImGuiEx.Spacing(new Vector2(5f.Scale(), 0));
-            ImGui.Text("Add to the Stack:");
+            ImGui.Text("添加到堆栈：");
             ImGui.SameLine();
             DrawItemAdding(stackName, targetsToRemoveIfStringContains,
                 ref customStackSetting,
                 ref _customStackLongestProperty, ref _customStackTallestProperty,
                 thisIsForRaiseStack);
-            ImGuiComponents.HelpMarker("Click this dropdown to open the list of available Target options.\nClick any entry to add it to your Custom Stack, at the bottom.\nThere is a Textbox that says 'Filter...' at the top, type into this to search the list.");
+            ImGuiComponents.HelpMarker("点击此下拉菜单以打开可用目标选项列表。\n点击任意条目可将其添加到自定义堆栈的底部。\n顶部有一个显示“筛选...”的文本框，可在此输入内容以搜索列表。");
 
             #endregion
 

@@ -1764,7 +1764,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(DNC.Fountain)]
-    [CustomComboInfo("Basic Combo", "Replace Fountain with its combo chain.", DNC.JobID)]
+    [CustomComboInfo("基础连击", "Replace Fountain with its combo chain.", DNC.JobID)]
     DNC_ST_BasicCombo = 4003,
 
     #endregion
@@ -2303,7 +2303,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(DRK.Souleater)]
-    [CustomComboInfo("Basic Combo", "Replace Souleater with its combo chain.", DRK.JobID)]
+    [CustomComboInfo("基础连击", "Replace Souleater with its combo chain.", DRK.JobID)]
     DRK_ST_BasicCombo = 5003,
 
     #endregion
@@ -2712,7 +2712,7 @@ public enum CustomComboPreset
     #region Basic Combo
 
     [ReplaceSkill(DRG.FullThrust, DRG.HeavensThrust)]
-    [CustomComboInfo("Basic Combo", "Replace Full Thrust/Heavens' Thrust with the basic combo chain.", DRG.JobID)]
+    [CustomComboInfo("基础连击", "Replace Full Thrust/Heavens' Thrust with the basic combo chain.", DRG.JobID)]
     DRG_BasicCombo = 6304,
     
     #endregion
@@ -3009,7 +3009,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(GNB.SolidBarrel)]
-    [CustomComboInfo("Basic Combo", "Replace Solid Barrel with its combo chain.", GNB.JobID)]
+    [CustomComboInfo("基础连击", "Replace Solid Barrel with its combo chain.", GNB.JobID)]
     GNB_ST_BasicCombo = 7100,
 
     #endregion
@@ -3522,7 +3522,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(MCH.CleanShot, MCH.HeatedCleanShot)]
-    [CustomComboInfo("Basic Combo", "Replace Clean Shot with its combo chain.", MCH.JobID)]
+    [CustomComboInfo("基础连击", "替换狙击弹为连击链。", MCH.JobID)]
     MCH_ST_BasicCombo = 8117,
 
     #endregion
@@ -4435,11 +4435,11 @@ public enum CustomComboPreset
     PLD_ST_Interrupt = 11058,
 
     [ParentCombo(PLD_ST_AdvancedMode)]
-    [CustomComboInfo("Interrupt with Low Blow Option", "Adds Low Blow to the rotation when your target is casting.\nNot advised outside of overworld content, as it can waste a lot of Low Blows on un-stun-able enemies, etc. Will try to not use it in boss fights.", PLD.JobID)]
+    [CustomComboInfo("使用下踢打断", "当目标正在读条时，将下踢加入循环。\n不建议在副本等内容中使用，因为可能会在无法被眩晕的敌人身上浪费大量下踢。\n在Boss战中会尽量避免使用。", PLD.JobID)]
     PLD_ST_LowBlow = 11062,
 
     [ParentCombo(PLD_ST_AdvancedMode)]
-    [CustomComboInfo("Interrupt with Shield Bash Option", "Adds Shield Bash to the rotation when your target is casting.\nNot advised outside of overworld content, as it can waste a lot of GCDs on un-stun-able enemies, etc. Will try to not use it in boss fights.", PLD.JobID)]
+    [CustomComboInfo("使用盾牌猛击打断", "当目标正在读条时，将盾牌猛击加入循环。\n不建议在副本等内容中使用，因为可能会在无法被眩晕的敌人身上浪费大量GCD。\n在Boss战中会尽量避免使用。", PLD.JobID)]
     PLD_ST_ShieldBash = 11066,
 
     [ParentCombo(PLD_ST_AdvancedMode)]
@@ -4555,11 +4555,11 @@ public enum CustomComboPreset
     PLD_AoE_Interrupt = 11059,
 
     [ParentCombo(PLD_AoE_AdvancedMode)]
-    [CustomComboInfo("Interrupt with Low Blow Option", "Adds Low Blow to the rotation when your target is casting, interruptible or not.", PLD.JobID)]
+    [CustomComboInfo("使用下踢打断", "添加下踢到循环（目标正在施法时，无论是否可被打断）。", PLD.JobID)]
     PLD_AoE_LowBlow = 11060,
 
     [ParentCombo(PLD_AoE_AdvancedMode)]
-    [CustomComboInfo("Interrupt with Shield Bash Option", "Adds Shield Bash to the rotation when your target is casting, interruptible or not.", PLD.JobID)]
+    [CustomComboInfo("使用盾牌猛击打断", "添加盾牌猛击到循环（目标正在施法时，无论是否可被打断）。", PLD.JobID)]
     PLD_AoE_ShieldBash = 11065,
 
     [ParentCombo(PLD_AoE_AdvancedMode)]
@@ -4646,7 +4646,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(PLD.RageOfHalone)]
-    [CustomComboInfo("Basic Combo", "Replace Rage Of Halone with its combo chain.", PLD.JobID)]
+    [CustomComboInfo("基础连击", "替换战女神之怒为连击链。", PLD.JobID)]
     PLD_ST_BasicCombo = 11061,
 
     #endregion
@@ -4699,11 +4699,11 @@ public enum CustomComboPreset
     PLD_Mit_Clemency = 11057,
 
     [ReplaceSkill(PLD.DivineVeil)]
-    [CustomComboInfo("One-Button Party Mitigation Feature", "Replaces Divine Veil with Reprisal when ready.", PLD.JobID)]
+    [CustomComboInfo("一键群体减伤", "雪仇就绪时，使用雪仇替换圣光幕帘。", PLD.JobID)]
     PLD_Mit_Party = 11063,
 
     [ParentCombo(PLD_Mit_Party)]
-    [CustomComboInfo("Include Passage of Arms", "Includes Passage of Arms when both Divine Veil and Reprisal are on cooldown.",
+    [CustomComboInfo("包含武装戍卫", "圣光幕帘和雪仇处于冷却时，包含武装戍卫。",
         PLD.JobID)]
     PLD_Mit_Party_Wings = 11064,
     #endregion
@@ -4728,39 +4728,39 @@ public enum CustomComboPreset
     PLD_ShieldLob_Feature = 11027,
     
     [ReplaceSkill(PLD.Clemency)]
-    [CustomComboInfo("Retarget Clemency Feature", "Will retarget Clemency according to following Suboptions", PLD.JobID)]
+    [CustomComboInfo("重定向深仁厚泽", "根据以下子选项重定向深仁厚泽。", PLD.JobID)]
     [Retargeted]
     PLD_RetargetClemency = 11067,
     
     [ParentCombo(PLD_RetargetClemency)]
-    [CustomComboInfo("Mouseover Clemency Option", "Adds UI mouseover to the priority. Above LowHP option.", PLD.JobID)]
+    [CustomComboInfo("鼠标悬停深仁厚泽", "添加UI鼠标悬停到优先级。高于低HP选项。", PLD.JobID)]
     [Retargeted]
     PLD_RetargetClemency_MO = 11071,
     
     [ParentCombo(PLD_RetargetClemency)]
-    [CustomComboInfo("Low hp Clemency Option", "Will Heal Lowest Health Party member until you fall below set threshold", PLD.JobID)]
+    [CustomComboInfo("低HP深仁厚泽", "在低于设置的阈值之前，治疗HP%最低的队友。", PLD.JobID)]
     [Retargeted]
     PLD_RetargetClemency_LowHP = 11072,
     
     [ReplaceSkill(PLD.Sheltron)]
-    [CustomComboInfo("Sheltron to Intervention Feature", "Will use intervention on your Hard Target if target is a friendly party member, if not then Sheltron." +
-                                                         "\n- UI Mousover > Hard target > Target's target > Self Sheltron", PLD.JobID)]
+    [CustomComboInfo("盾阵→干预", "如果目标为队友，则使用干预。否则使用盾阵。" +
+                                                         "\n- UI鼠标悬停 > 硬锁目标 > 目标的目标 > 自身盾阵", PLD.JobID)]
     [Retargeted]
     PLD_RetargetSheltron = 11068,
     
     [ParentCombo(PLD_RetargetSheltron)]
-    [CustomComboInfo("Mouseover Intervention Option", "Adds UI mouseover to the priority.", PLD.JobID)]
+    [CustomComboInfo("鼠标悬停干预", "添加UI鼠标悬停到优先级。", PLD.JobID)]
     [Retargeted]
     PLD_RetargetSheltron_MO = 11069,
     
     [ParentCombo(PLD_RetargetSheltron)]
-    [CustomComboInfo("Target's Target Intervention Option", "Adds Target's Target to the priority when you do not have agro.", PLD.JobID)]
+    [CustomComboInfo("目标的目标干预", "当你不是仇恨目标时，添加目标的目标到优先级。", PLD.JobID)]
     [Retargeted]
     PLD_RetargetSheltron_TT = 11070,
 
     [Retargeted]
     [ConflictingCombos(ALL_Tank_Interrupt)]
-    [CustomComboInfo("Retarget Shield Bash", "Redirects your Shield Bash to a stunnable enemy if your current target cannot be stunned.", PLD.JobID)]
+    [CustomComboInfo("重定向盾牌猛击", "如果当前目标无法被眩晕，则重定向盾牌猛击到可眩晕的敌人。", PLD.JobID)]
     PLD_RetargetShieldBash = 11073,
 
     // Variant Features
@@ -4974,7 +4974,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(RPR.InfernalSlice)]
-    [CustomComboInfo("Basic Combo", "Replace Infernal Slice with its combo chain.", RPR.JobID)]
+    [CustomComboInfo("基础连击", "Replace Infernal Slice with its combo chain.", RPR.JobID)]
     RPR_ST_BasicCombo = 12021,
 
     #endregion
@@ -6880,7 +6880,7 @@ public enum CustomComboPreset
 
     [ReplaceSkill(VPR.ReavingFangs)]
     [ConflictingCombos(VPR_ReawakenLegacy, VPR_Legacies, VPR_SerpentsTail)]
-    [CustomComboInfo("Basic Combo", "Replace Reaving Fangs with its combo chain.", VPR.JobID)]
+    [CustomComboInfo("基础连击", "Replace Reaving Fangs with its combo chain.", VPR.JobID)]
     VPR_ST_BasicCombo = 30015,
 
     #endregion

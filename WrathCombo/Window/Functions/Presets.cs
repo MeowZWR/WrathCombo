@@ -474,11 +474,11 @@ namespace WrathCombo.Window.Functions
 
         public static void DrawRetargetedSymbolForSettingsPage() =>
             DrawRetargetedAttribute(
-                firstLine: "This Feature will involve retargeting actions if enabled.",
-                secondLine: "The actions this Feature affects will automatically be\n" +
-                            "targeted onto the targets in the priority you have configured.",
-                thirdLine: "Using plugins like Redirect or Reaction with configurations\n" +
-                           "affecting the same actions will Conflict and may cause issues.");
+                firstLine: "启用后，该功能将涉及重定向技能目标。",
+                secondLine: "此功能影响的技能会自动按照你配置的优先级\n" +
+                            "依次选定目标进行施放。",
+                thirdLine: "如同时使用Redirect或Reaction等插件，\n" +
+                           "并对相同技能有重定向设置，可能会产生冲突或异常。");
 
         private static void DrawRetargetedAttribute
             (CustomComboPreset? preset = null,

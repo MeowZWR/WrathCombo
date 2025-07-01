@@ -292,16 +292,16 @@ internal partial class PLD
                 case CustomComboPreset.PLD_RetargetSheltron_TT:
                     ImGui.Indent();
                     ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                        "Note: If you are Off-Tanking, and want to use Sheltron on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.\n" +
-                        "You could also mouseover yourself in the party to use Sheltron in this case.\n" +
-                        "If you don't, intervention would replace the combo, and it would go to the main tank.\n" +
-                        "If you don't use those Features for your personal mitigation, you may not want to enable this.");
+                        "注意：如果你是副坦，并希望对自己使用盾阵，建议通过“一键减伤”功能或循环中的盾阵选项来实现。\n" +
+                        "你也可以在队伍列表中鼠标悬停自己来释放盾阵。\n" +
+                        "如果不这样做，干预将会替换连击，并施放到主坦克身上。\n" +
+                        "如果你不打算用这些功能来进行个人减伤，建议不要启用此选项。");
                     ImGui.Unindent();
                     break;
                 case CustomComboPreset.PLD_RetargetShieldBash:
-                    UserConfig.DrawAdditionalBoolChoice(Config.PLD_RetargetStunLockout, "Lockout Action", "If no stunnable targets are found, lock the action with Savage Blade");
+                    UserConfig.DrawAdditionalBoolChoice(Config.PLD_RetargetStunLockout, "锁定技能", "如果没有可被眩晕的目标，则用狂怒剑锁定该技能");
                     if (Config.PLD_RetargetStunLockout)
-                        UserConfig.DrawSliderInt(1, 3, Config.PLD_RetargetShieldBash_Strength, "Lockout when stun has been applied this many times");
+                        UserConfig.DrawSliderInt(1, 3, Config.PLD_RetargetShieldBash_Strength, "在眩晕已被施加指定次数后锁定", 200);
                     break;
 
                 #region One-Button Mitigation
