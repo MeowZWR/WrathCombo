@@ -27,6 +27,7 @@ namespace WrathCombo.CustomComboNS.Functions
         public static unsafe List<WrathPartyMember> GetPartyMembers(bool allowCache = true)
         {
             if (!Player.Available) return [];
+            _partyList.RemoveAll(x => x.BattleChara is null);
             if (allowCache && !EzThrottler.Throttle("PartyUpdateThrottle", 2000))
                 return _partyList;
 
