@@ -358,8 +358,6 @@ internal partial class AST
         CollectiveUnconscious = 3613;
 
     //Action Groups
-
-
     internal static class Buffs
     {
         internal const ushort

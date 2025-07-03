@@ -45,6 +45,7 @@ namespace WrathCombo.AutoRotation
             x.BattleChara is not null &&
             x.BattleChara.IsDead &&
             x.BattleChara.IsTargetable &&
+            (cfg.HealerSettings.AutoRezOutOfParty || GetPartyMembers().Any(y => y.GameObjectId == x.BattleChara.GameObjectId)) &&
             GetTargetDistance(x.BattleChara) <= QueryRange &&
             !HasStatusEffect(2648, x.BattleChara, true) && // Transcendent Effect
             !HasStatusEffect(148, x.BattleChara, true) && // Raise Effect
@@ -148,7 +149,7 @@ namespace WrathCombo.AutoRotation
                 return;
 
             // Healer cleanse/rez logic
-            if (isHealer || (Player.Job is Job.SMN or Job.RDM && cfg.HealerSettings.AutoRezDPSJobs))
+            if (isHealer || (Player.Job is Job.SMN or Job.RDM && cfg.HealerSettings.AutoRezDPSJobs) || OccultCrescent.IsEnabledAndUsable(CustomComboPreset.Phantom_Chemist_Revive, OccultCrescent.Revive))
             {
                 if (!needsHeal)
                 {
@@ -279,15 +280,22 @@ namespace WrathCombo.AutoRotation
 
         private static void RezParty()
         {
-            uint resSpell = Player.Job switch
+            if (HasStatusEffect(418)) return;
+            uint resSpell = 
+                OccultCrescent.IsEnabledAndUsable(CustomComboPreset.Phantom_Chemist_Revive, OccultCrescent.Revive) 
+                ? OccultCrescent.Revive 
+                : Player.Job switch
             {
                 Job.CNJ or Job.WHM => WHM.Raise,
                 Job.SCH or Job.SMN => SCH.Resurrection,
                 Job.AST => AST.Ascend,
                 Job.SGE => SGE.Egeiro,
                 Job.RDM => RDM.Verraise,
-                _ => throw new NotImplementedException(),
+                _ => 0,
             };
+
+            if (resSpell == 0)
+                return;
 
             if (ActionManager.Instance()->QueuedActionId == resSpell)
                 ActionManager.Instance()->QueuedActionId = 0;
@@ -298,8 +306,14 @@ namespace WrathCombo.AutoRotation
                 if ((ActionWatching.TimeSinceLastSuccessfulCast(resSpell) != -1f && timeSinceLastRez.TotalSeconds < 4) || Player.Object.IsCasting())
                     return;
 
-                if (GetPartyMembers().Where(RezQuery).FindFirst(x => x is not null, out var member))
+                if (DeadPeople.Where(RezQuery).FindFirst(x => x is not null, out var member))
                 {
+                    if (resSpell == OccultCrescent.Revive)
+                    {
+                        ActionManager.Instance()->UseAction(ActionType.Action, resSpell, member.BattleChara.GameObjectId);
+                        return;
+                    }
+
                     if (Player.Job is Job.RDM)
                     {
                         if (ActionReady(RoleActions.Magic.Swiftcast) && !HasStatusEffect(RDM.Buffs.Dualcast))
@@ -338,6 +352,7 @@ namespace WrathCombo.AutoRotation
 
         private static void CleanseParty()
         {
+            if (HasStatusEffect(418)) return;
             if (ActionManager.Instance()->QueuedActionId == RoleActions.Healer.Esuna)
                 ActionManager.Instance()->QueuedActionId = 0;
 
@@ -350,6 +365,7 @@ namespace WrathCombo.AutoRotation
 
         private static void UpdateKardiaTarget()
         {
+            if (HasStatusEffect(418)) return;
             if (!LevelChecked(SGE.Kardia)) return;
             if (CombatEngageDuration().TotalSeconds < 3) return;
 

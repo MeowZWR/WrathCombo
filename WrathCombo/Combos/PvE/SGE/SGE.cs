@@ -77,7 +77,7 @@ internal partial class SGE : Healer
             {
                 if (IsEnabled(CustomComboPreset.SGE_ST_DPS_EDosis) &&
                     LevelChecked(Eukrasia) && InCombat() &&
-                    !JustUsedOn(OriginalHook(EukrasianDosis), CurrentTarget))
+                    !JustUsedOn(DosisToEDosisList[OriginalHook(Dosis)], CurrentTarget))
                 {
                     float refreshTimer = SGE_ST_DPS_EDosisThreshold;
                     int hpThreshold = SGE_ST_DPS_EDosisSubOption == 1 || !InBossEncounter() ? SGE_ST_DPS_EDosisOption : 0;

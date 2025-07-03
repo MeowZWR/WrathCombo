@@ -330,7 +330,6 @@ internal partial class AST : Healer
             bool hasHealthOppose = Config.AST_AoE_SimpleHeals_CelestialOppositionThreshold >= GetPartyAvgHPPercent();
             bool hasHealthSect = Config.AST_AoE_SimpleHeals_NeutralSectThreshold >= GetPartyAvgHPPercent();
 
-
             if (!LevelChecked(AspectedHelios)) //Level check to return helios immediately below 40
                 return Helios;
 
@@ -398,9 +397,6 @@ internal partial class AST : Healer
             bool startHot = Config.AST_ST_SimpleHeals_AspectedBeneficHigh >= GetTargetHPPercent(healTarget, Config.AST_ST_SimpleHeals_IncludeShields);
             bool stopHot = Config.AST_ST_SimpleHeals_AspectedBeneficLow <= GetTargetHPPercent(healTarget, Config.AST_ST_SimpleHeals_IncludeShields);
             int refreshTime = Config.AST_ST_SimpleHeals_AspectedBeneficRefresh;
-
-            //Grab our target
-
 
             if (IsEnabled(CustomComboPreset.AST_ST_SimpleHeals_Esuna) && ActionReady(Role.Esuna) &&
                 GetTargetHPPercent(healTarget, Config.AST_ST_SimpleHeals_IncludeShields) >= Config.AST_ST_SimpleHeals_Esuna &&

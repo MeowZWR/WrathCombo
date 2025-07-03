@@ -1,11 +1,11 @@
-﻿using System;
-using Dalamud.Interface.Components;
+﻿using Dalamud.Interface.Components;
 using Dalamud.Interface.Utility.Raii;
 using ECommons;
 using ECommons.DalamudServices;
 using ECommons.ImGuiMethods;
 using ImGuiNET;
 using Lumina.Excel.Sheets;
+using System;
 using System.Linq;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Extensions;
@@ -181,7 +181,6 @@ namespace WrathCombo.Window.Tabs
 
                 ImGuiComponents.HelpMarker("通常情况下，自动循环只会在下一个需要目标的技能触发时选择敌人。此选项将改变行为，使其无论技能是否需要目标都会始终选择目标。");
 
-
                 var npcs = Service.Configuration.IgnoredNPCs.ToList();
                 var selected = npcs.FirstOrNull(x => x.Key == _selectedNpc);
                 var prev = selected is null ? "" : $"{Svc.Data.Excel.GetSheet<BNpcName>().GetRow(selected.Value.Value).Singular} (ID: {selected.Value.Key})";
@@ -269,10 +268,13 @@ namespace WrathCombo.Window.Tabs
                 P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoRez");
                 changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
                     "自动复活", ref cfg.HealerSettings.AutoRez, "AutoRez");
-                ImGuiComponents.HelpMarker($"将尝试复活死亡的队员。适用于 {WHM.ClassID.JobAbbreviation()}、{WHM.JobID.JobAbbreviation()}、{SCH.JobID.JobAbbreviation()}、{AST.JobID.JobAbbreviation()}、{SGE.JobID.JobAbbreviation()}");
+                ImGuiComponents.HelpMarker($"将尝试复活死亡的队员。适用于 {WHM.ClassID.JobAbbreviation()}, {WHM.JobID.JobAbbreviation()}, {SCH.JobID.JobAbbreviation()}, {AST.JobID.JobAbbreviation()}, {SGE.JobID.JobAbbreviation()} 以及新月岛的 {Svc.Data.GetExcelSheet<MKDSupportJob>().GetRow(10).Unknown0} {OccultCrescent.Revive.StatusName()}");
                 var autoRez = (bool)P.IPC.GetAutoRotationConfigState(AutoRotationConfigOption.AutoRez)!;
                 if (autoRez)
                 {
+                    ImGuiExtensions.Prefix(false);
+                    changed |= ImGui.Checkbox("对非小队成员生效", ref cfg.HealerSettings.AutoRezOutOfParty);
+
                     ImGuiExtensions.Prefix(false);
                     changed |= ImGui.Checkbox("需要即刻咏唱/双重咏唱", ref
                         cfg.HealerSettings.AutoRezRequireSwift);

@@ -120,8 +120,6 @@ namespace WrathCombo.Data
                     }
                 }
 
-
-
                 if ((byte)header->ActionType is 13 or 2) return;
                 if (header->ActionId != 7 &&
                     header->ActionId != 8 &&

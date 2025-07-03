@@ -19,7 +19,12 @@ internal partial class All
     private const uint
         IsleSprint = 31314;
 
-    public static class Buffs{}
+    public static class Buffs
+    {
+        public const ushort
+            Raised = 148,
+            Transcendent = 2648;
+    }
 
     public static class Enums
     {
