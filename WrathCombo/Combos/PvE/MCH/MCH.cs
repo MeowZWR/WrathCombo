@@ -37,15 +37,6 @@ internal partial class MCH : PhysicalRanged
             if (actionID is not (SplitShot or HeatedSplitShot))
                 return actionID;
 
-            if (Variant.CanCure(CustomComboPreset.MCH_Variant_Cure, MCH_VariantCure))
-                return Variant.Cure;
-
-            if (Variant.CanRampart(CustomComboPreset.MCH_Variant_Rampart))
-                return Variant.Rampart;
-
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
-
             //Reassemble to start before combat
             if (!HasStatusEffect(Buffs.Reassembled) && ActionReady(Reassemble) &&
                 !InCombat() && HasBattleTarget() &&
@@ -58,6 +49,15 @@ internal partial class MCH : PhysicalRanged
             // Interrupt
             if (Role.CanHeadGraze(CustomComboPreset.MCH_ST_SimpleMode, WeaveTypes.DelayWeave))
                 return Role.HeadGraze;
+
+            if (Variant.CanCure(CustomComboPreset.MCH_Variant_Cure, MCH_VariantCure))
+                return Variant.Cure;
+
+            if (Variant.CanRampart(CustomComboPreset.MCH_Variant_Rampart))
+                return Variant.Rampart;
+
+            if (OccultCrescent.ShouldUsePhantomActions())
+                return OccultCrescent.BestPhantomAction();
 
             // All weaves
             if (CanWeave())
@@ -180,15 +180,6 @@ internal partial class MCH : PhysicalRanged
             if (actionID is not (SplitShot or HeatedSplitShot))
                 return actionID;
 
-            if (Variant.CanCure(CustomComboPreset.MCH_Variant_Cure, MCH_VariantCure))
-                return Variant.Cure;
-
-            if (Variant.CanRampart(CustomComboPreset.MCH_Variant_Rampart))
-                return Variant.Rampart;
-
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
-
             // Opener
             if (IsEnabled(CustomComboPreset.MCH_ST_Adv_Opener) &&
                 HasBattleTarget() &&
@@ -208,6 +199,15 @@ internal partial class MCH : PhysicalRanged
             // Interrupt
             if (Role.CanHeadGraze(CustomComboPreset.MCH_ST_Adv_Interrupt, WeaveTypes.DelayWeave))
                 return Role.HeadGraze;
+
+            if (Variant.CanCure(CustomComboPreset.MCH_Variant_Cure, MCH_VariantCure))
+                return Variant.Cure;
+
+            if (Variant.CanRampart(CustomComboPreset.MCH_Variant_Rampart))
+                return Variant.Rampart;
+
+            if (OccultCrescent.ShouldUsePhantomActions())
+                return OccultCrescent.BestPhantomAction();
 
             // All weaves
             if (CanWeave())
@@ -356,6 +356,13 @@ internal partial class MCH : PhysicalRanged
             if (actionID is not (SpreadShot or Scattergun))
                 return actionID;
 
+            if (HasStatusEffect(Buffs.Flamethrower) || JustUsed(Flamethrower, GCD))
+                return All.SavageBlade;
+
+            // Interrupt
+            if (Role.CanHeadGraze(CustomComboPreset.MCH_AoE_SimpleMode, WeaveTypes.DelayWeave))
+                return Role.HeadGraze;
+
             if (Variant.CanCure(CustomComboPreset.MCH_Variant_Cure, MCH_VariantCure))
                 return Variant.Cure;
 
@@ -364,13 +371,6 @@ internal partial class MCH : PhysicalRanged
 
             if (OccultCrescent.ShouldUsePhantomActions())
                 return OccultCrescent.BestPhantomAction();
-
-            if (HasStatusEffect(Buffs.Flamethrower) || JustUsed(Flamethrower, GCD))
-                return All.SavageBlade;
-
-            // Interrupt
-            if (Role.CanHeadGraze(CustomComboPreset.MCH_AoE_SimpleMode, WeaveTypes.DelayWeave))
-                return Role.HeadGraze;
 
             // All weaves
             if (CanWeave())
@@ -489,6 +489,13 @@ internal partial class MCH : PhysicalRanged
                 !HasStatusEffect(Buffs.Reassembled) && GetRemainingCharges(Reassemble) <= MCH_AoE_ReassemblePool ||
                 !IsEnabled(CustomComboPreset.MCH_AoE_Adv_Reassemble);
 
+            if (HasStatusEffect(Buffs.Flamethrower) || JustUsed(Flamethrower, GCD))
+                return All.SavageBlade;
+
+            // Interrupt
+            if (Role.CanHeadGraze(CustomComboPreset.MCH_AoE_Adv_Interrupt, WeaveTypes.DelayWeave))
+                return Role.HeadGraze;
+
             if (Variant.CanCure(CustomComboPreset.MCH_Variant_Cure, MCH_VariantCure))
                 return Variant.Cure;
 
@@ -497,13 +504,6 @@ internal partial class MCH : PhysicalRanged
 
             if (OccultCrescent.ShouldUsePhantomActions())
                 return OccultCrescent.BestPhantomAction();
-
-            if (HasStatusEffect(Buffs.Flamethrower) || JustUsed(Flamethrower, GCD))
-                return All.SavageBlade;
-
-            // Interrupt
-            if (Role.CanHeadGraze(CustomComboPreset.MCH_AoE_Adv_Interrupt, WeaveTypes.DelayWeave))
-                return Role.HeadGraze;
 
             // All weaves
             if (CanWeave())

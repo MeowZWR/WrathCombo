@@ -1,4 +1,5 @@
 ﻿using Dalamud.Game.ClientState.Statuses;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
@@ -121,15 +122,7 @@ internal partial class NIN
     internal static NINOpenerMaxLevel3rdGCDDokumori Opener2 = new();
     internal static NINOpenerMaxLevel3rdGCDKunai Opener3 = new();
 
-    internal static List<uint> MudraSigns = new()
-    {
-        Ten,
-        Chi,
-        Jin,
-        TenCombo,
-        ChiCombo,
-        JinCombo
-    };
+    internal static FrozenSet<uint> MudraSigns = [Ten, Chi, Jin, TenCombo, ChiCombo, JinCombo];
 
     internal static WrathOpener Opener()
     {

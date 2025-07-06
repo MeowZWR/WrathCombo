@@ -268,7 +268,7 @@ namespace WrathCombo.Window.Tabs
                 P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoRez");
                 changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
                     "自动复活", ref cfg.HealerSettings.AutoRez, "AutoRez");
-                ImGuiComponents.HelpMarker($"将尝试复活死亡的队员。适用于 {WHM.ClassID.JobAbbreviation()}, {WHM.JobID.JobAbbreviation()}, {SCH.JobID.JobAbbreviation()}, {AST.JobID.JobAbbreviation()}, {SGE.JobID.JobAbbreviation()} 以及新月岛的 {Svc.Data.GetExcelSheet<MKDSupportJob>().GetRow(10).Unknown0} {OccultCrescent.Revive.StatusName()}");
+                ImGuiComponents.HelpMarker($"将尝试复活死亡的队员。适用于 {WHM.ClassID.JobAbbreviation()}, {WHM.JobID.JobAbbreviation()}, {SCH.JobID.JobAbbreviation()}, {AST.JobID.JobAbbreviation()}, {SGE.JobID.JobAbbreviation()} 以及 {OccultCrescent.ContentName} {Svc.Data.GetExcelSheet<MKDSupportJob>().GetRow(10).Unknown0} {OccultCrescent.Revive.ActionName()}");
                 var autoRez = (bool)P.IPC.GetAutoRotationConfigState(AutoRotationConfigOption.AutoRez)!;
                 if (autoRez)
                 {

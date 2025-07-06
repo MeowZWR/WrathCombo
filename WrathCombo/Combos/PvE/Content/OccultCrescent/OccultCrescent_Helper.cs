@@ -49,7 +49,7 @@ internal partial class OccultCrescent
             #endregion
     }
 
-    public static ushort
+    public static uint
     //Freelancer
     OccultResuscitation = 41650,
     OccultTreasuresight = 41651,

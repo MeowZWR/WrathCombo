@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ECommons.DalamudServices;
+using Lumina.Excel.Sheets;
+using System;
 using System.Linq;
 using WrathCombo.Data;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
@@ -11,6 +13,7 @@ namespace WrathCombo.Combos.PvE;
 internal partial class OccultCrescent
 {
     public const byte JobID = 100;
+    public static string ContentName => Svc.Data.GetExcelSheet<BannerBg>().GetRow(312).Name.ToString();
     internal static uint BestPhantomAction()
     {
         if (!IsInOccult)

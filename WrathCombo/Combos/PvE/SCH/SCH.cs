@@ -36,7 +36,7 @@ internal partial class SCH : Healer
             if (IsEnabled(CustomComboPreset.SCH_DPS_Balance_Opener) && Opener().FullOpener(ref actionID))
                 return actionID;
             
-            #region Variant
+            #region Special COntent
             if (Variant.CanRampart(CustomComboPreset.SCH_DPS_Variant_Rampart))
                 return Variant.Rampart;
             
@@ -54,8 +54,12 @@ internal partial class SCH : Healer
             
             #region Hidden Feature Raidwide
 
-            if (RaidWideCasting())
-                return HiddenRaidwides(actionID);
+            if (HiddenSacredSoil())
+                return SacredSoil.Retarget(ReplacedActionsList.ToArray(), SimpleTarget.Self);
+            if (HiddenExpedient())
+                return Expedient;
+            if (HiddenSuccor())
+                return HiddenRecitation() ? Recitation : OriginalHook(Succor);
            
             #endregion
 
@@ -112,7 +116,7 @@ internal partial class SCH : Healer
                 NeedToSummon)
                 return SummonEos;
             
-            #region Variant
+            #region Special Content
             if (Variant.CanRampart(CustomComboPreset.SCH_DPS_Variant_Rampart))
                 return Variant.Rampart;
 
@@ -130,8 +134,12 @@ internal partial class SCH : Healer
             
             #region Hidden Feature Raidwide
 
-            if (RaidWideCasting())
-                return HiddenRaidwides(actionID);
+            if (HiddenSacredSoil())
+                return SacredSoil.Retarget(ReplacedActionsList.ToArray(), SimpleTarget.Self);
+            if (HiddenExpedient())
+                return Expedient;
+            if (HiddenSuccor())
+                return HiddenRecitation() ? Recitation : OriginalHook(Succor);
            
             #endregion
             
@@ -197,8 +205,12 @@ internal partial class SCH : Healer
             
             #region Hidden Feature Raidwide
 
-            if (RaidWideCasting())
-                return HiddenRaidwides(actionID);
+            if (HiddenSacredSoil())
+                return SacredSoil.Retarget(ReplacedActionsList.ToArray(), SimpleTarget.Self);
+            if (HiddenExpedient())
+                return Expedient;
+            if (HiddenSuccor())
+                return HiddenRecitation() ? Recitation : OriginalHook(Succor);
            
             #endregion
             
@@ -262,8 +274,12 @@ internal partial class SCH : Healer
             
             #region Hidden Feature Raidwide
 
-            if (RaidWideCasting())
-                return HiddenRaidwides(actionID);
+            if (HiddenSacredSoil())
+                return SacredSoil.Retarget(ReplacedActionsList.ToArray(), SimpleTarget.Self);
+            if (HiddenExpedient())
+                return Expedient;
+            if (HiddenSuccor())
+                return HiddenRecitation() ? Recitation : OriginalHook(Succor);
            
             #endregion
 
@@ -361,15 +377,14 @@ internal partial class SCH : Healer
             if (actionID is not Recitation || !HasStatusEffect(Buffs.Recitation))
                 return actionID;
 
-            switch ((int)Config.SCH_Recitation_Mode)
+            return Config.SCH_Recitation_Mode.Value switch
             {
-                case 0: return OriginalHook(Adloquium);
-                case 1: return OriginalHook(Succor);
-                case 2: return OriginalHook(Indomitability);
-                case 3: return OriginalHook(Excogitation);
-            }
-
-            return actionID;
+                0 => OriginalHook(Adloquium),
+                1 => OriginalHook(Succor),
+                2 => OriginalHook(Indomitability),
+                3 => OriginalHook(Excogitation),
+                _ => actionID,
+            };
         }
     }
     #endregion

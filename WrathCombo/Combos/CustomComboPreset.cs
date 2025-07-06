@@ -480,7 +480,13 @@ public enum CustomComboPreset
         "Retargets Esuna (outside of combo usage) to your Heal Stack, checking if each potential target in the stack has a cleansable debuff.", ADV.JobID)]
     [Retargeted]
     ALL_Healer_EsunaRetargeting = 100012,
-
+    
+    [Role(JobRole.Healer)]
+    [ReplaceSkill(RoleActions.Healer.Rescue)]
+    [ParentCombo(ALL_Healer_Menu)]
+    [CustomComboInfo("Healer: Rescue Retargeting", "Retargets Rescue (outside of combo usage) to UI Mouseover and additional options.", ADV.JobID)]
+    [Retargeted]
+    ALL_Healer_RescueRetargeting = 100013,
     #endregion
 
     #region Global Magical Ranged Features
@@ -719,6 +725,16 @@ public enum CustomComboPreset
         AST.JobID)]
     [PossiblyRetargeted]
     AST_ST_SimpleHeals = 1023,
+    
+    [ParentCombo(AST_ST_SimpleHeals)]
+    [CustomComboInfo("Esuna Option", "Applies Esuna to your target if there is a cleansable debuff.", AST.JobID)]
+    [PossiblyRetargeted]
+    AST_ST_SimpleHeals_Esuna = 1039,
+    
+    [ParentCombo(AST_ST_SimpleHeals)]
+    [CustomComboInfo("Aspected Benefic Option", "Adds Aspected Benefic & refreshes it if needed.", AST.JobID)]
+    [PossiblyRetargeted]
+    AST_ST_SimpleHeals_AspectedBenefic = 1027,
 
     [ParentCombo(AST_ST_SimpleHeals)]
     [CustomComboInfo("Essential Dignity Option",
@@ -730,16 +746,6 @@ public enum CustomComboPreset
     [CustomComboInfo("Celestial Intersection Option", "Adds Celestial Intersection.", AST.JobID)]
     [PossiblyRetargeted]
     AST_ST_SimpleHeals_CelestialIntersection = 1025,
-
-    [ParentCombo(AST_ST_SimpleHeals)]
-    [CustomComboInfo("Aspected Benefic Option", "Adds Aspected Benefic & refreshes it if needed.", AST.JobID)]
-    [PossiblyRetargeted]
-    AST_ST_SimpleHeals_AspectedBenefic = 1027,
-
-    [ParentCombo(AST_ST_SimpleHeals)]
-    [CustomComboInfo("Esuna Option", "Applies Esuna to your target if there is a cleansable debuff.", AST.JobID)]
-    [PossiblyRetargeted]
-    AST_ST_SimpleHeals_Esuna = 1039,
 
     [ParentCombo(AST_ST_SimpleHeals)]
     [CustomComboInfo("Exaltation Option", "Adds Exaltation.", AST.JobID)]
@@ -765,34 +771,63 @@ public enum CustomComboPreset
     [CustomComboInfo("The Bole Option", "Adds The Bole (Reduced Damage) when the card has been drawn", AST.JobID)]
     [PossiblyRetargeted]
     AST_ST_SimpleHeals_Bole = 1050,
+    
+    [ParentCombo(AST_ST_SimpleHeals)]
+    [CustomComboInfo("Celestial Opposition Option", "Adds Celestial Opposition", AST.JobID)]
+    AST_ST_SimpleHeals_CelestialOpposition = 1068,
+    
+    [ParentCombo(AST_ST_SimpleHeals)]
+    [CustomComboInfo("Collective Unconscious Option", "Adds Collective Unconscious (for the regen so it will not channel)", AST.JobID)]
+    AST_ST_SimpleHeals_CollectiveUnconscious = 1069,
+    
+    [ParentCombo(AST_ST_SimpleHeals)]
+    [CustomComboInfo("Lady Option", "Adds Lady of Crowns, if the card is drawn.", AST.JobID)]
+    AST_ST_SimpleHeals_SoloLady = 1070,
+    
+    
 
     [AutoAction(true, true)]
     [ReplaceSkill(AST.Helios, AST.AspectedHelios, AST.HeliosConjuction)]
     [CustomComboInfo("Simple Heals - AoE",
-        "Replaces Aspected Helios/Helios Conjunction or Helios with a one button healing replacement.", AST.JobID)]
-    AST_AoE_SimpleHeals_AspectedHelios = 1010,
+        "Replaces Aspected Helios/Helios Conjunction or Helios with a one button healing replacement."
+        + "This Spell will be consider the bottom priority with no checks regardless of below settings.", AST.JobID)]
+    AST_AoE_SimpleHeals = 1010,
+    
+    [ParentCombo(AST_AoE_SimpleHeals)]
+    [CustomComboInfo("Aspected Helios Option", "Adds Aspected Helios/Helios Conjunction", AST.JobID)]
+    AST_AoE_SimpleHeals_Aspected = 1053,
+    
+    [ParentCombo(AST_AoE_SimpleHeals)]
+    [CustomComboInfo("Helios Option", "Adds Helios", AST.JobID)]
+    AST_AoE_SimpleHeals_Helios = 1073,
 
-    [ParentCombo(AST_AoE_SimpleHeals_AspectedHelios)]
+    [ParentCombo(AST_AoE_SimpleHeals)]
     [CustomComboInfo("Celestial Opposition Option", "Adds Celestial Opposition", AST.JobID)]
     AST_AoE_SimpleHeals_CelestialOpposition = 1021,
 
-    [ParentCombo(AST_AoE_SimpleHeals_AspectedHelios)]
+    [ParentCombo(AST_AoE_SimpleHeals)]
     [CustomComboInfo("Lazy Lady Option", "Adds Lady of Crowns, if the card is drawn", AST.JobID)]
     AST_AoE_SimpleHeals_LazyLady = 1022,
 
-    [ParentCombo(AST_AoE_SimpleHeals_AspectedHelios)]
-    [CustomComboInfo("Horoscope Option", "Adds Horoscope.", AST.JobID)]
+    [ParentCombo(AST_AoE_SimpleHeals)]
+    [CustomComboInfo("Horoscope Option", "Adds Horoscope followed by Aspected Helios or Helios.", AST.JobID)]
     AST_AoE_SimpleHeals_Horoscope = 1026,
+    
+    [ParentCombo(AST_AoE_SimpleHeals)]
+    [CustomComboInfo("Horoscope Helios Option", "Adds Horoscope Helios.", AST.JobID)]
+    AST_AoE_SimpleHeals_HoroscopeHeal = 1071,
 
-    [ParentCombo(AST_AoE_SimpleHeals_AspectedHelios)]
+    [ParentCombo(AST_AoE_SimpleHeals)]
     [CustomComboInfo("Neutral Sect Option", "Adds Neutral Sect and its followup Sun Sign.", AST.JobID)]
     AST_AoE_SimpleHeals_NeutralSect = 1067,
-
-    [ParentCombo(AST_AoE_SimpleHeals_AspectedHelios)]
-    [CustomComboInfo("Aspected Helios Option",
-        "In Helios mode: Will Cast Aspected Helios/Helios Conjunction when the HoT is missing on yourself."
-        + "\nIn Aspected Helios mode: Is considered enabled regardless.", AST.JobID)]
-    AST_AoE_SimpleHeals_Aspected = 1053,
+    
+    [ParentCombo(AST_AoE_SimpleHeals)]
+    [CustomComboInfo("Stellar Detonation Option", "Adds Stellar Detonation when under the effect of Giant Dominance", AST.JobID)]
+    AST_AoE_SimpleHeals_StellarDetonation = 1072,
+    
+    [ParentCombo(AST_AoE_SimpleHeals)]
+    [CustomComboInfo("Collective Unconscious Option", "Adds Collective Unconscious (for the regen so it will not channel)", AST.JobID)]
+    AST_AoE_SimpleHeals_CollectiveUnconscious = 1074,
 
     [ReplaceSkill(AST.Benefic2)]
     [CustomComboInfo("Benefic 2 Downgrade", "Changes Benefic 2 to Benefic when Benefic 2 is not unlocked or available.",
@@ -844,8 +879,33 @@ public enum CustomComboPreset
     AST_Cards_QuickTargetCards = 1029,
 
     #endregion
+    
+    #region Hidden Features
+    [CustomComboInfo("Hidden Options", "Collection of cheeky or encounter-specific extra options only available to those in the know." +
+                                       "\nDo not expect these options to be maintained, or even kept, after they are no longer Current.", AST.JobID)]
+    [Hidden]
+    AST_Hidden = 1075,
+    
+    [ParentCombo(AST_Hidden)]
+    [CustomComboInfo("RaidWide Collective Unconscious Option", "Additionally, Will try to Weave Collective Unconscious when a raidwide casting. \nWill be used in all 4 main combos.", AST.JobID)]
+    [Hidden]
+    AST_Hidden_CollectiveUnconscious = 1076,
+    
+    [ParentCombo(AST_Hidden)]
+    [CustomComboInfo("RaidWide Neutral Sect Combo Option", "Additionally, Will try to Weave Neutral Sect and Sun sign when a raidwide casting. " +
+                                                               "\nWill be used in all 4 main combos.", AST.JobID)]
+    [Hidden]
+    AST_Hidden_NeutralSect = 1077,
+    
+    [ParentCombo(AST_Hidden)]
+    [CustomComboInfo("RaidWide Aspected Helios Option", "Additionally, Will try to cast Aspected Helios for with Neutral Sect Buff for shields when a raidwide casting. " +
+                                                           "\nWill be used in all 4 main combos.", AST.JobID)]
+    [Hidden]
+    AST_Hidden_AspectedHelios = 1078,
+    
+    #endregion
 
-    // Last value = 1067
+    // Last value = 1078
 
     #endregion
 
@@ -2545,11 +2605,7 @@ public enum CustomComboPreset
     [ParentCombo(DRG_ST_CDs)]
     [CustomComboInfo("High Jump Option", "Adds (High) Jump to the rotation.", DRG.JobID)]
     DRG_ST_HighJump = 6113,
-
-    [ParentCombo(DRG_ST_HighJump)]
-    [CustomComboInfo("(High) Jump Melee option", "Adds (High) Jump to the rotation when in melee range.", DRG.JobID)]
-    DRG_ST_HighJump_Melee = 6114,
-
+    
     [ParentCombo(DRG_ST_CDs)]
     [CustomComboInfo("Mirage Dive Option", "Adds Mirage Dive to the rotation.", DRG.JobID)]
     DRG_ST_Mirage = 6115,
@@ -2561,11 +2617,7 @@ public enum CustomComboPreset
     [ParentCombo(DRG_ST_CDs)]
     [CustomComboInfo("Dragonfire Dive Option", "Adds Dragonfire Dive to the rotation.", DRG.JobID)]
     DRG_ST_DragonfireDive = 6107,
-
-    [ParentCombo(DRG_ST_DragonfireDive)]
-    [CustomComboInfo("Dragonfire Dive Melee option", "Adds Dragonfire Dive to the rotation when in melee range.", DRG.JobID)]
-    DRG_ST_DragonfireDive_Melee = 6108,
-
+    
     [ParentCombo(DRG_ST_CDs)]
     [CustomComboInfo("Geirskogul Option", "Adds Geirskogul to the rotation.", DRG.JobID)]
     DRG_ST_Geirskogul = 6116,
@@ -2577,10 +2629,6 @@ public enum CustomComboPreset
     [ParentCombo(DRG_ST_CDs)]
     [CustomComboInfo("Stardiver Option", "Adds Stardiver to the rotation.", DRG.JobID)]
     DRG_ST_Stardiver = 6110,
-
-    [ParentCombo(DRG_ST_Stardiver)]
-    [CustomComboInfo("Stardiver Melee option", "Adds Stardiver to the rotation when in melee range.", DRG.JobID)]
-    DRG_ST_Stardiver_Melee = 6111,
 
     [ParentCombo(DRG_ST_CDs)]
     [CustomComboInfo("Wyrmwind Thrust Option", "Adds Wyrmwind Thrust to the rotation.", DRG.JobID)]
@@ -2647,11 +2695,7 @@ public enum CustomComboPreset
     [ParentCombo(DRG_AoE_CDs)]
     [CustomComboInfo("High Jump Option", "Adds (High) Jump to the rotation.", DRG.JobID)]
     DRG_AoE_HighJump = 6213,
-
-    [ParentCombo(DRG_AoE_HighJump)]
-    [CustomComboInfo("(High) Jump Melee option", "Adds (High) Jump to the rotation when in melee range.", DRG.JobID)]
-    DRG_AoE_HighJump_Melee = 6214,
-
+    
     [ParentCombo(DRG_AoE_CDs)]
     [CustomComboInfo("Mirage Dive Option", "Adds Mirage Dive to the rotation.", DRG.JobID)]
     DRG_AoE_Mirage = 6215,
@@ -2659,10 +2703,6 @@ public enum CustomComboPreset
     [ParentCombo(DRG_AoE_CDs)]
     [CustomComboInfo("Dragonfire Dive Option", "Adds Dragonfire Dive to the rotation.", DRG.JobID)]
     DRG_AoE_DragonfireDive = 6207,
-
-    [ParentCombo(DRG_AoE_DragonfireDive)]
-    [CustomComboInfo("Dragonfire Dive Melee option", "Adds Dragonfire Dive to the rotation when in melee range.", DRG.JobID)]
-    DRG_AoE_DragonfireDive_Melee = 6208,
 
     [ParentCombo(DRG_AoE_CDs)]
     [CustomComboInfo("Geirskogul Option", "Adds Geirskogul to the rotation.", DRG.JobID)]
@@ -2675,10 +2715,6 @@ public enum CustomComboPreset
     [ParentCombo(DRG_AoE_CDs)]
     [CustomComboInfo("Stardiver Option", "Adds Stardiver to the rotation.", DRG.JobID)]
     DRG_AoE_Stardiver = 6210,
-
-    [ParentCombo(DRG_AoE_Stardiver)]
-    [CustomComboInfo("Stardiver Melee option", "Adds Stardiver to the rotation when in melee range.", DRG.JobID)]
-    DRG_AoE_Stardiver_Melee = 6211,
 
     [ParentCombo(DRG_AoE_CDs)]
     [CustomComboInfo("Wyrmwind Option", "Adds Wyrmwind Thrust to the rotation.", DRG.JobID)]
@@ -3781,6 +3817,8 @@ public enum CustomComboPreset
     MNK_Variant_Cure = 9026,
 
     #endregion
+    
+    #region Misc
 
     [ReplaceSkill(MNK.PerfectBalance)]
     [ConflictingCombos(MNK_PerfectBalanceProtection)]
@@ -3799,6 +3837,21 @@ public enum CustomComboPreset
     [ConflictingCombos(MNK_PerfectBalance)]
     [CustomComboInfo("Perfect Balance Protection", "Replaces Perfect Balance with Savage Blade when you already have Perfect Balance active.", MNK.JobID)]
     MNK_PerfectBalanceProtection = 9042,
+    
+    #endregion
+
+    #region Hidden Features
+
+    [Hidden]
+    [CustomComboInfo("Hidden Options", "Collection of cheeky or encounter-specific extra options only available to those in the know.\nDo not expect these options to be maintained, or even kept, after they are no longer Current.", MNK.JobID)]
+    MNK_Hidden = 9300,
+
+    [ParentCombo(MNK_Hidden)]
+    [Hidden]
+    [CustomComboInfo("M6S: Hold Burst on Squirrels", "When you're targeting Squirrels in M6S add phase, hold burst.\n(until about the time the first manta is dying)", MNK.JobID)]
+    MNK_Hid_M6SHoldSquirrelBurst = 9301,
+
+    #endregion
 
     // Last value = 9042
 
@@ -5583,6 +5636,26 @@ public enum CustomComboPreset
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Pepsis Option", "Triggers Pepsis if a shield is present.", SGE.JobID)]
     SGE_ST_Heal_Pepsis = 14020,
+    
+    [ParentCombo(SGE_ST_Heal)]
+    [CustomComboInfo("Physis Option", "Adds Physis.", SGE.JobID)]
+    [PossiblyRetargeted]
+    SGE_ST_Heal_Physis = 14065,
+    
+    [ParentCombo(SGE_ST_Heal)]
+    [CustomComboInfo("Kerachole Option", "Adds Kerachole.", SGE.JobID)]
+    [PossiblyRetargeted]
+    SGE_ST_Heal_Kerachole = 14066,
+    
+    [ParentCombo(SGE_ST_Heal)]
+    [CustomComboInfo("Holos Option", "Adds Holos.", SGE.JobID)]
+    [PossiblyRetargeted]
+    SGE_ST_Heal_Holos = 14067,
+    
+    [ParentCombo(SGE_ST_Heal)]
+    [CustomComboInfo("Panhaima Option", "Adds Panhaima.", SGE.JobID)]
+    [PossiblyRetargeted]
+    SGE_ST_Heal_Panhaima = 14068,
 
     #endregion
 
@@ -5715,8 +5788,30 @@ public enum CustomComboPreset
     SGE_DPS_Variant_Rampart = 14049,
 
     #endregion
+    
+    #region Hidden Features
+    [CustomComboInfo("Hidden Options", "Collection of cheeky or encounter-specific extra options only available to those in the know.\nDo not expect these options to be maintained, or even kept, after they are no longer Current.", SGE.JobID)]
+    [Hidden]
+    SGE_Hidden = 14069,
+    
+    [ParentCombo(SGE_Hidden)]
+    [CustomComboInfo("Eukrasian Prognosis Option", "Will try to cast Shields when a raidwide casting is detected if shieldcheck from Eukrasian Prognosis setting passes. \nWill be used in all 4 main combos.", SGE.JobID)]
+    [Hidden]
+    SGE_Hidden_EPrognosis = 14070,
+    
+    [ParentCombo(SGE_Hidden)]
+    [CustomComboInfo("Kerachole Option", "Will try to cast Kerachole when a raidwide casting is detected. \nWill be used in all 4 main combos.", SGE.JobID)]
+    [Hidden]
+    SGE_Hidden_Kerachole = 14071,
+    
+    [ParentCombo(SGE_Hidden)]
+    [CustomComboInfo("Holos Option", "Will try to cast Holos when a raidwide casting is detected. \nWill be used in all 4 main combos.", SGE.JobID)]
+    [Hidden]
+    SGE_Hidden_Holos = 14072,
+    
+    #endregion
 
-    // Last used number = 14064
+    // Last used number = 14072
 
     #endregion
 

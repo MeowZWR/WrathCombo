@@ -13,7 +13,7 @@ namespace WrathCombo.Combos.PvE;
 internal partial class SGE
 {
     internal static Status? DosisDebuff =>
-        GetStatusEffect(DosisList[OriginalHook(Dosis)], CurrentTarget);
+        GetStatusEffect(DosisList[OriginalHook(Dosis)].Debuff, CurrentTarget);
 
     internal static Status? DyskrasiaDebuff =>
         GetStatusEffect(Debuffs.EukrasianDyskrasia, CurrentTarget);
@@ -28,6 +28,28 @@ internal partial class SGE
         Addersting > 0;
 
     #region Healing
+
+    #region Hidden Raidwides
+
+    internal static bool HiddenKerachole() =>
+        IsEnabled(CustomComboPreset.SGE_Hidden_Kerachole) &&
+        ActionReady(Kerachole) && HasAddersgall() &&
+        CanSpellWeave() && RaidWideCasting();
+
+    internal static bool HiddenHolos() =>
+        IsEnabled(CustomComboPreset.SGE_Hidden_Holos) &&
+        ActionReady(Holos) && CanSpellWeave() && RaidWideCasting() &&
+        GetPartyAvgHPPercent() <= SGE_Hidden_HolosOption;
+
+    internal static bool HiddenEprognosis()
+    {
+        bool shieldCheck = GetPartyBuffPercent(Buffs.EukrasianPrognosis) <= SGE_AoE_Heal_EPrognosisOption &&
+                           GetPartyBuffPercent(SCH.Buffs.Galvanize) <= SGE_AoE_Heal_EPrognosisOption;
+
+        return IsEnabled(CustomComboPreset.SGE_Hidden_EPrognosis) && shieldCheck && RaidWideCasting();
+    }
+
+    #endregion
 
     #region ST
 
@@ -47,13 +69,11 @@ internal partial class SGE
             case 0:
                 action = Soteria;
                 enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Soteria);
-
                 return SGE_ST_Heal_Soteria;
 
             case 1:
                 action = Zoe;
                 enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Zoe);
-
                 return SGE_ST_Heal_Zoe;
 
             case 2:
@@ -61,31 +81,26 @@ internal partial class SGE
 
                 enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Pepsis) &&
                           HasStatusEffect(Buffs.EukrasianDiagnosis, healTarget);
-
                 return SGE_ST_Heal_Pepsis;
 
             case 3:
                 action = Taurochole;
                 enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Taurochole) && HasAddersgall();
-
                 return SGE_ST_Heal_Taurochole;
 
             case 4:
                 action = Haima;
                 enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Haima);
-
                 return SGE_ST_Heal_Haima;
 
             case 5:
                 action = Krasis;
                 enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Krasis);
-
                 return SGE_ST_Heal_Krasis;
 
             case 6:
                 action = Druochole;
                 enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Druochole) && HasAddersgall();
-
                 return SGE_ST_Heal_Druochole;
 
             case 7:
@@ -93,8 +108,31 @@ internal partial class SGE
                 enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_EDiagnosis) &&
                           GetTargetHPPercent(healTarget, SGE_ST_Heal_IncludeShields) <= SGE_ST_Heal_EDiagnosisHP &&
                           shieldCheck && scholarShieldCheck;
-
                 return SGE_ST_Heal_EDiagnosisHP;
+
+            case 8:
+                action = Kerachole;
+                enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Kerachole) && HasAddersgall() &&
+                          (!SGE_ST_Heal_KeracholeBossOption || !InBossEncounter());
+                return SGE_ST_Heal_KeracholeHP;
+
+            case 9:
+                action = OriginalHook(Physis);
+                enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Physis) &&
+                          (!SGE_ST_Heal_PhysisBossOption || !InBossEncounter());
+                return SGE_ST_Heal_PhysisHP;
+
+            case 10:
+                action = Panhaima;
+                enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Panhaima) &&
+                          (!SGE_ST_Heal_PanhaimaBossOption || !InBossEncounter());
+                return SGE_ST_Heal_PanhaimaHP;
+
+            case 11:
+                action = Holos;
+                enabled = IsEnabled(CustomComboPreset.SGE_ST_Heal_Holos) &&
+                          (!SGE_ST_Heal_HolosBossOption || !InBossEncounter());
+                return SGE_ST_Heal_HolosHP;
         }
 
         enabled = false;
@@ -302,7 +340,6 @@ internal partial class SGE
             ([2], () => HasStatusEffect(Buffs.Eukrasia))
         ];
 
-
         internal override UserData ContentCheckConfig => SGE_Balance_Content;
 
         public override bool HasCooldowns() =>
@@ -325,24 +362,15 @@ internal partial class SGE
         AddersgallList = [Taurochole, Druochole, Ixochole, Kerachole],
         DyskrasiaList = [Dyskrasia, Dyskrasia2];
 
-    internal static readonly FrozenDictionary<uint, ushort> DosisList = new Dictionary<uint, ushort>
+    internal static readonly FrozenDictionary<uint, (ushort Debuff, uint Eukrasian)> DosisList = new Dictionary<uint, (ushort D, uint E)>
     {
-        { Dosis, Debuffs.EukrasianDosis },
-        { Dosis2, Debuffs.EukrasianDosis2 },
-        { Dosis3, Debuffs.EukrasianDosis3 },
-        { EukrasianDosis, Debuffs.EukrasianDosis },
-        { EukrasianDosis2, Debuffs.EukrasianDosis2 },
-        { EukrasianDosis3, Debuffs.EukrasianDosis3 }
-    }.ToFrozenDictionary();
-
-    internal static readonly FrozenDictionary<uint, uint> DosisToEDosisList = new Dictionary<uint, uint>
-    {
-        { Dosis, EukrasianDosis },
-        { Dosis2, EukrasianDosis2 },
-        { Dosis3, EukrasianDosis3 },
-        { EukrasianDosis, EukrasianDosis },
-        { EukrasianDosis2, EukrasianDosis2 },
-        { EukrasianDosis3, EukrasianDosis3 }
+        { Dosis, (D: Debuffs.EukrasianDosis, E: EukrasianDosis) },
+        { Dosis2, (D: Debuffs.EukrasianDosis2, E: EukrasianDosis2) },
+        { Dosis3, (D: Debuffs.EukrasianDosis3, E: EukrasianDosis3) },
+        //For bad latency/fps where OriginalHook(Dosis) might return an Eukrasian,
+        { EukrasianDosis, (D: Debuffs.EukrasianDosis, E: EukrasianDosis) },
+        { EukrasianDosis2, (D: Debuffs.EukrasianDosis2, E: EukrasianDosis2) },
+        { EukrasianDosis3, (D: Debuffs.EukrasianDosis3, E: EukrasianDosis3) }
     }.ToFrozenDictionary();
 
     #endregion
