@@ -26,7 +26,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Gravity", AST.Gravity.ActionName()),
                 KeyValuePair.Create("Oracle", AST.Oracle.ActionName()),
                 KeyValuePair.Create("Earthly Star", AST.EarthlyStar.ActionName()),
-                KeyValuePair.Create("Detonate Star", AST.DetonateStar.ActionName()),
+                KeyValuePair.Create("Stellar Detonation", AST.StellarDetonation.ActionName()),
                 
                 // Cards
                 KeyValuePair.Create("Astral Draw", AST.AstralDraw.ActionName()),
