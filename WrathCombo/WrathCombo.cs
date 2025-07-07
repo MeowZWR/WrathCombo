@@ -365,7 +365,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
             var basicMessage = $"欢迎使用 WrathCombo ，当前版本：v{this.GetType().Assembly
                 .GetName().Version}！";
             using var motd =
-                httpClient.GetAsync("https://raw.githubusercontent.com/MeowZWR/WrathCombo/cn/res/motd.txt").Result;
+                httpClient.GetAsync("https://static.meowrs.com/Plugins/WrathCombo/res/motd.txt").Result;
             motd.EnsureSuccessStatusCode();
             var data = motd.Content.ReadAsStringAsync().Result;
             List<Payload> payloads =
