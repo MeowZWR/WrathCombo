@@ -69,28 +69,28 @@ internal partial class DRK
                     ImGui.Unindent();
                     ImGui.NewLine();
                     ImGui.Indent();
-                    ImGui.Text("Choose the action to pull with:     (hover each for more info)");
+                    ImGui.Text("选择开怪技能:     (悬停查看详细信息)");
                     ImGui.Unindent();
                     ImGui.NewLine();
                     UserConfig.DrawRadioButton(DRK_ST_OpenerAction,
-                        "Unmend (Standard)",
-                        "Will use Unmend to pull, if selected.\n" +
-                        "Should start at -1.0 seconds.\n\n" +
-                        "Recommended by The Balance.",
+                        "伤残 (标准)",
+                        "如果选择，将使用伤残开怪。\n" +
+                        "应该在-1.0秒时开始。\n\n" +
+                        "The Balance推荐。",
                         outputValue: (int) PullAction.Unmend,
                         descriptionAsTooltip: true);
                     UserConfig.DrawRadioButton(DRK_ST_OpenerAction,
-                        "Shadowstride",
-                        "Will use Shadowstride to pull, if selected.\n" +
-                        "Will use an extra Hard Slash before Disesteem.\n" +
-                        "Should start at -0.7 seconds.",
+                        "暗影步",
+                        "如果选择，将使用暗影步开怪。\n" +
+                        "在掠影的蔑视前会额外使用一次重斩。\n" +
+                        "应该在-0.7秒时开始。",
                         outputValue: (int) PullAction.Shadowstride,
                         descriptionAsTooltip: true);
                     UserConfig.DrawRadioButton(DRK_ST_OpenerAction,
-                        "Hard Slash (Face or Manual Pulling)",
-                        "Will use nothing to pull, if selected, just going straight to Hard Slash.\n" +
-                        "Will use an extra Hard Slash before Disesteem.\n" +
-                        "Should start at 0.0 seconds.",
+                        "重斩 (面向或手动开怪)",
+                        "如果选择，将不使用任何技能开怪，直接使用重斩。\n" +
+                        "在掠影的蔑视前会额外使用一次重斩。\n" +
+                        "应该在0.0秒时开始。",
                         outputValue: (int) PullAction.HardSlash,
                         descriptionAsTooltip: true);
                     break;
@@ -150,7 +150,7 @@ internal partial class DRK
 
                 case CustomComboPreset.DRK_ST_Sp_ManaOvercap:
                     UserConfig.DrawSliderInt(0, 30, DRK_ST_BurstSoonThreshold,
-                        "Seconds before Burst to save (allowing capping)",
+                        "爆发前多少秒保留（允许溢出）",
                         itemWidth: little, sliderIncrement: SliderIncrements.Fives);
 
                     break;

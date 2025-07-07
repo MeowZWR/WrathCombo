@@ -2073,7 +2073,7 @@ public enum CustomComboPreset
     DRK_ST_CD_Interrupt = 5014,
 
     [ParentCombo(DRK_ST_CDs)]
-    [CustomComboInfo("Interrupt with Stun Option", "Adds Low Blow to the rotation when your target is casting.\nNot advised outside of overworld content, as it can waste a lot of Low Blows on un-stun-able enemies, etc. Will try to not use it in boss fights.", DRK.JobID)]
+    [CustomComboInfo("打断（使用眩晕技能）", "当目标正在施法时，将下踢添加到连击中。\n不建议在野外内容之外使用，因为它可能会在无法击晕的敌人身上浪费大量下踢。会尝试不在首领战中使用。", DRK.JobID)]
     DRK_ST_CD_Stun = 5040,
 
     [ParentCombo(DRK_ST_CDs)]
@@ -2140,7 +2140,7 @@ public enum CustomComboPreset
     #region Blood
 
     [ParentCombo(DRK_ST_Spenders)]
-    [CustomComboInfo("Bloodspiller Option", "Adds Bloodspiller to the rotation when under Delirium, or just after Burst.", DRK.JobID)]
+    [CustomComboInfo("血溅", "在血乱状态下或在爆发后立即将血溅添加到连击循环中。", DRK.JobID)]
     DRK_ST_Sp_Bloodspiller = 5025,
 
     [ParentCombo(DRK_ST_Spenders)]
@@ -2157,7 +2157,7 @@ public enum CustomComboPreset
     DRK_ST_Sp_Edge = 5027,
 
     [ParentCombo(DRK_ST_Spenders)]
-    [CustomComboInfo("Dark Arts Drop Prevention", "Will spend Dark Arts if your own The Blackest Night shield is active on you, except when saving for burst.", DRK.JobID)]
+    [CustomComboInfo("暗技防溢出", "当你的至黑之夜护盾激活时消耗暗技，除非正在保留用于爆发。", DRK.JobID)]
     DRK_ST_Sp_DarkArts = 5028,
 
     [ParentCombo(DRK_ST_Spenders)]
@@ -2165,7 +2165,7 @@ public enum CustomComboPreset
     DRK_ST_Sp_EdgeDarkside = 5029,
 
     [ParentCombo(DRK_ST_Spenders)]
-    [CustomComboInfo("Mana Overcap Option", "Uses Edge of Darkness if you are at or above 9,400 mana, except when saving for burst.", DRK.JobID)]
+    [CustomComboInfo("魔力溢出", "当你的魔力值达到或超过9,400时使用暗黑锋，除非正在保留用于爆发。", DRK.JobID)]
     DRK_ST_Sp_ManaOvercap = 5030,
 
     #endregion
@@ -2230,11 +2230,11 @@ public enum CustomComboPreset
     DRK_AoE_CDs = 5051,
 
     [ParentCombo(DRK_AoE_CDs)]
-    [CustomComboInfo("Interrupt Option", "Adds Interject to the rotation when your target's cast is interruptible.", DRK.JobID)]
+    [CustomComboInfo("打断", "当目标施法可打断时，将插言加入循环。", DRK.JobID)]
     DRK_AoE_Interrupt = 5052,
 
     [ParentCombo(DRK_AoE_CDs)]
-    [CustomComboInfo("Interrupt with Stun Option", "Adds Low Blow to the rotation when your target is casting.", DRK.JobID)]
+    [CustomComboInfo("眩晕打断", "当目标施法时，将下踢加入循环。", DRK.JobID)]
     DRK_AoE_Stun = 5053,
 
     [ParentCombo(DRK_AoE_CDs)]
@@ -2294,7 +2294,7 @@ public enum CustomComboPreset
     #region Blood
 
     [ParentCombo(DRK_AoE_Spenders)]
-    [CustomComboInfo("Quietus Option", "Adds Quietus to the rotation when under Delirium, or just after Burst..", DRK.JobID)]
+    [CustomComboInfo("寂灭选项", "在血乱状态下或在爆发后立即将寂灭添加到连击中。", DRK.JobID)]
     DRK_AoE_Sp_Quietus = 5063,
 
     [ParentCombo(DRK_AoE_Spenders)]
@@ -2310,7 +2310,7 @@ public enum CustomComboPreset
     DRK_AoE_Sp_Flood = 5065,
 
     [ParentCombo(DRK_AoE_Spenders)]
-    [CustomComboInfo("Mana Overcap Option", "Uses Flood of Shadow if you are above 9,400 mana.", DRK.JobID)]
+    [CustomComboInfo("魔力溢出", "当你的魔力值超过9,400时使用暗影波动。", DRK.JobID)]
     DRK_AoE_Sp_ManaOvercap = 5066,
 
     #endregion
@@ -2336,7 +2336,7 @@ public enum CustomComboPreset
     DRK_AoE_Mit_Reprisal = 5070,
 
     [ParentCombo(DRK_AoE_Mitigation)]
-    [CustomComboInfo("Dark Mind Option", "Adds Dark Mind to the rotation.", DRK.JobID)]
+    [CustomComboInfo("弃明投暗", "将弃明投暗添加到连击中。", DRK.JobID)]
     DRK_AoE_Mit_DarkMind = 5075,
 
     [ParentCombo(DRK_AoE_Mitigation)]
@@ -2344,7 +2344,7 @@ public enum CustomComboPreset
     DRK_AoE_Mit_Rampart = 5071,
 
     [ParentCombo(DRK_AoE_Mitigation)]
-    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length to the rotation, when the set number of enemies are within range of you.", DRK.JobID)]
+    [CustomComboInfo("青疏自行", "当指定数量的敌人进入你的攻击范围时，将青疏自行添加到连击中。", DRK.JobID)]
     DRK_AoE_Mit_ArmsLength = 5072,
 
     [ParentCombo(DRK_AoE_Mitigation)]
@@ -2363,7 +2363,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(DRK.Souleater)]
-    [CustomComboInfo("基础连击", "Replace Souleater with its combo chain.", DRK.JobID)]
+    [CustomComboInfo("基础连击", "替换噬魂斩为基础连击。", DRK.JobID)]
     DRK_ST_BasicCombo = 5003,
 
     #endregion
@@ -2417,7 +2417,7 @@ public enum CustomComboPreset
     DRK_Mit_ShadowWall = 5099,
 
     [ReplaceSkill(DRK.DarkMissionary)]
-    [CustomComboInfo("One-Button Party Mitigation Feature", "Replaces Dark Missionary with Reprisal when ready.", DRK.JobID)]
+    [CustomComboInfo("一键小队减伤特性", "雪仇就绪时，将暗黑布道替换为雪仇。", DRK.JobID)]
     DRK_Mit_Party = 5100,
 
     #endregion
@@ -2463,27 +2463,27 @@ public enum CustomComboPreset
     #region Standalones
 
     [ReplaceSkill(DRK.BlackestNight)]
-    [CustomComboInfo("Retarget The Blackest Night Feature", "Will Retarget The Blackest Night outside of other combos to your MouseOver Target (or a friendly Hard Target).", DRK.JobID)]
+    [CustomComboInfo("重定向至黑之夜", "在其他连击外将至黑之夜重定向至鼠标悬停目标（或友方硬选择目标）。", DRK.JobID)]
     [Retargeted]
     DRK_Retarget_TBN = 5130,
 
     [ParentCombo(DRK_Retarget_TBN)]
-    [CustomComboInfo("Include Target's Target", "If your target's target is not you, will Retarget The Blackest Night onto them.\n(if you're not top aggro, and not mousing over or hard targeting an ally)", DRK.JobID)]
+    [CustomComboInfo("包含目标的目标", "如果你的目标的目标不是你，将至黑之夜重定向到他们身上。\n(如果你不是最高仇恨，且没有鼠标悬停或硬选择友方目标)", DRK.JobID)]
     [Retargeted]
     DRK_Retarget_TBN_TT = 5131,
 
     [ReplaceSkill(DRK.Oblation)]
-    [CustomComboInfo("Retarget Oblation Feature", "Will Retarget Oblation outside of other combos to your MouseOver Target (or a friendly Hard Target).", DRK.JobID)]
+    [CustomComboInfo("重定向献奉", "在其他连击外将献奉重定向至鼠标悬停目标（或友方硬选择目标）。", DRK.JobID)]
     [Retargeted]
     DRK_Retarget_Oblation = 5132,
 
     [ParentCombo(DRK_Retarget_Oblation)]
-    [CustomComboInfo("Include Target's Target", "If your target's target is not you, will Retarget Oblation onto them.\n(if you're not top aggro, and not mousing over or hard targeting an ally)", DRK.JobID)]
+    [CustomComboInfo("包含目标的目标", "如果你的目标的目标不是你，将献奉重定向到他们身上。\n(如果你不是最高仇恨，且没有鼠标悬停或硬选择友方目标)", DRK.JobID)]
     [Retargeted]
     DRK_Retarget_Oblation_TT = 5133,
 
     [ParentCombo(DRK_Retarget_Oblation)]
-    [CustomComboInfo("Prevent Double Oblations", "Will change Oblation to Savage Blade when your target already has Oblation on them.", DRK.JobID)]
+    [CustomComboInfo("防止双重献奉", "当你的目标已经有献奉效果时，将献奉改为狂怒剑。", DRK.JobID)]
     DRK_Retarget_Oblation_DoubleProtection = 5134,
 
     #endregion
