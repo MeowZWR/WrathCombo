@@ -294,7 +294,7 @@ namespace WrathCombo.Core
 
                         if (!needToResetMessagePrinted)
                         {
-                            DuoLog.Error($"Some features have been disabled due to an internal configuration update:");
+                            DuoLog.Error($"由于内部配置更新，某些功能已被禁用:");
                             needToResetMessagePrinted = !needToResetMessagePrinted;
                         }
 
@@ -305,7 +305,7 @@ namespace WrathCombo.Core
                 }
 
                 if (needToResetMessagePrinted)
-                    DuoLog.Error($"Please re-enable these features to use them again. We apologise for the inconvenience");
+                    DuoLog.Error($"请重新启用这些功能以继续使用。我们为造成的不便深表歉意");
             }
             SetResetValues(config, true);
             Save();

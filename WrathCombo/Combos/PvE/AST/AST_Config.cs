@@ -101,7 +101,7 @@ internal partial class AST
                     break;
 
                 case CustomComboPreset.AST_DPS_Lucid:
-                    DrawSliderInt(4000, 9500, AST_ST_DPS_LucidDreaming, "Set value for your MP to be at or under for this feature to work", 150, Hundreds);
+                    DrawSliderInt(4000, 9500, AST_ST_DPS_LucidDreaming, "设置MP阈值，当MP达到或低于此值时启用此功能", 150, Hundreds);
                     break;
 
                 case CustomComboPreset.AST_ST_DPS_CombustUptime:
@@ -112,7 +112,7 @@ internal partial class AST
                         "Non-Bosses", "Only applies the HP check above to non-bosses.\nAllows you to only stop DoTing early when it's not a boss.", 0);
                     DrawHorizontalRadioButton(AST_ST_DPS_CombustSubOption,
                         "All Enemies", "Applies the HP check above to all enemies.", 1);
-                    DrawRoundedSliderFloat(0, 4, AST_ST_DPS_CombustUptime_Threshold, "Seconds remaining before reapplying the DoT. Set to Zero to disable this check.", digits: 1);
+                    DrawRoundedSliderFloat(0, 4, AST_ST_DPS_CombustUptime_Threshold, "剩余多少秒应用DoT。设置为零禁用此检测。", digits: 1);
                     ImGui.Unindent();
                     break;
 
@@ -136,13 +136,13 @@ internal partial class AST
                     break;
                 
                 case CustomComboPreset.AST_AOE_Lucid:
-                    DrawSliderInt(4000, 9500, AST_AOE_LucidDreaming, "Set value for your MP to be at or under for this feature to work", 150, Hundreds);
+                    DrawSliderInt(4000, 9500, AST_AOE_LucidDreaming, "设置MP阈值，当MP达到或低于此值时启用此功能", 150, Hundreds);
                     break;
 
                 case CustomComboPreset.AST_AOE_Divination:
                     DrawSliderInt(0, 100, AST_AOE_DivinationOption, "Stop using at Enemy HP %. Set to Zero to disable this check.");
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查可应用于哪种类型的敌人：");
                     DrawHorizontalRadioButton(AST_AOE_DivinationSubOption,
                         "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
                     DrawHorizontalRadioButton(AST_AOE_DivinationSubOption,
@@ -226,7 +226,7 @@ internal partial class AST
                 case CustomComboPreset.AST_ST_SimpleHeals_AspectedBenefic:
                     DrawSliderInt(0, 100, AST_ST_SimpleHeals_AspectedBeneficHigh, "Start using when below HP %. Set to 100 to disable this check");
                     DrawSliderInt(0, 100, AST_ST_SimpleHeals_AspectedBeneficLow, "Stop using when below set percentage");
-                    DrawSliderInt(0, 15, AST_ST_SimpleHeals_AspectedBeneficRefresh, "Seconds remaining before reapplying (0 = Do not reapply early)");
+                    DrawSliderInt(0, 15, AST_ST_SimpleHeals_AspectedBeneficRefresh, "剩余多少秒重新应用（0=不提前重新应用）");
                     DrawPriorityInput(AST_ST_SimpleHeals_Priority, 11, 7, $"{AspectedBenefic.ActionName()} Priority: ");
                     break;
                 

@@ -117,14 +117,14 @@ internal partial class SMN
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Lucid:
                     UserConfig.DrawSliderInt(4000, 9500, SMN_ST_Lucid,
-                        "Set value for your MP to be at or under for this feature to take effect.", 150,
+                        "设置魔力值阈值，当魔力值达到或低于此值时此功能生效。", 150,
                         SliderIncrements.Hundreds);
 
                     break;
 
                 case CustomComboPreset.SMN_AoE_Advanced_Combo_Lucid:
                     UserConfig.DrawSliderInt(4000, 9500, SMN_AoE_Lucid,
-                        "Set value for your MP to be at or under for this feature to take effect.", 150,
+                        "设置魔力值阈值，当魔力值达到或低于此值时此功能生效。", 150,
                         SliderIncrements.Hundreds);
 
                     break;

@@ -138,7 +138,7 @@ internal partial class DRK
 
                 case CustomComboPreset.DRK_ST_Sp_Edge:
                     UserConfig.DrawSliderInt(0, 3000, DRK_ST_ManaSpenderPooling,
-                        "Mana to always save for TBN (0 = Use All)",
+                        "为黑盾保留的魔力值（0 = 全部使用）",
                         itemWidth: biggest,
                         sliderIncrement: SliderIncrements.Thousands);
                     UserConfig.DrawDifficultyMultiChoice(

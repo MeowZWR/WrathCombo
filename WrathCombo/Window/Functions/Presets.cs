@@ -549,22 +549,21 @@ namespace WrathCombo.Window.Functions
                     {
                         if (possiblyRetargeted)
                             ImGui.TextUnformatted(
-                                "This Feature's actions may be retargeted.");
+                                "此功能的技能可能会被重新选择目标。");
                         if (retargeted)
                             ImGui.TextUnformatted(
                                 firstLine ??
-                                "This Feature's actions are retargeted.");
+                                "此功能的技能已被重新选择目标。");
 
                         ImGui.TextUnformatted(
                             secondLine ??
-                            "The actions from this Feature will automatically be\n" +
-                            "targeted onto what the developers feel is the best target\n" +
-                            "(following The Balance where applicable).");
+                            "此功能的技能将自动选择开发者认为的最佳目标\n" +
+                            "（在适用的情况下遵循The Balance指南）。");
 
                         ImGui.TextUnformatted(
                             thirdLine ??
-                            "Using plugins like Redirect or Reaction with configurations\n" +
-                            "affecting this action will Conflict and may cause issues.");
+                            "使用Redirect或Reaction等插件并配置影响此技能时\n" +
+                            "会产生冲突并可能导致问题。");
 
                         var settingInfo = "";
                         if (preset.HasValue)
@@ -577,7 +576,7 @@ namespace WrathCombo.Window.Functions
                         {
                             ImGui.NewLine();
                             ImGui.TextUnformatted(
-                                "The setting that controls if this action is retargeted is:\n" +
+                                "控制此技能是否重新选择目标的设置是：\n" +
                                 settingInfo);
                         }
                     }

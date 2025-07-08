@@ -66,7 +66,7 @@ internal partial class RPR
 
                 case CustomComboPreset.RPR_ST_SoD:
                     DrawSliderInt(0, 10, RPR_SoDRefreshRange,
-                        $"Seconds remaining before refreshing {ShadowOfDeath.ActionName()}.\nRecommended is 6.");
+                        $"续{ShadowOfDeath.ActionName()}前剩余秒数。\n推荐值为6。");
 
                     DrawSliderInt(0, 100, RPR_SoDThreshold,
                         $"Set a HP% Threshold for when {ShadowOfDeath.ActionName()} will not be automatically applied to the target.");

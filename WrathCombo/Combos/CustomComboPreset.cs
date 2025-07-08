@@ -419,7 +419,7 @@ public enum CustomComboPreset
 
     [ParentCombo(ALL_Tank_Interrupt)]
     [Retargeted]
-    [CustomComboInfo("Retarget Interrupts", "Will retarget the interrupt if the caster is not your current target.", ADV.JobID)]
+    [CustomComboInfo("重定向打断目标", "如果施法者不是你的当前目标，将重新指定打断技能的目标。", ADV.JobID)]
     ALL_Tank_Interrupt_Retarget = 100005,
 
     [Role(JobRole.Tank)]
@@ -432,22 +432,22 @@ public enum CustomComboPreset
     [Role(JobRole.Tank)]
     [ReplaceSkill(RoleActions.Tank.Shirk)]
     [ParentCombo(ALL_Tank_Menu)]
-    [CustomComboInfo("Tank: Shirk Retargeting",
-        "Retargets Shirk to the other tank if there is one.", ADV.JobID)]
+    [CustomComboInfo("防护职业: 退避重定向",
+        "如果存在其他防护职业，将退避重定向到其他防护职业。", ADV.JobID)]
     [Retargeted]
     ALL_Tank_ShirkRetargeting = 100002,
 
     [Role(JobRole.Tank)]
     [ParentCombo(ALL_Tank_ShirkRetargeting)]
-    [CustomComboInfo("Use Healers instead",
-        "Will Retarget Shirk to healers, instead of the other tank.\nOnly recommended during some specific enrages.", ADV.JobID)]
+    [CustomComboInfo("改为治疗职业",
+        "将退避重定向到治疗职业，而不是其他防护职业。\n仅在特定狂暴时推荐使用。", ADV.JobID)]
     [Retargeted]
     ALL_Tank_ShirkRetargeting_Healer = 100003,
 
     [Role(JobRole.Tank)]
     [ParentCombo(ALL_Tank_ShirkRetargeting)]
-    [CustomComboInfo("Fallback to Any Support",
-        "Will Retarget Shirk to tanks or healers, per your setting above, but will include a fallback to any tank OR healer if none of your setting is found.\nUseful to help your Shirk always go to *someone* even if your chosen players are not alive.", ADV.JobID)]
+    [CustomComboInfo("备用目标：任意支援职业",
+        "根据上方设置将退避重定向至防护职业或治疗职业，但若未找到符合设置的目标，将自动选择任意支援职业作为备用目标。\n确保您的退避技能始终有释放目标，即使预设玩家已阵亡。", ADV.JobID)]
     [Retargeted]
     ALL_Tank_ShirkRetargeting_Fallback = 100004,
 
@@ -476,15 +476,15 @@ public enum CustomComboPreset
     [Role(JobRole.Healer)]
     [ReplaceSkill(RoleActions.Healer.Esuna)]
     [ParentCombo(ALL_Healer_Menu)]
-    [CustomComboInfo("Healer: Esuna Retargeting",
-        "Retargets Esuna (outside of combo usage) to your Heal Stack, checking if each potential target in the stack has a cleansable debuff.", ADV.JobID)]
+    [CustomComboInfo("治疗职业: 康复重定向",
+        "将康复技能（在连击使用之外）重定向到你的治疗集合，检查集合中每个潜在目标是否具有可清除的减益效果。", ADV.JobID)]
     [Retargeted]
     ALL_Healer_EsunaRetargeting = 100012,
     
     [Role(JobRole.Healer)]
     [ReplaceSkill(RoleActions.Healer.Rescue)]
     [ParentCombo(ALL_Healer_Menu)]
-    [CustomComboInfo("Healer: Rescue Retargeting", "Retargets Rescue (outside of combo usage) to UI Mouseover and additional options.", ADV.JobID)]
+    [CustomComboInfo("治疗职业: 营救重定向", "将营救技能（在连击使用之外）重定向到UI鼠标悬停位置和其他选项。", ADV.JobID)]
     [Retargeted]
     ALL_Healer_RescueRetargeting = 100013,
     #endregion
@@ -2145,7 +2145,7 @@ public enum CustomComboPreset
 
     [ParentCombo(DRK_ST_Spenders)]
     [CustomComboInfo("Blood Gauge Overcap Option",
-        "Adds Bloodspiller to the rotation before Souleater when the blood gauge is above the chosen threshold.", DRK.JobID)]
+        "当暗血值超过设定阈值时，在噬魂斩之前将血溅添加到连击循环中。", DRK.JobID)]
     DRK_ST_Sp_BloodOvercap = 5026,
 
     #endregion
@@ -5156,7 +5156,7 @@ public enum CustomComboPreset
 
     [ParentCombo(RDM_ST_DPS)]
     [CustomComboInfo("Opener (Level 100)",
-        "Adds the opener at level 100.\n**Must move into melee range before melee combo for standard**", RDM.JobID)]
+        "在100级时添加开场技能。\n**标准模式下必须在近战连击前进入近战范围**", RDM.JobID)]
     RDM_Balance_Opener = 13002,
 
     [ParentCombo(RDM_ST_DPS)]
@@ -5177,13 +5177,13 @@ public enum CustomComboPreset
     RDM_ST_MeleeCombo = 13006,
 
     [ParentCombo(RDM_ST_MeleeCombo)]
-    [CustomComboInfo("Include Riposte",
-        "Adds Riposte to start the combo. Recommended for Auto Rotation. \n**Must be in melee range or have gap-close with Corps-a-corps enabled**", RDM.JobID)]
+    [CustomComboInfo("包含回刺",
+        "在连击开始时添加回刺。推荐用于自动循环。\n**必须在近战范围内或启用短兵相接进行接近**", RDM.JobID)]
     RDM_ST_MeleeCombo_IncludeRiposte = 13007,
     
     [ParentCombo(RDM_ST_MeleeCombo)]
-    [CustomComboInfo("Gap-Close with Corps-a-corps Option",
-        "Use Corp-a-corps when out of melee range and you have enough mana to start the melee combo or starting Manafication Burst.", RDM.JobID)]
+    [CustomComboInfo("使用短兵相接进行接近",
+        "当超出近战范围且拥有足够魔力开始近战连击或开始魔元化爆发时使用短兵相接。", RDM.JobID)]
     RDM_ST_MeleeCombo_GapCloser = 13008,
     
     [ParentCombo(RDM_ST_MeleeCombo)]
@@ -5192,51 +5192,51 @@ public enum CustomComboPreset
     RDM_ST_MeleeCombo_MeleeCheck = 13009,
     
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Embolden Option", "Add Embolden when Available.", RDM.JobID)]
+    [CustomComboInfo("鼓励", "在可用时添加鼓励。", RDM.JobID)]
     RDM_ST_Embolden = 13010,
     
     [ParentCombo(RDM_ST_Embolden)]
-    [CustomComboInfo("Use Manafication", "Add Manafication before embolden for burst.", RDM.JobID)]
+    [CustomComboInfo("使用魔元化", "在鼓励前添加魔元化以进行爆发。", RDM.JobID)]
     RDM_ST_Manafication = 13011,
     
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Vice Of Thorns Option", "Add Vice of Thorns when available.", RDM.JobID)]
+    [CustomComboInfo("荆棘环绕", "在可用时添加荆棘环绕。", RDM.JobID)]
     RDM_ST_ViceOfThorns = 13012,
     
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Prefulgence Option", "Add Prefulgence when available.", RDM.JobID)]
+    [CustomComboInfo("光芒四射", "在可用时添加光芒四射。", RDM.JobID)]
     RDM_ST_Prefulgence = 13013,
     
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Fleche Option", "Add Fleche when available.", RDM.JobID)]
+    [CustomComboInfo("飞刺", "在可用时添加飞刺。", RDM.JobID)]
     RDM_ST_Fleche = 13014,
     
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Contre Sixte Option", "Add Contre Sixte when available.", RDM.JobID)]
+    [CustomComboInfo("六分反击", "在可用时添加六分反击。", RDM.JobID)]
     RDM_ST_ContreSixte = 13015,
     
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Engagement Option", "Add Engagement when available.", RDM.JobID)]
+    [CustomComboInfo("交剑", "在可用时添加交剑。", RDM.JobID)]
     RDM_ST_Engagement = 13016,
     
     [ParentCombo(RDM_ST_Engagement)]
-    [CustomComboInfo("Engagement Pooling Option", "Prevents overcap but pools at least one charge for burst window.", RDM.JobID)]
+    [CustomComboInfo("交剑充能", "防止溢出但保留至少一个充能用于爆发窗口。", RDM.JobID)]
     RDM_ST_Engagement_Pooling = 13018,
     
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Corps-a-corps Option", "Add Corps-a-corps when available for DPS. \nWill retain a charge for gap-closing.", RDM.JobID)]
+    [CustomComboInfo("短兵相接", "在可用时添加短兵相接用于输出。\n将保留一个充能用于接近。", RDM.JobID)]
     RDM_ST_Corpsacorps = 13017,
 
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Acceleration Option", "Add Acceleration when available.", RDM.JobID)]
+    [CustomComboInfo("促进", "在可用时添加促进。", RDM.JobID)]
     RDM_ST_Acceleration = 13019,
 
     [ParentCombo(RDM_ST_Acceleration)]
-    [CustomComboInfo("Acceleration Movement Option", "Uses Acceleration for movement.", RDM.JobID)]
+    [CustomComboInfo("促进移动", "使用促进进行移动。", RDM.JobID)]
     RDM_ST_Acceleration_Movement = 13020,
 
     [ParentCombo(RDM_ST_DPS)]
-    [CustomComboInfo("Swiftcast Option", "Add Swiftcast when available.", RDM.JobID)]
+    [CustomComboInfo("即刻咏唱选项", "在可用时添加即刻咏唱。", RDM.JobID)]
     RDM_ST_Swiftcast = 13021,
     
     [ParentCombo(RDM_ST_Swiftcast)]
@@ -5262,72 +5262,72 @@ public enum CustomComboPreset
     RDM_AoE_DPS = 13201,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Thunder/Aero Option", "Adds Verthunder 2 and Veraero 2 into the Aoe Rotation.", RDM.JobID)]
+    [CustomComboInfo("闪雷/疾风", "在AoE循环中添加赤震雷和赤烈风。", RDM.JobID)]
     RDM_AoE_ThunderAero = 13202,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Verflare/Verholy Option", "Adds Verflare and Verholy into the Aoe Rotation.", RDM.JobID)]
+    [CustomComboInfo("赤核爆/赤神圣", "在AoE循环中添加赤核爆和赤神圣。", RDM.JobID)]
     RDM_AoE_HolyFlare = 13203,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Moulinet Melee Combo Option", "Addes Moulinet into the Aoe Rotation. \nWill use ST Melee combo below 52.", RDM.JobID)]
+    [CustomComboInfo("划圆斩近战连击", "在AoE循环中添加划圆斩。\n52级以下将使用单体近战连击。", RDM.JobID)]
     RDM_AoE_MeleeCombo = 13204,
     
     [ParentCombo(RDM_AoE_MeleeCombo)]
-    [CustomComboInfo("Require Target Option", "Requires a target within 8 Yalms. \nSkill itself requires none usually, this is for the range check.", RDM.JobID)]
+    [CustomComboInfo("需求目标", "需要8米范围内的目标。\n技能本身通常不需要目标，此选项用于范围检查。", RDM.JobID)]
     RDM_AoE_MeleeCombo_Target = 13205,
     
     [ParentCombo(RDM_AoE_MeleeCombo)]
-    [CustomComboInfo("Gap-close with Corps-a-corps Option",
-        "Use Corp-a-corps when out of melee range and you have enough mana to start the melee combo.", RDM.JobID)]
+    [CustomComboInfo("使用短兵相接接近",
+        "当超出近战范围且拥有足够魔力开始近战连击时使用短兵相接。", RDM.JobID)]
     RDM_AoE_MeleeCombo_GapCloser = 13206,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Embolden Option", "Add Embolden when Available.", RDM.JobID)]
+    [CustomComboInfo("鼓励", "在可用时添加鼓励。", RDM.JobID)]
     RDM_AoE_Embolden = 13207,
     
     [ParentCombo(RDM_AoE_Embolden)]
-    [CustomComboInfo("Use Manafication", "Add Manafication before embolden for burst.", RDM.JobID)]
+    [CustomComboInfo("使用魔元化", "在鼓励前添加魔元化以进行爆发。", RDM.JobID)]
     RDM_AoE_Manafication = 13208,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Vice Of Thorns Option", "Add Vice of Thorns when available.", RDM.JobID)]
+    [CustomComboInfo("荆棘环绕", "在可用时添加荆棘环绕。", RDM.JobID)]
     RDM_AoE_ViceOfThorns = 13209,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Prefulgence Option", "Add Prefulgence when available.", RDM.JobID)]
+    [CustomComboInfo("光芒四射", "在可用时添加光芒四射。", RDM.JobID)]
     RDM_AoE_Prefulgence = 13210,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Fleche Option", "Add Fleche when available.", RDM.JobID)]
+    [CustomComboInfo("飞刺", "在可用时添加飞刺。", RDM.JobID)]
     RDM_AoE_Fleche = 13211,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Contre Sixte Option", "Add Contre Sixte when available.", RDM.JobID)]
+    [CustomComboInfo("六分反击", "在可用时添加六分反击。", RDM.JobID)]
     RDM_AoE_ContreSixte = 13212,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Engagement Option", "Add Engagement when available.", RDM.JobID)]
+    [CustomComboInfo("交剑", "在可用时添加交剑。", RDM.JobID)]
     RDM_AoE_Engagement = 13213,
     
     [ParentCombo(RDM_AoE_Engagement)]
-    [CustomComboInfo("Engagement Pooling Option", "Prevents overcap but pools at least one charge for burst window.", RDM.JobID)]
+    [CustomComboInfo("交剑充能", "防止溢出但保留至少一个充能用于爆发期。", RDM.JobID)]
     RDM_AoE_Engagement_Pooling = 13215,
     
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Corps-a-corps Option", "Add Corps-a-corps when available for DPS. \nWill retain a charge for gap-closing.", RDM.JobID)]
+    [CustomComboInfo("短兵相接", "在可用时添加短兵相接用于输出。\n将保留一个充能用于接近。", RDM.JobID)]
     RDM_AoE_Corpsacorps = 13214,
 
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Acceleration Option", "Add Acceleration when available.", RDM.JobID)]
+    [CustomComboInfo("促进", "在可用时添加促进。", RDM.JobID)]
     RDM_AoE_Acceleration = 13216,
 
     [ParentCombo(RDM_AoE_Acceleration)]
-    [CustomComboInfo("Acceleration Movement Option", "Uses Acceleration for movement.", RDM.JobID)]
+    [CustomComboInfo("促进移动", "使用促进进行移动。", RDM.JobID)]
     RDM_AoE_Acceleration_Movement = 13217,
 
     [ParentCombo(RDM_AoE_DPS)]
-    [CustomComboInfo("Swiftcast Option", "Add Swiftcast when available.", RDM.JobID)]
+    [CustomComboInfo("即刻咏唱", "在可用时添加即刻咏唱。", RDM.JobID)]
     RDM_AoE_Swiftcast = 13218,
     
     [ParentCombo(RDM_AoE_Swiftcast)]
@@ -5345,53 +5345,53 @@ public enum CustomComboPreset
     #region Stand Alone Features
 
     [ReplaceSkill(RDM.Veraero, RDM.Veraero3)]
-    [CustomComboInfo("Spell Combo on Veraero", "Replaces Veraero with Jolt.", RDM.JobID)]
+    [CustomComboInfo("赤疾风法术连击", "用摇荡替换赤疾风。", RDM.JobID)]
     RDM_VerAero = 13400,
 
     [ParentCombo(RDM_VerAero)]
-    [CustomComboInfo("Add Verstone", "Replaces Veraero with Verstone.", RDM.JobID)]
+    [CustomComboInfo("添加赤飞石", "用赤飞石替换赤疾风。", RDM.JobID)]
     RDM_VerAero_Stone = 13401,
     
     [ReplaceSkill(RDM.Verthunder, RDM.Verthunder3)]
-    [CustomComboInfo("Spell Combo on Verthunder", "Replaces Verthunder with Jolt.", RDM.JobID)]
+    [CustomComboInfo("赤闪雷法术连击", "用摇荡替换赤闪雷。", RDM.JobID)]
     RDM_VerThunder = 13418,
 
     [ParentCombo(RDM_VerThunder)]
-    [CustomComboInfo("Add Verfire", "Replaces Verthunder With Verfire.", RDM.JobID)]
+    [CustomComboInfo("添加赤火炎", "用赤火炎替换赤闪雷。", RDM.JobID)]
     RDM_VerThunder_Fire = 13419,
 
     [ReplaceSkill(RDM.Riposte)]
-    [CustomComboInfo("Riposte Melee Combo", "Replaces Riposte with the basic melee combo.", RDM.JobID)]
+    [CustomComboInfo("回刺近战连击", "用基础近战连击替换回刺。", RDM.JobID)]
     RDM_Riposte = 13403,
     
     [ParentCombo(RDM_Riposte)]
-    [CustomComboInfo("Gap-Close with Corps-a-corps Option",
-        "Use Corp-a-corps when out of melee range and you have enough mana or Magicked Swordplay to start the melee combo", RDM.JobID)]
+    [CustomComboInfo("短兵相接接近",
+        "当超出近战范围且有足够的魔力或魔剑舞时使用短兵相接开始近战连击", RDM.JobID)]
     RDM_Riposte_GapCloser = 13424,
     
     [ParentCombo(RDM_Riposte)]
-    [CustomComboInfo("Riposte Finisher Option", "Adds Verholy/Verflare, Scorch, and Resolution", RDM.JobID)]
+    [CustomComboInfo("回刺收尾", "添加赤神圣/赤核爆、焦热和决断", RDM.JobID)]
     RDM_Riposte_Finisher = 13423,
     
     [ParentCombo(RDM_Riposte)]
-    [CustomComboInfo("Riposte Waste Prevention Option", "Replaces Riposte with Savage Blade when resources are too low to complete combo", RDM.JobID)]
+    [CustomComboInfo("回刺防浪费", "当资源不足以完成连击时用狂怒剑替换回刺", RDM.JobID)]
     RDM_Riposte_NoWaste = 13429,
     
     [ReplaceSkill(RDM.Moulinet)]
-    [CustomComboInfo("Moulinet Melee Combo", "Replaces Moulinet with the basic melee aoe combo.", RDM.JobID)]
+    [CustomComboInfo("划圆斩近战连击", "用基础近战AOE连击替换划圆斩。", RDM.JobID)]
     RDM_Moulinet= 13425,
     
     [ParentCombo(RDM_Moulinet)]
-    [CustomComboInfo("Gap-Close with Corps-a-corps Option",
-        "Use Corp-a-corps when out of melee range and you have enough mana or Magicked Swordplay to start the melee combo", RDM.JobID)]
+    [CustomComboInfo("短兵相接接近选项",
+        "当超出近战范围且有足够的魔力或魔剑舞时使用短兵相接开始近战连击", RDM.JobID)]
     RDM_Moulinet_GapCloser = 13426,
     
     [ParentCombo(RDM_Moulinet)]
-    [CustomComboInfo("Moulinet Finisher Option", "Adds Verholy/Verflare, Scorch, and Resolution", RDM.JobID)]
+    [CustomComboInfo("划圆斩收尾", "添加赤神圣/赤核爆、焦热和决断", RDM.JobID)]
     RDM_Moulinet_Finisher = 13427,
     
     [ParentCombo(RDM_Moulinet)]
-    [CustomComboInfo("Moulinet Waste Prevention Option", "Replaces Moulinet with Savage Blade when resources are too low to complete combo", RDM.JobID)]
+    [CustomComboInfo("划圆斩防浪费", "当资源不足以完成连击时用狂怒剑替换划圆斩", RDM.JobID)]
     RDM_Moulinet_NoWaste = 13428,
 
     [ReplaceSkill(RoleActions.Magic.Swiftcast)]
@@ -5405,7 +5405,7 @@ public enum CustomComboPreset
     RDM_Raise_Vercure = 13407,
 
     [ParentCombo(RDM_Raise)]
-    [CustomComboInfo("Retarget Raise and Vercure", "Will Retarget the Raise and Vercure affected here to your Heal Stack.", RDM.JobID)]
+    [CustomComboInfo("重定向赤复活和赤治疗", "将赤复活和赤治疗重定向到你的治疗目标。", RDM.JobID)]
     [Retargeted]
     RDM_Raise_Retarget = 13408,
 
@@ -5420,32 +5420,32 @@ public enum CustomComboPreset
     RDM_EmboldenProtection = 13412,
 
     [ParentCombo(RDM_EmboldenProtection)]
-    [CustomComboInfo("Embolden to Manafication Option", "Changes Embolden to Manafication when on cooldown or under the effect of anyones Embolden.",
+    [CustomComboInfo("鼓励转魔元化", "当鼓励处于冷却时间或受到任何人的鼓励效果影响时，将鼓励更改为魔元化。",
         RDM.JobID)]
     RDM_EmboldenManafication = 13410,
 
     [ParentCombo(RDM_MagickProtection)]
-    [CustomComboInfo("Magick Barrier to Addle Option", "Changes Magick Barrier to Addle when on cooldown. \nWill Display the lowest cooldown skill if both are on cooldown.", RDM.JobID)]
+    [CustomComboInfo("抗死转昏乱", "当抗死处于冷却时间时，将抗死更改为昏乱。\n如果两个技能都处于冷却时间，将显示冷却时间最短的技能。", RDM.JobID)]
     RDM_MagickBarrierAddle = 13411,
 
     [ReplaceSkill(RDM.MagickBarrier)]
-    [CustomComboInfo("Magick Barrier Overlap Protection",
-        "Disables Magick Barrier when buffed by another Red Mage's Magick Barrier by replacing it with Savage Blade. \nApplies to suboption for Addle as well.", RDM.JobID)]
+    [CustomComboInfo("抗死防覆盖",
+        "当受到其他赤魔法师的抗死增益影响时，通过用狂怒剑替换来禁用抗死。\n同样适用于昏乱子选项。", RDM.JobID)]
     RDM_MagickProtection = 13413,
     
     [ReplaceSkill(RDM.Fleche)]
-    [CustomComboInfo("OGCDs One Button Feature",
-        "Replaces Fleche with Contre Sixte, Vice of Thorns, Prefulgence, Engagement, and 1 charge of Corps-a-corps.", RDM.JobID)]
+    [CustomComboInfo("能力技一键功能",
+        "用六分反击、荆棘环绕、光芒四射、交剑和1次短兵相接充能替换飞刺。", RDM.JobID)]
     RDM_OGCDs = 13420,
     
     [ParentCombo(RDM_OGCDs)]
-    [CustomComboInfo("Engagement Pooling Option",
-        "Will not spend both Engagement Charges unless you have Embolden.", RDM.JobID)]
+    [CustomComboInfo("交剑充能",
+        "除非你有鼓励效果，否则不会消耗两次交剑充能。", RDM.JobID)]
     RDM_OGCDs_EngagementPool = 13421,
     
     [ParentCombo(RDM_OGCDs)]
-    [CustomComboInfo("Corps-a-corps Melee only Option",
-        "Needs to be in melee range to use Corps-a-corps.", RDM.JobID)]
+    [CustomComboInfo("仅近战时使用短兵相接",
+        "需要在近战范围内才能使用短兵相接。", RDM.JobID)]
     RDM_OGCDs_CorpsMelee = 13422,
 
     [Variant]
@@ -7755,7 +7755,7 @@ public enum CustomComboPreset
     WHM_STHeals_Lucid = 19308,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Temperance Option", "Uses Temperance when available for mitigation and healing boost.", WHM.JobID)]
+    [CustomComboInfo("节制", "当可用时使用节制以获得减伤和治疗增益。", WHM.JobID)]
     [PossiblyRetargeted]
     WHM_STHeals_Temperance = 19310,
 
@@ -7798,7 +7798,7 @@ public enum CustomComboPreset
     WHM_AoEHeals_Plenary = 19203,
 
     [ParentCombo(WHM_AoEHeals)]
-    [CustomComboInfo("Temperance Option", "Uses Temperance when available for a healing boost whenever the party average falls below the set threshold.", WHM.JobID)]
+    [CustomComboInfo("节制", "当队伍平均血量低于设定阈值时，在可用时使用节制以获得治疗增益。", WHM.JobID)]
     WHM_AoEHeals_Temperance = 19210,
 
     [ParentCombo(WHM_AoEHeals)]
@@ -7815,32 +7815,32 @@ public enum CustomComboPreset
     WHM_AoEHeals_DivineCaress = 19207,
 
     [ParentCombo(WHM_AoEHeals)]
-    [CustomComboInfo("Liturgy of the Bell Option", "Adds Liturgy of the Bell (Lilybell) placement to the rotation.", WHM.JobID)]
+    [CustomComboInfo("礼仪之铃", "在循环中添加礼仪之铃（百合铃）的放置。", WHM.JobID)]
     [Retargeted]
     WHM_AoEHeals_LiturgyOfTheBell = 19206,
 
     [ParentCombo(WHM_AoEHeals_LiturgyOfTheBell)]
-    [CustomComboInfo("Enemy Placement Option", "Will add an enemy hard target as the top priority placement for Liturgy of the Bell.", WHM.JobID)]
+    [CustomComboInfo("敌人放置", "将敌人硬目标作为礼仪之铃放置的最高优先级。", WHM.JobID)]
     [Retargeted]
     WHM_AoEHeals_LiturgyOfTheBell_Enemy = 19208,
 
     [ParentCombo(WHM_AoEHeals_LiturgyOfTheBell)]
-    [CustomComboInfo("Ally Placement Option", "Will add any ally UI MouseOver target, focus target, soft target, or hard target as the priority placement for Liturgy of the Bell.\nBeneath the Enemy placement option, but above yourself.", WHM.JobID)]
+    [CustomComboInfo("友方放置", "将任何友方UI鼠标悬停目标、焦点目标、软目标或硬目标作为礼仪之铃放置的优先级。\n位于敌人放置选项之下，但高于你自己。", WHM.JobID)]
     [Retargeted]
     WHM_AoEHeals_LiturgyOfTheBell_Allies = 19209,
 
     [ParentCombo(WHM_AoEHeals)]
-    [CustomComboInfo("Asylum Option", "Adds Asylum placement, when standing still, to the rotation.\nWill Retarget it onto yourself.", WHM.JobID)]
+    [CustomComboInfo("庇护所", "在静止时向循环中添加庇护所放置。\n将重新定向到你身上。", WHM.JobID)]
     [Retargeted]
     WHM_AoEHeals_Asylum = 19028,
 
     [ParentCombo(WHM_AoEHeals_Asylum)]
-    [CustomComboInfo("Enemy Placement Option", "Will add an enemy hard target as the top priority Retarget for Asylum.", WHM.JobID)]
+    [CustomComboInfo("敌人放置", "将敌人硬目标作为庇护所重新定向的最高优先级。", WHM.JobID)]
     [Retargeted]
     WHM_AoEHeals_Asylum_Enemy = 19030,
 
     [ParentCombo(WHM_AoEHeals_Asylum)]
-    [CustomComboInfo("Ally Placement Option", "Will add any ally UI MouseOver target, focus target, soft target, or hard target as the priority Retarget for Asylum.\nBeneath the Enemy placement option, but above yourself.", WHM.JobID)]
+    [CustomComboInfo("友方放置", "将任何友方UI鼠标悬停目标、焦点目标、软目标或硬目标作为庇护所重新定向的优先级。\n位于敌人放置选项之下，但高于你自己。", WHM.JobID)]
     [Retargeted]
     WHM_AoEHeals_Asylum_Allies = 19031,
 

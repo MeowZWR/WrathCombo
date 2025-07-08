@@ -51,7 +51,7 @@ internal partial class BRD
 
                     ImGui.Indent();
 
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查可应用于哪种类型的敌人：");
 
                     DrawHorizontalRadioButton(BRD_Adv_DoT_SubOption,
                         "Non-boss Encounters Only", $"Applies HP check to Non-Boss Encounters only", 0);
@@ -89,7 +89,7 @@ internal partial class BRD
 
                     ImGui.Indent();
 
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查可应用于哪种类型的敌人：");
 
                     DrawHorizontalRadioButton(BRD_AoE_Adv_Buffs_SubOption,
                         "Non-boss Encounters Only", $"Applies HP check to Non-Boss Encounters only", 0);

@@ -46,7 +46,7 @@ internal partial class SGE
                         "All Enemies", "Applies the HP check above to all enemies.", 1);
 
                     DrawRoundedSliderFloat(0, 5, SGE_ST_DPS_EDosisRefresh,
-                        "Seconds remaining before reapplying the DoT. Set to Zero to disable this check.", digits: 1);
+                        "剩余多少秒应用DoT。设置为零禁用此检测。", digits: 1);
                     ImGui.Unindent();
 
                     break;

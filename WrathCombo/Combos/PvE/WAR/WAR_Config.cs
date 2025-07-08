@@ -128,7 +128,7 @@ internal partial class WAR
 
                 case CustomComboPreset.WAR_ST_StormsEye:
                     UserConfig.DrawSliderInt(0, 30, WAR_SurgingRefreshRange,
-                        $" Seconds remaining before refreshing {Buffs.SurgingTempest.StatusName()} buff:");
+                        $" 刷新{Buffs.SurgingTempest.StatusName()}增益前的剩余秒数：");
                     break;
 
                 case CustomComboPreset.WAR_ST_InnerRelease:
@@ -550,7 +550,7 @@ internal partial class WAR
 
                 case CustomComboPreset.WAR_EyePath:
                     UserConfig.DrawSliderInt(0, 30, WAR_EyePath_Refresh,
-                        $" Seconds remaining before refreshing {Buffs.SurgingTempest.StatusName()} buff:");
+                        $" 刷新{Buffs.SurgingTempest.StatusName()}增益前的剩余秒数：");
                     break;
 
                 case CustomComboPreset.WAR_Variant_Cure:

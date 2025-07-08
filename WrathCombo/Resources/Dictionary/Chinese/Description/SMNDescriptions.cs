@@ -80,7 +80,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Egi abilities will appear on their respective Egi summon ability, as well as Titan.", "三神技能将出现在它们各自的三神召唤上。"),
                 KeyValuePair.Create("Changes Painflare to Ruin IV when out of Aetherflow stacks, Energy Siphon is on cooldown, and Ruin IV is up.", "当Aetherflow层数耗尽、Energy Siphon在冷却中且Ruin IV可用时，将Painflare更改为Ruin IV。"),
                 KeyValuePair.Create("Turn Swiftcast into Variant Raise whenever you have the Swiftcast buff.", "当你有Swiftcast增益时，将Swiftcast更改为Variant Raise。"),
-                KeyValuePair.Create("Set value for your MP to be at or under for this feature to take effect.", "设置你的 MP 值，当 MP 等于或低于该值时此功能生效。"),
                 KeyValuePair.Create("Solar Bahamut/Bahamut", "烈日龙神/龙神"),
                 KeyValuePair.Create("Bursts during Bahamut phase.", "在龙神爆发。"),
                 KeyValuePair.Create("Bahamut burst phase becomes Solar Bahamut at Lv100.", "在等级 100 时，龙神爆发阶段改为烈日龙神。"),

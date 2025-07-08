@@ -53,7 +53,7 @@ internal partial class SCH
                     DrawHorizontalRadioButton(SCH_DPS_BioSubOption,
                         "All Enemies", "Applies the HP check above to all enemies.", 1);
 
-                    DrawRoundedSliderFloat(0, 4, SCH_DPS_BioUptime_Threshold, "Seconds remaining before reapplying the DoT. Set to Zero to disable this check.", digits: 1);
+                    DrawRoundedSliderFloat(0, 4, SCH_DPS_BioUptime_Threshold, "重新应用DoT前剩余秒数。设置为零以禁用此检查。", digits: 1);
 
                     ImGui.Unindent();
 

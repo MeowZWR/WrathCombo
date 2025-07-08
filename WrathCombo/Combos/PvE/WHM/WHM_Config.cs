@@ -70,7 +70,7 @@ internal partial class WHM
                     ImGui.Indent();
 
                     ImGui.TextWrapped(
-                        "Select what kind of enemies the HP check should be applied to:");
+                        "选择HP检查可应用于哪种类型的敌人：");
                     ImGui.NewLine();
 
                     DrawHorizontalRadioButton(WHM_ST_DPS_AeroOptionSubOption,
@@ -205,7 +205,7 @@ internal partial class WHM
 
                 case CustomComboPreset.WHM_AoEHeals_Cure3:
                     DrawSliderInt(1500, 8500, WHM_AoEHeals_Cure3MP,
-                        "MP to be over",
+                        "MP需要超过此值",
                         sliderIncrement: 500);
                     break;
 
@@ -322,11 +322,11 @@ internal partial class WHM
 
         /// Description for MP threshold
         private const string mpThresholdDescription =
-            "MP to be at or below";
+            "魔力值达到或低于此值时";
 
         /// Description for reapplication of Buff/DoT time remaining
         private const string reapplyTimeRemainingDescription =
-            "Seconds remaining before reapplying (0 = Do not reapply early)";
+            "重新应用前剩余秒数 (0 = 不提前重新应用)";
 
         /// Description for charges to keep
         private const string chargesToKeepDescription =

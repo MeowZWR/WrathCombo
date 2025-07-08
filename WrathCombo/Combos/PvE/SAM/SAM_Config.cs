@@ -70,7 +70,7 @@ internal partial class SAM
                             $"Stop using {Higanbana.ActionName()} on targets below this HP % (0% = always use).");
 
                         DrawSliderInt(0, 15, SAM_ST_Higanbana_Refresh,
-                            $"Seconds remaining before reapplying {Higanbana.ActionName()}. Set to Zero to disable this check.");
+                            $"重新应用{Higanbana.ActionName()}前的剩余秒数。设置为零禁用此检查。");
                     }
 
                     break;

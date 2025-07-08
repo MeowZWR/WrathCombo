@@ -78,7 +78,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Will not trigger if you are moving.", "如果你在移动，则不会触发。"),
                 KeyValuePair.Create("Adds Harvest Moon onto the main combo when you're out of melee range, the GCD is not rolling and it's available for use. Will also throw it when the enemy is under 12k health for execute", "当你在近战范围外、GCD未滚动且可用时，将Harvest Moon加入主连击。当敌人血量低于12k时也会投掷以执行斩杀。"),
                 KeyValuePair.Create("Adds Arcane Crest to the main combo when under the set HP perecentage.", "当HP低于设定百分比时，将Arcane Crest加入主连击。"),
-                KeyValuePair.Create("Seconds remaining before refreshing Death's Design.", "DoT剩多少秒时续死亡烙印。"),
                 KeyValuePair.Create("Set a HP% Threshold for when SoD will not be automatically applied to the target.", "目标生命百分比达到此值时不会自动使用死亡之影。"),
                 KeyValuePair.Create("Set a HP% Threshold for when WoD will not be automatically applied to the target.", "目标生命百分比达到此值不会自动使用死亡之涡。"),
                 #endregion

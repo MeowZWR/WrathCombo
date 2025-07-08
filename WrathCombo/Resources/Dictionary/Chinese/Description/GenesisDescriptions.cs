@@ -43,7 +43,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Uses Purify when afflicted with any selected debuff.", "当你受到任何选定的减益效果影响时，使用Purify。"),
                 KeyValuePair.Create("Stops you cancelling your guard if you're pressing buttons quickly by replacing your buttons with Savage Blade.", "如果你快速按下按钮，用Savage Blade替换你的按钮以防止你取消Guard。"),
                 KeyValuePair.Create("Allows you to cancel your guard with Recuperate on the Guard button if health is low enough to not waste it.", "当生命值足够低时，允许你在防御按钮上使用自愈技能来取消防御，以避免浪费。"),
-                KeyValuePair.Create("Set value for your MP to be at or under for this feature to work", "设置你的 MP 值，当 MP 等于或低于该值时此功能生效"),
                 
                 // Manually added
                 // PLD

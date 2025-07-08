@@ -123,7 +123,7 @@ internal partial class BLM
                     DrawHorizontalRadioButton(BLM_ST_Thunder_SubOption,
                         "All Enemies", "Applies the HP check above to all enemies.", 1);
 
-                    DrawSliderInt(0, 5, BLM_ST_ThunderUptime_Threshold, "Seconds remaining before reapplying the DoT. Set to Zero to disable this check.");
+                    DrawSliderInt(0, 5, BLM_ST_ThunderUptime_Threshold, "剩余多少秒应用DoT。设置为零禁用此检测。");
 
                     ImGui.Unindent();
 
