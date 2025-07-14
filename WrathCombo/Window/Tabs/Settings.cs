@@ -662,6 +662,12 @@ namespace WrathCombo.Window.Tabs
                 ImGuiComponents.HelpMarker("将在桌面生成中文翻译键值对调试文件。\n包含未被替换的英文文本和未被使用的键值对词典。");
                 #endif
 
+                if (ImGui.Button("生成技能对照表"))
+                {
+                    SkillTranslationTableGenerator.GenerateSkillTranslationTable();
+                }
+                ImGuiComponents.HelpMarker("将在桌面生成MD格式的技能名称中英文对照表。");
+
                 #endregion
             }
         }
