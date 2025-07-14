@@ -6856,7 +6856,7 @@ public enum CustomComboPreset
     VPR_ST_Vicewinder = 30006,
 
     [ParentCombo(VPR_ST_Vicewinder)]
-    [CustomComboInfo("True North Option", "Adds True North when available.", VPR.JobID)]
+    [CustomComboInfo("真北选项", "在可用时加入真北。", VPR.JobID)]
     VPR_TrueNortVicewinder = 30016,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
@@ -6884,11 +6884,11 @@ public enum CustomComboPreset
     VPR_ST_Reawaken = 30011,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Generations Combo", "Adds Generations to the rotation.", VPR.JobID)]
+    [CustomComboInfo("祖灵之牙连击", "将祖灵之牙一式、二式、三式、四式加入连击。", VPR.JobID)]
     VPR_ST_GenerationCombo = 30012,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Legacy weaves", "Adds Legacy weaves to the rotation.", VPR.JobID)]
+    [CustomComboInfo("插入能力技祖灵之蛇", "将祖灵之蛇一式、二式、三式、四式加入连击。", VPR.JobID)]
     VPR_ST_LegacyWeaves = 30014,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
@@ -6926,47 +6926,47 @@ public enum CustomComboPreset
     VPR_AoE_Vicepit = 30105,
 
     [ParentCombo(VPR_AoE_Vicepit)]
-    [CustomComboInfo("Disable Range Check", "Disables the range check for Vicepit, so it will be used even without a target selected.", VPR.JobID)]
+    [CustomComboInfo("禁用距离检测", "禁用强碎灵蝰的距离检测，即使未选中目标也会使用。", VPR.JobID)]
     VPR_AoE_Vicepit_DisableRange = 30111,
 
     [ParentCombo(VPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Vicepit Combo", "Adds Swiftskin's Den and Hunter's Den to the rotation.", VPR.JobID)]
+    [CustomComboInfo("强碎灵蝰连击", "将疾速盘蝰和猛袭盘蝰加入连击。", VPR.JobID)]
     VPR_AoE_VicepitCombo = 30106,
 
     [ParentCombo(VPR_AoE_VicepitCombo)]
-    [CustomComboInfo("Disable Range Check", "Disables the range check for Swiftskin's Den and Hunter's Den, so they will be used even without a target selected.", VPR.JobID)]
+    [CustomComboInfo("禁用距离检测", "禁用疾速盘蝰和猛袭盘蝰的距离检测，即使未选中目标也会使用。", VPR.JobID)]
     VPR_AoE_VicepitCombo_DisableRange = 30113,
 
     [ParentCombo(VPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Vicepit Weaves", "Adds Twinfang Thresh and Twinblood Thresh to the rotation.", VPR.JobID)]
+    [CustomComboInfo("强碎灵蝰乱击", "将双牙连闪和双牙乱闪加入连击。", VPR.JobID)]
     VPR_AoE_VicepitWeaves = 30115,
 
     [ParentCombo(VPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Serpents Tail", "Adds Serpents Tail to the rotation.", VPR.JobID)]
+    [CustomComboInfo("蛇尾术", "将蛇尾术加入连击。", VPR.JobID)]
     VPR_AoE_SerpentsTail = 30107,
 
     [ParentCombo(VPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Uncoiled Fury", "Adds Uncoiled Fury to the rotation.", VPR.JobID)]
+    [CustomComboInfo("飞蛇之尾", "将飞蛇之尾加入连击。", VPR.JobID)]
     VPR_AoE_UncoiledFury = 30108,
 
     [ParentCombo(VPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Uncoiled Fury Combo", "Adds Uncoiled Twinfang and Uncoiled Twinblood to the rotation.", VPR.JobID)]
+    [CustomComboInfo("飞蛇连尾击", "将飞蛇连尾击和飞蛇乱尾击加入连击。", VPR.JobID)]
     VPR_AoE_UncoiledFuryCombo = 30109,
 
     [ParentCombo(VPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Reawaken", "Adds Reawaken to the rotation.", VPR.JobID)]
+    [CustomComboInfo("祖灵降临", "将祖灵降临添加到连击中。", VPR.JobID)]
     VPR_AoE_Reawaken = 30110,
 
     [ParentCombo(VPR_AoE_Reawaken)]
-    [CustomComboInfo("Disable Range Check", "Disables the range check for Reawaken, so it will be used even without a target selected.", VPR.JobID)]
+    [CustomComboInfo("禁用距离检测", "禁用祖灵降临的距离检测，即使未选中目标也会使用。", VPR.JobID)]
     VPR_AoE_Reawaken_DisableRange = 30114,
 
     [ParentCombo(VPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Reawaken Combo", "Adds Generations and Legacy weaves to the rotation.", VPR.JobID)]
+    [CustomComboInfo("祖灵连击", "将祖灵之牙与祖灵之蛇等衍生技能添加到连击中。", VPR.JobID)]
     VPR_AoE_ReawakenCombo = 30112,
 
     [ParentCombo(VPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Combo Heals Option", "Adds Bloodbath and Second Wind to the rotation.", VPR.JobID)]
+    [CustomComboInfo("连击治疗选项", "将浴血和内丹添加到连击中。", VPR.JobID)]
     VPR_AoE_ComboHeals = 30199,
 
     #endregion
@@ -6975,7 +6975,7 @@ public enum CustomComboPreset
 
     [ReplaceSkill(VPR.ReavingFangs)]
     [ConflictingCombos(VPR_ReawakenLegacy, VPR_Legacies, VPR_SerpentsTail)]
-    [CustomComboInfo("基础连击", "Replace Reaving Fangs with its combo chain.", VPR.JobID)]
+    [CustomComboInfo("基础连击", "将穿裂尖齿替换为其连击链。", VPR.JobID)]
     VPR_ST_BasicCombo = 30015,
 
     #endregion
