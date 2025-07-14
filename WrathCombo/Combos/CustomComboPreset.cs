@@ -6913,35 +6913,35 @@ public enum CustomComboPreset
     VPR_ST_Opener = 30002,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Serpents Ire", "Adds Serpents Ire to the rotation.", VPR.JobID)]
+    [CustomComboInfo("蛇灵气", "将蛇灵气加入连击。", VPR.JobID)]
     VPR_ST_SerpentsIre = 30005,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Vicewinder", "Adds Vicewinder to the rotation.", VPR.JobID)]
+    [CustomComboInfo("强碎灵蛇", "将强碎灵蛇加入连击。", VPR.JobID)]
     VPR_ST_Vicewinder = 30006,
     
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Vicewinder Combo", "Adds Swiftskin's Coil and Hunter's Coil to the rotation.\nWill automatically swap depending on your position.", VPR.JobID)]
+    [CustomComboInfo("强碎灵蛇连击", "将疾速盘蛇和猛袭盘蛇加入连击。\n会根据你的站位自动切换。", VPR.JobID)]
     VPR_ST_VicewinderCombo = 30007,
     
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Vicewinder Weaves", "Adds Twinfang Bite and Twinblood Bite to the rotation.", VPR.JobID)]
+    [CustomComboInfo("强碎灵蛇乱击", "将双牙连击和双牙乱击加入连击。", VPR.JobID)]
     VPR_ST_VicewinderWeaves = 30013,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Serpents Tail", "Adds Serpents Tail to the rotation.", VPR.JobID)]
+    [CustomComboInfo("蛇尾术", "将蛇尾术加入连击。", VPR.JobID)]
     VPR_ST_SerpentsTail = 30008,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Uncoiled Fury", "Adds Uncoiled Fury to the rotation.", VPR.JobID)]
+    [CustomComboInfo("飞蛇之尾", "将飞蛇之尾加入连击。", VPR.JobID)]
     VPR_ST_UncoiledFury = 30009,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Uncoiled Fury Combo", "Adds Uncoiled Twinfang and Uncoiled Twinblood to the rotation.", VPR.JobID)]
+    [CustomComboInfo("飞蛇之尾连击", "将飞蛇连尾击和飞蛇乱尾击加入连击。", VPR.JobID)]
     VPR_ST_UncoiledFuryCombo = 30010,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Reawaken", "Adds Reawaken to the rotation.", VPR.JobID)]
+    [CustomComboInfo("祖灵降临", "将祖灵降临加入连击。", VPR.JobID)]
     VPR_ST_Reawaken = 30011,
 
     [ParentCombo(VPR_ST_AdvancedMode)]

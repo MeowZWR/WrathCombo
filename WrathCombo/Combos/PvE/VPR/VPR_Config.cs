@@ -48,12 +48,12 @@ internal partial class VPR
 
                 case CustomComboPreset.VPR_ST_RangedUptime:
                     DrawAdditionalBoolChoice(VPR_ST_RangedUptimeUncoiledFury,
-                        $"Include {UncoiledFury.ActionName()}", "Adds Uncoiled Fury to the rotation when you are out of melee range and have Rattling Coil charges.");
+                        $"包含{UncoiledFury.ActionName()}", $"当你处于远程状态且拥有{RattlingCoil.ActionName()}层数时，将{UncoiledFury.ActionName()}加入循环。");
                     break;
 
                 case CustomComboPreset.VPR_ST_Vicewinder:
                     DrawAdditionalBoolChoice(VPR_TrueNortVicewinder,
-                        $"{Role.TrueNorth.ActionName()} Option", "Adds True North when available.");
+                        $"{Role.TrueNorth.ActionName()}选项", "可用时加入真北。");
                     break;
 
                 case CustomComboPreset.VPR_ST_ComboHeals:
@@ -76,10 +76,10 @@ internal partial class VPR
 
                 case CustomComboPreset.VPR_AoE_Reawaken:
                     DrawHorizontalRadioButton(VPR_AoE_Reawaken_SubOption,
-                        "In range", $"Adds range check for {Reawaken.ActionName()}, so it is used only when in range.", 0);
+                        "在范围内", $"为{Reawaken.ActionName()}添加距离检测，仅在目标在范围内时使用。", 0);
 
                     DrawHorizontalRadioButton(VPR_AoE_Reawaken_SubOption,
-                        "Disable range check", $"Disables the range check for {Reawaken.ActionName()}, so it will be used even without a target selected.", 1);
+                        "禁用距离检测", $"禁用{Reawaken.ActionName()}的距离检测，即使未选中目标也会使用。", 1);
 
                     DrawSliderInt(0, 100, VPR_AoE_Reawaken_Usage,
                         $"敌人HP高于该百分比时停止使用{Reawaken.ActionName()}。设为0则不检测。");
@@ -87,18 +87,18 @@ internal partial class VPR
 
                 case CustomComboPreset.VPR_AoE_Vicepit:
                     DrawHorizontalRadioButton(VPR_AoE_Vicepit_SubOption,
-                        "In range", $"Adds range check for {Vicepit.ActionName()}, so it is used only when in range.", 0);
+                        "在范围内", $"为{Vicepit.ActionName()}添加距离检测，仅在目标在范围内时使用。", 0);
 
                     DrawHorizontalRadioButton(VPR_AoE_Vicepit_SubOption,
-                        "Disable range check", $"Disables the range check for {Vicepit.ActionName()}, so it will be used even without a target selected.", 1);
+                        "禁用距离检测", $"禁用{Vicepit.ActionName()}的距离检测，即使未选中目标也会使用。", 1);
                     break;
 
                 case CustomComboPreset.VPR_AoE_VicepitCombo:
                     DrawHorizontalRadioButton(VPR_AoE_VicepitCombo_SubOption,
-                        "In range", $"Adds range check for {HuntersDen.ActionName()} and {SwiftskinsDen.ActionName()}, so it is used only when in range.", 0);
+                        "在范围内", $"为{HuntersDen.ActionName()}与{SwiftskinsDen.ActionName()}添加距离检测，仅在目标在范围内时使用。", 0);
 
                     DrawHorizontalRadioButton(VPR_AoE_VicepitCombo_SubOption,
-                        "Disable range check", $"Disables the range check for {HuntersDen.ActionName()} and {SwiftskinsDen.ActionName()}, so it will be used even without a target selected.", 1);
+                        "禁用距离检测", $"禁用{HuntersDen.ActionName()}与{SwiftskinsDen.ActionName()}的距离检测，即使未选中目标也会使用。", 1);
                     break;
 
                 case CustomComboPreset.VPR_AoE_ComboHeals:

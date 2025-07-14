@@ -327,13 +327,13 @@ namespace WrathCombo.Window.Tabs
                     Service.Configuration.Save();
 
                 ImGui.SameLine();
-                ImGui.Text("oGCDs");
+                ImGui.Text("能力技");
 
                 ImGui.SameLine(pos);
 
-                ImGui.Text($"   -   Maximum number of Weaves");
+                ImGui.Text($"   -   最大插入数量");
 
-                ImGuiComponents.HelpMarker("This controls how many oGCDs are allowed between GCDs.\nThe sort of 'default' for the game is double weaving, but triple weaving is completely possible to do with low enough latency (of every kind); but if you struggle with latency of some sort, single weaving may even be a good answer for you.\nTriple weaving is already done in a manner where we try to avoid clipping GCDs, and as such doesn't happen particularly often even if you do have good latency, so it is a safe option as far as parses/etc goes.\n\nDefault: 2");
+                ImGuiComponents.HelpMarker("此选项控制每个GCD之间允许插入多少个能力技（oGCD）。\n游戏的“默认”情况是双插（Double Weave），但如果网络延迟足够低，三插（Triple Weave）也是完全可行的；如果你有较高的延迟，单插（Single Weave）可能更适合你。\n三插的实现方式会尽量避免GCD卡顿，因此即使你有良好的网络环境，三插发生的频率也不会很高，所以作为常规设置是安全的。\n\n默认值：2");
 
                 #endregion
 
@@ -364,17 +364,17 @@ namespace WrathCombo.Window.Tabs
                 bool addNpcs = 
                     Service.Configuration.AddOutOfPartyNPCsToRetargeting;
 
-                if (ImGui.Checkbox("Add Out of Party NPCs to Retargeting", ref addNpcs))
+                if (ImGui.Checkbox("将非队伍NPC加入重定向目标", ref addNpcs))
                 {
                     Service.Configuration.AddOutOfPartyNPCsToRetargeting = addNpcs;
                     Service.Configuration.Save();
                 }
 
                 ImGuiComponents.HelpMarker(
-                    "This will add any NPCs that are not in your party to the retargeting logic for healing actions.\n\n" +
-                    "This is useful for healers who want to be able to target NPCs that are not in their party, such as quest NPCs.\n\n" +
-                    "These NPCs will not work with any role based custom stacks (even if an NPC looks like a tank, they're not classed as one)\n\n" +
-                    "Default: Off");
+                    "启用后，所有不在你队伍中的NPC也会被纳入治疗技能的重定向逻辑。\n\n" +
+                    "对于希望能够治疗非队伍NPC（如任务NPC）的治疗职业来说，这一选项非常有用。\n\n" +
+                    "这些NPC不会与任何基于职责的自定义队列联动（即使某些NPC看起来像坦克，他们也不会被视为坦克）。\n\n" +
+                    "默认：关闭");
 
                 #endregion
 
