@@ -67,7 +67,7 @@ internal partial class WHM : Healer
 
             #region Weaves
 
-            if (CanSpellWeave())
+            if (CanWeave())
             {
                 if (Variant.CanRampart(CustomComboPreset.WHM_DPS_Variant_Rampart))
                     return Variant.Rampart;
@@ -152,7 +152,7 @@ internal partial class WHM : Healer
 
             #region Weaves
 
-            if (CanSpellWeave() || IsMoving())
+            if (CanWeave() || IsMoving())
             {
                 if (IsEnabled(CustomComboPreset.WHM_AoE_DPS_Assize) &&
                     ActionReady(Assize))
@@ -248,7 +248,7 @@ internal partial class WHM : Healer
 
             #region OGCD Tools
 
-            if (IsEnabled(CustomComboPreset.WHM_STHeals_Lucid) && CanSpellWeave() &&
+            if (IsEnabled(CustomComboPreset.WHM_STHeals_Lucid) && CanWeave() &&
                 Role.CanLucidDream(Config.WHM_STHeals_Lucid))
                 return Role.LucidDreaming;
 
@@ -316,12 +316,12 @@ internal partial class WHM : Healer
             var canPlenary = ActionReady(PlenaryIndulgence) &&
                              (!Config.WHM_AoEHeals_PlenaryWeave ||
                               Config.WHM_AoEHeals_PlenaryWeave &&
-                              CanSpellWeave());
+                              CanWeave());
 
             var canAssize = ActionReady(Assize) &&
                             (!Config.WHM_AoEHeals_AssizeWeave ||
                              Config.WHM_AoEHeals_AssizeWeave &&
-                             CanSpellWeave());
+                             CanWeave());
 
             var healTarget = OptionalTarget ?? SimpleTarget.Stack.AllyToHeal;
 
@@ -371,7 +371,7 @@ internal partial class WHM : Healer
 
             if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Temperance) &&
                 ActionReady(Temperance) &&
-                (!Config.WHM_AoEHeals_TemperanceWeave || CanSpellWeave()) &&
+                (!Config.WHM_AoEHeals_TemperanceWeave || CanWeave()) &&
                 temperanceHPCheckPassed &&
                 ContentCheck.IsInConfiguredContent(
                     Config.WHM_AoEHeals_TemperanceDifficulty,
@@ -401,7 +401,7 @@ internal partial class WHM : Healer
                 return Asylum.Retarget(Medica1, asylumTarget);
 
             if (IsEnabled(CustomComboPreset.WHM_AoEHeals_Lucid) &&
-                CanSpellWeave() &&
+                CanWeave() &&
                 Role.CanLucidDream(Config.WHM_AoEHeals_Lucid))
                 return Role.LucidDreaming;
 

@@ -42,7 +42,7 @@ internal partial class PCT : Caster
                 return Variant.Cure;
 
             // Variant Rampart
-            if (Variant.CanRampart(CustomComboPreset.PCT_Variant_Rampart, WeaveTypes.SpellWeave))
+            if (Variant.CanRampart(CustomComboPreset.PCT_Variant_Rampart, WeaveTypes.Weave))
                 return Variant.Rampart;
             
             if (OccultCrescent.ShouldUsePhantomActions())
@@ -51,7 +51,7 @@ internal partial class PCT : Caster
 
             #region OGCD
             // General Weaves
-            if (InCombat() && CanSpellWeave())
+            if (InCombat() && CanWeave())
             {
                 // ScenicMuse pre-100
                 if (ScenicMuseReady && !LevelChecked(StarPrism))
@@ -259,7 +259,7 @@ internal partial class PCT : Caster
                 return Variant.Cure;
 
             // Variant Rampart
-            if (Variant.CanRampart(CustomComboPreset.PCT_Variant_Rampart, WeaveTypes.SpellWeave))
+            if (Variant.CanRampart(CustomComboPreset.PCT_Variant_Rampart, WeaveTypes.Weave))
                 return Variant.Rampart;
             
             if (OccultCrescent.ShouldUsePhantomActions())
@@ -268,7 +268,7 @@ internal partial class PCT : Caster
 
             #region OGCD
             // General Weaves
-            if (InCombat() && CanSpellWeave())
+            if (InCombat() && CanWeave())
             {
                 // ScenicMuse
                 if (scenicMuseEnabled && ScenicMuseReady && (!burstPhaseEnabled || !LevelChecked(StarPrism)))
@@ -440,7 +440,7 @@ internal partial class PCT : Caster
                 return Variant.Cure;
 
             // Variant Rampart
-            if (Variant.CanRampart(CustomComboPreset.PCT_Variant_Rampart, WeaveTypes.SpellWeave))
+            if (Variant.CanRampart(CustomComboPreset.PCT_Variant_Rampart, WeaveTypes.Weave))
                 return Variant.Rampart;
             
             if (OccultCrescent.ShouldUsePhantomActions())
@@ -449,7 +449,7 @@ internal partial class PCT : Caster
 
             #region OGCD
             // General Weaves
-            if (InCombat() && CanSpellWeave())
+            if (InCombat() && CanWeave())
             {
                 // ScenicMuse
                 if (ScenicMuseReady)
@@ -646,7 +646,7 @@ internal partial class PCT : Caster
                 return Variant.Cure;
 
             // Variant Rampart
-            if (Variant.CanRampart(CustomComboPreset.PCT_Variant_Rampart, WeaveTypes.SpellWeave))
+            if (Variant.CanRampart(CustomComboPreset.PCT_Variant_Rampart, WeaveTypes.Weave))
                 return Variant.Rampart;
             
             if (OccultCrescent.ShouldUsePhantomActions())
@@ -655,7 +655,7 @@ internal partial class PCT : Caster
 
             #region OGCD
             // General Weaves
-            if (InCombat() && CanSpellWeave())
+            if (InCombat() && CanWeave())
             {
                 // ScenicMuse
                 if (scenicMuseEnabled && ScenicMuseReady)

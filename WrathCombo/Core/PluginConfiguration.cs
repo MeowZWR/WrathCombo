@@ -65,6 +65,8 @@ namespace WrathCombo.Core
         public int Throttle = 50;
 
         public double InterruptDelay  = 0.0f;
+        
+        public int MaximumWeavesPerWindow = 2;
 
         public bool OpenToPvE = false;
 
@@ -77,6 +79,8 @@ namespace WrathCombo.Core
         #region Target Settings
 
         public bool RetargetHealingActionsToStack = false;
+
+        public bool AddOutOfPartyNPCsToRetargeting = false;
 
         public bool UseUIMouseoverOverridesInDefaultHealStack = false;
 

@@ -156,21 +156,12 @@ namespace WrathCombo.Window.Tabs
                 ImGuiEx.Spacing(new Vector2(0, 20));
                 ImGuiEx.TextUnderlined("循环行为选项");
 
-                #region Performance Mode
-
-                if (ImGui.Checkbox("性能模式", ref Service.Configuration.PerformanceMode))
-                    Service.Configuration.Save();
-
-                ImGuiComponents.HelpMarker("此模式将禁用热键栏上的技能替换，但仍会在后台运行，并在你按下技能时生效。");
-
-                #endregion
-
                 #region Spells while Moving
 
                 if (ImGui.Checkbox("移动时阻止咏唱", ref Service.Configuration.BlockSpellOnMove))
                     Service.Configuration.Save();
 
-                ImGuiComponents.HelpMarker("在移动时阻止咏唱，将技能替换为狂怒剑。\n此选项将优先于大部分职业的特定连击移动选项。");
+                ImGuiComponents.HelpMarker("在移动时阻止咏唱，将技能替换为狂怒剑。\n此选项将优先于大部分职业的特定连击移动选项。\n\n推荐保持关闭，as most combos already handle this more gracefully.\n默认关闭");
 
                 #endregion
 
@@ -180,6 +171,19 @@ namespace WrathCombo.Window.Tabs
                     Service.Configuration.Save();
 
                 ImGuiComponents.HelpMarker("控制是否允许插件拦截并替换技能为连击。\n如果禁用，你手动释放的技能将不再受 Wrath 设定影响。\n\n自动循环不会受到此设置影响。\n\n可通过 /wrath combo 指令控制。");
+
+                #endregion
+
+                #region Performance Mode
+
+                if (Service.Configuration.ActionChanging) {
+                    ImGui.Indent();
+                    if (ImGui.Checkbox("性能模式", ref Service.Configuration.PerformanceMode))
+                        Service.Configuration.Save();
+
+                    ImGuiComponents.HelpMarker("此模式将禁用热键栏上的技能替换，但仍会在后台运行，并在你按下技能时生效。\n\n有性能问题时建议开启。\n默认关闭。");
+                    ImGui.Unindent();
+                }
 
                 #endregion
 
@@ -315,6 +319,23 @@ namespace WrathCombo.Window.Tabs
                 ImGuiComponents.HelpMarker("等待打断的咏唱条总时间的百分比。\n适用于所有打断，所有职业的连击。\n\n建议将该值保持在50%以下。\n默认值：0%");
 
                 #endregion
+                
+                #region Maximum Weaves
+
+                ImGui.PushItemWidth(75);
+                if (ImGui.InputInt("###MaximumWeaves", ref Service.Configuration.MaximumWeavesPerWindow))
+                    Service.Configuration.Save();
+
+                ImGui.SameLine();
+                ImGui.Text("oGCDs");
+
+                ImGui.SameLine(pos);
+
+                ImGui.Text($"   -   Maximum number of Weaves");
+
+                ImGuiComponents.HelpMarker("This controls how many oGCDs are allowed between GCDs.\nThe sort of 'default' for the game is double weaving, but triple weaving is completely possible to do with low enough latency (of every kind); but if you struggle with latency of some sort, single weaving may even be a good answer for you.\nTriple weaving is already done in a manner where we try to avoid clipping GCDs, and as such doesn't happen particularly often even if you do have good latency, so it is a safe option as far as parses/etc goes.\n\nDefault: 2");
+
+                #endregion
 
                 #endregion
 
@@ -339,6 +360,21 @@ namespace WrathCombo.Window.Tabs
                 ImGuiComponents.HelpMarker(
                     "此选项会将所有单体治疗技能重定向至下方显示的治疗目标队列（Heal Stack），类似于重定向（Redirect）或反应（Reaction）的机制。\n这样可以确保用于判断治疗技能HP%阈值逻辑的目标与实际接受治疗的目标一致。\n\n如果你自定义了治疗目标队列，建议开启此选项。\n默认：关闭");
                 Presets.DrawRetargetedSymbolForSettingsPage();
+
+                bool addNpcs = 
+                    Service.Configuration.AddOutOfPartyNPCsToRetargeting;
+
+                if (ImGui.Checkbox("Add Out of Party NPCs to Retargeting", ref addNpcs))
+                {
+                    Service.Configuration.AddOutOfPartyNPCsToRetargeting = addNpcs;
+                    Service.Configuration.Save();
+                }
+
+                ImGuiComponents.HelpMarker(
+                    "This will add any NPCs that are not in your party to the retargeting logic for healing actions.\n\n" +
+                    "This is useful for healers who want to be able to target NPCs that are not in their party, such as quest NPCs.\n\n" +
+                    "These NPCs will not work with any role based custom stacks (even if an NPC looks like a tank, they're not classed as one)\n\n" +
+                    "Default: Off");
 
                 #endregion
 

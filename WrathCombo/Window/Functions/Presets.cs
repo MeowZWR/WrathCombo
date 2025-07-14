@@ -53,6 +53,7 @@ namespace WrathCombo.Window.Functions
             public AutoActionAttribute? AutoAction;
             public RoleAttribute? RoleAttribute;
             public HiddenAttribute? Hidden;
+            public ComboType ComboType;
 
             public PresetAttributes(CustomComboPreset preset)
             {
@@ -73,6 +74,7 @@ namespace WrathCombo.Window.Functions
                 AutoAction = preset.GetAttribute<AutoActionAttribute>();
                 RoleAttribute = preset.GetAttribute<RoleAttribute>();
                 Hidden = preset.GetAttribute<HiddenAttribute>();
+                ComboType = PresetStorage.GetComboType(preset);
             }
         }
 
@@ -220,7 +222,7 @@ namespace WrathCombo.Window.Functions
                 if (blueAttr.Actions.Count > 0)
                 {
                     ImGui.PushStyleColor(ImGuiCol.Text, blueAttr.NoneSet ? ImGuiColors.DPSRed : ImGuiColors.DalamudOrange);
-                    ImGui.Text($"{(blueAttr.NoneSet ? "需要的法术未激活：" : "缺少激活的法术：")} {string.Join(", ", blueAttr.Actions.Select(x => ActionWatching.GetBLUIndex(x) + ActionWatching.GetActionName(x)))}");
+                    ImGui.Text($"{(blueAttr.NoneSet ? "需要的法术未激活：" : "缺少激活的法术：")} {string.Join(", ", blueAttr.Actions.Select(x => ActionWatching.GetBLUIndex(x) + GetActionName(x)))}");
                     ImGui.PopStyleColor();
                 }
 

@@ -29,7 +29,7 @@ internal partial class RDM : Caster
             #endregion
             
             #region OGCDs
-            if (CanSpellWeave() && !ActionWatching.HasDoubleWeaved())
+            if (CanWeave())
             {
                 //Gap Closer
                 if (ActionReady(Corpsacorps) && (HasEnoughManaToStart || CanMagickedSwordplay) && !InMeleeRange()) 
@@ -129,7 +129,7 @@ internal partial class RDM : Caster
             #endregion
             
             #region OGCDs
-            if (CanSpellWeave() && !ActionWatching.HasDoubleWeaved())  
+            if (CanWeave())
             {
                 //Gap Closer Option
                 if (ActionReady(Corpsacorps) && (HasEnoughManaToStart || CanMagickedSwordplay) && !InMeleeRange()) 
@@ -235,7 +235,7 @@ internal partial class RDM : Caster
             #endregion
 
             #region OGCDs
-            if (CanSpellWeave() && !ActionWatching.HasDoubleWeaved())
+            if (CanWeave())
             {
                 if (IsEnabled(CustomComboPreset.RDM_ST_MeleeCombo_GapCloser) && 
                     ActionReady(Corpsacorps) && (HasEnoughManaToStart || CanMagickedSwordplay) && !InMeleeRange()) 
@@ -345,7 +345,7 @@ internal partial class RDM : Caster
             #endregion
 
             #region OGCDs
-            if (CanSpellWeave() && !ActionWatching.HasDoubleWeaved())
+            if (CanWeave())
             {
                 if (IsEnabled(CustomComboPreset.RDM_AoE_MeleeCombo_GapCloser) && 
                     ActionReady(Corpsacorps) && (HasEnoughManaToStart || CanMagickedSwordplay) && !InMeleeRange()) 
