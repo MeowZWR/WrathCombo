@@ -7,3 +7,7 @@ WrathCombo/bin/
 /WrathCombo.sln.DotSettings.user
 .vs/
 *.v2
+
+# Local development files
+.cursorrules
+*.sln
