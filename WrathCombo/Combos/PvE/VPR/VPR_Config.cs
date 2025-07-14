@@ -44,6 +44,7 @@ internal partial class VPR
 
                     DrawSliderInt(0, 5, VPR_ST_UncoiledFury_Threshold,
                         $"设置HP百分比阈值，低于该值时全部使用{UncoiledFury.ActionName()}。");
+                    break;
 
                 case CustomComboPreset.VPR_ST_RangedUptime:
                     DrawAdditionalBoolChoice(VPR_ST_RangedUptimeUncoiledFury,
@@ -82,6 +83,7 @@ internal partial class VPR
 
                     DrawSliderInt(0, 100, VPR_AoE_Reawaken_Usage,
                         $"敌人HP高于该百分比时停止使用{Reawaken.ActionName()}。设为0则不检测。");
+                    break;
 
                 case CustomComboPreset.VPR_AoE_Vicepit:
                     DrawHorizontalRadioButton(VPR_AoE_Vicepit_SubOption,
