@@ -10,4 +10,5 @@ WrathCombo/bin/
 
 # Local development files
 .cursorrules
+.cursorrules-*
 *.sln
