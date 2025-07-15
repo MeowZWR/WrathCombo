@@ -517,7 +517,7 @@ namespace WrathCombo.AutoRotation
                 {
 
                     var target = !cfg.DPSSettings.AoEIgnoreManual && cfg.DPSRotationMode == DPSRotationMode.Manual ? Svc.Targets.Target : DPSTargeting.BaseSelection.MaxBy(x => NumberOfEnemiesInRange(OriginalHook(gameAct), x, true));
-                    var numEnemies = NumberOfEnemiesInRange(gameAct, target, true);
+                    var numEnemies = NumberOfEnemiesInRange(OriginalHook(gameAct), target, true);
                     if (!_ninjaLockedAoE)
                     {
                         if (cfg.DPSSettings.DPSAoETargets == null || numEnemies < cfg.DPSSettings.DPSAoETargets)
