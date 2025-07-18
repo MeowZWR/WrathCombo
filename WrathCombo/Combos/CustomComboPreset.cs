@@ -7128,88 +7128,88 @@ public enum CustomComboPreset
     WAR_ST_BalanceOpener = 18058,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Storm's Eye Option", "Adds Storm's Eye into the rotation.", WAR.JobID)]
+    [CustomComboInfo("暴风碎", "在循环中加入暴风碎。", WAR.JobID)]
     WAR_ST_StormsEye = 18005,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Inner Release Option", "Adds Berserk / Inner Release into the rotation.", WAR.JobID)]
+    [CustomComboInfo("原初的解放", "在循环中加入狂暴/原初的解放。", WAR.JobID)]
     WAR_ST_InnerRelease = 18003,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Fell Cleave Option", "Adds Inner Beast / Fell Cleave into the rotation.\n- Will use at set minimum Beast Gauge value or to consume Inner Release stacks\n- Also includes Inner Chaos when available", WAR.JobID)]
+    [CustomComboInfo("裂石飞环", "在循环中加入原初之魂/裂石飞环。\n- 会在设置的最低兽魂值或消耗原初的解放层数时使用\n- 有狂魂时也会包含", WAR.JobID)]
     WAR_ST_FellCleave = 18006,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Infuriate Option", "Adds Infuriate into the rotation.", WAR.JobID)]
+    [CustomComboInfo("战嚎", "在循环中加入战嚎。", WAR.JobID)]
     WAR_ST_Infuriate = 18007,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Onslaught Option", "Adds Onslaught into the rotation.", WAR.JobID)]
+    [CustomComboInfo("猛攻", "在循环中加入猛攻。", WAR.JobID)]
     WAR_ST_Onslaught = 18008,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Upheaval Option", "Adds Upheaval into the rotation.", WAR.JobID)]
+    [CustomComboInfo("动乱", "在循环中加入动乱。", WAR.JobID)]
     WAR_ST_Upheaval = 18009,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Primal Rend Option", "Adds Primal Rend into the rotation.", WAR.JobID)]
+    [CustomComboInfo("蛮荒崩裂", "在循环中加入蛮荒崩裂。", WAR.JobID)]
     WAR_ST_PrimalRend = 18013,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Primal Wrath Option", "Adds Primal Wrath into the rotation.", WAR.JobID)]
+    [CustomComboInfo("原初的怒震", "在循环中加入原初的怒震。", WAR.JobID)]
     WAR_ST_PrimalWrath = 18010,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Primal Ruination Option", "Adds Primal Ruination into the rotation.", WAR.JobID)]
+    [CustomComboInfo("尽毁", "在循环中加入尽毁。", WAR.JobID)]
     WAR_ST_PrimalRuination = 18011,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Tomahawk Uptime Option", "Adds Tomahawk into the rotation when you are out of range.", WAR.JobID)]
+    [CustomComboInfo("飞斧", "距离过远时在循环中加入飞斧。", WAR.JobID)]
     WAR_ST_RangedUptime = 18004,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Interrupt Option", "Adds Interject to the rotation when your target's cast is interruptible.", WAR.JobID)]
+    [CustomComboInfo("打断", "目标可被打断时在循环中加入插言。", WAR.JobID)]
     WAR_ST_Interrupt = 18066,
 
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Interrupt with Stun Option", "Adds Low Blow to the rotation when your target is casting.\nNot advised outside of overworld content, as it can waste a lot of Low Blows on un-stun-able enemies, etc. Will try to not use it in boss fights.", WAR.JobID)]
+    [CustomComboInfo("打断并眩晕", "目标读条时在循环中加入下踢。\n不建议在野外内容外使用，因为可能会浪费下踢在无法眩晕的敌人身上，BOSS战会尽量避免使用。", WAR.JobID)]
     WAR_ST_Stun = 18112,
 
     #region Mitigations
     [ParentCombo(WAR_ST_Advanced)]
-    [CustomComboInfo("Mitigation Options", "Adds defensive actions into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("减伤", "根据剩余血量百分比在循环中加入防御技能。", WAR.JobID)]
     WAR_ST_Mitigation = 18040,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Bloodwhetting Option", "Adds Raw Intuition / Bloodwhetting into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("原初的血气", "根据剩余血量百分比在循环中加入原初的直觉/原初的血气。", WAR.JobID)]
     WAR_ST_Bloodwhetting = 18031,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Equilibrium Option", "Adds Equilibrium into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("泰然自若", "根据剩余血量百分比在循环中加入泰然自若。", WAR.JobID)]
     WAR_ST_Equilibrium = 18043,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Rampart Option", "Adds Rampart into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("铁壁", "根据剩余血量百分比在循环中加入铁壁。", WAR.JobID)]
     WAR_ST_Rampart = 18032,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Thrill of Battle Option", "Adds Thrill of Battle into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("战栗", "根据剩余血量百分比在循环中加入战栗。", WAR.JobID)]
     WAR_ST_Thrill = 18042,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Vengeance Option", "Adds Vengeance / Damnation into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("复仇", "根据剩余血量百分比在循环中加入复仇/戮罪。", WAR.JobID)]
     WAR_ST_Vengeance = 18033,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Holmgang Option", "Adds Holmgang into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("死斗", "根据剩余血量百分比在循环中加入死斗。", WAR.JobID)]
     WAR_ST_Holmgang = 18034,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Reprisal Option", "Adds Reprisal into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("预警", "根据剩余血量百分比在循环中加入预警。", WAR.JobID)]
     WAR_ST_Reprisal = 18061,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("亲疏自行", "根据剩余血量百分比在循环中加入亲疏自行。", WAR.JobID)]
     WAR_ST_ArmsLength = 18062,
     #endregion
 
@@ -7224,84 +7224,84 @@ public enum CustomComboPreset
     WAR_AoE_Advanced = 18016,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Berserk / Inner Release Option", "Adds Berserk / Inner Release into the AoE rotation.", WAR.JobID)]
+    [CustomComboInfo("狂暴/原初的解放", "在AOE循环中加入狂暴/原初的解放。", WAR.JobID)]
     WAR_AoE_InnerRelease = 18019,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Steel Cyclone / Decimate Option", "Adds Steel Cyclone / Decimate into the AoE rotation.", WAR.JobID)]
+    [CustomComboInfo("钢铁旋风/地毁人亡", "在AOE循环中加入钢铁旋风/地毁人亡。", WAR.JobID)]
     WAR_AoE_Decimate = 18023,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Infuriate Option", "Adds Infuriate into the AoE rotation.", WAR.JobID)]
+    [CustomComboInfo("战嚎", "在AOE循环中加入战嚎。", WAR.JobID)]
     WAR_AoE_Infuriate = 18018,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Onslaught Option", "Adds Onslaught into the AoE rotation.", WAR.JobID)]
+    [CustomComboInfo("猛攻", "在AOE循环中加入猛攻。", WAR.JobID)]
     WAR_AoE_Onslaught = 18071,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Orogeny Option", "Adds Orogeny into the AoE rotation.", WAR.JobID)]
+    [CustomComboInfo("群山隆起", "在AOE循环中加入群山隆起。", WAR.JobID)]
     WAR_AoE_Orogeny = 18012,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Primal Rend Option", "Adds Primal Rend into the AoE rotation.", WAR.JobID)]
+    [CustomComboInfo("蛮荒崩裂", "在AOE循环中加入蛮荒崩裂。", WAR.JobID)]
     WAR_AoE_PrimalRend = 18021,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Primal Wrath Option", "Adds Primal Wrath into the AoE rotation.", WAR.JobID)]
+    [CustomComboInfo("原初的怒震", "在AOE循环中加入原初的怒震。", WAR.JobID)]
     WAR_AoE_PrimalWrath = 18020,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Primal Ruination Option", "Adds Primal Ruination into the AoE rotation.", WAR.JobID)]
+    [CustomComboInfo("尽毁", "在AOE循环中加入尽毁。", WAR.JobID)]
     WAR_AoE_PrimalRuination = 18022,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Tomahawk Uptime Option", "Adds Tomahawk into the rotation when you are out of range.", WAR.JobID)]
+    [CustomComboInfo("飞斧覆盖", "距离过远时在循环中加入飞斧。", WAR.JobID)]
     WAR_AoE_RangedUptime = 18110,
 
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Interrupt Option", "Adds Interject to the AoE rotation when your target's cast is interruptible.", WAR.JobID)]
+    [CustomComboInfo("插言", "当目标可被打断时在AOE循环中加入插言。", WAR.JobID)]
     WAR_AoE_Interrupt = 18067,
 
     [ParentCombo(WAR_AoE_Interrupt)]
-    [CustomComboInfo("Interrupt with Stun Option", "Adds Low Blow to the AoE rotation when your target is casting, interruptible or not.", WAR.JobID)]
+    [CustomComboInfo("下踢", "当目标施法时（无论是否可打断）在AOE循环中加入下踢。", WAR.JobID)]
     WAR_AoE_Stun = 18068,
 
     #region Mitigations
     [ParentCombo(WAR_AoE_Advanced)]
-    [CustomComboInfo("Mitigation Options", "Adds defensive actions into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("减伤", "根据剩余血量百分比在循环中加入防御技能。", WAR.JobID)]
     WAR_AoE_Mitigation = 18035,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Bloodwhetting Option", "Adds Raw Intuition / Bloodwhetting into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("原初的血气", "根据剩余血量百分比在循环中加入原初的直觉/原初的血气。", WAR.JobID)]
     WAR_AoE_Bloodwhetting = 18036,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Equilibrium Option", "Adds Equilibrium into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("泰然自若", "根据剩余血量百分比在循环中加入泰然自若。", WAR.JobID)]
     WAR_AoE_Equilibrium = 18044,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Rampart Option", "Adds Rampart into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("铁壁", "根据剩余血量百分比在循环中加入铁壁。", WAR.JobID)]
     WAR_AoE_Rampart = 18037,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Thrill of Battle Option", "Adds Thrill of Battle into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("战栗", "根据剩余血量百分比在循环中加入战栗。", WAR.JobID)]
     WAR_AoE_Thrill = 18041,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Vengeance Option", "Adds Vengeance / Damnation into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("复仇/戮罪", "根据剩余血量百分比在循环中加入复仇/戮罪。", WAR.JobID)]
     WAR_AoE_Vengeance = 18038,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Holmgang Option", "Adds Holmgang into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("死斗", "根据剩余血量百分比在循环中加入死斗。", WAR.JobID)]
     WAR_AoE_Holmgang = 18039,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Reprisal Option", "Adds Reprisal into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("雪仇", "根据剩余血量百分比在循环中加入雪仇。", WAR.JobID)]
     WAR_AoE_Reprisal = 18063,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length into the rotation based on Health percentage remaining.", WAR.JobID)]
+    [CustomComboInfo("亲疏自行", "根据剩余血量百分比在循环中加入亲疏自行。", WAR.JobID)]
     WAR_AoE_ArmsLength = 18064,
     #endregion
 
@@ -7309,48 +7309,48 @@ public enum CustomComboPreset
 
     #region One-Button Mitigation
     [ReplaceSkill(WAR.ThrillOfBattle)]
-    [CustomComboInfo("One-Button Mitigation Feature", "Replaces Thrill Of Battle with an all-in-one mitigation button.", WAR.JobID)]
+    [CustomComboInfo("一键减伤", "将战栗替换为一键减伤按钮。", WAR.JobID)]
     [MitigationCombo]
     WAR_Mit_OneButton = 18045,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Holmgang Emergency Option", "Gives max priority to Holmgang when the Health percentage threshold is met.", WAR.JobID)]
+    [CustomComboInfo("死斗优先", "当血量低于阈值时优先使用死斗。", WAR.JobID)]
     WAR_Mit_Holmgang_Max = 18046,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Bloodwhetting Option", "Adds Raw Intuition / Bloodwhetting to the one-button mitigation.", WAR.JobID)]
+    [CustomComboInfo("原初的血气", "在一键减伤中加入原初的直觉/原初的血气。", WAR.JobID)]
     WAR_Mit_Bloodwhetting = 18047,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Equilibrium Option", "Adds Equilibrium to the one-button mitigation.", WAR.JobID)]
+    [CustomComboInfo("泰然自若", "在一键减伤中加入泰然自若。", WAR.JobID)]
     WAR_Mit_Equilibrium = 18048,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Reprisal Option", "Adds Reprisal to the one-button mitigation.\nNOTE: Will not use unless there is a target within range to prevent waste", WAR.JobID)]
+    [CustomComboInfo("雪仇", "在一键减伤中加入雪仇。\n注意：仅在有目标且在范围内时使用，防止浪费。", WAR.JobID)]
     WAR_Mit_Reprisal = 18049,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Thrill Of Battle First Option", "Adds Thrill Of Battle to the one-button mitigation.\nNOTE: even if disabled, will still try to use Thrill Of Battle as the lowest priority.", WAR.JobID)]
+    [CustomComboInfo("优先战栗", "在一键减伤中优先加入战栗。\n注意：即使关闭，仍会作为最低优先级尝试使用战栗。", WAR.JobID)]
     WAR_Mit_ThrillOfBattle = 18050,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Rampart Option", "Adds Rampart to the one-button mitigation.", WAR.JobID)]
+    [CustomComboInfo("铁壁", "在一键减伤中加入铁壁。", WAR.JobID)]
     WAR_Mit_Rampart = 18051,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Shake It Off Option", "Adds Shake It Off to the one-button mitigation.", WAR.JobID)]
+    [CustomComboInfo("摆脱", "在一键减伤中加入摆脱。", WAR.JobID)]
     WAR_Mit_ShakeItOff = 18052,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length to the one-button mitigation.", WAR.JobID)]
+    [CustomComboInfo("亲疏自行", "在一键减伤中加入亲疏自行。", WAR.JobID)]
     WAR_Mit_ArmsLength = 18053,
 
     [ParentCombo(WAR_Mit_OneButton)]
-    [CustomComboInfo("Vengeance Option", "Adds Vengeance to the one-button mitigation.", WAR.JobID)]
+    [CustomComboInfo("复仇", "在一键减伤中加入复仇。", WAR.JobID)]
     WAR_Mit_Vengeance = 18054,
 
     [ReplaceSkill(WAR.ShakeItOff)]
-    [CustomComboInfo("One-Button Party Mitigation Feature", "Replaces Shake It Off with Reprisal when ready.", WAR.JobID)]
+    [CustomComboInfo("一键团队减伤", "将摆脱替换为雪仇（可用时）。", WAR.JobID)]
     [MitigationCombo]
     WAR_Mit_Party = 18111,
     #endregion
@@ -7360,63 +7360,63 @@ public enum CustomComboPreset
     #region Fell Cleave Features
     [ReplaceSkill(WAR.FellCleave)]
     [ConflictingCombos(WAR_InfuriateFellCleave)]
-    [CustomComboInfo("Fell Cleave Features", "Collection of Fell Cleave related features.\n Enable all for this to be an all-in-one Single Target Burst button.", WAR.JobID)]
+    [CustomComboInfo("裂石飞环功能", "裂石飞环相关功能集合。\n全部启用时可作为单体爆发一键宏。", WAR.JobID)]
     WAR_FC_Features = 18122,
 
     [ParentCombo(WAR_FC_Features)]
-    [CustomComboInfo("Inner Release Option", "Adds Berserk / Inner Release to Fell Cleave when available.", WAR.JobID)]
+    [CustomComboInfo("原初的解放", "有可用时在裂石飞环中加入狂暴/原初的解放。", WAR.JobID)]
     WAR_FC_InnerRelease = 18123,
 
     [ParentCombo(WAR_FC_Features)]
-    [CustomComboInfo("Infuriate Option", "Adds Infuriate to Fell Cleave when available.", WAR.JobID)]
+    [CustomComboInfo("战嚎", "有可用时在裂石飞环中加入战嚎。", WAR.JobID)]
     WAR_FC_Infuriate = 18124,
 
     [ParentCombo(WAR_FC_Features)]
-    [CustomComboInfo("Onslaught Option", "Adds Onslaught to Fell Cleave when available.", WAR.JobID)]
+    [CustomComboInfo("猛攻", "有可用时在裂石飞环中加入猛攻。", WAR.JobID)]
     WAR_FC_Onslaught = 18125,
 
     [ParentCombo(WAR_FC_Features)]
-    [CustomComboInfo("Upheaval Option", "Adds Upheaval to Fell Cleave when available.", WAR.JobID)]
+    [CustomComboInfo("动乱", "有可用时在裂石飞环中加入动乱。", WAR.JobID)]
     WAR_FC_Upheaval = 18126,
 
     [ParentCombo(WAR_FC_Features)]
-    [CustomComboInfo("Primal Rend Option", "Adds Primal Rend to Fell Cleave when available.", WAR.JobID)]
+    [CustomComboInfo("蛮荒崩裂", "有可用时在裂石飞环中加入蛮荒崩裂。", WAR.JobID)]
     WAR_FC_PrimalRend = 18127,
 
     [ParentCombo(WAR_FC_Features)]
-    [CustomComboInfo("Primal Wrath Option", "Adds Primal Wrath to Fell Cleave when available.", WAR.JobID)]
+    [CustomComboInfo("原初的怒震", "有可用时在裂石飞环中加入原初的怒震。", WAR.JobID)]
     WAR_FC_PrimalWrath = 18128,
 
     [ParentCombo(WAR_FC_Features)]
-    [CustomComboInfo("Primal Ruination Option", "Adds Primal Ruination to Fell Cleave when available.", WAR.JobID)]
+    [CustomComboInfo("尽毁", "有可用时在裂石飞环中加入尽毁。", WAR.JobID)]
     WAR_FC_PrimalRuination = 18129,
     #endregion
 
     #region Basic Combo
     [ReplaceSkill(WAR.StormsPath)]
-    [CustomComboInfo("Storm's Path Combo", "Replace Storm's Path with its combo chain.", WAR.JobID)]
+    [CustomComboInfo("暴风斩连段", "将暴风斩替换为其连段技能。", WAR.JobID)]
     WAR_ST_StormsPathCombo = 18069,
 
     [ReplaceSkill(WAR.StormsEye)]
-    [CustomComboInfo("Storm's Eye Combo", "Replace Storm's Eye with its combo chain.", WAR.JobID)]
+    [CustomComboInfo("暴风碎连段", "将暴风碎替换为其连段技能。", WAR.JobID)]
     WAR_ST_StormsEyeCombo = 18070,
     #endregion
 
     [ReplaceSkill(WAR.FellCleave, WAR.Decimate)]
     [ConflictingCombos(WAR_FC_Features)]
-    [CustomComboInfo("Infuriate on Fell Cleave / Decimate Feature", "Turns Fell Cleave and Decimate into Infuriate if at or under set gauge value.", WAR.JobID)]
+    [CustomComboInfo("战嚎替换裂石飞环/地毁人亡", "当兽魂槽低于设定值时，将裂石飞环和地毁人亡变为战嚎。", WAR.JobID)]
     WAR_InfuriateFellCleave = 18024,
 
     [ParentCombo(WAR_InfuriateFellCleave)]
-    [CustomComboInfo("Inner Release Priority Option", "Prevents the use of Infuriate while you have Inner Release stacks available.", WAR.JobID)]
+    [CustomComboInfo("优先原初的解放", "有原初的解放层数时不使用战嚎。", WAR.JobID)]
     WAR_InfuriateFellCleave_IRFirst = 18027,
 
     [ReplaceSkill(WAR.StormsPath)]
-    [CustomComboInfo("Storm's Eye Feature", "Replaces Storm's Path with Storm's Eye when Surging Tempest buff needs refreshing.", WAR.JobID)]
+    [CustomComboInfo("暴风碎刷新", "当战场风暴需要刷新时，将暴风斩替换为暴风碎。", WAR.JobID)]
     WAR_EyePath = 18057,
 
     [ReplaceSkill(WAR.Berserk, WAR.InnerRelease)]
-    [CustomComboInfo("Primal Combo Feature", "Turns Berserk / Inner Release into the Primal combo (Primal Rend -> Primal Ruination) on use.", WAR.JobID)]
+    [CustomComboInfo("原初连段", "使用时将狂暴/原初的解放变为原初连段（蛮荒崩裂→尽毁）。", WAR.JobID)]
     WAR_PrimalCombo_InnerRelease = 18026,
 
     [Variant]
@@ -7435,30 +7435,30 @@ public enum CustomComboPreset
     WAR_Variant_Ultimatum = 18030,
 
     [ReplaceSkill(WAR.Equilibrium)]
-    [CustomComboInfo("Equilibirum to Thrill of Battle Feature", "Replaces Equilibirum with Thrill of Battle when ready.", WAR.JobID)]
+    [CustomComboInfo("泰然自若→战栗", "可用时将泰然自若替换为战栗。", WAR.JobID)]
     WAR_ThrillEquilibrium = 18055,
 
     [ReplaceSkill(WAR.NascentFlash)]
-    [CustomComboInfo("Nascent Flash Feature", "Replace Nascent Flash with Raw intuition when level synced below 76.", WAR.JobID)]
+    [CustomComboInfo("原初的勇猛替换", "同步等级低于76时，将原初的勇猛替换为原初的直觉。", WAR.JobID)]
     WAR_NascentFlash = 18017,
     
     [ReplaceSkill(WAR.RawIntuition, WAR.Bloodwhetting)]
-    [CustomComboInfo("Raw Intuition to Nascent Flash Retargeting Feature", "If available, will replace the Raw Intuition/Bloodwhetting with Nascent Flash if you are hard targeting an ally.", WAR.JobID)]
+    [CustomComboInfo("原初的直觉/原初的血气→原初的勇猛（重定向）", "如可用，硬选中队友时将原初的直觉/原初的血气替换为原初的勇猛。", WAR.JobID)]
     [Retargeted]
     WAR_RawIntuition_Targeting = 18119,
 
     [ParentCombo(WAR_RawIntuition_Targeting)]
-    [CustomComboInfo("Include MouseOver Target", "If mousing over an ally in the UI, will Retarget Nascent Flash onto them.", WAR.JobID)]
+    [CustomComboInfo("包含鼠标悬停目标", "在UI中鼠标悬停队友时，将原初的勇猛重定向至该队友。", WAR.JobID)]
     [Retargeted]
     WAR_RawIntuition_Targeting_MO = 18120,
 
     [ParentCombo(WAR_RawIntuition_Targeting)]
-    [CustomComboInfo("Include Target's Target", "If your target's target is not you, will Retarget Nascent Flash onto them.\n(if you're not top aggro, and not mousing over or hard targeting an ally)", WAR.JobID)]
+    [CustomComboInfo("包含目标的目标", "如果你的目标的目标不是自己，将原初的勇猛重定向至其目标。\n（即你不是最高仇恨，且未鼠标悬停或硬选中队友时）", WAR.JobID)]
     [Retargeted]
     WAR_RawIntuition_Targeting_TT = 18121,
 
     [ReplaceSkill(WAR.Holmgang)]
-    [CustomComboInfo("Retarget Holmgang Feature", "Will Retarget Holmgang to yourself, instead of letting it go on enemies.", WAR.JobID)]
+    [CustomComboInfo("死斗重定向", "将死斗重定向至自己，而不是敌人。", WAR.JobID)]
     [Retargeted]
     WAR_RetargetHolmgang = 18130,
 
