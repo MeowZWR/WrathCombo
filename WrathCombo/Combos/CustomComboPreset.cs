@@ -2869,23 +2869,23 @@ public enum CustomComboPreset
     GNB_ST_BowShock = 7010,
 
     [ParentCombo(GNB_ST_Advanced)]
-    [CustomComboInfo("Continuation Option", "Adds Continuation & Hypervelocity into the rotation when appropriate.", GNB.JobID)]
+    [CustomComboInfo("续剑", "在合适时机将续剑与超高速加入循环。", GNB.JobID)]
     GNB_ST_Continuation = 7005,
 
     [ParentCombo(GNB_ST_Advanced)]
-    [CustomComboInfo("Bloodfest Option", "Adds Bloodfest into the rotation when appropriate.", GNB.JobID)]
+    [CustomComboInfo("血壤", "在合适时机将血壤加入循环。", GNB.JobID)]
     GNB_ST_Bloodfest = 7011,
 
     [ParentCombo(GNB_ST_Advanced)]
-    [CustomComboInfo("Double Down Option", "Adds Double Down into the rotation when appropriate.", GNB.JobID)]
+    [CustomComboInfo("倍攻", "在合适时机将倍攻加入循环。", GNB.JobID)]
     GNB_ST_DoubleDown = 7017,
 
     [ParentCombo(GNB_ST_Advanced)]
-    [CustomComboInfo("Reign Combo Option", "Adds Reign/Noble/Lionheart into the rotation when appropriate.", GNB.JobID)]
+    [CustomComboInfo("崛起之心连击", "在合适时机将崛起之心/支配之心/终结之心加入循环。", GNB.JobID)]
     GNB_ST_Reign = 7014,
 
     [ParentCombo(GNB_ST_Advanced)]
-    [CustomComboInfo("Scuffed Option", "Adds Solid Barrel into the rotation under scuffed conditions:\n- Level 90 or above\n- No Mercy is active\n- Only 1 cartridge available\n- Last combo action was Brutal Shell\n- Gnashing Fang combo is still not active", GNB.JobID)]
+    [CustomComboInfo("特殊条件迅连斩", "在特殊条件下将迅连斩加入循环：\n- 等级90或以上\n- 无情激活中\n- 仅有1发弹药\n- 上一次连击为残暴弹\n- 烈牙连击未激活", GNB.JobID)]
     GNB_ST_Scuffed = 7372,
 
     [ParentCombo(GNB_ST_Advanced)]
@@ -2897,7 +2897,7 @@ public enum CustomComboPreset
     GNB_ST_Interrupt = 7084,
 
     [ParentCombo(GNB_ST_Advanced)]
-    [CustomComboInfo("Interrupt with Stun Option", "Adds Low Blow to the rotation when your target is casting.\nNot advised outside of overworld content, as it can waste a lot of Low Blows on un-stun-able enemies, etc. Will try to not use it in boss fights.", GNB.JobID)]
+    [CustomComboInfo("下踢", "当目标读条时加入下踢。\n不建议在副本等内容中使用，因大部分敌人无法被击晕，容易浪费下踢。Boss战中会尽量避免使用。", GNB.JobID)]
     GNB_ST_Stun = 7086,
 
     #region Mitigations
@@ -3035,7 +3035,7 @@ public enum CustomComboPreset
 
     #region One-Button Mitigation
     [ReplaceSkill(GNB.Camouflage)]
-    [CustomComboInfo("One-Button Mitigation Feature", "Replaces Camouflage with an all-in-one mitigation button.", GNB.JobID)]
+    [CustomComboInfo("一键减伤", "将伪装替换为一键减伤按钮。", GNB.JobID)]
     [MitigationCombo]
     GNB_Mit_OneButton = 7074,
 
@@ -3088,7 +3088,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(GNB.SolidBarrel)]
-    [CustomComboInfo("基础连击", "Replace Solid Barrel with its combo chain.", GNB.JobID)]
+    [CustomComboInfo("基础连击", "将迅连斩替换为其连击链。", GNB.JobID)]
     [BasicCombo]
     GNB_ST_BasicCombo = 7100,
 
@@ -3227,16 +3227,16 @@ public enum CustomComboPreset
 
     #region Aurora Protection
     [ReplaceSkill(GNB.Aurora)]
-    [CustomComboInfo("Aurora Protection Feature", "Locks out Aurora if Aurora's effect is on the target by replacing it with Savage Blade.", GNB.JobID)]
+    [CustomComboInfo("极光保护", "当目标身上已有极光效果时，将极光替换为狂怒剑以锁定极光。", GNB.JobID)]
     GNB_AuroraProtection = 7023,
     
     [ParentCombo(GNB_AuroraProtection)]
-    [CustomComboInfo("Aurora Mouseover Option", "Retargets Aurora to your mouseover target if they do not have the HoT", GNB.JobID)]
+    [CustomComboInfo("极光鼠标悬停", "如果鼠标悬停目标没有持续恢复效果，则将极光施放到该目标。", GNB.JobID)]
     [Retargeted]
     GNB_RetargetAurora_MO = 7087,
     
     [ParentCombo(GNB_AuroraProtection)]
-    [CustomComboInfo("Aurora Target's Target Option", "Retargets Aurora to the Target's Target if they do not have the HoT and you do not have Aggro", GNB.JobID)]
+    [CustomComboInfo("极光目标的目标", "如果目标的目标没有持续恢复效果且你没有仇恨，则将极光施放到目标的目标。", GNB.JobID)]
     [Retargeted]
     GNB_RetargetAurora_TT = 7088,
     
@@ -3244,12 +3244,12 @@ public enum CustomComboPreset
     
     #region Heart Of Stone Retarget
     [ReplaceSkill(GNB.HeartOfCorundum, GNB.HeartOfStone)]
-    [CustomComboInfo("Heart Of Stone Feature", "Will retarget Heart of Stone/Corundum to your mouseover target or hard target outside of other combos", GNB.JobID)]
+    [CustomComboInfo("石之心重定向", "在非连击状态下，将石之心/刚玉之心重定向到鼠标悬停目标或当前目标。", GNB.JobID)]
     [Retargeted]
     GNB_RetargetHeartofStone = 7089,
     
     [ParentCombo(GNB_RetargetHeartofStone)]
-    [CustomComboInfo("Heart of Stone Target's Target Option", "Retargets Heart of Stone/Corundum to the Target's Target you do not have Aggro, can still be overridden with mouseover.", GNB.JobID)]
+    [CustomComboInfo("石之心目标的目标", "如果你没有仇恨，则将石之心/刚玉之心重定向到目标的目标，鼠标悬停优先。", GNB.JobID)]
     [Retargeted]
     GNB_RetargetHeartofStone_TT = 7090,
     #endregion
