@@ -573,10 +573,10 @@ internal partial class WAR
                 case CustomComboPreset.WAR_RawIntuition_Targeting_TT:
                     ImGui.Indent();
                     ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                        "Note: If you are Off-Tanking, and want to use Bloodwhetting on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.\n" +
-                        "You could also mouseover yourself in the party to use Bloodwhetting or raw Intuition in this case.\n" +
-                        "If you don't, Nascent Flash would replace the combo, and it would go to the main tank.\n" +
-                        "If you don't use those Features for your personal mitigation, you may not want to enable this.");
+                        "注意：如果你是副T，并且希望将原初的血气用于自己，建议通过一键减伤功能或你的循环中的减伤选项来实现。\n" +
+                        "你也可以在队伍中鼠标悬停自己来使用原初的血气或原初的直觉。\n" +
+                        "如果你不这样做，原初的勇猛会替换该连击，并施放到主T身上。\n" +
+                        "如果你不使用这些功能来进行个人减伤，建议不要启用此选项。");
                     ImGui.Unindent();
                     break;
                     #endregion

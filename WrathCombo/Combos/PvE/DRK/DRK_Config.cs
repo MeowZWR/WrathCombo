@@ -475,18 +475,18 @@ internal partial class DRK
                 case CustomComboPreset.DRK_Retarget_TBN_TT:
                     ImGui.Indent(34f.Scale());
                     ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                        "Note: If you are Off-Tanking, and want to use this ability on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.\n" +
-                        "If you don't, it would go to the main tank.\n" +
-                        "If you don't use those Features for your personal mitigation, you may not want to enable this.");
+                        "注意：如果你是副T，并且希望将该技能用于自己，建议通过一键减伤功能或你的循环中的减伤选项来实现。\n" +
+                        "否则，该技能会施放到主T身上。\n" +
+                        "如果你不使用这些功能来进行个人减伤，建议不要启用此选项。");
                     ImGui.Unindent(34f.Scale());
                     break;
 
                 case CustomComboPreset.DRK_Retarget_Oblation_TT:
                     ImGui.Indent(34f.Scale());
                     ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                        "Note: If you are Off-Tanking, and want to use this ability on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.\n" +
-                        "If you don't, it would go to the main tank.\n" +
-                        "If you don't use those Features for your personal mitigation, you may not want to enable this.");
+                        "注意：如果你是副T，并且希望将该技能用于自己，建议通过一键减伤功能或你的循环中的减伤选项来实现。\n" +
+                        "否则，该技能会施放到主T身上。\n" +
+                        "如果你不使用这些功能来进行个人减伤，建议不要启用此选项。");
                     ImGui.Unindent(34f.Scale());
                     break;
 
