@@ -17,120 +17,120 @@ internal partial class SAM
                     DrawBossOnlyChoice(SAM_Balance_Content);
                     ImGui.NewLine();
                     DrawSliderInt(0, 13, SAM_Opener_PrePullDelay,
-                        $"Delay from first {MeikyoShisui.ActionName()} to next step. (seconds)\nDelay is enforced by replacing your button with Savage Blade.");
+                        $"从首次{MeikyoShisui.ActionName()}到下一步的延迟（秒）\n此延迟通过将你的按钮替换为狂怒剑来强制执行。");
                     break;
 
                 case CustomComboPreset.SAM_ST_CDs_Iaijutsu:
-                    DrawHorizontalMultiChoice(SAM_ST_CDs_IaijutsuOption, $"Add {Higanbana.ActionName()}", "Will use Higanbana depending on suboptions.", 4, 0);
-                    DrawHorizontalMultiChoice(SAM_ST_CDs_IaijutsuOption, $"Add {TenkaGoken.ActionName()}", "Will Use Tenka Goken when lvlsynched below lvl 50.", 4, 1);
-                    DrawHorizontalMultiChoice(SAM_ST_CDs_IaijutsuOption, $"Use {MidareSetsugekka.ActionName()}", "Will use Midare Setsugekka and Tendo Setsugekka.", 4, 2);
-                    DrawHorizontalMultiChoice(SAM_ST_CDs_IaijutsuOption, $"Use {TsubameGaeshi.ActionName()}", "Will use Tsubame-gaeshi and Tendo Kaeshi Setsugekka.", 4, 3);
+                    DrawHorizontalMultiChoice(SAM_ST_CDs_IaijutsuOption, $"添加{Higanbana.ActionName()}", "根据子选项决定是否使用彼岸花。", 4, 0);
+                    DrawHorizontalMultiChoice(SAM_ST_CDs_IaijutsuOption, $"添加{TenkaGoken.ActionName()}", "同步等级低于50级时会使用天下五剑。", 4, 1);
+                    DrawHorizontalMultiChoice(SAM_ST_CDs_IaijutsuOption, $"使用{MidareSetsugekka.ActionName()}", "会使用纷乱雪月花与天道雪月花。", 4, 2);
+                    DrawHorizontalMultiChoice(SAM_ST_CDs_IaijutsuOption, $"使用{TsubameGaeshi.ActionName()}", "会使用燕回返与天道回返雪月花。", 4, 3);
 
                     if (SAM_ST_CDs_IaijutsuOption[0])
                     {
                         ImGui.Indent();
                         DrawHorizontalRadioButton(SAM_ST_Higanbana_Suboption,
-                            "All Enemies", $"Uses {Higanbana.ActionName()} regardless of targeted enemy type.", 0);
+                            "全部敌人", $"无论目标类型都会使用{Higanbana.ActionName()}。", 0);
 
                         DrawHorizontalRadioButton(SAM_ST_Higanbana_Suboption,
-                            "Bosses Only", $"Only uses {Higanbana.ActionName()} when the targeted enemy is a boss.", 1);
+                            "仅Boss", $"仅在目标为Boss时使用{Higanbana.ActionName()}。", 1);
                         ImGui.Unindent();
 
                         DrawSliderInt(0, 10, SAM_ST_Higanbana_HP_Threshold,
-                            $"Stop using {Higanbana.ActionName()} on targets below this HP % (0% = always use).");
+                            $"目标血量低于该百分比时停止使用{Higanbana.ActionName()}（0% = 总是使用）。");
 
                         DrawSliderInt(0, 15, SAM_ST_Higanbana_Refresh,
-                            $"重新应用{Higanbana.ActionName()}前的剩余秒数。设置为零禁用此检查。");
+                            $"重新应用{Higanbana.ActionName()}前的剩余秒数。设置为0禁用此检查。");
                     }
                     break;
 
                 case CustomComboPreset.SAM_ST_ComboHeals:
                     DrawSliderInt(0, 100, SAM_STSecondWindThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        $"{Role.SecondWind.ActionName()} 血量百分比阈值");
 
                     DrawSliderInt(0, 100, SAM_STBloodbathThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        $"{Role.Bloodbath.ActionName()} 血量百分比阈值");
                     break;
 
                 case CustomComboPreset.SAM_AoE_ComboHeals:
                     DrawSliderInt(0, 100, SAM_AoESecondWindThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        $"{Role.SecondWind.ActionName()} 血量百分比阈值");
 
                     DrawSliderInt(0, 100, SAM_AoEBloodbathThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        $"{Role.Bloodbath.ActionName()} 血量百分比阈值");
                     break;
 
                 case CustomComboPreset.SAM_ST_CDs_Senei:
                     DrawAdditionalBoolChoice(SAM_ST_CDs_Guren,
-                        "Guren Option", "Adds Guren to the rotation if Senei is not unlocked.");
+                        "红莲", "未解锁必杀剑·闪影时，加入必杀剑·红莲到循环。");
                     break;
 
                 case CustomComboPreset.SAM_ST_CDs_OgiNamikiri:
                     DrawAdditionalBoolChoice(SAM_ST_CDs_OgiNamikiri_Movement,
-                        "Movement Option", "Adds Ogi Namikiri and Kaeshi: Namikiri when you're not moving.");
+                        "移动检测", "站立时加入奥义斩浪与回返斩浪。");
                     break;
 
                 case CustomComboPreset.SAM_ST_Shinten:
                     DrawSliderInt(25, 85, SAM_ST_KenkiOvercapAmount,
-                        "Set the Kenki overcap amount for ST combos.");
+                        "单体连段剑气溢出阈值设置");
 
                     DrawSliderInt(0, 100, SAM_ST_ExecuteThreshold,
-                        "HP percent threshold to not save Kenki");
+                        "不保留剑气的血量百分比阈值");
                     break;
 
                 case CustomComboPreset.SAM_AoE_Kyuten:
                     DrawSliderInt(25, 85, SAM_AoE_KenkiOvercapAmount,
-                        "Set the Kenki overcap amount for AOE combos.");
+                        "AOE连段剑气溢出阈值设置");
                     break;
 
                 case CustomComboPreset.SAM_ST_GekkoCombo:
                     DrawAdditionalBoolChoice(SAM_Gekko_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        "剑气溢出保护", "剑气达到设定值时消耗。");
 
                     if (SAM_Gekko_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Gekko_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            "剑气数值", sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case CustomComboPreset.SAM_ST_KashaCombo:
                     DrawAdditionalBoolChoice(SAM_Kasha_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        "剑气溢出保护", "剑气达到设定值时消耗。");
 
                     if (SAM_Kasha_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Kasha_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            "剑气数值", sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case CustomComboPreset.SAM_ST_YukikazeCombo:
                     DrawAdditionalBoolChoice(SAM_Yukaze_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        "剑气溢出保护", "剑气达到设定值时消耗。");
 
                     if (SAM_Yukaze_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Yukaze_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            "剑气数值", sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case CustomComboPreset.SAM_AoE_OkaCombo:
                     DrawAdditionalBoolChoice(SAM_Oka_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        "剑气溢出保护", "剑气达到设定值时消耗。");
 
                     if (SAM_Oka_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Oka_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            "剑气数值", sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case CustomComboPreset.SAM_AoE_MangetsuCombo:
                     DrawAdditionalBoolChoice(SAM_Mangetsu_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        "剑气溢出保护", "剑气达到设定值时消耗。");
 
                     if (SAM_Mangetsu_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Mangetsu_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            "剑气数值", sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case CustomComboPreset.SAM_Variant_Cure:
                     DrawSliderInt(1, 100, SAM_VariantCure,
-                        "HP% to be at or under", 200);
+                        "血量百分比小于等于时使用", 200);
                     break;
             }
         }
