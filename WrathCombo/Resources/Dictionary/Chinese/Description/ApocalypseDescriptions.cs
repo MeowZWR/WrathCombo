@@ -39,6 +39,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("How many enemies should be nearby?", "附近需要有多少敌人？"),
                 KeyValuePair.Create("(0 = No Requirement)", "（0 = 无要求）"),
                 KeyValuePair.Create("One-Button", "一键"),
+                KeyValuePair.Create("when available.", "（当可用时）"),
 
                 // Manually added
                 KeyValuePair.Create("All Enemies", "全部敌人"),

@@ -6831,7 +6831,7 @@ public enum CustomComboPreset
     SMN_Raise = 17027,
 
     [ParentCombo(SMN_Raise)]
-    [CustomComboInfo("重定向复活", "Will Retarget the Raises affected here to your Heal Stack.", SMN.JobID)]
+    [CustomComboInfo("重定向复活", "将此处受影响的复活技能自动重定向至你的治疗集合目标。", SMN.JobID)]
     [Retargeted]
     SMN_Raise_Retarget = 17079,
 

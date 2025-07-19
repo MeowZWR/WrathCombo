@@ -69,12 +69,12 @@ internal partial class MCH
 
                 case CustomComboPreset.MCH_ST_Adv_GaussRicochet:
                     DrawSliderInt(0, 2, MCH_ST_GaussRicoPool,
-                        "Number of Charges of to Save for Manual Use");
+                        "保留多少充能次数供手动使用");
                     break;
 
                 case CustomComboPreset.MCH_ST_Adv_Reassemble:
                     DrawSliderInt(0, 1, MCH_ST_ReassemblePool,
-                        "Number of Charges to Save for Manual Use");
+                        "保留多少充能次数供手动使用");
 
                     DrawHorizontalMultiChoice(MCH_ST_Reassembled, $"Use on {Excavator.ActionName()}", "", 5, 0);
                     DrawHorizontalMultiChoice(MCH_ST_Reassembled, $"Use on {Chainsaw.ActionName()}", "", 5, 1);
