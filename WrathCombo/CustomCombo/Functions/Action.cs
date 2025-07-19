@@ -119,7 +119,7 @@ internal abstract partial class CustomComboFunctions
     {
         uint hookedId = OriginalHook(actionId);
 
-        return (HasCharges(hookedId) || (GetAttackType(hookedId) != ActionAttackType.Ability && GetCooldownRemainingTime(hookedId) <= RemainingGCD + 0.2f)) &&
+        return (HasCharges(hookedId) || (GetAttackType(hookedId) != ActionAttackType.Ability && GetCooldownRemainingTime(hookedId) <= RemainingGCD + BaseActionQueue)) &&
             ActionManager.Instance()->GetActionStatus(ActionType.Action, hookedId, checkRecastActive: false, checkCastingActive: false) is 0 or 582 or 580;
     }
 
