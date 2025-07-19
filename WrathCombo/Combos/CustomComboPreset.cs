@@ -1338,54 +1338,51 @@ public enum CustomComboPreset
     BRD_Adv_Song = 3011,
 
     [ParentCombo(BRD_ST_AdvMode)]
-    [CustomComboInfo("Bard DoTs Option", "Enables the use of dot sub options below",
-       BRD.JobID)]
+    [CustomComboInfo("DoT技能", "启用下方持续伤害相关子选项", BRD.JobID)]
     BRD_Adv_DoT = 3010,
 
     [ParentCombo(BRD_Adv_DoT)]
-    [CustomComboInfo("Iron Jaws Option", "Enable the refreshing of dots with Ironjaws", BRD.JobID)]
+    [CustomComboInfo("伶牙俐齿", "启用使用伶牙俐齿刷新DoT", BRD.JobID)]
     BRD_Adv_IronJaws = 3060,
 
     [ParentCombo(BRD_Adv_DoT)]
-    [CustomComboInfo("Dot Application Option",
-        "Enable the application of dots outside of the opener", BRD.JobID)]
+    [CustomComboInfo("DoT应用", "启用在起手外应用DoT", BRD.JobID)]
     BRD_Adv_ApplyDots = 3059,
 
     [ParentCombo(BRD_Adv_DoT)]
-    [CustomComboInfo("Raging Jaws Option",
-        "Enable the snapshotting of DoTs, within the remaining time of Raging Strikes below:", BRD.JobID)]
+    [CustomComboInfo("猛者强击快照", "在下方设置的猛者强击剩余时间内启用DoT快照", BRD.JobID)]
     BRD_Adv_RagingJaws = 3025,
 
     [ParentCombo(BRD_ST_AdvMode)]
-    [CustomComboInfo("Buffs Option", "Adds buffs onto the Advanced Bard feature. \nEnable all to follow balance buff windows \nDisabling any buff will follow simple priority", BRD.JobID)]
+    [CustomComboInfo("增益", "为吟游诗人高级单目标功能添加增益。\n全开则对齐团辅\n部分禁用则按优先级执行", BRD.JobID)]
     BRD_Adv_Buffs = 3017,
 
     [ParentCombo(BRD_Adv_Buffs)]
-    [CustomComboInfo("Raging Strikes Option", "Adds Raging Strikes", BRD.JobID)]
+    [CustomComboInfo("猛者强击", "添加猛者强击", BRD.JobID)]
     BRD_Adv_Buffs_Raging = 3049,
 
     [ParentCombo(BRD_Adv_Buffs)]
-    [CustomComboInfo("Battlevoice Option", "Adds Battle Voice", BRD.JobID)]
+    [CustomComboInfo("战斗之声", "添加战斗之声", BRD.JobID)]
     BRD_Adv_Buffs_Battlevoice = 3050,
 
     [ParentCombo(BRD_Adv_Buffs)]
-    [CustomComboInfo("Radiant Finale Option", "Adds Radiant Finale", BRD.JobID)]
+    [CustomComboInfo("光明神的最终乐章", "添加光明神的最终乐章", BRD.JobID)]
     BRD_Adv_Buffs_RadiantFinale = 3051,
 
     [ParentCombo(BRD_Adv_Buffs)]
-    [CustomComboInfo("Barrage Option", "Adds Barrage", BRD.JobID)]
+    [CustomComboInfo("纷乱箭", "添加纷乱箭", BRD.JobID)]
     BRD_Adv_Buffs_Barrage = 3052,
 
     [ParentCombo(BRD_ST_AdvMode)]
-    [CustomComboInfo("Resonant Option", "Adds Resonant Arrow to the Rotation after Barrage.", BRD.JobID)]
+    [CustomComboInfo("共鸣箭", "在纷乱箭后添加共鸣箭", BRD.JobID)]
     BRD_Adv_BuffsResonant = 3041,
 
     [ParentCombo(BRD_ST_AdvMode)]
-    [CustomComboInfo("Encore Option", "Adds Radiant Encore to the Rotation after Finale.", BRD.JobID)]
+    [CustomComboInfo("光明神的返场余音", "在最终乐章后添加光明神的返场余音", BRD.JobID)]
     BRD_Adv_BuffsEncore = 3042,
 
     [ParentCombo(BRD_ST_AdvMode)]
-    [CustomComboInfo("Apex Arrow Option", "Adds Apex Arrow and Blast shot", BRD.JobID)]
+    [CustomComboInfo("绝峰箭", "添加绝峰箭与爆破箭", BRD.JobID)]
     BRD_ST_ApexArrow = 3021,
 
     [ParentCombo(BRD_ST_AdvMode)]
@@ -1394,11 +1391,11 @@ public enum CustomComboPreset
     BRD_ST_Adv_oGCD = 3038,
 
     [ParentCombo(BRD_ST_AdvMode)]
-    [CustomComboInfo("Pooling Option", "Pools Bloodletter charges and Sidewinder to allow for optimum burst phases ", BRD.JobID)]
+    [CustomComboInfo("储能", "保留失血箭和侧风诱导箭以便爆发期使用", BRD.JobID)]
     BRD_Adv_Pooling = 3023,
 
     [ParentCombo(BRD_ST_AdvMode)]
-    [CustomComboInfo("Apex Pooling Option", "Pools Apex arrow into buff window and when buffs are between 50-60 seconds on cd.", BRD.JobID)]
+    [CustomComboInfo("绝峰箭储能", "将绝峰箭留到团辅窗口期或团辅冷却剩余50-60秒时使用", BRD.JobID)]
     BRD_Adv_ApexPooling = 3057,
 
     [ParentCombo(BRD_ST_AdvMode)]
@@ -1414,7 +1411,7 @@ public enum CustomComboPreset
     BRD_ST_Wardens = 3047,
 
     [ParentCombo(BRD_ST_Wardens)]
-    [CustomComboInfo("Party Cleanse Option", "Uses Wardens Paeon when someone in the party has a cleansable debuff using the Retargeting Function following party list", BRD.JobID)]
+    [CustomComboInfo("团队净化", "当队伍中有人带有可净化的异常状态时，使用光阴神的礼赞凯歌（自动切换目标）", BRD.JobID)]
     [Retargeted]
     BRD_ST_WardensAuto = 3064,
 
@@ -1432,7 +1429,7 @@ public enum CustomComboPreset
     BRD_AoE_Adv_Songs = 3016,
 
     [ParentCombo(BRD_AoE_AdvMode)]
-    [CustomComboInfo("AoE Buffs Option", "Adds buffs onto the Advance AoE Bard feature.\nEnable all to follow balance buff windows \nDisabling any buff will follow simple priority", BRD.JobID)]
+    [CustomComboInfo("范围增益", "为吟游诗人高级多目标功能添加增益。\n全开则对齐团辅\n部分禁用则按优先级执行", BRD.JobID)]
     BRD_AoE_Adv_Buffs = 3032,
 
     [ParentCombo(BRD_AoE_Adv_Buffs)]
@@ -1440,7 +1437,7 @@ public enum CustomComboPreset
     BRD_AoE_Adv_Buffs_Raging = 3053,
 
     [ParentCombo(BRD_AoE_Adv_Buffs)]
-    [CustomComboInfo("Battlevoice Option", "Adds Battle Voice", BRD.JobID)]
+    [CustomComboInfo("战斗之声", "Adds Battle Voice", BRD.JobID)]
     BRD_AoE_Adv_Buffs_Battlevoice = 3054,
 
     [ParentCombo(BRD_AoE_Adv_Buffs)]
@@ -1457,11 +1454,11 @@ public enum CustomComboPreset
     BRD_AoE_Adv_oGCD = 3037,
 
     [ParentCombo(BRD_AoE_AdvMode)]
-    [CustomComboInfo("Pooling Option", "Pools Rain of death charges to allow for optimum burst phases.", BRD.JobID)]
+    [CustomComboInfo("储能", "为爆发期保留死亡箭雨充能。", BRD.JobID)]
     BRD_AoE_Pooling = 3040,
 
     [ParentCombo(BRD_AoE_AdvMode)]
-    [CustomComboInfo("Apex Pooling Option", "Pools Apex arrow into buff window and when buffs are between 50-60 seconds on cd.", BRD.JobID)]
+    [CustomComboInfo("绝峰箭储能", "将绝峰箭留到爆发窗口或团辅CD剩余50-60秒时使用。", BRD.JobID)]
     BRD_AoE_ApexPooling = 3058,
 
     [ParentCombo(BRD_AoE_AdvMode)]
@@ -1489,7 +1486,7 @@ public enum CustomComboPreset
     BRD_AoE_Wardens = 3046,
 
     [ParentCombo(BRD_AoE_Wardens)]
-    [CustomComboInfo("Party Cleanse Option", "Uses Wardens Paeon when someone in the party has a cleansable debuff using the Retargeting Function following party list.", BRD.JobID)]
+    [CustomComboInfo("团队净化", "当队伍中有人带有可净化的异常状态时，使用光阴神的礼赞凯歌（自动切换目标）", BRD.JobID)]
     [Retargeted]
     BRD_AoE_WardensAuto = 3063,
 
