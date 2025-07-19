@@ -4268,7 +4268,7 @@ public enum CustomComboPreset
     PCT_ST_Advanced_Openers = 20006,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
-    [CustomComboInfo("Optimal Burst Window Feature", "Uses an optimized rotation for burst window for Level 100", PCT.JobID)]
+    [CustomComboInfo("最优爆发", "在100级时使用优化后的爆发循环", PCT.JobID)]
     PCT_ST_AdvancedMode_Burst_Phase = 20010,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
@@ -4276,7 +4276,7 @@ public enum CustomComboPreset
     PCT_ST_AdvancedMode_SubtractivePalette = 20025,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
-    [CustomComboInfo("Blizzard in Cyan Option", "Adds Blizzard in Cyan to the combo.", PCT.JobID)]
+    [CustomComboInfo("冰结之蓝青", "将冰结之蓝青加入循环。", PCT.JobID)]
     PCT_ST_AdvancedMode_BlizzardInCyan = 20033,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
@@ -4304,11 +4304,11 @@ public enum CustomComboPreset
     PCT_ST_AdvancedMode_ScenicMuse = 20021,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
-    [CustomComboInfo("Star Prism Option", "Adds Star Prism to the Rotation.", PCT.JobID)]
+    [CustomComboInfo("天星棱光", "添加天星棱光到循环", PCT.JobID)]
     PCT_ST_AdvancedMode_StarPrism = 20012,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
-    [CustomComboInfo("Rainbow Drip Option", "Adds Rainbow Drip to the rotation with Rainbow Birght Buff.", PCT.JobID)]
+    [CustomComboInfo("彩虹点滴", "获得彩虹点滴效果提高状态时，将彩虹点滴加入循环。", PCT.JobID)]
     PCT_ST_AdvancedMode_RainbowDrip = 20013,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
@@ -4353,11 +4353,11 @@ public enum CustomComboPreset
     PCT_ST_AdvancedMode_MovementOption_HammerStampCombo = 20029,
 
     [ParentCombo(PCT_ST_AdvancedMode_MovementFeature)]
-    [CustomComboInfo("Holy in White Option", "Adds Holy in White to the combo while moving. \n Prioritizes if Inspiration and Hyperphantasia are active.", PCT.JobID)]
+    [CustomComboInfo("神圣之白", "移动时将神圣之白加入循环。\n若有减色混合预备和幻灵绘景则优先使用。", PCT.JobID)]
     PCT_ST_AdvancedMode_MovementOption_HolyInWhite = 20030,
 
     [ParentCombo(PCT_ST_AdvancedMode_MovementFeature)]
-    [CustomComboInfo("Comet in Black Option", "Adds Comet in Black to the combo while moving. \n Prioritizes if Inspiration and Hyperphantasia are active.", PCT.JobID)]
+    [CustomComboInfo("彗星之黑", "移动时将彗星之黑加入循环。\n若有减色混合预备和幻灵绘景则优先使用。", PCT.JobID)]
     PCT_ST_AdvancedMode_MovementOption_CometinBlack = 20031,
 
     [ParentCombo(PCT_ST_AdvancedMode_MovementFeature)]
@@ -4382,7 +4382,7 @@ public enum CustomComboPreset
     PCT_AoE_AdvancedMode_SubtractivePalette = 20058,
 
     [ParentCombo(PCT_AoE_AdvancedMode)]
-    [CustomComboInfo("Blizzard II in Cyan Option", "Adds Blizzard II in Cyan to the combo.", PCT.JobID)]
+    [CustomComboInfo("冰冻之蓝青", "将冰冻之蓝青加入循环。", PCT.JobID)]
     PCT_AoE_AdvancedMode_BlizzardInCyan = 20066,
 
     [ParentCombo(PCT_AoE_AdvancedMode)]
@@ -4463,11 +4463,11 @@ public enum CustomComboPreset
     PCT_AoE_AdvancedMode_MovementOption_HammerStampCombo = 20062,
 
     [ParentCombo(PCT_AoE_AdvancedMode_MovementFeature)]
-    [CustomComboInfo("Holy in White Option", "Adds Holy in White to the combo while moving.  \n Prioritizes if Inspiration and Hyperphantasia are active.", PCT.JobID)]
+    [CustomComboInfo("神圣之白", "移动时加入神圣之白。\n若有减色混合预备与幻灵绘景则优先使用。", PCT.JobID)]
     PCT_AoE_AdvancedMode_MovementOption_HolyInWhite = 20063,
 
     [ParentCombo(PCT_AoE_AdvancedMode_MovementFeature)]
-    [CustomComboInfo("Comet in Black Option", "Adds Comet in Black to the combo while moving. \n Prioritizes if Inspiration and Hyperphantasia are active.", PCT.JobID)]
+    [CustomComboInfo("彗星之黑", "移动时加入彗星之黑。\n若有减色混合预备与幻灵绘景则优先使用。", PCT.JobID)]
     PCT_AoE_AdvancedMode_MovementOption_CometinBlack = 20064,
 
     [ParentCombo(PCT_AoE_AdvancedMode_MovementFeature)]
