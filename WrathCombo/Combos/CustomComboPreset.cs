@@ -7659,7 +7659,7 @@ public enum CustomComboPreset
 
     [AutoAction(false, false)]
     [ReplaceSkill(WHM.Stone1, WHM.Stone2, WHM.Stone3, WHM.Stone4, WHM.Glare1, WHM.Glare3)]
-    [CustomComboInfo("Advanced DPS Mode - Single Target", "Collection of cooldowns and spell features on Glare/Stone.",
+    [CustomComboInfo("高级DPS模式-单目标", "Collection of cooldowns and spell features on Glare/Stone.",
         WHM.JobID)]
     [AdvancedCombo]
     WHM_ST_MainCombo = 19099,
@@ -7707,7 +7707,7 @@ public enum CustomComboPreset
 
     [AutoAction(true, false)]
     [ReplaceSkill(WHM.Holy, WHM.Holy3)]
-    [CustomComboInfo("Advanced DPS Mode - AoE", "Collection of cooldowns and spell features on Holy/Holy III.", WHM.JobID)]
+    [CustomComboInfo("高级输出模式-多目标", "Collection of cooldowns and spell features on Holy/Holy III.", WHM.JobID)]
     [AdvancedCombo]
     WHM_AoE_DPS = 19190,
 
@@ -7736,8 +7736,8 @@ public enum CustomComboPreset
     WHM_AoE_DPS_LilyOvercap = 19193,
 
     [ParentCombo(WHM_AoE_DPS)]
-    [CustomComboInfo("Presence of Mind Option",
-        "Adds Presence of Mind to the AoE combo", WHM.JobID)]
+    [CustomComboInfo("神速咏唱",
+        "添加神速咏唱到AoE连击", WHM.JobID)]
     WHM_AoE_DPS_PresenceOfMind = 19195,
 
     [ParentCombo(WHM_AoE_DPS)]
@@ -7766,7 +7766,7 @@ public enum CustomComboPreset
 
     [AutoAction(false, true)]
     [ReplaceSkill(WHM.Cure)]
-    [CustomComboInfo("Advanced Healing Mode - Single Target", "Replaces Cure with a one button single target healing setup.",
+    [CustomComboInfo("高级治疗模式-单目标", "Replaces Cure with a one button single target healing setup.",
         WHM.JobID)]
     [PossiblyRetargeted]
     [HealingCombo]
@@ -7826,7 +7826,7 @@ public enum CustomComboPreset
 
     [AutoAction(true, true)]
     [ReplaceSkill(WHM.Medica1)]
-    [CustomComboInfo("Advanced Healing Mode - AoE", "Replaces Medica with a one button AoE healing setup.", WHM.JobID)]
+    [CustomComboInfo("高级治疗模式-多目标", "Replaces Medica with a one button AoE healing setup.", WHM.JobID)]
     [HealingCombo]
     WHM_AoEHeals = 19007,
 

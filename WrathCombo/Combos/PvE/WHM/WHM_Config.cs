@@ -33,8 +33,8 @@ internal partial class WHM
 
                 case CustomComboPreset.WHM_ST_MainCombo:
                     DrawAdditionalBoolChoice(WHM_ST_MainCombo_Adv,
-                        "Advanced Action Options",
-                        "Change how actions are handled",
+                        "高级技能设置",
+                        "更改技能的处理方式",
                         isConditionalChoice: true);
 
                     if (WHM_ST_MainCombo_Adv)
@@ -42,16 +42,16 @@ internal partial class WHM
                         ImGui.Indent();
                         ImGui.Spacing();
                         DrawHorizontalMultiChoice(WHM_ST_MainCombo_Adv_Actions,
-                            "On Stone/Glare",
-                            "Apply options to all Stones and Glares.",
+                            "飞石/闪耀",
+                            "应用于所有飞石和闪耀。",
                             3, 0);
                         DrawHorizontalMultiChoice(WHM_ST_MainCombo_Adv_Actions,
-                            "On Aero/Dia",
-                            "Apply options to Aeros and Dia.",
+                            "疾风/天辉",
+                            "应用于所有疾风和天辉。",
                             3, 1);
                         DrawHorizontalMultiChoice(WHM_ST_MainCombo_Adv_Actions,
-                            $"On {Stone2.ActionName()}",
-                            $"Apply options to On {Stone2.ActionName()}.",
+                            $"坚石",
+                            $"应用于坚石。",
                             3, 2);
                         ImGui.Unindent();
                     }
@@ -73,24 +73,24 @@ internal partial class WHM
                         itemWidth: medium);
       
                     ImGui.Indent();
-                    ImGui.TextUnformatted("选择HP检查可应用于哪种类型的非Boss敌人：");
+                    ImGui.TextUnformatted("选择HP检查应用于哪类非Boss敌人：");
                     ImGui.NewLine();
                     ImGui.Indent();
                     DrawHorizontalRadioButton(
-                        WHM_ST_DPS_AeroOptionSubOption, "All Content",
-                        "Apply the HP% for Non-Bosses to all content.",
+                        WHM_ST_DPS_AeroOptionSubOption, "全部内容",
+                        "将非Boss敌人的HP%应用于所有内容。",
                         outputValue: (int)EnemyRestriction.AllEnemies,
                         descriptionColor: ImGuiColors.DalamudWhite
                     );
                     DrawHorizontalRadioButton(
-                        WHM_ST_DPS_AeroOptionSubOption, "Boss Only Content",
-                        "Apply the HP% for Non-Bosses, only in Boss content (to adds).\nAlways applies DoTs at any HP outside of Boss content.",
+                        WHM_ST_DPS_AeroOptionSubOption, "仅Boss副本",
+                        "仅在Boss副本中（对小怪）应用非Boss敌人的HP%。\n在非Boss副本中始终以任意HP施加DoT。",
                         outputValue: (int)EnemyRestriction.OnlyBosses,
                         descriptionColor: ImGuiColors.DalamudWhite
                     );
                     DrawHorizontalRadioButton(
-                        WHM_ST_DPS_AeroOptionSubOption, "Non-Boss Only Content",
-                        "Apply the HP% for Non-Bosses, only outside Boss content.\nAlways applies DoTs at any HP to adds in boss content.",
+                        WHM_ST_DPS_AeroOptionSubOption, "仅非Boss副本",
+                        "仅在非Boss副本中应用非Boss敌人的HP%。\n在Boss副本中对小怪始终以任意HP施加DoT。",
                         outputValue: (int)EnemyRestriction.NonBosses,
                         descriptionColor: ImGuiColors.DalamudWhite
                     );
@@ -126,7 +126,7 @@ internal partial class WHM
 
                 case CustomComboPreset.WHM_STHeals:
                     DrawAdditionalBoolChoice(WHM_STHeals_IncludeShields,
-                        "Include Shields in HP Percent Sliders",
+                        "HP百分比滑块包含护盾",
                         "");
                     break;
 
@@ -148,7 +148,7 @@ internal partial class WHM
                     DrawSliderInt(1, 100, WHM_STHeals_BenedictionHP,
                         targetStartUsingAtDescription);
                     DrawPriorityInput(WHM_ST_Heals_Priority, 5, 0,
-                        $"{Benediction.ActionName()} Priority: ");
+                        $"{Benediction.ActionName()} 优先级：");
                     break;
 
                 case CustomComboPreset.WHM_STHeals_ThinAir:
@@ -162,7 +162,7 @@ internal partial class WHM
                     DrawSliderInt(1, 100, WHM_STHeals_TetraHP,
                         targetStartUsingAtDescription);
                     DrawPriorityInput(WHM_ST_Heals_Priority, 5, 1,
-                        $"{Tetragrammaton.ActionName()} Priority: ");
+                        $"{Tetragrammaton.ActionName()} 优先级：");
                     break;
 
                 case CustomComboPreset.WHM_STHeals_Benison:
@@ -171,7 +171,7 @@ internal partial class WHM
                     DrawSliderInt(1, 100, WHM_STHeals_BenisonHP,
                         targetStartUsingAtDescription);
                     DrawPriorityInput(WHM_ST_Heals_Priority, 5, 2,
-                        $"{DivineBenison.ActionName()} Priority: ");
+                        $"{DivineBenison.ActionName()} 优先级：");
                     break;
 
                 case CustomComboPreset.WHM_STHeals_Aquaveil:
@@ -180,7 +180,7 @@ internal partial class WHM
                     DrawSliderInt(1, 100, WHM_STHeals_AquaveilHP,
                         targetStartUsingAtDescription);
                     DrawPriorityInput(WHM_ST_Heals_Priority, 5, 3,
-                        $"{Aquaveil.ActionName()} Priority: ");
+                        $"{Aquaveil.ActionName()} 优先级：");
                     break;
 
                 case CustomComboPreset.WHM_STHeals_Lucid:
@@ -193,11 +193,11 @@ internal partial class WHM
                     DrawSliderInt(1, 100, WHM_STHeals_TemperanceHP,
                         targetStartUsingAtDescription);
                     DrawDifficultyMultiChoice(WHM_STHeals_TemperanceDifficulty, WHM_STHeals_TemperanceDifficultyListSet,
-                        "Select what content difficulties Temperance should be used in:");
+                        "请选择<节制>应在什么难度的内容中使用：");
                     DrawAdditionalBoolChoice(WHM_STHeals_TemperanceWeave,
                         weaveDescription, "");
                     DrawPriorityInput(WHM_ST_Heals_Priority, 5, 4,
-                        $"{Temperance.ActionName()} Priority: ");
+                        $"{Temperance.ActionName()} 优先级：");
                     break;
 
                 case CustomComboPreset.WHM_STHeals_Esuna:
@@ -233,10 +233,10 @@ internal partial class WHM
 
                 case CustomComboPreset.WHM_AoEHeals_Temperance:
                     DrawSliderInt(1, 100, WHM_AoEHeals_TemperanceHP,
-                        "Average party HP% to use at or below");
+                        "队伍平均HP%小于等于该值时使用");
                     DrawDifficultyMultiChoice(WHM_AoEHeals_TemperanceDifficulty,
                         WHM_AoEHeals_TemperanceDifficultyListSet,
-                        "Select what content difficulties Temperance should be used in:");
+                        "请选择<节制>应在什么难度的内容中使用：");
                     ImGui.Spacing();
 
                     DrawAdditionalBoolChoice(WHM_AoEHeals_TemperanceWeave,
@@ -244,20 +244,20 @@ internal partial class WHM
                         "");
 
                     DrawAdditionalBoolChoice(WHM_AoEHeals_TemperanceRaidwide,
-                        "Also use for Raidwides",
-                        "Will also use for mitigation before raidwides (and a healing boost after them), if the party is low enough.",
+                        "用于团队范围技",
+                        "如果队伍血量较低，也会在团队范围技前用于减伤（并在之后提升治疗量）。",
                         indentDescription: true);
                     if (WHM_AoEHeals_TemperanceRaidwide)
                     {
                         ImGui.Indent();
                         DrawDifficultyMultiChoice(WHM_AoEHeals_TemperanceRaidwideDifficulty,
                             WHM_AoEHeals_TemperanceRaidwideDifficultyListSet,
-                            "Select what content difficulties the Raidwide option should apply to:");
+                            "请选择团队范围技选项应适用哪些难度：");
 
                         DrawAdditionalBoolChoice(WHM_AoEHeals_TemperanceRaidwidePrioritization,
-                            "Prioritize use for Raidwides",
-                            "Will ignore the Party HP% check for Raidwides, essentially using Temperance for mitigation.\n" +
-                            "Not advised in higher-end content.",
+                            "优先用于团队范围技",
+                            "将无视队伍HP%检测，直接用于团队范围技减伤。\n" +
+                            "不建议在高难度内容中使用。",
                             indentDescription: true);
                         ImGui.Unindent();
                     }
@@ -280,29 +280,29 @@ internal partial class WHM
 
                 case CustomComboPreset.WHM_AoEHeals_LiturgyOfTheBell:
                     DrawDifficultyMultiChoice(WHM_AoEHeals_LiturgyDifficulty, WHM_AoEHeals_LiturgyDifficultyListSet,
-                        "Select what content difficulties Liturgy of the Bell should be used in:");
+                        "请选择<礼仪之铃>应在什么难度的内容中使用：");
                     ImGui.NewLine();
 
                     DrawAdditionalBoolChoice(WHM_AoEHeals_LiturgyRaidwideOnly,
-                        "Only use when a Raidwide is casting",
-                        "Will not use Liturgy of the Bell in the rotation unless we detect a Raidwide is casting.",
+                        "仅在团队范围技读条时使用",
+                        "只有检测到团队范围技读条时才会在循环中使用礼仪之铃。",
                         indentDescription: true);
 
                     if (WHM_AoEHeals_LiturgyRaidwideOnly)
                     {
                         ImGuiEx.Spacing(new Vector2(30f, 0f));
-                        ImGui.Text("Against what enemies should we check for Raidwides:");
+                        ImGui.Text("检测团队范围技时针对哪些敌人：");
                         ImGui.NewLine();
                         DrawRadioButton(
-                            WHM_AoEHeals_LiturgyRaidwideOnlyBoss, "All Enemies",
-                            "Will check for a Raidwide before using Bell at all times, on all enemies.",
+                            WHM_AoEHeals_LiturgyRaidwideOnlyBoss, "所有敌人",
+                            "始终在所有敌人面前使用礼仪之铃前检测团队范围技。",
                             outputValue: (int)BossRequirement.Off, itemWidth: 125f,
                             descriptionAsTooltip: true);
                         DrawRadioButton(
-                            WHM_AoEHeals_LiturgyRaidwideOnlyBoss, "Only Bosses",
-                            "Will try to only check for Raidwide when fighting bosses.\n" +
-                            "(will use on cooldown versus regular enemies)\n" +
-                            "(Note: don't rely on this 100%, square sometimes marks enemies inconsistently)",
+                            WHM_AoEHeals_LiturgyRaidwideOnlyBoss, "仅Boss",
+                            "仅在与Boss战斗时检测团队范围技。\n" +
+                            "（普通敌人时会按冷却使用）\n" +
+                            "（注意：不要100%依赖此项，部分敌人标记可能不准确）",
                             outputValue: (int)BossRequirement.On, itemWidth: 125f,
                             descriptionAsTooltip: true);
                     }
@@ -311,8 +311,8 @@ internal partial class WHM
 
                 case CustomComboPreset.WHM_AoEHeals_Asylum:
                     DrawAdditionalBoolChoice(WHM_AoEHeals_AsylumRaidwideOnly,
-                        "Only use when a Raidwide is casting",
-                        "Will not use Asylum in the rotation unless we detect a Raidwide is casting.");
+                        "仅在团队范围技读条时使用",
+                        "只有检测到团队范围技读条时才会在循环中使用庇护所。");
                     break;
 
                 #endregion
@@ -329,15 +329,15 @@ internal partial class WHM
 
         /// Bar Description for target HP% to start using plus disable text
         private const string targetStartUsingAtDescription =
-            "Target HP% to use at or below (100 = Disable check)";
+            "目标HP%小于等于该值时使用（100=禁用检测）";
 
-        /// Bar Description for target HP% to start using plus disable text
+        /// 非Boss目标停止使用的HP%描述
         private const string targetStopUsingAtDescription =
-            " Non-Bosses HP% to stop using (0 = Use Always, 100 = Never)";
+            " 非Boss目标HP%高于该值时停止使用（0=总是使用，100=从不使用）";
 
-        /// Bar Description for target HP% to start using plus disable text
+        /// Boss目标停止使用的HP%描述
         private const string targetStopUsingOnBossAtDescription =
-            " Bosses HP% to stop using (0 = Use Always, 100 = Never)";
+            " Boss目标HP%高于该值时停止使用（0=总是使用，100=从不使用）";
 
         /// Description for MP threshold
         private const string mpThresholdDescription =
@@ -349,14 +349,14 @@ internal partial class WHM
 
         /// Description for charges to keep
         private const string chargesToKeepDescription =
-            "# charges to keep (0 = Use All)";
+            "保留充能数（0=全部使用）";
 
         /// Description for only weaving
         private const string weaveDescription =
-            "Only Weave";
+            "仅插入";
 
         private const string mouseoverCheckingDescription =
-            "Party UI Mouseover Checking";
+            "队伍界面鼠标悬停检测";
 
         /// <summary>
         ///     Whether abilities should be restricted to bosses or not.
