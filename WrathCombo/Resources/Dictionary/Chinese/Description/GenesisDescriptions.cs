@@ -56,6 +56,34 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 // Config
                 KeyValuePair.Create("MP Threshold", "魔力阈值"),
                 #endregion
+
+                #region PvP
+                // Melee DPS
+                KeyValuePair.Create("Role Action Smite Option", "职能技能-猛击"),
+                KeyValuePair.Create("Adds Role Action Smite to Burst Mode below selected health", "在目标生命值低于所选阈值时，将职能技能猛击添加到爆发模式"),
+                // Healer
+                KeyValuePair.Create("Role Action Diabrosis Option", "职能技能-溃破"),
+                KeyValuePair.Create("Adds Role Action Diabrosis to Burst Mode below selected health", "在目标生命值低于所选阈值时，将职能技能溃破添加到爆发模式"),
+                KeyValuePair.Create("Cure 3 Waste Prevention", "当愈疗就绪增益剩余时间低于6秒时，将愈疗添加到爆发连击"),
+                KeyValuePair.Create("Target HP% to use Diabrosis", "使用溃破的目标生命值百分比阈值"),
+                KeyValuePair.Create("Cure III Priority Option", "愈疗优先级"),
+                KeyValuePair.Create("Makes Cure 3 prioritized before Aquaveil.", "使愈疗在水流幕之前优先使用。"),
+                KeyValuePair.Create("Cure 3 replaces Cure 2 regardless of this setting as that is how SE made it", "无论此设置如何，愈疗都会替换救疗，这是官方的设定。"),
+                KeyValuePair.Create("Self Adlo Option", "自我鼓励"),
+                KeyValuePair.Create("Adds Adloquium to self when at or beneath selected heath threshold.", "当自身生命值低于或等于设定阈值时，为自己使用鼓励激励之策。"),
+                KeyValuePair.Create("Will Not Overwrite Catalyze", "不会覆盖激励。"),
+                // Physical Ranged DPS
+                KeyValuePair.Create("Role Action Eagle Eye Shot Option", "职能技能-锐眼追击"),
+                KeyValuePair.Create("Automatically Adds Eagle Eye Shot to Burst Mode when target is guarded or under selected health percentage", "当目标处于防御状态或生命值低于所选百分比时，自动在爆发模式中加入锐眼追击"),
+                KeyValuePair.Create("WILL ONLY WORK IN LARGE SCALE PVP", "仅在大规模PVP中有效"),
+                // Tank
+                KeyValuePair.Create("Role Action Rampart Option", "职能技能-铁壁"),
+                KeyValuePair.Create("Adds Defensive Role Action Rampart to Burst Mode below selected health", "在生命值低于所选阈值时，将防御型职能技能铁壁添加到爆发模式"),
+                KeyValuePair.Create("Use Rampart below set threshold for self", "低于设定阈值时，为自己使用铁壁"),
+                // Magical Ranged DPS
+                KeyValuePair.Create("Phantom Dart Option", "幻影弹"),
+                KeyValuePair.Create("Uses Phantom Dart (if selected) when available at or below set health threshold.", "在可用且目标生命值低于设定阈值时（若已选择），使用幻影弹。"),
+                #endregion
             ];
         }
     }

@@ -231,7 +231,8 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("None", "无"),
                 KeyValuePair.Create("Both", "两者"),
                 KeyValuePair.Create("On ", ""),
-                KeyValuePair.Create("on ", "替换"),
+                KeyValuePair.Create("on ", "替换"),                
+                KeyValuePair.Create("Priority", "优先级"),
 
                 // Jobs
                 KeyValuePair.Create("FSH", "捕鱼人"),
