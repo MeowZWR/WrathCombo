@@ -293,9 +293,14 @@ internal abstract partial class CustomComboFunctions
 
     /// <summary> Gets the player's position relative to the target. </summary>
     /// <returns> Front, Flank, Rear or Unknown as AttackAngle type. </returns>
-    public static AttackAngle AngleToTarget()
+    public static AttackAngle AngleToTarget(IGameObject? optionalTarget = null)
     {
-        if (LocalPlayer is not { } player || CurrentTarget is not IBattleChara target || target.ObjectKind != ObjectKind.BattleNpc)
+        if (LocalPlayer is not { } player)
+            return AttackAngle.Unknown;
+
+        var target = optionalTarget ?? CurrentTarget;
+
+        if (target is null)
             return AttackAngle.Unknown;
 
         float rotation = PositionalMath.GetRotation(target.Position, player.Position) - target.Rotation;
@@ -303,11 +308,11 @@ internal abstract partial class CustomComboFunctions
 
         return regionDegrees switch
         {
-            >= 315f or <= 45f       => AttackAngle.Front,   // 0° ± 45°
-            >= 45f and <= 135f      => AttackAngle.Flank,   // 90° ± 45°
-            >= 135f and <= 225f     => AttackAngle.Rear,    // 180° ± 45°
-            >= 225f and <= 315f     => AttackAngle.Flank,   // 270° ± 45°
-            _                       => AttackAngle.Unknown
+            >= 315f or <= 45f => AttackAngle.Front,   // 0° ± 45°
+            >= 45f and <= 135f => AttackAngle.Flank,   // 90° ± 45°
+            >= 135f and <= 225f => AttackAngle.Rear,    // 180° ± 45°
+            >= 225f and <= 315f => AttackAngle.Flank,   // 270° ± 45°
+            _ => AttackAngle.Unknown
         };
     }
 

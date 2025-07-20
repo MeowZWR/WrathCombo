@@ -535,7 +535,10 @@ namespace WrathCombo.AutoRotation
                     uint outAct = OriginalHook(InvokeCombo(preset, attributes, ref gameAct));
                     if (outAct is All.SavageBlade) return true;
                     if (!CanQueue(outAct)) return false;
-                    if (!ActionReady(outAct))
+                    if (!ActionReady(outAct, true, true))
+                        return false;
+
+                    if (ActionManager.Instance()->GetActionStatus(ActionType.Action, outAct) != 0)
                         return false;
 
                     var sheet = ActionSheet[outAct];

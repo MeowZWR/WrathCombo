@@ -2,7 +2,6 @@ using ImGuiNET;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Window.Functions;
-using static WrathCombo.Extensions.UIntExtensions;
 using static WrathCombo.Window.Functions.UserConfig;
 
 namespace WrathCombo.Combos.PvE;
@@ -17,13 +16,15 @@ internal partial class SMN
             SMN_ST_BurstPhase = new("SMN_ST_BurstPhase", 1),
             SMN_ST_SwiftcastPhase = new("SMN_SwiftcastPhase", 1),
             SMN_ST_Burst_Delay = new("SMN_Burst_Delay", 0),
+            SMN_ST_CrimsonCycloneMeleeDistance = new("SMN_ST_CrimsonCycloneMeleeDistance", 25),
             SMN_Opener_SkipSwiftcast = new("SMN_Opener_SkipSwiftcast", 1),
-
+            
             SMN_AoE_Lucid = new("SMN_AoE_Lucid", 8000),
             SMN_AoE_BurstPhase = new("SMN_AoE_BurstPhase", 1),
+            SMN_AoE_CrimsonCycloneMeleeDistance = new("SMN_AoE_CrimsonCycloneMeleeDistance", 25),
             SMN_AoE_SwiftcastPhase = new("SMN_AoE_SwiftcastPhase", 1),
             SMN_AoE_Burst_Delay = new("SMN_AoE_Burst_Delay", 0),
-
+            
             SMN_VariantCure = new("SMN_VariantCure"),
             SMN_Balance_Content = new("SMN_Balance_Content", 1);
 
@@ -32,135 +33,131 @@ internal partial class SMN
             SMN_AoE_Egi_AstralFlow = new("SMN_AoE_Egi_AstralFlow");
 
         public static UserBool
-            SMN_ST_CrimsonCycloneMelee = new("SMN_ST_CrimsonCycloneMelee"),
-            SMN_AoE_CrimsonCycloneMelee = new("SMN_AoE_CrimsonCycloneMelee"),
             SMN_ST_Searing_Any = new("SMN_ST_Searing_Any"),
             SMN_AoE_Searing_Any = new("SMN_AoE_Searing_Any");
 
-        internal static UserIntArray 
+        internal static UserIntArray
             SMN_ST_Egi_Priority = new("SMN_ST_Egi_Priority"),
-            SMN_AoE_Egi_Priority = new ("SMN_AoE_Egi_Priority");
+            SMN_AoE_Egi_Priority = new("SMN_AoE_Egi_Priority");
 
         internal static void Draw(CustomComboPreset preset)
         {
             switch (preset)
             {
                 case CustomComboPreset.SMN_ST_Advanced_Combo:
-                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, $"在毁灭、毁坏和毁荡上", "", 0);
-                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, $"仅在毁灭和毁坏上", $"替代DPS模式。保持毁荡独立以获得纯DPS。", 1);
+                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, "在毁灭、毁坏和毁荡上", "", 0);
+                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, "仅在毁灭和毁坏上", "替代DPS模式。保持毁荡独立以获得纯DPS。", 1);
                     break;
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Balance_Opener:
-                    
-                    UserConfig.DrawBossOnlyChoice(SMN_Balance_Content);
+
+                    DrawBossOnlyChoice(SMN_Balance_Content);
 
                     ImGui.NewLine();
 
-                    UserConfig.DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "使用即刻咏唱",
+                    DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "使用即刻咏唱",
                         "将在起手式中插入即刻咏唱，确保药水效果覆盖到短GCD技能。", 1);
 
-                    UserConfig.DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "跳过即刻咏唱",
+                    DrawHorizontalRadioButton(SMN_Opener_SkipSwiftcast, "跳过即刻咏唱",
                         "不在起手式中插入即刻咏唱，优先保证高GCD技能覆盖。", 2);
                     break;
 
-                case CustomComboPreset.SMN_ST_Advanced_Combo_Titan:                    
-                    UserConfig.DrawPriorityInput(SMN_ST_Egi_Priority, 3, 0,
+                case CustomComboPreset.SMN_ST_Advanced_Combo_Titan:
+                    DrawPriorityInput(SMN_ST_Egi_Priority, 3, 0,
                         $"{SummonTopaz.ActionName()} Priority: ");
                     break;
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Garuda:
-                    UserConfig.DrawPriorityInput(SMN_ST_Egi_Priority, 3, 1,
+                    DrawPriorityInput(SMN_ST_Egi_Priority, 3, 1,
                         $"{SummonEmerald.ActionName()} Priority: ");
                     break;
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Ifrit:
-                    UserConfig.DrawPriorityInput(SMN_ST_Egi_Priority, 3, 2,
+                    DrawPriorityInput(SMN_ST_Egi_Priority, 3, 2,
                         $"{SummonRuby.ActionName()} Priority: ");
                     break;
 
                 case CustomComboPreset.SMN_AoE_Advanced_Combo_Titan:
-                    UserConfig.DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 0,
+                    DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 0,
                         $"{SummonTopaz.ActionName()} Priority: ");
                     break;
 
                 case CustomComboPreset.SMN_AoE_Advanced_Combo_Garuda:
-                    UserConfig.DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 1,
+                    DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 1,
                         $"{SummonEmerald.ActionName()} Priority: ");
                     break;
 
                 case CustomComboPreset.SMN_AoE_Advanced_Combo_Ifrit:
-                    UserConfig.DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 2,
+                    DrawPriorityInput(SMN_AoE_Egi_Priority, 3, 2,
                         $"{SummonRuby.ActionName()} Priority: ");
-                    break;              
+                    break;
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_DemiEgiMenu_SwiftcastEgi:
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Garuda", "Swiftcasts Slipstream", 1);
+                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Garuda", "Swiftcasts Slipstream", 1);
 
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Ifrit", "Swiftcasts Ruby Ruin/Ruby Rite",
+                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Ifrit", "Swiftcasts Ruby Ruin/Ruby Rite",
                         2);
 
-                    UserConfig.DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Flexible (SpS) Option",
+                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Flexible (SpS) Option",
                         "Swiftcasts the first available Egi when Swiftcast is ready.", 3);
 
                     break;
 
                 case CustomComboPreset.SMN_AoE_Advanced_Combo_DemiEgiMenu_SwiftcastEgi:
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Garuda", "Swiftcasts Slipstream", 1);
+                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Garuda", "Swiftcasts Slipstream", 1);
 
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Ifrit", "Swiftcasts Ruby Ruin/Ruby Rite",
+                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Ifrit", "Swiftcasts Ruby Ruin/Ruby Rite",
                         2);
 
-                    UserConfig.DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Flexible (SpS) Option",
+                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Flexible (SpS) Option",
                         "Swiftcasts the first available Egi when Swiftcast is ready.", 3);
 
                     break;
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Lucid:
-                    UserConfig.DrawSliderInt(4000, 9500, SMN_ST_Lucid,
+                    DrawSliderInt(4000, 9500, SMN_ST_Lucid,
                         "设置魔力值阈值，当魔力值达到或低于此值时此功能生效。", 150,
                         SliderIncrements.Hundreds);
 
                     break;
 
                 case CustomComboPreset.SMN_AoE_Advanced_Combo_Lucid:
-                    UserConfig.DrawSliderInt(4000, 9500, SMN_AoE_Lucid,
+                    DrawSliderInt(4000, 9500, SMN_AoE_Lucid,
                         "设置魔力值阈值，当魔力值达到或低于此值时此功能生效。", 150,
                         SliderIncrements.Hundreds);
 
                     break;
 
                 case CustomComboPreset.SMN_Variant_Cure:
-                    UserConfig.DrawSliderInt(1, 100, SMN_VariantCure, "HP% to be at or under", 200);
+                    DrawSliderInt(1, 100, SMN_VariantCure, "HP% to be at or under", 200);
 
                     break;
 
                 case CustomComboPreset.SMN_ST_Advanced_Combo_Egi_AstralFlow:
-                    {
-                        UserConfig.DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Mountain Buster", "", 4, 0);
-                        UserConfig.DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Crimson Cyclone", "", 4, 1);
-                        UserConfig.DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Crimson Strike", "", 4, 3);
-                        UserConfig.DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Slipstream", "", 4, 2);
+                {
+                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Mountain Buster", "", 4, 0);
+                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Crimson Cyclone", "", 4, 1);
+                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Crimson Strike", "", 4, 3);
+                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Slipstream", "", 4, 2);
 
-                        if (SMN_ST_Egi_AstralFlow[1])
-                            UserConfig.DrawAdditionalBoolChoice(SMN_ST_CrimsonCycloneMelee,
-                                "Enforced Crimson Cyclone Melee Check", "Only uses Crimson Cyclone within melee range.");
+                    if (SMN_ST_Egi_AstralFlow[1])
+                        DrawSliderInt(0, 25, SMN_ST_CrimsonCycloneMeleeDistance, " Maximum range to use Crimson Cyclone.");
 
-                        break;
-                    }
+                    break;
+                }
 
                 case CustomComboPreset.SMN_AoE_Advanced_Combo_Egi_AstralFlow:
-                    {
-                        UserConfig.DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Mountain Buster", "", 4, 0);
-                        UserConfig.DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Crimson Cyclone", "", 4, 1);
-                        UserConfig.DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Crimson Strike", "", 4, 3);
-                        UserConfig.DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Slipstream", "", 4, 2);
+                {
+                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Mountain Buster", "", 4, 0);
+                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Crimson Cyclone", "", 4, 1);
+                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Crimson Strike", "", 4, 3);
+                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Slipstream", "", 4, 2);
 
-                        if (SMN_AoE_Egi_AstralFlow[1])
-                            UserConfig.DrawAdditionalBoolChoice(SMN_AoE_CrimsonCycloneMelee,
-                                "Enforced Crimson Cyclone Melee Check", "Only uses Crimson Cyclone within melee range.");
+                    if (SMN_AoE_Egi_AstralFlow[1])
+                        DrawSliderInt(0, 25, SMN_AoE_CrimsonCycloneMeleeDistance, " Maximum range to use Crimson Cyclone.");
 
-                        break;
-                    }  
+                    break;
+                }
             }
         }
     }
