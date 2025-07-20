@@ -5663,7 +5663,7 @@ public enum CustomComboPreset
 
     [AutoAction(false, true)]
     [ReplaceSkill(SGE.Diagnosis)]
-    [CustomComboInfo("Advanced Healing Mode - Single Target", "Change Diagnosis into various options.", SGE.JobID)]
+    [CustomComboInfo("高级治疗模式-单目标", "将诊断变为多种选项。", SGE.JobID)]
     [PossiblyRetargeted]
     [HealingCombo]
     SGE_ST_Heal = 14014,
@@ -5749,7 +5749,7 @@ public enum CustomComboPreset
 
     [AutoAction(true, true)]
     [ReplaceSkill(SGE.Prognosis)]
-    [CustomComboInfo("Advanced Healing Mode - AoE", "Change Prognosis into various options.", SGE.JobID)]
+    [CustomComboInfo("高级治疗模式-多目标", "将预后术替换为多种选项。", SGE.JobID)]
     [HealingCombo]
     SGE_AoE_Heal = 14026,
 

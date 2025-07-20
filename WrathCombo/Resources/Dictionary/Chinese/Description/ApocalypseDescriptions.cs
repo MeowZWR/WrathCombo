@@ -19,8 +19,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 // Name & Description
                 KeyValuePair.Create("Simple Mode - Single Target", "简单模式-单目标"),
                 KeyValuePair.Create("Simple Mode - AoE", "简单模式-多目标"),
-                KeyValuePair.Create("Advanced Mode - Single Target", "高级模式-单目标"),
+                KeyValuePair.Create("Advanced Mode - Single Target", "高级模式-单目标"),                
+                KeyValuePair.Create("Advanced DPS Mode - Single Target", "高级输出模式-单目标"),
                 KeyValuePair.Create("Advanced Mode - AoE", "高级模式-多目标"),
+                KeyValuePair.Create("Advanced DPS Mode - AoE", "高级输出模式-多目标"),
                 KeyValuePair.Create("Simple Heals - Single Target", "简单治疗-单目标"),
                 KeyValuePair.Create("Simple Heals - AoE", "简单治疗-多目标"),
                 KeyValuePair.Create("Single Target DPS Feature", "单目标输出循环整合"),

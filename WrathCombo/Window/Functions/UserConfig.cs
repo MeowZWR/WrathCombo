@@ -142,7 +142,7 @@ namespace WrathCombo.Window.Functions
             using var contextMenu = ImRaii.Popup($"##ResetConfig{config}{occurrence}");
             if (!contextMenu) return;
 
-            if (ImGui.MenuItem("Reset to Default"))
+            if (ImGui.MenuItem("重置为默认值"))
             {
                 ResetToDefault(config);
             }

@@ -64,11 +64,11 @@ internal partial class SGE
                     if (!SGE_ST_DPS_Phlegma_Burst)
                     {
                         DrawSliderInt(0, 1, SGE_ST_DPS_Phlegma,
-                            "Number of charges to hold onto\nBurst will use all charges regardless of choice.");
+                            "保留的发炎充能数\n爆发时会无视此设置消耗所有充能。");
                     }
 
                     DrawAdditionalBoolChoice(SGE_ST_DPS_Phlegma_Burst,
-                        "Burst option", "Save Phlegma charges for burst.");
+                        "爆发模式", "为爆发阶段保留发炎充能。");
                     break;
 
                 case CustomComboPreset.SGE_ST_DPS_AddersgallProtect:
@@ -205,7 +205,7 @@ internal partial class SGE
                         "Sage Shield Check", "Enable to not override an existing Sage's shield.", 2, 0);
 
                     DrawHorizontalMultiChoice(SGE_ST_Heal_EDiagnosisOpts,
-                        "Scholar Shield Check", "Enable to not override an existing Scholar's shield.", 2, 1);
+                        "学者护盾检查", "Enable to not override an existing Scholar's shield.", 2, 1);
 
                     DrawPriorityInput(SGE_ST_Heals_Priority,
                         12, 7, $"{EukrasianDiagnosis.ActionName()} Priority: ");
@@ -265,7 +265,7 @@ internal partial class SGE
                         "Start using when below party average HP %. Set to 100 to disable this check");
 
                     DrawAdditionalBoolChoice(SGE_AoE_Heal_KeracholeTrait,
-                        "Check for Enhanced Kerachole Trait (Heal over Time)", $"Enabling this will prevent {Kerachole.ActionName()} from being used when the Heal over Time trait is unavailable.");
+                        "检查强化坚角清汁特性（持续治疗）", $"启用后，当{Kerachole.ActionName()}的持续治疗特性不可用时，将不会使用该技能。");
 
                     DrawPriorityInput(SGE_AoE_Heals_Priority,
                         9, 0, $"{Kerachole.ActionName()} Priority: ");

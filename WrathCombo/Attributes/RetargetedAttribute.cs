@@ -36,7 +36,7 @@ internal class PossiblyRetargetedAttribute : Attribute
     ///     <paramref name="condition"/> for Single Target Healing Actions.
     /// </remarks>
     internal PossiblyRetargetedAttribute
-        (string settingInfo = "Settings Tab > Retarget (Single Target) Healing Actions",
+        (string settingInfo = "插件设置 > 重定向（单体）治疗技能",
             Condition condition = Condition.RetargetHealingActionsEnabled)
     {
         SettingInfo = settingInfo;
