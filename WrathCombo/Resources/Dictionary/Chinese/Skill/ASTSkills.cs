@@ -35,7 +35,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Play 2", AST.Play2.ActionName()),
                 KeyValuePair.Create("Play 3", AST.Play3.ActionName()),
                 KeyValuePair.Create("The Arrow", AST.Arrow.ActionName()),
-                KeyValuePair.Create("The Balance", AST.Balance.ActionName()),
+                // KeyValuePair.Create("The Balance", AST.Balance.ActionName()),
                 KeyValuePair.Create("The Bole", AST.Bole.ActionName()),
                 KeyValuePair.Create("The Ewer", AST.Ewer.ActionName()),
                 KeyValuePair.Create("The Spear", AST.Spear.ActionName()),

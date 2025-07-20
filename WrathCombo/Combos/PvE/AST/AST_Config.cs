@@ -250,8 +250,8 @@ internal partial class AST
                     break;
                 
                 case CustomComboPreset.AST_ST_Heals_AspectedBenefic:
-                    DrawSliderInt(0, 100, AST_ST_SimpleHeals_AspectedBeneficHigh, "Start using when below HP %. Set to 100 to disable this check");
-                    DrawSliderInt(0, 100, AST_ST_SimpleHeals_AspectedBeneficLow, "Stop using when below set percentage");
+                    DrawSliderInt(0, 100, AST_ST_SimpleHeals_AspectedBeneficHigh, "低于该HP百分比时开始使用（设为100则不检查）");
+                    DrawSliderInt(0, 100, AST_ST_SimpleHeals_AspectedBeneficLow, "低于该百分比时停止使用");
                     DrawSliderInt(0, 15, AST_ST_SimpleHeals_AspectedBeneficRefresh, "剩余多少秒重新应用（0=不提前重新应用）");
                     DrawPriorityInput(AST_ST_SimpleHeals_Priority, 11, 7, $"{AspectedBenefic.ActionName()} Priority: ");
                     break;
@@ -345,18 +345,18 @@ internal partial class AST
                 #region Standalone
                 case CustomComboPreset.AST_Cards_QuickTargetCards:
                     DrawAdditionalBoolChoice(AST_QuickTarget_Manuals,
-                        "Also Retarget manually-used Cards",
-                        "Will also automatically target Cards that you manually use, as in, those outside of your damage rotations.",
+                        "同时重定向手动使用的卡牌",
+                        "会自动为你手动使用的卡牌（即非输出循环中的卡牌）选择目标。",
                         indentDescription: true);
 
                     ImGui.Indent();
-                    ImGui.TextWrapped("Target Overrides:           (hover each for more info)");
+                    ImGui.TextWrapped("目标覆盖方式：（将鼠标悬停以查看更多信息）");
                     ImGui.Unindent();
                     ImGui.NewLine();
-                    DrawRadioButton(AST_QuickTarget_Override, "No Override", "Will not override the automatic party target viability checking with any manual input.\nThe cards will be targeted according to The Balance's priorities and status checking\n(like not doubling up on cards, and no damage down, etc.).", 0, descriptionAsTooltip: true);
-                    DrawRadioButton(AST_QuickTarget_Override, "Hard Target Override", "Overrides selection with hard target, if you have one that is in range and does not have damage down or rez sickness.", 1, descriptionAsTooltip: true);
-                    DrawRadioButton(AST_QuickTarget_Override, "UI MouseOver Override", "Overrides selection with UI MouseOver target, if you have one that is in range and does not have damage down or rez sickness.", 2, descriptionAsTooltip: true);
-                    DrawRadioButton(AST_QuickTarget_Override, "Any MouseOver Override", "Overrides selection with UI or Nameplate or Model MouseOver target (in that order), if you have one that is in range and does not have damage down or rez sickness.", 3, descriptionAsTooltip: true);
+                    DrawRadioButton(AST_QuickTarget_Override, "不覆盖", "不会用任何手动输入覆盖自动队伍目标检测。\n卡牌会根据The Balance的优先级和状态检测自动选择目标（如不会重复发卡、不会发给有伤害降低或复活虚弱的目标等）。", 0, descriptionAsTooltip: true);
+                    DrawRadioButton(AST_QuickTarget_Override, "强制目标覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的强制目标，将用该目标覆盖选择。", 1, descriptionAsTooltip: true);
+                    DrawRadioButton(AST_QuickTarget_Override, "UI鼠标悬停覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的UI鼠标悬停目标，将用该目标覆盖选择。", 2, descriptionAsTooltip: true);
+                    DrawRadioButton(AST_QuickTarget_Override, "任意鼠标悬停覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的UI、姓名板或模型鼠标悬停目标（按此顺序），将用该目标覆盖选择。", 3, descriptionAsTooltip: true);
                     break;
                 #endregion
             }

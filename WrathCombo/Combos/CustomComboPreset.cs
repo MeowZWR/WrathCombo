@@ -585,14 +585,14 @@ public enum CustomComboPreset
     [AutoAction(false, false)]
     [ReplaceSkill(AST.Malefic, AST.Malefic2, AST.Malefic3, AST.Malefic4, AST.FallMalefic)]
     [ConflictingCombos(AST_ST_DPS)]
-    [CustomComboInfo("Simple DPS Mode - Single Target", "Replaces Malefic with a full one-button single target rotation, including automatic dps card assignment.\nThis is the ideal option for newcomers to the job.", AST.JobID)]
+    [CustomComboInfo("一键输出-单目标", "将凶星替换为完整单体一键输出循环，并自动分配输出卡。\n适合新手使用。", AST.JobID)]
     [SimpleCombo]
     AST_ST_Simple_DPS = 1179,
     
     [AutoAction(true, false)]
     [ReplaceSkill(AST.Gravity, AST.Gravity2)]
     [ConflictingCombos(AST_AOE_DPS)]
-    [CustomComboInfo("Simple DPS Mode - AoE", "Replaces Gravity with a full one-button AoE rotation, including automatic dps card assignment.\nThis is the ideal option for newcomers to the job.", AST.JobID)]
+    [CustomComboInfo("一键输出-多目标", "将重力替换为完整多目标一键输出循环，并自动分配输出卡。\n适合新手使用。", AST.JobID)]
     [SimpleCombo]
     AST_AOE_Simple_DPS = 1180,
         
@@ -622,7 +622,7 @@ public enum CustomComboPreset
     AST_DPS_LightSpeed = 1020,
 
     [ParentCombo(AST_DPS_LightSpeed)]
-    [CustomComboInfo("Lightspeed Hold Option", "Retains 1 Lightspeed charge for manual use", AST.JobID)]
+    [CustomComboInfo("光速保留", "保留1层光速以便手动使用", AST.JobID)]
     AST_DPS_LightSpeedHold = 1061,   
 
     [ParentCombo(AST_ST_DPS)]
@@ -630,7 +630,7 @@ public enum CustomComboPreset
     AST_DPS_Divination = 1016,
 
     [ParentCombo(AST_DPS_Divination)]
-    [CustomComboInfo("Lightspeed Burst Option", "Add Lightspeed before Divination \nCombine with Lightspeed Hold Options to ensure you have a charge to use", AST.JobID)]
+    [CustomComboInfo("光速爆发", "在占卜前加入光速。\n可与光速保留选项配合，确保有可用充能。", AST.JobID)]
     AST_DPS_LightspeedBurst = 1064,   
 
     [ParentCombo(AST_ST_DPS)]
@@ -644,7 +644,7 @@ public enum CustomComboPreset
     AST_DPS_AutoPlay = 1037,
 
     [ParentCombo(AST_DPS_AutoPlay)]
-    [CustomComboInfo("Card Play Pooling Option", "Pools your dps cards for the Divination window",
+    [CustomComboInfo("出卡保留", "为占卜团辅期保留输出卡",
         AST.JobID)]
     AST_DPS_CardPool = 1055,
 
@@ -653,7 +653,7 @@ public enum CustomComboPreset
     AST_DPS_LazyLord = 1014,
 
     [ParentCombo(AST_DPS_LazyLord)]
-    [CustomComboInfo("Lord of Crowns Pooling Option", "Holds Lord of Crowns for the Divination window", AST.JobID)]
+    [CustomComboInfo("王冠之领主保留", "为占卜团辅期保留王冠之领主", AST.JobID)]
     AST_DPS_LordPool = 1056,
 
     [ParentCombo(AST_ST_DPS)]
@@ -661,12 +661,12 @@ public enum CustomComboPreset
     AST_DPS_Oracle = 1015,
 
     [ParentCombo(AST_ST_DPS)]
-    [CustomComboInfo("Earthly Star Option", "Adds Earthly Star placement, but not detonation, to the rotation.\nWill be targeted to any enemy, then your focus target, then soft and hard targets, before falling back to placing it at your feet.", AST.JobID)]
+    [CustomComboInfo("地星", "在循环中加入地星放置（不包含引爆）。\n优先目标为任意敌人，其次为焦点目标，再次为软锁和硬锁目标，最后会放置在自己脚下。", AST.JobID)]
     [Retargeted]
     AST_ST_DPS_EarthlyStar = 1051,
     
     [ParentCombo(AST_ST_DPS)]
-    [CustomComboInfo("Stellar Detonation Option", "Adds early Stellar Detonation with Giant Dominance based on targets HP percentage and type of encounter", AST.JobID)]
+    [CustomComboInfo("星体爆轰", "根据目标血量百分比和战斗类型，提前引爆星体爆轰（巨星主宰优先）", AST.JobID)]
     AST_ST_DPS_StellarDetonation = 1081,
 
     [ParentCombo(AST_ST_DPS)]
@@ -689,7 +689,7 @@ public enum CustomComboPreset
     AST_AOE_LightSpeed = 1048,
 
     [ParentCombo(AST_AOE_LightSpeed)]
-    [CustomComboInfo("Lightspeed Hold Option", "Retains 1 Lightspeed charge for manual use", AST.JobID)]
+    [CustomComboInfo("光速保留", "保留1层光速以便手动使用", AST.JobID)]
     AST_AOE_LightSpeedHold = 1062,    
 
     [ParentCombo(AST_AOE_DPS)]
@@ -697,7 +697,7 @@ public enum CustomComboPreset
     AST_AOE_Divination = 1043,
 
     [ParentCombo(AST_AOE_Divination)]
-    [CustomComboInfo("Lightspeed Burst Option", "Add Lightspeed before Divination. \nCombine with Lightspeed Hold Options to ensure you have a charge to use", AST.JobID)]
+    [CustomComboInfo("光速爆发", "在占卜前使用光速。\n可与光速保留搭配，确保有可用充能", AST.JobID)]
     AST_AOE_LightspeedBurst = 1063,    
 
     [ParentCombo(AST_AOE_DPS)]
@@ -711,7 +711,7 @@ public enum CustomComboPreset
     AST_AOE_AutoPlay = 1045,
 
     [ParentCombo(AST_AOE_AutoPlay)]
-    [CustomComboInfo("Card Play Pooling Option", "Pools your dps cards for the Divination window",
+    [CustomComboInfo("出卡保留", "为占卜团辅期保留输出卡",
         AST.JobID)]
     AST_AOE_CardPool = 1057,
 
@@ -720,7 +720,7 @@ public enum CustomComboPreset
     AST_AOE_LazyLord = 1046,
 
     [ParentCombo(AST_AOE_LazyLord)]
-    [CustomComboInfo("Lord of Crowns Pooling Option", "Holds Lord of Crowns for the Divination window", AST.JobID)]
+    [CustomComboInfo("王冠之领主保留", "为占卜团辅期保留王冠之领主", AST.JobID)]
     AST_AOE_LordPool = 1058,
 
     [ParentCombo(AST_AOE_DPS)]
@@ -728,16 +728,16 @@ public enum CustomComboPreset
     AST_AOE_Oracle = 1047,
 
     [ParentCombo(AST_AOE_DPS)]
-    [CustomComboInfo("Earthly Star Option", "Adds Earthly Star placement, but not detonation, to the rotation.\nWill be targeted to your focus target, then soft and hard targets, before falling back to placing it at your feet.", AST.JobID)]
+    [CustomComboInfo("地星", "在循环中自动放置地星（不包含引爆）。\n优先放置于专注目标，其次为软锁和硬锁目标，最后放置在自身脚下。", AST.JobID)]
     [Retargeted]
     AST_AOE_DPS_EarthlyStar = 1052,
     
     [ParentCombo(AST_AOE_DPS)]
-    [CustomComboInfo("Stellar Detonation Option", "Adds early Stellar Detonation with Giant Dominance based on targets HP percentage and type of encounter", AST.JobID)]
+    [CustomComboInfo("星体爆轰", "根据目标血量百分比和战斗类型，提前引爆巨星主宰的星体爆轰", AST.JobID)]
     AST_AOE_DPS_StellarDetonation = 1082,
 
     [ParentCombo(AST_AOE_DPS)]
-    [CustomComboInfo("MacroCosmos Option", "Adds Macrocosmos to the Aoe rotation after 3 GCDs", AST.JobID)]    
+    [CustomComboInfo("大宇宙", "在AOE循环中于第3次GCD后自动施放大宇宙", AST.JobID)]    
     AST_AOE_DPS_MacroCosmos = 1066,
 
     [ParentCombo(AST_AOE_DPS)]
@@ -807,7 +807,7 @@ public enum CustomComboPreset
     AST_ST_Heals_CelestialOpposition = 1068,
     
     [ParentCombo(AST_ST_Heals)]
-    [CustomComboInfo("Collective Unconscious Option", "Adds Collective Unconscious (for the regen so it will not channel)", AST.JobID)]
+    [CustomComboInfo("命运之轮", "添加命运之轮（仅用于持续恢复，不会持续吟唱）", AST.JobID)]
     AST_ST_Heals_CollectiveUnconscious = 1069,
     
     [ParentCombo(AST_ST_Heals)]
@@ -816,9 +816,8 @@ public enum CustomComboPreset
 
     [AutoAction(true, true)]
     [ReplaceSkill(AST.Helios, AST.AspectedHelios, AST.HeliosConjuction)]
-    [CustomComboInfo("Advanced Healing Mode - AoE",
-        "Replaces Aspected Helios/Helios Conjunction or Helios with a one button healing replacement."
-        + "This Spell will be consider the bottom priority with no checks regardless of below settings.", AST.JobID)]
+    [CustomComboInfo("高级治疗模式-多目标",
+        "将阳星相位/阳星合相或阳星替换为一键群体治疗。该技能始终为最低优先级，不受下方设置影响。", AST.JobID)]
     AST_AoE_Heals = 1010,
     
     [ParentCombo(AST_AoE_Heals)]
@@ -838,7 +837,7 @@ public enum CustomComboPreset
     AST_AoE_Heals_LazyLady = 1022,
 
     [ParentCombo(AST_AoE_Heals)]
-    [CustomComboInfo("Horoscope Option", "Adds Horoscope followed by Aspected Helios or Helios.", AST.JobID)]
+    [CustomComboInfo("天宫图", "添加天宫图，随后接吉星相位或阳星。", AST.JobID)]
     AST_AoE_Heals_Horoscope = 1026,
     
     [ParentCombo(AST_AoE_Heals)]
@@ -846,15 +845,15 @@ public enum CustomComboPreset
     AST_AoE_Heals_HoroscopeHeal = 1071,
 
     [ParentCombo(AST_AoE_Heals)]
-    [CustomComboInfo("Neutral Sect Option", "Adds Neutral Sect and its followup Sun Sign.", AST.JobID)]
+    [CustomComboInfo("中间学派", "添加中间学派及其后续的太阳星座。", AST.JobID)]
     AST_AoE_Heals_NeutralSect = 1067,
     
     [ParentCombo(AST_AoE_Heals)]
-    [CustomComboInfo("Stellar Detonation Option", "Adds Stellar Detonation when under the effect of Giant Dominance", AST.JobID)]
+    [CustomComboInfo("星体爆轰", "在拥有巨星主宰效果时添加星体爆轰", AST.JobID)]
     AST_AoE_Heals_StellarDetonation = 1072,
     
     [ParentCombo(AST_AoE_Heals)]
-    [CustomComboInfo("Collective Unconscious Option", "Adds Collective Unconscious (for the regen so it will not channel)", AST.JobID)]
+    [CustomComboInfo("命运之轮", "添加命运之轮（仅用于持续恢复，不会持续吟唱）", AST.JobID)]
     AST_AoE_Heals_CollectiveUnconscious = 1074,
 
     [ReplaceSkill(AST.Benefic2)]
@@ -877,11 +876,11 @@ public enum CustomComboPreset
     AST_Raise_Alternative_Retarget = 1060,
 
     [ReplaceSkill(AST.Lightspeed)]
-    [CustomComboInfo("Lightspeed Overwrite Protection Feature", "Blocks the Lightspeed Button while buff is active.", AST.JobID)]
+    [CustomComboInfo("光速保护", "在光速效果持续期间，禁用光速按钮。", AST.JobID)]
     AST_Lightspeed_Protection = 1065,    
 
     [ReplaceSkill(AST.EssentialDignity)]
-    [CustomComboInfo("Retarget Essential Dignity Feature", "Will Retarget Essential Dignity outside of Healing combos to your Heal Stack.", AST.JobID)]
+    [CustomComboInfo("重定向先天禀赋", "在非治疗连击时，将先天禀赋自动重定向至你的治疗目标。", AST.JobID)]
     [Retargeted]
     AST_RetargetEssentialDignity = 1059,
 
@@ -900,34 +899,29 @@ public enum CustomComboPreset
 
     #region Cards
 
-    [CustomComboInfo("Quick Target Damage Cards",
-        "When you play the Balance or Spear in a combo, this will automatically target the buff on to a party member.\nIt will look at DPS that suit the card first, following The Balance's priorities; if none found or they have buffs already, will look at the other DPS instead.\nWill try to skip party members that have damage downs or rez sickness.\nWill default to you if no suitable party members were found.",
-        AST.JobID)]
+    [CustomComboInfo("快速目标伤害卡", "在连击中打出太阳神之衡或战争神之枪时，自动为合适的队友上卡。\n优先选择最适合该卡的DPS（遵循The Balance优先级），如无合适目标或已有增益，则选择其他DPS。\n会跳过有伤害降低或复活虚弱的队员。\n如无合适目标则默认给自己。", AST.JobID)]
     [Retargeted]
     AST_Cards_QuickTargetCards = 1029,
 
     #endregion
     
     #region Hidden Features
-    [CustomComboInfo("Hidden Options", "Collection of cheeky or encounter-specific extra options only available to those in the know." +
-                                       "\nDo not expect these options to be maintained, or even kept, after they are no longer Current.", AST.JobID)]
+    [CustomComboInfo("隐藏选项", "仅对熟悉的玩家开放的特殊或副本专用选项集合。\n这些选项可能不会长期维护或保留。", AST.JobID)]
     [Hidden]
     AST_Hidden = 1075,
     
     [ParentCombo(AST_Hidden)]
-    [CustomComboInfo("RaidWide Collective Unconscious Option", "Additionally, Will try to Weave Collective Unconscious when a raidwide casting. \nWill be used in all 4 main combos.", AST.JobID)]
+    [CustomComboInfo("团队命运之轮", "团队范围技能时，尝试插入命运之轮。\n会在所有四个主连击中使用。", AST.JobID)]
     [Hidden]
     AST_Hidden_CollectiveUnconscious = 1076,
     
     [ParentCombo(AST_Hidden)]
-    [CustomComboInfo("RaidWide Neutral Sect Combo Option", "Additionally, Will try to Weave Neutral Sect and Sun sign when a raidwide casting. " +
-                                                               "\nWill be used in all 4 main combos.", AST.JobID)]
+    [CustomComboInfo("团队中间学派连击", "团队范围技能时，尝试插入中间学派及太阳星座。\n会在所有四个主连击中使用。", AST.JobID)]
     [Hidden]
     AST_Hidden_NeutralSect = 1077,
     
     [ParentCombo(AST_Hidden)]
-    [CustomComboInfo("RaidWide Aspected Helios Option", "Additionally, Will try to cast Aspected Helios for with Neutral Sect Buff for shields when a raidwide casting. " +
-                                                           "\nWill be used in all 4 main combos.", AST.JobID)]
+    [CustomComboInfo("团队阳星相位", "团队范围技能时，尝试在中间学派增益下释放阳星相位以获得护盾。\n会在所有四个主连击中使用。", AST.JobID)]
     [Hidden]
     AST_Hidden_AspectedHelios = 1078,
     
