@@ -207,13 +207,13 @@ internal partial class DNC
                     ImGui.Indent();
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
                     ImGui.TextWrapped(
-                        "Opener options:");
+                        "起手式选项：");
                     ImGui.PopStyleColor();
 
                     UserConfig.DrawAdditionalBoolChoice(DNC_ST_OpenerOption_Peloton,
-                        $"Include {Peloton.ActionName()}", "");
+                        $"包含 {Peloton.ActionName()}", "");
 
-                    UserConfig.DrawBossOnlyChoice(DNC_ST_OpenerDifficulty, "Select what kind of content to use this opener in:");
+                    UserConfig.DrawBossOnlyChoice(DNC_ST_OpenerDifficulty, "选择在哪类内容中使用此起手式：");
                     ImGui.Unindent();
 
                     break;

@@ -1640,20 +1640,20 @@ public enum CustomComboPreset
     DNC_ST_BalanceOpener = 4011,
 
     [ParentCombo(DNC_ST_BalanceOpener)]
-    [CustomComboInfo("Wait for Countdown Options", "When not in combat will change to Savage Blade to wait for a countdown to appear.\nMostly here to allow for targeting the boss before the exact countdown window your opener selection is waiting for.\nONLY designed to be something you turn on while doing back-to-back pulls of content, NOT suitable to leave on all the time.", DNC.JobID)]
+    [CustomComboInfo("等待倒计时", "非战斗状态下会变为狂怒剑以等待倒计时出现。\n主要用于在起手选择等待的倒计时窗口前锁定Boss目标。\n仅适合连续开怪时临时开启，不建议一直保持开启。", DNC.JobID)]
     DNC_ST_Opener_BlockEarly = 4031,
 
     [ParentCombo(DNC_ST_AdvancedMode)]
-    [CustomComboInfo("Dance Partner Reminder Option", "Includes Closed Position when out of combat and you do not have a dance partner.", DNC.JobID)]
+    [CustomComboInfo("舞伴提醒", "非战斗状态且没有舞伴时会包含闭式舞姿。", DNC.JobID)]
     DNC_ST_Adv_Partner = 4012,
 
     [ParentCombo(DNC_ST_Adv_Partner)]
-    [CustomComboInfo("Retarget to Optimal Partner", "Will Retarget the Closed Position shown out of combat to your optimal partner.", DNC.JobID)]
+    [CustomComboInfo("自动切换最优舞伴", "非战斗状态下会自动将闭式舞姿指向最优舞伴。", DNC.JobID)]
     [Retargeted]
     DNC_ST_Adv_PartnerAuto = 4033,
 
     [ParentCombo(DNC_ST_AdvancedMode)]
-    [CustomComboInfo("Optimal Dance Partner Option", "Includes Ending and then Closed Position in the rotation when your current partner is not the optimal one, such as when they get a damage down.", DNC.JobID)]
+    [CustomComboInfo("最优舞伴", "当当前舞伴不是最优目标（如被减伤）时，轮换中会包含解除闭式舞姿和重新闭式舞姿。", DNC.JobID)]
     [Retargeted]
     DNC_ST_Adv_AutoPartner = 4032,
 
@@ -1853,7 +1853,7 @@ public enum CustomComboPreset
     #region Basic combo
 
     [ReplaceSkill(DNC.Fountain)]
-    [CustomComboInfo("基础连击", "Replace Fountain with its combo chain.", DNC.JobID)]
+    [CustomComboInfo("基础连击", "替换喷泉为基础连击。", DNC.JobID)]
     [BasicCombo]
     DNC_ST_BasicCombo = 4003,
 
@@ -1916,8 +1916,8 @@ public enum CustomComboPreset
     #region Dance Partner Features
 
     [ReplaceSkill(DNC.ClosedPosition, DNC.Ending)]
-    [CustomComboInfo("Dance Partner on Desirable Partner Feature",
-        "Replaces Closed Position with itself, but targeted to a party member, so you can cast it without having to pick anyone and without having to actually target anyone.\nWill show Ending when your current Partner is no longer the best choice.", DNC.JobID)]
+    [CustomComboInfo("自动选择最佳闭式舞伴",
+        "将闭式舞姿自动指向队伍中最合适的成员，无需手动选择目标或切换目标。\n当当前舞伴不再是最佳选择时，将显示解除闭式舞姿。", DNC.JobID)]
     [Retargeted]
     DNC_DesirablePartner = 4175,
 
@@ -1926,22 +1926,21 @@ public enum CustomComboPreset
 
     #region Dance Features
 
-    [CustomComboInfo("Custom Dance Step Feature",
-        "Change custom actions into dance steps while dancing." +
-        "\nLets you still dance with combos on, without using Step Combo Features above.", DNC.JobID)]
+    [CustomComboInfo("自定义舞步功能",
+        "跳舞时将自定义动作变为舞步。\n即使开启连击功能，也能正常跳舞，无需使用上方的舞步连击功能。", DNC.JobID)]
     DNC_CustomDanceSteps = 4115,
 
     [ParentCombo(DNC_CustomDanceSteps)]
-    [CustomComboInfo("Override Smaller Features", "If enabled, will let you choose actions that are replaced by the smaller features listed below here, and they will return the Step that you have set them to when dancing.", DNC.JobID)]
+    [CustomComboInfo("覆盖下方小功能", "启用后，跳舞时可选择被下方小功能替换的技能，并返回你设置的舞步。", DNC.JobID)]
     DNC_CustomDanceSteps_Conflicts = 4116,
 
-    [CustomComboInfo("Dance Features", "Small Features for Standard and Technical Step", DNC.JobID)]
+    [CustomComboInfo("舞步相关功能", "标准舞步与技巧舞步的小型功能。", DNC.JobID)]
     DNC_DanceFeatures = 4111,
 
     [ParentCombo(DNC_DanceFeatures)]
     [ReplaceSkill(DNC.StandardStep)]
-    [CustomComboInfo("Standard Step Combo Feature",
-        "Change Standard Step into each dance step, while dancing.", DNC.JobID)]
+    [CustomComboInfo("标准舞步连击功能",
+        "跳舞时将标准舞步依次变为各个舞步。", DNC.JobID)]
     DNC_StandardStepCombo = 4110,
 
     // StandardStep(or Finishing Move) --> Last Dance
