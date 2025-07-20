@@ -329,15 +329,15 @@ internal partial class WHM
 
         /// Bar Description for target HP% to start using plus disable text
         private const string targetStartUsingAtDescription =
-            "目标HP%小于等于该值时使用（100=禁用检测）";
+            "目标HP百分比小于等于该值时使用（100=禁用检测）";
 
         /// 非Boss目标停止使用的HP%描述
         private const string targetStopUsingAtDescription =
-            " 非Boss目标HP%高于该值时停止使用（0=总是使用，100=从不使用）";
+            " 非Boss目标HP百分比高于该值时停止使用（0=总是使用，100=从不使用）";
 
         /// Boss目标停止使用的HP%描述
         private const string targetStopUsingOnBossAtDescription =
-            " Boss目标HP%高于该值时停止使用（0=总是使用，100=从不使用）";
+            " Boss目标HP百分比高于该值时停止使用（0=总是使用，100=从不使用）";
 
         /// Description for MP threshold
         private const string mpThresholdDescription =
