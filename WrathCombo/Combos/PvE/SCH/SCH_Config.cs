@@ -63,7 +63,7 @@ internal partial class SCH
                     
                     ImGui.Indent();
                     
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查可应用于哪种类型的敌人：");
                     
                     DrawHorizontalRadioButton(SCH_ST_DPS_ChainStratagemSubOption,
                         "Non-Bosses", "Only applies the HP check above to non-bosses.\nAllows you to only stop DoTing early when it's not a boss.", 0);
@@ -76,25 +76,25 @@ internal partial class SCH
                     break;
 
                 case CustomComboPreset.SCH_ST_ADV_DPS_EnergyDrain:
-                    DrawSliderInt(0, 60, SCH_ST_DPS_EnergyDrain, "Aetherflow remaining cooldown");
+                    DrawSliderInt(0, 60, SCH_ST_DPS_EnergyDrain, "以太超流剩余冷却时间");
                     
                     DrawAdditionalBoolChoice(SCH_ST_DPS_EnergyDrain_Burst, 
-                        "Energy Drain Burst", "Holds Energy Drain when Chain Stratagem is ready or has less than 10 seconds cooldown remaining.");
+                        "能量吸收爆发", "当连环计可用或冷却时间少于10秒时，保留能量吸收。");
                     break;
                 
                 case CustomComboPreset.SCH_AoE_ADV_DPS_Lucid:
-                    DrawSliderInt(4000, 9500, SCH_AoE_DPS_LucidOption, "MP Threshold", 150, Hundreds);
+                    DrawSliderInt(4000, 9500, SCH_AoE_DPS_LucidOption, "MP阈值", 150, Hundreds);
                     break;
                 
                 case CustomComboPreset.SCH_AoE_ADV_DPS_ChainStrat:
                     DrawAdditionalBoolChoice(SCH_AoE_DPS_ChainStratagemBanefulOption, 
-                        "Baneful Only", "Will only use Chain Strategem when high enough level to use Baneful Impaction");
+                        "仅限埋伏之毒", "只有在等级足够使用埋伏之毒时才会使用连环计");
                     
-                    DrawSliderInt(0, 100, SCH_AoE_DPS_ChainStratagemOption, "Stop using at Enemy HP%. Set to Zero to disable this check.");
+                    DrawSliderInt(0, 100, SCH_AoE_DPS_ChainStratagemOption, "敌人HP低于此百分比时停止使用。设为0以禁用此检查。");
                     
                     ImGui.Indent();
                     
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查可应用于哪种类型的敌人：");
                     
                     DrawHorizontalRadioButton(SCH_AoE_DPS_ChainStratagemSubOption,
                         "Non-Bosses", "Only applies the HP check above to non-bosses.\nAllows you to only stop DoTing early when it's not a boss.", 0);
@@ -238,12 +238,12 @@ internal partial class SCH
                 
                 case CustomComboPreset.SCH_AoE_Heal_Aetherflow:
                     DrawAdditionalBoolChoice(SCH_AoE_Heal_Aetherflow_Indomitability,
-                        "Indomitability Ready Only Option", "Only uses Aetherflow if Indomitability is ready to use.");
+                        "不屈不挠之策可用时", "仅在不屈不挠之策可用时才使用以太超流。");
                     break;
                 
                 case CustomComboPreset.SCH_AoE_Heal_Dissipation:
                     DrawAdditionalBoolChoice(SCH_AoE_Heal_Dissipation_Indomitability,
-                        "Indomitability Ready Only Option", "Only uses Dissipation if Indomitability is ready to use.");
+                        "不屈不挠之策可用时", "仅在不屈不挠之策可用时才使用转化。");
                     break;
                 
                 #endregion

@@ -6242,7 +6242,7 @@ public enum CustomComboPreset
     [ReplaceSkill(SCH.Ruin, SCH.Broil, SCH.Broil2, SCH.Broil3, SCH.Broil4)]
     [SimpleCombo]
     [ConflictingCombos(SCH_ST_ADV_DPS)]
-    [CustomComboInfo("Simple DPS Mode - Single Target", "Replaces Ruin I / Broils with a full one-button single target rotation.\nThis is the ideal option for newcomers to the job.", SCH.JobID)]
+    [CustomComboInfo("简单输出模式-单目标", "将医术/气炎法等替换为完整单目标一键输出循环。\n非常适合新手学者使用。", SCH.JobID)]
     SCH_ST_Simple_DPS = 16070,
     
     
@@ -6250,7 +6250,7 @@ public enum CustomComboPreset
     [ReplaceSkill(SCH.ArtOfWar, SCH.ArtOfWarII)]
     [SimpleCombo]
     [ConflictingCombos(SCH_AoE_ADV_DPS)]
-    [CustomComboInfo("Simple DPS Mode - AoE", "Replaces Art of War with a full one-button AoE rotation.\nThis is the ideal option for newcomers to the job.", SCH.JobID)]
+    [CustomComboInfo("简单输出模式-多目标", "将破阵法替换为完整多目标一键输出循环。\n非常适合新手学者使用。", SCH.JobID)]
     SCH_AoE_Simple_DPS = 16071,
     
     #endregion
@@ -6283,8 +6283,7 @@ public enum CustomComboPreset
     SCH_ST_ADV_DPS_EnergyDrain = 16005,
     
     [ParentCombo(SCH_ST_ADV_DPS)]
-    [CustomComboInfo("Chain Stratagem",
-        "Adds Chain Stratagem on cooldown with overlap protection", SCH.JobID)]
+    [CustomComboInfo("连环计", "冷却时自动使用连环计，并防止覆盖。", SCH.JobID)]
     SCH_ST_ADV_DPS_ChainStrat = 16003,
     
     [ParentCombo(SCH_ST_ADV_DPS)]
@@ -6321,8 +6320,7 @@ public enum CustomComboPreset
     SCH_AoE_ADV_DPS_EnergyDrain = 16056,
     
     [ParentCombo(SCH_AoE_ADV_DPS)]
-    [CustomComboInfo("Chain Stratagem",
-        "Adds Chain Stratagem on cooldown with overlap protection", SCH.JobID)]
+    [CustomComboInfo("连环计", "冷却时自动使用连环计，并防止覆盖。", SCH.JobID)]
     SCH_AoE_ADV_DPS_ChainStrat = 16054,
     
     [ParentCombo(SCH_AoE_ADV_DPS)]
@@ -6347,8 +6345,7 @@ public enum CustomComboPreset
     #region  ST Healing
     [AutoAction(false, true)]
     [ReplaceSkill(SCH.Physick)]
-    [CustomComboInfo("Advanced Healing Mode - Single Target",
-        "Change Physick based on the below options::", SCH.JobID)]
+    [CustomComboInfo("高级治疗模式-单目标", "根据下方选项替换医术。", SCH.JobID)]
     [PossiblyRetargeted]
     [HealingCombo]
     SCH_ST_Heal = 16023,
@@ -6409,7 +6406,7 @@ public enum CustomComboPreset
 
     [AutoAction(true, true)]
     [ReplaceSkill(SCH.Succor)]
-    [CustomComboInfo("Advanced Healing Mode - AoE", "Replaces Succor with options below:", SCH.JobID)]
+    [CustomComboInfo("高级治疗模式 - 多目标", "将士气高扬之策替换为以下选项：", SCH.JobID)]
     [HealingCombo]
     SCH_AoE_Heal = 16018,
     
@@ -6425,7 +6422,7 @@ public enum CustomComboPreset
     SCH_AoE_Heal_WhisperingDawn = 16043,
     
     [ParentCombo(SCH_AoE_Heal)]
-    [CustomComboInfo("Fey Illumination Option", "Use Fey Illumination", SCH.JobID)]
+    [CustomComboInfo("异想的幻光", "使用异想的幻光", SCH.JobID)]
     SCH_AoE_Heal_FeyIllumination = 16042,
     
     [ParentCombo(SCH_AoE_Heal)]
@@ -6480,17 +6477,17 @@ public enum CustomComboPreset
     SCH_Lustrate = 16014,
     
     [ReplaceSkill(SCH.SacredSoil)]
-    [CustomComboInfo("Sacred Soil Retargetting", "Adds Self retargetting to Sacred Soil", SCH.JobID)]
+    [CustomComboInfo("野战治疗阵重定向", "为野战治疗阵添加自我重定向功能", SCH.JobID)]
     [Retargeted]
     SCH_SacredSoil = 16066,
     
     [ParentCombo(SCH_SacredSoil)]
-    [CustomComboInfo("Ally Placement Option", "Will add any ally UI MouseOver target, focus target, soft target, or hard target as the priority Retarget for Sacred Soil.\nBeneath the Enemy placement option, but above yourself.", SCH.JobID)]
+    [CustomComboInfo("队友放置", "将任意队友（鼠标悬停、专注目标、软选目标或硬选目标）作为野战治疗阵的优先重定向目标。\n优先级低于敌方放置，高于自身。", SCH.JobID)]
     [Retargeted]
     SCH_SacredSoil_Allies = 16061,
     
     [ParentCombo(SCH_SacredSoil)]
-    [CustomComboInfo("Enemy Placement Option", "Will add an enemy hard target as the top priority Retarget for Sacred Soil", SCH.JobID)]
+    [CustomComboInfo("敌方放置", "将敌方硬选目标作为野战治疗阵的最高优先级重定向目标", SCH.JobID)]
     [Retargeted]
     SCH_SacredSoil_Enemy = 16060,
     
