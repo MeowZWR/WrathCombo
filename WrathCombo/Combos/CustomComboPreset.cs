@@ -965,55 +965,55 @@ public enum CustomComboPreset
     BLM_ST_Opener = 2101,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Transpose Option", "Add Transpose to the rotation.", BLM.JobID)]
+    [CustomComboInfo("星灵移位", "将星灵移位加入循环。", BLM.JobID)]
     BLM_ST_Transpose = 2114,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Leylines Option", "Add Leylines to the rotation.", BLM.JobID)]
+    [CustomComboInfo("黑魔纹", "将黑魔纹加入循环。", BLM.JobID)]
     BLM_ST_LeyLines = 2103,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Amplifier Option", "Add Amplifier to the rotation.", BLM.JobID)]
+    [CustomComboInfo("详述", "将详述加入循环。", BLM.JobID)]
     BLM_ST_Amplifier = 2102,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Manafont Option", "Add Manafont to the rotation.", BLM.JobID)]
+    [CustomComboInfo("魔泉", "将魔泉加入循环。", BLM.JobID)]
     BLM_ST_Manafont = 2108,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("(High) Thunder Option", "Add (High) Thunder to the rotation.", BLM.JobID)]
+    [CustomComboInfo("（高）闪雷", "将（高）闪雷加入循环。", BLM.JobID)]
     BLM_ST_Thunder = 2110,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Despair Option", "Add Despair to the rotation.", BLM.JobID)]
+    [CustomComboInfo("绝望", "将绝望加入循环。", BLM.JobID)]
     BLM_ST_Despair = 2111,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Flare Star Option", "Add Flare Star to the rotation.", BLM.JobID)]
+    [CustomComboInfo("耀星", "将耀星加入循环。", BLM.JobID)]
     BLM_ST_FlareStar = 2112,
     
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Swiftcast Option", "Add Swiftcast to the rotation.", BLM.JobID)]
+    [CustomComboInfo("迅速咏唱", "将迅速咏唱加入循环。", BLM.JobID)]
     BLM_ST_Swiftcast = 2106,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Triplecast Option", "Add Triplecast to the rotation.\nWill only be used if Swiftcast is on cooldown.", BLM.JobID)]
+    [CustomComboInfo("三连咏唱", "将三连咏唱加入循环。\n仅在迅速咏唱冷却时使用。", BLM.JobID)]
     BLM_ST_Triplecast = 2115,
     
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Foul/Xenoglossy Option", "Add Foul/Xenoglossy to the rotation.", BLM.JobID)]
+    [CustomComboInfo("秽浊/异言", "将秽浊/异言加入循环。", BLM.JobID)]
     BLM_ST_UsePolyglot = 2104,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Movement Option", "Add chosen options for movement.", BLM.JobID)]
+    [CustomComboInfo("移动相关", "加入所选的移动相关选项。", BLM.JobID)]
     BLM_ST_Movement = 2113,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Scathe Option", "Add Scathe while moving and below lvl 66.", BLM.JobID)]
+    [CustomComboInfo("崩溃", "在移动且低于66级时加入崩溃。", BLM.JobID)]
     BLM_ST_UseScathe = 2116,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Manaward Option", "Adds Manaward to the rotation.", BLM.JobID)]
+    [CustomComboInfo("魔罩", "将魔罩加入循环。", BLM.JobID)]
     BLM_ST_Manaward = 2199,
 
     #endregion
@@ -1028,39 +1028,39 @@ public enum CustomComboPreset
     BLM_AoE_AdvancedMode = 2200,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("Transpose Option", "Add Transpose to the rotation.", BLM.JobID)]
+    [CustomComboInfo("星灵移位", "将星灵移位加入循环。", BLM.JobID)]
     BLM_AoE_Transpose = 2212,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("Leylines Option", "Add Leylines to the rotation.", BLM.JobID)]
+    [CustomComboInfo("黑魔纹", "将黑魔纹加入循环。", BLM.JobID)]
     BLM_AoE_LeyLines = 2202,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("Amplifier Option", "Add Amplifier to the rotation.", BLM.JobID)]
+    [CustomComboInfo("详述", "将详述加入循环。", BLM.JobID)]
     BLM_AoE_Amplifier = 2201,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("Manafont Option", "Add Manafont to the rotation.", BLM.JobID)]
+    [CustomComboInfo("魔泉", "将魔泉加入循环。", BLM.JobID)]
     BLM_AoE_Manafont = 2207,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("Triplecast Option", "Adds Triplecast to the rotation.", BLM.JobID)]
+    [CustomComboInfo("三连咏唱", "将三连咏唱加入循环。", BLM.JobID)]
     BLM_AoE_Triplecast = 2208,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("Paradox Filler Option", "Adds Paradox as a filler at max level to the rotation.", BLM.JobID)]
+    [CustomComboInfo("悖论填充", "在满级时将悖论作为填充技能加入循环。", BLM.JobID)]
     BLM_AoE_ParadoxFiller = 2210,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("(High) Thunder II Option", "Add (High) Thunder II to the rotation.", BLM.JobID)]
+    [CustomComboInfo("（高）震雷", "将（高）震雷加入循环。", BLM.JobID)]
     BLM_AoE_Thunder = 2209,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("Foul Option", "Add Foul to the rotation.", BLM.JobID)]
+    [CustomComboInfo("秽浊", "将秽浊加入循环。", BLM.JobID)]
     BLM_AoE_UsePolyglot = 2203,
 
     [ParentCombo(BLM_AoE_AdvancedMode)]
-    [CustomComboInfo("Blizzard IV on 2 Targets Option", "Substitutes Freeze for Blizzard 4 whenever it would hit 2 targets.", BLM.JobID)]
+    [CustomComboInfo("双目标冰澈", "双目标时将玄冰替换为冰澈。", BLM.JobID)]
     BLM_AoE_Blizzard4Sub = 2211,
 
     #endregion
@@ -1086,67 +1086,67 @@ public enum CustomComboPreset
     #region Miscellaneous
 
     [ReplaceSkill(BLM.Triplecast)]
-    [CustomComboInfo("Triplecast Protection", "Replaces Triplecast with Savage Blade when you already have triplecast active.", BLM.JobID)]
+    [CustomComboInfo("三连咏唱保护", "已拥有三连咏唱状态时，将三连咏唱替换为狂怒剑。", BLM.JobID)]
     BLM_TriplecastProtection = 2056,
 
     [ReplaceSkill(BLM.Fire, BLM.Fire3)]
-    [CustomComboInfo("Fire I/III Feature", "Replaces Fire I or Fire III.", BLM.JobID)]
+    [CustomComboInfo("火炎/爆炎功能", "将火炎或爆炎进行替换。", BLM.JobID)]
     BLM_Fire1to3 = 2054,
 
     [ReplaceSkill(BLM.Blizzard, BLM.Blizzard3)]
-    [CustomComboInfo("Blizzard I/III Feature", "Replaces Blizzard I or Blizzard III.\nReplaces Freeze with Blizzard II when synced below Lv.40.", BLM.JobID)]
+    [CustomComboInfo("冰结/冰封功能", "将冰结或冰封进行替换。\n同步等级低于40级时，将玄冰替换为冰冻。", BLM.JobID)]
     BLM_Blizzard1to3 = 2052,
 
     [ReplaceSkill(BLM.Fire4)]
     [ConflictingCombos(BLM_FireandIce)]
-    [CustomComboInfo("Fire 4 to 3", "Replaces Fire 4 with Fire 3 when not in Astral Fire III or not in combat.", BLM.JobID)]
+    [CustomComboInfo("炽炎转爆炎", "未处于星极火3层或未战斗时，将炽炎替换为爆炎。", BLM.JobID)]
     BLM_Fire4to3 = 2059,
 
     [ReplaceSkill(BLM.Blizzard4)]
-    [CustomComboInfo("Blizzard 4 to Despair", "Replaces Blizzard 4 with Despair when in Astral Fire.", BLM.JobID)]
+    [CustomComboInfo("冰澈转绝望", "处于星极火时，将冰澈替换为绝望。", BLM.JobID)]
     BLM_Blizzard4toDespair = 2060,
     
     [ReplaceSkill(BLM.Fire4, BLM.Flare)]
     [ConflictingCombos(BLM_Fire4to3)]
-    [CustomComboInfo("Fire & Ice", "Replaces Fire4 with Blizzard4 when in Umbral Ice.\nReplaces Flare with Freeze when in Umbral Ice.", BLM.JobID)]
+    [CustomComboInfo("火冰切换", "处于灵极冰时，将炽炎替换为冰澈。\n处于灵极冰时，将核爆替换为玄冰。", BLM.JobID)]
     BLM_FireandIce = 2057,
 
     [ReplaceSkill(BLM.Blizzard, BLM.Blizzard3)]
     [ConflictingCombos(BLM_FreezeParadox)]
-    [CustomComboInfo("Freeze to Blizzard II", "nReplaces Freeze with Blizzard II when synced below Lv.40.", BLM.JobID)]
+    [CustomComboInfo("玄冰转冰冻", "同步等级低于40级时，将玄冰替换为冰冻。", BLM.JobID)]
     BLM_FreezeBlizzard2 = 2064,
 
     [ReplaceSkill(BLM.Fire4, BLM.Flare)]
-    [CustomComboInfo(" Fire and Flare to Star", "Replaces Fire4 and Flare to Flarestar when on max stacks.", BLM.JobID)]
+    [CustomComboInfo("炽炎/核爆转耀星", "在耀星层数满时，将炽炎和核爆替换为耀星。", BLM.JobID)]
     BLM_FireFlarestar = 2058,
 
     [ReplaceSkill(BLM.Freeze)]
     [ConflictingCombos(BLM_FreezeBlizzard2)]
-    [CustomComboInfo("Freeze to Paradox", "Replaces Freeze with Ice Paradox when you have 3 Umbral Heart stacks.", BLM.JobID)]
+    [CustomComboInfo("玄冰转悖论", "拥有3层灵极心时，将玄冰替换为冰属性悖论。", BLM.JobID)]
     BLM_FreezeParadox = 2062,
 
     [ReplaceSkill(BLM.FlareStar)]
-    [CustomComboInfo("Flarestar to Paradox", "Replaces Flarestar with Fire Paradox when not at max Flarestar stacks.", BLM.JobID)]
+    [CustomComboInfo("耀星转悖论", "未满耀星层数时，将耀星替换为火属性悖论。", BLM.JobID)]
     BLM_FlareParadox = 2063,
 
     [ReplaceSkill(BLM.Amplifier)]
-    [CustomComboInfo("Amplifier to Xenoglossy", "Replaces Amplifier with Xenoglossy when at max Polyglot stacks.", BLM.JobID)]
+    [CustomComboInfo("详述转异言", "通晓层数已满时，将详述替换为异言。", BLM.JobID)]
     BLM_AmplifierXeno = 2061,
     
     [ReplaceSkill(BLM.Transpose)]
-    [CustomComboInfo("Umbral Soul/Transpose Feature", "Replaces Transpose with Umbral Soul when Umbral Soul is available.", BLM.JobID)]
+    [CustomComboInfo("灵极魂/星灵移位", "灵极魂可用时，将星灵移位替换为灵极魂。", BLM.JobID)]
     BLM_UmbralSoul = 2050,
 
     [ReplaceSkill(BLM.Scathe)]
-    [CustomComboInfo("Xenoglossy Feature", "Replaces Scathe with Xenoglossy when available.", BLM.JobID)]
+    [CustomComboInfo("异言", "可用时，将崩溃替换为异言。", BLM.JobID)]
     BLM_ScatheXeno = 2053,
 
     [ReplaceSkill(BLM.LeyLines)]
-    [CustomComboInfo("Between the Ley Lines Feature", "Replaces Ley Lines with Between the Lines when Ley Lines is active.", BLM.JobID)]
+    [CustomComboInfo("黑魔纹", "黑魔纹激活时，将黑魔纹替换为魔纹步。", BLM.JobID)]
     BLM_Between_The_LeyLines = 2051,
 
     [ReplaceSkill(BLM.AetherialManipulation)]
-    [CustomComboInfo("Aetherial Manipulation Feature", "Replaces Aetherial Manipulation with Between the Lines when you are out of active Ley Lines and standing still.", BLM.JobID)]
+    [CustomComboInfo("以太步", "未处于黑魔纹且静止时，将以太步替换为魔纹步。", BLM.JobID)]
     BLM_Aetherial_Manipulation = 2055,
     
     #endregion
@@ -6107,7 +6107,7 @@ public enum CustomComboPreset
 
     [ReplaceSkill(SAM.MeikyoShisui)]
     [ConflictingCombos(SAM_MeikyoSens)]
-    [CustomComboInfo("明镜止水保护", "已激活明镜止水时，将其替换为残暴剑。", SAM.JobID)]
+    [CustomComboInfo("明镜止水保护", "已激活明镜止水时，将其替换为狂怒剑。", SAM.JobID)]
     SAM_MeikyoShisuiProtection = 15214,
 
     #endregion
