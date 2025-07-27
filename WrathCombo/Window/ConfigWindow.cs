@@ -19,8 +19,8 @@ using WrathCombo.Attributes;
 using WrathCombo.Combos;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Core;
-using WrathCombo.Data;
 using WrathCombo.Services;
+using WrathCombo.Data.Conflicts;
 using WrathCombo.Window.Tabs;
 
 namespace WrathCombo.Window
@@ -207,36 +207,7 @@ namespace WrathCombo.Window
             ImGui.Spacing();
 #endif
 
-            var conflictingPlugins = ConflictingPluginsCheck.TryGetConflictingPlugins();
-            if (conflictingPlugins != null)
-            {
-                ImGui.Spacing();
-                ImGui.Spacing();
-                const string conflictStringStart = "检测到冲突连击";
-                const string conflictStringEnd = "插件！";
-
-                // Chop the text in half if it doesn't fit
-                ImGuiEx.LineCentered("###ConflictingPlugins", () =>
-                {
-                    if (ImGui.GetColumnWidth() < ImGui.CalcTextSize(conflictStringStart + " " + conflictStringEnd).X.Scale())
-                        ImGui.TextColored(ImGuiColors.DalamudYellow, conflictStringStart + "\n" + conflictStringEnd);
-                    else
-                        ImGui.TextColored(ImGuiColors.DalamudYellow, conflictStringStart + " " + conflictStringEnd);
-
-                    // Tooltip with explanation
-                    if (ImGui.IsItemHovered())
-                    {
-                        var conflictingPluginsText = "- " + string.Join("\n- ", conflictingPlugins);
-                        var tooltipText =
-                            $"以下插件已知会与 {Svc.PluginInterface.InternalName} 冲突：\n" +
-                            conflictingPluginsText +
-                            "\n\n建议禁用这些插件以防止出现\n" +
-                            "意外行为和BUG。";
-
-                        ImGui.SetTooltip(tooltipText);
-                    }
-                });
-            }
+            ConflictingPlugins.Draw();
         }
 
         private void DrawBody()

@@ -418,7 +418,7 @@ public enum CustomComboPreset
     ALL_Tank_Interrupt = 100000,
 
     [ParentCombo(ALL_Tank_Interrupt)]
-    [Retargeted]
+    [Retargeted(RoleActions.Tank.Interject, RoleActions.Tank.LowBlow)]
     [CustomComboInfo("重定向打断目标", "如果施法者不是你的当前目标，将重新指定打断技能的目标。", ADV.JobID)]
     ALL_Tank_Interrupt_Retarget = 100005,
 
@@ -434,7 +434,7 @@ public enum CustomComboPreset
     [ParentCombo(ALL_Tank_Menu)]
     [CustomComboInfo("防护职业: 退避重定向",
         "如果存在其他防护职业，将退避重定向到其他防护职业。", ADV.JobID)]
-    [Retargeted]
+    [Retargeted(RoleActions.Tank.Shirk)]
     ALL_Tank_ShirkRetargeting = 100002,
 
     [Role(JobRole.Tank)]
@@ -470,7 +470,7 @@ public enum CustomComboPreset
 
     [ParentCombo(ALL_Healer_Raise)]
     [CustomComboInfo("重定向复活目标", "将此范围内受影响的复活技能目标，重新指定为你的治疗集合目标。", ADV.JobID)]
-    [Retargeted]
+    [Retargeted(WHM.Raise, AST.Ascend, SGE.Egeiro, SCH.Resurrection)]
     ALL_Healer_Raise_Retarget = 100011,
 
     [Role(JobRole.Healer)]
@@ -478,14 +478,14 @@ public enum CustomComboPreset
     [ParentCombo(ALL_Healer_Menu)]
     [CustomComboInfo("治疗职业: 康复重定向",
         "将康复技能（在连击使用之外）重定向到你的治疗集合，检查集合中每个潜在目标是否具有可清除的减益效果。", ADV.JobID)]
-    [Retargeted]
+    [Retargeted(RoleActions.Healer.Esuna)]
     ALL_Healer_EsunaRetargeting = 100012,
     
     [Role(JobRole.Healer)]
     [ReplaceSkill(RoleActions.Healer.Rescue)]
     [ParentCombo(ALL_Healer_Menu)]
     [CustomComboInfo("治疗职业: 营救重定向", "将营救技能（在连击使用之外）重定向到UI鼠标悬停位置和其他选项。", ADV.JobID)]
-    [Retargeted]
+    [Retargeted(RoleActions.Healer.Rescue)]
     ALL_Healer_RescueRetargeting = 100013,
     #endregion
 
@@ -515,7 +515,7 @@ public enum CustomComboPreset
 
     [ParentCombo(ALL_Caster_Raise)]
     [CustomComboInfo("重定向复活目标", "将此范围内受影响的复活技能目标，重新指定为你的治疗集合目标。", ADV.JobID)]
-    [Retargeted]
+    [Retargeted(BLU.AngelWhisper, RDM.Verraise, SMN.Resurrection)]
     ALL_Caster_Raise_Retarget = 100022,
 
     #endregion
@@ -640,7 +640,7 @@ public enum CustomComboPreset
     [ParentCombo(AST_ST_DPS)]
     [CustomComboInfo("Card Play Weave Option", "Weaves your Balance or Spear card (best used with Quick Target Cards)",
         AST.JobID)]
-    [PossiblyRetargeted("AST's Quick Target Damage Cards Feature", Condition.ASTQuickTargetCardsFeatureEnabled)]
+    [PossiblyRetargeted("AST's Quick Target Damage Cards Feature", Condition.ASTQuickTargetCardsFeatureEnabled, AST.Play1, AST.Balance, AST.Spear)]
     AST_DPS_AutoPlay = 1037,
 
     [ParentCombo(AST_DPS_AutoPlay)]
@@ -662,7 +662,7 @@ public enum CustomComboPreset
 
     [ParentCombo(AST_ST_DPS)]
     [CustomComboInfo("地星", "在循环中加入地星放置（不包含引爆）。\n优先目标为任意敌人，其次为焦点目标，再次为软锁和硬锁目标，最后会放置在自己脚下。", AST.JobID)]
-    [Retargeted]
+    [Retargeted(AST.EarthlyStar)]
     AST_ST_DPS_EarthlyStar = 1051,
     
     [ParentCombo(AST_ST_DPS)]
@@ -683,6 +683,10 @@ public enum CustomComboPreset
     [CustomComboInfo("Advanced DPS Mode - AoE", "Replaces Gravity with options below", AST.JobID)]
     [AdvancedCombo]
     AST_AOE_DPS = 1041,
+    
+    [ParentCombo(AST_AOE_DPS)]
+    [CustomComboInfo("Multitarget Dot Option", "Maintains dots on multiple targets.", AST.JobID)]
+    AST_AOE_DPS_DoT = 1083,
 
     [ParentCombo(AST_AOE_DPS)]
     [CustomComboInfo("Lightspeed Weave Option", "Adds Lightspeed when moving", AST.JobID)]
@@ -707,7 +711,7 @@ public enum CustomComboPreset
     [ParentCombo(AST_AOE_DPS)]
     [CustomComboInfo("Card Play Weave Option", "Weaves your Balance or Spear card (best used with Quick Target Cards)",
         AST.JobID)]
-    [PossiblyRetargeted("AST's Quick Target Damage Cards Feature", Condition.ASTQuickTargetCardsFeatureEnabled)]
+    [PossiblyRetargeted("AST's Quick Target Damage Cards Feature", Condition.ASTQuickTargetCardsFeatureEnabled, AST.Play1, AST.Balance, AST.Spear)]
     AST_AOE_AutoPlay = 1045,
 
     [ParentCombo(AST_AOE_AutoPlay)]
@@ -729,7 +733,7 @@ public enum CustomComboPreset
 
     [ParentCombo(AST_AOE_DPS)]
     [CustomComboInfo("地星", "在循环中自动放置地星（不包含引爆）。\n优先放置于专注目标，其次为软锁和硬锁目标，最后放置在自身脚下。", AST.JobID)]
-    [Retargeted]
+    [Retargeted(AST.EarthlyStar)]
     AST_AOE_DPS_EarthlyStar = 1052,
     
     [ParentCombo(AST_AOE_DPS)]
@@ -752,54 +756,54 @@ public enum CustomComboPreset
     [ReplaceSkill(AST.Benefic2)]
     [CustomComboInfo("Advanced Healing Mode - Single Target", "Replaces Benefic II with a one button healing replacement.",
         AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(AST.Benefic2)]
     [HealingCombo]
     AST_ST_Heals = 1023,
     
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("Esuna Option", "Applies Esuna to your target if there is a cleansable debuff.", AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(RoleActions.Healer.Esuna)]
     AST_ST_Heals_Esuna = 1039,
     
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("Aspected Benefic Option", "Adds Aspected Benefic & refreshes it if needed.", AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(AST.AspectedBenefic)]
     AST_ST_Heals_AspectedBenefic = 1027,
 
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("Essential Dignity Option",
         "Essential Dignity will be added when the target is at or below the value set", AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(AST.EssentialDignity)]
     AST_ST_Heals_EssentialDignity = 1024,
 
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("Celestial Intersection Option", "Adds Celestial Intersection.", AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(AST.CelestialIntersection)]
     AST_ST_Heals_CelestialIntersection = 1025,
 
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("Exaltation Option", "Adds Exaltation.", AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(AST.Exaltation)]
     AST_ST_Heals_Exaltation = 1028,
 
     [ParentCombo(AST_ST_Heals)]
-    [CustomComboInfo("The Spire Option", "Adds The Spire (Shield)  when the card has been drawn", AST.JobID)]
-    [PossiblyRetargeted]
+    [CustomComboInfo("The Spire Option", "Adds The Spire (Shield) when the card has been drawn", AST.JobID)]
+    [PossiblyRetargeted(AST.Spire)]
     AST_ST_Heals_Spire = 1030,
 
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("The Ewer Option", "Adds The Ewer (Heal over time) when the card has been drawn", AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(AST.Ewer)]
     AST_ST_Heals_Ewer = 1032,
 
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("The Arrow Option", "Adds The Arrow (increased healing)  when the card has been drawn", AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(AST.Arrow)]
     AST_ST_Heals_Arrow = 1049,
 
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("The Bole Option", "Adds The Bole (Reduced Damage) when the card has been drawn", AST.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(AST.Bole)]
     AST_ST_Heals_Bole = 1050,
     
     [ParentCombo(AST_ST_Heals)]
@@ -871,8 +875,8 @@ public enum CustomComboPreset
     AST_Raise_Alternative = 1003,
 
     [ParentCombo(AST_Raise_Alternative)]
-    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的一键治疗上。", AST.JobID)]
-    [Retargeted]
+    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的治疗集合。", AST.JobID)]
+    [Retargeted(AST.Ascend)]
     AST_Raise_Alternative_Retarget = 1060,
 
     [ReplaceSkill(AST.Lightspeed)]
@@ -880,8 +884,8 @@ public enum CustomComboPreset
     AST_Lightspeed_Protection = 1065,    
 
     [ReplaceSkill(AST.EssentialDignity)]
-    [CustomComboInfo("重定向先天禀赋", "在非治疗连击时，将先天禀赋自动重定向至你的治疗目标。", AST.JobID)]
-    [Retargeted]
+    [CustomComboInfo("重定向先天禀赋", "在非治疗连击时，将先天禀赋自动重定向至你的治疗集合目标。", AST.JobID)]
+    [Retargeted(AST.EssentialDignity)]
     AST_RetargetEssentialDignity = 1059,
 
     [Variant]
@@ -899,35 +903,37 @@ public enum CustomComboPreset
 
     #region Cards
 
-    [CustomComboInfo("快速目标伤害卡", "在连击中打出太阳神之衡或战争神之枪时，自动为合适的队友上卡。\n优先选择最适合该卡的DPS（遵循The Balance优先级），如无合适目标或已有增益，则选择其他DPS。\n会跳过有伤害降低或复活虚弱的队员。\n如无合适目标则默认给自己。", AST.JobID)]
-    [Retargeted]
+    [CustomComboInfo("快速目标伤害卡",
+        "在连击中打出太阳神之衡或战争神之枪时，自动为合适的队友上卡。\n优先选择最适合该卡的DPS（遵循The Balance优先级），如无合适目标或已有增益，则选择其他DPS。\n会跳过有伤害降低或复活虚弱的队员。\n如无合适目标则默认给自己。's priorities; if none found or they have buffs already, will look at the other DPS instead.\nWill try to skip party members that have damage downs or rez sickness.\nWill default to you if no suitable party members were found.",
+        AST.JobID)]
+    [Retargeted(AST.Play1, AST.Balance, AST.Spear)]
     AST_Cards_QuickTargetCards = 1029,
 
     #endregion
     
-    #region Hidden Features
-    [CustomComboInfo("隐藏选项", "仅对熟悉的玩家开放的特殊或副本专用选项集合。\n这些选项可能不会长期维护或保留。", AST.JobID)]
-    [Hidden]
-    AST_Hidden = 1075,
+    #region Raidwide Features
+    [CustomComboInfo("Boss Raidwide Options",
+        "Collection of tools designed to try and cast during a raidwide attack when detected." +
+        "\nThis will work for most, but not all raidwide attacks and is no substitute for learning the fight", AST.JobID)]
+    AST_Raidwide = 1075,
     
-    [ParentCombo(AST_Hidden)]
+    [ParentCombo(AST_Raidwide)]
     [CustomComboInfo("团队命运之轮", "团队范围技能时，尝试插入命运之轮。\n会在所有四个主连击中使用。", AST.JobID)]
-    [Hidden]
-    AST_Hidden_CollectiveUnconscious = 1076,
+    AST_Raidwide_CollectiveUnconscious = 1076,
     
-    [ParentCombo(AST_Hidden)]
-    [CustomComboInfo("团队中间学派连击", "团队范围技能时，尝试插入中间学派及太阳星座。\n会在所有四个主连击中使用。", AST.JobID)]
-    [Hidden]
-    AST_Hidden_NeutralSect = 1077,
+    [ParentCombo(AST_Raidwide)]
+    [CustomComboInfo("团队中间学派连击", "团队范围技能时，尝试插入中间学派及太阳星座。" +
+                                                               "\n会在所有四个主连击中使用。", AST.JobID)]
+    AST_Raidwide_NeutralSect = 1077,
     
-    [ParentCombo(AST_Hidden)]
-    [CustomComboInfo("团队阳星相位", "团队范围技能时，尝试在中间学派增益下释放阳星相位以获得护盾。\n会在所有四个主连击中使用。", AST.JobID)]
-    [Hidden]
-    AST_Hidden_AspectedHelios = 1078,
+    [ParentCombo(AST_Raidwide)]
+    [CustomComboInfo("团队阳星相位", "团队范围技能时，尝试在中间学派增益下释放阳星相位以获得护盾。" +
+                                                           "\n会在所有四个主连击中使用。", AST.JobID)]
+    AST_Raidwide_AspectedHelios = 1078,
     
     #endregion
 
-    // Last value = 1080
+    // Last value = 1083
 
     #endregion
 
@@ -937,7 +943,7 @@ public enum CustomComboPreset
 
     [AutoAction(false, false)]
     [ReplaceSkill(BLM.Fire)]
-    [ConflictingCombos(BLM_ST_AdvancedMode)]
+    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_Fire1to3, BLM_Fire1Despair)]
     [CustomComboInfo("Simple Mode - Single Target", "Replaces Fire with a full one-button single target rotation.\nThis is the ideal option for newcomers to the job.", BLM.JobID)]
     [SimpleCombo]
     BLM_ST_SimpleMode = 2001,
@@ -955,7 +961,7 @@ public enum CustomComboPreset
 
     [AutoAction(false, false)]
     [ReplaceSkill(BLM.Fire)]
-    [ConflictingCombos(BLM_ST_SimpleMode)]
+    [ConflictingCombos(BLM_ST_SimpleMode, BLM_Fire1to3, BLM_Fire1Despair)]
     [CustomComboInfo("Advanced Mode - Single Target", "Replaces Fire with a full one-button single target rotation.\nThese features are ideal if you want to customize the rotation.", BLM.JobID)]
     [AdvancedCombo]
     BLM_ST_AdvancedMode = 2100,
@@ -1090,10 +1096,12 @@ public enum CustomComboPreset
     BLM_TriplecastProtection = 2056,
 
     [ReplaceSkill(BLM.Fire, BLM.Fire3)]
+    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_ST_SimpleMode, BLM_Fire1Despair)]
     [CustomComboInfo("火炎/爆炎功能", "将火炎或爆炎进行替换。", BLM.JobID)]
     BLM_Fire1to3 = 2054,
 
     [ReplaceSkill(BLM.Blizzard, BLM.Blizzard3)]
+    [ConflictingCombos(BLM_FreezeBlizzard2)]
     [CustomComboInfo("冰结/冰封功能", "将冰结或冰封进行替换。\n同步等级低于40级时，将玄冰替换为冰冻。", BLM.JobID)]
     BLM_Blizzard1to3 = 2052,
 
@@ -1101,6 +1109,11 @@ public enum CustomComboPreset
     [ConflictingCombos(BLM_FireandIce)]
     [CustomComboInfo("炽炎转爆炎", "未处于星极火3层或未战斗时，将炽炎替换为爆炎。", BLM.JobID)]
     BLM_Fire4to3 = 2059,
+
+    [ReplaceSkill(BLM.Fire)]
+    [ConflictingCombos(BLM_FireandIce, BLM_ST_AdvancedMode, BLM_ST_SimpleMode, BLM_Fire1to3)]
+    [CustomComboInfo("Fire to Despair", "Replaces Fire  with Despair when in Astral Fire and below 2400 MP.", BLM.JobID)]
+    BLM_Fire1Despair = 2065,
 
     [ReplaceSkill(BLM.Blizzard4)]
     [CustomComboInfo("冰澈转绝望", "处于星极火时，将冰澈替换为绝望。", BLM.JobID)]
@@ -1112,11 +1125,12 @@ public enum CustomComboPreset
     BLM_FireandIce = 2057,
 
     [ReplaceSkill(BLM.Blizzard, BLM.Blizzard3)]
-    [ConflictingCombos(BLM_FreezeParadox)]
+    [ConflictingCombos(BLM_FreezeParadox, BLM_Blizzard1to3)]
     [CustomComboInfo("玄冰转冰冻", "同步等级低于40级时，将玄冰替换为冰冻。", BLM.JobID)]
     BLM_FreezeBlizzard2 = 2064,
 
     [ReplaceSkill(BLM.Fire4, BLM.Flare)]
+    [ConflictingCombos(BLM_Fire4to3, BLM_FireandIce)]
     [CustomComboInfo("炽炎/核爆转耀星", "在耀星层数满时，将炽炎和核爆替换为耀星。", BLM.JobID)]
     BLM_FireFlarestar = 2058,
 
@@ -1153,7 +1167,7 @@ public enum CustomComboPreset
 
     // Last value ST = 2117
     //Last Value AoE = 2212
-    //Last Value misc = 2064
+    //Last Value misc = 2065
 
     #endregion
 
@@ -1429,7 +1443,7 @@ public enum CustomComboPreset
 
     [ParentCombo(BRD_ST_Wardens)]
     [CustomComboInfo("团队净化", "当队伍中有人带有可净化的异常状态时，使用光阴神的礼赞凯歌（自动切换目标）", BRD.JobID)]
-    [Retargeted]
+    [Retargeted(BRD.TheWardensPaeon)]
     BRD_ST_WardensAuto = 3064,
 
     [AutoAction(true, false)]
@@ -1504,7 +1518,7 @@ public enum CustomComboPreset
 
     [ParentCombo(BRD_AoE_Wardens)]
     [CustomComboInfo("团队净化", "当队伍中有人带有可净化的异常状态时，使用光阴神的礼赞凯歌（自动切换目标）", BRD.JobID)]
-    [Retargeted]
+    [Retargeted(BRD.TheWardensPaeon)]
     BRD_AoE_WardensAuto = 3063,
 
     #endregion
@@ -1666,12 +1680,12 @@ public enum CustomComboPreset
 
     [ParentCombo(DNC_ST_Adv_Partner)]
     [CustomComboInfo("自动切换最优舞伴", "非战斗状态下会自动将闭式舞姿指向最优舞伴。", DNC.JobID)]
-    [Retargeted]
+    [Retargeted(DNC.ClosedPosition)]
     DNC_ST_Adv_PartnerAuto = 4033,
 
     [ParentCombo(DNC_ST_AdvancedMode)]
     [CustomComboInfo("最优舞伴", "当当前舞伴不是最优目标（如被减伤）时，轮换中会包含解除闭式舞姿和重新闭式舞姿。", DNC.JobID)]
-    [Retargeted]
+    [Retargeted(DNC.ClosedPosition)]
     DNC_ST_Adv_AutoPartner = 4032,
 
     [ParentCombo(DNC_ST_AdvancedMode)]
@@ -1935,7 +1949,7 @@ public enum CustomComboPreset
     [ReplaceSkill(DNC.ClosedPosition, DNC.Ending)]
     [CustomComboInfo("自动选择最佳闭式舞伴",
         "将闭式舞姿自动指向队伍中最合适的成员，无需手动选择目标或切换目标。\n当当前舞伴不再是最佳选择时，将显示解除闭式舞姿。", DNC.JobID)]
-    [Retargeted]
+    [Retargeted(DNC.ClosedPosition)]
     DNC_DesirablePartner = 4175,
 
     #endregion
@@ -2513,7 +2527,7 @@ public enum CustomComboPreset
 
     [ReplaceSkill(DRK.BlackestNight)]
     [CustomComboInfo("重定向至黑之夜", "在其他连击外将至黑之夜重定向至鼠标悬停目标（或友方硬选择目标）。", DRK.JobID)]
-    [Retargeted]
+    [Retargeted(DRK.BlackestNight)]
     DRK_Retarget_TBN = 5130,
 
     [ParentCombo(DRK_Retarget_TBN)]
@@ -2523,7 +2537,7 @@ public enum CustomComboPreset
 
     [ReplaceSkill(DRK.Oblation)]
     [CustomComboInfo("重定向献奉", "在其他连击外将献奉重定向至鼠标悬停目标（或友方硬选择目标）。", DRK.JobID)]
-    [Retargeted]
+    [Retargeted(DRK.Oblation)]
     DRK_Retarget_Oblation = 5132,
 
     [ParentCombo(DRK_Retarget_Oblation)]
@@ -3245,12 +3259,12 @@ public enum CustomComboPreset
     
     [ParentCombo(GNB_AuroraProtection)]
     [CustomComboInfo("极光鼠标悬停", "如果鼠标悬停目标没有持续恢复效果，则将极光施放到该目标。", GNB.JobID)]
-    [Retargeted]
+    [Retargeted(GNB.Aurora)]
     GNB_RetargetAurora_MO = 7087,
     
     [ParentCombo(GNB_AuroraProtection)]
     [CustomComboInfo("极光目标的目标", "如果目标的目标没有持续恢复效果且你没有仇恨，则将极光施放到目标的目标。", GNB.JobID)]
-    [Retargeted]
+    [Retargeted(GNB.Aurora)]
     GNB_RetargetAurora_TT = 7088,
     
     #endregion
@@ -3258,12 +3272,12 @@ public enum CustomComboPreset
     #region Heart Of Stone Retarget
     [ReplaceSkill(GNB.HeartOfCorundum, GNB.HeartOfStone)]
     [CustomComboInfo("石之心重定向", "在非连击状态下，将石之心/刚玉之心重定向到鼠标悬停目标或当前目标。", GNB.JobID)]
-    [Retargeted]
+    [Retargeted(GNB.HeartOfCorundum, GNB.HeartOfStone)]
     GNB_RetargetHeartofStone = 7089,
     
     [ParentCombo(GNB_RetargetHeartofStone)]
     [CustomComboInfo("石之心目标的目标", "如果你没有仇恨，则将石之心/刚玉之心重定向到目标的目标，鼠标悬停优先。", GNB.JobID)]
-    [Retargeted]
+    [Retargeted(GNB.HeartOfCorundum, GNB.HeartOfStone)]
     GNB_RetargetHeartofStone_TT = 7090,
     #endregion
 
@@ -4861,7 +4875,7 @@ public enum CustomComboPreset
     
     [ReplaceSkill(PLD.Clemency)]
     [CustomComboInfo("重定向深仁厚泽", "根据以下子选项重定向深仁厚泽。", PLD.JobID)]
-    [Retargeted]
+    [Retargeted(PLD.Clemency)]
     PLD_RetargetClemency = 11067,
     
     [ParentCombo(PLD_RetargetClemency)]
@@ -4877,7 +4891,7 @@ public enum CustomComboPreset
     [ReplaceSkill(PLD.Sheltron)]
     [CustomComboInfo("盾阵→干预", "如果目标为队友，则使用干预。否则使用盾阵。" +
                                                          "\n- UI鼠标悬停 > 硬锁目标 > 目标的目标 > 自身盾阵", PLD.JobID)]
-    [Retargeted]
+    [Retargeted(PLD.Sheltron)]
     PLD_RetargetSheltron = 11068,
     
     [ParentCombo(PLD_RetargetSheltron)]
@@ -4890,7 +4904,7 @@ public enum CustomComboPreset
     [Retargeted]
     PLD_RetargetSheltron_TT = 11070,
 
-    [Retargeted]
+    [Retargeted(PLD.ShieldBash)]
     [ConflictingCombos(ALL_Tank_Interrupt)]
     [CustomComboInfo("重定向盾牌猛击", "如果当前目标无法被眩晕，则重定向盾牌猛击到可眩晕的敌人。", PLD.JobID)]
     PLD_RetargetShieldBash = 11073,
@@ -5485,8 +5499,8 @@ public enum CustomComboPreset
     RDM_Raise_Vercure = 13407,
 
     [ParentCombo(RDM_Raise)]
-    [CustomComboInfo("重定向赤复活和赤治疗", "将赤复活和赤治疗重定向到你的治疗目标。", RDM.JobID)]
-    [Retargeted]
+    [CustomComboInfo("重定向赤复活和赤治疗", "将赤复活和赤治疗重定向到你的治疗集合。", RDM.JobID)]
+    [Retargeted(RDM.Verraise, RDM.Vercure)]
     RDM_Raise_Retarget = 13408,
 
     [ReplaceSkill(RDM.Displacement)]
@@ -5573,7 +5587,7 @@ public enum CustomComboPreset
 
     [ParentCombo(SGE_ST_DPS)]
     [CustomComboInfo("Addersgall Overflow Protection", "Weaves Druochole when Addersgall gauge is greater than or equal to the specified value.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Druochole)]
     SGE_ST_DPS_AddersgallProtect = 14054,
 
     [ParentCombo(SGE_ST_DPS)]
@@ -5594,7 +5608,7 @@ public enum CustomComboPreset
 
     [ParentCombo(SGE_ST_DPS)]
     [CustomComboInfo("Kardia Reminder Option", "Adds Kardia when not under the effect.", SGE.JobID)]
-    [Retargeted]
+    [Retargeted(SGE.Kardia)]
     SGE_ST_DPS_Kardia = 14006,
 
     [ParentCombo(SGE_ST_DPS)]
@@ -5621,6 +5635,7 @@ public enum CustomComboPreset
 
     [ParentCombo(SGE_AoE_DPS)]
     [CustomComboInfo("Addersgall Overflow Protection", "Weaves Druochole when Addersgall gauge is greater than or equal to the specified value.", SGE.JobID)]
+    [PossiblyRetargeted]
     SGE_AoE_DPS_AddersgallProtect = 14053,
 
     [ParentCombo(SGE_AoE_DPS)]
@@ -5658,7 +5673,7 @@ public enum CustomComboPreset
     [AutoAction(false, true)]
     [ReplaceSkill(SGE.Diagnosis)]
     [CustomComboInfo("高级治疗模式-单目标", "将诊断变为多种选项。", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Diagnosis)]
     [HealingCombo]
     SGE_ST_Heal = 14014,
 
@@ -5671,33 +5686,33 @@ public enum CustomComboPreset
     SGE_ST_Heal_Rhizomata = 14023,
 
     [ParentCombo(SGE_ST_Heal)]
-    [CustomComboInfo("Apply Kardia Option", "Applies Kardia to your target if it's not applied to anyone else.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [CustomComboInfo("Apply Kardia Option", "Applies Kardia if it's not applied to anyone.", SGE.JobID)]
+    [Retargeted(SGE.Kardia)]
     SGE_ST_Heal_Kardia = 14016,
 
     [ParentCombo(SGE_ST_Heal)]
-    [CustomComboInfo("Esuna Option", "Applies Esuna to your target if there is a cleansable debuff.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [CustomComboInfo("Esuna Option", "Applies Esuna if there is a cleansable debuff.", SGE.JobID)]
+    [PossiblyRetargeted(RoleActions.Healer.Esuna)]
     SGE_ST_Heal_Esuna = 14015,
 
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Eukrasian Diagnosis Option", "Diagnosis becomes Eukrasian Diagnosis if the shield is not applied to the target.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Eukrasia)]
     SGE_ST_Heal_EDiagnosis = 14017,
 
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Druochole Option", "Applies Druochole.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Druochole)]
     SGE_ST_Heal_Druochole = 14025,
 
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Taurochole Option", "Adds Taurochole.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Taurochole)]
     SGE_ST_Heal_Taurochole = 14021,
 
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Haima Option", "Applies Haima.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Haima)]
     SGE_ST_Heal_Haima = 14022,
     
     [ParentCombo(SGE_ST_Heal)]
@@ -5710,7 +5725,7 @@ public enum CustomComboPreset
     
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Krasis Option", "Applies Krasis.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Krasis)]
     SGE_ST_Heal_Krasis = 14024,
 
     [ParentCombo(SGE_ST_Heal)]
@@ -5719,22 +5734,22 @@ public enum CustomComboPreset
     
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Physis Option", "Adds Physis.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Physis)]
     SGE_ST_Heal_Physis = 14065,
     
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Kerachole Option", "Adds Kerachole.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Kerachole)]
     SGE_ST_Heal_Kerachole = 14066,
     
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Holos Option", "Adds Holos.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Holos)]
     SGE_ST_Heal_Holos = 14067,
     
     [ParentCombo(SGE_ST_Heal)]
     [CustomComboInfo("Panhaima Option", "Adds Panhaima.", SGE.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SGE.Panhaima)]
     SGE_ST_Heal_Panhaima = 14068,
 
     #endregion
@@ -5823,9 +5838,10 @@ public enum CustomComboPreset
     [CustomComboInfo("Rhizomata Feature", "Replaces Addersgall skills with Rhizomata when empty.", SGE.JobID)]
     SGE_Rhizo = 14037,
 
+    [ConflictingCombos(SGE_Retarget_Taurochole)]
     [ReplaceSkill(SGE.Taurochole)]
-    [CustomComboInfo("Taurochole to Druochole Feature", "Turns Taurochole to Druochole when Taurochole is on cooldown.",
-        SGE.JobID)]
+    [CustomComboInfo("Taurochole to Druochole Feature", "Turns Taurochole to Druochole when Taurochole is on cooldown.", SGE.JobID)]
+    [PossiblyRetargeted]
     SGE_TauroDruo = 14038,
 
     [ReplaceSkill(SGE.Pneuma)]
@@ -5842,16 +5858,18 @@ public enum CustomComboPreset
     SGE_Raise = 14040,
 
     [ParentCombo(SGE_Raise)]
-    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的一键治疗上。", SGE.JobID)]
-    [Retargeted]
+    [CustomComboInfo("重定向复活", "将此处受影响的复活技能目标重新指定至你的治疗集合。", SGE.JobID)]
+    [Retargeted(SGE.Egeiro)]
     SGE_Raise_Retarget = 14061,
 
     [ReplaceSkill(SGE.Soteria)]
     [CustomComboInfo("Soteria to Kardia Feature", "Soteria turns into Kardia when not active or Soteria is on-cooldown.", SGE.JobID)]
+    [Retargeted]
     SGE_Kardia = 14041,
 
     [ReplaceSkill(SGE.Eukrasia)]
     [CustomComboInfo("Eukrasia Feature", "Eukrasia turns into the selected Eukrasian-type action when active.", SGE.JobID)]
+    [PossiblyRetargeted]
     SGE_Eukrasia = 14042,
     
     [Variant]
@@ -5864,6 +5882,40 @@ public enum CustomComboPreset
     [CustomComboInfo("Rampart Option", "Use Variant Rampart on cooldown.", SGE.JobID)]
     SGE_DPS_Variant_Rampart = 14049,
 
+    #endregion
+    
+    #region Standalone Healing option
+
+    [CustomComboInfo("Retarget Options", "Retargets Single Target Healing options.", SGE.JobID)]
+    [Retargeted]
+    SGE_Retarget = 14073,
+
+    [ParentCombo(SGE_Retarget)]
+    [CustomComboInfo("Haima Options", "Retargets Haima according to your Healing stack.", SGE.JobID)]
+    [Retargeted(SGE.Haima)]
+    SGE_Retarget_Haima = 14074,
+
+    [ParentCombo(SGE_Retarget)]
+    [CustomComboInfo("Druochole Options", "Retargets Druochole according to your Healing stack.", SGE.JobID)]
+    [Retargeted(SGE.Druochole)]
+    SGE_Retarget_Druochole = 14075,
+    
+    [ConflictingCombos(SGE_TauroDruo)]
+    [ParentCombo(SGE_Retarget)]
+    [CustomComboInfo("Taurochole Options", "Retargets Taurochole according to your Healing stack.", SGE.JobID)]
+    [Retargeted(SGE.Taurochole)]
+    SGE_Retarget_Taurochole = 14076,
+
+    [ParentCombo(SGE_Retarget)]
+    [CustomComboInfo("Krasis Options", "Retargets Krasis according to your Healing stack.", SGE.JobID)]
+    [Retargeted(SGE.Krasis)]
+    SGE_Retarget_Krasis = 14077,
+
+    [ParentCombo(SGE_Retarget)]
+    [CustomComboInfo("Kardia Options", "Retargets Kardia according to your Healing stack.", SGE.JobID)]
+    [Retargeted(SGE.Kardia)]
+    SGE_Retarget_Kardia = 14078,
+    
     #endregion
     
     #region Hidden Features
@@ -5888,7 +5940,7 @@ public enum CustomComboPreset
     
     #endregion
 
-    // Last used number = 14072
+    // Last used number = 14078
 
     #endregion
 
@@ -6314,6 +6366,10 @@ public enum CustomComboPreset
     SCH_AoE_ADV_DPS = 16010,
     
     [ParentCombo(SCH_AoE_ADV_DPS)]
+    [CustomComboInfo("Multitarget Dot Option", "Maintains dots on multiple targets.", SCH.JobID)]
+    SCH_AoE_ADV_DPS_DoT = 16072,
+    
+    [ParentCombo(SCH_AoE_ADV_DPS)]
     [CustomComboInfo("Energy Drain Weave Option",
         "Use Energy Drain to consume remaining Aetherflow stacks when Aetherflow is about to come off cooldown.",
         SCH.JobID)]
@@ -6345,8 +6401,9 @@ public enum CustomComboPreset
     #region  ST Healing
     [AutoAction(false, true)]
     [ReplaceSkill(SCH.Physick)]
-    [CustomComboInfo("高级治疗模式-单目标", "根据下方选项替换医术。", SCH.JobID)]
-    [PossiblyRetargeted]
+    [CustomComboInfo("高级治疗模式-单目标",
+        "根据下方选项替换医术。", SCH.JobID)]
+    [PossiblyRetargeted(SCH.Physick)]
     [HealingCombo]
     SCH_ST_Heal = 16023,
 
@@ -6364,32 +6421,32 @@ public enum CustomComboPreset
 
     [ParentCombo(SCH_ST_Heal)]
     [CustomComboInfo("Esuna Option", "Applies Esuna to your target if there is a cleansable debuff.", SCH.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(RoleActions.Healer.Esuna)]
     SCH_ST_Heal_Esuna = 16026,
 
     [ParentCombo(SCH_ST_Heal)]
     [CustomComboInfo("Adloquium Option", "Use Adloquium", SCH.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SCH.Adloquium)]
     SCH_ST_Heal_Adloquium = 16027,
 
     [ParentCombo(SCH_ST_Heal)]
     [CustomComboInfo("Lustrate Option", "Use Lustrate", SCH.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SCH.Lustrate)]
     SCH_ST_Heal_Lustrate = 16028,
 
     [ParentCombo(SCH_ST_Heal)]
     [CustomComboInfo("Excogitation Option", "Use Excogitation", SCH.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SCH.Excogitation)]
     SCH_ST_Heal_Excogitation = 16038,
 
     [ParentCombo(SCH_ST_Heal)]
     [CustomComboInfo("Protraction Option", "Use Protraction", SCH.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SCH.Protraction)]
     SCH_ST_Heal_Protraction = 16039,
 
     [ParentCombo(SCH_ST_Heal)]
     [CustomComboInfo("Aetherpact Option", "Use Aetherpact", SCH.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(SCH.Aetherpact)]
     SCH_ST_Heal_Aetherpact = 16047,
     
     [ParentCombo(SCH_ST_Heal)]
@@ -6478,7 +6535,7 @@ public enum CustomComboPreset
     
     [ReplaceSkill(SCH.SacredSoil)]
     [CustomComboInfo("野战治疗阵重定向", "为野战治疗阵添加自我重定向功能", SCH.JobID)]
-    [Retargeted]
+    [Retargeted(SCH.SacredSoil)]
     SCH_SacredSoil = 16066,
     
     [ParentCombo(SCH_SacredSoil)]
@@ -6533,8 +6590,8 @@ public enum CustomComboPreset
     SCH_Raise = 16032,
 
     [ParentCombo(SCH_Raise)]
-    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的一键治疗上。", SCH.JobID)]
-    [Retargeted]
+    [CustomComboInfo("重定向复活", "将此处受影响的复活技能目标重新指定至你的治疗集合。", SCH.JobID)]
+    [Retargeted(SCH.Resurrection)]
     SCH_Raise_Retarget = 16050,
     
     [Variant]
@@ -6550,29 +6607,26 @@ public enum CustomComboPreset
 
     #endregion
     
-    #region Hidden Features
-    [CustomComboInfo("Hidden Options", "Collection of cheeky or encounter-specific extra options only available to those in the know.\nDo not expect these options to be maintained, or even kept, after they are no longer Current.", SCH.JobID)]
-    [Hidden]
+    #region Raidwide Features
+    [CustomComboInfo("Raidwide Options", "Collection of tools designed to try and cast during a raidwide attack when detected." +
+                                         "\nThis will work for most, but not all raidwide attacks and is no substitute for learning the fight", SCH.JobID)]
     SCH_Hidden = 16065,
     
     [ParentCombo(SCH_Hidden)]
     [CustomComboInfo("RaidWide Succor Option", "Will try to cast Succor when a raidwide casting is detected if shieldcheck from succor setting passes. \nWill be used in all 4 Advanced combos.", SCH.JobID)]
-    [Hidden]
-    SCH_Hidden_Succor_Raidwide = 16062,
+    SCH_Raidwide_Succor = 16062,
     
     [ParentCombo(SCH_Hidden)]
-    [CustomComboInfo("Sacred Soil Option", "Will try to use Sacred Soil on self when a raidwide casting is detected..\nWill be used in all 4 Advanced combos", SCH.JobID)]
-    [Hidden]
-    [Retargeted]
-    SCH_Hidden_SacredSoil = 16059,
+    [CustomComboInfo("Sacred Soil Option", "Will try to use Sacred Soil on self when a raidwide casting is detected.\nWill be used in all 4 Advanced combos", SCH.JobID)]
+    [Retargeted(SCH.SacredSoil)]
+    SCH_Raidwide_SacredSoil = 16059,
     
     [ParentCombo(SCH_Hidden)]
     [CustomComboInfo("Expedient Raidwide Option", "Will try to use Expedient when a raidwide casting is detected. \nWill be used in all 4 Advanced combos.", SCH.JobID)]
-    [Hidden]
-    SCH_Hidden_Expedient = 16064,
+    SCH_Raidwide_Expedient = 16064,
     #endregion
 
-    // Last value = 16069
+    // Last value = 16072
 
     #endregion
 
@@ -6628,7 +6682,7 @@ public enum CustomComboPreset
 
     [ParentCombo(SMN_ST_Advanced_Combo_DemiSummons_Rekindle)]
     [CustomComboInfo("自动重定向苏生之炎", "将苏生之炎重新定向到需要治疗的坦克，然后是需要治疗的队友，最后是自己。", SMN.JobID)]
-    [Retargeted]
+    [Retargeted(SMN.Rekindle)]
     SMN_ST_Advanced_Combo_DemiSummons_Rekindle_Retarget = 17080,    
 
     [ParentCombo(SMN_ST_Advanced_Combo)]
@@ -6732,8 +6786,8 @@ public enum CustomComboPreset
     SMN_AoE_Advanced_Combo_DemiSummons_Rekindle = 17056,
 
     [ParentCombo(SMN_AoE_Advanced_Combo_DemiSummons_Rekindle)]
-    [CustomComboInfo("自动重定向苏生之炎", "将苏生之炎重新定向到需要治疗的坦克，然后是需要治疗的队友，最后是自己。", SMN.JobID)]
-    [Retargeted]
+    [CustomComboInfo("重定向苏生之炎", "将苏生之炎重新定向到需要治疗的坦克，然后是需要治疗的队友，最后是自己。", SMN.JobID)]
+    [Retargeted(SMN.Rekindle)]
     SMN_AoE_Advanced_Combo_DemiSummons_Rekindle_Retarget = 17081,    
 
     [ParentCombo(SMN_AoE_Advanced_Combo)]
@@ -6837,7 +6891,7 @@ public enum CustomComboPreset
 
     [ParentCombo(SMN_Raise)]
     [CustomComboInfo("重定向复活", "将此处受影响的复活技能自动重定向至你的治疗集合目标。", SMN.JobID)]
-    [Retargeted]
+    [Retargeted(SMN.Resurrection)]
     SMN_Raise_Retarget = 17079,
 
     [ReplaceSkill(SMN.Ruin4)]
@@ -7448,8 +7502,8 @@ public enum CustomComboPreset
     WAR_NascentFlash = 18017,
     
     [ReplaceSkill(WAR.RawIntuition, WAR.Bloodwhetting)]
-    [CustomComboInfo("原初的直觉/原初的血气→原初的勇猛（重定向）", "如可用，硬选中队友时将原初的直觉/原初的血气替换为原初的勇猛。", WAR.JobID)]
-    [Retargeted]
+    [CustomComboInfo("原初的直觉/原初的血气->原初的勇猛（重定向）", "如可用，硬选中队友时将原初的直觉/原初的血气替换为原初的勇猛。", WAR.JobID)]
+    [Retargeted(WAR.NascentFlash)]
     WAR_RawIntuition_Targeting = 18119,
 
     [ParentCombo(WAR_RawIntuition_Targeting)]
@@ -7464,7 +7518,7 @@ public enum CustomComboPreset
 
     [ReplaceSkill(WAR.Holmgang)]
     [CustomComboInfo("死斗重定向", "将死斗重定向至自己，而不是敌人。", WAR.JobID)]
-    [Retargeted]
+    [Retargeted(WAR.Holmgang)]
     WAR_RetargetHolmgang = 18130,
 
     #region Bozja
@@ -7660,11 +7714,32 @@ public enum CustomComboPreset
 
     #region WHITE MAGE
 
-    #region Single Target DPS Feature
+    #region Simple Mode
 
     [AutoAction(false, false)]
     [ReplaceSkill(WHM.Stone1, WHM.Stone2, WHM.Stone3, WHM.Stone4, WHM.Glare1, WHM.Glare3)]
-    [CustomComboInfo("高级DPS模式-单目标", "Collection of cooldowns and spell features on Glare/Stone.",
+    [ConflictingCombos(WHM_ST_MainCombo)]
+    [CustomComboInfo("高级DPS模式-单目标", "Replaces Stone with a full one-button single target rotation. \nThis is the ideal option for newcomers to the job.",
+        WHM.JobID)]
+    [SimpleCombo]
+    WHM_ST_Simple_DPS = 19050,
+    
+    [AutoAction(true, false)]
+    [ReplaceSkill(WHM.Holy, WHM.Holy3)]
+    [ConflictingCombos(WHM_AoE_DPS)]
+    [CustomComboInfo("Simple DPS Mode - AoE", "Replaces Holy with a full one-button AoE rotation. \nThis is the ideal option for newcomers to the job.",
+        WHM.JobID)]
+    [SimpleCombo]
+    WHM_AoE_Simple_DPS = 19051,
+
+    #endregion
+
+    #region Advanced Single Target DPS Combo
+
+    [AutoAction(false, false)]
+    [ReplaceSkill(WHM.Stone1, WHM.Stone2, WHM.Stone3, WHM.Stone4, WHM.Glare1, WHM.Glare3)]
+    [ConflictingCombos(WHM_ST_Simple_DPS)]
+    [CustomComboInfo("Advanced DPS Mode - Single Target", "Collection of cooldowns and spell features on Glares/Stones/Aeros/Dia.",
         WHM.JobID)]
     [AdvancedCombo]
     WHM_ST_MainCombo = 19099,
@@ -7672,6 +7747,11 @@ public enum CustomComboPreset
     [ParentCombo(WHM_ST_MainCombo)]
     [CustomComboInfo("Balance Opener (Level 92)", "Adds the Balance opener from level 92 onwards.", WHM.JobID)]
     WHM_ST_MainCombo_Opener = 19023,
+
+    [ParentCombo(WHM_ST_MainCombo)]
+    [CustomComboInfo("Movement DoT Option", "Will reapply DoT early to all enemies within range while moving.", WHM.JobID)]
+    [Retargeted(WHM.Aero, WHM.Aero2, WHM.Dia)]
+    WHM_ST_MainCombo_Move_DoT = 19053,
 
     [ParentCombo(WHM_ST_MainCombo)]
     [CustomComboInfo("Aero/Dia Uptime Option",
@@ -7708,10 +7788,11 @@ public enum CustomComboPreset
 
     #endregion
 
-    #region AoE DPS Feature
+    #region Advanced AoE DPS Combo
 
     [AutoAction(true, false)]
     [ReplaceSkill(WHM.Holy, WHM.Holy3)]
+    [ConflictingCombos(WHM_AoE_Simple_DPS)]
     [CustomComboInfo("高级输出模式-多目标", "Collection of cooldowns and spell features on Holy/Holy III.", WHM.JobID)]
     [AdvancedCombo]
     WHM_AoE_DPS = 19190,
@@ -7734,6 +7815,12 @@ public enum CustomComboPreset
     [CustomComboInfo("Afflatus Misery Option", "Adds Afflatus Misery to the AoE combo when it is ready to be used.",
         WHM.JobID)]
     WHM_AoE_DPS_Misery = 19194,
+    
+    [ParentCombo(WHM_AoE_DPS)]
+    [CustomComboInfo("Multitarget Dot Option", "Maintains dots on multiple targets.",
+        WHM.JobID)]
+    [Retargeted(WHM.Aero, WHM.Aero2, WHM.Dia)]
+    WHM_AoE_MainCombo_DoT = 19198,
 
     [ParentCombo(WHM_AoE_DPS)]
     [CustomComboInfo("Lily Overcap Protection Option", "Adds Afflatus Rapture to the AoE combo when at three Lilies.",
@@ -7753,99 +7840,105 @@ public enum CustomComboPreset
 
     #endregion
 
-    #region DPS Small Features
-
-    [ReplaceSkill(WHM.AfflatusSolace)]
-    [CustomComboInfo("Solace into Misery Feature",
-        "Replaces Afflatus Solace with Afflatus Misery when it is ready to be used.", WHM.JobID)]
-    WHM_SolaceMisery = 19000,
-
-    [ReplaceSkill(WHM.AfflatusRapture)]
-    [CustomComboInfo("Rapture into Misery Feature",
-        "Replaces Afflatus Rapture with Afflatus Misery when it is ready to be used.", WHM.JobID)]
-    WHM_RaptureMisery = 19001,
-
-    #endregion
-
-    #region Single Target Heals
+    #region Advanced Single Target Heals Combo
 
     [AutoAction(false, true)]
     [ReplaceSkill(WHM.Cure)]
     [CustomComboInfo("高级治疗模式-单目标", "Replaces Cure with a one button single target healing setup.",
         WHM.JobID)]
-    [PossiblyRetargeted]
+    [PossiblyRetargeted(WHM.Cure)]
     [HealingCombo]
     WHM_STHeals = 19300,
+    
+    [ParentCombo(WHM_STHeals)]
+    [CustomComboInfo("Esuna Option", "Applies Esuna to your target if there is a cleansable debuff.", WHM.JobID)]
+    [PossiblyRetargeted(RoleActions.Healer.Esuna)]
+    WHM_STHeals_Esuna = 19309,
+    
+    [ParentCombo(WHM_STHeals)]
+    [CustomComboInfo("Lucid Dreaming Option", "Adds Lucid Dreaming.", WHM.JobID)]
+    WHM_STHeals_Lucid = 19308,
+    
+    [ParentCombo(WHM_STHeals)]
+    [CustomComboInfo("Thin Air Option", "Adds Thin Air.", WHM.JobID)]
+    WHM_STHeals_ThinAir = 19304,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Regen Option", "Applies Regen to the target if missing.", WHM.JobID)]
-    [PossiblyRetargeted]
+    [CustomComboInfo("Regen Option", "Adds Regen.", WHM.JobID)]
+    [PossiblyRetargeted(WHM.Regen)]
     WHM_STHeals_Regen = 19301,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Benediction Option", "Uses Benediction when target is below HP threshold.", WHM.JobID)]
-    [PossiblyRetargeted]
-    WHM_STHeals_Benediction = 19302,
-
-    [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Afflatus Solace Option", "Uses Afflatus Solace when available.", WHM.JobID)]
+    [CustomComboInfo("Afflatus Solace Option", "Adds Afflatus Solace.", WHM.JobID)]
     [PossiblyRetargeted]
     WHM_STHeals_Solace = 19303,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Thin Air Option", "Uses Thin Air when available.", WHM.JobID)]
-    WHM_STHeals_ThinAir = 19304,
-
-    [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Tetragrammaton Option", "Uses Tetragrammaton when available.", WHM.JobID)]
-    [PossiblyRetargeted]
+    [CustomComboInfo("Tetragrammaton Option", "Adds Tetragrammaton.", WHM.JobID)]
+    [PossiblyRetargeted(WHM.Tetragrammaton)]
     WHM_STHeals_Tetragrammaton = 19305,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Divine Benison Option", "Uses Divine Benison when available.", WHM.JobID)]
-    [PossiblyRetargeted]
+    [CustomComboInfo("Divine Benison Option", "Adds Divine Benison.", WHM.JobID)]
+    [PossiblyRetargeted(WHM.DivineBenison)]
     WHM_STHeals_Benison = 19306,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Aquaveil Option", "Uses Aquaveil when available.", WHM.JobID)]
-    [PossiblyRetargeted]
+    [CustomComboInfo("Aquaveil Option", "Adds Aquaveil.", WHM.JobID)]
+    [PossiblyRetargeted(WHM.Aquaveil)]
     WHM_STHeals_Aquaveil = 19307,
+    
+    [ParentCombo(WHM_STHeals)]
+    [CustomComboInfo("Benediction Option", "Adds Benediciton.", WHM.JobID)]
+    [PossiblyRetargeted]
+    WHM_STHeals_Benediction = 19302,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Lucid Dreaming Option", "Uses Lucid Dreaming when available.", WHM.JobID)]
-    WHM_STHeals_Lucid = 19308,
-
-    [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("节制", "当可用时使用节制以获得减伤和治疗增益。", WHM.JobID)]
+    [CustomComboInfo("节制", "添加节制和接下来的神爱抚。", WHM.JobID)]
     [PossiblyRetargeted]
     WHM_STHeals_Temperance = 19310,
-
+    
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Esuna Option", "Applies Esuna to your target if there is a cleansable debuff.", WHM.JobID)]
+    [CustomComboInfo("Asylum Option", "Adds Asylum.", WHM.JobID)]
     [PossiblyRetargeted]
-    WHM_STHeals_Esuna = 19309,
+    WHM_STHeals_Asylum = 19311,
+    
+    [ParentCombo(WHM_STHeals)]
+    [CustomComboInfo("LiturgyOfTheBell Option", "Adds LiturgyOfTheBell.", WHM.JobID)]
+    [PossiblyRetargeted]
+    WHM_STHeals_LiturgyOfTheBell = 19312,
 
     #endregion
 
-    #region AoE Heals Feature
+    #region Advanced AoE Heals Combo
 
     [AutoAction(true, true)]
     [ReplaceSkill(WHM.Medica1)]
     [CustomComboInfo("高级治疗模式-多目标", "Replaces Medica with a one button AoE healing setup.", WHM.JobID)]
     [HealingCombo]
     WHM_AoEHeals = 19007,
+    
+    [ParentCombo(WHM_AoEHeals)]
+    [CustomComboInfo("Lucid Dreaming Option", "Uses Lucid Dreaming when available.", WHM.JobID)]
+    WHM_AoEHeals_Lucid = 19204,
+    
+    [ParentCombo(WHM_AoEHeals)]
+    [CustomComboInfo("Thin Air Option", "Uses Thin Air when available.", WHM.JobID)]
+    WHM_AoEHeals_ThinAir = 19200,
+    
+    [ParentCombo(WHM_AoEHeals)]
+    [CustomComboInfo("Afflatus Misery Option", "Uses Afflatus Misery when available.", WHM.JobID)]
+    WHM_AoEHeals_Misery = 19010,
+    
+    [ParentCombo(WHM_AoEHeals)]
+    [CustomComboInfo("Medica II Option",
+        "Uses Medica II when heal target doesn't have Medica II buff." +
+        "\nUpgrades to Medica III when level allows.", WHM.JobID)]
+    WHM_AoEHeals_Medica2 = 19205,
 
     [ParentCombo(WHM_AoEHeals)]
     [CustomComboInfo("Afflatus Rapture Option", "Uses Afflatus Rapture when available.", WHM.JobID)]
     WHM_AoEHeals_Rapture = 19011,
-
-    [ParentCombo(WHM_AoEHeals)]
-    [CustomComboInfo("Afflatus Misery Option", "Uses Afflatus Misery when available.", WHM.JobID)]
-    WHM_AoEHeals_Misery = 19010,
-
-    [ParentCombo(WHM_AoEHeals)]
-    [CustomComboInfo("Thin Air Option", "Uses Thin Air when available.", WHM.JobID)]
-    WHM_AoEHeals_ThinAir = 19200,
 
     [ParentCombo(WHM_AoEHeals)]
     [CustomComboInfo("Cure III Option", "Replaces Medica with Cure III when available.", WHM.JobID)]
@@ -7858,19 +7951,15 @@ public enum CustomComboPreset
     [ParentCombo(WHM_AoEHeals)]
     [CustomComboInfo("Plenary Indulgence Option", "Uses Plenary Indulgence when available.", WHM.JobID)]
     WHM_AoEHeals_Plenary = 19203,
+    
+    [ParentCombo(WHM_AoEHeals)]
+    [CustomComboInfo("Asylum Option", "Adds Asylum placement, when standing still, to the rotation.\nWill Retarget it onto yourself.", WHM.JobID)]
+    [Retargeted]
+    WHM_AoEHeals_Asylum = 19028,
 
     [ParentCombo(WHM_AoEHeals)]
     [CustomComboInfo("节制", "当队伍平均血量低于设定阈值时，在可用时使用节制以获得治疗增益。", WHM.JobID)]
     WHM_AoEHeals_Temperance = 19210,
-
-    [ParentCombo(WHM_AoEHeals)]
-    [CustomComboInfo("Lucid Dreaming Option", "Uses Lucid Dreaming when available.", WHM.JobID)]
-    WHM_AoEHeals_Lucid = 19204,
-
-    [ParentCombo(WHM_AoEHeals)]
-    [CustomComboInfo("Medica II Option", "Uses Medica II when current target doesn't have Medica II buff." +
-                                         "\nUpgrades to Medica III when level allows.", WHM.JobID)]
-    WHM_AoEHeals_Medica2 = 19205,
 
     [ParentCombo(WHM_AoEHeals)]
     [CustomComboInfo("Divine Caress", "Uses Divine Caress when Divine Grace from Temperance is active.", WHM.JobID)]
@@ -7878,40 +7967,67 @@ public enum CustomComboPreset
 
     [ParentCombo(WHM_AoEHeals)]
     [CustomComboInfo("礼仪之铃", "在循环中添加礼仪之铃（百合铃）的放置。", WHM.JobID)]
-    [Retargeted]
+    [Retargeted(WHM.LiturgyOfTheBell)]
     WHM_AoEHeals_LiturgyOfTheBell = 19206,
+    
+    #endregion
+    
+    #region Mitigation Features
 
-    [ParentCombo(WHM_AoEHeals_LiturgyOfTheBell)]
-    [CustomComboInfo("敌人放置", "将敌人硬目标作为礼仪之铃放置的最高优先级。", WHM.JobID)]
-    [Retargeted]
-    WHM_AoEHeals_LiturgyOfTheBell_Enemy = 19208,
-
-    [ParentCombo(WHM_AoEHeals_LiturgyOfTheBell)]
-    [CustomComboInfo("友方放置", "将任何友方UI鼠标悬停目标、焦点目标、软目标或硬目标作为礼仪之铃放置的优先级。\n位于敌人放置选项之下，但高于你自己。", WHM.JobID)]
-    [Retargeted]
-    WHM_AoEHeals_LiturgyOfTheBell_Allies = 19209,
-
-    [ParentCombo(WHM_AoEHeals)]
-    [CustomComboInfo("庇护所", "在静止时向循环中添加庇护所放置。\n将重新定向到你身上。", WHM.JobID)]
-    [Retargeted]
-    WHM_AoEHeals_Asylum = 19028,
-
-    [ParentCombo(WHM_AoEHeals_Asylum)]
-    [CustomComboInfo("敌人放置", "将敌人硬目标作为庇护所重新定向的最高优先级。", WHM.JobID)]
-    [Retargeted]
-    WHM_AoEHeals_Asylum_Enemy = 19030,
-
-    [ParentCombo(WHM_AoEHeals_Asylum)]
-    [CustomComboInfo("友方放置", "将任何友方UI鼠标悬停目标、焦点目标、软目标或硬目标作为庇护所重新定向的优先级。\n位于敌人放置选项之下，但高于你自己。", WHM.JobID)]
-    [Retargeted]
-    WHM_AoEHeals_Asylum_Allies = 19031,
+    [ReplaceSkill(WHM.Aquaveil)]
+    [CustomComboInfo("Mitigation Feature - Single Target", "Changes Aquaveil into Tetragrammaton and/or Divine Benison after use.\nEach action can be Retargeted with the Retargeting Features below.", WHM.JobID)]
+    [PossiblyRetargeted("Retargeting Features below, Enable Aquaveil (and optionally Tetra and Benison)", Condition.WHMRetargetingFeaturesEnabledForSTMit)]
+    WHM_Mit_ST = 19041,
+    
+    [ReplaceSkill(WHM.Asylum)]
+    [CustomComboInfo("Mitigation Feature - AoE", "Changes Asylum into Temperance and then Divine Caress after use.\nCan be Retargeted with the Retargeting Features below.", WHM.JobID)]
+    [PossiblyRetargeted("Retargeting Features below, Enable Asylum", Condition.WHMRetargetingFeaturesEnabledForAoEMit)]
+    WHM_Mit_AoE = 19040,
 
     #endregion
+    
+    #region Raidwide Heals
+    
+    [CustomComboInfo("Boss Raidwide Options",
+        "Collection of tools designed to try and cast during a raidwide attack when detected." +
+        "\nThis will work for most, but not all raidwide attacks and is no substitute for learning the fight", WHM.JobID)]
+    WHM_Raidwide = 19220,
+    
+    [ParentCombo(WHM_Raidwide)]
+    [CustomComboInfo("RaidWide Asylum Option", "Will try to Weave Asylum when a raidwide casting. \nWill be used in all 4 main combos.", WHM.JobID)]
+    WHM_Raidwide_Asylum = 19221,
+    
+    [ParentCombo(WHM_Raidwide)]
+    [CustomComboInfo("RaidWide Temperance Combo Option",
+        "Will try to Weave Temperance and Divine Caress when a raidwide casting. " +
+        "\nWill be used in all 4 main combos.", WHM.JobID)]
+    WHM_Raidwide_Temperance = 19222,
+    
+    [ParentCombo(WHM_Raidwide)]
+    [CustomComboInfo("RaidWide LiturgyOfTheBell Option",
+        "Will try to weave LiturgyOfTheBell when a raidwide casting. " +
+        "\nWill be used in all 4 main combos.", WHM.JobID)]
+    WHM_Raidwide_LiturgyOfTheBell = 19223,
+    
+    #endregion
+    
+    #region Small Features
+    
+    [ReplaceSkill(WHM.AfflatusSolace)]
+    [CustomComboInfo("Solace into Misery Feature",
+        "Replaces Afflatus Solace with Afflatus Misery when it is ready to be used.\nSolace can be Retargeted with the Retargeting Features below.", WHM.JobID)]
+    [PossiblyRetargeted("Retargeting Features below, Enable Afflatus Solace", 
+        Condition.WHMRetargetingFeaturesEnabledForSolace)]
+    WHM_SolaceMisery = 19000,
 
-    #region Heals Small Features
+    [ReplaceSkill(WHM.AfflatusRapture)]
+    [CustomComboInfo("Rapture into Misery Feature",
+        "Replaces Afflatus Rapture with Afflatus Misery when it is ready to be used.", WHM.JobID)]
+    WHM_RaptureMisery = 19001,
 
     [ReplaceSkill(WHM.Cure2)]
-    [CustomComboInfo("Cure II Sync Feature", "Changes Cure II to Cure when synced below Lv.30.", WHM.JobID)]
+    [CustomComboInfo("Cure II Sync Feature", "Changes Cure II to Cure when synced below Lv.30.\nCan be Retargeted with the Retargeting Features below.", WHM.JobID)]
+    [PossiblyRetargeted("Retargeting Features below, Enable Cure", Condition.WHMRetargetingFeaturesEnabledForCure)]
     WHM_CureSync = 19002,
 
     [ReplaceSkill( RoleActions.Magic.Swiftcast)]
@@ -7919,15 +8035,82 @@ public enum CustomComboPreset
     [CustomComboInfo("Alternative Raise Feature", "Changes Swiftcast to Raise.", WHM.JobID)]
     WHM_Raise = 19004,
 
+    [ParentCombo(WHM_Raise)]
+    [CustomComboInfo("Retarget Raise", "Will Retarget the Raise affected here to your Raise Stack.", WHM.JobID)]
+    [Retargeted(WHM.Raise)]
+    WHM_Raise_Retarget = 19029,
+
     [ReplaceSkill(WHM.Raise)]
     [CustomComboInfo("Thin Air Raise Feature", "Adds Thin Air to the Global Raise Feature/Alternative Raise Feature.",
         WHM.JobID)]
     WHM_ThinAirRaise = 19014,
 
-    [ParentCombo(WHM_Raise)]
-    [CustomComboInfo("自动重定向复活目标", "将此处受影响的复活技能目标重新指定至你的一键治疗上。", WHM.JobID)]
-    [Retargeted]
-    WHM_Raise_Retarget = 19029,
+    #endregion
+
+    #region Retargeting
+
+    [CustomComboInfo("Retargeting Features", "Collection of Options to Retarget Manually-Used Single Target Heals.", WHM.JobID)]
+    WHM_Retargets = 19037,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Aquaveil)]
+    [CustomComboInfo("Cure Option", "Retargets Cure and Cure II to the heal stack (even from the Cure II Sync Feature above).", WHM.JobID)]
+    [Retargeted(WHM.Cure, WHM.Cure2)]
+    WHM_Re_Cure = 19038,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Aquaveil)]
+    [CustomComboInfo("Afflatus Solace Option", "Retargets Afflatus Solace to the heal stack (even from the Solace into Misery Feature above).", WHM.JobID)]
+    [Retargeted(WHM.AfflatusSolace)]
+    WHM_Re_Solace = 19039,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Aquaveil)]
+    [CustomComboInfo("Aquaveil Option", "Retargets Aquaveil to the heal stack (even from the Mitigation Feature above).", WHM.JobID)]
+    [Retargeted(WHM.Aquaveil)]
+    WHM_Re_Aquaveil = 19036,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Asylum)]
+    [CustomComboInfo("Asylum Option", "Retargets Asylum to yourself (even from the Mitigation Feature above).", WHM.JobID)]
+    [Retargeted(WHM.Asylum)]
+    WHM_Re_Asylum = 19027,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.LiturgyOfTheBell)]
+    [CustomComboInfo("Liturgy Of The Bell Option", "Retargets Liturgy Of The Bell to yourself.", WHM.JobID)]
+    [Retargeted(WHM.LiturgyOfTheBell)]
+    WHM_Re_LiturgyOfTheBell = 19030,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Cure3)]
+    [CustomComboInfo("Cure 3 Retarget Option", "Retargets Cure 3 to the heal stack.", WHM.JobID)]
+    [Retargeted(WHM.Cure3)]
+    WHM_Re_Cure3 = 19031,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Benediction)]
+    [CustomComboInfo("Benediction Option", "Retargets Benediction to the heal stack.", WHM.JobID)]
+    [Retargeted(WHM.Benediction)]
+    WHM_Re_Benediction = 19032,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Tetragrammaton)]
+    [CustomComboInfo("Tetragrammaton Option", "Retargets Tetragrammaton to the heal stack (even from the Mitigation Feature above).", WHM.JobID)]
+    [Retargeted(WHM.Tetragrammaton)]
+    WHM_Re_Tetragrammaton = 19033,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Regen)]
+    [CustomComboInfo("Regen Option", "Retargets Regen to the heal stack.", WHM.JobID)]
+    [Retargeted(WHM.Regen)]
+    WHM_Re_Regen = 19034,
+    
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.DivineBenison)]
+    [CustomComboInfo("Divine Benison Option", "Retargets Divine Benison to the heal stack (even from the Mitigation Feature above).", WHM.JobID)]
+    [Retargeted(WHM.DivineBenison)]
+    WHM_Re_DivineBenison = 19035,
 
     #endregion
 
@@ -7946,7 +8129,7 @@ public enum CustomComboPreset
 
     #endregion
 
-    // Last value = 19209
+    // Last value = 19051 (then skips to next last used: 19210)
 
     #endregion
 
