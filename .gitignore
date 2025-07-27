@@ -9,6 +9,5 @@ WrathCombo/bin/
 *.v2
 
 # Local development files
-.cursorrules
-.cursorrules-*
+.cursor/
 *.sln
