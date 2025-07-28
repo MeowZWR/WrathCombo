@@ -46,11 +46,11 @@ internal partial class SAM
 
                 case CustomComboPreset.SAM_ST_CDs_MeikyoShisui:
                     DrawHorizontalRadioButton(SAM_ST_Meikyo_Suboption,
-                        "Use The Balance Logic in all content", $"Uses {MeikyoShisui.ActionName()} logic regardless of content.", 0);
+                        "在所有内容中使用The Balance逻辑", $"无论内容类型都使用{MeikyoShisui.ActionName()}逻辑。", 0);
 
                     DrawHorizontalRadioButton(SAM_ST_Meikyo_Suboption,
-                        "Use The Balance logic only in Boss encounters", $"Only uses {MeikyoShisui.ActionName()} logic when in Boss encounters." +
-                                                                         $"\nWill use Meikyo every minute regardless of sen count outside of boss encounters.", 1);
+                        "仅在Boss战中使用The Balance逻辑", $"仅在Boss战中使用{MeikyoShisui.ActionName()}逻辑。" +
+                                                                         $"\n在非Boss战中，无论闪数量如何，每分钟都会使用明镜止水。", 1);
                     break;
 
                 case CustomComboPreset.SAM_ST_ComboHeals:

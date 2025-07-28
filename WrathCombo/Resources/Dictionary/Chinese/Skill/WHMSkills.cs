@@ -71,6 +71,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Rapture into Misery", "安慰苦难"),
                 KeyValuePair.Create("Solace into Misery", "狂喜苦难"),
                 KeyValuePair.Create("Misery", WHM.AfflatusMisery.ActionName()),
+                KeyValuePair.Create("Asylum", WHM.Asylum.ActionName()),
+                KeyValuePair.Create("Liturgy of the Bell", WHM.LiturgyOfTheBell.ActionName()),
+                KeyValuePair.Create("LiturgyOfTheBell", WHM.LiturgyOfTheBell.ActionName()),
             ];
         }
     }

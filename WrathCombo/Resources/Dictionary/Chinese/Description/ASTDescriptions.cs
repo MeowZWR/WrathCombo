@@ -31,7 +31,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Celestial Intersection.", "添加Celestial Intersection。"),
                 KeyValuePair.Create("Adds Aspected Benefic & refreshes it if needed.", "添加Aspected Benefic并在需要时刷新它。"),
                 KeyValuePair.Create("Adds Exaltation.", "添加Exaltation。"),
-                KeyValuePair.Create("Adds The Spire (Shield)  when the card has been drawn", "当抽到The Spire（护盾）时添加"),
+                KeyValuePair.Create("Adds The Spire (Shield) when the card has been drawn", "当抽到The Spire（护盾）时添加"),
                 KeyValuePair.Create("Adds The Ewer (Heal over time) when the card has been drawn", "当抽到The Ewer（持续治疗）时添加"),
                 KeyValuePair.Create("Adds The Arrow (increased healing)  when the card has been drawn", "当抽到The Arrow（增加治疗）时添加"),
                 KeyValuePair.Create("Adds The Bole (Reduced Damage) when the card has been drawn", "当抽到The Bole（减少伤害）时添加"),

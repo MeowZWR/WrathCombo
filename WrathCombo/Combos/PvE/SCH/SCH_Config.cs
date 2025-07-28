@@ -292,7 +292,7 @@ internal partial class SCH
                     break; 
                 
                 case CustomComboPreset.SCH_Raidwide_Succor:
-                    DrawAdditionalBoolChoice(SCH_Raidwide_Succor_Recitation, "Recitation Option", "Use Recitation to buff before the Raidwide Succor.");
+                    DrawAdditionalBoolChoice(SCH_Raidwide_Succor_Recitation, "秘策", "在团队士气高扬之策前使用秘策进行强化。");
                     break;
                 
                 #endregion

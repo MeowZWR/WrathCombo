@@ -23,7 +23,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds a Swiftcast->Holy at the beginning of your AoE rotation.", "在AoE循环开始时添加一个Swiftcast->Holy。"),
                 KeyValuePair.Create("Swift Holy Pull 'Opener' Option", "即刻神圣起手"),
                 KeyValuePair.Create("Requires you to already be in combat, to have stopped moving, and to not have used Assize yet.", "需要你已经进入战斗状态，停止移动，并且尚未使用Assize。"),
-                KeyValuePair.Create("Collection of cooldowns and spell features on Glare/Stone.", "收集Glare/Stone的冷却时间和技能特性。"),
+                KeyValuePair.Create("Collection of cooldowns and spell features on Glares/Stones/Aeros/Dia.", "飞石/闪耀/疾风/天辉替换为冷却技和法术集合。"),
                 KeyValuePair.Create("Adds Aero/Dia to the single target combo if the debuff is not present on current target, or is about to expire.", "如果当前目标没有Aero/Dia的减益效果，或者即将消失，则在单体连击中添加Aero/Dia。"),
                 KeyValuePair.Create("Adds Assize to the single target combo.", "在单体连击中添加Assize。"),
                 KeyValuePair.Create("Adds Glare IV to the single target combo when under Sacred Sight", "在Sacred Sight状态下，在单体连击中添加Glare IV。"),
@@ -31,7 +31,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Afflatus Rapture to the single target combo when at three Lilies.", "当拥有三个血百合时，在单体连击中添加Afflatus Rapture。"),
                 KeyValuePair.Create("Adds Presence of Mind to the single target combo.", "在单体连击中添加Presence of Mind。"),
                 KeyValuePair.Create("Adds Lucid Dreaming to the single target combo when below set MP value.", "当魔力值低于设定值时，在单体连击中添加Lucid Dreaming。"),
-                KeyValuePair.Create("Collection of cooldowns and spell features on Holy/Holy III.", "收集Holy/Holy III的冷却时间和技能特性。"),
+                KeyValuePair.Create("Collection of cooldowns and spell features on Holy/Holy III.", "神圣/豪圣替换为冷却技和法术集合。"),
                 KeyValuePair.Create("Adds Assize to the AoE combo.", "在AoE连击中添加Assize。"),
                 KeyValuePair.Create("Adds Glare IV to the AoE combo when under Sacred Sight", "在Sacred Sight状态下，在AoE连击中添加Glare IV。"),
                 KeyValuePair.Create("Adds Afflatus Misery to the AoE combo when it is ready to be used.", "当Afflatus Misery准备就绪时，在AoE连击中添加Afflatus Misery。"),
@@ -69,7 +69,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds the below options onto Cure II.", "将以下选项添加到Cure II。"),
                 KeyValuePair.Create("Adds Cure III to Cure II when available.", "当Cure III可用时，将其添加到Cure II。"),
                 KeyValuePair.Create("Adds Aquaviel to Cure II when available.", "当Aquaveil可用时，将其添加到Cure II。"),
-                KeyValuePair.Create("Uses Medica II when current target doesn't have Medica II buff.", "当当前目标没有Medica II增益时，使用Medica II。"),
+                KeyValuePair.Create("Uses Medica II when heal target doesn't have Medica II buff.", "当当前目标没有Medica II增益时，使用Medica II。"),
                 KeyValuePair.Create("Upgrades to Medica III when level allows.", "当等级允许时，升级为Medica III。"),
                 KeyValuePair.Create("Only Weave or Use Whilst Moving.", "仅在移动时插入或使用。"),
                 KeyValuePair.Create("Use when MP is above", "当MP高于此值时使用"),
@@ -86,6 +86,13 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create($"Apply options to On 坚石.", $"将选项应用于坚石。"),
                 KeyValuePair.Create($"If Both {WHMPvP.Aquaveil.ActionName()} & {WHMPvP.Cure3.ActionName()} are ready, prioritise {WHMPvP.Aquaveil.ActionName()}", "如果水流幕和愈疗都准备就绪，优先使用水流幕"),
                 KeyValuePair.Create($"If Both {WHMPvP.Aquaveil.ActionName()} & {WHMPvP.Cure3.ActionName()} are ready, prioritise {WHMPvP.Cure3.ActionName()}", "如果水流幕和愈疗都准备就绪，优先使用愈疗"),
+                KeyValuePair.Create("Replaces Stone with a full one-button single target rotation.", "将飞石替换为完整的一键单体循环。"),
+                KeyValuePair.Create("Replaces Holy with a full one-button AoE rotation.", "将神圣替换为完整的一键多目标循环。"),
+                KeyValuePair.Create("Replaces Stone with a full one-button single target rotation.", "将飞石替换为完整的一键单体循环。"),
+                KeyValuePair.Create("Will reapply DoT early to all enemies within range while moving.", "移动时会对范围内所有敌人提前补上DoT。"),
+                KeyValuePair.Create("Multitarget Dot Option", "多目标DOT选项"),
+                KeyValuePair.Create("Maintains dots on multiple targets.", "保持DOT在多个目标上。"),
+                
             ];
         }
     }

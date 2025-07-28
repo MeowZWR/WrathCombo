@@ -238,19 +238,19 @@ internal partial class WHM
                         itemWidth: little);
                     ImGui.Unindent();
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 0,
-                        $"{Medica2.ActionName()} Priority: ");
+                        $"{Medica2.ActionName()} 优先级：");
                     break;
                 
                 case Preset.WHM_AoEHeals_Cure3:
                     DrawSliderInt(1, 100, WHM_AoEHeals_Cure3HP,
                         partyStartUsingAtDescription);
                     DrawSliderInt(2, 8, WHM_AoEHeals_Cure3Allies,
-                        "Minimum Number of allies in range of Cure 3 target");
+                        "愈疗目标范围内的最少队友数量");
                     DrawSliderInt(1500, 8500, WHM_AoEHeals_Cure3MP,
-                        "MP to be over",
+                        "魔力值高于该值时使用",
                         sliderIncrement: 500);
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 1,
-                        $"{Cure3.ActionName()} Priority: ");
+                        $"{Cure3.ActionName()} 优先级：");
                     break;
                 
                 case Preset.WHM_AoEHeals_Plenary:
@@ -260,7 +260,7 @@ internal partial class WHM
                         weaveDescription,
                         "");
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 2,
-                        $"{PlenaryIndulgence.ActionName()} Priority: ");
+                        $"{PlenaryIndulgence.ActionName()} 优先级：");
                     break;
                 
                 case Preset.WHM_AoEHeals_Temperance:
@@ -271,9 +271,9 @@ internal partial class WHM
                         "");
                     DrawDifficultyMultiChoice(WHM_AoEHeals_TemperanceDifficulty,
                         WHM_AoEHeals_TemperanceDifficultyListSet,
-                        "Select what content difficulties Temperance should be used in:");
+                        "选择在哪些副本难度下使用神速咏唱：");
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 3,
-                        $"{Temperance.ActionName()} Priority: ");
+                        $"{Temperance.ActionName()} 优先级：");
                     break;
                 
                 case Preset.WHM_AoEHeals_Asylum:
@@ -284,9 +284,9 @@ internal partial class WHM
                         "");
                     DrawDifficultyMultiChoice(WHM_AoEHeals_AsylumDifficulty,
                         WHM_AoEHeals_AsylumDifficultyListSet,
-                        "Select what content difficulties Asylum should be used in:");
+                        "选择在哪些副本难度下使用庇护所：");
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 4,
-                        $"{Asylum.ActionName()} Priority: ");
+                        $"{Asylum.ActionName()} 优先级：");
                     break;
                 
                 case Preset.WHM_AoEHeals_LiturgyOfTheBell:
@@ -297,16 +297,16 @@ internal partial class WHM
                         "");
                     DrawDifficultyMultiChoice(WHM_AoEHeals_LiturgyDifficulty,
                         WHM_AoEHeals_LiturgyDifficultyListSet,
-                        "Select what content difficulties LiturgyOfTheBell should be used in:");
+                        "选择在哪些副本难度下使用礼仪之铃：");
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 5,
-                        $"{LiturgyOfTheBell.ActionName()} Priority: ");
+                        $"{LiturgyOfTheBell.ActionName()} 优先级：");
                     break;
                 
                 case Preset.WHM_AoEHeals_Rapture:
                     DrawSliderInt(1, 100, WHM_AoEHeals_RaptureHP,
                         partyStartUsingAtDescription);
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 6,
-                        $"{AfflatusRapture.ActionName()} Priority: ");
+                        $"{AfflatusRapture.ActionName()} 优先级：");
                     break;
                 
                 case Preset.WHM_AoEHeals_Assize:
@@ -315,7 +315,7 @@ internal partial class WHM
                     DrawAdditionalBoolChoice(WHM_AoEHeals_AssizeWeave,
                         weaveDescription, "");
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 7,
-                        $"{Assize.ActionName()} Priority: ");
+                        $"{Assize.ActionName()} 优先级：");
                     break;
                 
                 case Preset.WHM_AoEHeals_DivineCaress:
@@ -324,7 +324,7 @@ internal partial class WHM
                     DrawAdditionalBoolChoice(WHM_AoEHeals_DivineCaressWeave,
                         weaveDescription, "");
                     DrawPriorityInput(WHM_AoE_Heals_Priority, 9, 8,
-                        $"{DivineCaress.ActionName()} Priority: ");
+                        $"{DivineCaress.ActionName()} 优先级：");
                     break;
 
                 case Preset.WHM_AoEHeals_ThinAir:
@@ -344,15 +344,15 @@ internal partial class WHM
 
                 case Preset.WHM_Mit_ST:
                     DrawHorizontalMultiChoice(WHM_AquaveilOptions,
-                        "Include Divine Benison", "Will add Divine Benison for more mitigation.", 2, 0);
+                        "包含神祝祷", "将添加神祝祷以获得更多减伤。", 2, 0);
                     ImGui.NewLine();
                     DrawHorizontalMultiChoice(WHM_AquaveilOptions,
-                        "Include Tetragrammaton", "Will add Tetragrammaton to top off targets health.", 2, 1);
+                        "包含神名", "将添加神名以补充目标血量。", 2, 1);
                     if (WHM_AquaveilOptions[1])
                     {
                         ImGui.Indent();
                         DrawSliderInt(0, 100, WHM_Aquaveil_TetraThreshold,
-                            "Target HP% to use Tetra at or below (100 = Disable check)");
+                            "目标HP%小于等于该值时使用神名（100=禁用检测）");
                         ImGui.Unindent();
                     }
                     break;
@@ -363,22 +363,22 @@ internal partial class WHM
                 
                 case Preset.WHM_Re_Asylum:
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudGrey, "Options to try to Retarget Asylum to before Self:");
+                    ImGui.TextColored(ImGuiColors.DalamudGrey, "尝试将庇护所重定向到自身前的选项：");
                     ImGui.Unindent();
                     DrawHorizontalMultiChoice(WHM_AsylumOptions,
-                        "Enemy Hard Target", "Will place at hard target if enemy", 3, 0);
+                        "敌方硬选中", "若为敌方则放置在硬选中目标", 3, 0);
                     DrawHorizontalMultiChoice(WHM_AsylumOptions,
-                        "Ally Hard Target", "Will place at hard target if ally", 3, 1);
+                        "友方硬选中", "若为友方则放置在硬选中目标", 3, 1);
                     break;
                 
                 case Preset.WHM_Re_LiturgyOfTheBell:
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudGrey, "Options to try to Retarget Asylum to before Self:");
+                    ImGui.TextColored(ImGuiColors.DalamudGrey, "尝试将礼仪之铃重定向到自身前的选项：");
                     ImGui.Unindent();
                     DrawHorizontalMultiChoice(WHM_LiturgyOfTheBellOptions,
-                        "Enemy Hard Target", "Will place at hard target if enemy", 2, 0);
+                        "敌方硬选中", "若为敌方则放置在硬选中目标", 2, 0);
                     DrawHorizontalMultiChoice(WHM_LiturgyOfTheBellOptions,
-                        "Ally Hard Target", "Will place at hard target if ally", 2, 1);
+                        "友方硬选中", "若为友方则放置在硬选中目标", 2, 1);
                     break;
                     
                 
@@ -396,15 +396,15 @@ internal partial class WHM
 
         /// Bar Description for target HP% to start using plus disable text
         private const string targetStartUsingAtDescription =
-            "Target HP% to use at or below (100 = Disable check)";
+            "目标血量百分比小于等于该值时使用（100=禁用检测）";
         
         /// Bar Description for Party HP%  Average to start using plus disable text
         private const string partyStartUsingAtDescription =
-            "Start using when below party average HP% (100 = Disable check)";
+            "队伍平均血量百分比低于该值时开始使用（100=禁用检测）";
 
         /// 非Boss目标停止使用的HP%描述
         private const string targetStopUsingAtDescription =
-            " Target HP% to stop using (0 = Use Always, 100 = Never)";
+            "目标血量百分比高于该值时停止使用（0=总是使用，100=从不使用）";
 
         /// Boss目标停止使用的HP%描述
         private const string targetStopUsingOnBossAtDescription =
