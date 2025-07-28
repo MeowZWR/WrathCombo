@@ -42,7 +42,7 @@
 咸鱼玩家，大部分职业未满级，对输出循环没什么理解。<br>
 调用 DeepSeek-V3 API 进行自动翻译，可能并不符合游戏术语。<br>
 
-<img src="https://komarev.com/ghpvc/?username=PunishXIV&repo=WrathCombo-cn&style=for-the-badge&label=Profile+Views+(Since+2025-07-28)&color=blue" alt="Profile Views" />
+<img src="https://komarev.com/ghpvc/?username=MeowZWR&repo=WrathCombo&style=for-the-badge&label=Profile+Views+(Since+2025-01-27)&color=blue" alt="Profile Views" />
 
 </section>
 
