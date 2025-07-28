@@ -9,19 +9,13 @@ namespace WrathCombo.Resources.Dictionary.Chinese
 {
     public static class DictionaryDebugger
     {
-        // 存储所有未被替换的英文文本
         private static readonly HashSet<string> _unreplacedTexts = new();
-
-        // 存储所有未被使用的键值对
         private static readonly HashSet<string> _unusedKeys = new();
-
-        // 存储所有已使用的键值对
         private static readonly HashSet<string> _usedKeys = new();
+        private static readonly Dictionary<string, HashSet<string>> _sessionUsedKeys = new();
 
-        // 初始时加载所有键值对
         public static void Initialize()
         {
-            // 初始化时记录所有键
             foreach (var pair in ReplacementsDictionary.Replacements)
             {
                 _unusedKeys.Add(pair.Key);
@@ -30,7 +24,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese
             PluginLog.Information($"键值对调试器初始化完成，加载了 {_unusedKeys.Count} 个键值对");
         }
 
-        // 在TextReplacer中每次替换后调用
         public static void RecordUsedKey(string key)
         {
             if (_unusedKeys.Contains(key))
@@ -40,16 +33,70 @@ namespace WrathCombo.Resources.Dictionary.Chinese
             }
         }
 
-        // 记录未替换的文本
-        public static void RecordUnreplacedText(string text)
+        public static void StartReplacementSession(string originalText)
         {
-            if (!string.IsNullOrWhiteSpace(text))
+            if (!_sessionUsedKeys.ContainsKey(originalText))
             {
-                _unreplacedTexts.Add(text);
+                _sessionUsedKeys[originalText] = new HashSet<string>();
             }
         }
 
-        // 导出调试信息到文件
+        // 避免同一文本多次替换时重复计数键值对使用
+        public static void RecordUsedKeyInSession(string key, string originalText)
+        {
+            if (_sessionUsedKeys.ContainsKey(originalText) && !_sessionUsedKeys[originalText].Contains(key))
+            {
+                _sessionUsedKeys[originalText].Add(key);
+                
+                if (_unusedKeys.Contains(key))
+                {
+                    _unusedKeys.Remove(key);
+                    _usedKeys.Add(key);
+                }
+            }
+        }
+
+        public static void RecordUnreplacedText(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return;
+
+            string cleanText = text.Trim();
+            
+            if (!System.Text.RegularExpressions.Regex.IsMatch(cleanText, @"[a-zA-Z]"))
+                return;
+
+            if (ShouldSkipUnreplacedText(cleanText))
+                return;
+
+            _unreplacedTexts.Add(cleanText);
+        }
+
+        private static bool ShouldSkipUnreplacedText(string text)
+        {
+            if (text.Length < 3)
+                return true;
+
+            if (System.Text.RegularExpressions.Regex.IsMatch(text, @"^[\s\d\W]*[a-zA-Z]{1,2}[\s\d\W]*$"))
+                return true;
+
+            if (System.Text.RegularExpressions.Regex.IsMatch(text, @"^[A-Z_][A-Z0-9_]*$"))
+                return true;
+
+            if (text.Contains("/") || text.Contains("\\") || text.Contains("://") || 
+                text.Contains("()") || text.Contains("{}") || text.Contains("[]"))
+                return true;
+
+            // 跳过主要是中文但包含少量英文字母的文本（如"- 等级90或以上"）
+            var chineseCharCount = System.Text.RegularExpressions.Regex.Matches(text, @"[\u4e00-\u9fa5]").Count;
+            var englishCharCount = System.Text.RegularExpressions.Regex.Matches(text, @"[a-zA-Z]").Count;
+            
+            if (chineseCharCount > englishCharCount && chineseCharCount > 2)
+                return true;
+
+            return false;
+        }
+
         public static void ExportDebugFile()
         {
             try
@@ -65,9 +112,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese
                     writer.WriteLine($"已使用键值对: {_usedKeys.Count}");
                     writer.WriteLine($"未使用键值对: {_unusedKeys.Count}");
                     writer.WriteLine($"未替换文本总数: {_unreplacedTexts.Count}");
+                    writer.WriteLine($"替换会话总数: {_sessionUsedKeys.Count}");
                     writer.WriteLine();
 
-                    // 输出未被替换的英文文本
                     writer.WriteLine("=== 未被替换的英文文本 ===");
                     foreach (var text in _unreplacedTexts.OrderBy(t => t))
                     {
@@ -75,14 +122,57 @@ namespace WrathCombo.Resources.Dictionary.Chinese
                     }
                     writer.WriteLine();
 
-                    // 输出未被使用的键值对
                     writer.WriteLine("=== 未被使用的键值对 ===");
+                    
+                    var dynamicSkillKeys = new List<string>();
+                    var normalUnusedKeys = new List<string>();
+                    
                     foreach (var key in _unusedKeys.OrderBy(k => k))
                     {
-                        writer.WriteLine($"\"{key}\" => \"{ReplacementsDictionary.Replacements[key]}\"");
+                        string value = ReplacementsDictionary.Replacements[key];
+                        // 检测动态技能键值对：值为中文但键为英文技能名
+                        bool isDynamicSkill = System.Text.RegularExpressions.Regex.IsMatch(value, @"[\u4e00-\u9fa5]") && 
+                                            System.Text.RegularExpressions.Regex.IsMatch(key, @"^[A-Z][a-zA-Z\s]*$") &&
+                                            !value.Contains(" ");
+                        
+                        if (isDynamicSkill)
+                        {
+                            dynamicSkillKeys.Add(key);
+                        }
+                        else
+                        {
+                            normalUnusedKeys.Add(key);
+                        }
                     }
 
-                    // 输出重复键的日志
+                    writer.WriteLine($"普通未使用键值对: {normalUnusedKeys.Count}个");
+                    writer.WriteLine($"疑似动态技能键值对: {dynamicSkillKeys.Count}个");
+                    writer.WriteLine();
+
+                    if (normalUnusedKeys.Any())
+                    {
+                        writer.WriteLine("--- 普通未使用键值对 ---");
+                        foreach (var key in normalUnusedKeys)
+                        {
+                            writer.WriteLine($"\"{key}\" => \"{ReplacementsDictionary.Replacements[key]}\"");
+                        }
+                        writer.WriteLine();
+                    }
+
+                    if (dynamicSkillKeys.Any())
+                    {
+                        writer.WriteLine("--- 疑似动态技能键值对（可能因为游戏中已显示为中文而未被使用） ---");
+                        foreach (var key in dynamicSkillKeys)
+                        {
+                            writer.WriteLine($"\"{key}\" => \"{ReplacementsDictionary.Replacements[key]}\"");
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine("注意：上述键值对使用了ActionName()方法获取技能的本地化名称。");
+                        writer.WriteLine("如果游戏设置为中文，这些键值对可能永远不会被使用，");
+                        writer.WriteLine("因为界面中直接显示的就是中文技能名。");
+                        writer.WriteLine();
+                    }
+
                     writer.WriteLine();
                     writer.WriteLine("=== 重复键日志 ===");
                     writer.Write(ReplacementsDictionary.GetDuplicateKeysLog());

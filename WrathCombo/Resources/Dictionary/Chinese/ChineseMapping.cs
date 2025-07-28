@@ -18,6 +18,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese
             if (string.IsNullOrEmpty(text))
                 return text;
 
+#if DEBUG
+            DictionaryDebugger.StartReplacementSession(text);
+#endif
+
             var lines = text.Split(['\n'], StringSplitOptions.None);
             bool anyReplacement = false;
 
@@ -36,7 +40,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese
                         if (beforeReplace != replacedLine)
                         {
 #if DEBUG
-                            DictionaryDebugger.RecordUsedKey(pair.Key);
+                            DictionaryDebugger.RecordUsedKeyInSession(pair.Key, text);
 #endif
                             anyReplacement = true;
                         }
