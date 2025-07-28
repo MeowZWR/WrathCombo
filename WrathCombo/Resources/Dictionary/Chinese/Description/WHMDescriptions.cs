@@ -88,7 +88,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create($"If Both {WHMPvP.Aquaveil.ActionName()} & {WHMPvP.Cure3.ActionName()} are ready, prioritise {WHMPvP.Cure3.ActionName()}", "如果水流幕和愈疗都准备就绪，优先使用愈疗"),
                 KeyValuePair.Create("Replaces Stone with a full one-button single target rotation.", "将飞石替换为完整的一键单体循环。"),
                 KeyValuePair.Create("Replaces Holy with a full one-button AoE rotation.", "将神圣替换为完整的一键多目标循环。"),
-                KeyValuePair.Create("Replaces Stone with a full one-button single target rotation.", "将飞石替换为完整的一键单体循环。"),
                 KeyValuePair.Create("Will reapply DoT early to all enemies within range while moving.", "移动时会对范围内所有敌人提前补上DoT。"),
                 KeyValuePair.Create("Multitarget Dot Option", "多目标DOT选项"),
                 KeyValuePair.Create("Maintains dots on multiple targets.", "保持DOT在多个目标上。"),
