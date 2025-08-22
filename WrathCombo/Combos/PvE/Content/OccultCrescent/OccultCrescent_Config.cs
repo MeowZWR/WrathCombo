@@ -38,98 +38,98 @@ internal partial class OccultCrescent
             {
                 case CustomComboPreset.Phantom_Freelancer_OccultResuscitation:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Freelancer_Resuscitation_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Geomancer_Sunbath:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Geomancer_Sunbath_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Knight_PhantomGuard:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Knight_PhantomGuard_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
                 case CustomComboPreset.Phantom_Knight_Pray:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Knight_Pray_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
                 case CustomComboPreset.Phantom_Knight_OccultHeal:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Knight_OccultHeal_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
                 case CustomComboPreset.Phantom_Knight_Pledge:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Knight_Pledge_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
                 case CustomComboPreset.Phantom_Bard_MightyMarch:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Bard_MightyMarch_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Monk_OccultChakra:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Monk_OccultChakra_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Oracle_Blessing:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Oracle_Blessing_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Oracle_Starfall:
                     UserConfig.DrawSliderInt(91, 100, Phantom_Oracle_Starfall_Health,
-                        "Player HP% to be \ngreater than or equal to:", 200);
+                        "玩家生命值百分比大于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Ranger_OccultUnicorn:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Ranger_OccultUnicorn_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Ranger_PhantomAim:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Ranger_PhantomAim_Stop,
-                        "Target HP% to be \ngreater than or equal to:", 200);
+                        "目标生命值百分比大于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Thief_Steal:
                     UserConfig.DrawSliderInt(1, 50, Phantom_Thief_Steal_Health,
-                        "Target HP% to be \nless than or equal to:", 200);
+                        "目标生命值百分比小于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Chemist_OccultPotion:
                     UserConfig.DrawSliderInt(1, 100, Phantom_Chemist_OccultPotion_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "玩家生命值百分比小于等于：", 200);
                     break;
 
                 case CustomComboPreset.Phantom_Chemist_OccultEther:
                     UserConfig.DrawSliderInt(1, 10000, Phantom_Chemist_OccultEther_MP,
-                        "Player MP to be \nless than or equal to:", sliderIncrement: SliderIncrements.Hundreds);
+                        "玩家魔力值小于等于：", sliderIncrement: SliderIncrements.Hundreds);
                     break;
 
                 case CustomComboPreset.Phantom_Chemist_OccultElixir:
                     ImGui.Indent();
-                    ImGuiEx.TextWrapped(ImGuiColors.DalamudRed, "This is a VERY costly Feature!");
+                    ImGuiEx.TextWrapped(ImGuiColors.DalamudRed, "这是一个非常高消耗的功能！");
                     ImGui.Unindent();
                     UserConfig.DrawSliderInt(1, 100, Phantom_Chemist_OccultElixir_HP,
-                        "Avg Party HP to be \nless than or equal to:", 200);
+                        "队伍平均生命值小于等于：", 200);
                     UserConfig.DrawAdditionalBoolChoice(Phantom_Chemist_OccultElixir_RequireParty,
-                        "Require at least 1 party member", "");
+                        "至少需要1名队员", "");
                     ImGui.Indent();
-                    ImGuiEx.TextWrapped(ImGuiColors.DalamudYellow, "Not advisable in most situations!");
-                    ImGuiEx.TextWrapped(ImGuiColors.DalamudYellow, "The slider value should be rather low, if you do use it!");
+                    ImGuiEx.TextWrapped(ImGuiColors.DalamudYellow, "大多数情况下不建议使用！");
+                    ImGuiEx.TextWrapped(ImGuiColors.DalamudYellow, "如果要用，滑块值应设置得较低！");
                     ImGui.Unindent();
                     break;
 
                 case CustomComboPreset.Phantom_TimeMage_OccultComet:
                     UserConfig.DrawAdditionalBoolChoice(Phantom_TimeMage_Comet_RequireSpeed,
-                        "Require Swiftcast or Occult Quick to use Comet", "");
+                        "需要即刻咏唱或魔神速才能使用魔彗星", "");
                     if (Phantom_TimeMage_Comet_RequireSpeed)
                     {
                         ImGui.Indent();
                         UserConfig.DrawAdditionalBoolChoice(
                             Phantom_TimeMage_Comet_UseSpeed,
-                            "Add Swiftcast or Occult Quick prior to using Comet", "");
+                            "在使用魔彗星前添加即刻咏唱或魔神速", "");
                         ImGui.Unindent();
                     }
                     break;

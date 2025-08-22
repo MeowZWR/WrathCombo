@@ -22,370 +22,370 @@ public enum CustomComboPreset
 
     #region PHANTOM ACTIONS
     [OccultCrescent(OccultCrescent.JobIDs.Freelancer)]
-    [CustomComboInfo("Freelancer Job Actions", "Enable this to add Freelancer-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助自由人技能", "启用以将辅助自由人相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Freelancer = 110000,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Freelancer)]
-    [CustomComboInfo("Occult Resuscitation", "Adds Occult Resuscitation into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔急救", "将魔急救加入循环。", OccultCrescent.JobID)]
     Phantom_Freelancer_OccultResuscitation = 110001,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Freelancer)]
-    [CustomComboInfo("Occult Treasuresight", "Adds Occult Treasuresight into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔寻宝", "将魔寻宝加入循环。", OccultCrescent.JobID)]
     Phantom_Freelancer_OccultTreasuresight = 110002,
 
     [OccultCrescent(OccultCrescent.JobIDs.Knight)]
-    [CustomComboInfo("Knight Job Actions", "Enable this to add Knight-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助骑士", "启用以将辅助骑士相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Knight = 110003,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Knight)]
-    [CustomComboInfo("Phantom Guard", "Adds Phantom Guard into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("防护", "将防护加入循环。", OccultCrescent.JobID)]
     Phantom_Knight_PhantomGuard = 110004,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Knight)]
-    [CustomComboInfo("Pray", "Adds Pray into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("祈祷", "将祈祷加入循环。", OccultCrescent.JobID)]
     Phantom_Knight_Pray = 110005,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Knight)]
-    [CustomComboInfo("Occult Heal", "Adds Occult Heal into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔疗愈", "将魔疗愈加入循环。", OccultCrescent.JobID)]
     Phantom_Knight_OccultHeal = 110006,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Knight)]
-    [CustomComboInfo("Pledge", "Adds Pledge into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("起誓", "将起誓加入循环。", OccultCrescent.JobID)]
     Phantom_Knight_Pledge = 110007,
 
     [OccultCrescent(OccultCrescent.JobIDs.Monk)]
-    [CustomComboInfo("Monk Job Actions", "Enable this to add Monk-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助武僧", "启用以将辅助武僧相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Monk = 110008,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Monk)]
-    [CustomComboInfo("Phantom Kick", "Adds Phantom Kick into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("踢击", "将踢击加入循环。", OccultCrescent.JobID)]
     Phantom_Monk_PhantomKick = 110009,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Monk)]
-    [CustomComboInfo("Occult Counter", "Adds Occult Counter into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔反击", "将魔反击加入循环。", OccultCrescent.JobID)]
     Phantom_Monk_OccultCounter = 110010,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Monk)]
-    [CustomComboInfo("Counterstance", "Adds Counterstance into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("架招", "将架招加入循环。", OccultCrescent.JobID)]
     Phantom_Monk_Counterstance = 110011,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Monk)]
-    [CustomComboInfo("Occult Chakra", "Adds Occult Chakra into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔脉轮", "将魔脉轮加入循环。", OccultCrescent.JobID)]
     Phantom_Monk_OccultChakra = 110012,
 
     [OccultCrescent(OccultCrescent.JobIDs.Thief)]
-    [CustomComboInfo("Thief Job Actions", "Enable this to add Thief-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助盗贼", "启用以将辅助盗贼相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Thief = 110013,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Thief)]
-    [CustomComboInfo("Occult Sprint", "Adds Occult Sprint into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔冲刺", "将魔冲刺加入循环。", OccultCrescent.JobID)]
     Phantom_Thief_OccultSprint = 110014,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Thief)]
-    [CustomComboInfo("Steal", "Adds Steal into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("偷盗", "将偷盗加入循环。", OccultCrescent.JobID)]
     Phantom_Thief_Steal = 110015,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Thief)]
-    [CustomComboInfo("Vigilance", "Adds Vigilance into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("警戒", "将警戒加入循环。", OccultCrescent.JobID)]
     Phantom_Thief_Vigilance = 110016,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Thief)]
-    [CustomComboInfo("Trap Detection", "Adds Trap Detection into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("陷阱感知", "将陷阱感知加入循环。", OccultCrescent.JobID)]
     Phantom_Thief_TrapDetection = 110017,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Thief)]
-    [CustomComboInfo("Pilfer Weapon", "Adds Pilfer Weapon into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("偷盗武器", "将偷盗武器加入循环。", OccultCrescent.JobID)]
     Phantom_Thief_PilferWeapon = 110018,
 
     [OccultCrescent(OccultCrescent.JobIDs.Samurai)]
-    [CustomComboInfo("Samurai Job Actions", "Enable this to add Samurai-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助武士", "启用以将辅助武士相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Samurai = 110053,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Samurai)]
-    [CustomComboInfo("Phantom Mineuchi", "Adds Phantom Mineuchi into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("刀背打", "将刀背打加入循环。", OccultCrescent.JobID)]
     Phantom_Samurai_Mineuchi = 110054,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Samurai)]
-    [CustomComboInfo("Phantom Shirahadori", "Adds Phantom Shirahadori into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("空手接白刃", "将空手接白刃加入循环。", OccultCrescent.JobID)]
     Phantom_Samurai_Shirahadori = 110055,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Samurai)]
-    [CustomComboInfo("Phantom Iainuki", "Adds Phantom Iainuki into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("居合斩", "将居合斩加入循环。", OccultCrescent.JobID)]
     Phantom_Samurai_Iainuki = 110056,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Samurai)]
-    [CustomComboInfo("Phantom Zeninage", "Adds Phantom Zeninage into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("扔钱", "将扔钱加入循环。", OccultCrescent.JobID)]
     Phantom_Samurai_Zeninage = 110057,
 
     [OccultCrescent(OccultCrescent.JobIDs.Berserker)]
-    [CustomComboInfo("Berserker Job Actions", "Enable this to add Berserker-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助狂战士", "启用以将狂战士相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Berserker = 110019,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Berserker)]
-    [CustomComboInfo("Rage", "Adds Rage into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("狂怒", "将狂怒加入循环。", OccultCrescent.JobID)]
     Phantom_Berserker_Rage = 110020,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Berserker)]
-    [CustomComboInfo("Deadly Blow", "Adds Deadly Blow into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("一击", "将一击加入循环。", OccultCrescent.JobID)]
     Phantom_Berserker_DeadlyBlow = 110021,
 
     [OccultCrescent(OccultCrescent.JobIDs.Ranger)]
-    [CustomComboInfo("Ranger Job Actions", "Enable this to add Ranger-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助猎人", "启用以将辅助猎人相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Ranger = 110022,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Ranger)]
-    [CustomComboInfo("Phantom Aim", "Adds Phantom Aim into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("狙击", "将狙击加入循环。", OccultCrescent.JobID)]
     Phantom_Ranger_PhantomAim = 110023,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Ranger)]
-    [CustomComboInfo("Occult Featherfoot", "Adds Occult Featherfoot into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔猎步", "将魔猎步加入循环。", OccultCrescent.JobID)]
     Phantom_Ranger_OccultFeatherfoot = 110024,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Ranger)]
-    [CustomComboInfo("Occult Falcon", "Adds Occult Falcon into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔猎鹰", "将魔猎鹰加入循环。", OccultCrescent.JobID)]
     Phantom_Ranger_OccultFalcon = 110025,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Ranger)]
-    [CustomComboInfo("Occult Unicorn", "Adds Occult Unicorn into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔独角兽", "将魔独角兽加入循环。", OccultCrescent.JobID)]
     Phantom_Ranger_OccultUnicorn = 110026,
 
     [OccultCrescent(OccultCrescent.JobIDs.TimeMage)]
-    [CustomComboInfo("Time Mage Job Actions", "Enable this to add Time Mage-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助时魔法师", "启用以将辅助时魔法师相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_TimeMage = 110027,
 
     [OccultCrescent]
     [ParentCombo(Phantom_TimeMage)]
-    [CustomComboInfo("Occult Slowga", "Adds Occult Slowga into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔强减速", "将魔强减速加入循环。", OccultCrescent.JobID)]
     Phantom_TimeMage_OccultSlowga = 110028,
 
     [OccultCrescent]
     [ParentCombo(Phantom_TimeMage_OccultSlowga)]
-    [CustomComboInfo("Wait to get Full(-ish) Effect", "Will not use Slowga if the diminishing return from repeated use is substantial, or there would be no diminishing return at all.", OccultCrescent.JobID)]
+    [CustomComboInfo("等待以获得更完整效果", "当重复使用的收益递减较大，或完全没有收益时，将不会使用魔强减速。", OccultCrescent.JobID)]
     Phantom_TimeMage_OccultSlowga_Wait = 110075,
 
     [OccultCrescent]
     [ParentCombo(Phantom_TimeMage)]
-    [CustomComboInfo("Occult Comet", "Adds Occult Comet into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔彗星", "将魔彗星加入循环。", OccultCrescent.JobID)]
     Phantom_TimeMage_OccultComet = 110029,
 
     [OccultCrescent]
     [ParentCombo(Phantom_TimeMage)]
-    [CustomComboInfo("Occult Mage Masher", "Adds Occult Mage Masher into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔封魔", "将魔封魔加入循环。", OccultCrescent.JobID)]
     Phantom_TimeMage_OccultMageMasher = 110030,
 
     [OccultCrescent]
     [ParentCombo(Phantom_TimeMage)]
-    [CustomComboInfo("Occult Dispel", "Adds Occult Dispel into the rotation if the target has a known-dispellable status.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔驱魔", "若目标具有可驱散的已知状态，将魔驱魔加入循环。", OccultCrescent.JobID)]
     Phantom_TimeMage_OccultDispel = 110031,
 
     [OccultCrescent]
     [ParentCombo(Phantom_TimeMage)]
-    [CustomComboInfo("Occult Quick", "Adds Occult Quick into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔神速", "将魔神速加入循环。", OccultCrescent.JobID)]
     Phantom_TimeMage_OccultQuick = 110032,
 
     [OccultCrescent(OccultCrescent.JobIDs.Chemist)]
-    [CustomComboInfo("Chemist Job Actions", "Enable this to add Chemist-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助药剂师", "启用以将辅助药剂师相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Chemist = 110033,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Chemist)]
-    [CustomComboInfo("Occult Potion", "Adds Occult Potion into the rotation.\nRequires Occult Potions in inventory.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔恢复药", "将魔恢复药加入循环。\n需要背包中有魔恢复药。", OccultCrescent.JobID)]
     Phantom_Chemist_OccultPotion = 110034,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Chemist)]
-    [CustomComboInfo("Occult Ether", "Adds Occult Ether into the rotation.\nRequires Occult Potions in inventory.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔以太药", "将魔以太药加入循环。\n需要背包中有魔恢复药。", OccultCrescent.JobID)]
     Phantom_Chemist_OccultEther = 110035,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Chemist)]
-    [CustomComboInfo("Revive", "Adds Revive into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("苏生", "将苏生加入循环。", OccultCrescent.JobID)]
     Phantom_Chemist_Revive = 110036,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Chemist)]
-    [CustomComboInfo("Occult Elixir", "Adds Occult Elixir into the rotation.\nRequires Occult Elixir in inventory.", OccultCrescent.JobID)]
+    [CustomComboInfo("魔圣灵药", "将魔圣灵药加入循环。\n需要背包中有魔圣灵药。", OccultCrescent.JobID)]
     Phantom_Chemist_OccultElixir = 110037,
 
     [OccultCrescent(OccultCrescent.JobIDs.Bard)]
-    [CustomComboInfo("Bard Job Actions", "Enable this to add Bard-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助吟游诗人", "启用以将辅助吟游诗人相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Bard = 110038,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Bard)]
-    [CustomComboInfo("Mighty March", "Adds Mighty March into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("体力之歌", "将体力之歌加入循环。", OccultCrescent.JobID)]
     Phantom_Bard_MightyMarch = 110039,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Bard)]
-    [CustomComboInfo("Offensive Aria", "Adds Offensive Aria into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("攻击之歌", "将攻击之歌加入循环。", OccultCrescent.JobID)]
     Phantom_Bard_OffensiveAria = 110040,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Bard)]
-    [CustomComboInfo("Romeo’s Ballad", "Adds Romeo’s Ballad into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("爱之歌", "将爱之歌加入循环。", OccultCrescent.JobID)]
     Phantom_Bard_RomeosBallad = 110041,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Bard)]
-    [CustomComboInfo("Hero’s Rime", "Adds Hero’s Rime into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("英雄之歌", "将英雄之歌加入循环。", OccultCrescent.JobID)]
     Phantom_Bard_HerosRime = 110042,
 
     [OccultCrescent(OccultCrescent.JobIDs.Oracle)]
-    [CustomComboInfo("Oracle Job Actions", "Enable this to add Oracle-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助预言师", "启用以将辅助预言师相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle = 110043,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Predict", "Adds Predict into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("预言", "将预言加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_Predict = 110044,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Phantom Judgment", "Adds Phantom Judgment into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("神圣审判", "将神圣审判加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_PhantomJudgment = 110045,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Cleansing", "Adds Cleansing into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("天崩地裂", "将天崩地裂加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_Cleansing = 110046,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Blessing", "Adds Blessing into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("天之恩典", "将天之恩典加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_Blessing = 110047,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Starfall", "Adds Starfall into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("陨石", "将陨石加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_Starfall = 110048,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Recuperation", "Adds Recuperation into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("痊愈宣告", "将痊愈宣告加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_Recuperation = 110049,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Phantom Doom", "Adds Phantom Doom into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("死亡宣告", "将死亡宣告加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_PhantomDoom = 110050,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Phantom Rejuvenation", "Adds Phantom Rejuvenation into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("治愈宣告", "将治愈宣告加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_PhantomRejuvenation = 110051,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Invulnerability", "Adds Invulnerability into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("不死宣告", "将不死宣告加入循环。", OccultCrescent.JobID)]
     Phantom_Oracle_Invulnerability = 110052,
 
     [OccultCrescent(OccultCrescent.JobIDs.Cannoneer)]
-    [CustomComboInfo("Cannoneer Job Actions", "Enable this to add Cannoneer-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助炮击士", "启用以将辅助炮击士相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Cannoneer = 110058,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Cannoneer)]
-    [CustomComboInfo("Phantom Fire", "Adds Phantom Fire into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("炮击", "将炮击加入循环。", OccultCrescent.JobID)]
     Phantom_Cannoneer_PhantomFire = 110059,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Cannoneer)]
-    [CustomComboInfo("Holy Cannon", "Adds Holy Cannon into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("神圣炮", "将神圣炮加入循环。", OccultCrescent.JobID)]
     Phantom_Cannoneer_HolyCannon = 110060,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Cannoneer)]
-    [CustomComboInfo("Dark Cannon", "Adds Dark Cannon into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("暗黑炮", "将暗黑炮加入循环。", OccultCrescent.JobID)]
     Phantom_Cannoneer_DarkCannon = 110061,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Cannoneer)]
-    [CustomComboInfo("Shock Cannon", "Adds Shock Cannon into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("冲击炮", "将冲击炮加入循环。", OccultCrescent.JobID)]
     Phantom_Cannoneer_ShockCannon = 110062,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Cannoneer)]
-    [CustomComboInfo("Silver Cannon", "Adds Silver Cannon into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("老化炮", "将老化炮加入循环。", OccultCrescent.JobID)]
     Phantom_Cannoneer_SilverCannon = 110063,
 
     [OccultCrescent(OccultCrescent.JobIDs.Geomancer)]
-    [CustomComboInfo("Geomancer Job Actions", "Enable this to add Geomancer-specific actions into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("辅助风水师", "启用以将辅助风水师相关技能加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer = 110064,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer)]
-    [CustomComboInfo("Battle Bell", "Adds Battle Bell into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("战斗之铃", "将战斗之铃加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_BattleBell = 110065,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer)]
-    [CustomComboInfo("Ringing Respite", "Adds Ringing Respite into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("休憩之铃", "将休憩之铃加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_RingingRespite = 110073,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer)]
-    [CustomComboInfo("Suspend", "Adds Suspend into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("浮空", "将浮空加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_Suspend = 110074,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer)]
-    [CustomComboInfo("Weather", "Adds Weather into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("天气", "将天气加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_Weather = 110066,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer_Weather)]
-    [CustomComboInfo("Sunbath", "Adds Sunbath into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("日光浴", "将日光浴加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_Sunbath = 110067,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer_Weather)]
-    [CustomComboInfo("Cloudy Caress", "Adds Cloudy Caress into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("晚风凉", "将晚风凉加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_CloudyCaress = 110068,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer_Weather)]
-    [CustomComboInfo("Blessed Rain", "Adds Blessed Rain into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("恩惠雨", "将恩惠雨加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_BlessedRain = 110069,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer_Weather)]
-    [CustomComboInfo("Misty Mirage", "Adds Misty Mirage into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("空蜃景", "将空蜃景加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_MistyMirage = 110070,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer_Weather)]
-    [CustomComboInfo("Hasty Mirage", "Adds Hasty Mirage into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("水蜃景", "将水蜃景加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_HastyMirage = 110071,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Geomancer_Weather)]
-    [CustomComboInfo("Aetherial Gain", "Adds Aetherial Gain into the rotation.", OccultCrescent.JobID)]
+    [CustomComboInfo("以太浴", "将以太浴加入循环。", OccultCrescent.JobID)]
     Phantom_Geomancer_AetherialGain = 110072,
 
     //Last Value = 110075
