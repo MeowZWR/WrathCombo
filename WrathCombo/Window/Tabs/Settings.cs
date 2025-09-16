@@ -26,32 +26,32 @@ internal class Settings : ConfigWindow
             #region UI Options
 
             ImGuiEx.Spacing(new Vector2(0, 20));
-            ImGuiEx.TextUnderlined("Main UI Options");
+            ImGuiEx.TextUnderlined("主界面选项");
 
             #region SubCombos
 
             var hideChildren = Service.Configuration.HideChildren;
 
-            if (ImGui.Checkbox("Hide SubCombo Options", ref hideChildren))
+            if (ImGui.Checkbox("隐藏子功能选项", ref hideChildren))
             {
                 Service.Configuration.HideChildren = hideChildren;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("Hides the sub-options of disabled features.");
+            ImGuiComponents.HelpMarker("隐藏已禁用功能的子选项。");
 
             #endregion
 
             #region Conflicting
 
             bool hideConflicting = Service.Configuration.HideConflictedCombos;
-            if (ImGui.Checkbox("Hide Conflicted Combos", ref hideConflicting))
+            if (ImGui.Checkbox("隐藏冲突连击", ref hideConflicting))
             {
                 Service.Configuration.HideConflictedCombos = hideConflicting;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("Hides any combos that conflict with others you have selected.");
+            ImGuiComponents.HelpMarker("隐藏与您已选择的其他连击冲突的连击。");
 
             #endregion
 
@@ -59,17 +59,17 @@ internal class Settings : ConfigWindow
 
             bool shortDTRText = Service.Configuration.ShortDTRText;
 
-            if (ImGui.Checkbox("Shorten Server Info Bar Text", ref shortDTRText))
+            if (ImGui.Checkbox("简化服务器信息栏文本", ref shortDTRText))
             {
                 Service.Configuration.ShortDTRText = shortDTRText;
                 Service.Configuration.Save();
             }
 
             ImGuiComponents.HelpMarker(
-                "By default, the Server Info Bar for Wrath Combo shows whether Auto-Rotation is on or off, " +
-                "\nthen -if on- it will show how many active Auto-Mode combos you have enabled. " +
-                "\nAnd finally, it will also show if another plugin is controlling that value." +
-                "\nThis option will make the number of active Auto-Mode combos not show."
+                "默认情况下，Wrath Combo 的服务器信息栏会显示自动循环是否开启，" +
+                "\n如果开启，则会显示已启用的自动模式连击数量。" +
+                "\n最后还会显示是否有其他插件控制该值。" +
+                "\n启用此选项后，将不再显示已启用的自动模式连击数量。"
             );
 
             #endregion
@@ -78,29 +78,29 @@ internal class Settings : ConfigWindow
 
             bool motd = Service.Configuration.HideMessageOfTheDay;
 
-            if (ImGui.Checkbox("Hide Message of the Day", ref motd))
+            if (ImGui.Checkbox("隐藏每日提示", ref motd))
             {
                 Service.Configuration.HideMessageOfTheDay = motd;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("Disables the Message of the Day message in your chat when you login.");
+            ImGuiComponents.HelpMarker("登录时不在聊天栏显示每日提示信息。");
 
             #endregion
 
             #region TargetHelper
 
             Vector4 colour = Service.Configuration.TargetHighlightColor;
-            if (ImGui.ColorEdit4("Target Highlight Colour", ref colour, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.AlphaPreview | ImGuiColorEditFlags.AlphaBar))
+            if (ImGui.ColorEdit4("目标高亮颜色", ref colour, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.AlphaPreview | ImGuiColorEditFlags.AlphaBar))
             {
                 Service.Configuration.TargetHighlightColor = colour;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("Draws a box around party members in the vanilla Party List, as targeted by certain features.\nSet Alpha to 0 to hide the box.");
+            ImGuiComponents.HelpMarker("在原生队伍列表中为被特定功能选中的队员绘制高亮框。\n将Alpha设为0可隐藏高亮框。");
 
             ImGui.SameLine();
-            ImGui.TextColored(ImGuiColors.DalamudGrey, $"(Only used by {Job.AST.Name()} currently)");
+            ImGui.TextColored(ImGuiColors.DalamudGrey, $"（目前仅用于 {Job.AST.Name()}）");
 
             #endregion
 
@@ -108,13 +108,13 @@ internal class Settings : ConfigWindow
 
             bool childBorders = Service.Configuration.ShowBorderAroundOptionsWithChildren;
 
-            if (ImGui.Checkbox("Show Borders around Job Options with sub-options", ref childBorders))
+            if (ImGui.Checkbox("为带子选项的职业显示边框", ref childBorders))
             {
                 Service.Configuration.ShowBorderAroundOptionsWithChildren = childBorders;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("Toggles the borders that show around jobs' options that have multiple children");
+            ImGuiComponents.HelpMarker("切换是否为拥有多个子选项的职业功能显示边框");
 
             #endregion
 
@@ -122,44 +122,44 @@ internal class Settings : ConfigWindow
 
             #region Open to PvE
 
-            if (ImGui.Checkbox("Open Wrath to the PvE Features tab", ref
+            if (ImGui.Checkbox("打开Wrath时默认进入PvE功能页", ref
                 Service.Configuration.OpenToPvE))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("When you open Wrath with `/wrath`, it will open to the PvE Features tab, instead of the last tab you were on." +
-                                       "\nSame as always using the `/wrath pve` command to open Wrath.");
+            ImGuiComponents.HelpMarker("使用 `/wrath` 命令打开Wrath时，默认进入PvE功能页，而不是上次停留的标签页。" +
+                                       "\n等同于每次都使用 `/wrath pve` 命令。");
 
             #endregion
 
             #region Open to PvP
 
-            if (ImGui.Checkbox("Open Wrath to the PvP Features tab in PvP areas", ref
+            if (ImGui.Checkbox("在PvP区域打开Wrath时默认进入PvP功能页", ref
                 Service.Configuration.OpenToPvP))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("Same as above, when you open Wrath with `/wrath`, it will open to the PvP Features tab, instead of the last tab you were on, when in a PvP area." +
-                                       "\nSimilar to using the `/wrath pvp` command to open Wrath.");
+            ImGuiComponents.HelpMarker("同上，在PvP区域使用 `/wrath` 命令时，默认进入PvP功能页，而不是上次停留的标签页。" +
+                                       "\n类似于使用 `/wrath pvp` 命令。");
 
             ImGui.SameLine();
-            ImGui.TextColored(ImGuiColors.DalamudGrey, $"(Will override the option above)");
+            ImGui.TextColored(ImGuiColors.DalamudGrey, "（此项会覆盖上方设置）");
 
             #endregion
 
             #region Open to Current Job
 
-            if (ImGui.Checkbox("Open PvE Features UI to Current Job on Opening", ref Service.Configuration.OpenToCurrentJob))
+            if (ImGui.Checkbox("打开PvE功能页时自动切换到当前职业", ref Service.Configuration.OpenToCurrentJob))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("When you open Wrath's UI, if your last tab was PvE, it will automatically open to the job you are currently playing.");
+            ImGuiComponents.HelpMarker("打开Wrath界面时，如果上次停留在PvE页，将自动切换到当前所玩的职业。");
 
             #endregion
 
             #region Open to Current Job on Switching
 
-            if (ImGui.Checkbox("Open PvE Features UI to Current Job on Switching Jobs", ref Service.Configuration.OpenToCurrentJobOnSwitch))
+            if (ImGui.Checkbox("切换职业时自动切换到对应PvE功能页", ref Service.Configuration.OpenToCurrentJobOnSwitch))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("When you switch jobs, it will automatically switch the PvE Features tab to the job you are currently playing.");
+            ImGuiComponents.HelpMarker("切换职业时，PvE功能页会自动切换到当前所玩的职业。");
 
             #endregion
 
@@ -168,23 +168,23 @@ internal class Settings : ConfigWindow
             #region Rotation Behavior Options
 
             ImGuiEx.Spacing(new Vector2(0, 20));
-            ImGuiEx.TextUnderlined("Rotation Behavior Options");
+            ImGuiEx.TextUnderlined("循环行为选项");
 
             #region Spells while Moving
 
-            if (ImGui.Checkbox("Block spells if moving", ref Service.Configuration.BlockSpellOnMove))
+            if (ImGui.Checkbox("移动时阻止施法", ref Service.Configuration.BlockSpellOnMove))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("Completely blocks spells from being used if you are moving, by replacing your actions with Savage Blade.\nThis would supersede combo-specific movement options, available for most jobs.\n\nIt is recommended to keep this off, as most combos already handle this more gracefully.\nDefault: Off");
+            ImGuiComponents.HelpMarker("移动时完全阻止法术释放，会用狂怒剑替换你的技能。\n此设置会覆盖大多数职业的连击专属移动选项。\n\n建议保持关闭，大多数连击已能更优雅地处理移动。\n默认：关闭");
 
             #endregion
 
             #region Action Changing
 
-            if (ImGui.Checkbox("Action Replacing", ref Service.Configuration.ActionChanging))
+            if (ImGui.Checkbox("技能替换", ref Service.Configuration.ActionChanging))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("Controls whether Actions will be Intercepted Replaced with combos from the plugin.\nIf disabled, your manual presses of abilities will no longer be affected by your Wrath settings.\n\nAuto-Rotation will work regardless of the setting.\n\nControlled by the `/wrath combo` command.\n\nIt is REQUIRED to keep this on if you use want to use Wrath without Auto Rotation.\nDefault: On");
+            ImGuiComponents.HelpMarker("控制是否由插件拦截并替换技能为连击。\n关闭后，你手动按下的技能将不再受Wrath设置影响。\n\n自动循环无论此设置如何都可用。\n\n可通过 `/wrath combo` 命令控制。\n\n如需在不开启自动循环时使用Wrath，必须保持开启。\n默认：开启");
 
             #endregion
 
@@ -192,10 +192,10 @@ internal class Settings : ConfigWindow
 
             if (Service.Configuration.ActionChanging) {
                 ImGui.Indent();
-                if (ImGui.Checkbox("Performance Mode", ref Service.Configuration.PerformanceMode))
+                if (ImGui.Checkbox("性能模式", ref Service.Configuration.PerformanceMode))
                     Service.Configuration.Save();
 
-                ImGuiComponents.HelpMarker("This mode will disable actions being changed on your hotbar, but will still continue to work in the background as you press your buttons.\n\nIt is recommended to try turing this on if you have performance issues.\nDefault: Off");
+                ImGuiComponents.HelpMarker("启用此模式后，热键栏上的技能图标将不会被插件替换，但你按下技能时插件依然会在后台正常工作。\n\n如果你遇到性能问题，建议尝试开启此选项。\n默认：关闭");
                 ImGui.Unindent();
             }
 
@@ -203,35 +203,34 @@ internal class Settings : ConfigWindow
 
             #region Queued Action Suppression
 
-            if (ImGui.Checkbox($"Queued Action Suppression", ref Service.Configuration.SuppressQueuedActions))
+            if (ImGui.Checkbox($"队列技能冲突抑制", ref Service.Configuration.SuppressQueuedActions))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("While Enabled:\nWhenever you queue an action that is not the same as the button you are pressing, Wrath will disable every other Combo, preventing them from thinking the queued action should trigger them.\n- This prevents combos from conflicting with each other, just because of overlap in actions that combos return and actions that combos replace.\n- This does however cause the Replaced Action for each combo to 'flash' through as actions are queued.\nThat 'flashed' action won't go through, it is only visual.\n\nWhile Disabled:\nCombos will not be disabled when actions are queued from a combo.\n- This prevents your hotbars 'flashing', that is the only benefit.\n- This does however allow Combos to conflict with each other, if one combo returns an action that another combo has as its Replaced Action.\nWe do NOT mark these types of conflicts, and we do NOT try to avoid them as we add new features.\n\nIt is STRONGLY recommended to keep this setting On.\nIf the 'flashing' bothers you it is MUCH more advised to use Performance Mode,\ninstead of turning this off.\nDefault: On");
+            ImGuiComponents.HelpMarker("启用时：\n当你排队的技能与当前按下的技能不一致时，Wrath会禁用所有其他连击，防止它们误判队列技能。\n- 这样可以避免不同连击因技能重叠而互相冲突。\n- 但会导致每个连击的“被替换技能”在排队时闪烁，仅为视觉效果，不会实际释放。\n\n关闭时：\n连击不会因技能排队而被禁用。\n- 这样可以避免热键栏图标闪烁，仅有此好处。\n- 但可能导致连击间冲突，例如一个连击返回的技能正好是另一个连击的被替换技能。\n我们不会标记或避免此类冲突。\n\n强烈建议保持此设置开启。\n如果不喜欢图标闪烁，建议优先使用性能模式，而不是关闭此项。\n默认：开启");
 
             ImGui.SameLine();
             ImGuiEx.Spacing(new Vector2(10, 0));
-            ImGui.TextColored(ImGuiColors.DalamudGrey, "read more:");
+            ImGui.TextColored(ImGuiColors.DalamudGrey, "详细说明：");
 
-            ImGuiComponents.HelpMarker($"With this enabled, whenever you queue an action that is not the same as the button you are pressing, it will disable every other button's feature from running. This resolves a number of issues where incorrect actions are performed due to how the game processes queued actions, however the visual experience on your hotbars is degraded. This is not recommended to be disabled, however if you feel uncomfortable with hotbar icons changing quickly this is one way to resolve it (or use Performance Mode) but be aware that this may introduce unintended side effects to combos if you have a lot enabled for a job." +
-                                       $"\n\n" +
-                                       $"For a more complicated explanation, whenever an action is used, the following happens:" +
-                                       $"\n1. If the action invokes the GCD (Weaponskills & Spells), if the GCD currently isn't active it will use it right away." +
-                                       $"\n2. Otherwise, if you're within the \"Queue Window\" (normally the last 0.5s of the GCD), it gets added to the queue before it is used." +
-                                       $"\n3. If the action is an Ability, as long as there's no animation lock currently happening it will execute right away." +
-                                       $"\n4. Otherwise, it is added to the queue immediately and then used when the animation lock is finished." +
-                                       $"\n\nFor step 1, the action being passed to the game is the original, unmodified action, which is then converted at use time. At step 2, things get messy as the queued action still remains the unmodified action, but when the queue is executed it treats it as if the modified action *is* the unmodified action." +
-                                       $"\n\nE.g. Original action Cure, modified action Cure II. At step 1, the game is okay to convert Cure to Cure II because that is what we're telling it to do. However, when Cure is passed to the queue, it treats it as if the unmodified action is Cure II." +
-                                       $"\n\nThis is similar for steps 3 & 4, except it can just happen earlier." +
-                                       $"\n\nHow this impacts us is if using the example before, we have a feature replacing Cure with Cure II, and another replacing Cure II with Regen and you enable both, the following happens:" +
-                                       $"\n\nStep 1, Cure is passed to the game, is converted to Cure II.\nYou press Cure again at the Queue Window, Cure is passed to the queue, however the queue when it goes to execute will treat it as Cure II.\nResult is instead of Cure II being executed, it's Regen, because we've told it to modify Cure II to Regen." +
-                                       $"\nThis was not part of the first feature, therefore an incorrect action." +
-                                       $"\n\nOur workaround for this is to disable all other actions being replaced if they don't match the queued action, which this setting controls.");
+            ImGuiComponents.HelpMarker($"启用后，当你排队的技能与当前按下的技能不一致时，会禁用所有其他按钮的功能。这解决了由于游戏处理技能队列方式导致的错误技能释放问题，但会降低热键栏的视觉体验。不建议关闭此项，如果你不喜欢热键栏图标快速变化，可以通过关闭此项或开启性能模式来解决，但请注意关闭后可能导致多个连击互相冲突。\n\n" +
+                                       $"详细机制说明：每次使用技能时，流程如下：" +
+                                       $"\n1. 如果技能触发GCD（武器技能/法术），且GCD未激活，则立即使用。" +
+                                       $"\n2. 否则，如果在“队列窗口”（通常为GCD最后0.5秒）内，则先加入队列再使用。" +
+                                       $"\n3. 如果是能力技，只要没有动画锁则立即使用。" +
+                                       $"\n4. 否则，立即加入队列，动画锁结束后使用。" +
+                                       $"\n\n第1步时，传递给游戏的是原始技能，实际释放时才会被替换。第2步时，队列中依然是原始技能，但执行队列时会把被替换的技能当作原始技能处理。" +
+                                       $"\n\n例如：原始技能为治疗，替换为治疗II。第1步时，游戏会把治疗替换为治疗II。第2步时，治疗加入队列，但队列执行时会把它当作治疗II。" +
+                                       $"\n\n第3、4步类似，只是发生得更早。" +
+                                       $"\n\n如果有一个功能把治疗替换为治疗II，另一个把治疗II替换为再生，且都开启时，流程如下：" +
+                                       $"\n\n第1步，治疗被替换为治疗II。你在队列窗口再次按下治疗，治疗加入队列，但队列执行时会当作治疗II。\n结果是本应释放治疗II，却变成了再生，因为我们又把治疗II替换成了再生。" +
+                                       $"\n这不是第一个功能的本意，因此是错误技能。" +
+                                       $"\n\n我们的解决方法是：当排队技能与当前技能不一致时，禁用所有其他技能替换功能，此设置即控制此行为。");
 
             #endregion
 
             #region Throttle
 
-            var len = ImGui.CalcTextSize("milliseconds").X;
+            var len = ImGui.CalcTextSize("毫秒").X;
 
             ImGui.PushItemWidth(75);
             var throttle = Service.Configuration.Throttle;
@@ -244,21 +243,21 @@ internal class Settings : ConfigWindow
 
             ImGui.SameLine();
             var pos = ImGui.GetCursorPosX() + len;
-            ImGui.Text($"milliseconds");
+            ImGui.Text($"毫秒");
             ImGui.SameLine(pos);
-            ImGui.Text($"   -   Action Updater Throttle");
+            ImGui.Text($"   -   技能更新频率");
 
 
             ImGuiComponents.HelpMarker(
-                "This is the restriction for how often combos will update the action on your hotbar." +
-                "\nBy default this isn't restricting the combos, so you always get an up-to-date action." +
-                "\n\nIf you have minor FPS issues, you can increase this value to make combos run less often." +
-                "\nThis makes your combos less responsive, and perhaps even clips GCDs." +
-                "\nAt high values, this can break your rotation entirely." +
-                "\nMore severe FPS issues should instead be handled with Performance Mode option above." +
-                "\n\n200ms can make a reasonable difference in your FPS." +
-                "\nValues over 500ms are NOT recommended." +
-                "\nDefault: 50");
+                "此项控制连击技能在热键栏上更新的频率（毫秒）。" +
+                "\n默认情况下不限制，始终保持最新技能。" +
+                "\n\n如果你有轻微的帧数问题，可以适当提高此值，减少连击检测频率。" +
+                "\n这会让连击响应变慢，甚至可能导致GCD卡顿。" +
+                "\n数值过高可能导致循环完全失效。" +
+                "\n严重的性能问题建议优先使用上方的性能模式。" +
+                "\n\n200ms通常能显著改善帧数。" +
+                "\n不建议超过500ms。" +
+                "\n默认：50");
 
             #endregion
 
@@ -269,13 +268,13 @@ internal class Settings : ConfigWindow
                 Service.Configuration.Save();
 
             ImGui.SameLine();
-            ImGui.Text("seconds");
+            ImGui.Text("秒");
 
             ImGui.SameLine(pos);
 
-            ImGui.Text($"   -   Movement Check Delay");
+            ImGui.Text($"   -   移动判定延迟");
 
-            ImGuiComponents.HelpMarker("Many features check if you are moving to decide actions, this will allow you to set a delay on how long you need to be moving before it recognizes you as moving.\nThis allows you to not have to worry about small movements affecting your rotation, primarily for casters.\n\nIt is recommended to keep this value between 0 and 1 seconds.\nDefault: 0.0");
+            ImGuiComponents.HelpMarker("许多功能会检测你是否在移动，此项可设置需要持续移动多久才判定为移动。\n这样可以避免短暂的小幅移动影响循环，主要用于法系职业。\n\n建议设置在0~1秒之间。\n默认：0.0");
 
             #endregion
 
@@ -285,13 +284,13 @@ internal class Settings : ConfigWindow
                 Service.Configuration.Save();
 
             ImGui.SameLine();
-            ImGui.Text("seconds");
+            ImGui.Text("秒");
 
             ImGui.SameLine(pos);
 
-            ImGui.Text($"   -   Opener Failure Timeout");
+            ImGui.Text($"   -   起手失败超时");
 
-            ImGuiComponents.HelpMarker("During an opener if this amount of time has passed since your last action, it will fail the opener and resume with non-opener functionality.\n\nIt is recommended to keep this value below 6.\nDefault: 4.0");
+            ImGuiComponents.HelpMarker("在起手期间，如果距离上次释放技能超过此时间，将判定起手失败并恢复为正常循环。\n\n建议设置小于6秒。\n默认：4.0");
 
             #endregion
 
@@ -305,12 +304,12 @@ internal class Settings : ConfigWindow
             }
 
             ImGui.SameLine();
-            ImGui.Text($"yalms");
+            ImGui.Text($"米");
             ImGui.SameLine(pos);
 
-            ImGui.Text($"   -   Melee Distance Offset");
+            ImGui.Text($"   -   近战距离偏移");
 
-            ImGuiComponents.HelpMarker("Offset of melee check distance.\nFor those who don't want to immediately use their ranged attack if the boss walks slightly out of range.\n\nFor example, a value of -0.5 would make you have to be 0.5 yalms closer to the target,\nor a value of 2 would disable triggering of ranged features until you are 2 yalms further from the hitbox.\n\nIt is recommended to keep this value at 0.\nDefault: 0.0");
+            ImGuiComponents.HelpMarker("近战判定距离的偏移量。\n适用于不希望BOSS稍微移动就立刻切换远程技能的情况。\n\n例如，设置为-0.5时，需要比正常距离再靠近0.5亚姆才判定为近战；设置为2时，则要离BOSS再远2亚姆才会触发远程技能。\n\n建议保持为0。\n默认：0.0");
             #endregion
 
             #region Interrupt Delay
@@ -326,11 +325,11 @@ internal class Settings : ConfigWindow
                 Service.Configuration.Save();
             }
             ImGui.SameLine();
-            ImGui.Text($"% of cast");
+            ImGui.Text($"% 施法进度");
             ImGui.SameLine( pos);
-            ImGui.Text($"   -   Interrupt Delay");
+            ImGui.Text($"   -   打断延迟");
 
-            ImGuiComponents.HelpMarker("The percentage of a total cast time to wait before interrupting.\nApplies to all interrupts, in every job's combos.\n\nIt is recommend to keep this value below 50%.\nDefault: 0%");
+            ImGuiComponents.HelpMarker("打断技能时，等待施法总时间的百分比。\n适用于所有职业的打断技能。\n\n建议低于50%。\n默认：0%");
 
             #endregion
                 
@@ -341,13 +340,13 @@ internal class Settings : ConfigWindow
                 Service.Configuration.Save();
 
             ImGui.SameLine();
-            ImGui.Text("oGCDs");
+            ImGui.Text("能力技");
 
             ImGui.SameLine(pos);
 
-            ImGui.Text($"   -   Maximum number of Weaves");
+            ImGui.Text($"   -   最大插入能力技数");
 
-            ImGuiComponents.HelpMarker("This controls how many oGCDs are allowed between GCDs.\nThe sort of 'default' for the game is double weaving, but triple weaving is completely possible to do with low enough latency (of every kind); but if you struggle with latency of some sort, single weaving may even be a good answer for you.\nTriple weaving is already done in a manner where we try to avoid clipping GCDs, and as such doesn't happen particularly often even if you do have good latency, so it is a safe option as far as parses/etc goes.\n\nDefault: 2");
+            ImGuiComponents.HelpMarker("控制每个GCD之间允许插入的能力技数量。\n游戏默认是双插，低延迟下也可以三插；如果你网络延迟较高，建议只用单插。\n三插会尽量避免卡GCD，实际触发频率也不高，所以对大部分玩家来说是安全的。\n\n默认：2");
 
             #endregion
 
@@ -356,7 +355,7 @@ internal class Settings : ConfigWindow
             #region Targeting Options
 
             ImGuiEx.Spacing(new Vector2(0, 20));
-            ImGuiEx.TextUnderlined("Targeting Options");
+            ImGuiEx.TextUnderlined("目标选择选项");
 
             var useCusHealStack = Service.Configuration.UseCustomHealStack;
 
@@ -364,7 +363,7 @@ internal class Settings : ConfigWindow
 
             bool retargetHealingActions =
                 Service.Configuration.RetargetHealingActionsToStack;
-            if (ImGui.Checkbox("Retarget (Single Target) Healing Actions", ref retargetHealingActions))
+            if (ImGui.Checkbox("重定向（单体）治疗技能", ref retargetHealingActions))
             {
                 Service.Configuration.RetargetHealingActionsToStack =
                     retargetHealingActions;
@@ -372,23 +371,23 @@ internal class Settings : ConfigWindow
             }
 
             ImGuiComponents.HelpMarker(
-                "This will retarget all single target healing actions to the Heal Stack as shown below,\nsimilarly to how Redirect or Reaction would.\nThis ensures that the target used to check HP% threshold logic for healing actions is the same target that will receive that heal.\n\nIt is recommended to enable this if you customize the Heal Stack at all.\nDefault: Off");
+                "此项会将所有单体治疗技能重定向到下方的治疗目标堆栈，类似于Redirect或Reaction功能。\n这样用于判断治疗技能触发阈值的目标和实际接受治疗的目标一致。\n\n如果你自定义了治疗目标堆栈，建议开启此项。\n默认：关闭");
             Presets.DrawRetargetedSymbolForSettingsPage();
 
             bool addNpcs = 
                 Service.Configuration.AddOutOfPartyNPCsToRetargeting;
 
-            if (ImGui.Checkbox("Add Out of Party NPCs to Retargeting", ref addNpcs))
+            if (ImGui.Checkbox("将非队伍NPC加入治疗重定向", ref addNpcs))
             {
                 Service.Configuration.AddOutOfPartyNPCsToRetargeting = addNpcs;
                 Service.Configuration.Save();
             }
 
             ImGuiComponents.HelpMarker(
-                "This will add any NPCs that are not in your party to the retargeting logic for healing actions.\n\n" +
-                "This is useful for healers who want to be able to target NPCs that are not in their party, such as quest NPCs.\n\n" +
-                "These NPCs will not work with any role based custom stacks (even if an NPC looks like a tank, they're not classed as one)\n\n" +
-                "Default: Off");
+                "此项会将不在队伍中的NPC加入治疗技能的重定向逻辑。\n\n" +
+                "适用于希望治疗任务NPC等非队友目标的奶妈。\n\n" +
+                "这些NPC无法参与基于职业的自定义堆栈（即使NPC看起来像坦克，也不会被识别为坦克）。\n\n" +
+                "默认：关闭");
 
             #endregion
 
@@ -396,12 +395,12 @@ internal class Settings : ConfigWindow
 
             #region Current Heal Stack
 
-            ImGui.TextUnformatted("Current Heal Stack:");
+            ImGui.TextUnformatted("当前治疗目标堆栈：");
 
             ImGuiComponents.HelpMarker(
-                "This is the order in which Wrath will try to select a healing target.\n\n" +
-                "If the 'Retarget Healing Actions' option is disabled, that is just the target that will be used for checking the HP threshold to trigger different healing actions to show up in their rotations.\n" +
-                "If the 'Retarget Healing Actions' option is enabled, that target is also the one that healing actions will be targeted onto (even when the action does not first check the HP of that target, like the combo's Replaced Action, for example).");
+                "Wrath会按如下顺序尝试选择治疗目标：\n\n" +
+                "如果未开启“重定向治疗技能”，则仅用于判断治疗技能触发阈值的目标。\n" +
+                "如果开启，则该目标也会作为实际治疗技能的目标（即使技能本身不检测该目标的血量，例如连击的被替换技能）。");
 
             var healStackText = "";
             var nextStackItemMarker = "   >   ";
@@ -418,16 +417,16 @@ internal class Settings : ConfigWindow
             else
             {
                 if (Service.Configuration.UseUIMouseoverOverridesInDefaultHealStack)
-                    healStackText += "UI-MouseOver Target" + nextStackItemMarker;
+                    healStackText += "UI-鼠标悬停目标" + nextStackItemMarker;
                 if (Service.Configuration.UseFieldMouseoverOverridesInDefaultHealStack)
-                    healStackText += "Field-MouseOver Target" + nextStackItemMarker;
-                healStackText += "Soft Target" + nextStackItemMarker;
-                healStackText += "Hard Target" + nextStackItemMarker;
+                    healStackText += "地面-鼠标悬停目标" + nextStackItemMarker;
+                healStackText += "软目标" + nextStackItemMarker;
+                healStackText += "硬目标" + nextStackItemMarker;
                 if (Service.Configuration.UseFocusTargetOverrideInDefaultHealStack)
-                    healStackText += "Focus Target" + nextStackItemMarker;
+                    healStackText += "焦点目标" + nextStackItemMarker;
                 if (Service.Configuration.UseLowestHPOverrideInDefaultHealStack)
-                    healStackText += "Lowest HP% Ally" + nextStackItemMarker;
-                healStackText += "Self";
+                    healStackText += "最低HP%队友" + nextStackItemMarker;
+                healStackText += "自己";
             }
             ImGuiEx.Spacing(new Vector2(10, 0));
             ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey, healStackText);
@@ -438,7 +437,7 @@ internal class Settings : ConfigWindow
 
             #region Heal Stack Customization Options
 
-            var labelText = "Heal Stack Customization Options";
+            var labelText = "治疗目标堆栈自定义选项";
             // Nest the Collapse into a Child of varying size, to be able to limit its width
             var dynamicHeight = _unCollapsed
                 ? _healStackCustomizationHeight
@@ -462,7 +461,7 @@ internal class Settings : ConfigWindow
 
                 bool useUIMouseoverOverridesInDefaultHealStack =
                     Service.Configuration.UseUIMouseoverOverridesInDefaultHealStack;
-                if (ImGui.Checkbox("Add UI MouseOver to the Default Healing Stack", ref useUIMouseoverOverridesInDefaultHealStack))
+                if (ImGui.Checkbox("添加UI-鼠标悬停目标到默认治疗堆栈", ref useUIMouseoverOverridesInDefaultHealStack))
                 {
                     Service.Configuration.UseUIMouseoverOverridesInDefaultHealStack =
                         useUIMouseoverOverridesInDefaultHealStack;
@@ -471,7 +470,7 @@ internal class Settings : ConfigWindow
 
                 if (useCusHealStack) ImGui.EndDisabled();
 
-                ImGuiComponents.HelpMarker("This will add any UI MouseOver targets to the top of the Default Heal Stack, overriding the rest of the stack if you are mousing over any party member UI.\n\nIt is recommended to enable this if you are a keyboard+mouse user and enable Retarget Healing Actions (or have UI MouseOver targets in your Redirect/Reaction configuration).\nDefault: Off");
+                ImGuiComponents.HelpMarker("此选项会将任何UI鼠标悬停目标添加到默认治疗堆栈的顶部，如果你将鼠标悬停在任何队员UI上，将覆盖堆栈的其余部分。\n\n建议键鼠用户并启用重定向治疗动作（或在重定向/反应配置中有UI鼠标悬停目标）时开启。\n默认：关闭");
 
                 #endregion
 
@@ -481,7 +480,7 @@ internal class Settings : ConfigWindow
 
                 bool useFieldMouseoverOverridesInDefaultHealStack =
                     Service.Configuration.UseFieldMouseoverOverridesInDefaultHealStack;
-                if (ImGui.Checkbox("Add Field MouseOver to the Default Healing Stack", ref useFieldMouseoverOverridesInDefaultHealStack))
+                if (ImGui.Checkbox("将场地鼠标悬停目标添加到默认治疗堆栈", ref useFieldMouseoverOverridesInDefaultHealStack))
                 {
                     Service.Configuration.UseFieldMouseoverOverridesInDefaultHealStack =
                         useFieldMouseoverOverridesInDefaultHealStack;
@@ -490,7 +489,7 @@ internal class Settings : ConfigWindow
 
                 if (useCusHealStack) ImGui.EndDisabled();
 
-                ImGuiComponents.HelpMarker("This will add any MouseOver targets to the top of the Default Heal Stack, overriding the rest of the stack if you are mousing over any nameplate UI or character model.\n\nIt is recommended to enable this only if you regularly intentionally use field mouseover targeting already.\nDefault: Off");
+                ImGuiComponents.HelpMarker("此选项会将任何鼠标悬停目标（如姓名板或角色模型）添加到默认治疗堆栈的顶部，覆盖堆栈的其余部分。\n\n仅建议你经常有意使用场地鼠标悬停选目标时开启。\n默认：关闭");
 
                 #endregion
 
@@ -500,7 +499,7 @@ internal class Settings : ConfigWindow
 
                 bool useFocusTargetOverrideInDefaultHealStack =
                     Service.Configuration.UseFocusTargetOverrideInDefaultHealStack;
-                if (ImGui.Checkbox("Add Focus Target to the Default Healing Stack", ref useFocusTargetOverrideInDefaultHealStack))
+                if (ImGui.Checkbox("将专注目标添加到默认治疗堆栈", ref useFocusTargetOverrideInDefaultHealStack))
                 {
                     Service.Configuration.UseFocusTargetOverrideInDefaultHealStack =
                         useFocusTargetOverrideInDefaultHealStack;
@@ -509,7 +508,7 @@ internal class Settings : ConfigWindow
 
                 if (useCusHealStack) ImGui.EndDisabled();
 
-                ImGuiComponents.HelpMarker("This will add your focus target under your hard and soft targets in the Default Heal Stack, overriding the rest of the stack if you have a living focus target.\n\nDefault: Off");
+                ImGuiComponents.HelpMarker("此选项会将你的专注目标添加到默认治疗堆栈的软目标和硬目标之后，如果你有存活的专注目标，将覆盖堆栈的其余部分。\n\n默认：关闭");
 
                 #endregion
 
@@ -519,7 +518,7 @@ internal class Settings : ConfigWindow
 
                 bool useLowestHPOverrideInDefaultHealStack =
                     Service.Configuration.UseLowestHPOverrideInDefaultHealStack;
-                if (ImGui.Checkbox("Add Lowest HP% Ally to the Default Healing Stack", ref useLowestHPOverrideInDefaultHealStack))
+                if (ImGui.Checkbox("将最低HP%队友添加到默认治疗堆栈", ref useLowestHPOverrideInDefaultHealStack))
                 {
                     Service.Configuration.UseLowestHPOverrideInDefaultHealStack =
                         useLowestHPOverrideInDefaultHealStack;
@@ -528,32 +527,32 @@ internal class Settings : ConfigWindow
 
                 if (useCusHealStack) ImGui.EndDisabled();
 
-                ImGuiComponents.HelpMarker("This will add a nearby party member with the lowest HP% to bottom of the Default Heal Stack, overriding only yourself.\n\nTHIS SHOULD BE USED WITH THE 'RETARGET HEALING ACTIONS' SETTING!\n\nDefault: Off");
+                ImGuiComponents.HelpMarker("此选项会将附近HP百分比最低的队友添加到默认治疗堆栈的底部，仅覆盖你自己。\n\n此选项应与上方的“重定向治疗动作”设置一起使用！\n\n默认：关闭");
 
                 if (useCusHealStack) ImGui.BeginDisabled();
                 if (useLowestHPOverrideInDefaultHealStack)
                 {
                     ImGuiEx.Spacing(new Vector2(30, 0));
-                    ImGuiEx.Text(ImGuiColors.DalamudYellow, "This should be used with the 'Retarget Healing Actions' setting above!");
+                    ImGuiEx.Text(ImGuiColors.DalamudYellow, "建议与上方的“重定向治疗动作”设置一起使用！");
                 }
                 if (useCusHealStack) ImGui.EndDisabled();
 
                 #endregion
 
                 ImGuiEx.Spacing(new Vector2(5, 5));
-                ImGui.TextUnformatted("Or");
+                ImGui.TextUnformatted("或");
                 ImGuiEx.Spacing(new Vector2(0, 5));
 
                 #region Use Custom Heal Stack
 
                 bool useCustomHealStack = Service.Configuration.UseCustomHealStack;
-                if (ImGui.Checkbox("Use a Custom Heal Stack Instead", ref useCustomHealStack))
+                if (ImGui.Checkbox("使用自定义治疗堆栈", ref useCustomHealStack))
                 {
                     Service.Configuration.UseCustomHealStack = useCustomHealStack;
                     Service.Configuration.Save();
                 }
 
-                ImGuiComponents.HelpMarker("Select this if you would rather make your own stack of target priorities for Heal Targets instead of using our default stack.\n\nIt is recommended to use this to align with your Redirect/Reaction configuration if you're not using the Retarget Healing Actions setup; otherwise it is preference.\nDefault: Off");
+                ImGuiComponents.HelpMarker("如果你希望自定义治疗目标优先级堆栈而不是使用默认堆栈，请选择此项。\n\n如果你没有使用重定向治疗动作设置，建议根据你的重定向/反应配置进行自定义，否则按个人喜好。\n默认：关闭");
 
                 #endregion
 
@@ -566,16 +565,15 @@ internal class Settings : ConfigWindow
                         "CustomHealStack",
                         ref Service.Configuration.CustomHealStack,
                         ["Enemy", "Attack", "Dead", "Living"],
-                        "The priority goes from top to bottom.\n" +
-                        "Scroll down to see all of your items.\n" +
-                        "Click the Up and Down buttons to move items in the list.\n" +
-                        "Click the X button to remove an item from the list.\n\n" +
-                        "If there are fewer than 4 items, and all return nothing when checked, will fall back to Self.\n\n" +
-                        "These targets will only be considered valid if they are friendly and within 25y.\n" +
-                        "These targets will be checked for being Dead or having a Cleansable Debuff\n" +
-                        "when this Stack is applied to Raises or Esuna, respectively.\n" +
-                        "(For Raises: the Stack will fall back to your Hard Target or any Dead Party Member)\n\n" +
-                        "Default: Focus Target > Hard Target > Self"
+                        "优先级从上到下排列。\n" +
+                        "向下滚动以查看所有项目。\n" +
+                        "点击上下按钮可移动列表中的项目。\n" +
+                        "点击X按钮可移除列表中的项目。\n\n" +
+                        "如果少于4个项目，且全部检查无效，则会回退到自己。\n\n" +
+                        "这些目标仅在为友方且在25米范围内时才有效。\n" +
+                        "当此堆栈用于复活或康复时，将检查目标是否死亡或有可净化的异常。\n" +
+                        "（复活时：堆栈会回退到你的硬目标或任意死亡队员）\n\n" +
+                        "默认：专注目标 > 硬目标 > 自己"
                     );
                     ImGui.Unindent();
                 }
@@ -600,30 +598,27 @@ internal class Settings : ConfigWindow
 
             #region Raise Stack Manager
 
-            ImGui.TextUnformatted("Current Raise Stack:");
+            ImGui.TextUnformatted("当前复活堆栈：");
 
             ImGuiComponents.HelpMarker(
-                "This is the order in which Wrath will try to select a " +
-                "target to Raise,\nif Retargeting of any Raise Feature is enabled.\n\n" +
-                "You can find Raise Features under PvE>General,\n" +
-                "or under each caster that has a Raise.");
+                "这是Wrath在尝试选择复活目标时的优先顺序，\n如果启用了任何复活功能的重定向。\n\n你可以在PvE>通用下找到复活功能，\n或在每个拥有复活技能的职业下找到。");
 
             ImGui.Indent();
             UserConfig.DrawCustomStackManager(
                 "CustomRaiseStack",
                 ref Service.Configuration.RaiseStack,
                 ["Enemy", "Attack", "MissingHP", "Lowest", "Chocobo", "Living"],
-                "The priority goes from top to bottom.\n" +
-                "Scroll down to see all of your items.\n" +
-                "Click the Up and Down buttons to move items in the list.\n" +
-                "Click the X button to remove an item from the list.\n\n" +
-                "If there are fewer than 5 items, and all return nothing when checked, will fall back to:\n" +
-                "your Hard Target if they're dead, or <Any Dead Party Member>.\n\n"+
-                "These targets will only be considered valid if they are friendly, dead, and within 30y.\n" +
-                "Default: Any Healer > Any Tank > Any Raiser > Any Dead Party Member",
+                "优先级从上到下排列。\n" +
+                "向下滚动以查看所有项目。\n" +
+                "点击上下按钮可移动列表中的项目。\n" +
+                "点击X按钮可移除列表中的项目。\n\n" +
+                "如果少于5个项目，且全部检查无效，则会回退到：\n" +
+                "你的硬目标（如果其已死亡），或<任意死亡队员>。\n\n"+
+                "这些目标仅在为友方、死亡且在30米范围内时才有效。\n" +
+                "默认：任意治疗 > 任意坦克 > 任意可复活者 > 任意死亡队员",
                 true
             );
-            ImGui.TextDisabled("(all targets are checked for rezz-ability)");
+            ImGui.TextDisabled("（所有目标都会检查是否可被复活）");
             ImGui.Unindent();
 
             #endregion
@@ -633,32 +628,32 @@ internal class Settings : ConfigWindow
             #region Troubleshooting Options
 
             ImGuiEx.Spacing(new Vector2(0, 20));
-            ImGuiEx.TextUnderlined("Troubleshooting / Analysis Options");
+            ImGuiEx.TextUnderlined("故障排查 / 分析选项");
 
             #region Combat Log
 
             bool showCombatLog = Service.Configuration.EnabledOutputLog;
 
-            if (ImGui.Checkbox("Output Log to Chat", ref showCombatLog))
+            if (ImGui.Checkbox("输出日志到聊天", ref showCombatLog))
             {
                 Service.Configuration.EnabledOutputLog = showCombatLog;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("Every time you use an action, the plugin will print it to the chat.");
+            ImGuiComponents.HelpMarker("每次你使用技能时，插件都会将其输出到聊天。");
             #endregion
 
             #region Opener Log
 
-            if (ImGui.Checkbox($"Output opener status to chat", ref Service.Configuration.OutputOpenerLogs))
+            if (ImGui.Checkbox($"输出起手状态到聊天", ref Service.Configuration.OutputOpenerLogs))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("Every time your class's opener is ready, fails, or finishes as expected, it will print to the chat.");
+            ImGuiComponents.HelpMarker("每当你的职业起手准备好、失败或如预期完成时，都会输出到聊天。");
             #endregion
 
             #region Debug File
 
-            if (ImGui.Button("Create Debug File"))
+            if (ImGui.Button("生成调试文件"))
             {
                 if (Player.Available)
                     DebugFile.MakeDebugFile();
@@ -666,7 +661,7 @@ internal class Settings : ConfigWindow
                     DebugFile.MakeDebugFile(allJobs: true);
             }
 
-            ImGuiComponents.HelpMarker("Will generate a debug file on your desktop.\nUseful to give developers to help troubleshoot issues.\nThe same as using the following command: /wrath debug");
+            ImGuiComponents.HelpMarker("将在桌面生成一个调试文件。\n可用于开发者协助排查问题。\n等同于使用以下命令：/wrath debug");
 
             #endregion
 

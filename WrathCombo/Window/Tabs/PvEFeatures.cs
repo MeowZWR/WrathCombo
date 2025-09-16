@@ -42,7 +42,7 @@ internal class PvEFeatures : ConfigWindow
                 ImGui.SameLine(indentWidth);
                 ImGuiEx.LineCentered(() =>
                 {
-                    ImGuiEx.TextUnderlined("Select a job from below to enable and configure features for it.");
+                    ImGuiEx.TextUnderlined("请在下方选择职业以启用并配置其功能。");
                 });
 
                 ColCount = Math.Max(1, (int)(ImGui.GetContentRegionAvail().X / 200f.Scale()));
@@ -84,7 +84,7 @@ internal class PvEFeatures : ConfigWindow
                             }
                             ImGui.SameLine(indentWidth2);
                             ImGuiEx.Spacing(new Vector2(0, verticalCenteringPadding));
-                            ImGui.Text($"{header} {(disabled ? "(Disabled due to update)" : "")}");
+                            ImGui.Text($"{header} {(disabled ? "(因更新已禁用)" : "")}");
 
                             if (!string.IsNullOrEmpty(abbreviation) &&
                                 P.UIHelper.JobControlled(id) is not null)
@@ -106,7 +106,7 @@ internal class PvEFeatures : ConfigWindow
 
                 using (ImRaii.Child("HeadingTab", new Vector2(ImGui.GetContentRegionAvail().X, iconMaxSize)))
                 {
-                    if (ImGui.Button("Back", new Vector2(0, 24f.Scale())))
+                    if (ImGui.Button("返回", new Vector2(0, 24f.Scale())))
                     {
                         OpenJob = null;
                         return;
@@ -148,7 +148,7 @@ internal class PvEFeatures : ConfigWindow
                     {
                         if (ImGui.BeginTabBar($"subTab{OpenJob.Value.Name()}", ImGuiTabBarFlags.Reorderable | ImGuiTabBarFlags.AutoSelectNewTabs))
                         {
-                            string mainTabName = OpenJob is Job.ADV ? "Job Roles" : "Normal";
+                            string mainTabName = OpenJob is Job.ADV ? "职业" : "普通";
                             if (ImGui.BeginTabItem(mainTabName))
                             {
                                 DrawHeadingContents(OpenJob.Value);
@@ -157,7 +157,7 @@ internal class PvEFeatures : ConfigWindow
 
                             if (groupedPresets[OpenJob.Value].Any(x => PresetStorage.IsVariant(x.Preset)))
                             {
-                                if (ImGui.BeginTabItem("Variant Dungeons"))
+                                if (ImGui.BeginTabItem("多变迷宫"))
                                 {
                                     DrawVariantContents(OpenJob.Value);
                                     ImGui.EndTabItem();
@@ -166,7 +166,7 @@ internal class PvEFeatures : ConfigWindow
 
                             if (groupedPresets[OpenJob.Value].Any(x => PresetStorage.IsBozja(x.Preset)))
                             {
-                                if (ImGui.BeginTabItem("Bozja"))
+                                if (ImGui.BeginTabItem("博兹雅"))
                                 {
                                     DrawBozjaContents(OpenJob.Value);
                                     ImGui.EndTabItem();
@@ -175,7 +175,7 @@ internal class PvEFeatures : ConfigWindow
 
                             if (groupedPresets[OpenJob.Value].Any(x => PresetStorage.IsEureka(x.Preset)))
                             {
-                                if (ImGui.BeginTabItem("Eureka"))
+                                if (ImGui.BeginTabItem("优雷卡"))
                                 {
                                     ImGui.EndTabItem();
                                 }
@@ -183,7 +183,7 @@ internal class PvEFeatures : ConfigWindow
 
                             if (groupedPresets[OpenJob.Value].Any(x => PresetStorage.IsOccultCrescent(x.Preset)))
                             {
-                                if (ImGui.BeginTabItem("Occult Crescent"))
+                                if (ImGui.BeginTabItem("新月岛"))
                                 {
                                     DrawOccultContents(OpenJob.Value);
                                     ImGui.EndTabItem();
@@ -195,7 +195,7 @@ internal class PvEFeatures : ConfigWindow
                     }
                     catch (Exception e)
                     {
-                        PluginLog.Error($"Error while drawing Job's UI:\n{e.ToStringFull()}");
+                        PluginLog.Error($"绘制职业UI时发生错误:\n{e.ToStringFull()}");
                     }
 
                 }
@@ -272,7 +272,7 @@ internal class PvEFeatures : ConfigWindow
                     {
                         if (Service.Configuration.EnabledActions.Remove(preset))
                         {
-                            PluginLog.Debug($"Removed {preset} due to conflict");
+                            PluginLog.Debug($"因冲突移除 {preset}");
                             Service.Configuration.Save();
                         }
                         LastPresetDeconflictTime = DateTime.UtcNow;

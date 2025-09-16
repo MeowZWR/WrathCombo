@@ -19,7 +19,7 @@ namespace WrathCombo.Extensions
         {
             string jobName = job switch
             {
-                Job.ADV => "Roles and Content",
+                Job.ADV => "职能与内容",
                 Job.MIN or Job.BTN or Job.FSH
                     => job.GetData().ClassJobCategory.Value.Name.ToString(),
                 _ => job.GetData().Name.ToString()
@@ -32,7 +32,7 @@ namespace WrathCombo.Extensions
         {
             string jobName = (Job)job.RowId switch
             {
-                Job.ADV => "Roles and Content",
+                Job.ADV => "职能与内容",
                 Job.MIN or Job.BTN or Job.FSH
                     => job.ClassJobCategory.Value.Name.ToString(),
                 _ => job.Name.ToString()

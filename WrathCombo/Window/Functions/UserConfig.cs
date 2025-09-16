@@ -15,8 +15,6 @@ using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
 using WrathCombo.Services;
-using static FFXIVClientStructs.FFXIV.Client.UI.RaptureAtkHistory.Delegates;
-using WrathCombo.Resources.Dictionary.Chinese;
 
 namespace WrathCombo.Window.Functions;
 
@@ -91,7 +89,7 @@ public static class UserConfig
                     if (ImGui.IsItemHovered())
                     {
                         ImGui.BeginTooltip();
-                        ImGui.TextUnformatted($"This setting has additional options depending on its value.{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\nCondition: {additonalChoiceCondition}")}");
+                        ImGui.TextUnformatted($"此设置的值不同，会有额外选项。{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\n条件: {additonalChoiceCondition}")}");
                         ImGui.EndTooltip();
                     }
                 }
@@ -112,7 +110,7 @@ public static class UserConfig
                         if (output > maxValue) output = maxValue;
                     }
 
-                    DebugFile.AddLog($"Set Config {config} to {output}");
+                    DebugFile.AddLog($"设置配置 {config} 为 {output}");
                     PluginConfiguration.SetCustomIntValue(config, output);
                     Service.Configuration.Save();
                 }
@@ -212,7 +210,7 @@ public static class UserConfig
                     if (ImGui.IsItemHovered())
                     {
                         ImGui.BeginTooltip();
-                        ImGui.TextUnformatted($"This setting has additional options depending on its value.{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\nCondition: {additonalChoiceCondition}")}");
+                        ImGui.TextUnformatted($"此设置的值不同，会有额外选项。{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\n条件: {additonalChoiceCondition}")}");
                         ImGui.EndTooltip();
                     }
                 }
@@ -226,7 +224,7 @@ public static class UserConfig
 
                 if (inputChanged)
                 {
-                    DebugFile.AddLog($"Set Config {config} to {output}");
+                    DebugFile.AddLog($"设置配置 {config} 为 {output}");
                     PluginConfiguration.SetCustomFloatValue(config, output);
                     Service.Configuration.Save();
                 }
@@ -307,7 +305,7 @@ public static class UserConfig
                     if (ImGui.IsItemHovered())
                     {
                         ImGui.BeginTooltip();
-                        ImGui.TextUnformatted($"This setting has additional options depending on its value.{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\nCondition: {additonalChoiceCondition}")}");
+                        ImGui.TextUnformatted($"此设置的值不同，会有额外选项。{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\n条件: {additonalChoiceCondition}")}");
                         ImGui.EndTooltip();
                     }
                 }
@@ -321,7 +319,7 @@ public static class UserConfig
 
                 if (inputChanged)
                 {
-                    DebugFile.AddLog($"Set Config {config} to {output}");
+                    DebugFile.AddLog($"设置配置 {config} 为 {output}");
                     PluginConfiguration.SetCustomFloatValue(config, output);
                     Service.Configuration.Save();
                 }
@@ -353,7 +351,7 @@ public static class UserConfig
 
         if (ImGui.RadioButton($"{checkBoxName}###{config}{outputValue}", enabled))
         {
-            DebugFile.AddLog($"Set Config {config} to {output}");
+            DebugFile.AddLog($"设置配置 {config} 为 {output}");
             PluginConfiguration.SetCustomIntValue(config, outputValue);
             Service.Configuration.Save();
         }
@@ -406,7 +404,7 @@ public static class UserConfig
         {
             if (ImGui.RadioButton($"{checkBoxName}###{config}{outputValue}", enabled))
             {
-                DebugFile.AddLog($"Set Config {config} to {output}");
+                DebugFile.AddLog($"设置配置 {config} 为 {output}");
                 PluginConfiguration.SetCustomIntValue(config, outputValue);
                 Service.Configuration.Save();
                 o = true;
@@ -450,7 +448,7 @@ public static class UserConfig
                 for (var i = 0; i < values.Length; i++)
                     values[i] = false;
                 values[choice] = true;
-                DebugFile.AddLog($"Set Config {config} to {string.Join(", ", values)}");
+                DebugFile.AddLog($"设置配置 {config} 为 {string.Join(", ", values)}");
                 PluginConfiguration.SetCustomBoolArrayValue(config, values);
                 Service.Configuration.Save();
             }
@@ -497,7 +495,7 @@ public static class UserConfig
         }
         if (ImGui.Checkbox($"{checkBoxName}##{config}", ref output))
         {
-            DebugFile.AddLog($"Set Config {config} to {output}");
+            DebugFile.AddLog($"设置配置 {config} 为 {output}");
             PluginConfiguration.SetCustomBoolValue(config, output);
             Service.Configuration.Save();
         }
@@ -556,7 +554,7 @@ public static class UserConfig
 
             if (ImGui.Checkbox($"{checkBoxName}###{config}{choice}", ref values[choice]))
             {
-                DebugFile.AddLog($"Set Config {config} to {string.Join(", ", values)}");
+                DebugFile.AddLog($"设置配置 {config} 为 {string.Join(", ", values)}");
                 PluginConfiguration.SetCustomBoolArrayValue(config, values);
                 Service.Configuration.Save();
             }
@@ -592,7 +590,7 @@ public static class UserConfig
             var status = PvPCommon.QuickPurify.Statuses[i];
             if (ImGui.Checkbox($"{status.label}###{config}{i}", ref values[i]))
             {
-                DebugFile.AddLog($"Set Config {config} to {string.Join(", ", values)}");
+                DebugFile.AddLog($"设置配置 {config} 为 {string.Join(", ", values)}");
                 PluginConfiguration.SetCustomBoolArrayValue(config, values);
                 Service.Configuration.Save();
             }
@@ -666,19 +664,19 @@ public static class UserConfig
         ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-            ? "Select what difficulty the above should apply to:"
+            ? "请选择上述设置适用的难度："
             : overrideText);
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
         DrawHorizontalMultiChoice(
-            config, "Easiest Content",
+            config, "休闲内容",
             ContentCheck.BottomHalfContentList,
             totalChoices: 2, choice: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalMultiChoice(
-            config, "Hardest Content",
+            config, "高难内容",
             ContentCheck.TopHalfContentList,
             totalChoices: 2, choice: 1,
             descriptionColor: ImGuiColors.DalamudYellow
@@ -710,19 +708,19 @@ public static class UserConfig
         ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-            ? "Select what difficulty the above should apply to:"
+            ? "请选择上述设置适用的难度："
             : overrideText);
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
         DrawHorizontalMultiChoice(
-            config, "Casual Content",
+            config, "休闲内容",
             ContentCheck.CasualContentList,
             totalChoices: 2, choice: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalMultiChoice(
-            config, "'Hard' Content",
+            config, "高难内容",
             ContentCheck.HardContentList,
             totalChoices: 2, choice: 1,
             descriptionColor: ImGuiColors.DalamudYellow
@@ -757,25 +755,25 @@ public static class UserConfig
         ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-            ? "Select what difficulty the above should apply to:"
+            ? "请选择上述设置适用的难度："
             : overrideText);
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
         DrawHorizontalMultiChoice(
-            config, "SoftCore Content",
+            config, "休闲内容",
             ContentCheck.SoftCoreContentList,
             totalChoices: 3, choice: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalMultiChoice(
-            config, "MidCore Content",
+            config, "进阶内容",
             ContentCheck.MidCoreContentList,
             totalChoices: 3, choice: 1,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalMultiChoice(
-            config, "HardCore Content",
+            config, "高难内容",
             ContentCheck.HardCoreContentList,
             totalChoices: 3, choice: 2,
             descriptionColor: ImGuiColors.DalamudYellow
@@ -806,20 +804,20 @@ public static class UserConfig
         using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudYellow))
         {
             ImGui.Text(overrideText.IsNullOrEmpty()
-                ? "Select what kind of content this option applies to:"
+                ? "请选择此选项适用的内容类型："
                 : overrideText);
         }
 
         DrawHorizontalBoolRadioButton(
-            config, "All Content",
-            "Applies to all content in the game.",
+            config, "全部内容",
+            "适用于游戏中的所有内容。",
             choice: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
 
         DrawHorizontalBoolRadioButton(
-            config, "Boss Only Content",
-            "Only applies in instances where you directly fight a boss. Excludes many A Realm Reborn & Heavensward raids that include trash.",
+            config, "仅Boss战内容",
+            "仅在直接与Boss战斗的副本中生效。不包括许多包含杂兵的重生之境与苍穹之禁城团队副本。",
             choice: 1,
             descriptionColor: ImGuiColors.DalamudYellow
         );
@@ -851,23 +849,22 @@ public static class UserConfig
         {
 
             ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-                ? "Select what kind of content this option applies to:"
+                ? "请选择此选项适用的内容类型："
                 : overrideText);
         }
 
         DrawHorizontalRadioButton(
-            config, "All Content",
-            "Applies to all content in the game.",
+            config, "全部内容",
+            "适用于游戏中的所有内容。",
             outputValue: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalRadioButton(
-            config, "Boss Only Content",
-            "Only applies in instances where you directly fight a boss. Excludes many A Realm Reborn & Heavensward raids that include trash.",
+            config, "仅Boss战内容",
+            "仅在直接与Boss战斗的副本中生效。不包括许多包含杂兵的重生之境与苍穹之禁城团队副本。",
             outputValue: 1,
             descriptionColor: ImGuiColors.DalamudYellow
         );
-
     }
 
     internal static void DrawPriorityInput(UserIntArray config, int maxValues, int currentItem, string customLabel = "")
@@ -896,7 +893,7 @@ public static class UserConfig
             {
                 if (customLabel.IsNullOrEmpty())
                 {
-                    ImGui.TextUnformatted($"Priority: ");
+                    ImGui.TextUnformatted($"优先级：");
                 }
                 else
                 {
@@ -929,7 +926,7 @@ public static class UserConfig
         if (ImGui.IsItemHovered() && !ImGui.IsItemClicked(ImGuiMouseButton.Right))
         {
             ImGui.BeginTooltip();
-            ImGui.Text("Smaller Number = Higher Priority");
+            ImGui.Text("数值越小 = 优先级越高");
             ImGui.EndTooltip();
         }
         ImGui.Unindent();
@@ -944,7 +941,7 @@ public static class UserConfig
 
     private static void ResetToDefault(string config)
     {
-        DebugFile.AddLog($"Set Config {config} to default");
+        DebugFile.AddLog($"将配置 {config} 重置为默认值");
         UserData.MasterList[config].ResetToDefault();
     }
     #region Custom Stack Manager
@@ -953,7 +950,7 @@ public static class UserConfig
     private static float _customStackIconGroupWidth = ImGui.CalcTextSize("x").X;
     private static float _customStackTallestProperty = ImGui.CalcTextSize("I").Y;
     private static float _customStackLongestProperty =
-        ImGui.CalcTextSize("Lowest HP% Ally (If Missing HP)").X;
+        ImGui.CalcTextSize("最低HP%队友（若缺失HP）").X;
 
     public static void DrawCustomStackManager
     (string stackName,
@@ -1014,13 +1011,13 @@ public static class UserConfig
             #region Adding to the Stack
 
         ImGuiEx.Spacing(new Vector2(5f.Scale(), 0));
-        ImGui.Text("Add to the Stack:");
+        ImGui.Text("添加到堆栈：");
         ImGui.SameLine();
         DrawItemAdding(stackName, targetsToRemoveIfStringContains,
             ref customStackSetting,
             ref _customStackLongestProperty, ref _customStackTallestProperty,
             thisIsForRaiseStack);
-        ImGuiComponents.HelpMarker("Click this dropdown to open the list of available Target options.\nClick any entry to add it to your Custom Stack, at the bottom.\nThere is a Textbox that says 'Filter...' at the top, type into this to search the list.");
+        ImGuiComponents.HelpMarker("点击此下拉菜单以打开可用目标选项列表。\n点击任意条目可将其添加到自定义堆栈底部。\n顶部有一个“筛选...”文本框，可输入内容以搜索列表。");
 
             #endregion
 
@@ -1163,7 +1160,7 @@ public static class UserConfig
     {
             #region Combo Variables
 
-        var defaultLabel = "Select a Target to Add";
+        var defaultLabel = "选择要添加的目标";
         var minSize = ImGui.CalcTextSize(defaultLabel).X;
 
         // List of ally-related SimpleTarget properties
@@ -1237,22 +1234,22 @@ public static class UserConfig
     {
         var name = propertyName switch
         {
-            "default" => "Select a Target to Add",
+            "default" => "选择要添加的目标",
             // Handle special cases
-            "UIMouseOverTarget" => "UI-MouseOver Target",
-            "ModelMouseOverTarget" => "Field-MouseOver Target",
-            "LowestHPAlly" => "Lowest HP Ally",
-            "LowestHPAllyIfMissingHP" => "Lowest HP Ally If Missing HP",
-            "LowestHPPAlly" => "Lowest HP% Ally",
-            "LowestHPPAllyIfMissingHP" => "Lowest HP% Ally If Missing HP",
-            "AnyDeadRaiserDPSIfNoneAlive" => "Any Dead Raiser DPS If None Alive",
+            "UIMouseOverTarget" => "界面鼠标悬停目标",
+            "ModelMouseOverTarget" => "场地鼠标悬停目标",
+            "LowestHPAlly" => "最低血量队友",
+            "LowestHPAllyIfMissingHP" => "最低血量队友（缺血时）",
+            "LowestHPPAlly" => "最低血量百分比队友",
+            "LowestHPPAllyIfMissingHP" => "最低血量百分比队友（缺血时）",
+            "AnyDeadRaiserDPSIfNoneAlive" => "任意已死亡的复活DPS（无存活时）",
             // Format the rest with Regex
             _ => Regex.Replace(propertyName,
                 @"(?<=[a-z])(?=[A-Z0-9])", " "),
         };
 
-        name = name.Replace(" If Missing HP", " (If Missing HP)");
-        name = name.Replace(" If None Alive", " (If None Alive)");
+        name = name.Replace(" If Missing HP", "（掉血时）");
+        name = name.Replace(" If None Alive", "（未存活时）");
         if (thisIsForRaiseStack)
             name = name.Replace("Dead ", "");
 
