@@ -71,7 +71,7 @@ internal class Debug : ConfigWindow, IDisposable
 
     internal new static unsafe void Draw()
     {
-        ImGui.Text("This is where you can figure out where it all went wrong.");
+        ImGui.Text("这里可以帮助你找出问题所在。");
 
         ImGuiEx.Spacing(new Vector2(0f, SpacingMedium));
 
@@ -79,14 +79,14 @@ internal class Debug : ConfigWindow, IDisposable
 
         if (DebugConfig)
         {
-            ImGuiEx.Text(ImGuiColors.HealerGreen, "You are now in config debug mode.");
+            ImGuiEx.Text(ImGuiColors.HealerGreen, "你现在处于配置调试模式。");
             _debugError = "";
         }
 
         if (_debugError != "")
             ImGuiEx.Text(ImGuiColors.DalamudRed, _debugError);
 
-        ImGui.Text("Debug Config: ");
+        ImGui.Text("调试配置：");
         ImGui.SameLine();
         if (ImGui.InputText("##debugConfig", ref _debugConfig, 2000000))
         {
@@ -108,19 +108,19 @@ internal class Debug : ConfigWindow, IDisposable
             }
             catch (Exception ex)
             {
-                _debugError = "Error decoding configuration. Check Log.";
+                _debugError = "配置解码出错，请查看日志。";
                 PluginLog.Error($"Failed to read debug configuration.\n{ex.Message}\n{ex.StackTrace}");
             }
         }
 
         ImGuiComponents.HelpMarker(
-            "Paste a base64 encoded configuration here to load it into the plugin." +
-            "\nThis comes from a debug file." +
-            "\nThis will overwrite your current configuration temporarily, restoring your own configuration when you disable debug mode." +
-            "\nDebug mode will also be disabled if you unload the plugin.");
+            "在此粘贴 base64 编码的配置以加载到插件中。" +
+            "\n该内容来自调试文件。" +
+            "\n这将临时覆盖你当前的配置，关闭调试模式后会恢复你自己的配置。" +
+            "\n如果卸载插件，调试模式也会被禁用。");
 
         if (DebugConfig)
-            if (ImGui.Button("Disable Debug Config Mode"))
+            if (ImGui.Button("关闭调试配置模式"))
                 DisableDebugConfig();
 
         #endregion
@@ -156,16 +156,16 @@ internal class Debug : ConfigWindow, IDisposable
 
         if (player is null)
         {
-            ImGui.TextUnformatted("Please log into the game to use this tab.");
+            ImGui.TextUnformatted("请登录游戏以使用此标签页。");
             return;
         }
 
         #region Statuses
 
-        ImGui.Text("Status Effects");
+        ImGui.Text("状态效果");
         ImGui.Separator();
 
-        if (ImGui.CollapsingHeader("Player Statuses"))
+        if (ImGui.CollapsingHeader("玩家状态"))
         {
             foreach (Status? status in player.StatusList)
             {
@@ -211,7 +211,7 @@ internal class Debug : ConfigWindow, IDisposable
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
         }
 
-        if (ImGui.CollapsingHeader("Target Statuses"))
+        if (ImGui.CollapsingHeader("目标状态"))
         {
             if (target is IBattleChara chara)
             {
@@ -252,7 +252,7 @@ internal class Debug : ConfigWindow, IDisposable
                     CustomStyleText(firstColumn, secondColumn, useMonofont: true);
                 }
 
-                if (ImGui.CollapsingHeader("ICD Tracker"))
+                if (ImGui.CollapsingHeader("ICD跟踪器"))
                 {
                     foreach (var t in ICDTracker.Trackers.Where(x => x.GameObjectId == chara.GameObjectId))
                     {
@@ -268,10 +268,10 @@ internal class Debug : ConfigWindow, IDisposable
 
         #region Character
 
-        ImGui.Text("Character");
+        ImGui.Text("角色");
         ImGui.Separator();
 
-        if (ImGui.CollapsingHeader("Player Data"))
+        if (ImGui.CollapsingHeader("玩家数据"))
         {
             CustomStyleText("Health:", $"{player.CurrentHp:N0} / {player.MaxHp:N0} ({MathF.Round(PlayerHealthPercentageHp(), 2)}%)");
             CustomStyleText("MP:", $"{player.CurrentMp:N0} / {player.MaxMp:N0}");
@@ -360,7 +360,7 @@ internal class Debug : ConfigWindow, IDisposable
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
         }
 
-        if (ImGui.CollapsingHeader("Target Data"))
+        if (ImGui.CollapsingHeader("目标数据"))
         {
             if (target is not null) {
                 CustomStyleText("Name:", target?.Name);
@@ -376,7 +376,7 @@ internal class Debug : ConfigWindow, IDisposable
 
                 ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
 
-            if (ImGui.TreeNode("Cast Data"))
+            if (ImGui.TreeNode("施法数据"))
             {
                 if (target is IBattleChara castChara)
                 {
@@ -405,7 +405,7 @@ internal class Debug : ConfigWindow, IDisposable
                 ImGui.TreePop();
             }
 
-            if (ImGui.TreeNode("Object Data"))
+            if (ImGui.TreeNode("对象数据"))
             {
                 CustomStyleText("DataId:", target?.DataId);
 
@@ -425,11 +425,11 @@ internal class Debug : ConfigWindow, IDisposable
                 ImGui.TreePop();
             }
 
-            if (ImGui.TreeNode("Enmity Data"))
+            if (ImGui.TreeNode("仇恨数据"))
             {
                 CustomStyleText($"Highest Enmity DPS:", $"{StrongestDPS()?.Name}");
 
-                if (ImGui.TreeNode("Enmity Table"))
+                if (ImGui.TreeNode("仇恨表"))
                 {
                     foreach (var h in EnmityDictParty)
                     {
@@ -443,7 +443,7 @@ internal class Debug : ConfigWindow, IDisposable
                 ImGui.TreePop();
             }
 
-            if (ImGui.TreeNode("Heal Target Data"))
+            if (ImGui.TreeNode("治疗目标数据"))
             {
                 CustomStyleText("Current:", SimpleTarget.Stack.AllyToHeal.Name);
                 ImGuiEx.InfoMarker("Cycles from Party UI Mouseover → Soft Target → Hard Target → Player.");
@@ -455,7 +455,7 @@ internal class Debug : ConfigWindow, IDisposable
                 ImGui.TreePop();
             }
 
-                if (ImGui.TreeNode("Enemies Near Target"))
+                if (ImGui.TreeNode("目标附近的敌人"))
                 {
                     var enemies = Svc.Objects
                     .OfType<IBattleNpc>()
@@ -484,10 +484,10 @@ internal class Debug : ConfigWindow, IDisposable
 
         #region Party
 
-        ImGui.Text("Party");
+        ImGui.Text("队伍");
         ImGui.Separator();
 
-        if (ImGui.CollapsingHeader("Party Data"))
+        if (ImGui.CollapsingHeader("队伍数据"))
         {
             CustomStyleText("Party ID:", Svc.Party.PartyId);
             CustomStyleText("Party Size:", GetPartyMembers().Count);
@@ -498,7 +498,7 @@ internal class Debug : ConfigWindow, IDisposable
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
         }
 
-        if (ImGui.CollapsingHeader("Member Data"))
+        if (ImGui.CollapsingHeader("成员数据"))
         {
             foreach (var member in GetPartyMembers())
             {
@@ -510,7 +510,7 @@ internal class Debug : ConfigWindow, IDisposable
                     CustomStyleText("Dead Timer:", TimeSpentDead(member.BattleChara.GameObjectId));
                     CustomStyleText("Role:", $"{member?.GetRole()}");
 
-                    if (ImGui.TreeNode("Data Dump"))
+                    if (ImGui.TreeNode("数据转储"))
                     {
                         Util.ShowObject(member.BattleChara);
                         ImGui.TreePop();
@@ -527,7 +527,7 @@ internal class Debug : ConfigWindow, IDisposable
 
         #region Actions
 
-        ImGui.Text("Action");
+        ImGui.Text("技能");
         ImGui.Separator();
 
         // ActionSheet Reference
@@ -564,7 +564,7 @@ internal class Debug : ConfigWindow, IDisposable
                 x.RowId is not (41593 or 41632))
             .OrderBy(x => x.RowId);
 
-        if (ImGui.CollapsingHeader("Action Data"))
+        if (ImGui.CollapsingHeader("技能数据"))
         {
             CustomStyleText("Time Since Last Action:", $"{ActionWatching.TimeSinceLastAction}");
             CustomStyleText("Last Action:",
@@ -603,7 +603,7 @@ internal class Debug : ConfigWindow, IDisposable
 
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
 
-            if (ImGui.TreeNode("Opener Data"))
+            if (ImGui.TreeNode("起手数据"))
             {
                 if (WrathOpener.CurrentOpener is not null)
                 {
@@ -626,7 +626,7 @@ internal class Debug : ConfigWindow, IDisposable
                 ImGui.TreePop();
             }
 
-            if (ImGui.TreeNode("Limit Break Data"))
+            if (ImGui.TreeNode("极限技数据"))
             {
                 CustomStyleText("Current Value:", LimitBreakValue);
                 CustomStyleText("Current Level:", LimitBreakLevel);
@@ -639,7 +639,7 @@ internal class Debug : ConfigWindow, IDisposable
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
         }
 
-        if (ImGui.CollapsingHeader("ActionReady"))
+        if (ImGui.CollapsingHeader("技能准备"))
         {
             if (ImGui.TreeNode("PvE"))
             {
@@ -665,7 +665,7 @@ internal class Debug : ConfigWindow, IDisposable
                 ImGui.TreePop();
             }
 
-            if (ImGui.TreeNode("Bozja"))
+            if (ImGui.TreeNode("博兹雅"))
             {
                 foreach (var act in actionsBozja)
                 {
@@ -677,7 +677,7 @@ internal class Debug : ConfigWindow, IDisposable
                 ImGui.TreePop();
             }
 
-            if (ImGui.TreeNode("Occult"))
+            if (ImGui.TreeNode("新月"))
             {
                 foreach (var act in actionsOccult)
                 {
@@ -949,11 +949,11 @@ internal class Debug : ConfigWindow, IDisposable
 
         if (ImGui.CollapsingHeader("Wrath IPC"))
         {
-            CustomStyleText("Wrath Leased:", _wrathLease is not null);
+            CustomStyleText("已租用Wrath：", _wrathLease is not null);
             if (_wrathLease is null)
             {
                 ImGui.Indent();
-                if (ImGui.Button("Register"))
+                if (ImGui.Button("注册"))
                 {
                     _wrathLease = P.IPC.RegisterForLease("WrathCombo", "WrathCombo", WrathIPCCallback);
                 }
@@ -962,31 +962,31 @@ internal class Debug : ConfigWindow, IDisposable
 
             if (_wrathLease is not null)
             {
-                CustomStyleText("Lease GUID", $"{_wrathLease}");
-                CustomStyleText("Configurations: ", $"{P.IPC.Leasing.Registrations[_wrathLease!.Value].SetsLeased}");
+                CustomStyleText("租约GUID", $"{_wrathLease}");
+                CustomStyleText("配置数量：", $"{P.IPC.Leasing.Registrations[_wrathLease!.Value].SetsLeased}");
 
                 ImGuiEx.Spacing(new Vector2(20, 20));
 
-                if (ImGui.Button("Release"))
+                if (ImGui.Button("释放"))
                 {
                     P.IPC.ReleaseControl(_wrathLease.Value);
                     _wrathLease = null;
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Set Autorot For Job"))
+                if (ImGui.Button("为当前职业设置自动循环"))
                 {
                     P.IPC.SetCurrentJobAutoRotationReady(_wrathLease!.Value);
                 }
                 ImGui.SameLine();
-                if (ImGui.Button("Set Autorot For WHM"))
+                if (ImGui.Button("为白魔设置自动循环"))
                 {
                     P.IPC.Leasing.AddRegistrationForCurrentJob(_wrathLease!.Value, Job.WHM);
                 }
 
                 ImGuiEx.Spacing(new Vector2(20, 20));
 
-                if (ImGui.Button("Mimic AutoDuty"))
+                if (ImGui.Button("模拟 AutoDuty"))
                 {
                     // https://github.com/ffxivcode/AutoDuty/blob/master/AutoDuty/IPC/IPCSubscriber.cs#L460
                     if (!P.IPC.IsCurrentJobAutoRotationReady())
@@ -1001,7 +1001,7 @@ internal class Debug : ConfigWindow, IDisposable
                     P.IPC.SetAutoRotationConfigState(_wrathLease!.Value, AutoRotationConfigOption.HealerRotationMode, HealerRotationMode.Lowest_Current);
                 }
                 ImGui.SameLine();
-                if (ImGui.Button("Mimic Questionable"))
+                if (ImGui.Button("模拟 Questionable"))
                 {
                     // https://git.carvel.li/liza/Questionable/src/commit/de90882ecbb609c2f79fecc1ec17b751dc8763f2/Questionable/Controller/CombatModules/WrathComboModule.cs#L68
                     P.IPC.SetAutoRotationState(_wrathLease!.Value);
@@ -1011,12 +1011,12 @@ internal class Debug : ConfigWindow, IDisposable
 
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
 
-            CustomStyleText("All Leases:", "");
+            CustomStyleText("所有租约：", "");
 
             if (P.IPC.Leasing.Registrations.Count > 0)
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Release All Leases"))
+                if (ImGui.Button("释放所有租约"))
                 {
                     P.IPC.Leasing.SuspendLeases();
                     _wrathLease = null;
@@ -1036,25 +1036,25 @@ internal class Debug : ConfigWindow, IDisposable
 
                     CustomStyleText(
                         $"{registration.Value.PluginName}",
-                        $"Configurations: {registration.Value.SetsLeased,3}; " +
-                        $"Auto-Rotation: {registration.Value.AutoRotationControlled.Count > 0}");
+                        $"配置数量: {registration.Value.SetsLeased,3}; " +
+                        $"自动循环: {registration.Value.AutoRotationControlled.Count > 0}");
 
                     ImGui.NewLine();
                     ImGuiEx.Spacing(new Vector2(10, 0));
                     ImGui.SameLine();
-                    if (ImGui.Button("Release##releaseFromList" + registration.Key))
+                    if (ImGui.Button("释放##releaseFromList" + registration.Key))
                     {
                         P.IPC.ReleaseControl(registration.Key);
                     }
                     ImGui.SameLine();
 
-                    CustomStyleText("", $"Jobs: {jobs,-30} " + $"Combos: {combos,-6}");
-                    CustomStyleText("", $"Created: {" ",-24} {registration.Value.Created:yyyy-MM-ddTHH:mm:ss}");
+                    CustomStyleText("", $"职业: {jobs,-30} " + $"连击: {combos,-6}");
+                    CustomStyleText("", $"创建时间: {" ",-24} {registration.Value.Created:yyyy-MM-ddTHH:mm:ss}");
                 }
             }
             else
             {
-                CustomStyleText("No current leases.", "");
+                CustomStyleText("当前无租约。", "");
             }
 
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
@@ -1062,25 +1062,25 @@ internal class Debug : ConfigWindow, IDisposable
 
         if (ImGui.CollapsingHeader("Orbwalker IPC"))
         {
-            CustomStyleText("Plugin Installed & On:", $"{OrbwalkerIPC.IsEnabled}");
+            CustomStyleText("插件已安装且开启：", $"{OrbwalkerIPC.IsEnabled}");
             if (OrbwalkerIPC.IsEnabled)
             {
-                CustomStyleText("Version:", $"{OrbwalkerIPC.InstalledVersion}");
-                CustomStyleText("Plugin Enabled:", OrbwalkerIPC.PluginEnabled());
+                CustomStyleText("版本：", $"{OrbwalkerIPC.InstalledVersion}");
+                CustomStyleText("插件已启用：", OrbwalkerIPC.PluginEnabled());
 
                 ImGui.Indent();
-                if (ImGui.Button("Set Enabled"))
+                if (ImGui.Button("切换启用状态"))
                 {
                     OrbwalkerIPC.SetPluginEnabled(!OrbwalkerIPC.PluginEnabled());
                 }
                 ImGui.Unindent();
 
-                CustomStyleText("Can OrbWalk:", OrbwalkerIPC.CanOrbwalk);
+                CustomStyleText("可 Orbwalking ：", OrbwalkerIPC.CanOrbwalk);
                 var jobs = OrbwalkerIPC.EnabledJobs();
-                CustomStyleText("Orbwalking Jobs:", string.Join(", ", jobs));
+                CustomStyleText("Orbwalking 职业：", string.Join(", ", jobs));
 
                 ImGui.Indent();
-                if (ImGui.Button("Toggle Current Job Enabled"))
+                if (ImGui.Button("切换当前职业 Orbwalking"))
                 {
                     OrbwalkerIPC.SetEnabledJob((uint)Player.Job, jobs.All(x => x != (int)Player.Job));
                 }
@@ -1094,21 +1094,21 @@ internal class Debug : ConfigWindow, IDisposable
 
         #region Hidden Features
 
-        if (ImGui.Checkbox("Show Hidden Features",
+        if (ImGui.Checkbox("显示隐藏功能",
                 ref Service.Configuration.ShowHiddenFeatures))
             Service.Configuration.Save();
 
-        ImGuiComponents.HelpMarker("Some features can be marked as hidden, and will only be shown if this setting is enabled.\nThis is here instead of on the Settings tab while this behavior is still early in its life, and to keep such features more secretive.");
+        ImGuiComponents.HelpMarker("部分功能可被标记为隐藏，仅在启用此设置时显示。\n此设置暂时放在这里而不是设置页，是为了在该行为还处于早期阶段时保持其隐蔽性。");
 
         ImGui.SameLine();
-        ImGui.TextColored(ImGuiColors.DalamudGrey, "(Do NOT publicly direct users to this setting!)");
+        ImGui.TextColored(ImGuiColors.DalamudGrey, "(请勿公开引导用户开启此设置！)");
         if (Service.Configuration.ShowHiddenFeatures)
         {
             ImGui.Indent();
             ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                "Hidden Features are minor one-offs that are not priorities for dev time.\n" +
-                "Do not request new ones or maintenance for existing ones publicly.\n" +
-                "Do not expect Hidden Features to be maintained or even stick around after they cease to be applicable.");
+                "隐藏功能是一些不重要的小功能，不会优先投入开发时间。\n" +
+                "请勿公开请求新隐藏功能或维护现有隐藏功能。\n" +
+                "隐藏功能可能随时被移除或不再维护。");
             ImGui.Unindent();
         }
 

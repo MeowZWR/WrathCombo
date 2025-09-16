@@ -19,8 +19,8 @@ internal class AutoRotationTab : ConfigWindow
     private static uint _selectedNpc = 0;
     internal static new void Draw()
     {
-        ImGui.TextWrapped($"This is where you can configure the parameters in which Auto-Rotation will operate. " +
-                          $"Features marked with an 'Auto-Mode' checkbox are able to be used with Auto-Rotation.");
+        ImGui.TextWrapped($"这里可以配置一键输出循环的参数。" +
+                          $"带有“自动模式”复选框的功能可以与一键输出循环一起使用。");
         ImGui.Separator();
 
         var cfg = Service.Configuration.RotationConfig;
@@ -28,118 +28,118 @@ internal class AutoRotationTab : ConfigWindow
 
         if (P.UIHelper.ShowIPCControlledIndicatorIfNeeded())
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                "Enable Auto-Rotation", ref cfg.Enabled);
+                "启用一键输出循环", ref cfg.Enabled);
         else
-            changed |= ImGui.Checkbox($"Enable Auto-Rotation", ref cfg.Enabled);
+            changed |= ImGui.Checkbox($"启用一键输出循环", ref cfg.Enabled);
         if (P.IPC.GetAutoRotationState())
         {
             var inCombatOnly = (bool)P.IPC.GetAutoRotationConfigState(
                 Enum.Parse<AutoRotationConfigOption>("InCombatOnly"))!;
             ImGuiExtensions.Prefix(!inCombatOnly);
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                "Only in Combat", ref cfg.InCombatOnly, "InCombatOnly");
+                "仅在战斗中启用", ref cfg.InCombatOnly, "InCombatOnly");
 
             if (inCombatOnly)
             {
                 ImGuiExtensions.Prefix(false);
-                changed |= ImGui.Checkbox($"Bypass When Combo Suggests Self-Use Action", ref cfg.BypassBuffs);
-                ImGuiComponents.HelpMarker($"Many jobs have an out of combat action that can be used, for example, {RPR.Soulsow.ActionName()} or {MNK.ForbiddenMeditation.ActionName()}. This will allow these to be used without being in combnat.");
+                changed |= ImGui.Checkbox($"当连击建议使用自用技能时绕过仅战斗限制", ref cfg.BypassBuffs);
+                ImGuiComponents.HelpMarker($"许多职业有可在非战斗中使用的技能，例如 {RPR.Soulsow.ActionName()} 或 {MNK.ForbiddenMeditation.ActionName()}。启用此项后可在非战斗中使用这些技能。");
 
                 ImGuiExtensions.Prefix(false);
-                changed |= ImGui.Checkbox($"Bypass Only in Combat for Quest Targets", ref cfg.BypassQuest);
-                ImGuiComponents.HelpMarker("Disables Auto-Mode outside of combat unless you're within range of a quest target.");
+                changed |= ImGui.Checkbox($"任务目标时绕过仅战斗限制", ref cfg.BypassQuest);
+                ImGuiComponents.HelpMarker("除非你在任务目标范围内，否则在非战斗中禁用自动模式。");
 
                 ImGuiExtensions.Prefix(false);
-                changed |= ImGui.Checkbox($"Bypass Only in Combat for FATE Targets", ref cfg.BypassFATE);
-                ImGuiComponents.HelpMarker("Disables Auto-Mode outside of combat unless you're synced to a FATE.");
+                changed |= ImGui.Checkbox($"对FATE目标绕过仅战斗限制", ref cfg.BypassFATE);
+                ImGuiComponents.HelpMarker("除非你同步到FATE，否则在非战斗中禁用自动模式。");
 
                 ImGuiExtensions.Prefix(true);
                 ImGuiEx.SetNextItemWidthScaled(100);
-                changed |= ImGui.InputInt("Delay to activate Auto-Rotation once combat starts (seconds)", ref cfg.CombatDelay);
+                changed |= ImGui.InputInt("进入战斗后延迟启用一键输出循环（秒）", ref cfg.CombatDelay);
 
                 if (cfg.CombatDelay < 0)
                     cfg.CombatDelay = 0;
             }
         }
 
-        changed |= ImGui.Checkbox("Enable Automatically in Instanced Content", ref cfg.EnableInInstance);
-        changed |= ImGui.Checkbox("Disable After Leaving Instanced Content", ref cfg.DisableAfterInstance);
+        changed |= ImGui.Checkbox("副本中自动启用", ref cfg.EnableInInstance);
+        changed |= ImGui.Checkbox("离开副本后自动禁用", ref cfg.DisableAfterInstance);
 
-        if (ImGui.CollapsingHeader("Damage Settings"))
+        if (ImGui.CollapsingHeader("输出设置"))
         {
-            ImGuiEx.TextUnderlined($"Targeting Mode");
+            ImGuiEx.TextUnderlined($"目标选择模式");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("DPSRotationMode");
             changed |= P.UIHelper.ShowIPCControlledComboIfNeeded(
                 "###DPSTargetingMode", true, ref cfg.DPSRotationMode,
                 ref cfg.HealerRotationMode, "DPSRotationMode");
 
-            ImGuiComponents.HelpMarker("Manual - Leaves all targeting decisions to you.\n" +
-                                       "Highest Max - Prioritises enemies with the highest max HP.\n" +
-                                       "Lowest Max - Prioritises enemies with the lowest max HP.\n" +
-                                       "Highest Current - Prioritises the enemy with the highest current HP.\n" +
-                                       "Lowest Current - Prioritises the enemy with the lowest current HP.\n" +
-                                       "Tank Target - Prioritises the same target as the first tank in your group.\n" +
-                                       "Nearest - Prioritises the closest target to you.\n" +
-                                       "Furthest - Prioritises the furthest target from you.");
+            ImGuiComponents.HelpMarker("手动 - 所有目标选择由你自己决定。\n" +
+                                       "最高最大血量 - 优先最大血量最高的敌人。\n" +
+                                       "最低最大血量 - 优先最大血量最低的敌人。\n" +
+                                       "当前血量最高 - 优先当前血量最高的敌人。\n" +
+                                       "当前血量最低 - 优先当前血量最低的敌人。\n" +
+                                       "坦克目标 - 优先与你队伍中第一个坦克相同的目标。\n" +
+                                       "最近 - 优先距离你最近的目标。\n" +
+                                       "最远 - 优先距离你最远的目标。");
             ImGui.Spacing();
 
             if (cfg.DPSRotationMode == AutoRotation.DPSRotationMode.Manual)
             {
-                changed |= ImGui.Checkbox("Enforce Best AoE Target Selection", ref cfg.DPSSettings.AoEIgnoreManual);
+                changed |= ImGui.Checkbox("强制选择最佳AOE目标", ref cfg.DPSSettings.AoEIgnoreManual);
 
-                ImGuiComponents.HelpMarker("For all other targeting modes, AoE will target based on highest number of targets hit. In manual mode, it will only do this if you tick this box.");
+                ImGuiComponents.HelpMarker("其他目标模式下，AOE会自动选择命中目标最多的敌人。手动模式下，只有勾选此项才会这样做。");
             }
 
                 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("DPSAoETargets");
             var input = P.UIHelper.ShowIPCControlledNumberInputIfNeeded(
-                "Targets Required for AoE Damage Features", ref cfg.DPSSettings.DPSAoETargets, "DPSAoETargets");
+                "触发AOE输出所需目标数", ref cfg.DPSSettings.DPSAoETargets, "DPSAoETargets");
             if (input)
             {
                 changed |= input;
                 if (cfg.DPSSettings.DPSAoETargets < 0)
                     cfg.DPSSettings.DPSAoETargets = 0;
             }
-            ImGuiComponents.HelpMarker($"Disabling this will turn off AoE DPS features. Otherwise will require the amount of targets required to be in range of an AoE feature's attack to use. This applies to all 3 roles, and for any features that deal AoE damage.");
+            ImGuiComponents.HelpMarker($"关闭此项将禁用AOE输出功能。否则需要有足够数量的目标在AOE技能范围内才会使用。适用于所有三种职能，以及所有造成AOE伤害的功能。");
 
             ImGuiEx.SetNextItemWidthScaled(100);
-            changed |= ImGui.SliderFloat("Max Target Distance", ref cfg.DPSSettings.MaxDistance, 1, 30);
+            changed |= ImGui.SliderFloat("最大目标距离", ref cfg.DPSSettings.MaxDistance, 1, 30);
             cfg.DPSSettings.MaxDistance =
                 Math.Clamp(cfg.DPSSettings.MaxDistance, 1, 30);
 
-            ImGuiComponents.HelpMarker("Max distance all targeting modes (except Manual) will look for a target. Values from 1 to 30 only.");
+            ImGuiComponents.HelpMarker("除手动模式外，所有目标模式查找目标的最大距离。仅允许1到30的数值。");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("FATEPriority");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                "Prioritise FATE Targets", ref cfg.DPSSettings.FATEPriority, "FATEPriority");
+                "优先FATE目标", ref cfg.DPSSettings.FATEPriority, "FATEPriority");
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("QuestPriority");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                "Prioritise Quest Targets", ref cfg.DPSSettings.QuestPriority, "QuestPriority");
-            changed |= ImGui.Checkbox($"Prioritise Targets Not In Combat", ref cfg.DPSSettings.PreferNonCombat);
+                "优先任务目标", ref cfg.DPSSettings.QuestPriority, "QuestPriority");
+            changed |= ImGui.Checkbox($"优先未进入战斗的目标", ref cfg.DPSSettings.PreferNonCombat);
 
             if (cfg.DPSSettings.PreferNonCombat && changed)
                 cfg.DPSSettings.OnlyAttackInCombat = false;
 
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                "Only Attack Targets Already In Combat", ref cfg.DPSSettings.OnlyAttackInCombat,
+                "只攻击已进入战斗的目标", ref cfg.DPSSettings.OnlyAttackInCombat,
                 "OnlyAttackInCombat");
 
             if (cfg.DPSSettings.OnlyAttackInCombat && changed)
                 cfg.DPSSettings.PreferNonCombat = false;
 
-            changed |= ImGui.Checkbox("Always Target Regardless of Action", ref cfg.DPSSettings.AlwaysSelectTarget);
+            changed |= ImGui.Checkbox("无论技能是否需要都始终选中目标", ref cfg.DPSSettings.AlwaysSelectTarget);
 
-            ImGuiComponents.HelpMarker("Normally, Auto-rotation will only target an enemy if the next action it would fire needs a target. This will change the behaviour so it will always select the target regardless of what the action can target.");
+            ImGuiComponents.HelpMarker("通常情况下，一键输出循环只会在下一个技能需要目标时才选中敌人。启用此项后，无论技能是否需要目标都会选中。");
 
-            changed |= ImGui.Checkbox("Un-Target and Stop Actions for Pyretics", ref cfg.DPSSettings.UnTargetAndDisableForPenalty);
+            changed |= ImGui.Checkbox("检测到惩罚时取消目标并停止操作", ref cfg.DPSSettings.UnTargetAndDisableForPenalty);
 
-            ImGuiComponents.HelpMarker("This will un-set any current target and disable Auto-Rotation actions if there is a current detected Pyretic (or similar, like Acceleration Bomb) mechanic affecting the player, that would harm them if they took any action.");
+            ImGuiComponents.HelpMarker("如果检测到玩家身上有Pyretic（或类似加速炸弹等）会导致行动受罚的机制时，将取消当前目标并禁用一键输出循环。");
 
             var npcs = Service.Configuration.IgnoredNPCs.ToList();
             var selected = npcs.FirstOrNull(x => x.Key == _selectedNpc);
             var prev = selected is null ? "" : $"{Svc.Data.Excel.GetSheet<BNpcName>().GetRow(selected.Value.Value).Singular} (ID: {selected.Value.Key})";
-            ImGuiEx.TextUnderlined($"Ignored NPCs");
+            ImGuiEx.TextUnderlined($"忽略的NPC");
             using (var combo = ImRaii.Combo("###Ignore", prev))
             {
                 if (combo)
@@ -160,14 +160,14 @@ internal class AutoRotationTab : ConfigWindow
                     }
                 }
             }
-            ImGuiComponents.HelpMarker("These NPCs will be ignored by Auto-Rotation.\n" +
-                                       "Every instance of this NPC will be excluded from automatic targeting (Manual will still work).\n" +
-                                       "To remove an NPC from this list, select it and press the Delete button below.\n" +
-                                       "To add an NPC to this list, target the NPC and use the command: /wrath ignore");
+            ImGuiComponents.HelpMarker("这些NPC将被一键输出循环忽略。\n" +
+                                       "所有该NPC的实例都不会被自动选中（手动模式仍可选中）。\n" +
+                                       "要移除NPC，请在下方选择后点击删除按钮。\n" +
+                                       "要添加NPC，请选中目标后输入指令：/wrath ignore");
 
             if (_selectedNpc > 0)
             {
-                if (ImGui.Button("Delete From Ignored"))
+                if (ImGui.Button("从忽略列表中删除"))
                 {
                     Service.Configuration.IgnoredNPCs.Remove(_selectedNpc);
                     Service.Configuration.Save();
@@ -178,115 +178,114 @@ internal class AutoRotationTab : ConfigWindow
 
         }
         ImGui.Spacing();
-        if (ImGui.CollapsingHeader("Healing Settings"))
+        if (ImGui.CollapsingHeader("治疗设置"))
         {
-            ImGuiEx.TextUnderlined($"Healing Targeting Mode");
+            ImGuiEx.TextUnderlined($"治疗目标选择模式");
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("HealerRotationMode");
             changed |= P.UIHelper.ShowIPCControlledComboIfNeeded(
                 "###HealerTargetingMode", false, ref cfg.DPSRotationMode,
                 ref cfg.HealerRotationMode, "HealerRotationMode");
-            ImGuiComponents.HelpMarker("Manual - Will only heal a target if you select them manually. If the target does not meet the healing threshold settings criteria below it will skip healing in favour of DPSing (if also enabled).\n" +
-                                       "Highest Current - Prioritises the party member with the highest current HP%.\n" +
-                                       "Lowest Current - Prioritises the party member with the lowest current HP%.");
+            ImGuiComponents.HelpMarker("手动 - 只有你手动选择目标时才会进行治疗。如果目标未达到下方设定的血量阈值，将跳过治疗优先输出（如果已启用）。\n" +
+                                       "当前血量最高 - 优先当前血量百分比最高的队友。\n" +
+                                       "当前血量最低 - 优先当前血量百分比最低的队友。");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("SingleTargetHPP");
             changed |= P.UIHelper.ShowIPCControlledSliderIfNeeded(
-                "Single Target HP% Threshold", ref cfg.HealerSettings.SingleTargetHPP, "SingleTargetHPP");
+                "单体治疗血量阈值（%）", ref cfg.HealerSettings.SingleTargetHPP, "SingleTargetHPP");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("SingleTargetRegenHPP");
             changed |= P.UIHelper.ShowIPCControlledSliderIfNeeded(
-                "Single Target HP% Threshold (target has Regen/Aspected Benefic)", ref cfg.HealerSettings.SingleTargetRegenHPP, "SingleTargetRegenHPP");
-            ImGuiComponents.HelpMarker("You typically want to set this lower than the above setting.");
+                "单体治疗血量阈值（目标有再生/吉星相位）", ref cfg.HealerSettings.SingleTargetRegenHPP, "SingleTargetRegenHPP");
+            ImGuiComponents.HelpMarker("通常建议此项低于上方设置。");
                 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("SingleTargetExcogHPP");
             changed |= P.UIHelper.ShowIPCControlledSliderIfNeeded(
-                "Single Target HP% Threshold (target has Excogitation)", ref cfg.HealerSettings.SingleTargetExcogHPP, "SingleTargetExcogHPP");
-            ImGuiComponents.HelpMarker("You typically want to set this lower than the above setting.");
+                "单体治疗血量阈值（目标有深谋远虑）", ref cfg.HealerSettings.SingleTargetExcogHPP, "SingleTargetExcogHPP");
+            ImGuiComponents.HelpMarker("通常建议此项低于上方设置。");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AoETargetHPP");
             changed |= P.UIHelper.ShowIPCControlledSliderIfNeeded(
-                "AoE HP% Threshold", ref cfg.HealerSettings.AoETargetHPP, "AoETargetHPP");
+                "AOE治疗血量阈值（%）", ref cfg.HealerSettings.AoETargetHPP, "AoETargetHPP");
 
-            var input = ImGuiEx.InputInt(100f.Scale(), "Targets Required for AoE Healing Features", ref cfg.HealerSettings.AoEHealTargetCount);
+            var input = ImGuiEx.InputInt(100f.Scale(), "触发AOE治疗所需目标数", ref cfg.HealerSettings.AoEHealTargetCount);
             if (input)
             {
                 changed |= input;
                 if (cfg.HealerSettings.AoEHealTargetCount < 0)
                     cfg.HealerSettings.AoEHealTargetCount = 0;
             }
-            ImGuiComponents.HelpMarker($"Disabling this will turn off AoE Healing features. Otherwise will require the amount of targets required to be in range of an AoE feature's heal to use.");
+            ImGuiComponents.HelpMarker($"关闭此项将禁用AOE治疗功能。否则需要有足够数量的目标在AOE治疗技能范围内才会使用。");
             ImGuiEx.SetNextItemWidthScaled(100);
-            changed |= ImGui.InputInt("Delay to start healing once above conditions are met (seconds)", ref cfg.HealerSettings.HealDelay);
+            changed |= ImGui.InputInt("满足条件后延迟开始治疗（秒）", ref cfg.HealerSettings.HealDelay);
 
             if (cfg.HealerSettings.HealDelay < 0)
                 cfg.HealerSettings.HealDelay = 0;
-            ImGuiComponents.HelpMarker("Don't set this too high! 1-2 seconds is normally comfy enough to be considered a natural reaction.");
+            ImGuiComponents.HelpMarker("不要设置太高！1-2秒通常就足够模拟自然反应。");
 
             ImGui.Spacing();
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoRez");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                "Auto-Resurrect", ref cfg.HealerSettings.AutoRez, "AutoRez");
-            ImGuiComponents.HelpMarker($"Will attempt to resurrect dead party members. Applies to {Job.CNJ.Shorthand()}, {Job.WHM.Shorthand()}, {Job.SCH.Shorthand()}, {Job.AST.Shorthand()}, {Job.SGE.Shorthand()} and {OccultCrescent.ContentName} {Svc.Data.GetExcelSheet<MKDSupportJob>().GetRow(10).Unknown0} {OccultCrescent.Revive.ActionName()}");
+                "自动复活", ref cfg.HealerSettings.AutoRez, "AutoRez");
+            ImGuiComponents.HelpMarker($"会尝试复活倒地的队友。适用于 {Job.CNJ.Shorthand()}、{Job.WHM.Shorthand()}、{Job.SCH.Shorthand()}、{Job.AST.Shorthand()}、{Job.SGE.Shorthand()} 以及 {OccultCrescent.ContentName} {Svc.Data.GetExcelSheet<MKDSupportJob>().GetRow(10).Unknown0} {OccultCrescent.Revive.ActionName()}");
             var autoRez = (bool)P.IPC.GetAutoRotationConfigState(AutoRotationConfigOption.AutoRez)!;
             if (autoRez)
             {
                 ImGuiExtensions.Prefix(false);
                 P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoRezOutOfParty");
                 changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                    "Apply to Out of Party Members", ref cfg.HealerSettings.AutoRezOutOfParty, "AutoRezOutOfParty");
+                    "应用于非队伍成员", ref cfg.HealerSettings.AutoRezOutOfParty, "AutoRezOutOfParty");
 
                 ImGuiExtensions.Prefix(false);
-                changed |= ImGui.Checkbox("Require Swiftcast/Dualcast", ref
+                changed |= ImGui.Checkbox("需要迅速咏唱/连击咏唱", ref
                     cfg.HealerSettings.AutoRezRequireSwift);
                 ImGuiComponents.HelpMarker(
-                    $"Requires {RoleActions.Magic.Swiftcast.ActionName()} " +
-                    $"(or {Job.RDM.Shorthand()}'s Dualcast) " +
-                    $"to be available to resurrect a party member, to avoid hard-casting.");
+                    $"需要有{RoleActions.Magic.Swiftcast.ActionName()} " +
+                    $"（或{Job.RDM.Shorthand()}的连击咏唱）可用时才会复活队友，以避免硬读条。");
 
                 ImGuiExtensions.Prefix(true);
                 P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoRezDPSJobs");
                 changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                    $"Apply to {Job.SMN.Shorthand()} & {Job.RDM.Shorthand()}", ref cfg.HealerSettings.AutoRezDPSJobs, "AutoRezDPSJobs");
-                ImGuiComponents.HelpMarker($"When playing as {Job.SMN.Shorthand()} or {Job.RDM.Shorthand()}, also attempt to raise a dead party member. {Job.RDM.Shorthand()} will only resurrect with {RoleActions.Magic.Buffs.Swiftcast.StatusName()} or {RDM.Buffs.Dualcast.StatusName()} active.");
+                    $"应用于{Job.SMN.Shorthand()}和{Job.RDM.Shorthand()}", ref cfg.HealerSettings.AutoRezDPSJobs, "AutoRezDPSJobs");
+                ImGuiComponents.HelpMarker($"作为{Job.SMN.Shorthand()}或{Job.RDM.Shorthand()}时也会尝试复活队友。{Job.RDM.Shorthand()}仅在有{RoleActions.Magic.Buffs.Swiftcast.StatusName()}或{RDM.Buffs.Dualcast.StatusName()}时复活。");
             }
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoCleanse");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                $"Auto-{RoleActions.Healer.Esuna.ActionName()}", ref cfg.HealerSettings.AutoCleanse, "AutoCleanse");
-            ImGuiComponents.HelpMarker($"Will {RoleActions.Healer.Esuna.ActionName()} any cleansable debuffs (Healing takes priority).");
+                $"自动{RoleActions.Healer.Esuna.ActionName()}", ref cfg.HealerSettings.AutoCleanse, "AutoCleanse");
+            ImGuiComponents.HelpMarker($"会自动{RoleActions.Healer.Esuna.ActionName()}可净化的负面状态（治疗优先）。");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("ManageKardia");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                $"[{Job.SGE.Shorthand()}] Automatically Manage Kardia", ref cfg.HealerSettings.ManageKardia, "ManageKardia");
-            ImGuiComponents.HelpMarker($"Switches {SGE.Kardia.ActionName()} to party members currently being targeted by enemies, prioritising tanks if multiple people are being targeted.");
+                $"[贤者] 自动切换心关", ref cfg.HealerSettings.ManageKardia, "ManageKardia");
+            ImGuiComponents.HelpMarker($"会将{SGE.Kardia.ActionName()}切换给当前被敌人攻击的队友，若有多个则优先坦克。");
             if (cfg.HealerSettings.ManageKardia)
             {
                 ImGuiExtensions.Prefix(cfg.HealerSettings.ManageKardia);
-                changed |= ImGui.Checkbox($"Limit {SGE.Kardia.ActionName()} swapping to tanks only", ref cfg.HealerSettings.KardiaTanksOnly);
+                changed |= ImGui.Checkbox($"仅在坦克间切换{SGE.Kardia.ActionName()}", ref cfg.HealerSettings.KardiaTanksOnly);
             }
 
-            changed |= ImGui.Checkbox($"[{Job.WHM.Shorthand()}/{Job.AST.Shorthand()}] Pre-emptively apply heal over time on focus target", ref cfg.HealerSettings.PreEmptiveHoT);
-            ImGuiComponents.HelpMarker($"Applies {WHM.Regen.ActionName()}/{AST.AspectedBenefic.ActionName()} to your focus target when out of combat and they are 30y or less away from an enemy. (Bypasses \"Only in Combat\" setting)");
+            changed |= ImGui.Checkbox($"[白魔/占星] 战斗外预读持续治疗到焦点目标", ref cfg.HealerSettings.PreEmptiveHoT);
+            ImGuiComponents.HelpMarker($"当焦点目标在非战斗状态且距离敌人30y以内时，会自动施加{WHM.Regen.ActionName()}/{AST.AspectedBenefic.ActionName()}。（无视“仅在战斗中启用”设置）");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("IncludeNPCs");
-            changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded("Heal Friendly NPCs", ref cfg.HealerSettings.IncludeNPCs);
-            ImGuiComponents.HelpMarker("Useful for healer quests where NPCs are expected to be healed but aren't added directly to your party.");
+            changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded("治疗友方NPC", ref cfg.HealerSettings.IncludeNPCs);
+            ImGuiComponents.HelpMarker("适用于需要治疗NPC但未直接加入队伍的治疗任务。");
 
         }
 
-        ImGuiEx.TextUnderlined("Advanced");
-        changed |= ImGui.InputInt("Throttle Delay (ms)", ref cfg.Throttler);
-        ImGuiComponents.HelpMarker("Auto-Rotation has a built in throttler to only run every so many milliseconds for performance reasons. If you experience issues with frame rate, try increasing this value. Do note this may have a side-effect of introducing clipping if set too high, so experiment with the value.");
+        ImGuiEx.TextUnderlined("高级");
+        changed |= ImGui.InputInt("循环间隔（毫秒）", ref cfg.Throttler);
+        ImGuiComponents.HelpMarker("一键输出循环内置了节流器，每隔指定毫秒运行一次以优化性能。如果遇到帧率问题可尝试增加此值，但过高可能导致技能延迟，请自行测试。");
 
         var orbwalker = OrbwalkerIPC.IsEnabled && OrbwalkerIPC.PluginEnabled();
         using (ImRaii.Disabled(!orbwalker))
         {
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("OrbwalkerIntegration");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
-                "Enable Orbwalker Integration", ref cfg.OrbwalkerIntegration, "OrbwalkerIntegration");
+                "启用Orbwalker集成", ref cfg.OrbwalkerIntegration, "OrbwalkerIntegration");
 
-            ImGuiComponents.HelpMarker($"This will make Auto-Rotation use actions with cast times even whilst moving, as Orbwalker will lock movement during the cast. You may need to enable \"Buffer Initial Cast\" setting in Orbwalker if not already enabled. Requires an Orbwalker plugin to be installed and enabled.");
+            ImGuiComponents.HelpMarker($"启用后，一键输出循环在移动时也会使用读条技能，Orbwalker会在施法期间锁定移动。你可能需要在Orbwalker中启用“缓冲首个施法”选项。需要已安装并启用Orbwalker插件。");
         }
 
         if (changed)
