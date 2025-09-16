@@ -508,7 +508,7 @@ internal partial class MCH : PhysicalRanged
                         return Reassemble;
 
                     //gauss and ricochet outside HC
-                    if (IsEnabled(CustomComboPreset.MCH_AoE_Adv_GaussRicochet) &&
+                    if (IsEnabled(Preset.MCH_AoE_Adv_GaussRicochet) &&
                         Config.MCH_AoE_GaussOptions[0])
                     {
                         if (ActionReady(GaussRound) &&
@@ -530,7 +530,7 @@ internal partial class MCH : PhysicalRanged
                 }
 
                 //AutoCrossbow, Gauss, Rico
-                if (IsEnabled(CustomComboPreset.MCH_AoE_Adv_GaussRicochet) &&
+                if (IsEnabled(Preset.MCH_AoE_Adv_GaussRicochet) &&
                     Config.MCH_AoE_GaussOptions[1] &&
                     (JustUsed(OriginalHook(AutoCrossbow), 1f) ||
                      JustUsed(OriginalHook(Heatblast), 1f)) && HasNotWeaved)
