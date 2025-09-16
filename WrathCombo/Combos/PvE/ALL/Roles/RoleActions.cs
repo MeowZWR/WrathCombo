@@ -1,6 +1,5 @@
 ﻿using WrathCombo.Data;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
-
 namespace WrathCombo.Combos.PvE;
 
 internal static partial class RoleActions
@@ -47,7 +46,8 @@ internal static partial class RoleActions
         }
 
         public static bool CanAddle() =>
-            ActionReady(Addle) && !HasStatusEffect(Debuffs.Addle, CurrentTarget, true);
+            ActionReady(Addle) && !HasStatusEffect(Debuffs.Addle, CurrentTarget, true) &&
+            CanApplyStatus(CurrentTarget, Debuffs.Addle);
 
         public static bool CanSleep() =>
             ActionReady(Sleep);
@@ -117,7 +117,7 @@ internal static partial class RoleActions
         public static bool CanPeloton() =>
             ActionReady(Peloton);
 
-        public static bool CanHeadGraze(CustomComboPreset preset, WeaveTypes weave = WeaveTypes.None) =>
+        public static bool CanHeadGraze(Preset preset, WeaveTypes weave = WeaveTypes.None) =>
             IsEnabled(preset) && CanInterruptEnemy() && ActionReady(HeadGraze) && CheckWeave(weave);
 
         public static bool CanHeadGraze(bool simpleMode, WeaveTypes weave = WeaveTypes.None) =>
@@ -154,7 +154,8 @@ internal static partial class RoleActions
             ActionReady(Bloodbath) && PlayerHealthPercentageHp() <= healthPercent;
 
         public static bool CanFeint() =>
-            ActionReady(Feint) && !HasStatusEffect(Debuffs.Feint, CurrentTarget, true);
+            ActionReady(Feint) && !HasStatusEffect(Debuffs.Feint, CurrentTarget, true) &&
+            CanApplyStatus(CurrentTarget, Debuffs.Feint);
 
         public static bool CanTrueNorth() =>
             ActionReady(TrueNorth) && TargetNeedsPositionals() && !HasStatusEffect(Buffs.TrueNorth) && CanDelayedWeave();

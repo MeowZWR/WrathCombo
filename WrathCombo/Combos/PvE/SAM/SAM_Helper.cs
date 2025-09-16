@@ -1,12 +1,12 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Enums;
 using Dalamud.Game.ClientState.JobGauge.Types;
-using FFXIVClientStructs.FFXIV.Client.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
+using static FFXIVClientStructs.FFXIV.Client.Game.ActionManager;
 using static WrathCombo.Combos.PvE.SAM.Config;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 using static WrathCombo.Data.ActionWatching;
@@ -30,30 +30,30 @@ internal partial class SAM
     internal static bool UseTsubame =>
         LevelChecked(TsubameGaeshi) &&
         (HasStatusEffect(Buffs.TendoKaeshiSetsugekkaReady) ||
-         (HasStatusEffect(Buffs.TsubameReady) && (SenCount is 3 || GetCooldownRemainingTime(Senei) > 33)));
+         HasStatusEffect(Buffs.TsubameReady) && (SenCount is 3 || GetCooldownRemainingTime(Senei) > 33));
 
     internal static bool M6SReady =>
-        !HiddenFeaturesData.IsEnabledWith(CustomComboPreset.SAM_Hid_M6SHoldSquirrelBurst, () =>
+        !HiddenFeaturesData.IsEnabledWith(Preset.SAM_Hid_M6SHoldSquirrelBurst, () =>
             HiddenFeaturesData.Targeting.R6SSquirrel && CombatEngageDuration().TotalSeconds < 275);
 
     #region Meikyo
 
     internal static bool UseMeikyo()
     {
-        float gcd = ActionManager.GetAdjustedRecastTime(ActionType.Action, Hakaze) / 100f;
         int meikyoUsed = CombatActions.Count(x => x == MeikyoShisui);
+        float gcd = GetAdjustedRecastTime(ActionType.Action, Hakaze) / 100f;
 
         if (ActionReady(MeikyoShisui) && !HasStatusEffect(Buffs.Tendo) && !HasStatusEffect(Buffs.MeikyoShisui) &&
             (JustUsed(Gekko) || JustUsed(Kasha) || JustUsed(Yukikaze)))
         {
-            if ((SAM_ST_Meikyo_Suboption == 0 || InBossEncounter() ||
-                 IsEnabled(CustomComboPreset.SAM_ST_SimpleMode) && InBossEncounter()))
+            if ((SAM_ST_MeikyoBossOption == 0 || InBossEncounter() ||
+                 IsEnabled(Preset.SAM_ST_SimpleMode) && InBossEncounter()))
             {
                 if (EnhancedSenei)
                 {
                     //if no opener
-                    if ((IsEnabled(CustomComboPreset.SAM_ST_Opener) && SAM_Balance_Content == 1 && !InBossEncounter() ||
-                         IsNotEnabled(CustomComboPreset.SAM_ST_Opener)) &&
+                    if ((IsEnabled(Preset.SAM_ST_Opener) && SAM_Balance_Content == 1 && !InBossEncounter() ||
+                         IsNotEnabled(Preset.SAM_ST_Opener)) &&
                         meikyoUsed < 1 && !HasStatusEffect(Buffs.TsubameReady))
                         return true;
 
@@ -82,8 +82,8 @@ internal partial class SAM
                     return true;
             }
 
-            if (IsEnabled(CustomComboPreset.SAM_ST_SimpleMode) && !InBossEncounter() ||
-                SAM_ST_Meikyo_Suboption == 1 && !InBossEncounter())
+            if (IsEnabled(Preset.SAM_ST_SimpleMode) && !InBossEncounter() ||
+                SAM_ST_MeikyoBossOption == 1 && !InBossEncounter())
                 return true;
         }
 
@@ -94,51 +94,96 @@ internal partial class SAM
 
     #region Iaijutsu
 
-    internal static bool UseIaijutsu()
+    internal static bool UseIaijutsu(bool useHiganbana, bool useTenkaGoken, bool useMidare)
     {
-        int higanbanaHPThreshold = SAM_ST_Higanbana_HP_Threshold;
-        int higanbanaRefresh = SAM_ST_Higanbana_Refresh;
+        int higanbanaHPThreshold = SAM_ST_HiganbanaHPThreshold;
+        int higanbanaRefresh = SAM_ST_HiganbanaRefresh;
 
         if (LevelChecked(Iaijutsu))
         {
-            if (IsEnabled(CustomComboPreset.SAM_ST_AdvancedMode) &&
-
-                //Higanbana
-                ((SAM_ST_CDs_IaijutsuOption[0] &&
-                  SenCount is 1 && GetTargetHPPercent() > higanbanaHPThreshold &&
-                  (SAM_ST_Higanbana_Suboption == 0 || TargetIsBoss()) &&
-                  CanApplyStatus(CurrentTarget, Debuffs.Higanbana) &&
-                  ((JustUsed(MeikyoShisui, 15f) && GetStatusEffectRemainingTime(Debuffs.Higanbana, CurrentTarget) <= higanbanaRefresh) ||
-                   !HasStatusEffect(Debuffs.Higanbana, CurrentTarget))) ||
-
-                 //Tenka Goken
-                 (SAM_ST_CDs_IaijutsuOption[1] && SenCount is 2 &&
-                  !LevelChecked(MidareSetsugekka)) ||
-
-                 //Midare Setsugekka
-                 (SAM_ST_CDs_IaijutsuOption[2] && SenCount is 3 &&
-                  LevelChecked(MidareSetsugekka) && !HasStatusEffect(Buffs.TsubameReady))))
+            //Higanbana
+            if (IsEnabled(Preset.SAM_ST_AdvancedMode) &&
+                useHiganbana &&
+                SenCount is 1 && GetTargetHPPercent() > higanbanaHPThreshold &&
+                (SAM_ST_HiganbanaBossOption == 0 || TargetIsBoss()) &&
+                CanApplyStatus(CurrentTarget, Debuffs.Higanbana) &&
+                (JustUsed(MeikyoShisui, 15f) && GetStatusEffectRemainingTime(Debuffs.Higanbana, CurrentTarget) <= higanbanaRefresh ||
+                 !HasStatusEffect(Debuffs.Higanbana, CurrentTarget)))
                 return true;
 
-            if (IsEnabled(CustomComboPreset.SAM_ST_SimpleMode) &&
+            //Tenka Goken
+            if (useTenkaGoken && SenCount is 2 &&
+                !LevelChecked(MidareSetsugekka))
+                return true;
+            //Midare Setsugekka
+            if (useMidare && SenCount is 3 &&
+                LevelChecked(MidareSetsugekka) && !HasStatusEffect(Buffs.TsubameReady))
+                return true;
 
-                //Higanbana
-                ((SenCount is 1 && GetTargetHPPercent() > 1 && TargetIsBoss() &&
-                  CanApplyStatus(CurrentTarget, Debuffs.Higanbana) &&
-                  ((JustUsed(MeikyoShisui, 15f) && GetStatusEffectRemainingTime(Debuffs.Higanbana, CurrentTarget) <= 15) ||
-                   !HasStatusEffect(Debuffs.Higanbana, CurrentTarget))) ||
-
-                 //Tenka Goken
-                 (SenCount is 2 &&
-                  !LevelChecked(MidareSetsugekka)) ||
-
-                 //Midare Setsugekka
-                 (SenCount is 3 &&
-                  LevelChecked(MidareSetsugekka) && !HasStatusEffect(Buffs.TsubameReady))))
+            //Higanbana Simple Mode
+            if (IsEnabled(Preset.SAM_ST_SimpleMode) &&
+                useHiganbana &&
+                SenCount is 1 && GetTargetHPPercent() > 1 && TargetIsBoss() &&
+                CanApplyStatus(CurrentTarget, Debuffs.Higanbana) &&
+                (JustUsed(MeikyoShisui, 15f) && GetStatusEffectRemainingTime(Debuffs.Higanbana, CurrentTarget) <= 15 ||
+                 !HasStatusEffect(Debuffs.Higanbana, CurrentTarget)))
                 return true;
         }
-
         return false;
+    }
+
+    #endregion
+
+    #region Burst Management
+
+    internal static bool UseShinten()
+    {
+        int shintenTreshhold = SAM_ST_ExecuteThreshold;
+
+        if (ActionReady(Shinten) && Kenki >= SAMKenki.Shinten)
+        {
+            if (GetTargetHPPercent() < shintenTreshhold)
+                return true;
+
+            if (Kenki >= 95)
+                return true;
+
+            if (ActionReady(Ikishoten) && Kenki > 50)
+                return true;
+
+            if (EnhancedSenei)
+            {
+                if (JustUsed(Senei, 20f) &&
+                    !HasStatusEffect(Buffs.ZanshinReady) &&
+                    !JustUsed(Ikishoten))
+                    return true;
+
+                if (GetCooldownRemainingTime(Senei) >= 25 &&
+                    Kenki >= SAM_ST_KenkiOvercapAmount)
+                    return true;
+            }
+
+            if (!EnhancedSenei && Kenki >= SAM_ST_KenkiOvercapAmount)
+                return true;
+        }
+        return false;
+    }
+
+    #endregion
+
+    #region Rescourses
+
+    internal static class SAMKenki
+    {
+        internal const int MaxKenki = 100;
+
+        internal static int Zanshin => GetResourceCost(SAM.Zanshin);
+
+        internal static int Senei => GetResourceCost(SAM.Senei);
+
+        internal static int Guren => GetResourceCost(SAM.Guren);
+
+        internal static int Shinten => GetResourceCost(SAM.Shinten);
     }
 
     #endregion
@@ -250,8 +295,6 @@ internal partial class SAM
 
     #region ID's
 
-    public const byte JobID = 34;
-
     public const uint
         Hakaze = 7477,
         Yukikaze = 7480,
@@ -270,6 +313,7 @@ internal partial class SAM
         Kyuten = 7491,
         Hagakure = 7495,
         Guren = 7496,
+        Meditate = 7497,
         Senei = 16481,
         MeikyoShisui = 7499,
         Seigan = 7501,
@@ -298,6 +342,7 @@ internal partial class SAM
             MeikyoShisui = 1233,
             EnhancedEnpi = 1236,
             EyesOpen = 1252,
+            Meditate = 1231,
             OgiNamikiriReady = 2959,
             Fuka = 1299,
             Fugetsu = 1298,

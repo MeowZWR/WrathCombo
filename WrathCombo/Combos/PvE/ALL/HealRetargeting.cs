@@ -10,7 +10,6 @@ using TS = System.TimeSpan;
 // ReSharper disable CheckNamespace
 
 #endregion
-
 namespace WrathCombo.Combos.PvE;
 
 /// <summary>
@@ -24,7 +23,7 @@ public static class HealRetargeting
     /// Just a buffer for checking the
     /// <see cref="PluginConfiguration.RetargetHealingActionsToStack" />
     /// setting.
-    private static bool RetargetSettingOn
+    internal static bool RetargetSettingOn
     {
         get
         {

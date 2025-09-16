@@ -1,14 +1,16 @@
 #region
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ECommons;
 using ECommons.DalamudServices;
 using ECommons.GameFunctions;
+using ECommons.GameHelpers;
+using ECommons.ExcelServices;
 using ECommons.Logging;
 using Lumina.Excel.Sheets;
-using WrathCombo.Combos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using WrathCombo.AutoRotation;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
@@ -16,7 +18,7 @@ using WrathCombo.Extensions;
 using WrathCombo.Services;
 using WrathCombo.Window;
 using WrathCombo.Window.Tabs;
-using WrathCombo.AutoRotation;
+using static ECommons.ExcelServices.ExcelJobHelper;
 
 #endregion
 
@@ -105,6 +107,11 @@ public partial class WrathCombo
             case "dbg": // unlisted
             case "debugtab": // unlisted
                 HandleOpenCommand(tab: OpenWindow.Debug, forceOpen: true); break;
+            
+            // "IPromiseIWillDoMyJobQuestsLater" will be accepted
+            // ReSharper disable once StringLiteralTypo
+            case "ipromiseiwilldomyjobquestslater": // unlisted
+                HandleJobStoneCheckCommand(); break;
 
             default:
                 HandleOpenCommand(argumentParts); break;
@@ -143,7 +150,7 @@ public partial class WrathCombo
         string? action;
         string? target = null;
 
-        CustomComboPreset? preset = null;
+        Preset? preset = null;
 
         #endregion
 
@@ -196,8 +203,8 @@ public partial class WrathCombo
             try
             {
                 preset = presetCanNumber
-                    ? (CustomComboPreset)targetNumber
-                    : Enum.Parse<CustomComboPreset>(target, true);
+                    ? (Preset)targetNumber
+                    : Enum.Parse<Preset>(target, true);
             }
             catch
             {
@@ -207,7 +214,7 @@ public partial class WrathCombo
         }
 
         // Give the correct method for the action
-        Func<CustomComboPreset, bool, bool> method = action switch
+        Func<Preset, bool, bool> method = action switch
         {
             toggle => PresetStorage.TogglePreset,
             set => PresetStorage.EnablePreset,
@@ -224,7 +231,7 @@ public partial class WrathCombo
         }
         else
         {
-            var usablePreset = (CustomComboPreset)preset!;
+            var usablePreset = (Preset)preset!;
             method(usablePreset, false);
 
             if (action == toggle)
@@ -260,7 +267,7 @@ public partial class WrathCombo
     /// </param>
     private void HandleListCommands(string[] argument)
     {
-        IEnumerable<CustomComboPreset> presets = Enum.GetValues<CustomComboPreset>()
+        IEnumerable<Preset> presets = Enum.GetValues<Preset>()
             .Where(x => x.Attributes().Hidden is null);
         const StringComparison lower = StringComparison.InvariantCultureIgnoreCase;
         var filter =
@@ -338,8 +345,8 @@ public partial class WrathCombo
 
         return;
 
-        CustomComboPreset[] FilterPresetsToJob
-            (IEnumerable<CustomComboPreset> presetsList, string? jobShort)
+        Preset[] FilterPresetsToJob
+            (IEnumerable<Preset> presetsList, string? jobShort)
         {
             if (jobShort is not null)
             {
@@ -415,6 +422,7 @@ public partial class WrathCombo
     ///     Handles the auto command, which calls <see cref="ToggleAutoRotation" />.
     /// </summary>
     /// <value>
+    ///     <c>target</c> - modify targeting mode<br />
     ///     <c>&lt;blank&gt;</c> - toggle<br />
     ///     <c>on</c> - enable<br />
     ///     <c>off</c> - disable<br />
@@ -426,6 +434,43 @@ public partial class WrathCombo
     /// </param>
     private void HandleAutoCommands(string[] argument)
     {
+        // ADD: Handle targeting mode changes
+        if (argument.Length >= 4 && argument[1] == "target")
+        {
+            var role = argument[2].ToLowerInvariant();
+            var mode = argument[3];
+            
+            switch (role)
+            {
+                case "damage" when Enum.TryParse<DPSRotationMode>(mode, true, out var dpsMode):
+                {
+                    Service.Configuration.RotationConfig.DPSRotationMode = dpsMode;
+                    Service.Configuration.Save();
+                
+                    var dpsControlled = P.UIHelper.AutoRotationConfigControlled("DPSRotationMode") is not null;
+                    var ctrlText = dpsControlled ? " " + OptionControlledByIPC : "";
+                
+                    DuoLog.Information($"Damage targeting mode set to: {dpsMode.ToString().Replace('_', ' ')}{ctrlText}");
+                    return;
+                }
+                case "healer" when Enum.TryParse<HealerRotationMode>(mode, true, out var healerMode):
+                {
+                    Service.Configuration.RotationConfig.HealerRotationMode = healerMode;
+                    Service.Configuration.Save();
+                
+                    var healerControlled = P.UIHelper.AutoRotationConfigControlled("HealerRotationMode") is not null;
+                    var ctrlText = healerControlled ? " " + OptionControlledByIPC : "";
+                
+                    DuoLog.Information($"Healer targeting mode set to: {healerMode.ToString().Replace('_', ' ')}{ctrlText}");
+                    return;
+                }
+                default:
+                    DuoLog.Error("Usage: /wrath auto target <damage|healer> <mode>");
+                    return;
+            }
+        }
+        
+        // Handle Normal Toggling of Auto-Rotation
         var toggledVal = !Service.Configuration.RotationConfig.Enabled;
         var newVal = argument.Length > 1
             ? argument[1] == "toggle"
@@ -435,38 +480,6 @@ public partial class WrathCombo
 
         if (newVal != Service.Configuration.RotationConfig.Enabled)
             ToggleAutoRotation(newVal);
-            
-        // ADD: Handle targeting mode changes
-        if (argument.Length >= 4 && argument[1] == "target")
-        {
-            var role = argument[2].ToLowerInvariant();
-            var mode = argument[3];
-            
-            if (role == "damage" && Enum.TryParse<DPSRotationMode>(mode, true, out var dpsMode))
-            {
-                Service.Configuration.RotationConfig.DPSRotationMode = dpsMode;
-                Service.Configuration.Save();
-                
-                var dpsControlled = P.UIHelper.AutoRotationConfigControlled("DPSRotationMode") is not null;
-                var ctrlText = dpsControlled ? " " + OptionControlledByIPC : "";
-                
-                DuoLog.Information($"Damage targeting mode set to: {dpsMode.ToString().Replace('_', ' ')}{ctrlText}");
-            }
-            else if (role == "healer" && Enum.TryParse<HealerRotationMode>(mode, true, out var healerMode))
-            {
-                Service.Configuration.RotationConfig.HealerRotationMode = healerMode;
-                Service.Configuration.Save();
-                
-                var healerControlled = P.UIHelper.AutoRotationConfigControlled("HealerRotationMode") is not null;
-                var ctrlText = healerControlled ? " " + OptionControlledByIPC : "";
-                
-                DuoLog.Information($"Healer targeting mode set to: {healerMode.ToString().Replace('_', ' ')}{ctrlText}");
-            }
-            else
-            {
-                DuoLog.Error("Usage: /wrath auto target <damage|healer> <mode>");
-            }
-        }
     }
 
     /// <summary>
@@ -582,36 +595,34 @@ public partial class WrathCombo
                     return;
                 }
 
-                var jobName = argument[1].ToUpperInvariant();
+                var jobAbbr = argument[1].ToUpperInvariant();
                 try
                 {
                     // Look up the entered job
-                    var jobSearch = CustomComboFunctions.JobIDs.ClassJobs.Values.First(j => j.Abbreviation == jobName);
-                    var jobId = jobSearch.RowId;
+                    if (TryGetJobByAbbreviation(jobAbbr, out ClassJob jobSearch))
+                    {
+                        //ClassJob -> enum,
+                        //Check if Class and change to Job
+                        //Retrieve final ClassJob
+                        job = jobSearch.GetJob().GetUpgradedJob().GetData();
 
-                    // Switch class to job, if necessary
-                    if (jobSearch.ClassJobParent.RowId != jobSearch.RowId)
-                        jobId = CustomComboFunctions.JobIDs.ClassToJob(jobSearch.RowId);
-
-                    job = CustomComboFunctions.JobIDs.ClassJobs[jobId];
+                        if (job.Value.RowId != Player.JobId)
+                            DuoLog.Warning($"You are not on {job.Value.Name()}");
+                    }
                 }
                 // the .first() failed
                 catch (InvalidOperationException)
                 {
-                    DuoLog.Error($"Invalid job abbreviation, '{jobName}'");
+                    DuoLog.Error($"Invalid job abbreviation, '{jobAbbr}'");
                     throw;
                 }
                 // unknown
                 catch (Exception ex)
                 {
-                    DuoLog.Error($"Error looking up job abbreviation, '{jobName}'");
+                    DuoLog.Error($"Error looking up job abbreviation, '{jobAbbr}'");
                     Svc.Log.Error(ex, "Debug Log");
                     throw;
                 }
-
-                if (job.Value.RowId !=
-                    Svc.ClientState.LocalPlayer.ClassJob.Value.RowId)
-                    DuoLog.Warning($"You are not on {job.Value.Name}");
             }
 
             // Request a debug file, with null, or the entered Job
@@ -711,20 +722,43 @@ public partial class WrathCombo
             // Skip trying to process arguments
             return;
         }
-
+        
         // Open to specified job
-        var jobName = argument[0].ToUpperInvariant();
-        jobName = ConfigWindow.groupedPresets
-            .FirstOrDefault(x =>
-                x.Value.Any(y => y.Info.JobShorthand == jobName)).Key;
-        if (jobName is null)
+        var jobAbbrev = argument[0];
+
+        if (TryGetJobByAbbreviation(jobAbbrev, out var job))
+        {
+            ConfigWindow.IsOpen = true;
+            ConfigWindow.OpenWindow = OpenWindow.PvE;
+            PvEFeatures.OpenJob = job.GetJob();
+        } 
+        else
         {
             DuoLog.Error($"{argument[0]} is not a correct job abbreviation.");
             return;
         }
 
-        ConfigWindow.IsOpen = true;
-        ConfigWindow.OpenWindow = OpenWindow.PvE;
-        PvEFeatures.OpenJob = jobName;
+        
+    }
+
+    /// <summary>
+    ///     Disables job stone checking for the session.<br />
+    ///     This is used to allow the user to play classes without being
+    ///     prompted to use a job stone.<br />
+    ///     Disables <see cref="ActionReplacer.ClassLocked" />.
+    /// </summary>
+    private void HandleJobStoneCheckCommand()
+    {
+        if (ActionReplacer.DisableJobCheck)
+        {
+            DuoLog.Information("Job Stone Checking is already disabled.");
+            return;
+        }
+        
+        ActionReplacer.DisableJobCheck = true;
+        DuoLog.Information("Job Stone Checking has been disabled for this session.");
+        DuoLog.Warning("Please do not play Classes with other people, " +
+                       "it is objectively worse in every way, and you will lack " +
+                       "a significant amount of functionality anyway.");
     }
 }

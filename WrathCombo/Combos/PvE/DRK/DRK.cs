@@ -1,12 +1,11 @@
 #region
 
 using System.Linq;
-using WrathCombo.Combos.PvE.Content;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
-using Preset = WrathCombo.Combos.CustomComboPreset;
+using static WrathCombo.Combos.PvE.DRK.Config;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 // ReSharper disable UnusedType.Global
@@ -78,8 +77,8 @@ internal partial class DRK : Tank
                 return actionID;
             }
 
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
+            if (ContentSpecificActions.TryGet(out var contentAction))
+                return contentAction;
 
             // Bail if not in combat
             if (!InCombat())
@@ -96,13 +95,10 @@ internal partial class DRK : Tank
                 HasBattleTarget())
                 return Unmend;
 
-            if (TryGetAction<VariantAction>(comboFlags, ref newAction))
-                return newAction;
-
             var inMitigationContent =
                 ContentCheck.IsInConfiguredContent(
-                    Config.DRK_ST_MitDifficulty,
-                    Config.DRK_ST_MitDifficultyListSet
+                    DRK_ST_MitDifficulty,
+                    DRK_ST_MitDifficultyListSet
                 );
 
             if (IsEnabled(Preset.DRK_ST_Mitigation) &&
@@ -116,8 +112,8 @@ internal partial class DRK : Tank
                 return newAction;
 
             var cdBossRequirement =
-                (int)Config.DRK_ST_CDsBossRequirement ==
-                (int)Config.BossRequirement.On;
+                (int)DRK_ST_CDsBossRequirement ==
+                (int)BossRequirement.On;
             var cdBossRequirementMet = !cdBossRequirement ||
                                        (cdBossRequirement && InBossEncounter());
             if (IsEnabled(Preset.DRK_ST_CDs) &&
@@ -155,8 +151,8 @@ internal partial class DRK : Tank
                 HasBattleTarget())
                 return Unmend;
 
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
+            if (ContentSpecificActions.TryGet(out var contentAction))
+                return contentAction;
 
             // Bail if not in combat
             if (!InCombat())
@@ -165,9 +161,6 @@ internal partial class DRK : Tank
                     return newAction;
                 return HardSlash;
             }
-
-            if (TryGetAction<VariantAction>(comboFlags, ref newAction))
-                return newAction;
 
             if (TryGetAction<Mitigation>(comboFlags, ref newAction))
                 return newAction;
@@ -200,8 +193,8 @@ internal partial class DRK : Tank
             const Combo comboFlags = Combo.AoE | Combo.Adv;
             var newAction = Unleash;
 
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
+            if (ContentSpecificActions.TryGet(out var contentAction))
+                return contentAction;
 
             // Bail if not in combat
             if (!InCombat())
@@ -210,9 +203,6 @@ internal partial class DRK : Tank
                     return newAction;
                 return Unleash;
             }
-
-            if (TryGetAction<VariantAction>(comboFlags, ref newAction))
-                return newAction;
 
             if (IsEnabled(Preset.DRK_AoE_CDs) &&
                 TryGetAction<Cooldown>(comboFlags, ref newAction))
@@ -245,8 +235,8 @@ internal partial class DRK : Tank
             const Combo comboFlags = Combo.AoE | Combo.Simple;
             var newAction = Unleash;
 
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
+            if (ContentSpecificActions.TryGet(out var contentAction))
+                return contentAction;
 
             // Bail if not in combat
             if (!InCombat())
@@ -255,9 +245,6 @@ internal partial class DRK : Tank
                     return newAction;
                 return Unleash;
             }
-
-            if (TryGetAction<VariantAction>(comboFlags, ref newAction))
-                return newAction;
 
             if (TryGetAction<Cooldown>(comboFlags, ref newAction))
                 return newAction;
@@ -339,16 +326,16 @@ internal partial class DRK : Tank
 
             if (IsEnabled(Preset.DRK_Mit_LivingDead_Max) &&
                 ActionReady(LivingDead) &&
-                PlayerHealthPercentageHp() <= Config.DRK_Mit_LivingDead_Health &&
+                PlayerHealthPercentageHp() <= DRK_Mit_LivingDead_Health &&
                 ContentCheck.IsInConfiguredContent(
-                    Config.DRK_Mit_EmergencyLivingDead_Difficulty,
-                    Config.DRK_Mit_EmergencyLivingDead_DifficultyListSet
+                    DRK_Mit_EmergencyLivingDead_Difficulty,
+                    DRK_Mit_EmergencyLivingDead_DifficultyListSet
                 ))
                 return LivingDead;
 
-            foreach (var priority in Config.DRK_Mit_Priorities.Items.OrderBy(x => x))
+            foreach (var priority in DRK_Mit_Priorities.Items.OrderBy(x => x))
             {
-                var index = Config.DRK_Mit_Priorities.IndexOf(priority);
+                var index = DRK_Mit_Priorities.IndexOf(priority);
                 if (CheckMitigationConfigMeetsRequirements(index, out var action))
                     return action;
             }

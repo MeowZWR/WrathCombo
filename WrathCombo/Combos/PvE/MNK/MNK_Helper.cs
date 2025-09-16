@@ -1,5 +1,6 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Enums;
 using Dalamud.Game.ClientState.JobGauge.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.CustomComboNS;
@@ -15,13 +16,16 @@ internal partial class MNK
         GetCooldown(OriginalHook(Bootshine)).CooldownTotal;
 
     internal static bool M6SReady =>
-        !HiddenFeaturesData.IsEnabledWith(CustomComboPreset.MNK_Hid_M6SHoldSquirrelBurst, () =>
+        !HiddenFeaturesData.IsEnabledWith(Preset.MNK_Hid_M6SHoldSquirrelBurst, () =>
             HiddenFeaturesData.Targeting.R6SSquirrel && CombatEngageDuration().TotalSeconds < 300);
 
     #region 1-2-3
 
     internal static uint DetermineCoreAbility(uint actionId, bool useTrueNorthIfEnabled)
     {
+        if (!LevelChecked(TrueStrike))
+            return Bootshine;
+
         if (HasStatusEffect(Buffs.OpoOpoForm) || HasStatusEffect(Buffs.FormlessFist))
             return OpoOpo is 0 && LevelChecked(DragonKick)
                 ? DragonKick
@@ -58,7 +62,7 @@ internal partial class MNK
 
     internal static bool InMasterfulRange()
     {
-        if (NumberOfEnemiesInRange(ElixirField, null) >= 1 &&
+        if (NumberOfEnemiesInRange(ElixirField) >= 1 &&
             (OriginalHook(MasterfulBlitz) == ElixirField ||
              OriginalHook(MasterfulBlitz) == FlintStrike ||
              OriginalHook(MasterfulBlitz) == ElixirBurst ||
@@ -83,7 +87,7 @@ internal partial class MNK
         ActionReady(RiddleOfFire) &&
         !HasStatusEffect(Buffs.FiresRumination) &&
         (JustUsed(Brotherhood, GCD) ||
-         (GetCooldownRemainingTime(Brotherhood) is > 50 and < 65) ||
+         GetCooldownRemainingTime(Brotherhood) is > 50 and < 65 ||
          !LevelChecked(Brotherhood) ||
          HasStatusEffect(Buffs.Brotherhood));
 
@@ -97,28 +101,49 @@ internal partial class MNK
         ActionReady(RiddleOfWind) &&
         !HasStatusEffect(Buffs.WindsRumination);
 
+    internal static bool UseMantra() =>
+        ActionReady(Mantra) &&
+        !HasStatusEffect(Buffs.Mantra) &&
+        RaidWideCasting(3f);
+
+    internal static bool UseRoE() =>
+        ActionReady(RiddleOfEarth) &&
+        RaidWideCasting(2f) &&
+        !HasStatusEffect(Buffs.RiddleOfEarth) &&
+        !HasStatusEffect(Buffs.EarthsRumination);
+
+    internal static bool UseEarthsReply() =>
+        HasStatusEffect(Buffs.EarthsRumination) &&
+        NumberOfAlliesInRange(EarthsReply) >= GetPartyMembers().Count * .75 &&
+        GetPartyAvgHPPercent() <= MNK_ST_EarthsReplyHPThreshold;
+
     #endregion
 
     #region PB
 
     internal static bool UsePerfectBalanceST()
     {
-        if (ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) && !HasStatusEffect(Buffs.FormlessFist))
+        if (ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) &&
+            !HasStatusEffect(Buffs.FormlessFist) && IsOriginal(MasterfulBlitz) &&
+            HasBattleTarget())
         {
             // Odd window
-            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
-                !JustUsed(PerfectBalance, 20) &&
-                HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.Brotherhood))
+            if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                !JustUsed(PerfectBalance, 20) && HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.Brotherhood))
                 return true;
 
-            // Even window
-            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
-                (GetCooldownRemainingTime(Brotherhood) <= GCD * 2 || HasStatusEffect(Buffs.Brotherhood)) &&
-                (GetCooldownRemainingTime(RiddleOfFire) <= GCD * 2 || HasStatusEffect(Buffs.RiddleOfFire)))
+            // Even window first use
+            if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                GetCooldownRemainingTime(Brotherhood) <= GCD * 2 && GetCooldownRemainingTime(RiddleOfFire) <= GCD * 2)
+                return true;
+
+            // Even window second use
+            if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                HasStatusEffect(Buffs.Brotherhood) && HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.FiresRumination))
                 return true;
 
             // Low level
-            if ((JustUsed(OriginalHook(Bootshine)) || JustUsed(DragonKick)) &&
+            if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
                 (HasStatusEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
                  !LevelChecked(RiddleOfFire)))
                 return true;
@@ -129,7 +154,8 @@ internal partial class MNK
 
     internal static bool UsePerfectBalanceAoE()
     {
-        if (ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) && !HasStatusEffect(Buffs.FormlessFist))
+        if (ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) &&
+            !HasStatusEffect(Buffs.FormlessFist) && HasBattleTarget())
         {
             //Initial/Failsafe
             if (GetRemainingCharges(PerfectBalance) == GetMaxCharges(PerfectBalance))
@@ -307,6 +333,8 @@ internal partial class MNK
 
         public override List<uint> OpenerActions { get; set; } =
         [
+            ForbiddenMeditation,
+            FormShift,
             DragonKick,
             PerfectBalance,
             LeapingOpo,
@@ -329,6 +357,12 @@ internal partial class MNK
             LeapingOpo
         ];
 
+        public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
+        [
+            ([1], () => Chakra >= 5),
+            ([2], () => HasStatusEffect(Buffs.FormlessFist))
+        ];
+
         internal override UserData ContentCheckConfig => MNK_Balance_Content;
 
         public override bool HasCooldowns() =>
@@ -349,6 +383,8 @@ internal partial class MNK
 
         public override List<uint> OpenerActions { get; set; } =
         [
+            ForbiddenMeditation,
+            FormShift,
             DragonKick,
             PerfectBalance,
             TwinSnakes,
@@ -369,6 +405,12 @@ internal partial class MNK
             DragonKick,
             ElixirBurst,
             LeapingOpo
+        ];
+
+        public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
+        [
+            ([1], () => Chakra >= 5),
+            ([2], () => HasStatusEffect(Buffs.FormlessFist))
         ];
 
         internal override UserData ContentCheckConfig => MNK_Balance_Content;
@@ -414,9 +456,6 @@ internal partial class MNK
     #endregion
 
     #region ID's
-
-    public const byte ClassID = 2;
-    public const byte JobID = 20;
 
     public const uint
         Bootshine = 53,
@@ -472,17 +511,20 @@ internal partial class MNK
     {
         public const ushort
             TwinSnakes = 101,
+            Mantra = 102,
             OpoOpoForm = 107,
             RaptorForm = 108,
             CoeurlForm = 109,
             PerfectBalance = 110,
+            RiddleOfEarth = 1179,
             RiddleOfFire = 1181,
-            RiddleOfWind = 2687,
-            FormlessFist = 2513,
+            Brotherhood = 1185,
             TrueNorth = 1250,
+            FormlessFist = 2513,
+            RiddleOfWind = 2687,
+            EarthsRumination = 3841,
             WindsRumination = 3842,
-            FiresRumination = 3843,
-            Brotherhood = 1185;
+            FiresRumination = 3843;
     }
 
     #endregion

@@ -1,24 +1,16 @@
-﻿using System.Collections.Generic;
-using ECommons.DalamudServices;
+﻿using ECommons.ExcelServices;
+using ECommons.GameHelpers;
+using System.Collections.Generic;
+using System.Linq;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
-using WrathCombo.Data;
 using WrathCombo.Extensions;
-
 namespace WrathCombo.Combos.PvE;
 
 internal partial class All
 {
-    public const byte JobID = 0;
-
     /// Used to block user input.
     public const uint SavageBlade = 11;
-
-    public const uint
-        Sprint = 3;
-
-    private const uint
-        IsleSprint = 31314;
 
     public static class Buffs
     {
@@ -56,33 +48,28 @@ internal partial class All
             BrinkOfDeath = 44;
     }
 
-    internal class ALL_IslandSanctuary_Sprint : CustomCombo
-    {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_IslandSanctuary_Sprint;
-
-        protected override uint Invoke(uint actionID) =>
-            actionID is Sprint && Svc.ClientState.TerritoryType is 1055
-                ? IsleSprint
-                : actionID;
-    }
-
     //Tank Features
     internal class ALL_Tank_Interrupt : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Tank_Interrupt;
+        protected internal override Preset Preset => Preset.ALL_Tank_Interrupt;
 
         protected override uint Invoke(uint actionID)
         {
-            var tar = IsEnabled(CustomComboPreset.ALL_Tank_Interrupt_Retarget) ? SimpleTarget.InterruptableEnemy : CurrentTarget;
+            if (actionID is not (RoleActions.Tank.Interject or RoleActions.Tank.LowBlow or PLD.ShieldBash))
+                return actionID;
+
+            var tar = IsEnabled(Preset.ALL_Tank_Interrupt_Retarget) ? SimpleTarget.InterruptableEnemy : CurrentTarget;
             switch (actionID)
             {
                 case RoleActions.Tank.LowBlow or PLD.ShieldBash when CanInterruptEnemy(null, tar) && ActionReady(RoleActions.Tank.Interject):
                     return RoleActions.Tank.Interject.Retarget(actionID, tar);
 
-                case RoleActions.Tank.LowBlow or PLD.ShieldBash when TargetIsCasting() && ActionReady(RoleActions.Tank.LowBlow) && !TargetIsBoss():
+                case RoleActions.Tank.LowBlow or PLD.ShieldBash when TargetIsCasting() && ActionReady(RoleActions.Tank.LowBlow) && !TargetIsBoss() && !JustUsed(RoleActions.Tank.Interject):
                     return RoleActions.Tank.LowBlow.Retarget(actionID, tar);
 
-                case PLD.ShieldBash when IsOnCooldown(RoleActions.Tank.LowBlow):
+                case PLD.ShieldBash when IsOnCooldown(RoleActions.Tank.LowBlow) && !JustUsed(RoleActions.Tank.Interject) && !JustUsed(PLD.ShieldBash, 7):
+                    return PLD.ShieldBash.Retarget(actionID, tar);
+
                 default:
                     return actionID;
             }
@@ -91,7 +78,7 @@ internal partial class All
 
     internal class ALL_Tank_Reprisal : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Tank_Reprisal;
+        protected internal override Preset Preset => Preset.ALL_Tank_Reprisal;
 
         protected override uint Invoke(uint actionID) =>
             actionID is RoleActions.Tank.Reprisal && GetStatusEffectRemainingTime(RoleActions.Tank.Debuffs.Reprisal, CurrentTarget, true) > Config.ALL_Tank_Reprisal_Threshold && IsOffCooldown(RoleActions.Tank.Reprisal)
@@ -101,7 +88,7 @@ internal partial class All
 
     internal class ALL_Tank_Shirk : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Tank_ShirkRetargeting;
+        protected internal override Preset Preset => Preset.ALL_Tank_ShirkRetargeting;
 
         protected override uint Invoke(uint actionID)
         {
@@ -109,11 +96,11 @@ internal partial class All
                 return actionID;
 
             var target =
-                IsNotEnabled(CustomComboPreset.ALL_Tank_ShirkRetargeting_Healer)
+                IsNotEnabled(Preset.ALL_Tank_ShirkRetargeting_Healer)
                     ? SimpleTarget.AnyLivingTank
                     : SimpleTarget.AnyLivingHealer;
 
-            if (IsEnabled(CustomComboPreset.ALL_Tank_ShirkRetargeting_Fallback))
+            if (IsEnabled(Preset.ALL_Tank_ShirkRetargeting_Fallback))
                 target ??= SimpleTarget.AnyLivingSupport;
 
             RoleActions.Tank.Shirk.Retarget(target, dontCull: true);
@@ -125,7 +112,7 @@ internal partial class All
     //Healer Features
     internal class ALL_Healer_Raise : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Healer_Raise;
+        protected internal override Preset Preset => Preset.ALL_Healer_Raise;
 
         protected override uint Invoke(uint actionID)
         {
@@ -134,19 +121,19 @@ internal partial class All
             if (!replacedActions.Contains(actionID))
                 return actionID;
             if (actionID is SCH.Resurrection &&
-                LocalPlayer.ClassJob.RowId is not SCH.JobID)
+                Player.Job is not Job.SCH)
                 return actionID;
 
             if (ActionReady(RoleActions.Magic.Swiftcast))
                 return RoleActions.Magic.Swiftcast;
 
             if (actionID == WHM.Raise &&
-                IsEnabled(CustomComboPreset.WHM_ThinAirRaise) &&
+                IsEnabled(Preset.WHM_ThinAirRaise) &&
                 ActionReady(WHM.ThinAir) &&
                 !HasStatusEffect(WHM.Buffs.ThinAir))
                 return WHM.ThinAir;
 
-            if (IsEnabled(CustomComboPreset.ALL_Healer_Raise_Retarget))
+            if (IsEnabled(Preset.ALL_Healer_Raise_Retarget))
                 return actionID.Retarget(replacedActions.ToArray(),
                     SimpleTarget.Stack.AllyToRaise, dontCull: true);
 
@@ -156,22 +143,25 @@ internal partial class All
 
     internal class ALL_Healer_EsunaRetargeting : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Healer_EsunaRetargeting;
+        protected internal override Preset Preset => Preset.ALL_Healer_EsunaRetargeting;
 
         protected override uint Invoke(uint actionID)
         {
             if (actionID is not RoleActions.Healer.Esuna)
                 return actionID;
 
-            RoleActions.Healer.Esuna.Retarget(SimpleTarget.Stack.AllyToEsuna, dontCull: true);
+            var target = SimpleTarget.UIMouseOverTarget.IfHasCleansable() ??
+                         SimpleTarget.ModelMouseOverTarget.IfHasCleansable() ??
+                         SimpleTarget.HardTarget.IfHasCleansable() ??
+                         GetPartyMembers().FirstOrDefault(x => x.BattleChara.IfHasCleansable() != null)?.BattleChara;
 
-            return actionID;
+            return RoleActions.Healer.Esuna.Retarget(target, dontCull: false);
         }
     }
-    
+
     internal class ALL_Healer_RescueRetargeting : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Healer_RescueRetargeting;
+        protected internal override Preset Preset => Preset.ALL_Healer_RescueRetargeting;
 
         protected override uint Invoke(uint actionID)
         {
@@ -180,7 +170,7 @@ internal partial class All
 
             var target =
                 SimpleTarget.UIMouseOverTarget.IfNotThePlayer().IfInParty() ??
-                
+
                 //Field Mouseover
                 (Config.ALL_Healer_RescueRetargetingOptions[0]
                     ? SimpleTarget.ModelMouseOverTarget.IfNotThePlayer().IfInParty()
@@ -190,12 +180,12 @@ internal partial class All
                 (Config.ALL_Healer_RescueRetargetingOptions[1]
                     ? SimpleTarget.FocusTarget.IfNotThePlayer().IfInParty()
                     : null) ??
-                
+
                 //Focus target retarget
                 (Config.ALL_Healer_RescueRetargetingOptions[2]
                     ? SimpleTarget.SoftTarget.IfNotThePlayer().IfInParty()
                     : null) ??
-                
+
                 SimpleTarget.HardTarget.IfNotThePlayer().IfInParty();
 
             return actionID.Retarget(target);
@@ -205,7 +195,7 @@ internal partial class All
     //Caster Features
     internal class ALL_Caster_Addle : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Caster_Addle;
+        protected internal override Preset Preset => Preset.ALL_Caster_Addle;
 
         protected override uint Invoke(uint actionID) =>
             actionID is RoleActions.Caster.Addle && HasStatusEffect(RoleActions.Caster.Debuffs.Addle, CurrentTarget, true) && IsOffCooldown(RoleActions.Caster.Addle)
@@ -215,7 +205,7 @@ internal partial class All
 
     internal class ALL_Caster_Raise : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Caster_Raise;
+        protected internal override Preset Preset => Preset.ALL_Caster_Raise;
 
         protected override uint Invoke(uint actionID)
         {
@@ -224,12 +214,12 @@ internal partial class All
             if (!replacedActions.Contains(actionID))
                 return actionID;
             if (actionID is SMN.Resurrection &&
-                LocalPlayer.ClassJob.RowId is not SMN.JobID)
+                Player.Job is not Job.SMN)
                 return actionID;
 
             if (HasStatusEffect(RoleActions.Magic.Buffs.Swiftcast) ||
                 HasStatusEffect(RDM.Buffs.Dualcast))
-                if (IsEnabled(CustomComboPreset.ALL_Caster_Raise_Retarget))
+                if (IsEnabled(Preset.ALL_Caster_Raise_Retarget))
                     return actionID.Retarget(replacedActions.ToArray(),
                         SimpleTarget.Stack.AllyToRaise, dontCull: true);
                 else
@@ -238,11 +228,11 @@ internal partial class All
             if (IsOffCooldown(RoleActions.Magic.Swiftcast))
                 return RoleActions.Magic.Swiftcast;
 
-            if (LocalPlayer.ClassJob.RowId is RDM.JobID &&
+            if (Player.Job is Job.RDM &&
                 ActionReady(RDM.Vercure))
                 return RDM.Vercure;
 
-            if (IsEnabled(CustomComboPreset.ALL_Caster_Raise_Retarget))
+            if (IsEnabled(Preset.ALL_Caster_Raise_Retarget))
                 return actionID.Retarget(replacedActions.ToArray(),
                     SimpleTarget.Stack.AllyToRaise, dontCull: true);
 
@@ -253,7 +243,7 @@ internal partial class All
     //Melee DPS Features
     internal class ALL_Melee_Feint : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Melee_Feint;
+        protected internal override Preset Preset => Preset.ALL_Melee_Feint;
 
         protected override uint Invoke(uint actionID) =>
             actionID is RoleActions.Melee.Feint && HasStatusEffect(RoleActions.Melee.Debuffs.Feint, CurrentTarget, true) && IsOffCooldown(RoleActions.Melee.Feint)
@@ -263,7 +253,7 @@ internal partial class All
 
     internal class ALL_Melee_TrueNorth : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Melee_TrueNorth;
+        protected internal override Preset Preset => Preset.ALL_Melee_TrueNorth;
 
         protected override uint Invoke(uint actionID) =>
             actionID is RoleActions.Melee.TrueNorth && HasStatusEffect(RoleActions.Melee.Buffs.TrueNorth)
@@ -274,7 +264,7 @@ internal partial class All
     //Ranged Physical Features
     internal class ALL_Ranged_Mitigation : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Ranged_Mitigation;
+        protected internal override Preset Preset => Preset.ALL_Ranged_Mitigation;
 
         protected override uint Invoke(uint actionID) =>
             actionID is BRD.Troubadour or MCH.Tactician or DNC.ShieldSamba &&
@@ -287,7 +277,7 @@ internal partial class All
 
     internal class ALL_Ranged_Interrupt : CustomCombo
     {
-        protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ALL_Ranged_Interrupt;
+        protected internal override Preset Preset => Preset.ALL_Ranged_Interrupt;
 
         protected override uint Invoke(uint actionID) =>
             actionID is RoleActions.PhysRanged.FootGraze && CanInterruptEnemy() && ActionReady(RoleActions.PhysRanged.HeadGraze)

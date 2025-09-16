@@ -3,7 +3,7 @@
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Data;
-using Preset = WrathCombo.Combos.CustomComboPreset;
+using static WrathCombo.Combos.PvE.DNC.Config;
 
 // ReSharper disable UnusedType.Global
 // ReSharper disable ClassNeverInstantiated.Global
@@ -31,18 +31,18 @@ internal partial class DNC : PhysicalRanged
                        HasStatusEffect(Buffs.FlourishingFlow);
             var symmetry = HasStatusEffect(Buffs.SilkenSymmetry) ||
                            HasStatusEffect(Buffs.FlourishingSymmetry);
-            var targetHpThresholdFeather = Config.DNC_ST_Adv_FeatherBurstPercent;
-            var targetHpThresholdStandard = Config.DNC_ST_Adv_SSBurstPercent;
-            var targetHpThresholdTechnical = Config.DNC_ST_Adv_TSBurstPercent;
+            var targetHpThresholdFeather = DNC_ST_Adv_FeatherBurstPercent;
+            var targetHpThresholdStandard = DNC_ST_Adv_SSBurstPercent;
+            var targetHpThresholdTechnical = DNC_ST_Adv_TSBurstPercent;
             var tillanaDriftProtectionActive =
-                Config.DNC_ST_ADV_TillanaUse ==
-                (int)Config.TillanaDriftProtection.Favor;
+                DNC_ST_ADV_TillanaUse ==
+                (int)TillanaDriftProtection.Favor;
 
             // Thresholds to wait for TS/SS to come off CD
             var longAlignmentThreshold = 0.6f;
             var shortAlignmentThreshold = 0.3f;
-            if (Config.DNC_ST_ADV_AntiDrift == (int)Config.AntiDrift.TripleWeave ||
-                Config.DNC_ST_ADV_AntiDrift == (int)Config.AntiDrift.Both)
+            if (DNC_ST_ADV_AntiDrift == (int)AntiDrift.TripleWeave ||
+                DNC_ST_ADV_AntiDrift == (int)AntiDrift.Both)
             {
                 longAlignmentThreshold = 0.3f;
                 shortAlignmentThreshold = 0.1f;
@@ -50,7 +50,7 @@ internal partial class DNC : PhysicalRanged
 
             var needToTech =
                 IsEnabled(Preset.DNC_ST_Adv_TS) &&
-                Config.DNC_ST_ADV_TS_IncludeTS == (int)Config.IncludeStep.Yes &&
+                DNC_ST_ADV_TS_IncludeTS == (int)IncludeStep.Yes &&
                 GetCooldownRemainingTime(TechnicalStep) <
                 longAlignmentThreshold && // Up or about to be (some anti-drift)
                 !HasStatusEffect(Buffs.StandardStep) && // After Standard
@@ -63,8 +63,8 @@ internal partial class DNC : PhysicalRanged
                 LevelChecked(StandardStep);
 
             // More Threshold, but only for SS
-            if (Config.DNC_ST_ADV_AntiDrift == (int)Config.AntiDrift.Hold ||
-                Config.DNC_ST_ADV_AntiDrift == (int)Config.AntiDrift.Both)
+            if (DNC_ST_ADV_AntiDrift == (int)AntiDrift.Hold ||
+                DNC_ST_ADV_AntiDrift == (int)AntiDrift.Both)
             {
                 longAlignmentThreshold = (float)GCD;
                 shortAlignmentThreshold = (float)GCD;
@@ -82,7 +82,7 @@ internal partial class DNC : PhysicalRanged
 
             var needToStandard =
                 IsEnabled(Preset.DNC_ST_Adv_SS) &&
-                Config.DNC_ST_ADV_SS_IncludeSS == (int)Config.IncludeStep.Yes &&
+                DNC_ST_ADV_SS_IncludeSS == (int)IncludeStep.Yes &&
                 GetCooldownRemainingTime(StandardStep) <
                 longAlignmentThreshold && // Up or about to be (some anti-drift)
                 !HasStatusEffect(Buffs.FinishingMoveReady) &&
@@ -119,7 +119,7 @@ internal partial class DNC : PhysicalRanged
             #region Pre-pull
 
             if (!InCombat() && ContentCheck.IsInConfiguredContent(
-                    Config.DNC_ST_OpenerDifficulty, ContentCheck.ListSet.BossOnly) &&
+                    DNC_ST_OpenerDifficulty, ContentCheck.ListSet.BossOnly) &&
                 IsEnabled(Preset.DNC_ST_BalanceOpener) &&
                 IsEnabled(Preset.DNC_ST_Opener_BlockEarly))
                 return All.SavageBlade;
@@ -129,7 +129,7 @@ internal partial class DNC : PhysicalRanged
                 // ST Standard Step (Pre-pull)
                 if (IsEnabled(Preset.DNC_ST_Adv_SS) &&
                     IsEnabled(Preset.DNC_ST_Adv_SS_Prepull) &&
-                    Config.DNC_ST_ADV_SS_IncludeSS == (int)Config.IncludeStep.Yes &&
+                    DNC_ST_ADV_SS_IncludeSS == (int)IncludeStep.Yes &&
                     ActionReady(StandardStep) &&
                     !HasStatusEffect(Buffs.FinishingMoveReady) &&
                     !HasStatusEffect(Buffs.TechnicalFinish) &&
@@ -171,8 +171,8 @@ internal partial class DNC : PhysicalRanged
 
             #endregion
 
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
+            if (ContentSpecificActions.TryGet(out var contentAction))
+                return contentAction;
 
             #region Weaves
 
@@ -180,7 +180,7 @@ internal partial class DNC : PhysicalRanged
             if (IsEnabled(Preset.DNC_ST_Adv_Devilment) &&
                 CanWeave() &&
                 LevelChecked(Devilment) &&
-                GetCooldownRemainingTime(Devilment) < GCD/2 &&
+                GetCooldownRemainingTime(Devilment) < GCD / 2 &&
                 (HasStatusEffect(Buffs.TechnicalFinish) ||
                  WasLastAction(TechnicalFinish4) ||
                  !LevelChecked(TechnicalStep)))
@@ -205,8 +205,8 @@ internal partial class DNC : PhysicalRanged
                  CombatEngageDuration().TotalSeconds > 20))
                 return Flourish;
 
-            if ((Config.DNC_ST_ADV_AntiDrift == (int)Config.AntiDrift.TripleWeave ||
-                 Config.DNC_ST_ADV_AntiDrift == (int)Config.AntiDrift.Both) &&
+            if ((DNC_ST_ADV_AntiDrift == (int)AntiDrift.TripleWeave ||
+                 DNC_ST_ADV_AntiDrift == (int)AntiDrift.Both) &&
                 (HasStatusEffect(Buffs.ThreeFoldFanDance) ||
                  HasStatusEffect(Buffs.FourFoldFanDance)) &&
                 CombatEngageDuration().TotalSeconds > 20 &&
@@ -230,18 +230,10 @@ internal partial class DNC : PhysicalRanged
                     ? Ending
                     : ClosedPosition.Retarget(Cascade, DancePartnerResolver);
 
-            // Variant Cure
-            if (Variant.CanCure(Preset.DNC_Variant_Cure, Config.DNCVariantCurePercent))
-                return Variant.Cure;
-
             // ST Interrupt
             if (Role.CanHeadGraze(Preset.DNC_ST_Adv_Interrupt, WeaveTypes.Weave) &&
                 !HasStatusEffect(Buffs.TechnicalFinish))
                 return Role.HeadGraze;
-
-            // Variant Rampart
-            if (Variant.CanRampart(Preset.DNC_Variant_Rampart, WeaveTypes.Weave))
-                return Variant.Rampart;
 
             if (CanWeave() && !WasLastWeaponskill(TechnicalFinish4))
             {
@@ -286,16 +278,22 @@ internal partial class DNC : PhysicalRanged
                     if (!LevelChecked(TechnicalStep) && Gauge.Feathers > 0)
                         return FanDance1;
                 }
+                
+                if (ActionReady(ShieldSamba) &&
+                    IsEnabled(Preset.DNC_ST_Adv_ShieldSamba) && RaidWideCasting() && 
+                    NumberOfAlliesInRange(ShieldSamba) >= GetPartyMembers().Count * .75 &&
+                    !HasAnyStatusEffects ([BRD.Buffs.Troubadour, Buffs.ShieldSamba, MCH.Buffs.Tactician], anyOwner: true))
+                    return ShieldSamba;
 
                 // ST Panic Heals
                 if (IsEnabled(Preset.DNC_ST_Adv_PanicHeals))
                 {
                     if (ActionReady(CuringWaltz) &&
                         PlayerHealthPercentageHp() <
-                        Config.DNC_ST_Adv_PanicHealWaltzPercent)
+                        DNC_ST_Adv_PanicHealWaltzPercent)
                         return CuringWaltz;
 
-                    if (Role.CanSecondWind(Config.DNC_ST_Adv_PanicHealWindPercent))
+                    if (Role.CanSecondWind(DNC_ST_Adv_PanicHealWindPercent))
                         return Role.SecondWind;
                 }
 
@@ -348,7 +346,7 @@ internal partial class DNC : PhysicalRanged
                 (GetCooldownRemainingTime(TechnicalStep) > 5 ||
                  IsOffCooldown(TechnicalStep)) && // Tech is up
                 (Gauge.Esprit >=
-                 Config.DNC_ST_Adv_SaberThreshold || // >esprit threshold use
+                 DNC_ST_Adv_SaberThreshold || // >esprit threshold use
                  (HasStatusEffect(Buffs
                       .TechnicalFinish) && // will overcap with Tillana if not used
                   !tillanaDriftProtectionActive && Gauge.Esprit >= 50) ||
@@ -359,7 +357,7 @@ internal partial class DNC : PhysicalRanged
             // ST Saber Dance (Emergency Use)
             if (IsEnabled(Preset.DNC_ST_Adv_SaberDance) &&
                 ActionReady(SaberDance) &&
-                (Gauge.Esprit >= Config.DNC_ST_Adv_SaberThreshold || // above esprit threshold use
+                (Gauge.Esprit >= DNC_ST_Adv_SaberThreshold || // above esprit threshold use
                  (HasStatusEffect(Buffs.TechnicalFinish) && // will overcap with Tillana if not used
                   !tillanaDriftProtectionActive && Gauge.Esprit >= 50)))
                 return LevelChecked(DanceOfTheDawn) &&
@@ -380,7 +378,7 @@ internal partial class DNC : PhysicalRanged
             if (IsEnabled(Preset.DNC_ST_Adv_SaberDance) &&
                 ActionReady(SaberDance) &&
                 Gauge.Esprit >=
-                Config.DNC_ST_Adv_SaberThreshold || // Above esprit threshold use
+                DNC_ST_Adv_SaberThreshold || // Above esprit threshold use
                 (HasStatusEffect(Buffs.TechnicalFinish) &&
                  Gauge.Esprit >= 50) && // Burst
                 (GetCooldownRemainingTime(TechnicalStep) > 5 ||
@@ -506,8 +504,8 @@ internal partial class DNC : PhysicalRanged
 
             #endregion
 
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
+            if (ContentSpecificActions.TryGet(out var contentAction))
+                return contentAction;
 
             #region Weaves
 
@@ -559,18 +557,10 @@ internal partial class DNC : PhysicalRanged
                     ? Ending
                     : ClosedPosition.Retarget(Cascade, DancePartnerResolver);
 
-            // Variant Cure
-            if (Variant.CanCure(Preset.DNC_Variant_Cure, 50))
-                return Variant.Cure;
-
             // ST Interrupt
             if (Role.CanHeadGraze(Preset.DNC_ST_SimpleMode, WeaveTypes.Weave) &&
                 !HasStatusEffect(Buffs.TechnicalFinish))
                 return Role.HeadGraze;
-
-            // Variant Rampart
-            if (Variant.CanRampart(Preset.DNC_Variant_Rampart, WeaveTypes.Weave))
-                return Variant.Rampart;
 
             if (CanWeave() && !WasLastWeaponskill(TechnicalFinish4))
             {
@@ -651,7 +641,7 @@ internal partial class DNC : PhysicalRanged
                 (GetCooldownRemainingTime(TechnicalStep) > 5 ||
                  IsOffCooldown(TechnicalStep)) && // Tech is up
                 (Gauge.Esprit >=
-                 Config.DNC_ST_Adv_SaberThreshold || // >esprit threshold use
+                 DNC_ST_Adv_SaberThreshold || // >esprit threshold use
                  (HasStatusEffect(Buffs
                       .TechnicalFinish) && // will overcap with Tillana if not used
                   Gauge.Esprit >= 50) ||
@@ -710,12 +700,12 @@ internal partial class DNC : PhysicalRanged
                         HasStatusEffect(Buffs.FlourishingFlow);
             bool symmetry = HasStatusEffect(Buffs.SilkenSymmetry) ||
                             HasStatusEffect(Buffs.FlourishingSymmetry);
-            var targetHpThresholdStandard = Config.DNC_AoE_Adv_SSBurstPercent;
-            var targetHpThresholdTechnical = Config.DNC_AoE_Adv_TSBurstPercent;
+            var targetHpThresholdStandard = DNC_AoE_Adv_SSBurstPercent;
+            var targetHpThresholdTechnical = DNC_AoE_Adv_TSBurstPercent;
 
             var needToTech =
                 IsEnabled(Preset.DNC_AoE_Adv_TS) &&
-                Config.DNC_AoE_Adv_TS_IncludeTS == (int)Config.IncludeStep.Yes &&
+                DNC_AoE_Adv_TS_IncludeTS == (int)IncludeStep.Yes &&
                 ActionReady(TechnicalStep) && // Up
                 !HasStatusEffect(Buffs.StandardStep) && // After Standard
                 IsOnCooldown(StandardStep) &&
@@ -737,7 +727,7 @@ internal partial class DNC : PhysicalRanged
 
             var needToStandard =
                 IsEnabled(Preset.DNC_AoE_Adv_SS) && // Enabled
-                Config.DNC_AoE_Adv_SS_IncludeSS == (int)Config.IncludeStep.Yes &&
+                DNC_AoE_Adv_SS_IncludeSS == (int)IncludeStep.Yes &&
                 !HasStatusEffect(Buffs.FinishingMoveReady) &&
                 (IsOffCooldown(Flourish) ||
                  GetCooldownRemainingTime(Flourish) > 5) &&
@@ -779,8 +769,8 @@ internal partial class DNC : PhysicalRanged
 
             #endregion
 
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
+            if (ContentSpecificActions.TryGet(out var contentAction))
+                return contentAction;
 
             #region Weaves
 
@@ -810,16 +800,10 @@ internal partial class DNC : PhysicalRanged
                 !HasStatusEffect(Buffs.FinishingMoveReady))
                 return Flourish;
 
-            if (Variant.CanCure(Preset.DNC_Variant_Cure, Config.DNCVariantCurePercent))
-                return Variant.Cure;
-
             // AoE Interrupt
             if (Role.CanHeadGraze(Preset.DNC_AoE_Adv_Interrupt, WeaveTypes.Weave) &&
                 !HasStatusEffect(Buffs.TechnicalFinish))
                 return Role.HeadGraze;
-
-            if (Variant.CanRampart(Preset.DNC_Variant_Rampart, WeaveTypes.Weave))
-                return Variant.Rampart;
 
             if (CanWeave() && !WasLastWeaponskill(TechnicalFinish4))
             {
@@ -872,10 +856,10 @@ internal partial class DNC : PhysicalRanged
                 {
                     if (ActionReady(CuringWaltz) &&
                         PlayerHealthPercentageHp() <
-                        Config.DNC_AoE_Adv_PanicHealWaltzPercent)
+                        DNC_AoE_Adv_PanicHealWaltzPercent)
                         return CuringWaltz;
 
-                    if (Role.CanSecondWind(Config.DNC_AoE_Adv_PanicHealWindPercent))
+                    if (Role.CanSecondWind(DNC_AoE_Adv_PanicHealWindPercent))
                         return Role.SecondWind;
                 }
 
@@ -927,8 +911,7 @@ internal partial class DNC : PhysicalRanged
                 (GetCooldownRemainingTime(TechnicalStep) > 5 ||
                  IsOffCooldown(TechnicalStep)) && // Tech is up
                 (Gauge.Esprit >=
-                 Config
-                     .DNC_AoE_Adv_SaberThreshold || // above esprit threshold use
+                 DNC_AoE_Adv_SaberThreshold || // above esprit threshold use
                  (HasStatusEffect(Buffs.TechnicalFinish) &&
                   Gauge.Esprit >= 50) || // will overcap with Tillana if not used
                  (GetStatusEffectRemainingTime(Buffs.DanceOfTheDawnReady) < 5 &&
@@ -939,8 +922,7 @@ internal partial class DNC : PhysicalRanged
             if (IsEnabled(Preset.DNC_AoE_Adv_SaberDance) &&
                 ActionReady(SaberDance) &&
                 (Gauge.Esprit >=
-                 Config
-                     .DNC_AoE_Adv_SaberThreshold || // above esprit threshold use
+                 DNC_AoE_Adv_SaberThreshold || // above esprit threshold use
                  (HasStatusEffect(Buffs.TechnicalFinish) &&
                   Gauge.Esprit >=
                   50)) && // will overcap with Tillana if not used
@@ -959,7 +941,7 @@ internal partial class DNC : PhysicalRanged
             if (IsEnabled(Preset.DNC_AoE_Adv_SaberDance) &&
                 ActionReady(SaberDance) &&
                 Gauge.Esprit >=
-                Config.DNC_ST_Adv_SaberThreshold || // Above esprit threshold use
+                DNC_ST_Adv_SaberThreshold || // Above esprit threshold use
                 (HasStatusEffect(Buffs.TechnicalFinish) &&
                  Gauge.Esprit >= 50) && // Burst
                 (GetCooldownRemainingTime(TechnicalStep) > 5 ||
@@ -1062,8 +1044,8 @@ internal partial class DNC : PhysicalRanged
 
             #endregion
 
-            if (OccultCrescent.ShouldUsePhantomActions())
-                return OccultCrescent.BestPhantomAction();
+            if (ContentSpecificActions.TryGet(out var contentAction))
+                return contentAction;
 
             #region Weaves
 
@@ -1091,16 +1073,10 @@ internal partial class DNC : PhysicalRanged
                 !HasStatusEffect(Buffs.FinishingMoveReady))
                 return Flourish;
 
-            if (Variant.CanCure(Preset.DNC_Variant_Cure, 50))
-                return Variant.Cure;
-
             // AoE Interrupt
-            if (Role.CanHeadGraze(Preset.DNC_AoE_SimpleMode, WeaveTypes.Weave)&&
+            if (Role.CanHeadGraze(Preset.DNC_AoE_SimpleMode, WeaveTypes.Weave) &&
                 !HasStatusEffect(Buffs.TechnicalFinish))
                 return Role.HeadGraze;
-
-            if (Variant.CanRampart(Preset.DNC_Variant_Rampart, WeaveTypes.Weave))
-                return Variant.Rampart;
 
             if (CanWeave() && !WasLastWeaponskill(TechnicalFinish4))
             {
@@ -1223,7 +1199,7 @@ internal partial class DNC : PhysicalRanged
 
     internal class DNC_ST_BasicCombo : CustomCombo
     {
-        protected internal override Preset Preset { get; } = Preset.DNC_ST_BasicCombo;
+        protected internal override Preset Preset => Preset.DNC_ST_BasicCombo;
 
         protected override uint Invoke(uint actionID)
         {
@@ -1261,11 +1237,11 @@ internal partial class DNC : PhysicalRanged
             if (IsEnabled(Preset.DNC_ST_EspritOvercap) &&
                 ActionReady(DanceOfTheDawn) &&
                 HasStatusEffect(Buffs.DanceOfTheDawnReady) &&
-                Gauge.Esprit >= Config.DNCEspritThreshold_ST)
+                Gauge.Esprit >= DNCEspritThreshold_ST)
                 return OriginalHook(DanceOfTheDawn);
             if (IsEnabled(Preset.DNC_ST_EspritOvercap) &&
                 ActionReady(SaberDance) &&
-                Gauge.Esprit >= Config.DNCEspritThreshold_ST)
+                Gauge.Esprit >= DNCEspritThreshold_ST)
                 return SaberDance;
 
             if (CanWeave())
@@ -1321,11 +1297,11 @@ internal partial class DNC : PhysicalRanged
             if (IsEnabled(Preset.DNC_AoE_EspritOvercap) &&
                 ActionReady(DanceOfTheDawn) &&
                 HasStatusEffect(Buffs.DanceOfTheDawnReady) &&
-                Gauge.Esprit >= Config.DNCEspritThreshold_ST)
+                Gauge.Esprit >= DNCEspritThreshold_ST)
                 return OriginalHook(DanceOfTheDawn);
             if (IsEnabled(Preset.DNC_AoE_EspritOvercap) &&
                 ActionReady(SaberDance) &&
-                Gauge.Esprit >= Config.DNCEspritThreshold_AoE)
+                Gauge.Esprit >= DNCEspritThreshold_AoE)
                 return SaberDance;
 
             if (CanWeave())
@@ -1384,10 +1360,10 @@ internal partial class DNC : PhysicalRanged
                     DancePartnerResolver, dontCull: true);
             }
 
-            return (int)Config.DNC_Partner_ActionToShow switch
+            return (int)DNC_Partner_ActionToShow switch
             {
-                (int)Config.PartnerShowAction.ClosedPosition => ClosedPosition,
-                (int)Config.PartnerShowAction.SavageBlade => All.SavageBlade,
+                (int)PartnerShowAction.ClosedPosition => ClosedPosition,
+                (int)PartnerShowAction.SavageBlade => All.SavageBlade,
                 _ => OriginalHook(actionID),
             };
         }

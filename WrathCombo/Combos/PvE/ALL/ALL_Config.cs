@@ -1,10 +1,7 @@
 using Dalamud.Interface.Colors;
 using ECommons.ImGuiMethods;
-using ImGuiNET;
-using Microsoft.VisualBasic.ApplicationServices;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Window.Functions;
-
 namespace WrathCombo.Combos.PvE;
 
 internal partial class All
@@ -17,16 +14,16 @@ internal partial class All
         public static readonly UserBoolArray ALL_Healer_RescueRetargetingOptions = new("ALL_Healer_RescueRetargetingOptions");
             
 
-        internal static void Draw(CustomComboPreset preset)
+        internal static void Draw(Preset preset)
         {
             switch (preset)
             {
-                case CustomComboPreset.ALL_Tank_Reprisal:
+                case Preset.ALL_Tank_Reprisal:
                     UserConfig.DrawSliderInt(0, 9, ALL_Tank_Reprisal_Threshold,
                         "允许其他人雪仇剩余时间\n(0=目标上不能有雪仇效果)");
                     break;
                 
-                case CustomComboPreset.ALL_Healer_RescueRetargeting:
+                case Preset.ALL_Healer_RescueRetargeting:
                     ImGui.Indent();
                     ImGuiEx.TextWrapped(ImGuiColors.DalamudYellow,"UI鼠标悬停 > 场景鼠标悬停 > 焦点目标 > 软目标 > 硬目标");
                     ImGui.Unindent();

@@ -7,18 +7,18 @@ internal partial class VPR
 {
     internal static class Config
     {
-        internal static void Draw(CustomComboPreset preset)
+        internal static void Draw(Preset preset)
         {
             switch (preset)
             {
-                case CustomComboPreset.VPR_ST_Opener:
+                case Preset.VPR_ST_Opener:
                     DrawBossOnlyChoice(VPR_Balance_Content);
 
                     DrawAdditionalBoolChoice(VPR_Opener_ExcludeUF,
                         $"排除{UncoiledFury.ActionName()}", "");
                     break;
 
-                case CustomComboPreset.VPR_ST_SerpentsIre:
+                case Preset.VPR_ST_SerpentsIre:
                     DrawHorizontalRadioButton(VPR_ST_SerpentsIre_SubOption,
                         "全部内容", $"无论内容如何均使用{SerpentsIre.ActionName()}。", 0);
 
@@ -26,7 +26,7 @@ internal partial class VPR
                         "仅限Boss战", $"仅在Boss战中使用{SerpentsIre.ActionName()}。", 1);
                     break;
 
-                case CustomComboPreset.VPR_ST_Reawaken:
+                case Preset.VPR_ST_Reawaken:
                     DrawHorizontalRadioButton(VPR_ST_ReAwaken_SubOption,
                         "全部内容", $"无论内容如何均使用{Reawaken.ActionName()}。", 0);
 
@@ -38,7 +38,7 @@ internal partial class VPR
 
                     break;
 
-                case CustomComboPreset.VPR_ST_UncoiledFury:
+                case Preset.VPR_ST_UncoiledFury:
                     DrawSliderInt(0, 3, VPR_ST_UncoiledFury_HoldCharges,
                         $"预留多少层{UncoiledFury.ActionName()}？（0 = 全部使用）");
 
@@ -46,17 +46,17 @@ internal partial class VPR
                         $"设置HP百分比阈值，低于该值时全部使用{UncoiledFury.ActionName()}。");
                     break;
 
-                case CustomComboPreset.VPR_ST_RangedUptime:
+                case Preset.VPR_ST_RangedUptime:
                     DrawAdditionalBoolChoice(VPR_ST_RangedUptimeUncoiledFury,
                         $"包含{UncoiledFury.ActionName()}", $"当你处于远程状态且拥有{RattlingCoil.ActionName()}层数时，将{UncoiledFury.ActionName()}加入循环。");
                     break;
 
-                case CustomComboPreset.VPR_ST_Vicewinder:
+                case Preset.VPR_ST_Vicewinder:
                     DrawAdditionalBoolChoice(VPR_TrueNortVicewinder,
                         $"{Role.TrueNorth.ActionName()}选项", "可用时加入真北。");
                     break;
 
-                case CustomComboPreset.VPR_ST_ComboHeals:
+                case Preset.VPR_ST_ComboHeals:
                     DrawSliderInt(0, 100, VPR_ST_SecondWind_Threshold,
                         $"{Role.SecondWind.ActionName()}触发HP百分比阈值");
 
@@ -65,7 +65,7 @@ internal partial class VPR
 
                     break;
 
-                case CustomComboPreset.VPR_AoE_UncoiledFury:
+                case Preset.VPR_AoE_UncoiledFury:
                     DrawSliderInt(0, 3, VPR_AoE_UncoiledFury_HoldCharges,
                         $"预留多少层{UncoiledFury.ActionName()}？（0 = 全部使用）");
 
@@ -74,7 +74,7 @@ internal partial class VPR
 
                     break;
 
-                case CustomComboPreset.VPR_AoE_Reawaken:
+                case Preset.VPR_AoE_Reawaken:
                     DrawHorizontalRadioButton(VPR_AoE_Reawaken_SubOption,
                         "在范围内", $"为{Reawaken.ActionName()}添加距离检测，仅在目标在范围内时使用。", 0);
 
@@ -85,7 +85,7 @@ internal partial class VPR
                         $"敌人HP高于该百分比时停止使用{Reawaken.ActionName()}。设为0则不检测。");
                     break;
 
-                case CustomComboPreset.VPR_AoE_Vicepit:
+                case Preset.VPR_AoE_Vicepit:
                     DrawHorizontalRadioButton(VPR_AoE_Vicepit_SubOption,
                         "在范围内", $"为{Vicepit.ActionName()}添加距离检测，仅在目标在范围内时使用。", 0);
 
@@ -93,7 +93,7 @@ internal partial class VPR
                         "禁用距离检测", $"禁用{Vicepit.ActionName()}的距离检测，即使未选中目标也会使用。", 1);
                     break;
 
-                case CustomComboPreset.VPR_AoE_VicepitCombo:
+                case Preset.VPR_AoE_VicepitCombo:
                     DrawHorizontalRadioButton(VPR_AoE_VicepitCombo_SubOption,
                         "在范围内", $"为{HuntersDen.ActionName()}与{SwiftskinsDen.ActionName()}添加距离检测，仅在目标在范围内时使用。", 0);
 
@@ -101,7 +101,7 @@ internal partial class VPR
                         "禁用距离检测", $"禁用{HuntersDen.ActionName()}与{SwiftskinsDen.ActionName()}的距离检测，即使未选中目标也会使用。", 1);
                     break;
 
-                case CustomComboPreset.VPR_AoE_ComboHeals:
+                case Preset.VPR_AoE_ComboHeals:
                     DrawSliderInt(0, 100, VPR_AoE_SecondWind_Threshold,
                         $"{Role.SecondWind.ActionName()}触发HP百分比阈值");
 
@@ -110,7 +110,7 @@ internal partial class VPR
 
                     break;
 
-                case CustomComboPreset.VPR_ReawakenLegacy:
+                case Preset.VPR_ReawakenLegacy:
                     DrawRadioButton(VPR_ReawakenLegacyButton,
                         $"替换为{Reawaken.ActionName()}", $"将{Reawaken.ActionName()}替换为完整祖灵之牙-祖灵之蛇连击。", 0);
 
@@ -119,10 +119,9 @@ internal partial class VPR
 
                     break;
 
-                case CustomComboPreset.VPR_Variant_Cure:
-                    DrawSliderInt(1, 100, VPR_VariantCure,
-                        "触发治疗的HP百分比阈值", 200);
-
+                case Preset.VPR_Retarget_Slither:
+                    DrawAdditionalBoolChoice(VPR_Slither_FieldMouseover,
+                        "Add Field Mouseover", "Add Field Mouseover targetting");
                     break;
             }
         }
@@ -142,17 +141,17 @@ internal partial class VPR
             VPR_AoE_UncoiledFury_HoldCharges = new("VPR_AoE_UncoiledFury_HoldCharges", 0),
             VPR_AoE_Vicepit_SubOption = new("VPR_AoE_Vicepit_SubOption", 0),
             VPR_AoE_VicepitCombo_SubOption = new("VPR_AoE_VicepitCombo_SubOption", 0),
-            VPR_AoE_Reawaken_Usage = new("VPR_AoE_Reawaken_Usage", 20),
+            VPR_AoE_Reawaken_Usage = new("VPR_AoE_Reawaken_Usage", 40),
             VPR_AoE_Reawaken_SubOption = new("VPR_AoE_Reawaken_SubOption", 0),
             VPR_AoE_SecondWind_Threshold = new("VPR_AoE_SecondWindThreshold", 40),
             VPR_AoE_Bloodbath_Threshold = new("VPR_AoE_BloodbathThreshold", 30),
-            VPR_ReawakenLegacyButton = new("VPR_ReawakenLegacyButton", 0),
-            VPR_VariantCure = new("VPR_VariantCure", 50);
+            VPR_ReawakenLegacyButton = new("VPR_ReawakenLegacyButton", 0);
 
         public static UserBool
             VPR_Opener_ExcludeUF = new("VPR_Opener_ExcludeUF"),
             VPR_ST_RangedUptimeUncoiledFury = new("VPR_ST_RangedUptimeUncoiledFury"),
-            VPR_TrueNortVicewinder = new("VPR_TrueNortVicewinder");
+            VPR_TrueNortVicewinder = new("VPR_TrueNortVicewinder"),
+            VPR_Slither_FieldMouseover = new("VPR_Slither_FieldMouseover");
 
         #endregion
     }
