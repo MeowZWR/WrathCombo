@@ -17,7 +17,7 @@ internal partial class SAM : Melee
             //Meikyo to start before combat
             if (ActionReady(MeikyoShisui) &&
                 !HasStatusEffect(Buffs.MeikyoShisui) &&
-                !InCombat() && HasBattleTarget())
+                !InCombat() && HasBattleTarget() && TargetIsBoss())
                 return MeikyoShisui;
 
             if (ContentSpecificActions.TryGet(out uint contentAction))
@@ -273,7 +273,7 @@ internal partial class SAM : Melee
                 IsEnabled(Preset.SAM_ST_CDs_MeikyoShisui) &&
                 ActionReady(MeikyoShisui) &&
                 !HasStatusEffect(Buffs.MeikyoShisui) &&
-                !InCombat() && HasBattleTarget())
+                !InCombat() && HasBattleTarget() && TargetIsBoss())
                 return MeikyoShisui;
 
             if (ContentSpecificActions.TryGet(out uint contentAction))

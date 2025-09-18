@@ -252,7 +252,8 @@ internal partial class SAM
             GetRemainingCharges(Role.TrueNorth) is 2 &&
             IsOffCooldown(Senei) &&
             IsOffCooldown(Ikishoten) &&
-            SenCount is 0;
+            SenCount is 0 &&
+            TargetIsBoss();
     }
 
     #endregion
