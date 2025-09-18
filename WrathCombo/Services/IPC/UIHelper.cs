@@ -12,6 +12,7 @@ using WrathCombo.AutoRotation;
 using WrathCombo.Combos;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Dictionary.Chinese;
 
 // ReSharper disable VariableHidesOuterVariable
 
@@ -541,8 +542,8 @@ public class UIHelper(Leasing leasing)
             ref HealerRotationMode healVar)
         {
             return useDPSVar
-                ? ImGuiEx.EnumCombo(label, ref dpsVar)
-                : ImGuiEx.EnumCombo(label, ref healVar);
+                ? ImGuiEx.EnumCombo(label, ref dpsVar, names: EnumTranslations.DPSRotationModeTranslations)
+                : ImGuiEx.EnumCombo(label, ref healVar, names: EnumTranslations.HealerRotationModeTranslations);
         }
 
         (string controller, int state)? controlled = null;
@@ -578,7 +579,28 @@ public class UIHelper(Leasing leasing)
             .First().ValueType;
         var value =
             Enum.Parse(valueType, controlled.Value.state.ToString());
-        string valueString = value.ToString()!.Replace("_", " ");
+        
+        // 使用中文翻译
+        string valueString;
+        if (valueType == typeof(DPSRotationMode))
+        {
+            var dpsValue = (DPSRotationMode)value;
+            valueString = EnumTranslations.DPSRotationModeTranslations.TryGetValue(dpsValue, out var translation) 
+                ? translation 
+                : value.ToString()!.Replace("_", " ");
+        }
+        else if (valueType == typeof(HealerRotationMode))
+        {
+            var healerValue = (HealerRotationMode)value;
+            valueString = EnumTranslations.HealerRotationModeTranslations.TryGetValue(healerValue, out var translation) 
+                ? translation 
+                : value.ToString()!.Replace("_", " ");
+        }
+        else
+        {
+            valueString = value.ToString()!.Replace("_", " ");
+        }
+        
         string[] values = [valueString];
 
         var _ = 0;
