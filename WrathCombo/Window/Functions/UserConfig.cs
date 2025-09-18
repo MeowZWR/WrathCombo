@@ -692,7 +692,7 @@ public static class UserConfig
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
             ? "请选择上述设置适用的难度："
-            : overrideText);
+            : C(overrideText));
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
@@ -736,7 +736,7 @@ public static class UserConfig
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
             ? "请选择上述设置适用的难度："
-            : overrideText);
+            : C(overrideText));
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
@@ -783,7 +783,7 @@ public static class UserConfig
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
             ? "请选择上述设置适用的难度："
-            : overrideText);
+            : C(overrideText));
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
@@ -832,7 +832,7 @@ public static class UserConfig
         {
             ImGui.Text(overrideText.IsNullOrEmpty()
                 ? "请选择此选项适用的内容类型："
-                : overrideText);
+                : C(overrideText));
         }
 
         DrawHorizontalBoolRadioButton(
@@ -877,7 +877,7 @@ public static class UserConfig
 
             ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
                 ? "请选择此选项适用的内容类型："
-                : overrideText);
+                : C(overrideText));
         }
 
         DrawHorizontalRadioButton(
@@ -924,7 +924,7 @@ public static class UserConfig
                 }
                 else
                 {
-                    ImGui.TextUnformatted(customLabel);
+                    ImGui.TextUnformatted(C(customLabel));
                 }
                 ImGui.SameLine();
                 ImGui.PushItemWidth(100f);
