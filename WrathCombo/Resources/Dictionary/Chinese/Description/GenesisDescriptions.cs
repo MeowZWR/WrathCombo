@@ -60,7 +60,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 #region General
                 KeyValuePair.Create("Interrupt with Stun Option", "使用眩晕技能打断"),
                 KeyValuePair.Create("Interrupt with Low Blow Option", "使用下踢打断"),
-                KeyValuePair.Create("Adds Low Blow to the rotation when your target is casting, interruptible or not.", "当你的目标正在施法时，将下踢加入循环，无论是否能够被打断。"),
                 KeyValuePair.Create("Adds Low Blow to the rotation when your target is casting.", "当你的目标正在施法时，将下踢加入循环。"),
                 KeyValuePair.Create("Not advised outside of overworld content, as it can waste a lot of Low Blows on un-stun-able enemies, etc. Will try to not use it in boss fights.", "不建议在野外等内容中使用，因为它会在无法眩晕的敌人上浪费很多下踢。将在BOSS战中尽量不使用。"),                
                 KeyValuePair.Create("Interrupt with Shield Bash Option", "使用盾牌猛击打断"),
