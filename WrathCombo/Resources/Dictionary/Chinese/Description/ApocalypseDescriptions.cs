@@ -33,8 +33,8 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("supports TBN'ing during use or pre-pull", "支持在使用过程中或战斗前预先施放黑盾"),
                 KeyValuePair.Create("Prevent Triple Weaves Option", "防止三插"),
                 KeyValuePair.Create("Balance Opener (Level 100)", "平衡起手式（等级100）"),
-                KeyValuePair.Create("Adds the Balance opener from level 92 onwards.", "从92级开始添加由The Balance社区建议的开场输出循环。"),
-                KeyValuePair.Create("Adds the Balance opener at level 100.", "在100级时添加由The Balance社区建议的开场输出循环。"),
+                KeyValuePair.Create("Adds the Balance opener from level 92 onwards.", "从92级开始添加由「The Balance」社区建议的开场输出循环。"),
+                KeyValuePair.Create("Adds the Balance opener at level 100.", "在100级时添加由「The Balance」社区建议的开场输出循环。"),
                 KeyValuePair.Create("with Stun", "(使用眩晕技能)"),
                 KeyValuePair.Create("Target HP% to use at or below", "目标生命值百分比低于此值时使用"),
                 KeyValuePair.Create("HP% to use at or below", "生命值百分比低于此值时使用"),
@@ -114,7 +114,8 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("when your target is a boss.", "（当你的目标是BOSS）。"),
                 KeyValuePair.Create("HP percentage threshold", "生命百分比阈值"),
                 KeyValuePair.Create("when below this MP", "（当低于此魔力值）"),
-                KeyValuePair.Create("to the AoE combo.", "到AOE连击"),                
+                KeyValuePair.Create("to the AoE combo.", "到AOE连击。"),
+                KeyValuePair.Create("with its combo chain.", "为其连击链。"),
                 
                 // Three
                 KeyValuePair.Create("Magical Ranged DPS", "远程魔法职业"),
@@ -141,7 +142,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("to the", "→"),
                 KeyValuePair.Create("Drop Prevention", "防溢出"),
                 KeyValuePair.Create("Target HP%", "目标生命百分比"),
-                KeyValuePair.Create("Player HP%", "玩家生命"),
+                KeyValuePair.Create("Player HP%", "玩家生命百分比"),
                 KeyValuePair.Create("during Combat", "（战斗中）"),
                 KeyValuePair.Create("Rear First", "背后身位的技能优先"),
                 KeyValuePair.Create("Flank First", "侧方身位的技能优先"),
@@ -151,6 +152,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Balance Openers", "平衡起手式"),
                 KeyValuePair.Create("Balance Opener", "平衡起手式"),
                 KeyValuePair.Create("NOT recommended.", "不推荐。"),
+                KeyValuePair.Create("Basic Combo", "基础连击"),
                 
                 // One
                 KeyValuePair.Create("Sync", "同步"),
@@ -237,6 +239,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("On ", ""),
                 KeyValuePair.Create("on ", "替换"),                
                 KeyValuePair.Create("Priority", "优先级"),
+                KeyValuePair.Create("Replace", "替换"),
 
                 // Jobs
                 KeyValuePair.Create("FSH", "捕鱼人"),
