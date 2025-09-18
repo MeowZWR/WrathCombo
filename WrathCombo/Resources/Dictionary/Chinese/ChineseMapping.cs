@@ -149,6 +149,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese
             allKeyValuePairs.AddRange(WHMSkills.GetSkills());
             allKeyValuePairs.AddRange(VariantSkills.GetSkills());
             allKeyValuePairs.AddRange(DOLSkills.GetSkills());
+            allKeyValuePairs.AddRange(OccultCrescentSkills.GetSkills());
             allKeyValuePairs.AddRange(Apocalypse.GetDescriptions());
 
             // 检测并记录重复键
