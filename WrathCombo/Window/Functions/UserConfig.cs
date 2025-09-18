@@ -15,11 +15,38 @@ using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
 using WrathCombo.Services;
+using WrathCombo.Resources.Dictionary.Chinese;
 
 namespace WrathCombo.Window.Functions;
 
 public static class UserConfig
 {
+    /// <summary>
+    /// 仅在绘制 Combos 配置时开启，用于统一替换文本为中文。
+    /// </summary>
+    internal static bool ReplaceChineseForCombos { get; set; } = false;
+
+    private static string C(string input)
+    {
+        if (!ReplaceChineseForCombos || string.IsNullOrEmpty(input))
+            return input;
+
+        try
+        {
+            var result = input.ReplaceWithChinese();
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                return input;
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            ECommons.Logging.PluginLog.Warning($"中文替换异常，回退到原文: {ex.Message}");
+            return input;
+        }
+    }
+
     /// <summary> Draws a slider that lets the user set a given value for their feature. </summary>
     /// <param name="minValue"> The absolute minimum value you'll let the user pick. </param>
     /// <param name="maxValue"> The absolute maximum value you'll let the user pick. </param>
@@ -58,7 +85,7 @@ public static class UserConfig
                 ImGui.SetCursorPosX(currentPos.X + itemWidth);
                 ImGui.PushTextWrapPos(wrapPos);
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudWhite);
-                ImGui.Text($"{sliderDescription}");
+                ImGui.Text(C(sliderDescription));
                 Vector2 height = ImGui.GetItemRectSize();
                 float lines = height.Y / ImGui.GetFontSize();
                 Vector2 textLength = ImGui.CalcTextSize(sliderDescription);
@@ -180,7 +207,7 @@ public static class UserConfig
                 ImGui.SetCursorPosX(currentPos.X + itemWidth);
                 ImGui.PushTextWrapPos(wrapPos);
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudWhite);
-                ImGui.Text($"{sliderDescription}");
+                ImGui.Text(C(sliderDescription));
                 Vector2 height = ImGui.GetItemRectSize();
                 float lines = height.Y / ImGui.GetFontSize();
                 Vector2 textLength = ImGui.CalcTextSize(sliderDescription);
@@ -274,7 +301,7 @@ public static class UserConfig
                 ImGui.SetCursorPosX(currentPos.X + itemWidth);
                 ImGui.PushTextWrapPos(wrapPos);
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudWhite);
-                ImGui.Text($"{sliderDescription}");
+                ImGui.Text(C(sliderDescription));
                 Vector2 height = ImGui.GetItemRectSize();
                 float lines = height.Y / ImGui.GetFontSize();
                 Vector2 textLength = ImGui.CalcTextSize(sliderDescription);
@@ -349,7 +376,7 @@ public static class UserConfig
         ImGuiEx.Spacing(new Vector2(21, 0));
         bool enabled = output == outputValue;
 
-        if (ImGui.RadioButton($"{checkBoxName}###{config}{outputValue}", enabled))
+        if (ImGui.RadioButton($"{C(checkBoxName)}###{config}{outputValue}", enabled))
         {
             DebugFile.AddLog($"设置配置 {config} 为 {output}");
             PluginConfiguration.SetCustomIntValue(config, outputValue);
@@ -363,14 +390,14 @@ public static class UserConfig
                 if (ImGui.IsItemHovered())
                 {
                     ImGui.BeginTooltip();
-                    ImGui.TextUnformatted(checkboxDescription);
+                    ImGui.TextUnformatted(C(checkboxDescription));
                     ImGui.EndTooltip();
                 }
             }
             else if (!descriptionAsTooltip)
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, descriptionColor);
-                ImGui.TextWrapped(checkboxDescription);
+                ImGui.TextWrapped(C(checkboxDescription));
                 ImGui.PopStyleColor();
             }
         }
@@ -392,7 +419,7 @@ public static class UserConfig
         int output = PluginConfiguration.GetCustomIntValue(config);
         ImGui.SameLine();
         ImGui.PushItemWidth(itemWidth);
-        var labelW = ImGui.CalcTextSize(checkBoxName);
+        var labelW = ImGui.CalcTextSize(C(checkBoxName));
         var finishPos = ImGui.GetCursorPosX() + labelW.X + ImGui.GetStyle().ItemSpacing.X;
         if (finishPos >= ImGui.GetContentRegionMax().X)
             ImGui.NewLine();
@@ -402,7 +429,7 @@ public static class UserConfig
         bool o = false;
         using (ImRaii.PushColor(ImGuiCol.Text, descriptionColor))
         {
-            if (ImGui.RadioButton($"{checkBoxName}###{config}{outputValue}", enabled))
+            if (ImGui.RadioButton($"{C(checkBoxName)}###{config}{outputValue}", enabled))
             {
                 DebugFile.AddLog($"设置配置 {config} 为 {output}");
                 PluginConfiguration.SetCustomIntValue(config, outputValue);
@@ -413,7 +440,7 @@ public static class UserConfig
             if (!checkboxDescription.IsNullOrEmpty() && ImGui.IsItemHovered())
             {
                 ImGui.BeginTooltip();
-                ImGui.TextUnformatted(checkboxDescription);
+                ImGui.TextUnformatted(C(checkboxDescription));
                 ImGui.EndTooltip();
             }
         }
@@ -443,7 +470,7 @@ public static class UserConfig
 
         using (ImRaii.PushColor(ImGuiCol.Text, descriptionColor))
         {
-            if (ImGui.RadioButton($"{checkBoxName}###{config}{choice}", values[choice]))
+            if (ImGui.RadioButton($"{C(checkBoxName)}###{config}{choice}", values[choice]))
             {
                 for (var i = 0; i < values.Length; i++)
                     values[i] = false;
@@ -456,7 +483,7 @@ public static class UserConfig
             if (!checkboxDescription.IsNullOrEmpty() && ImGui.IsItemHovered())
             {
                 ImGui.BeginTooltip();
-                ImGui.TextUnformatted(checkboxDescription);
+                ImGui.TextUnformatted(C(checkboxDescription));
                 ImGui.EndTooltip();
             }
         }
@@ -493,7 +520,7 @@ public static class UserConfig
             ImGuiEx.Spacing(new Vector2(3, 0));
             if (isConditionalChoice) ImGui.Indent(); //Align checkbox after the + symbol
         }
-        if (ImGui.Checkbox($"{checkBoxName}##{config}", ref output))
+        if (ImGui.Checkbox($"{C(checkBoxName)}##{config}", ref output))
         {
             DebugFile.AddLog($"设置配置 {config} 为 {output}");
             PluginConfiguration.SetCustomBoolValue(config, output);
@@ -507,7 +534,7 @@ public static class UserConfig
             if (indentDescription)
                 ImGui.Indent();
 
-            ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey, checkboxDescription);
+            ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey, C(checkboxDescription));
 
             if (indentDescription)
                 ImGui.Unindent();
@@ -547,12 +574,12 @@ public static class UserConfig
                 ImGuiEx.Spacing(new Vector2(12, 0));
             }
 
-            var labelW = ImGui.CalcTextSize(checkBoxName);
+            var labelW = ImGui.CalcTextSize(C(checkBoxName));
             var finishPos = ImGui.GetCursorPosX() + labelW.X + ImGui.GetStyle().ItemSpacing.X;
             if (finishPos >= ImGui.GetContentRegionMax().X)
                 ImGui.NewLine();
 
-            if (ImGui.Checkbox($"{checkBoxName}###{config}{choice}", ref values[choice]))
+            if (ImGui.Checkbox($"{C(checkBoxName)}###{config}{choice}", ref values[choice]))
             {
                 DebugFile.AddLog($"设置配置 {config} 为 {string.Join(", ", values)}");
                 PluginConfiguration.SetCustomBoolArrayValue(config, values);
@@ -562,7 +589,7 @@ public static class UserConfig
             if (!checkboxDescription.IsNullOrEmpty() && ImGui.IsItemHovered())
             {
                 ImGui.BeginTooltip();
-                ImGui.TextUnformatted(checkboxDescription);
+                ImGui.TextUnformatted(C(checkboxDescription));
                 ImGui.EndTooltip();
             }
         }
@@ -1239,10 +1266,10 @@ public static class UserConfig
             "UIMouseOverTarget" => "界面鼠标悬停目标",
             "ModelMouseOverTarget" => "场地鼠标悬停目标",
             "LowestHPAlly" => "最低血量队友",
-            "LowestHPAllyIfMissingHP" => "最低血量队友（缺血时）",
+            "LowestHPAllyIfMissingHP" => "最低血量队友（掉血时）",
             "LowestHPPAlly" => "最低血量百分比队友",
-            "LowestHPPAllyIfMissingHP" => "最低血量百分比队友（缺血时）",
-            "AnyDeadRaiserDPSIfNoneAlive" => "任意已死亡的复活DPS（无存活时）",
+            "LowestHPPAllyIfMissingHP" => "最低血量百分比队友（掉血时）",
+            "AnyDeadRaiserDPSIfNoneAlive" => "任意已死亡的复活DPS（未存活时）",
             // Format the rest with Regex
             _ => Regex.Replace(propertyName,
                 @"(?<=[a-z])(?=[A-Z0-9])", " "),

@@ -335,6 +335,7 @@ internal class Presets : ConfigWindow
         {
             if (!pvp)
             {
+                UserConfig.ReplaceChineseForCombos = true;
                 switch (info.Job)
                 {
                     case Job.ADV:
@@ -370,9 +371,11 @@ internal class Presets : ConfigWindow
                     default:
                         break;
                 }
+                UserConfig.ReplaceChineseForCombos = false;
             }
             else
             {
+                UserConfig.ReplaceChineseForCombos = true;
                 switch (info.Job)
                 {
                     case Job.ADV: PvPCommon.Config.Draw(preset); break;
@@ -400,6 +403,7 @@ internal class Presets : ConfigWindow
                     default:
                         break;
                 }
+                UserConfig.ReplaceChineseForCombos = false;
             }
 
         }
