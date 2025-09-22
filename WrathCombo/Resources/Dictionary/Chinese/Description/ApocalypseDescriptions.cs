@@ -68,7 +68,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Target HP% to stop using", "目标生命值百分比低于此值时停用"),
                 KeyValuePair.Create("HP percent threshold to use", "达到此生命值百分比阈值时使用"),
                 KeyValuePair.Create("Player HP% to be ", "玩家生命值百分比"),
-                KeyValuePair.Create("less than or equal to:", "小于或等于："),
+                KeyValuePair.Create("less than or equal to:", "小于或等于"),
                 KeyValuePair.Create("(0 = Use all)", "（0=全用）"),
                 KeyValuePair.Create("(0 = Use All)", "（0=全用）"),
                 KeyValuePair.Create("(0 = Use Always)", "（0=总是使用）"),
@@ -218,7 +218,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Opener", "起手式"),
                 KeyValuePair.Create("Overdrive", "超档"),
                 KeyValuePair.Create("Charges", "充能"),
-                KeyValuePair.Create("Late", "延后"),
+                KeyValuePair.Create("Late", "延后使用"),
                 KeyValuePair.Create("Dynamic", "动态"),
                 KeyValuePair.Create("Finisher", "收尾"),
                 KeyValuePair.Create("OGCD's", "能力技"),
@@ -240,6 +240,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("on ", "替换"),                
                 KeyValuePair.Create("Priority", "优先级"),
                 KeyValuePair.Create("Replace", "替换"),
+                KeyValuePair.Create("Early", "尽早使用"),
 
                 // Jobs
                 KeyValuePair.Create("FSH", "捕鱼人"),

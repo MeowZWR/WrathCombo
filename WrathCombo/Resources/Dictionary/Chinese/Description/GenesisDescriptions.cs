@@ -42,7 +42,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Uses Guard when your HP is under the set threshold.", "当你的HP低于设定阈值时，使用Guard。"),
                 KeyValuePair.Create("Uses Purify when afflicted with any selected debuff.", "当你受到任何选定的减益效果影响时，使用Purify。"),
                 KeyValuePair.Create("Stops you cancelling your guard if you're pressing buttons quickly by replacing your buttons with Savage Blade.", "如果你快速按下按钮，用Savage Blade替换你的按钮以防止你取消Guard。"),
-                KeyValuePair.Create("Allows you to cancel your guard with Recuperate on the Guard button if health is low enough to not waste it.", "当生命值足够低时，允许你在防御按钮上使用自愈技能来取消防御，以避免浪费。"),
+                KeyValuePair.Create("Allows you to cancel your guard with Recuperate on the Guard button if health is low enough to not waste it.", "当生命值足够低时，允许你在防御按钮上使用自愈技能来取消防御，以避免浪费。"),                
+                KeyValuePair.Create("Turns Berserk / Inner Release into the Primal combo (Primal Rend -> Primal Ruination) on use.", "使用时将狂暴/原初的解放转换为原初连击（蛮荒崩裂 -> 尽毁）。"),                
+                KeyValuePair.Create("Adds Primal Ruination into the AoE rotation.", "将尽毁加入AOE循环。"),
                 
                 // Manually added
                 // PLD

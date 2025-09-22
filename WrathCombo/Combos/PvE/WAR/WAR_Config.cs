@@ -133,7 +133,7 @@ internal partial class WAR
 
                 case Preset.WAR_ST_InnerRelease:
                     DrawSliderInt(0, 75, WAR_ST_IRStop,
-                        " Stop usage if Target HP% is below set value.\n To disable this, set value to 0");
+                        " Stop usage if Target HP% is below set value. To disable this, set value to 0");
                     break;
 
                 case Preset.WAR_ST_Onslaught:
@@ -158,7 +158,7 @@ internal partial class WAR
 
                 case Preset.WAR_ST_Infuriate:
                     DrawSliderInt(0, 2, WAR_ST_Infuriate_Charges,
-                        " How many charges to keep ready?\n (0 = Use All)");
+                        " How many charges to keep ready? (0 = Use All)");
                     DrawSliderInt(0, 50, WAR_ST_Infuriate_Gauge,
                         " Use when Beast Gauge is less than or equal to:");
                     break;
@@ -215,7 +215,7 @@ internal partial class WAR
 
                 case Preset.WAR_AoE_Infuriate:
                     DrawSliderInt(0, 2, WAR_AoE_Infuriate_Charges,
-                        "保留多少层数？\n（0 = 全部使用）");
+                        "保留多少层数？（0 = 全部使用）");
                     DrawSliderInt(0, 50, WAR_AoE_Infuriate_Gauge,
                         "魂量低于等于此值时使用");
                     break;
@@ -233,7 +233,7 @@ internal partial class WAR
                             "站立检测延迟（秒）：", decimals: 1);
                     }
                     DrawSliderInt(0, 2, WAR_AoE_Onslaught_Charges,
-                        "保留多少层数？\n（0 = 全部使用）");
+                        "保留多少层数？（0 = 全部使用）");
                     ImGui.SetCursorPosX(48);
                     DrawSliderFloat(1, 20, WAR_AoE_Onslaught_Distance,
                         "与目标距离小于等于此值时使用：", decimals: 1);
@@ -272,7 +272,7 @@ internal partial class WAR
                 #region Mitigations
                 case Preset.WAR_ST_Bloodwhetting:
                     DrawSliderInt(1, 100, WAR_ST_Bloodwhetting_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_ST_Bloodwhetting_SubOption,
                         "All Enemies", $"Uses {Bloodwhetting.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_ST_Bloodwhetting_SubOption,
@@ -281,7 +281,7 @@ internal partial class WAR
 
                 case Preset.WAR_AoE_Bloodwhetting:
                     DrawSliderInt(1, 100, WAR_AoE_Bloodwhetting_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_AoE_Bloodwhetting_SubOption,
                         "All Enemies", $"Uses {Bloodwhetting.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_AoE_Bloodwhetting_SubOption,
@@ -290,7 +290,7 @@ internal partial class WAR
 
                 case Preset.WAR_ST_Equilibrium:
                     DrawSliderInt(1, 100, WAR_ST_Equilibrium_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_ST_Equilibrium_SubOption,
                         "All Enemies", $"Uses {Equilibrium.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_ST_Equilibrium_SubOption,
@@ -299,7 +299,7 @@ internal partial class WAR
 
                 case Preset.WAR_AoE_Equilibrium:
                     DrawSliderInt(1, 100, WAR_AoE_Equilibrium_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_AoE_Equilibrium_SubOption,
                         "All Enemies", $"Uses {Equilibrium.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_AoE_Equilibrium_SubOption,
@@ -308,7 +308,7 @@ internal partial class WAR
 
                 case Preset.WAR_ST_Rampart:
                     DrawSliderInt(1, 100, WAR_ST_Rampart_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_ST_Rampart_SubOption,
                         "All Enemies", $"Uses {Role.Rampart.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_ST_Rampart_SubOption,
@@ -317,7 +317,7 @@ internal partial class WAR
 
                 case Preset.WAR_AoE_Rampart:
                     DrawSliderInt(1, 100, WAR_AoE_Rampart_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_AoE_Rampart_SubOption,
                         "All Enemies", $"Uses {Role.Rampart.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_AoE_Rampart_SubOption,
@@ -326,7 +326,7 @@ internal partial class WAR
 
                 case Preset.WAR_ST_Thrill:
                     DrawSliderInt(1, 100, WAR_ST_Thrill_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_ST_Thrill_SubOption,
                         "All Enemies", $"Uses {ThrillOfBattle.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_ST_Thrill_SubOption,
@@ -335,7 +335,7 @@ internal partial class WAR
 
                 case Preset.WAR_AoE_Thrill:
                     DrawSliderInt(1, 100, WAR_AoE_Thrill_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_AoE_Thrill_SubOption,
                         "All Enemies", $"Uses {ThrillOfBattle.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_AoE_Thrill_SubOption,
@@ -344,7 +344,7 @@ internal partial class WAR
 
                 case Preset.WAR_ST_Vengeance:
                     DrawSliderInt(1, 100, WAR_ST_Vengeance_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_ST_Vengeance_SubOption,
                         "All Enemies", $"Uses {Vengeance.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_ST_Vengeance_SubOption,
@@ -353,7 +353,7 @@ internal partial class WAR
 
                 case Preset.WAR_AoE_Vengeance:
                     DrawSliderInt(1, 100, WAR_AoE_Vengeance_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_AoE_Vengeance_SubOption,
                         "All Enemies", $"Uses {Vengeance.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_AoE_Vengeance_SubOption,
@@ -362,7 +362,7 @@ internal partial class WAR
 
                 case Preset.WAR_ST_Holmgang:
                     DrawSliderInt(1, 100, WAR_ST_Holmgang_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_ST_Holmgang_SubOption,
                         "All Enemies", $"Uses {Holmgang.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_ST_Holmgang_SubOption,
@@ -371,7 +371,7 @@ internal partial class WAR
 
                 case Preset.WAR_AoE_Holmgang:
                     DrawSliderInt(1, 100, WAR_AoE_Holmgang_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_AoE_Holmgang_SubOption,
                         "All Enemies", $"Uses {Holmgang.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_AoE_Holmgang_SubOption,
@@ -380,7 +380,7 @@ internal partial class WAR
 
                 case Preset.WAR_ST_Reprisal:
                     DrawSliderInt(1, 100, WAR_ST_Reprisal_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_ST_Reprisal_SubOption,
                         "All Enemies", $"Uses {Role.Reprisal.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_ST_Reprisal_SubOption,
@@ -389,7 +389,7 @@ internal partial class WAR
 
                 case Preset.WAR_AoE_Reprisal:
                     DrawSliderInt(1, 100, WAR_AoE_Reprisal_Health,
-                        "Player HP% to be \nless than or equal to:", 200);
+                        "Player HP% to be less than or equal to:", 200);
                     DrawHorizontalRadioButton(WAR_AoE_Reprisal_SubOption,
                         "All Enemies", $"Uses {Role.Reprisal.ActionName()} regardless of targeted enemy type", 0);
                     DrawHorizontalRadioButton(WAR_AoE_Reprisal_SubOption,
@@ -403,7 +403,7 @@ internal partial class WAR
                         "Select what difficulties Holmgang should be used in:");
 
                     DrawSliderInt(1, 100, WAR_Mit_Holmgang_Health,
-                        "Player HP% to be \nless than or equal to:", 200, SliderIncrements.Fives);
+                        "Player HP% to be less than or equal to:", 200, SliderIncrements.Fives);
                     break;
 
                 case Preset.WAR_Mit_Bloodwhetting:
@@ -502,7 +502,7 @@ internal partial class WAR
                             " Stationary Delay Check (in seconds):", decimals: 1);
                     }
                     DrawSliderInt(0, 2, WAR_FC_Onslaught_Charges,
-                        " How many charges to keep ready?\n (0 = Use All)");
+                        " How many charges to keep ready? (0 = Use All)");
                     ImGui.SetCursorPosX(48);
                     DrawSliderFloat(1, 20, WAR_FC_Onslaught_Distance,
                         " Use when Distance from target is less than or equal to:", decimals: 1);
@@ -510,7 +510,7 @@ internal partial class WAR
 
                 case Preset.WAR_FC_Infuriate:
                     DrawSliderInt(0, 2, WAR_FC_Infuriate_Charges,
-                        " How many charges to keep ready?\n (0 = Use All)");
+                        " How many charges to keep ready? (0 = Use All)");
                     DrawSliderInt(0, 50, WAR_FC_Infuriate_Gauge,
                         " Use when Beast Gauge is less than or equal to:");
                     break;
@@ -553,7 +553,7 @@ internal partial class WAR
 
                 case Preset.WAR_InfuriateFellCleave:
                     DrawSliderInt(0, 2, WAR_Infuriate_Charges,
-                        " How many charges to keep ready?\n (0 = Use All)");
+                        " How many charges to keep ready? (0 = Use All)");
                     DrawSliderInt(0, 50, WAR_Infuriate_Range,
                         " Use when Beast Gauge is\n less than or equal to:");
                     break;
