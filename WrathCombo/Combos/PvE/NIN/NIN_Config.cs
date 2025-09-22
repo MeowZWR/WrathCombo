@@ -81,7 +81,7 @@ internal partial class NIN
                     DrawSliderInt(0, 100, NIN_ST_AdvancedMode_Mug_Threshold,
                         $"Stop using on targets below this HP % (0% = always use, 100% = never use).");
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查应用于哪些类型的敌人：");
                     DrawHorizontalRadioButton(NIN_ST_AdvancedMode_Mug_SubOption,
                         "Non-boss Encounters Only", $"Applies HP check to Non-Boss Encounters only", 0);
                     DrawHorizontalRadioButton(NIN_ST_AdvancedMode_Mug_SubOption,
@@ -93,7 +93,7 @@ internal partial class NIN
                     DrawSliderInt(0, 100, NIN_ST_AdvancedMode_TrickAttack_Threshold,
                         $"Stop using on targets below this HP % (0% = always use, 100% = never use).");
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查应用于哪些类型的敌人：");
                     DrawHorizontalRadioButton(NIN_ST_AdvancedMode_TrickAttack_SubOption,
                         "Non-boss Encounters Only", $"Applies HP check to Non-Boss Encounters only", 0);
                     DrawHorizontalRadioButton(NIN_ST_AdvancedMode_TrickAttack_SubOption,
@@ -193,7 +193,7 @@ internal partial class NIN
                     DrawSliderInt(0, 100, NIN_AoE_AdvancedMode_Mug_Threshold,
                         $"Stop using on targets below this HP % (0% = always use, 100% = never use).");
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查应用于哪些类型的敌人：");
                     DrawHorizontalRadioButton(NIN_AoE_AdvancedMode_Mug_SubOption,
                         "Non-boss Encounters Only", $"Applies HP check to Non-Boss Encounters only", 0);
                     DrawHorizontalRadioButton(NIN_AoE_AdvancedMode_Mug_SubOption,
@@ -205,7 +205,7 @@ internal partial class NIN
                     DrawSliderInt(0, 100, NIN_AoE_AdvancedMode_TrickAttack_Threshold,
                         $"Stop using on targets below this HP % (0% = always use, 100% = never use).");
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查应用于哪些类型的敌人：");
                     DrawHorizontalRadioButton(NIN_AoE_AdvancedMode_TrickAttack_SubOption,
                         "Non-boss Encounters Only", $"Applies HP check to Non-Boss Encounters only", 0);
                     DrawHorizontalRadioButton(NIN_AoE_AdvancedMode_TrickAttack_SubOption,

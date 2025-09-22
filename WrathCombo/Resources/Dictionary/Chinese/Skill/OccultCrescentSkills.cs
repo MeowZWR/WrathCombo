@@ -44,7 +44,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Skill
                 #endregion
 
                 #region 辅助武士
-                KeyValuePair.Create("Mineuchi", "刀背打"),
                 KeyValuePair.Create("Shirahadori", "空手接白刃"),
                 KeyValuePair.Create("Iainuki", "居合斩"),
                 KeyValuePair.Create("Zeninage", "扔钱"),

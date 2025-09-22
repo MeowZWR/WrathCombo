@@ -55,7 +55,7 @@ internal partial class BRD
                     DrawSliderInt(0, 100, BRD_Adv_DoT_Threshold,
                         $"Stop using Dots on targets below this HP % (0% = always use, 100% = never use).");
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查应用于哪些类型的敌人：");
                     DrawHorizontalRadioButton(BRD_Adv_DoT_SubOption,
                         "Non-boss Encounters Only", $"Applies HP check to Non-Boss Encounters only", 0);
                     DrawHorizontalRadioButton(BRD_Adv_DoT_SubOption,
@@ -103,7 +103,7 @@ internal partial class BRD
                     DrawSliderInt(0, 100, BRD_AoE_Adv_Buffs_Threshold,
                         $"Stop using Buffs on targets below this HP % (0 = always use, 100 = never use).");
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudYellow, "Select what kind of enemies the HP check should be applied to:");
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, "选择HP检查应用于哪些类型的敌人：");
                     DrawHorizontalRadioButton(BRD_AoE_Adv_Buffs_SubOption,
                         "Non-boss Encounters Only", $"Applies HP check to Non-Boss Encounters only", 0);
                     DrawHorizontalRadioButton(BRD_AoE_Adv_Buffs_SubOption,
