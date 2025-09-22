@@ -42,7 +42,7 @@ internal partial class BLM
 
                     ImGui.SetCursorPosX(48);
                     DrawSliderInt(0, 2, BLM_ST_LeyLinesCharges,
-                        " How many charges to keep ready?\n (0 = Use All)");
+                        " How many charges to keep ready? (0 = Use All)");
 
                     DrawSliderInt(0, 50, BLM_ST_LeyLinesHPOption,
                         "Stop using at Enemy HP %. Set to Zero to disable this check.");

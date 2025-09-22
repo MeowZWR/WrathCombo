@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WrathCombo.Combos.PvE;
+using static WrathCombo.Combos.PvE.BLM;
 using WrathCombo.Combos.PvP;
 using WrathCombo.Extensions;
 
@@ -53,6 +54,48 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Between the Ley Lines Feature", "魔纹之间功能"),
                 KeyValuePair.Create("Replaces Ley Lines with Between the Lines when Ley Lines is active.", "当黑魔纹激活时，将黑魔纹替换为魔纹步。"),
                 KeyValuePair.Create("Set the amount of time remaining on Triplecast charge before using.(Only when at threshold)", "设置在使用三重咏唱充能前的剩余时间。（仅在达到阈值时）"),
+                KeyValuePair.Create("Stationary Only", "仅限静止"),
+                KeyValuePair.Create("Uses Leylines only while stationary", "仅在静止时使用黑魔纹"),
+                KeyValuePair.Create("Any Movement", "任意移动"),
+                KeyValuePair.Create("Uses Leylines regardless of any movement conditions.", "无视任何移动条件使用黑魔纹。"),
+                KeyValuePair.Create("NOTE: This could possibly get you killed", "注意：这可能会让你死亡"),
+                KeyValuePair.Create("Stationary Delay Check (in seconds):", "静止延迟检查（秒）："),
+                KeyValuePair.Create("Will only be used if Swiftcast is on cooldown.", "仅在即刻咏唱冷却时使用。"),
+                KeyValuePair.Create("Add chosen options for movement.", "为移动选项添加指定的技能。"),
+                KeyValuePair.Create("Scathe Option", "崩溃"),
+                KeyValuePair.Create("Add Scathe while moving and below lvl 66.", "在移动时且等级低于66时添加崩溃。"),
+                KeyValuePair.Create("Manaward Option", "魔罩"),
+                KeyValuePair.Create("Adds Manaward to the rotation when below HP Treshold and when raidwide is casting.", "在血量低于阈值且敌人正在咏唱AoE技能时，将魔罩添加到循环中。"),
+                KeyValuePair.Create("Addle Raidwide Option", "昏乱团减"),
+                KeyValuePair.Create("Adds Addle when Raidwide is detected casting.", "检测到敌人正在咏唱AoE技能时添加昏乱到循环。"),
+                KeyValuePair.Create("Adds Triplecast to the rotation.", "将三连咏唱添加到循环中。"),
+                KeyValuePair.Create("Adds Paradox as a filler at max level to the rotation.", "在满级时将悖论作为填充技能添加到循环中。"),
+                KeyValuePair.Create("Add Triplecast while moving.", "在移动时添加三连咏唱。"),
+                KeyValuePair.Create("Blizzard IV on 2 Targets Option", "冰澈双目标"),
+                KeyValuePair.Create("Substitutes Freeze for Blizzard 4 whenever it would hit 2 targets.", "当能命中2个目标时，将玄冰替换为冰澈。"),
+                KeyValuePair.Create("Aetherial Manipulation Movement option", "以太步移动"),
+                KeyValuePair.Create("Retargets Aetherial Manipulation to UI/Field Mouseover", "将以太步重新定位到UI/场地鼠标悬停位置"),
+                KeyValuePair.Create("Replaces Fire I or Fire III with the options below.", "用下面的选项替换火炎或爆炎。"),
+                KeyValuePair.Create("Replaces Fire IV with the options below.", "用下面的选项替换炽炎。"),
+                KeyValuePair.Create("Replaces Flare with the options below.", "用下面的选项替换核爆。"),
+                KeyValuePair.Create("Replaces Blizzard I or Blizzard III with the options below.", "用下面的选项替换冰结或冰封。"),
+                KeyValuePair.Create("Blizzard IV to Despair", "冰澈转绝望"),
+                KeyValuePair.Create("Replaces Blizzard IV with Despair when in Astral Fire.", "在星极火状态下，将冰澈替换为绝望。"),
+                KeyValuePair.Create("Freeze feature", "玄冰"),
+                KeyValuePair.Create("Replaces Freeze with Ice Paradox when you have 3 Umbral Heart stacks.", "当你有3层灵极心时，将玄冰替换为冰悖论。"),
+                KeyValuePair.Create("Changes Freeze to Blizzard II when synched down.", "同步等级降低时将玄冰改为冰冻。"),
+                KeyValuePair.Create("Flarestar to Paradox", "耀星转悖论"),
+                KeyValuePair.Create("Replaces Flarestar with Fire Paradox when not at max Flarestar stacks.", "当未达到最大耀星层数时，将耀星替换为火悖论。"),
+                KeyValuePair.Create("Amplifier to Xenoglossy", "详述转异言"),
+                KeyValuePair.Create("Replaces Amplifier with Xenoglossy when at max Polyglot stacks.", "在达到最大通晓层数时，将详述替换为异言。"),
+                KeyValuePair.Create("Xenoglossy to Thunder", "异言转闪雷"),
+                KeyValuePair.Create("Replaces Xenoglossy with Thunder when Thunder is 3 secs or lower.", "当闪雷剩余3秒或更少时，将异言替换为闪雷。"),
+                KeyValuePair.Create("Foul to Thunder II", "秽浊转震雷"),
+                KeyValuePair.Create("Replaces Foul with Thunder II when Thunder is 3 secs or lower.", "当闪雷剩余3秒或更少时，将秽浊替换为震雷。"),
+                KeyValuePair.Create($"Replaces {Blizzard.ActionName()} with {Blizzard3.ActionName()} when out of Umbral Ice III.", "不在灵极冰3层状态时，将冰结替换为冰封。"),
+                KeyValuePair.Create($"Replaces {Blizzard3.ActionName()} with {Blizzard.ActionName()} when in Umbral Ice III.", "在灵极冰3层状态时，将冰封替换为冰结。"),
+                KeyValuePair.Create("Adds Field mouseover targetting.", "添加场地鼠标悬停定位。"),
+                KeyValuePair.Create("Add Field Mouseover", "添加场地鼠标悬停"),
                 #endregion
                 
                 #region BLMPvP
