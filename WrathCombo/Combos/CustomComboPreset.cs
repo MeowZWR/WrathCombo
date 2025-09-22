@@ -1936,7 +1936,7 @@ public enum Preset
     DNC_ST_Adv_PanicHeals = 4027,
 
     [ParentCombo(DNC_ST_AdvancedMode)]
-    [CustomComboInfo("Shield Samba Raidwide Option", "Adds Shield Samba when Raidwide is detected casting.", Job.MCH)]
+    [CustomComboInfo("Shield Samba Raidwide Option", "Adds Shield Samba when Raidwide is detected casting.", Job.DNC)]
     DNC_ST_Adv_ShieldSamba = 4034,
 
     #endregion
