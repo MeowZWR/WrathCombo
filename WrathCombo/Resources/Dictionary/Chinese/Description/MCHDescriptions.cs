@@ -4,6 +4,8 @@ using WrathCombo.Combos.PvE;
 using WrathCombo.Combos.PvP;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
+using static WrathCombo.Combos.PvE.MCH;
+using static WrathCombo.Combos.PvP.MCHPvP;
 
 namespace WrathCombo.Resources.Dictionary.Chinese.Description
 {
@@ -62,15 +64,28 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Replace Hot Shot, Drill, Air Anchor, Chainsaw and Excavator depending on which is on cooldown.", "根据冷却时间替换热弹、钻头、空气锚、回转飞锯和掘地飞轮。"),
                 KeyValuePair.Create("Replace Gauss Round and Ricochet or Double Check and Checkmate with one or the other depending on which has more charges.", "根据剩余次数在虹吸弹/弹射或双将/将死之间替换。"),
                 KeyValuePair.Create("Number of Charges to Save for Manual Use", "保留用于手动使用的充能次数"),
-                KeyValuePair.Create($"Uses {MCH.AutomatonQueen.ActionName()} at this battery threshold outside of Boss encounter.", $"在非Boss战中，当电量达到此阈值时使用{MCH.AutomatonQueen.ActionName()}。"),
+                KeyValuePair.Create($"Uses {AutomatonQueen.ActionName()} at this battery threshold outside of Boss encounter.", $"在非Boss战中，当电量达到此阈值时使用{AutomatonQueen.ActionName()}。"),
                 KeyValuePair.Create("Only counts for 'Boss encounters Only setting'.", "仅适用于“仅限Boss战”设置。"),
                 KeyValuePair.Create("HP% for the target to be at or under", "目标生命百分比达到或低于此值"),
-                KeyValuePair.Create($"Uses {MCH.AutomatonQueen.ActionName()} logic regardless of content.", $"无论内容如何，使用{MCH.AutomatonQueen.ActionName()}的逻辑。"),
-                KeyValuePair.Create($"Uses {MCH.Excavator.ActionName()} logic regardless of content.", $"无论内容如何，使用{MCH.Excavator.ActionName()}的逻辑。"),
-                KeyValuePair.Create($"Only uses {MCH.Excavator.ActionName()} logic when in Boss encounters.", $"仅在Boss战中使用{MCH.Excavator.ActionName()}的逻辑。"),
-                KeyValuePair.Create($"Only uses {MCH.AutomatonQueen.ActionName()} logic when in Boss encounters.", $"仅在Boss战中使用{MCH.AutomatonQueen.ActionName()}的逻辑。"),
+                KeyValuePair.Create($"Uses {AutomatonQueen.ActionName()} logic regardless of content.", $"无论内容如何，使用{AutomatonQueen.ActionName()}的逻辑。"),
+                KeyValuePair.Create($"Uses {Excavator.ActionName()} logic regardless of content.", $"无论内容如何，使用{Excavator.ActionName()}的逻辑。"),
+                KeyValuePair.Create($"Only uses {Excavator.ActionName()} logic when in Boss encounters.", $"仅在Boss战中使用{Excavator.ActionName()}的逻辑。"),
+                KeyValuePair.Create($"Only uses {AutomatonQueen.ActionName()} logic when in Boss encounters.", $"仅在Boss战中使用{AutomatonQueen.ActionName()}的逻辑。"),
                 KeyValuePair.Create("Battery threshold", "电量阈值"),
                 KeyValuePair.Create("Barrel Option", "枪管加热"),
+                KeyValuePair.Create($"Stop Using {Reassemble.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标血量百分比达到或低于此值时停止使用{Reassemble.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create($"Stop Using {RookAutoturret.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标血量百分比达到或低于此值时停止使用{RookAutoturret.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create($"Stop Using {BarrelStabilizer.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标血量百分比达到或低于此值时停止使用{BarrelStabilizer.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create($"Stop Using {Chainsaw.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标血量百分比达到或低于此值时停止使用{Chainsaw.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create($"Stop Using {Hypercharge.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标血量百分比达到或低于此值时停止使用{Hypercharge.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create($"Change {GaussRound.ActionName()} / {DoubleCheck.ActionName()}", $"更改为{GaussRound.ActionName()} / {DoubleCheck.ActionName()}"),
+                KeyValuePair.Create($"Changes to {Ricochet.ActionName()} / {CheckMate.ActionName()} depending on charges and what was used last", $"根据充能次数和上次使用情况，更改为{Ricochet.ActionName()} / {CheckMate.ActionName()}。"),
+                KeyValuePair.Create($"Change {Ricochet.ActionName()} / {CheckMate.ActionName()}", $"更改为{Ricochet.ActionName()} / {CheckMate.ActionName()}"),
+                KeyValuePair.Create($"Changes to {GaussRound.ActionName()} / {DoubleCheck.ActionName()} depending on charges and what was used last", $"根据充能次数和上次使用情况，更改为{GaussRound.ActionName()} / {DoubleCheck.ActionName()}。"),
+                KeyValuePair.Create("Tactician Raidwide Option", "策动"),
+                KeyValuePair.Create("Adds Tactician when Raidwide is detected casting.", "当检测到群体攻击施法时添加策动。"),
+                KeyValuePair.Create("Dismantle Raidwide Option", "武装解除"),
+                KeyValuePair.Create("Adds Dismantle when Raidwide is detected casting.", "当检测到群体攻击施法时添加武装解除。"),
                 #endregion
                 
                 #region MCHPvP
