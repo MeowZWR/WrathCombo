@@ -158,7 +158,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("- Last combo action was Brutal Shell", "- 上一个连击技是残暴弹"),
                 KeyValuePair.Create("- Gnashing Fang combo is still not active", "- 烈牙连击尚未激活"),
                 KeyValuePair.Create("Replaces Heart of Light with Reprisal when ready.", "在准备就绪时用雪仇替换光之心。"),
-                KeyValuePair.Create("Locks out Aurora if Aurora's effect is on the target by replacing it with Savage Blade.", "如果极光效果已在目标身上，则用狂怒剑替换极光。"),
                 KeyValuePair.Create("Aurora Mouseover Option", "极光鼠标悬停选项"),
                 KeyValuePair.Create("Retargets Aurora to your mouseover target if they do not have the HoT", "如果鼠标悬停目标没有持续治疗效果，将极光重新定向到该目标"),
                 KeyValuePair.Create("Aurora Target's Target Option", "极光目标的目标选项"),
