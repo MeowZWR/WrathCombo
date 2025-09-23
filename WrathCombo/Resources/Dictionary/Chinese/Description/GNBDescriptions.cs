@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static WrathCombo.Combos.PvE.GNB;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Combos.PvP;
 using WrathCombo.Extensions;
@@ -56,6 +57,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Gives max priority to Superbolide when the Health percentage threshold is met.", "当生命值百分比达到阈值时，优先使用超火流星。"),
                 KeyValuePair.Create("Adds Heart of Stone / Corundum to the one-button mitigation.", "将石之心/刚玉之心加入一键减伤。"),
                 KeyValuePair.Create("Adds Aurora to the one-button mitigation.", "将极光加入一键减伤。"),
+                KeyValuePair.Create("Adds Camouflage to the one-button mitigation.", "将伪装加入一键减伤。"),
                 KeyValuePair.Create("Adds Heart Of Light to the one-button mitigation.", "将光之心加入一键减伤。"),
                 KeyValuePair.Create("Adds Arms Length to the one-button mitigation.", "将亲疏自行加入一键减伤。"),
                 KeyValuePair.Create("Adds Nebula to the one-button mitigation.", "将星云加入一键减伤。"),
@@ -138,21 +140,37 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Continuation to Gnashing Fang.", "将续剑加入烈牙。"),
                 KeyValuePair.Create("Stop Usage if Target HP% is below set value.", "如果目标生命值百分比低于设定值，则停止使用。"),
                 KeyValuePair.Create("To Disable this option, set to 0.", "要禁用此选项，请设置为 0。"),
+                KeyValuePair.Create("Scuffed Option", "特定条件选项"),
                 KeyValuePair.Create("Replace Gnashing Fang", "替换烈牙"),
-                KeyValuePair.Create($"Use this feature as intended on {GNB.GnashingFang.ActionName()}", $"按预期在 {GNB.GnashingFang.ActionName()} 上使用此功能。"),
+                KeyValuePair.Create($"Use this feature as intended on {GnashingFang.ActionName()}", $"按预期在 {GnashingFang.ActionName()} 上使用此功能。"),
                 KeyValuePair.Create("Replace No Mercy", "替换无情"),
-                KeyValuePair.Create($"Use this feature instead on {GNB.NoMercy.ActionName()}", $"改为在 {GNB.NoMercy.ActionName()} 上使用此功能。"),
+                KeyValuePair.Create($"Use this feature instead on {NoMercy.ActionName()}", $"改为在 {NoMercy.ActionName()} 上使用此功能。"),
                 KeyValuePair.Create("WARNING: This WILL conflict with 'No Mercy Features'!", "警告：这将与“无情特性”冲突！"),
 
                 // Config
-                KeyValuePair.Create($"Normal {GNB.NoMercy.ActionName()}", $"常规{GNB.NoMercy.ActionName()}"),
-                KeyValuePair.Create($"Uses {GNB.NoMercy.ActionName()} normally in all Openers", $"在所有起手技能中正常使用{GNB.NoMercy.ActionName()}"),
-                KeyValuePair.Create($"Early {GNB.NoMercy.ActionName()}", $"提前使用{GNB.NoMercy.ActionName()}"),
-                KeyValuePair.Create($"Uses {GNB.NoMercy.ActionName()} as soon as possible in all Openers", $"在所有起手技能中尽快使用 {GNB.NoMercy.ActionName()}"),
                 KeyValuePair.Create($"Normal Opener", "常规起手"),
-                KeyValuePair.Create($"Starts opener with {GNB.LightningShot.ActionName()}", $"以{GNB.LightningShot.ActionName()}开始起手"),
                 KeyValuePair.Create($"Early Opener", "提前起手"),
-                KeyValuePair.Create($"Starts opener with {GNB.KeenEdge.ActionName()} instead, skipping {GNB.LightningShot.ActionName()}", $"以{GNB.KeenEdge.ActionName()}开始起手，跳过{GNB.LightningShot.ActionName()}"),
+                KeyValuePair.Create("Adds Continuation & Hypervelocity into the rotation when appropriate.", "在适当时机将续剑与超高速加入循环。"),
+                KeyValuePair.Create("Adds Solid Barrel into the rotation under scuffed conditions:", "在特定条件下将迅连斩加入循环："),
+                KeyValuePair.Create("- Level 90 or above", "- 90级或以上"),
+                KeyValuePair.Create("- No Mercy is active", "- 无情激活中"),
+                KeyValuePair.Create("- Only 1 cartridge available", "- 仅有1发弹药"),
+                KeyValuePair.Create("- Last combo action was Brutal Shell", "- 上一个连击技是残暴弹"),
+                KeyValuePair.Create("- Gnashing Fang combo is still not active", "- 烈牙连击尚未激活"),
+                KeyValuePair.Create("Replaces Heart of Light with Reprisal when ready.", "在准备就绪时用雪仇替换光之心。"),
+                KeyValuePair.Create("Locks out Aurora if Aurora's effect is on the target by replacing it with Savage Blade.", "如果极光效果已在目标身上，则用狂怒剑替换极光。"),
+                KeyValuePair.Create("Aurora Mouseover Option", "极光鼠标悬停选项"),
+                KeyValuePair.Create("Retargets Aurora to your mouseover target if they do not have the HoT", "如果鼠标悬停目标没有持续治疗效果，将极光重新定向到该目标"),
+                KeyValuePair.Create("Aurora Target's Target Option", "极光目标的目标选项"),
+                KeyValuePair.Create("Retargets Aurora to the Target's Target if they do not have the HoT and you do not have Aggro", "如果目标的目标没有持续治疗效果且你没有仇恨，将极光重新定向到目标的目标"),
+                KeyValuePair.Create("Heart Of Stone Feature", "石之心特性"),
+                KeyValuePair.Create("Will retarget Heart of Stone/Corundum to your mouseover target or hard target outside of other combos", "在其他连击之外，将石之心/刚玉之心重新定向到你的鼠标悬停目标或硬目标"),
+                KeyValuePair.Create("Heart of Stone Target's Target Option", "石之心目标的目标选项"),
+                KeyValuePair.Create("Retargets Heart of Stone/Corundum to the Target's Target you do not have Aggro, can still be overridden with mouseover.", "将石之心/刚玉之心重新定向到目标的目标，如果你没有仇恨，仍可通过鼠标悬停覆盖。"),
+                KeyValuePair.Create("Include Overcap Protection", "包含溢出保护"),
+                KeyValuePair.Create($"Includes {BurstStrike.ActionName()} to prevent overcapping on cartridges", $"包含{BurstStrike.ActionName()}以防止弹药溢出"),
+                KeyValuePair.Create("Exclude Overcap Protection", "不包含溢出保护"),
+                KeyValuePair.Create($"Excludes {BurstStrike.ActionName()}, regardless of cartridge count", $"无论弹药数量如何都不包含{BurstStrike.ActionName()}"),
                 #endregion
 
                 #region GNBPvP
