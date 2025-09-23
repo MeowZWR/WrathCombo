@@ -8061,7 +8061,7 @@ public enum Preset
     WHM_STHeals_Aquaveil = 19307,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Benediction Option", "Adds Benediciton.", Job.WHM)]
+    [CustomComboInfo("Benediction Option", "Adds Benediction.", Job.WHM)]
     [PossiblyRetargeted]
     WHM_STHeals_Benediction = 19302,
 
