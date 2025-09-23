@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using WrathCombo.Combos.PvE;
-using WrathCombo.Combos.PvP;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
 using static WrathCombo.Combos.PvE.MCH;
-using static WrathCombo.Combos.PvP.MCHPvP;
 
 namespace WrathCombo.Resources.Dictionary.Chinese.Description
 {
@@ -86,6 +83,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Tactician when Raidwide is detected casting.", "当检测到群体攻击施法时添加策动。"),
                 KeyValuePair.Create("Dismantle Raidwide Option", "武装解除"),
                 KeyValuePair.Create("Adds Dismantle when Raidwide is detected casting.", "当检测到群体攻击施法时添加武装解除。"),
+                KeyValuePair.Create($"Use on {SpreadShot.ActionName()}/{Scattergun.ActionName()}", $"用于{SpreadShot.ActionName()}/{Scattergun.ActionName()}"),
+                KeyValuePair.Create($"Use on {AirAnchor.ActionName()}", $"用于{AirAnchor.ActionName()}"),
+                KeyValuePair.Create($"Use on {Chainsaw.ActionName()}", $"用于{Chainsaw.ActionName()}"),
+                KeyValuePair.Create($"Use on {Excavator.ActionName()}", $"用于{Excavator.ActionName()}"),
                 #endregion
                 
                 #region MCHPvP
