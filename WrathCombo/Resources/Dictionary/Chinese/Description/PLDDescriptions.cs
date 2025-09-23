@@ -131,6 +131,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Redirects your Shield Bash to a stunnable enemy if your current target cannot be stunned.", "如果当前目标无法眩晕，将盾牌猛击重定向到可眩晕的敌人。"),
                 KeyValuePair.Create("Target's Target Intervention Option", "目标的目标干预"),
                 KeyValuePair.Create("Adds Target's Target to the priority when you do not have agro.", "当你没有仇恨时，将目标的目标添加到优先级。"),
+                KeyValuePair.Create("Block Combos for Passage of Arms", "武装戍卫时阻止连击"),
+                KeyValuePair.Create("Will block the main Combos with Savage Blade while Passage of Arms is still active, to prevent actions from those combos cancelling Passage of Arms early.", "在武装戍卫仍然激活时，将使用暴乱剑替换主连击，以防止连击中的技能提前取消武装戍卫。"),
+                KeyValuePair.Create("This will leave it up to you to cancel Passage of Arms via other actions or movement (or letting it be used fully).", "你可以通过其他技能或移动来取消武装戍卫（或直到持续时间结束）。"),
                 #endregion
             ];
         }
