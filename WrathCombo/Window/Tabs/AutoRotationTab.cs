@@ -74,14 +74,15 @@ internal class AutoRotationTab : ConfigWindow
                 "###DPSTargetingMode", true, ref cfg.DPSRotationMode,
                 ref cfg.HealerRotationMode, "DPSRotationMode");
 
-            ImGuiComponents.HelpMarker("手动 - 所有目标选择由你自己决定。\n" +
+            ImGuiComponents.HelpMarker("手动 - 所有目标选择由你自己决定。（目标没进战斗也开打）\n" +
                                        "最高最大血量 - 优先最大血量最高的敌人。\n" +
                                        "最低最大血量 - 优先最大血量最低的敌人。\n" +
                                        "当前血量最高 - 优先当前血量最高的敌人。\n" +
                                        "当前血量最低 - 优先当前血量最低的敌人。\n" +
                                        "坦克目标 - 优先与你队伍中第一个坦克相同的目标。\n" +
                                        "最近 - 优先距离你最近的目标。\n" +
-                                       "最远 - 优先距离你最远的目标。");
+                                       "最远 - 优先距离你最远的目标。\n" +
+                                       "手动非玩家 - 手动选择非玩家目标。");
             ImGui.Spacing();
 
             if (cfg.DPSRotationMode == AutoRotation.DPSRotationMode.Manual)

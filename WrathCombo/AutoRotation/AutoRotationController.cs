@@ -518,6 +518,7 @@ internal unsafe static class AutoRotationController
                     IGameObject? target = dpsmode switch
                     {
                         DPSRotationMode.Manual => Svc.Targets.Target,
+                        DPSRotationMode.ManualNonPlayer => TankTargeting.CustomTargeting.GetManualNonPlayerTarget(),
                         DPSRotationMode.Highest_Max => TankTargeting.GetHighestMaxTarget(),
                         DPSRotationMode.Lowest_Max => TankTargeting.GetLowestMaxTarget(),
                         DPSRotationMode.Highest_Current => TankTargeting.GetHighestCurrentTarget(),
@@ -534,6 +535,7 @@ internal unsafe static class AutoRotationController
                     IGameObject? target = dpsmode switch
                     {
                         DPSRotationMode.Manual => Svc.Targets.Target,
+                        DPSRotationMode.ManualNonPlayer => TankTargeting.CustomTargeting.GetManualNonPlayerTarget(),
                         DPSRotationMode.Highest_Max => DPSTargeting.GetHighestMaxTarget(),
                         DPSRotationMode.Lowest_Max => DPSTargeting.GetLowestMaxTarget(),
                         DPSRotationMode.Highest_Current => DPSTargeting.GetHighestCurrentTarget(),
