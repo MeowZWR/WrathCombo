@@ -383,7 +383,7 @@ internal partial class AST
                 
                 case Preset.AST_Retargets_EarthlyStar:
                     ImGui.Indent();
-                    ImGui.TextColored(ImGuiColors.DalamudGrey, "Options to try to Retarget Earthly Star to before Self:");
+                    ImGui.TextColored(ImGuiColors.DalamudGrey, "尝试将地星重新定向到自身之前的选项：");
                     ImGui.Unindent();
                     DrawHorizontalMultiChoice(AST_EarthlyStarOptions,
                         "Enemy Hard Target", "Will place at hard target if enemy", 2, 0);
