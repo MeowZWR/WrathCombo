@@ -6605,7 +6605,7 @@ public enum Preset
     SCH_AoE_Heal = 16018,
 
     [ParentCombo(SCH_AoE_Heal)]
-    [CustomComboInfo("Indomitability Option", "Use Indomitabilty.", Job.SCH)]
+    [CustomComboInfo("Indomitability Option", "Use Indomitability.", Job.SCH)]
     SCH_AoE_Heal_Indomitability = 16022,
 
     [ParentCombo(SCH_AoE_Heal)]
@@ -6794,7 +6794,7 @@ public enum Preset
     SCH_Raidwide_Succor = 16062,
 
     [ParentCombo(SCH_Raidwide)]
-    [CustomComboInfo("Sacred Soil Option", "Will try to use Sacred Soil on self when a raidwide casting is detected.\nWill be used in all 4 Advanced combos", Job.SCH)]
+    [CustomComboInfo("Sacred Soil Option", "Will try to use Sacred Soil on self when a raidwide casting is detected.\nWill be used in all 4 Advanced combos.", Job.SCH)]
     [Retargeted(SCH.SacredSoil)]
     SCH_Raidwide_SacredSoil = 16059,
 

@@ -227,8 +227,8 @@ internal partial class SCH
                     break;
 
                 case Preset.SCH_AoE_Heal:
-                    ImGui.TextUnformatted("Note: Succor will always be available.");
-                    ImGui.TextUnformatted("These options are to provide optional priority to Succor or to set up Emergency tactics option.");
+                    ImGui.TextUnformatted("注意：士气高扬之策将始终可用。");
+                    ImGui.TextUnformatted("这些选项是为士气高扬之策提供可选优先级或设置应急战术选项。");
                     DrawSliderInt(0, 100, SCH_AoE_Heal_SuccorShieldOption, "Shield Check: Will use when less than set percentage of party have shields.", sliderIncrement: 25);
                     DrawPriorityInput(SCH_AoE_Heals_Priority, 8, 7, $"{Succor.ActionName()} Priority: ");
                     DrawHorizontalMultiChoice(SCH_AoE_Heal_Succor_Options, "Emergency Tactics", "If more than the set percentage of the party has shields, will use Emergency Tactics before Succor", 2, 0);
