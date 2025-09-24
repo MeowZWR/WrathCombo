@@ -420,7 +420,7 @@ internal partial class WHM
 
         /// Boss目标停止使用的HP%描述
         private const string targetStopUsingOnBossAtDescription =
-            " Boss目标HP百分比高于该值时停止使用（0=总是使用，100=从不使用）";
+            " Boss目标血量百分比高于该值时停止使用（0=总是使用，100=从不使用）";
 
         /// Description for MP threshold
         private const string mpThresholdDescription =
