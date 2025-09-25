@@ -69,6 +69,12 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Using Elusive Jump turns Drakesbane Combo into all-in-one burst damage button once all cooldowns are ready. ", "当所有冷却技能准备就绪时，使用Elusive Jump将Drakesbane连击转换为全能爆发伤害按钮。"),
                 KeyValuePair.Create(" Disables Elusive Jump if Burst is not ready.", "如果Burst未准备就绪，则禁用Elusive Jump。"),
                 KeyValuePair.Create("Stop Using When Target HP% is at or Below (Set to 0 to Disable This Check)", "当目标生命值百分比达到或低于此值时停止使用（设置为0以禁用此检查）"),
+                KeyValuePair.Create("Full / Heavens Thrust Combo", "直刺/苍穹刺连击"),
+                KeyValuePair.Create("Replace Full Thrust/Heavens' Thrust with the basic combo chain.", "用基础连击链替换直刺/苍穹刺。"),
+                KeyValuePair.Create("Enabling Chaos combo option makes this a one button basic combo.", "启用樱花缭乱连击选项使其成为一键基础连击。"),
+                KeyValuePair.Create("Chaos / Chaotic Combo", "樱花怒放/樱花缭乱连击"),
+                KeyValuePair.Create("Replace Chaos Thrust / Chaotic Spring with the basic combo chain.", "用基础连击链替换樱花怒放/樱花缭乱。"),
+                KeyValuePair.Create("Buffs AoE Option", "增益AoE"),
                 #endregion
 
                 #region DRGPvP
