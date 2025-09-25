@@ -21,7 +21,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Replaces Sprint with Isle Sprint.", "用海岛冲刺替换冲刺。"),
                 KeyValuePair.Create("Only works at the Island Sanctuary. Icon does not change.", "仅在无名岛有效。图标不会改变。"),
                 KeyValuePair.Create("Do not use with SimpleTweaks' Island Sanctuary Sprint fix.", "不要与SimpleTweaks的海岛冲刺替换功能一起使用。"),
-                KeyValuePair.Create("Features and options involving shared role actions for Tanks.", "涉及坦克共享职能技能的功能和选项。"),
+                KeyValuePair.Create("Features and options involving shared role actions for Tanks.", "涉及防护职业共享职能技能的功能和选项。"),
                 KeyValuePair.Create("Replaces Low Blow (Stun) with Interject (Interrupt) when the target can be interrupted.", "当目标可被中断时，用Interject（中断）替换Low Blow（眩晕）。"),
                 KeyValuePair.Create("PLDs can slot Shield Bash to have the feature to work with Shield Bash.", "骑士可以装备Shield Bash以使该功能与Shield Bash一起使用。"),
                 KeyValuePair.Create("Prevents the use of Reprisal when target already has the effect by replacing it with Savage Blade.", "当目标已有该效果时，用Savage Blade替换Reprisal以防止使用Reprisal。"),

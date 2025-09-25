@@ -18,7 +18,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese
             { DPSRotationMode.Lowest_Max, "最低最大血量" },
             { DPSRotationMode.Highest_Current, "当前血量最高" },
             { DPSRotationMode.Lowest_Current, "当前血量最低" },
-            { DPSRotationMode.Tank_Target, "坦克目标" },
+            { DPSRotationMode.Tank_Target, "防护职业目标" },
             { DPSRotationMode.Nearest, "最近" },
             { DPSRotationMode.Furthest, "最远" },
             { DPSRotationMode.ManualNonPlayer, "手动非玩家" }

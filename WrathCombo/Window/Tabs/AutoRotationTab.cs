@@ -75,13 +75,13 @@ internal class AutoRotationTab : ConfigWindow
                 ref cfg.HealerRotationMode, "DPSRotationMode");
 
             ImGuiComponents.HelpMarker("手动 - 所有目标选择由你自己决定。（目标没进战斗也开打）\n" +
-                                       "最高最大血量 - 优先最大血量最高的敌人。\n" +
-                                       "最低最大血量 - 优先最大血量最低的敌人。\n" +
+                                       "最高最大血量 - 优先选择最大血量最高的敌人。\n" +
+                                       "最低最大血量 - 优先选择最大血量最低的敌人。\n" +
                                        "当前血量最高 - 优先当前血量最高的敌人。\n" +
                                        "当前血量最低 - 优先当前血量最低的敌人。\n" +
-                                       "坦克目标 - 优先与你队伍中第一个坦克相同的目标。\n" +
-                                       "最近 - 优先距离你最近的目标。\n" +
-                                       "最远 - 优先距离你最远的目标。\n" +
+                                       "防护职业目标 - 优先选择与你队伍中第一个防护职业相同的目标。\n" +
+                                       "最近 - 优先选择距离你最近的目标。\n" +
+                                       "最远 - 优先选择距离你最远的目标。\n" +
                                        "手动非玩家 - 手动选择非玩家目标。");
             ImGui.Spacing();
 
@@ -89,7 +89,7 @@ internal class AutoRotationTab : ConfigWindow
             {
                 changed |= ImGui.Checkbox("强制选择最佳AOE目标", ref cfg.DPSSettings.AoEIgnoreManual);
 
-                ImGuiComponents.HelpMarker("其他目标模式下，AOE会自动选择命中目标最多的敌人。手动模式下，只有勾选此项才会这样做。");
+                ImGuiComponents.HelpMarker("其他目标模式下，AOE会自动选择命中目标最多的敌人。手动模式下，只有勾选此项才会自动选择。");
             }
 
                 
@@ -259,11 +259,11 @@ internal class AutoRotationTab : ConfigWindow
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("ManageKardia");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
                 $"[贤者] 自动切换心关", ref cfg.HealerSettings.ManageKardia, "ManageKardia");
-            ImGuiComponents.HelpMarker($"会将{SGE.Kardia.ActionName()}切换给当前被敌人攻击的队友，若有多个则优先坦克。");
+            ImGuiComponents.HelpMarker($"会将{SGE.Kardia.ActionName()}切换给当前被敌人攻击的队友，若有多个则优先防护职业。");
             if (cfg.HealerSettings.ManageKardia)
             {
                 ImGuiExtensions.Prefix(cfg.HealerSettings.ManageKardia);
-                changed |= ImGui.Checkbox($"仅在坦克间切换{SGE.Kardia.ActionName()}", ref cfg.HealerSettings.KardiaTanksOnly);
+                changed |= ImGui.Checkbox($"仅在防护职业间切换{SGE.Kardia.ActionName()}", ref cfg.HealerSettings.KardiaTanksOnly);
             }
 
             changed |= ImGui.Checkbox($"[白魔/占星] 战斗外预读持续治疗到焦点目标", ref cfg.HealerSettings.PreEmptiveHoT);

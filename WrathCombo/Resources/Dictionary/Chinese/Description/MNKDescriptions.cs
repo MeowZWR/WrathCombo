@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WrathCombo.Combos.PvE;
+using static WrathCombo.Combos.PvE.MNK;
 using WrathCombo.Combos.PvP;
 using WrathCombo.Extensions;
 
@@ -18,10 +18,13 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 // Generation Time: 2025-03-13 18:14:55  
                 #region MNK
                 KeyValuePair.Create("Replaces Bootshine with a full one-button single target rotation.", "用一键连击替换连击，用于单体目标循环。"),
-                KeyValuePair.Create("Replaces Arms of the Destroyer with a full one-button AoE rotation.", "用一键连击替换破坏神冲，用于群体目标循环。"),
+                KeyValuePair.Create("Replaces Arms of the Destroyer with a full one-button AoE rotation.", "用一键连击替换破坏神冲，用于群体目标循环。"),                
+                KeyValuePair.Create("Adds Howling Fist / Enlightenment to the rotation", "将空鸣拳 / 万象斗气圈加入循环。"),
+                KeyValuePair.Create($"Replaces {Brotherhood.ActionName()} with {RiddleOfFire.ActionName()} when {Brotherhood.ActionName()} is on cooldown.", $"当 {Brotherhood.ActionName()} 冷却时，用 {RiddleOfFire.ActionName()} 替换 {RiddleOfFire.ActionName()}。"),
+                KeyValuePair.Create($"Replaces {RiddleOfFire.ActionName()} with {Brotherhood.ActionName()} when {RiddleOfFire.ActionName()} is on cooldown.", $"当 {RiddleOfFire.ActionName()} 冷却时，用 {Brotherhood.ActionName()} 替换 {RiddleOfFire.ActionName()}。"),
                 KeyValuePair.Create("Adds The Forbidden Chakra to the rotation", "将阴阳斗气斩加入循环。"),
                 KeyValuePair.Create("Adds Form Shift to the rotation", "将演武加入循环。"),
-                KeyValuePair.Create("Uses selected opener", "使用选定的起手式。"),
+                KeyValuePair.Create("Uses selected opener", "使用选中的起手式。"),
                 KeyValuePair.Create("Adds selected buffs to the rotation", "将选定的增益技能加入循环。"),
                 KeyValuePair.Create("Adds Brotherhood to the rotation", "将义结金兰加入循环。"),
                 KeyValuePair.Create("Riddle of Fire Option", "红莲极意"),
@@ -44,18 +47,17 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Rising Phoenix to Burst Mode.", "将凤凰舞加入爆发模式。"),
                 KeyValuePair.Create("Adds Wind's Reply to Burst Mode.", "将绝空拳加入爆发模式。"),
                 KeyValuePair.Create("Beast Chakra Handlers", "象形拳处理"),
-                KeyValuePair.Create("Meditation Option", "斗气"),
                 KeyValuePair.Create("Adds Meditation to the rotation", "将斗气添加到循环中"),
                 KeyValuePair.Create("Double Lunar", "双阴"),
                 KeyValuePair.Create("Uses Lunar/Lunar opener", "使用双阴斗气起手"),
                 KeyValuePair.Create("Solar Lunar", "阳阴"),
                 KeyValuePair.Create("Uses Solar/Lunar opener", "使用阳阴斗气起手"),
-                KeyValuePair.Create($"Stop Using {MNK.Brotherhood.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标生命百分比达到或低于此值时停止使用 {MNK.Brotherhood.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create($"Stop Using {Brotherhood.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标生命百分比达到或低于此值时停止使用 {Brotherhood.ActionName()}（设置为0以禁用此检查）"),
                 KeyValuePair.Create("Riddle of Fire/Brotherhood Feature", "红莲极意/义结金兰"),
                 KeyValuePair.Create("Replaces Riddle of Fire with Brotherhood when Riddle of Fire is on cooldown.", "如果红莲极意进入冷却时，用义结金兰代替。"),
                 KeyValuePair.Create("Replaces Brotherhood with Riddle of Fire when Brotherhood is on cooldown.", "如果义结金兰进入冷却时，用红莲极意代替。"),
-                KeyValuePair.Create($"Stop Using {MNK.RiddleOfFire.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标生命百分比达到或低于此值时停止使用{MNK.RiddleOfFire.ActionName()}（设置为0以禁用此检查）"),
-                KeyValuePair.Create($"Stop Using {MNK.RiddleOfWind.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标生命百分比达到此值时停止使用{MNK.RiddleOfWind.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create($"Stop Using {RiddleOfFire.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标生命百分比达到或低于此值时停止使用{RiddleOfFire.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create($"Stop Using {RiddleOfWind.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标生命百分比达到此值时停止使用{RiddleOfWind.ActionName()}（设置为0以禁用此检查）"),
                 KeyValuePair.Create("Opo-opo Option", "魔猿"),
                 KeyValuePair.Create("Replace Bootshine/Leaping Opo with Dragon Kick.", "将连击/猿舞连击替换为双龙脚。"),
                 KeyValuePair.Create("Raptor Option", "猛禽选项"),
@@ -63,6 +65,28 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Coeurl Option", "豹选项"),
                 KeyValuePair.Create("Replace Snap Punch/Pouncing Coeurl with Demolish.", "将崩拳/豹袭崩拳替换为破碎拳。"),
                 KeyValuePair.Create("Replaces Perfect Balance with Savage Blade when you already have Perfect Balance active.", "当震脚激活时，将震脚替换为狂怒剑"),
+                KeyValuePair.Create("Steeled / Forbidden Meditation Option", "铁山斗气 / 阴阳斗气"),
+                KeyValuePair.Create("Adds Steeled / Forbidden Meditation to the rotation", "将铁山斗气 / 阴阳斗气加入循环。"),
+                KeyValuePair.Create("Steeled Peak / The Forbidden Chakra Option", "铁山靠 / 阴阳斗气斩"),
+                KeyValuePair.Create("Adds Steeled Peak / The Forbidden Chakra to the rotation", "将铁山靠 / 阴阳斗气斩加入循环。"),
+                KeyValuePair.Create("Buffs Option", "增益技能"),
+                KeyValuePair.Create("Adds Leg Sweep when target non-boss is casting.", "当检测到非Boss目标读条时，将扫腿加入循环。"),
+                KeyValuePair.Create("Feint Raidwide Option", "佯攻"),
+                KeyValuePair.Create("Adds Feint when Raidwide is detected casting.", "当检测到全屏AoEE读条时，将佯攻加入循环。"),
+                KeyValuePair.Create("Riddle of Earth Raidwide Option", "金刚极意"),
+                KeyValuePair.Create("Adds Riddle of Earth when Raidwide is detected casting.", "当检测到全屏AoEE读条时，将金刚极意加入循环。"),
+                KeyValuePair.Create("Mantra Raidwide Option", "真言"),
+                KeyValuePair.Create("Adds Mantra when Raidwide is detected casting.", "当检测到全屏AoEE读条时，将真言加入循环。"),
+                KeyValuePair.Create("Inspirited / Enlightened Meditation Option", "空鸣斗气 / 万象斗气"),
+                KeyValuePair.Create("Adds Inspirited / Enlightened Meditation to the rotation", "将空鸣斗气 / 万象斗气加入循环。"),
+                KeyValuePair.Create("Retargets Thunderclap to UI Mouseover", "将轻身步伐重新定位到UI鼠标悬停目标。"),
+                KeyValuePair.Create("Replaces Riddle of Fire or Brotherhood when the other is on cooldown.", "当另一个技能冷却时，用红莲极意或义结金兰替换。"),
+                KeyValuePair.Create("Replace Bootshine / Leaping Opo with Dragon Kick.", "将连击 / 猿舞连击替换为双龙脚。"),
+                KeyValuePair.Create("Replace True Strike/Rising Raptor with Twin Snakes.", "将正拳 / 龙颚正拳替换为双掌打。"),
+                KeyValuePair.Create("Replace Snap Punch/Pouncing Coeurl with Demolish.", "将崩拳 / 豹袭崩拳替换为破碎拳。"),
+                KeyValuePair.Create($"Add {EarthsReply.ActionName()} when average HP% of the party is at or below.", $"当队伍平均生命百分比达到或低于此值时添加 {EarthsReply.ActionName()}。"),
+                KeyValuePair.Create($"Add {EarthsReply.ActionName()} to the rotation.", $"将 {EarthsReply.ActionName()} 加入循环。"),                
+                KeyValuePair.Create("Meditation Option", "斗气"),
                                 #endregion
             ];
         }
