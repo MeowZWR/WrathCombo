@@ -256,7 +256,7 @@ internal class Presets : ConfigWindow
                 if (!string.IsNullOrEmpty(comboInfo.JobShorthand))
                     conflictBuilder.Insert(0, $"[{comboInfo.JobShorthand}] ");
 
-                ImGuiEx.Text(GradientColor.Get(ImGuiColors.DalamudRed, CustomComboFunctions.IsEnabled(conflict) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed, 1500), $"- {conflictBuilder}");
+                ImGuiEx.Text(GradientColor.Get(ImGuiColors.DalamudRed, CustomComboFunctions.IsEnabled(conflict) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed, 1500), $"- {conflictBuilder}".ReplaceWithChinese());
                 conflictBuilder.Clear();
             }
             ImGui.Unindent();
