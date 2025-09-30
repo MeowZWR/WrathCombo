@@ -575,7 +575,7 @@ internal class Presets : ConfigWindow
                     ImGui.TextUnformatted(
                         secondLine ??
                         "此功能的技能会自动选择开发者认为的最佳目标\n" +
-                        "（在适用的情况下遵循The Balance指南）。");
+                        "（在适用的情况下遵循「The Balance」指南）。");
 
                     ImGui.TextUnformatted(
                         thirdLine ??

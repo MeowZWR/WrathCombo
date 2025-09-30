@@ -88,7 +88,8 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Auto-Mode is enabled for this option.", "此选项已启用自动模式。"),
                 KeyValuePair.Create($"{RDM.Zwerchhau.ActionName()} & {RDM.Redoublement.ActionName()} will be placed on {RDM.Jolt.ActionName()}", $"{RDM.Zwerchhau.ActionName()}和{RDM.Redoublement.ActionName()}将被放置在 {RDM.Jolt.ActionName()}上。"),
                 KeyValuePair.Create("Uses Prefulgence when available.", "当光芒四射可用时自动使用"),
-                KeyValuePair.Create("No Movement Option", "未移动时使用"),
+                KeyValuePair.Create("No Movement Option", "未移动时使用"),                
+                KeyValuePair.Create("Movement Option", "移动检测"),
                 KeyValuePair.Create("Uses Displacement only when not moving.", "仅在未移动时使用移转。"),
                 KeyValuePair.Create("Uses Vice of Thorns when available.", "可用时使用荆棘环绕。"),
             ];

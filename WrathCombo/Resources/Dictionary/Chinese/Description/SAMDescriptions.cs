@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WrathCombo.Combos.PvE;
+using static WrathCombo.Combos.PvE.SAM;
 using WrathCombo.Combos.PvP;
 using WrathCombo.Extensions;
 
@@ -79,6 +79,46 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("HP percent threshold to not save Kenki", "生命值百分比阈值低于此值时不保留剑气"),
                 KeyValuePair.Create("Delay is enforced by replacing your button with Savage Blade.", "通过将你的按钮替换为狂怒剑来强制执行延迟。"),
                 KeyValuePair.Create("Stop using Higanbana on targets below this HP % (0% = always use).", "目标生命值百分比低于此值时停用彼岸花（0 = 总是使用）"),
+                KeyValuePair.Create($"Adds {OgiNamikiri.ActionName()} and {KaeshiNamikiri.ActionName()} when you're not moving.", "当你不移动时添加奥义斩浪和回返斩浪。"),
+                KeyValuePair.Create("Guren Option", "必杀剑·红莲"),
+                KeyValuePair.Create($"Adds {Guren.ActionName()} to the rotation if Senei is not unlocked.", "如果未解锁必杀剑·闪影，则添加必杀剑·红莲到连击中。"),
+                KeyValuePair.Create("Adds Gekko combo to the rotation.", "将月光连击添加到连击中。"),
+                KeyValuePair.Create("Collection of Cooldown features on main combo.", "主连击上的冷却功能集合。"),
+                KeyValuePair.Create("Damage skills on Main Combo", "主连击上的伤害技能"),
+                KeyValuePair.Create("Collection of Damage skills on main combo.", "主连击上的伤害技能集合。"),
+                KeyValuePair.Create("Will use Higanbana depending on suboptions.", "根据子选项使用彼岸花。"),
+                KeyValuePair.Create("Will Use Tenka Goken when lvlsynched below lvl 50.", "等级同步低于50级时使用天下五剑。"),
+                KeyValuePair.Create("Will use Midare Setsugekka and Tendo Setsugekka.", "将使用纷乱雪月花和天道雪月花。"),
+                KeyValuePair.Create("Will pool kenki for burst.", "将积攒剑气用于爆发。"),
+                KeyValuePair.Create("Meditate Option", "冥想"),
+                KeyValuePair.Create("Adds Meditate when not moving, not having a target and being in combat.", "当不移动、没有目标且在战斗中时添加冥想。"),
+                KeyValuePair.Create("Enabling Gekko and Kasha combo options makes this a one button basic combo.", "启用月光和花车连击选项使其成为一键基础连击。"),
+                KeyValuePair.Create("Enabling Oka combo options makes this a one button basic combo.", "启用樱花连击选项使其成为一键基础连击。"),
+                KeyValuePair.Create("Adds Midare: Setsugekka and Higanbana when you're not moving.", "当你不移动时添加纷乱雪月花和彼岸花。"),
+                KeyValuePair.Create("Third Eye Raidwide Option", "心眼"),
+                KeyValuePair.Create("Adds Third Eye when Raidwide is detected casting.", "检测到全屏AoE读条时添加心眼。"),
+                KeyValuePair.Create("Cooldowns on Main Combo", "主连击上的冷却技能"),
+                KeyValuePair.Create("Adds Kasha combo when applicable.", "在适用时添加花车连击。"),
+                KeyValuePair.Create("Adds Gekko combo when applicable.", "在适用时添加月光连击。"),
+                KeyValuePair.Create("Adds Oka combo when applicable.", "在适用时添加樱花连击。"),
+                KeyValuePair.Create("Hissatsu: Senei becomes Hissatsu : Guren when synched below lvl 72.", "等级同步低于72级时必杀剑·闪影变为必杀剑·红莲。"),
+                KeyValuePair.Create("Replace Hissatsu: Kyuten with Ikishoten when off cooldown and Kenki is below 50.", "当冷却结束且剑气低于50时用意气冲天替换必杀剑·九天。"),
+                KeyValuePair.Create("Replace Hissatsu: Kyuten with Guren when off cooldown.", "当冷却结束时用必杀剑·红莲替换必杀剑·九天。"),
+                KeyValuePair.Create("Replace Hissatsu: Shinten with Ikishoten when off cooldown and Kenki is below 50.", "当冷却结束且剑气低于50时用意气冲天替换必杀剑·震天。"),
+                KeyValuePair.Create("Replace Hissatsu: Shinten with Senei when off cooldown.", "当冷却结束时用必杀剑·闪影替换必杀剑·震天。"),
+                KeyValuePair.Create("Add Midare Setsugekka", "添加纷乱雪月花"),
+                KeyValuePair.Create("Use Simple Logic", "使用简单逻辑"),
+                KeyValuePair.Create($"Uses {MeikyoShisui.ActionName()} when u have 3 sens.", "当你有三闪时使用明镜止水。"),
+                KeyValuePair.Create("Uses The Balance logic regardless of content.", "无论内容如何都使用「The Balance」逻辑。"),
+                KeyValuePair.Create("Uses The Balance logic.", "使用「The Balance」逻辑。"),
+                KeyValuePair.Create("Use The Balance Logic", "使用「The Balance」逻辑"),
+                KeyValuePair.Create("Only in Boss encounters", "仅在Boss遭遇战中"),
+                KeyValuePair.Create("Only uses The Balance logic when in Boss encounters.", "仅在Boss遭遇战中使用「The Balance」逻辑。"),
+                KeyValuePair.Create("Will use Meikyo every minute regardless of sen count outside of boss encounters.", "在Boss遭遇战外每分钟使用明镜止水，无论闪数多少。"),
+                KeyValuePair.Create($"Include {OgiNamikiri.ActionName()}", "包含奥义斩浪"),
+                KeyValuePair.Create($"Replace Enpi with {OgiNamikiri.ActionName()} and {KaeshiNamikiri.ActionName()} when applicable.", "在适用时用奥义斩浪和回返斩浪替换燕飞。"),
+                KeyValuePair.Create($"Include {Iaijutsu.ActionName()}", "包含居合术"),
+                KeyValuePair.Create($"Replace Enpi with {Iaijutsu.ActionName()} and Kaeshi variant when applicable.", "在适用时用居合术和回返变体替换燕飞。"),
                 #endregion
                 
                 #region SAMPvP

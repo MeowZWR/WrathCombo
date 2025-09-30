@@ -53,10 +53,10 @@ internal partial class MCH
 
                 case Preset.MCH_ST_Adv_TurretQueen:
                     DrawHorizontalRadioButton(MCH_ST_QueenBossOption,
-                        "在所有内容中使用 The Balance 逻辑", $"无论内容如何都使用{AutomatonQueen.ActionName()}逻辑。", 0);
+                        "在所有内容中使用「The Balance」逻辑", $"无论内容如何都使用{AutomatonQueen.ActionName()}逻辑。", 0);
 
                     DrawHorizontalRadioButton(MCH_ST_QueenBossOption,
-                        "仅在Boss战中使用 The Balance 逻辑", $"仅在Boss战中使用{AutomatonQueen.ActionName()}逻辑。", 1);
+                        "仅在Boss战中使用「The Balance」逻辑", $"仅在Boss战中使用{AutomatonQueen.ActionName()}逻辑。", 1);
 
                     if (MCH_ST_QueenBossOption == 1)
                     {

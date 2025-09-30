@@ -18,7 +18,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 // Generation Time: 2025-03-13 18:14:55  
                 #region SGE
                 KeyValuePair.Create("Adds various options to Dosis I/II/III.", "为Dosis I/II/III添加各种选项。"),
-                KeyValuePair.Create("Use the Balance opener from level 92 onwards.", "从92级开始使用由The Balance社区建议的开场输出循环。"),
+                KeyValuePair.Create("Use the Balance opener from level 92 onwards.", "从92级开始使用由「The Balance」社区建议的开场输出循环。"),
                 KeyValuePair.Create("Weaves Lucid Dreaming when your MP drops below the specified value.", "当你的MP低于指定值时插入Lucid Dreaming。"),
                 KeyValuePair.Create("Eukrasian Dosis Option", "均衡注药"),
                 KeyValuePair.Create("Automatic DoT Uptime.", "自动续DoT。"),

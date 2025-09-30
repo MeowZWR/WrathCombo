@@ -375,7 +375,7 @@ internal partial class AST
                     ImGui.TextWrapped("目标覆盖方式：（将鼠标悬停以查看更多信息）");
                     ImGui.Unindent();
                     ImGui.NewLine();
-                    DrawRadioButton(AST_QuickTarget_Override, "不覆盖", "不会用任何手动输入覆盖自动队伍目标检测。\n卡牌会根据The Balance的优先级和状态检测自动选择目标（如不会重复发卡、不会发给有伤害降低或复活虚弱的目标等）。", 0, descriptionAsTooltip: true);
+                    DrawRadioButton(AST_QuickTarget_Override, "不覆盖", "不会用任何手动输入覆盖自动队伍目标检测。\n卡牌会根据「The Balance」的优先级和状态检测自动选择目标（如不会重复发卡、不会发给有伤害降低或复活虚弱的目标等）。", 0, descriptionAsTooltip: true);
                     DrawRadioButton(AST_QuickTarget_Override, "强制目标覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的强制目标，将用该目标覆盖选择。", 1, descriptionAsTooltip: true);
                     DrawRadioButton(AST_QuickTarget_Override, "UI鼠标悬停覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的UI鼠标悬停目标，将用该目标覆盖选择。", 2, descriptionAsTooltip: true);
                     DrawRadioButton(AST_QuickTarget_Override, "任意鼠标悬停覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的UI、姓名板或模型鼠标悬停目标（按此顺序），将用该目标覆盖选择。", 3, descriptionAsTooltip: true);

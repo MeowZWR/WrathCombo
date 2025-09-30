@@ -20,7 +20,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Replaces Split Shot with a full one-button single target rotation.", "用完整的一键单目标循环替换分裂弹。"),
                 KeyValuePair.Create("Replaces Spreadshot with a full one-button AoE rotation.", "用完整的一键AoE循环替换散射。"),
                 KeyValuePair.Create("Will lock out input to keep Flamethrower going by replacing Spreadshot with Savage Blade.", "通过用狂怒剑替换散射来锁定输入以保持火焰喷射器的持续。"),
-                KeyValuePair.Create("Adds the Balance opener at lvl 90+.", "在90级以上时使用由The Balance社区推荐的起手循环。"),
+                KeyValuePair.Create("Adds the Balance opener at lvl 90+.", "在90级以上时使用由「The Balance」社区推荐的起手循环。"),
                 KeyValuePair.Create("Adds Barrel Stabilizer to the rotation.", "将枪管加热添加到循环中。"),
                 KeyValuePair.Create("Adds Full Metal Field to the rotation.", "将全金属爆发添加到循环中。"),
                 KeyValuePair.Create("Adds Gauss Round and Ricochet or Double Check and Checkmate to the rotation. Will prevent overcapping.", "将虹吸弹和弹射或双将和将死添加到循环中。防止资源溢出。"),
