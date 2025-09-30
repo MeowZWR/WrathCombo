@@ -88,6 +88,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Ten ", NIN.Ten.ActionName()),
                 KeyValuePair.Create("Chi ", NIN.Chi.ActionName()),
                 KeyValuePair.Create("Jin ", NIN.Jin.ActionName()),
+
+                // Other
+                KeyValuePair.Create("Shukuchi", NIN.Shukuchi.ActionName()),
                 #endregion
 
                 #region PvP

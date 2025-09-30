@@ -75,7 +75,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Bard Buffs Feature", "诗人Buff"),
                 KeyValuePair.Create("One Button Songs Feature", "一键唱歌"),
                 KeyValuePair.Create("2.48 Adjusted Standard Opener", "2.48调整标准起手"),
-                KeyValuePair.Create("Standard Opener", "标准起手"),
                 KeyValuePair.Create("2.49 Standard Comfy", "2.49标准舒适起手"),
                 KeyValuePair.Create("Remaining time (In seconds). Recommended 5, increase little by little if refresh is outside of radiant window", "剩余时间（秒）。推荐5，如果刷新在光明神窗口期外，请逐步增加数值。"),
                 KeyValuePair.Create("Remaining target HP percentage", "目标剩余生命值百分比"),

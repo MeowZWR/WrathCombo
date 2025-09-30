@@ -152,7 +152,8 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Balance Openers", "平衡起手式"),
                 KeyValuePair.Create("Balance Opener", "平衡起手式"),
                 KeyValuePair.Create("NOT recommended.", "不推荐。"),
-                KeyValuePair.Create("Basic Combo", "基础连击"),
+                KeyValuePair.Create("Basic Combo", "基础连击"),                
+                KeyValuePair.Create("Standard Opener", "标准起手"),
                 
                 // One
                 KeyValuePair.Create("Sync", "同步"),
