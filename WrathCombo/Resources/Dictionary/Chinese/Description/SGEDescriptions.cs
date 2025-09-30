@@ -97,7 +97,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Retargets Druochole according to your Healing stack", "根据你的治疗堆栈重新定位灵橡清汁目标"),
                 KeyValuePair.Create("(even from the Taurochole to Druochole Feature above)", "（即使来自上述白牛清汁到灵橡清汁功能）"),
                 KeyValuePair.Create("Retargets Taurochole according to your Healing stack", "根据你的治疗堆栈重新定位白牛清汁目标"),
-                KeyValuePair.Create("(even from the Taurochole to Druochole Feature above)", "（即使来自上述白牛清汁到灵橡清汁功能）"),
                 KeyValuePair.Create("Retargets Krasis according to your Healing stack.", "根据你的治疗堆栈重新定位混合目标。"),
                 KeyValuePair.Create("Retargets Kardia according to your Healing stack", "根据你的治疗堆栈重新定位心关目标"),
                 KeyValuePair.Create("(even from the Soteria to Kardia Feature above)", "（即使来自上述拯救到心关功能）"),

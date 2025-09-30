@@ -87,7 +87,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create($"Use on {AirAnchor.ActionName()}", $"用于{AirAnchor.ActionName()}"),
                 KeyValuePair.Create($"Use on {Chainsaw.ActionName()}", $"用于{Chainsaw.ActionName()}"),
                 KeyValuePair.Create($"Use on {Excavator.ActionName()}", $"用于{Excavator.ActionName()}"),
-                KeyValuePair.Create($"Use on {Excavator.ActionName()}", $"用于{Excavator.ActionName()}"),
                 KeyValuePair.Create($"Use on {Drill.ActionName()}", $"用于{Drill.ActionName()}"),
                 KeyValuePair.Create($"Use on {CleanShot.ActionName()}", $"用于{CleanShot.ActionName()}"),
                 #endregion

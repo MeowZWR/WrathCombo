@@ -124,7 +124,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Solace can be Retargeted with the Retargeting Features below.", "安慰之心可以通过下面的重新定位功能重新定位。"),
                 KeyValuePair.Create("Can be Retargeted with the Retargeting Features below.", "可以通过下面的重新定位功能重新定位。"),
                 KeyValuePair.Create("Changes Aquaveil into Tetragrammaton and/or Divine Benison after use.", "使用后将水流幕变为神名和/或神祝祷。"),
-                KeyValuePair.Create("Each action can be Retargeted with the Retargeting Features below.", "每个技能都可以通过下面的重新定位功能重新定位。"),
                 KeyValuePair.Create("Mitigation Feature - AoE", "减伤功能-群体"),
                 KeyValuePair.Create("Retargeting Features", "重新定位功能"),
                 KeyValuePair.Create("Collection of Options to Retarget Manually-Used Single Target Heals.", "手动使用单体治疗的重新定位选项集合。"),
