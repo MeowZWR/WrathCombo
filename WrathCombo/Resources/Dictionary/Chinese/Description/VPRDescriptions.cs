@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WrathCombo.Combos.PvE;
+using static WrathCombo.Combos.PvE.VPR;
 using WrathCombo.Combos.PvP;
 using WrathCombo.Extensions;
 
@@ -42,8 +42,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Disables the range check for Swiftskin's Den and Hunter's Den, so they will be used even without a target selected.", "禁用Swiftskin's Den和Hunter's Den的范围检查，即使没有选择目标也会使用。"),
                 KeyValuePair.Create("Adds Twinfang and Twinblood to the rotation.", "将Twinfang和Twinblood加入循环。"),
                 KeyValuePair.Create("Disables the range check for Reawaken, so it will be used even without a target selected.", "禁用Reawaken的范围检查，即使没有选择目标也会使用。"),
-                KeyValuePair.Create("Replaces Vicewinder with Hunter's/Swiftskin's Coils.", "用Hunter's Coils/Swiftskin's Coils替换Vicewinder。"),
-                KeyValuePair.Create("Replaces Vicepit with Hunter's/Swiftskin's Dens.", "用Hunter's Coils/Swiftskin's Dens替换Vicepit。"),
                 KeyValuePair.Create("Replaces Uncoiled Fury with Uncoiled Twinfang and Uncoiled Twinblood.", "用Uncoiled Twinfang和Uncoiled Twinblood替换Uncoiled Fury。"),
                 KeyValuePair.Create("Replaces Option with the Generations.", "用祖灵之牙替换。"),
                 KeyValuePair.Create("Replaces Option with the Legacys.", "用祖灵之蛇替换。"),
@@ -61,8 +59,18 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Reawaken - Generation", "祖灵降临 - 祖灵之牙"),
                 KeyValuePair.Create("Reawaken - Legacy", "祖灵降临 - 祖灵之蛇"),
                 KeyValuePair.Create("Combined Combo Ability Feature", "组合连击技"),
-                KeyValuePair.Create($"Stop using {VPR.Reawaken.ActionName()} at Enemy HP %. Set to Zero to disable this check.", $"当敌人生命百分比达到此值时停止使用{VPR.Reawaken.ActionName()}。设置为零以禁用此检查。"),
-                KeyValuePair.Create($"Replaces {VPR.Reawaken.ActionName()} with Full Generation - Legacy combo.", $"将{VPR.Reawaken.ActionName()}替换为祖灵之牙-祖灵之蛇连击。"),
+                KeyValuePair.Create($"Stop using {Reawaken.ActionName()} at Enemy HP %. Set to Zero to disable this check.", $"当敌人生命百分比达到此值时停止使用{Reawaken.ActionName()}。设置为零以禁用此检查。"),
+                KeyValuePair.Create($"Replaces {Reawaken.ActionName()} with Full Generation - Legacy combo.", $"将{Reawaken.ActionName()}替换为祖灵之牙-祖灵之蛇连击。"),
+                KeyValuePair.Create("Generations Combo", "祖灵之牙连击"),
+                KeyValuePair.Create("Adds Generations to the rotation.", "将祖灵之牙加入循环。"),
+                KeyValuePair.Create("Adds Twinfang Bite and Twinblood Bite to the rotation.", "将双牙连击和双牙乱击加入循环。"),
+                KeyValuePair.Create("Adds Legacy weaves to the rotation.", "将祖灵之蛇编织加入循环。"),
+                KeyValuePair.Create("Adds Twinfang Thresh and Twinblood Thresh to the rotation.", "将双牙连击和双牙乱击加入循环。"),
+                KeyValuePair.Create("Adds Generations and Legacy weaves to the rotation.", "将祖灵之牙和祖灵之蛇编织加入循环。"),
+                KeyValuePair.Create("Retargets Slither to UI Mouseover", "将蛇行重定向到UI鼠标悬停目标"),
+                KeyValuePair.Create("Replaces Vicewinder with Hunter's/Swiftskin's Coils.", "用猛袭盘蛇/疾速盘蛇替换强碎灵蛇。"),
+                KeyValuePair.Create("Replaces Vicepit with Hunter's/Swiftskin's Dens.", "用猛袭盘蝰/疾速盘蝰替换强碎灵蝰。"),
+                KeyValuePair.Create("Legacy weaves", "祖灵之蛇穿插"),
                 #endregion
                 
                 #region VPRPvP
