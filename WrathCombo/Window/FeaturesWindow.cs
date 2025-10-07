@@ -76,7 +76,7 @@ internal class FeaturesWindow : ConfigWindow
 
         #region Back Button
 
-        if (ImGui.Button("Back", new Vector2(0, 24f.Scale())))
+        if (ImGui.Button("返回", new Vector2(0, 24f.Scale())))
         {
             if (!pvp)
                 OpenJob = null;
@@ -159,9 +159,9 @@ internal class FeaturesWindow : ConfigWindow
         if (!id)
             return;
 
-        var searchLabelText = "Search:";
-        var searchHintText = "Option name, ID, Internal Name, Description, etc";
-        var searchDescriptionText = "Descriptions";
+        var searchLabelText = "搜索：";
+        var searchHintText = "选项名、ID、内部名、描述等";
+        var searchDescriptionText = "描述";
 
         var searchWidth = LetterWidth * 30f + 4f.Scale();
         // line width for the search bar
