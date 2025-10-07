@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WrathCombo.Combos.PvE;
+using static WrathCombo.Combos.PvE.RPR;
 using WrathCombo.Combos.PvP;
 using WrathCombo.Extensions;
 
@@ -22,7 +22,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Arcane Circle to the rotation.", "将神秘环加入循环。"),
                 KeyValuePair.Create("Adds Plentiful Harvest to the rotation.", "将大丰收加入循环。"),
                 KeyValuePair.Create("Adds Shadow of Death to the rotation.", "将死亡之影加入循环。"),
-                KeyValuePair.Create("Adds Soulsow to the rotation when out of combat and u dont have the buff.", "在战斗外且没有增益时，将播魂种加入循环。"),
+                KeyValuePair.Create("Adds Soulsow to the rotation when out of combat and you dont have the buff.", "在战斗外且没有增益时，将播魂种加入循环。"),
                 KeyValuePair.Create("Adds Soul Slice to the rotation.", "将灵魂切割加入循环。"),
                 KeyValuePair.Create("Adds Bloodstalk to the rotation.", "将隐匿挥割加入循环。"),
                 KeyValuePair.Create("Adds Gluttony to the rotation.", "将暴食加入循环。"),
@@ -78,8 +78,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Will not trigger if you are moving.", "如果你在移动，则不会触发。"),
                 KeyValuePair.Create("Adds Harvest Moon onto the main combo when you're out of melee range, the GCD is not rolling and it's available for use. Will also throw it when the enemy is under 12k health for execute", "当你在近战范围外、GCD未滚动且可用时，将Harvest Moon加入主连击。当敌人血量低于12k时也会投掷以执行斩杀。"),
                 KeyValuePair.Create("Adds Arcane Crest to the main combo when under the set HP perecentage.", "当HP低于设定百分比时，将Arcane Crest加入主连击。"),
-                KeyValuePair.Create("Set a HP% Threshold for when SoD will not be automatically applied to the target.", "目标生命百分比达到此值时不会自动使用死亡之影。"),
-                KeyValuePair.Create("Set a HP% Threshold for when WoD will not be automatically applied to the target.", "目标生命百分比达到此值不会自动使用死亡之涡。"),
+                KeyValuePair.Create($"Set a HP% Threshold for when {ShadowOfDeath.ActionName()} will not be automatically applied to the target.", "目标生命百分比达到此值时不会自动使用死亡之影。"),
+                KeyValuePair.Create($"Set a HP% Threshold for when {WhorlOfDeath.ActionName()} will not be automatically applied to the target.", "目标生命百分比达到此值不会自动使用死亡之涡。"),
+                KeyValuePair.Create($"Stop Using {ArcaneCircle.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)", $"当目标血量百分比达到或低于设定值时停止使用{ArcaneCircle.ActionName()}（设置为0以禁用此检查）"),
+                KeyValuePair.Create("Adds True North when under Gluttony.", "在暴食存在时添加真北。"),
                 #endregion
                 
                 // Manually added
