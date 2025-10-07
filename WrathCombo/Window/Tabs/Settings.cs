@@ -122,13 +122,13 @@ internal class Settings : ConfigWindow
 
             bool showIDs = Service.Configuration.UIShowPresetIDs;
 
-            if (ImGui.Checkbox("Show Preset IDs before their Description", ref showIDs))
+            if (ImGui.Checkbox("在描述前显示预设ID", ref showIDs))
             {
                 Service.Configuration.UIShowPresetIDs = showIDs;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("Toggles whether Presets' (Combos, Features, etc) IDs should be shown before their Description.\nThese are the IDs used for stuff like `/wrath toggle <ID>`.\nPre-7.3-Behavior was to show a number here, but it was much shorter than the full IDs.");
+            ImGuiComponents.HelpMarker("切换是否在描述前显示预设（连击、功能等）ID。\n这些ID可用于如 `/wrath toggle <ID>` 等命令。\n7.3版本前此处显示的数字更短，不是完整ID。");
 
             #endregion
 
@@ -136,13 +136,13 @@ internal class Settings : ConfigWindow
 
             bool showSearchBar = Service.Configuration.UIShowSearchBar;
 
-            if (ImGui.Checkbox("Show Search Bar within Jobs", ref showSearchBar))
+            if (ImGui.Checkbox("在职业页显示搜索栏", ref showSearchBar))
             {
                 Service.Configuration.UIShowSearchBar = showSearchBar;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("Toggles whether the Search Bar should be shown at the top of all PvE and PvP jobs");
+            ImGuiComponents.HelpMarker("切换是否在所有PvE和PvP职业页顶部显示搜索栏");
 
             #endregion
 
