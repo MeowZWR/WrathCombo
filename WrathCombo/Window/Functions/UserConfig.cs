@@ -1269,14 +1269,70 @@ public static class UserConfig
             "LowestHPAllyIfMissingHP" => "最低血量队友（掉血时）",
             "LowestHPPAlly" => "最低血量百分比队友",
             "LowestHPPAllyIfMissingHP" => "最低血量百分比队友（掉血时）",
-            "AnyDeadRaiserDPSIfNoneAlive" => "任意已死亡的复活DPS（未存活时）",
+            "AnyDeadRaiserDPSIfNoneAlive" => "任意死亡拥有复活技能的DPS（死光时）",
+            // Core Targets
+            "Self" => "自己",
+            "HardTarget" => "硬目标",
+            "SoftTarget" => "软目标",
+            "SoftTargetIfMissingHP" => "软目标（掉血时）",
+            "FocusTarget" => "焦点目标",
+            "FocusTargetIfMissingHP" => "焦点目标（掉血时）",
+            "TargetsTarget" => "目标的目标",
+            "Chocobo" => "陆行鸟",
+            // Enemy Targets
+            "AnyEnemy" => "任意敌人",
+            "NearestEnemyTarget" => "最近敌人目标",
+            "LowestHPEnemy" => "最低血量敌人",
+            "LowestHPEnemyIfNotInvuln" => "最低血量敌人（非无敌时）",
+            "LowestHPPEnemy" => "最低血量百分比敌人",
+            "LowestHPPEnemyIfNotInvuln" => "最低血量百分比敌人（非无敌时）",
+            "InterruptableEnemy" => "可打断敌人",
+            // Previous Targets
+            "LastHardTarget" => "上一个硬目标",
+            "LastHostileHardTarget" => "上一个敌对硬目标",
+            "MostRecentAttacker" => "最近攻击者",
+            // Party Targets
+            "KardionTarget" => "关心目标",
+            "AnyDeadPartyMember" => "任意死亡队友",
+            "AnyDeadNonPartyMember" => "任意死亡非队友",
+            "AnyCleansableAlly" => "任意可净化队友",
+            // Party Member Slots
+            "PartyMember1" => "队友1",
+            "PartyMember2" => "队友2",
+            "PartyMember3" => "队友3",
+            "PartyMember4" => "队友4",
+            "PartyMember5" => "队友5",
+            "PartyMember6" => "队友6",
+            "PartyMember7" => "队友7",
+            "PartyMember8" => "队友8",
+            // Role Targets
+            "AnySupport" => "任意支援",
+            "AnyLivingSupport" => "任意存活支援",
+            "AnyDPS" => "任意DPS",
+            "AnyTank" => "任意坦克",
+            "AnyLivingTank" => "任意存活坦克",
+            "AnyHealer" => "任意治疗",
+            "AnyLivingHealer" => "任意存活治疗",
+            "AnyRaiser" => "任意拥有复活技能的职业",
+            "AnyRaiserDPS" => "任意拥有复活技能的DPS",
+            "AnyMeleeDPS" => "任意近战DPS",
+            "AnyRangedDPS" => "任意远程DPS",
+            "AnyPhysRangeDPS" => "任意物理远程DPS",
+            "AnyMagicalDPS" => "任意魔法DPS",
+            "AnyPureHealer" => "任意纯治疗",
+            "AnyShieldHealer" => "任意护盾治疗",
+            "AnySelfishDPS" => "任意无团辅DPS",
+            // Dead Role Targets (if none alive)
+            "AnyDeadTankIfNoneAlive" => "任意死亡坦克（死光时）",
+            "AnyDeadHealerIfNoneAlive" => "任意死亡治疗（死光时）",
+            "AnyDeadRaiserIfNoneAlive" => "任意死亡拥有复活技能的DPS（死光时）",
             // Format the rest with Regex
             _ => Regex.Replace(propertyName,
                 @"(?<=[a-z])(?=[A-Z0-9])", " "),
         };
 
         name = name.Replace(" If Missing HP", "（掉血时）");
-        name = name.Replace(" If None Alive", "（未存活时）");
+        name = name.Replace(" If None Alive", "（死光时）");
         if (thisIsForRaiseStack)
             name = name.Replace("Dead ", "");
 
