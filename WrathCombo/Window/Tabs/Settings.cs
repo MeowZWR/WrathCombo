@@ -353,9 +353,9 @@ internal class Settings : ConfigWindow
                 Service.Configuration.Save();
             }
             ImGui.SameLine();
-            ImGui.Text($"% 施法进度");
+            ImGui.Text($"%");
             ImGui.SameLine( pos);
-            ImGui.Text($"   -   打断延迟");
+            ImGui.Text($"   -   施法进度打断延迟");
 
             ImGuiComponents.HelpMarker("打断技能时，等待施法总时间的百分比。\n适用于所有职业的打断技能。\n\n建议低于50%。\n默认：0%");
 
@@ -368,7 +368,7 @@ internal class Settings : ConfigWindow
                 Service.Configuration.Save();
 
             ImGui.SameLine();
-            ImGui.Text("能力技");
+            ImGui.Text("个");
 
             ImGui.SameLine(pos);
 
