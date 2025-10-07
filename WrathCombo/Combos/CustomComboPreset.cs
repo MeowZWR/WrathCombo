@@ -3605,7 +3605,7 @@ public enum Preset
     MCH_ST_AdvancedMode = 8100,
 
     [ParentCombo(MCH_ST_AdvancedMode)]
-    [CustomComboInfo("Balance Opener", "Adds the Balance opener at lvl 90+.", Job.MCH)]
+    [CustomComboInfo("Balance Opener (Level 90/100)", "Adds the Balance opener at lvl 90/100.", Job.MCH)]
     MCH_ST_Adv_Opener = 8101,
 
     [ParentCombo(MCH_ST_AdvancedMode)]
@@ -4322,8 +4322,8 @@ public enum Preset
     PCT_ST_AdvancedMode = 20005,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
-    [CustomComboInfo("Balance Opener (Level 100)",
-        "Adds the Balance opener at level 100.",
+    [CustomComboInfo("Balance Opener (Level 90/100)",
+        "Adds the Balance opener at level 90/100.",
         Job.PCT)]
     PCT_ST_Advanced_Openers = 20006,
 
@@ -6040,7 +6040,7 @@ public enum Preset
     SAM_ST_AdvancedMode = 15003,
 
     [ParentCombo(SAM_ST_AdvancedMode)]
-    [CustomComboInfo("Balance Opener (Level 100)", "Adds the Balance opener at level 100.", Job.SAM)]
+    [CustomComboInfo("Balance Opener (Level 70/80/90/100)", "Adds the Balance opener at level 70/80/90/100.", Job.SAM)]
     SAM_ST_Opener = 15006,
 
     [ParentCombo(SAM_ST_AdvancedMode)]

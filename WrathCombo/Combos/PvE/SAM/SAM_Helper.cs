@@ -141,11 +141,22 @@ internal partial class SAM
         if (ActionReady(Enpi) && !InMeleeRange() && HasBattleTarget())
         {
             //Ogi option
-            if (useOgi && (HasStatusEffect(Buffs.OgiNamikiriReady) || NamikiriReady) && !InActionRange(OriginalHook(OgiNamikiri)))
+            if (useOgi &&
+                ((HasStatusEffect(Buffs.OgiNamikiriReady) || NamikiriReady) &&
+                 !InActionRange(OriginalHook(OgiNamikiri)) ||
+                 !HasStatusEffect(Buffs.OgiNamikiriReady) && !NamikiriReady))
                 return true;
 
             //Iaijutsu option
-            if (useIaijutsu && (!IsOriginal(Iaijutsu) && !InActionRange(OriginalHook(Iaijutsu)) || UseTsubame() && !InActionRange(OriginalHook(TsubameGaeshi))))
+            if (useIaijutsu &&
+                (SenCount is 0 or 2 && !UseTsubame() ||
+                 SenCount is 1 && GetStatusEffectRemainingTime(Debuffs.Higanbana, CurrentTarget) > 15 ||
+                 SenCount is 3 && !InActionRange((MidareSetsugekka)) ||
+                 UseTsubame() && !InActionRange(TsubameGaeshi)))
+                return true;
+
+            //default - both disabled
+            if (!useOgi && !useIaijutsu)
                 return true;
         }
         return false;
@@ -175,12 +186,13 @@ internal partial class SAM
     internal static bool UseIkishoten() =>
         ActionReady(Ikishoten) &&
         !HasStatusEffect(Buffs.ZanshinReady) && Kenki <= 50 &&
-        NumberOfGcdsUsed >= 2 &&
-        (JustUsed(TendoKaeshiSetsugekka, 15f) ||
+        (NumberOfGcdsUsed is 2 ||
+         JustUsed(TendoKaeshiSetsugekka, 15f) ||
          !LevelChecked(TendoKaeshiSetsugekka));
 
     internal static bool UseSenei() =>
         ActionReady(Senei) && NumberOfGcdsUsed >= 4 &&
+        InActionRange(Senei) &&
         (!LevelChecked(KaeshiSetsugekka) ||
          LevelChecked(KaeshiSetsugekka) &&
          (JustUsed(KaeshiSetsugekka, 5f) ||
@@ -235,12 +247,12 @@ internal partial class SAM
 
     internal static bool UseOgi()
     {
+        if (NamikiriReady)
+            return true;
+
         if (ActionReady(OgiNamikiri) && InActionRange(OriginalHook(OgiNamikiri)) &&
             HasStatusEffect(Buffs.OgiNamikiriReady))
         {
-            if (NamikiriReady)
-                return true;
-
             if (GetStatusEffectRemainingTime(Buffs.OgiNamikiriReady) <= 8)
                 return true;
 
@@ -264,15 +276,171 @@ internal partial class SAM
 
     internal static WrathOpener Opener()
     {
-        if (StandardOpener.LevelChecked)
-            return StandardOpener;
+        if (Lvl70.LevelChecked)
+            return Lvl70;
+
+        if (Lvl80.LevelChecked)
+            return Lvl80;
+
+        if (Lvl90.LevelChecked)
+            return Lvl90;
+
+        if (Lvl100.LevelChecked)
+            return Lvl100;
 
         return WrathOpener.Dummy;
     }
 
-    internal static SAMStandardOpener StandardOpener = new();
+    internal static SAMLvl70Opener Lvl70 = new();
+    internal static SAMLvl80Opener Lvl80 = new();
+    internal static SAMLvl90Opener Lvl90 = new();
+    internal static SAMLvl100Opener Lvl100 = new();
 
-    internal class SAMStandardOpener : WrathOpener
+    internal class SAMLvl70Opener : WrathOpener
+    {
+        public override int MinOpenerLevel => 70;
+
+        public override int MaxOpenerLevel => 70;
+
+        public override List<uint> OpenerActions { get; set; } =
+        [
+            MeikyoShisui,
+            Role.TrueNorth, //2
+            Gekko,
+            Kasha,
+            Ikishoten,
+            Yukikaze,
+            Shinten,
+            MidareSetsugekka,
+            Shinten,
+            Hakaze,
+            Guren,
+            Yukikaze,
+            Shinten,
+            Higanbana
+        ];
+
+        internal override UserData ContentCheckConfig => SAM_Balance_Content;
+
+        public override List<(int[] Steps, Func<int> HoldDelay)> PrepullDelays { get; set; } =
+        [
+            ([2], () => SAM_Opener_PrePullDelay)
+        ];
+
+        public override List<(int[] Steps, uint NewAction, Func<bool> Condition)> SubstitutionSteps { get; set; } =
+        [
+            ([2], 11, () => !TargetNeedsPositionals())
+        ];
+
+        public override bool HasCooldowns() =>
+            IsOffCooldown(MeikyoShisui) &&
+            GetRemainingCharges(Role.TrueNorth) is 2 &&
+            IsOffCooldown(Guren) &&
+            IsOffCooldown(Ikishoten) &&
+            SenCount is 0;
+    }
+
+    internal class SAMLvl80Opener : WrathOpener
+    {
+        public override int MinOpenerLevel => 80;
+
+        public override int MaxOpenerLevel => 80;
+
+        public override List<uint> OpenerActions { get; set; } =
+        [
+            MeikyoShisui,
+            Role.TrueNorth, //2
+            Gekko,
+            Ikishoten,
+            Kasha,
+            Yukikaze,
+            MidareSetsugekka,
+            Senei,
+            KaeshiSetsugekka,
+            MeikyoShisui,
+            Gekko,
+            Higanbana,
+            Gekko,
+            Kasha,
+            Hakaze,
+            Yukikaze,
+            MidareSetsugekka,
+            Shoha,
+            KaeshiSetsugekka
+        ];
+
+        internal override UserData ContentCheckConfig => SAM_Balance_Content;
+
+        public override List<(int[] Steps, Func<int> HoldDelay)> PrepullDelays { get; set; } =
+        [
+            ([2], () => SAM_Opener_PrePullDelay)
+        ];
+
+        public override List<(int[] Steps, uint NewAction, Func<bool> Condition)> SubstitutionSteps { get; set; } =
+        [
+            ([2], 11, () => !TargetNeedsPositionals())
+        ];
+
+        public override bool HasCooldowns() =>
+            GetRemainingCharges(MeikyoShisui) is 2 &&
+            GetRemainingCharges(Role.TrueNorth) is 2 &&
+            IsOffCooldown(Senei) &&
+            IsOffCooldown(Ikishoten) &&
+            SenCount is 0;
+    }
+
+    internal class SAMLvl90Opener : WrathOpener
+    {
+        public override int MinOpenerLevel => 90;
+
+        public override int MaxOpenerLevel => 90;
+
+        public override List<uint> OpenerActions { get; set; } =
+        [
+            MeikyoShisui,
+            Role.TrueNorth, //2
+            Gekko,
+            Ikishoten,
+            Kasha,
+            Yukikaze,
+            MidareSetsugekka,
+            Senei,
+            KaeshiSetsugekka,
+            MeikyoShisui,
+            Gekko,
+            Higanbana,
+            OgiNamikiri,
+            Shoha,
+            KaeshiNamikiri,
+            Kasha,
+            Gekko,
+            Hakaze,
+            Yukikaze,
+            MidareSetsugekka,
+            KaeshiSetsugekka
+        ];
+
+        internal override UserData ContentCheckConfig => SAM_Balance_Content;
+
+        public override List<(int[] Steps, Func<int> HoldDelay)> PrepullDelays { get; set; } =
+        [
+            ([2], () => SAM_Opener_PrePullDelay)
+        ];
+
+        public override List<(int[] Steps, uint NewAction, Func<bool> Condition)> SubstitutionSteps { get; set; } =
+        [
+            ([2], 11, () => !TargetNeedsPositionals())
+        ];
+
+        public override bool HasCooldowns() =>
+            GetRemainingCharges(MeikyoShisui) is 2 &&
+            GetRemainingCharges(Role.TrueNorth) is 2 &&
+            IsOffCooldown(Senei) &&
+            IsOffCooldown(Ikishoten) &&
+            SenCount is 0;
+    }
+
+    internal class SAMLvl100Opener : WrathOpener
     {
         public override int MinOpenerLevel => 100;
 

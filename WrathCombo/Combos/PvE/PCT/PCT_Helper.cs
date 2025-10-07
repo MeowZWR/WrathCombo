@@ -345,7 +345,7 @@ internal partial class PCT
     {
         //2nd GCD Starry Opener
         public override int MinOpenerLevel => 90;
-        public override int MaxOpenerLevel => 99;
+        public override int MaxOpenerLevel => 90;
         
         public override List<uint> OpenerActions { get; set; } =
         [
@@ -383,7 +383,7 @@ internal partial class PCT
             if (!IsOffCooldown(StarryMuse))
                 return false;
 
-            if (GetRemainingCharges(LivingMuse) < 3)
+            if (GetRemainingCharges(LivingMuse) < 2)
                 return false;
 
             if (GetRemainingCharges(SteelMuse) < 2)
@@ -403,7 +403,7 @@ internal partial class PCT
     {
         //3rd GCD Starry Opener
         public override int MinOpenerLevel => 90;
-        public override int MaxOpenerLevel => 99;
+        public override int MaxOpenerLevel => 90;
         public override List<uint> OpenerActions { get; set; } =
         [
             FireInRed,
@@ -443,7 +443,7 @@ internal partial class PCT
             if (!IsOffCooldown(StarryMuse))
                 return false;
 
-            if (GetRemainingCharges(LivingMuse) < 3)
+            if (GetRemainingCharges(LivingMuse) < 2)
                 return false;
 
             if (GetRemainingCharges(SteelMuse) < 2)
