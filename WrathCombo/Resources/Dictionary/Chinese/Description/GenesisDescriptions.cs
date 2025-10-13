@@ -46,6 +46,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Turns Berserk / Inner Release into the Primal combo (Primal Rend -> Primal Ruination) on use.", "使用时将狂暴/原初的解放转换为原初连击（蛮荒崩裂 -> 尽毁）。"),                
                 KeyValuePair.Create("Adds Primal Ruination into the AoE rotation.", "将尽毁加入AOE循环。"),                
                 KeyValuePair.Create("Retargets Benefic and Benefic II to the heal stack (even from the Benefic 2 Downgrade Feature above).", "将吉星和福星重新定向到治疗堆栈（即使触发了上方的福星降级选项）。"),
+                KeyValuePair.Create("Applies HP check to Non-Boss Encounters only", "仅对非Boss遭遇战应用HP检查"),
                 
                 // Manually added
                 // PLD

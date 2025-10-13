@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WrathCombo.Combos.PvE;
+using static WrathCombo.Combos.PvE.BRD;
 using WrathCombo.Combos.PvP;
 using WrathCombo.Extensions;
 
@@ -19,6 +19,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 #region BRDPvE
                 KeyValuePair.Create("Replaces Heavy Shot with a full one-button single target rotation.", "用一键单目标循环替换强力射击。"),
                 KeyValuePair.Create("Replaces Quick Nock with a full one-button AoE rotation.", "用一键AoE循环替换连珠箭。"),
+                KeyValuePair.Create("Replaces WideVolley/Shadowbite with Apex Arrow when gauge is full and Blast Arrow when you are Blast Arrow ready.", "当量谱满时用绝峰箭替换广域群射/影噬箭，当爆破箭准备就绪时用爆破箭替换。"),
+                KeyValuePair.Create("Will apply and refresh your dots.", "将应用并刷新你的DoT。"),
+                KeyValuePair.Create("Straight Shot/Refulgent Arrow with Heavy Shot when not procced.", "未触发时用强力射击配合直线射击/辉煌箭。"),
+                KeyValuePair.Create("Will use the following OGCDs to prevent overcap", "将使用以下能力技防止溢出"),
                 KeyValuePair.Create("This option will make Bard apply DoTs if none are present on the target.", "此选项将使吟游诗人在目标没有DoT时施加DoT。"),
                 KeyValuePair.Create("Enable the snapshotting of DoTs, within the remaining time of Raging Strikes below:", "在猛者强击剩余时间内启用DoT快照："),
                 KeyValuePair.Create("This option adds the Bard's Songs to the Advanced Bard Feature.", "此选项将吟游诗人的歌曲添加到高级吟游诗人功能中。"),
@@ -60,7 +64,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Auto Self cleanse of soft cc. ", "自动清除软控制效果。"),
                 KeyValuePair.Create(" Half Asleep, Heavy, and Bind", "催眠、加重和止步。"),
                 KeyValuePair.Create("Bard DoTs Option", "诗人DoT选项"),
-                KeyValuePair.Create("Raging Jaws Option", "伶牙俐齿选项"),
+                KeyValuePair.Create("Raging Jaws Option", "猛者强击伶牙俐齿"),
                 KeyValuePair.Create("Bard Songs Option", "诗人歌曲选项"),
                 KeyValuePair.Create("Bard Song Option", "诗人歌曲选项"),
                 KeyValuePair.Create("Resonant Option", "共鸣箭"),
@@ -78,6 +82,38 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("2.49 Standard Comfy", "2.49标准舒适起手"),
                 KeyValuePair.Create("Remaining time (In seconds). Recommended 5, increase little by little if refresh is outside of radiant window", "剩余时间（秒）。推荐5，如果刷新在光明神窗口期外，请逐步增加数值。"),
                 KeyValuePair.Create("Remaining target HP percentage", "目标剩余生命值百分比"),
+                KeyValuePair.Create("Stop using Dots on targets below this HP % (0% = always use, 100% = never use).", "对在此HP%以下的目标停止使用DoT（0% = 总是使用，100% = 从不使用）。"),
+                KeyValuePair.Create("Enable the refreshing of dots with Ironjaws", "启用伶牙俐齿刷新DoT"),
+                KeyValuePair.Create("Iron Jaws Option", "伶牙俐齿"),
+                KeyValuePair.Create("Enable the application of dots outside of the opener", "起手循环外也保持DoT"),
+                KeyValuePair.Create("Dot Application Option", "DoT保持"),
+                KeyValuePair.Create("Enable the snapshotting of DoTs, within the remaining time of Raging Strikes", "在猛者强击剩余时间内启用DoT快照"),
+                KeyValuePair.Create("Will maintain dots on up to 3 targets.", "将在最多3个目标上维持DoT。"),
+                KeyValuePair.Create("MultiDot Option", "多目标DoT"),
+                KeyValuePair.Create("Raging Jaws: Renew time (In seconds).", "在猛者强击中使用伶牙俐齿刷新DoT：刷新时间（秒）。"),
+                KeyValuePair.Create("Recommended 5, increase little by little if refresh is outside of radiant window", "推荐5秒，如果刷新在光明神窗口期外，请逐步增加数值。"),
+                KeyValuePair.Create("Party Cleanse Option", "队伍净化"),
+                KeyValuePair.Create("Uses Wardens Paeon when someone in the party has a cleansable debuff using the Retargeting Function following party list.", "当队伍中有人有可清除的减益时使用光阴神的礼赞凯歌，使用重定向功能跟随队伍列表。"),
+                KeyValuePair.Create("Battlevoice Option", "战斗之声"),
+                KeyValuePair.Create("Stop using Buffs on targets below this HP % (0 = always use, 100 = never use).", "在此HP%以下的目标停止使用Buff（0 = 总是使用，100 = 从不使用）。"),
+                KeyValuePair.Create("Adds Bloodletter when at max charges", "在满充能时添加失血箭"),
+                KeyValuePair.Create("Enables the use of dot sub options below", "启用下方DoT子选项"),
+                KeyValuePair.Create("Enable all to follow balance buff windows", "启用所有以跟随平衡Buff窗口期"),
+                KeyValuePair.Create("Disabling any buff will follow simple priority", "禁用任何Buff将遵循简单优先级"),
+                KeyValuePair.Create("Weave Sidewinder, Empyreal arrow, Bloodletter, and Pitch perfect when available.", "在可用时插入侧风诱导箭、九天连箭、失血箭和完美音调。"),
+                KeyValuePair.Create("Pools Bloodletter charges and Sidewinder to allow for optimum burst phases", "储存失血箭充能和侧风诱导箭以优化爆发阶段"),
+                KeyValuePair.Create("Pools Apex arrow into buff window and when buffs are between 50-60 seconds on cd.", "将绝峰箭储存到Buff窗口期，当Buff冷却时间在50-60秒之间时。"),
+                KeyValuePair.Create("Troubadour Raidwide Option", "行吟"),
+                KeyValuePair.Create("Adds Troubador when Raidwide is detected casting.", "检测到全屏技能读条时添加行吟。"),
+                KeyValuePair.Create("Nature's Minne Raidwide Option", "大地神的抒情恋歌"),
+                KeyValuePair.Create("Adds Nature's Minne when Raidwide is detected casting and you don't already have Troubadour up.", "检测到全屏技能读条且你没有行吟时使用大地神的抒情恋歌。"),
+                KeyValuePair.Create("Bard Dot Option", "诗人DoT"),
+                KeyValuePair.Create("Pools Rain of death charges to allow for optimum burst phases.", "储存死亡箭雨充能以优化爆发阶段。"),
+                KeyValuePair.Create("OGCDs option", "能力技"),
+                KeyValuePair.Create("Apex Arrow Option", "绝峰箭"),
+                KeyValuePair.Create("Replaces WideVolley/Shadowbite with Quicknock/LadonsBite when not procced or below level.", "未触发或等级不足时用连珠箭/百首龙牙箭替换广域群射/影噬箭。"),
+                KeyValuePair.Create("Rain Of Death", "死亡箭雨"),
+                KeyValuePair.Create("Adds Rain of Death when at max charges, or bloodletter below level.", "在满充能时或失血箭等级不足时添加死亡箭雨。"),
                 #endregion
 
                 #region BRDPvP

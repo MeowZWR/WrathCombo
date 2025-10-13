@@ -118,7 +118,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Dynamic choice of combo finisher based on position and available charges.", "根据位置和可用充能动态选择连击终结技。"),
                 KeyValuePair.Create($"Focus on using {AeolianEdge.ActionName()} to use Kazematoi when target is below Health %", $"专注于在目标生命值低于设定百分比时使用{AeolianEdge.ActionName()}来使用风缠。"),
                 KeyValuePair.Create("Stop using on targets below this HP % (0% = always use, 100% = never use).", "在目标生命值低于此百分比时停止使用（0% = 总是使用，100% = 从不使用）。"),
-                KeyValuePair.Create("Applies HP check to Non-Boss Encounters only", "仅对非Boss遭遇战应用生命值检查"),
                 KeyValuePair.Create("Applies HP Check to All Content", "对所有内容应用生命值检查"),
                 KeyValuePair.Create("Auto TCJ Option", "自动天地人选项"),
                 KeyValuePair.Create("Will automatically Fuma Shuriken then Raiton then Suiton", "将自动使用风魔手里剑然后雷遁之术然后水遁之术"),

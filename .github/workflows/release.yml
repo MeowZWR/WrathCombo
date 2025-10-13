@@ -81,7 +81,8 @@ jobs:
             $tagResponse = Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/git/tags/$tagName" -Headers $headers
             $commitMessage = $tagResponse.message
             if ($commitMessage -and $commitMessage.Trim() -ne "") {
-              $changelog = $commitMessage.Trim()
+              # 确保换行符正确保留，将\r\n统一为\n
+              $changelog = $commitMessage.Trim() -replace "`r`n", "`n" -replace "`r", "`n"
             } else {
               $changelog = ""
             }

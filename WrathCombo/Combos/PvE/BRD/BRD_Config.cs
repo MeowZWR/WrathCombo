@@ -63,7 +63,7 @@ internal partial class BRD
                     ImGui.Unindent();
                     DrawHorizontalMultiChoice(BRD_Adv_DoT_Options, "Iron Jaws Option", "Enable the refreshing of dots with Ironjaws", 4, 0);
                     DrawHorizontalMultiChoice(BRD_Adv_DoT_Options, "Dot Application Option", "Enable the application of dots outside of the opener", 4, 1);
-                    DrawHorizontalMultiChoice(BRD_Adv_DoT_Options, "Raging Jaws Optionn", "Enable the snapshotting of DoTs, within the remaining time of Raging Strikes", 4, 2);
+                    DrawHorizontalMultiChoice(BRD_Adv_DoT_Options, "Raging Jaws Option", "Enable the snapshotting of DoTs, within the remaining time of Raging Strikes", 4, 2);
                     DrawHorizontalMultiChoice(BRD_Adv_DoT_Options, "MultiDot Option", "Will maintain dots on up to 3 targets.", 4, 3);
 
                     if (BRD_Adv_DoT_Options[2])
