@@ -767,7 +767,7 @@ internal unsafe static class AutoRotationController
             IsInRange(chara, cfg.DPSSettings.MaxDistance) &&
             GetTargetHeightDifference(chara) <= cfg.DPSSettings.MaxDistance &&
             !TargetIsInvincible(chara) &&
-            !Service.Configuration.IgnoredNPCs.ContainsKey(chara.BaseId) &&
+            !Service.Configuration.IgnoredNPCs.ContainsKey(chara.DataId) &&
             ((cfg.DPSSettings.OnlyAttackInCombat && chara.Struct()->InCombat) || !cfg.DPSSettings.OnlyAttackInCombat) &&
             IsInLineOfSight(chara);
 

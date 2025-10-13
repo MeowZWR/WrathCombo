@@ -227,7 +227,7 @@ public static class DebugFile
         if (target is IBattleChara)
         {
             battleTarget = target as IBattleChara;
-            if (ActionWatching.BNPCSheet.TryGetValue(battleTarget.BaseId,
+            if (ActionWatching.BNPCSheet.TryGetValue(battleTarget.DataId,
                     out var sheetRow))
             {
                 battleNPCRow = sheetRow;
@@ -245,7 +245,7 @@ public static class DebugFile
         if (battleTarget is not null)
         {
             AddLine($"IDs: entity:{battleTarget.EntityId}, " +
-                    $"base/data:{battleTarget.BaseId}");
+                    $"base/data:{battleTarget.DataId}");
             AddLine($"Level: {battleTarget.Level}");
             AddLine($"Is Casting: {battleTarget.IsCasting}");
             AddLine($"Is Cast Interruptable: {battleTarget.IsCastInterruptible}");
