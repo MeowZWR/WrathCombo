@@ -78,8 +78,10 @@ jobs:
           }
           
           try {
-            $tagResponse = Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/git/tags/$tagName" -Headers $headers
-            $commitMessage = $tagResponse.message
+            # 直接获取commit message作为changelog
+            $commitSha = '${{ github.sha }}'
+            $commitResponse = Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/commits/$commitSha" -Headers $headers
+            $commitMessage = $commitResponse.commit.message
             if ($commitMessage -and $commitMessage.Trim() -ne "") {
               # 确保换行符正确保留，将\r\n统一为\n
               $changelog = $commitMessage.Trim() -replace "`r`n", "`n" -replace "`r", "`n"
@@ -87,7 +89,7 @@ jobs:
               $changelog = ""
             }
           } catch {
-            Write-Host "Failed to get tag message, using empty changelog"
+            Write-Host "Failed to get commit message, using empty changelog"
             $changelog = ""
           }
           
