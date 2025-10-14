@@ -89,6 +89,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create($"Use on {Excavator.ActionName()}", $"用于{Excavator.ActionName()}"),
                 KeyValuePair.Create($"Use on {Drill.ActionName()}", $"用于{Drill.ActionName()}"),
                 KeyValuePair.Create($"Use on {CleanShot.ActionName()}", $"用于{CleanShot.ActionName()}"),
+                KeyValuePair.Create("Will follow Balance logic if selected on Turret/Queen.", "若在炮塔/人偶选项中启用，将遵循「The Balance」逻辑。"),
                 #endregion
                 
                 #region MCHPvP
