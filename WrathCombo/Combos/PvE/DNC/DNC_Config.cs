@@ -106,7 +106,7 @@ internal partial class DNC
         private static void DrawPartnerInfo()
         {
             ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                "This will check through your party members, and select the most desirable Partner, based on The Balance's priority list as well as stuff like Rez Sickness and Damage Downs.");
+                "此功能会检查您的队伍成员，并根据「The Balance」的优先级列表以及复活虚弱和伤害降低等状态，选择最理想的舞伴。");
         }
 
         internal static void Draw(Preset preset)
@@ -435,7 +435,7 @@ internal partial class DNC
                         indentDescription: true);
 
                     ImGuiEx.Spacing(new Vector2(29, 12));
-                    ImGui.Text("Action to Show when Partner is Optimal Options:     (hover each for more info)");
+                    ImGui.Text("当舞伴为最佳选择时应显示的技能：（将鼠标悬停于选项上以查看详情）");
                     ImGui.NewLine();
                     DrawRadioButton(
                         DNC_Partner_ActionToShow, "Let Game Decide",
