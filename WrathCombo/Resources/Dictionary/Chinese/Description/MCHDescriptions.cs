@@ -90,6 +90,8 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create($"Use on {Drill.ActionName()}", $"用于{Drill.ActionName()}"),
                 KeyValuePair.Create($"Use on {CleanShot.ActionName()}", $"用于{CleanShot.ActionName()}"),
                 KeyValuePair.Create("Will follow Balance logic if selected on Turret/Queen.", "若在炮塔/人偶选项中启用，将遵循「The Balance」逻辑。"),
+                KeyValuePair.Create("Balance Opener (Level 90/100)", "「The Balance」起手循环（90级/100级）"),
+                KeyValuePair.Create("Adds the Balance opener at lvl 90/100.", "在90级/100级时添加「The Balance」起手循环。"),
                 #endregion
                 
                 #region MCHPvP
