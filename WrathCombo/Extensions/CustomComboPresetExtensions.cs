@@ -62,11 +62,11 @@ internal static partial class PresetExtensions
 
                 if (lastPresetInfo.Job == Job.ADV)
                 {
-                    lastPresetJob = "[Roles And Content] ";
+                    lastPresetJob = "[职能与内容] ";
                     if (PresetStorage.IsVariant(inspectingPreset.Value))
-                        lastPresetJob += "Variant > ";
+                        lastPresetJob += "多变迷宫 > ";
                     if (PresetStorage.IsOccultCrescent(inspectingPreset.Value))
-                        lastPresetJob += "Occult Crescent > ";
+                        lastPresetJob += "新月岛 > ";
                 }
                 else
                     lastPresetJob = $"[{lastPresetInfo.JobShorthand}] ";
