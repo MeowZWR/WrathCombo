@@ -97,13 +97,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Enforced ", "储备能力技"),
                 KeyValuePair.Create("Retarget Rekindle Combo Option", "苏生之炎重定向连击"),
                 KeyValuePair.Create("Will Retarget Rekindle to a tank that needs it, then a party member that need healing, before Self.", "将苏生之炎重定向到需要治疗的坦克，然后是需要治疗的队友，最后才是自己。"),
-                KeyValuePair.Create("Summon Titan", "土神召唤"),
                 KeyValuePair.Create("Adds Titan to the Single Target Rotation", "将土神召唤添加到单目标循环中"),
                 KeyValuePair.Create("Adds Titan to the AoE Rotation", "将土神召唤添加到多目标循环中"),
-                KeyValuePair.Create("Summon Garuda", "风神召唤"),
                 KeyValuePair.Create("Adds Garuda to the Single Target Rotation", "将风神召唤添加到单目标循环中"),
                 KeyValuePair.Create("Adds Garuda to the AoE Rotation", "将风神召唤添加到多目标循环中"),
-                KeyValuePair.Create("Summon Ifrit", "火神召唤"),
                 KeyValuePair.Create("Adds Ifrit to the Single Target Rotation", "将火神召唤添加到单目标循环中"),
                 KeyValuePair.Create("Adds Ifrit to the AoE Rotation", "将火神召唤添加到多目标循环中"),
                 KeyValuePair.Create("Will use Radiant Aegis, 30 second self shield, when at 2 charges to prevent waste", "当有2层充能时使用守护之光，30秒自身护盾，防止浪费"),
@@ -135,9 +132,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Swiftcasts Ruby Ruin/Ruby Rite", "即刻咏唱红宝石毁灭（毁荡/毁坏）/红宝石之仪"),
                 KeyValuePair.Create("Summons Titan, Garuda then Ifrit.", "召唤顺序：土神->风神->火神"),
                 KeyValuePair.Create("Summons Garuda, Titan then Ifrit.", "召唤顺序：风土神->土神->火神"),
-                KeyValuePair.Create("Garuda", "风神"),
-                KeyValuePair.Create("Ifrit", "火神"),
-                KeyValuePair.Create("Titan", "土神"),
             ];
         }
     }

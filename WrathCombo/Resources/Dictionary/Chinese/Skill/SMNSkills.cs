@@ -127,6 +127,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 // Manually added
                 KeyValuePair.Create("Solar Bahamut Burst", "烈日龙神迸发"),
                 KeyValuePair.Create("Bahamut Burst", "龙神迸发"),
+                KeyValuePair.Create("Garuda", "风神"),
+                KeyValuePair.Create("Ifrit", "火神"),
+                KeyValuePair.Create("Titan", "土神"),
 
             ];
         }
