@@ -53,6 +53,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Displacement", RDM.Displacement.ActionName()),
                 KeyValuePair.Create("Reprise", RDM.Reprise.ActionName()),
                 KeyValuePair.Create("Vice of Thorns", RDM.ViceOfThorns.ActionName()),
+                KeyValuePair.Create("Vice Of Thorns", RDM.ViceOfThorns.ActionName()),
                 KeyValuePair.Create("Grand Impact", RDM.GrandImpact.ActionName()),
                 KeyValuePair.Create("Prefulgence", RDM.Prefulgence.ActionName()),
 

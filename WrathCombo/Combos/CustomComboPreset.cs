@@ -5404,7 +5404,7 @@ public enum Preset
     RDM_AoE_MeleeCombo_Target = 13205,
 
     [ParentCombo(RDM_AoE_MeleeCombo)]
-    [CustomComboInfo("Gap-close with Corps-a-corps Option",
+    [CustomComboInfo("Gap-Close with Corps-a-corps Option",
         "Use Corp-a-corps when out of melee range and you have enough mana to start the melee combo.", Job.RDM)]
     RDM_AoE_MeleeCombo_GapCloser = 13206,
 

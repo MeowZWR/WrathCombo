@@ -192,14 +192,14 @@ internal partial class RDM
 
                 case Preset.RDM_VerAero:
                     DrawHorizontalMultiChoice(RDM_VerAero_Options, "Holy Flare Combo", "Adds smart Holy/Flare", 4, 0);
-                    DrawHorizontalMultiChoice(RDM_VerAero_Options, "VerStone", "Adds VerStone", 4, 1);
+                    DrawHorizontalMultiChoice(RDM_VerAero_Options, "赤飞石", "Adds VerStone", 4, 1);
                     DrawHorizontalMultiChoice(RDM_VerAero_Options, "Scorch Combo", "Adds Scorch/Resolution Finishers", 4, 2);
                     DrawHorizontalMultiChoice(RDM_VerAero_Options, "Jolt", "Adds Jolt", 4, 3);
                     break;
 
                 case Preset.RDM_VerThunder:
                     DrawHorizontalMultiChoice(RDM_VerThunder_Options, "Holy Flare Combo", "Adds smart Holy/Flare", 4, 0);
-                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, "VerFire", "Adds VerFire", 4, 1);
+                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, "赤火炎", "Adds VerFire", 4, 1);
                     DrawHorizontalMultiChoice(RDM_VerThunder_Options, "Scorch Combo", "Adds Scorch/Resolution Finishers", 4, 2);
                     DrawHorizontalMultiChoice(RDM_VerThunder_Options, "Jolt", "Adds Jolt", 4, 3);
                     break;
