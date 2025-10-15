@@ -35,7 +35,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Energy Attacks Combo Option", "能量攻击连击"),
                 KeyValuePair.Create("Adds Energy Drain and Fester to the single target combo.", "将Energy Drain和Fester添加到单目标连击中。"),
                 KeyValuePair.Create("Will be used on cooldown.", "将在冷却时使用。"),
-                KeyValuePair.Create("Pools damage oGCDs for use inside the selected Demi phase while under the Searing Light buff.", "在Searing Light增益下，将伤害能力技集中用于选定的亚灵神阶段内。"),
                 KeyValuePair.Create("Bahamut Burst becomes Solar Bahamut Burst at Lv100.", "在100级时，龙神迸发变为烈日龙神迸发。"),
                 KeyValuePair.Create("Checks for any Searing Light for bursting rather than just your own.", "检查任何Searing Light以进行爆发，而不仅仅是你自己的。"),
                 KeyValuePair.Create("Use this option if partied with multiple SMN and are worried about your Searing Light being wasted.", "如果与多个召唤师组队并担心你的Searing Light被浪费，请使用此选项。"),
@@ -96,6 +95,25 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Only uses Crimson Cyclone within melee range.", "仅在近战范围内使用深红旋风。"),
                 KeyValuePair.Create("Pooled oGCDs Option", "储备能力技"),
                 KeyValuePair.Create("Enforced ", "储备能力技"),
+                KeyValuePair.Create("Retarget Rekindle Combo Option", "苏生之炎重定向连击"),
+                KeyValuePair.Create("Will Retarget Rekindle to a tank that needs it, then a party member that need healing, before Self.", "将苏生之炎重定向到需要治疗的坦克，然后是需要治疗的队友，最后才是自己。"),
+                KeyValuePair.Create("Summon Titan", "土神召唤"),
+                KeyValuePair.Create("Adds Titan to the Single Target Rotation", "将土神召唤添加到单目标循环中"),
+                KeyValuePair.Create("Adds Titan to the AoE Rotation", "将土神召唤添加到多目标循环中"),
+                KeyValuePair.Create("Summon Garuda", "风神召唤"),
+                KeyValuePair.Create("Adds Garuda to the Single Target Rotation", "将风神召唤添加到单目标循环中"),
+                KeyValuePair.Create("Adds Garuda to the AoE Rotation", "将风神召唤添加到多目标循环中"),
+                KeyValuePair.Create("Summon Ifrit", "火神召唤"),
+                KeyValuePair.Create("Adds Ifrit to the Single Target Rotation", "将火神召唤添加到单目标循环中"),
+                KeyValuePair.Create("Adds Ifrit to the AoE Rotation", "将火神召唤添加到多目标循环中"),
+                KeyValuePair.Create("Will use Radiant Aegis, 30 second self shield, when at 2 charges to prevent waste", "当有2层充能时使用守护之光，30秒自身护盾，防止浪费"),
+                KeyValuePair.Create("Searing Light Waste Protection Feature", "灼热之光防浪费功能"),
+                KeyValuePair.Create("Changes Searing light to SavageBlade while under the affect of another summoners buff to prevent waste.", "在受到其他召唤师增益影响时，将灼热之光更改为重斩以防止浪费。"),
+                KeyValuePair.Create("Will Retarget the Raises affected here to your Heal Stack.", "将受影响的复活重定向到你的治疗目标。"),
+                KeyValuePair.Create("Retarget Raises", "重定向复活"),
+                KeyValuePair.Create("Set value for your MP to be at or under for this feature to take effect.", "设置你的MP值在此功能生效时的上限。"),
+                KeyValuePair.Create(" Maximum range to use Crimson Cyclone.", "使用深红旋风的最大范围。"),
+                KeyValuePair.Create("Use Ruin III instead of Emerald Ruin III when standing still between the levels of 54 and 72", "在54到72级之间站立不动时使用毁荡代替绿宝石毁荡"),
                 #endregion
 
                 #region SMNPvP
@@ -112,7 +130,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 #endregion
 
                 // Manually added
-                KeyValuePair.Create("Use Ruin III instead of Emerald Ruin III when standing still", "站立不动时使用毁荡代替绿宝石毁荡"),
                 KeyValuePair.Create("Swiftcasts the first available Egi when Swiftcast is ready.", "即刻咏唱冷却即用，不管是哪个蛮神"),
                 KeyValuePair.Create("Swiftcasts Slipstream", "即刻咏唱螺旋气流"),
                 KeyValuePair.Create("Swiftcasts Ruby Ruin/Ruby Rite", "即刻咏唱红宝石毁灭（毁荡/毁坏）/红宝石之仪"),

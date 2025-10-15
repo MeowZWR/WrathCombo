@@ -6899,7 +6899,7 @@ public enum Preset
 
     [ParentCombo(SMN_ST_Advanced_Combo_EDFester)]
     [CustomComboInfo("Pooled oGCDs Option",
-        "Pools damage oGCDs for use while under the Searing Light buff.",
+        "在灼热之光增益下集中使用输出能力技。",
         Job.SMN)]
     SMN_ST_Advanced_Combo_oGCDPooling = 17025,
 
@@ -6910,7 +6910,7 @@ public enum Preset
 
     [ParentCombo(SMN_ST_Advanced_Combo_SearingLight)]
     [CustomComboInfo("Searing Light Burst Option",
-        "Casts Searing Light only during Demi phases.\nSpellspeed builds would turn this off.",
+        "Casts Searing Light only during Demi phases.\n咏速构建会关闭此功能。",
         Job.SMN)]
     SMN_ST_Advanced_Combo_SearingLight_Burst = 17018,
 
@@ -7002,7 +7002,7 @@ public enum Preset
 
     [ParentCombo(SMN_AoE_Advanced_Combo_ESPainflare)]
     [CustomComboInfo("Pooled oGCDs Option",
-        "Pools damage oGCDs for use inside the Searing Light buff",
+        "在灼热之光增益下集中使用输出能力技。",
         Job.SMN)]
     SMN_AoE_Advanced_Combo_oGCDPooling = 17050,
 
@@ -7013,7 +7013,7 @@ public enum Preset
 
     [ParentCombo(SMN_AoE_Advanced_Combo_SearingLight)]
     [CustomComboInfo("Searing Light Burst Option",
-        "Casts Searing Light only during Demi phases.\nSpellspeed Builds would turn this off.",
+        "Casts Searing Light only during Demi phases.\n咏速构建会关闭此功能。",
         Job.SMN)]
     SMN_AoE_Advanced_Combo_SearingLight_Burst = 17054,
 
