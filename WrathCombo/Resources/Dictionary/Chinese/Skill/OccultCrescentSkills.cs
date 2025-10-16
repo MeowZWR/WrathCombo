@@ -11,7 +11,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Skill
             [
                 // Occult Crescent (新月岛) 技能对照表
                 #region 辅助骑士
-                KeyValuePair.Create("Phantom Guard", "防护"),
                 KeyValuePair.Create("Pray", "祈祷"),
                 KeyValuePair.Create("Occult Heal", "魔疗愈"),
                 KeyValuePair.Create("Pledge", "起誓"),
@@ -52,9 +51,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Skill
 
                 #region 辅助吟游诗人
                 KeyValuePair.Create("Offensive Aria", "攻击之歌"),
-                KeyValuePair.Create("Romeo's Ballad", "爱之歌"),
                 KeyValuePair.Create("Mighty March", "体力之歌"),
-                KeyValuePair.Create("Hero's Rime", "英雄之歌"),
                 KeyValuePair.Create("Enhanced Vocals", "歌吟效果提高"),
                 #endregion
 
@@ -81,8 +78,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Skill
                 #endregion
 
                 #region 辅助炮击士
-                KeyValuePair.Create("Phantom Fire", "炮击"),
-                KeyValuePair.Create("Holy Cannon", "神圣炮"),
                 KeyValuePair.Create("Dark Cannon", "暗黑炮"),
                 KeyValuePair.Create("Shock Cannon", "冲击炮"),
                 KeyValuePair.Create("Silver Cannon", "老化炮"),
@@ -111,7 +106,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Skill
                 #region 辅助盗贼
                 KeyValuePair.Create("Steal", "偷盗"),
                 KeyValuePair.Create("Occult Sprint", "魔冲刺"),
-                KeyValuePair.Create("Vigilance", "警戒"),
                 KeyValuePair.Create("Trap Detection", "陷阱感知"),
                 KeyValuePair.Create("Pilfer Weapon", "偷盗武器"),
                 KeyValuePair.Create("Lockpicker", "开锁"),

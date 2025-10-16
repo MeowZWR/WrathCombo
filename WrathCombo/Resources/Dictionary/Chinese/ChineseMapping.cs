@@ -123,6 +123,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese
             allKeyValuePairs.AddRange(WHMDesc.GetDescriptions());
             allKeyValuePairs.AddRange(DOLDesc.GetDescriptions());
             allKeyValuePairs.AddRange(DOHDesc.GetDescriptions());
+            allKeyValuePairs.AddRange(OccultDesc.GetDescriptions());
             allKeyValuePairs.AddRange(BozjaSkills.GetSkills());
             allKeyValuePairs.AddRange(CommonSkills.GetSkills());
             allKeyValuePairs.AddRange(ASTSkills.GetSkills());
