@@ -47,7 +47,28 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Primal Ruination into the AoE rotation.", "将尽毁加入AOE循环。"),                
                 KeyValuePair.Create("Retargets Benefic and Benefic II to the heal stack (even from the Benefic 2 Downgrade Feature above).", "将吉星和福星重新定向到治疗堆栈（即使触发了上方的福星降级选项）。"),
                 KeyValuePair.Create("Applies HP check to Non-Boss Encounters only", "仅对非Boss遭遇战应用HP检查"),
-                
+                KeyValuePair.Create("For PLDs this feature will add Shield Bash when Interject and Low Blow are on cooldown.", "对于骑士，当插言和下踢都在冷却中时，此功能将添加盾牌猛击。"),
+                KeyValuePair.Create("Retarget Interrupts", "重定向打断技能"),
+                KeyValuePair.Create("Will retarget the interrupt if the caster is not your current target.", "如果施法者不是你当前的目标，将重定向打断技能。"),
+                KeyValuePair.Create("Tank: Shirk Retargeting", "防护职业：退避重定向"),
+                KeyValuePair.Create("Retargets Shirk to the other tank if there is one.", "如果有其他防护职业，将退避重定向到其他防护职业。"),
+                KeyValuePair.Create("Use Healers instead", "治疗职业替代"),
+                KeyValuePair.Create("Will Retarget Shirk to healers, instead of the other tank.", "将退避重定向到治疗职业，而不是其他防护职业。"),
+                KeyValuePair.Create("Only recommended during some specific enrages.", "仅在特定狂暴阶段推荐使用。"),
+                KeyValuePair.Create("Fallback to Any Support", "回退到任意支援职业"),
+                KeyValuePair.Create("Will Retarget Shirk to tanks or healers, per your setting above, but will include a fallback to any tank OR healer if none of your setting is found.", "将根据上述设置将退避重新定向到防护职业或治疗职业，但如果找不到你选择的玩家，将回退到任意防护职业或治疗职业。"),
+                KeyValuePair.Create("Useful to help your Shirk always go to *someone* even if your chosen players are not alive.", "有助于确保你的退避总是能施放到*某人*身上，即使你选择的玩家已经死亡。"),
+                KeyValuePair.Create("Healer: Esuna Retargeting", "治疗职业：康复重定向"),
+                KeyValuePair.Create("Retargets Esuna (outside of combo usage) to your Heal Stack, checking if each potential target in the stack has a cleansable debuff.", "将康复（在连击使用之外）重定向到你的治疗堆栈，检查堆栈中每个潜在目标是否有可净化的减益效果。"),
+                KeyValuePair.Create("Healer: Rescue Retargeting", "治疗职业：营救重定向"),
+                KeyValuePair.Create("Retargets Rescue (outside of combo usage) to UI Mouseover and additional options.", "将营救（在连击使用之外）重定向到鼠标悬停目标和额外选项。"),
+                KeyValuePair.Create("Enable this to add Variant Actions in Variant Dungeons.", "启用此选项可在多变迷宫中添加多变技能。"),
+                KeyValuePair.Create("Variant Actions will be used by Single Target and AoE DPS Combos, in both Simple & Advanced", "多变技能将被单体目标和多目标输出连击使用，包括简单和高级模式"),
+                KeyValuePair.Create("Use Variant Raise on incapacitated party members.", "对失去战斗能力的队友使用多变复活。"),
+                KeyValuePair.Create("Use Variant Spirit Dart whenever the debuff is not present or less than 3s", "当减益效果不存在或剩余时间少于3秒时使用多变精神镖。"),
+                KeyValuePair.Create("Variant Magic", "多变法系输出"),
+                KeyValuePair.Create("Variant Actions will be used by Single Target and AoE DPS Features, in both Simple & Advanced selections", "多变技能将被单体目标和多目标输出功能使用，包括简单和高级选择"),
+
                 // Manually added
                 // PLD
                 KeyValuePair.Create("Guardian", PLD.Guardian.ActionName()),
@@ -75,6 +96,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 // Melee DPS
                 KeyValuePair.Create("Role Action Smite Option", "职能技能-猛击"),
                 KeyValuePair.Create("Adds Role Action Smite to Burst Mode below selected health", "在目标生命值低于所选阈值时，将职能技能猛击添加到爆发模式"),
+                KeyValuePair.Create("Set the HP percentage to be at or under for the feature to kick in.", "设置生命值百分比阈值，使功能生效。"),
+                KeyValuePair.Create("100% is considered to start at 8,000 less than your max HP to prevent wastage.", "100%被认为是开始于8,000小于你的最大生命值，以防止浪费。"),
+                KeyValuePair.Create("Target HP% to smite, Max damage below 25%", "猛击的目标生命值百分比阈值，最大伤害低于25%"),
                 // Healer
                 KeyValuePair.Create("Role Action Diabrosis Option", "职能技能-溃破"),
                 KeyValuePair.Create("Adds Role Action Diabrosis to Burst Mode below selected health", "在目标生命值低于所选阈值时，将职能技能溃破添加到爆发模式"),
@@ -83,20 +107,41 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Cure III Priority Option", "愈疗优先级"),
                 KeyValuePair.Create("Makes Cure 3 prioritized before Aquaveil.", "使愈疗在水流幕之前优先使用。"),
                 KeyValuePair.Create("Cure 3 replaces Cure 2 regardless of this setting as that is how SE made it", "无论此设置如何，愈疗都会替换救疗，这是官方的设定。"),
-                KeyValuePair.Create("Self Adlo Option", "自我鼓励"),
+                KeyValuePair.Create("Adlo Option", "鼓舞激励之策"),
+                KeyValuePair.Create("Adlo Retarget", "重定向鼓舞激励之策"),
+                KeyValuePair.Create("Retargets Adlo to the heal stack (In Wrath Settings) outside of the Burst Feature", "在爆发模式之外，将鼓舞激励之策重定向到治疗堆栈（在插件设置中设置）"),
+                KeyValuePair.Create("Retarget Adlo", "重定向鼓舞激励之策"),
+                KeyValuePair.Create("HP% to use Adlo", "使用鼓舞激励之策的目标生命值百分比阈值"),
                 KeyValuePair.Create("Adds Adloquium to self when at or beneath selected heath threshold.", "当自身生命值低于或等于设定阈值时，为自己使用鼓励激励之策。"),
                 KeyValuePair.Create("Will Not Overwrite Catalyze", "不会覆盖激励。"),
+                KeyValuePair.Create("Adds Cure 2/3 and Aquaveil to Burst combo below all damage options.", "将救疗和愈疗和水流幕添加到爆发连击下方所有伤害选项。"),
+                KeyValuePair.Create("Heals in the Burst Mode", "爆发模式中的治疗"),
+                KeyValuePair.Create("To the Heal Stack (In Wrath Settings)", "治疗堆栈（在插件设置中设置）"),
+                KeyValuePair.Create("Retarget Cure 2", "重定向救疗"),
+                KeyValuePair.Create("Retarget Cure 3", "重定向愈疗"),
+                KeyValuePair.Create("Retarget Aquaveil", "重定向水流幕"),
+                KeyValuePair.Create("Adds Kardia Reminder to Burst Mode if buff is missing", "如果buff缺失，在爆发模式中添加心关提醒"),
+                KeyValuePair.Create("Kardia Retarget", "重定向心关"),
+                KeyValuePair.Create("Retargets Kardia to the heal stack (In Wrath Settings) outside of the Burst Feature", "在爆发模式之外，将心关重定向到治疗堆栈（在插件设置中设置）"),
+                KeyValuePair.Create("Mobile Kardia Option", "移动心关选项"),
+                KeyValuePair.Create("Retarget Kardia according to your heal stack. ", "根据你的治疗堆栈重定向心关。"),
+                KeyValuePair.Create("This will move Kardia around via weaves. Will use Heal stack.(In Wrath Settings)", "这将通过能力技插入切换心关。将遵循治疗堆栈（在插件设置中设置）"),
+
                 // Physical Ranged DPS
                 KeyValuePair.Create("Role Action Eagle Eye Shot Option", "职能技能-锐眼追击"),
                 KeyValuePair.Create("Automatically Adds Eagle Eye Shot to Burst Mode when target is guarded or under selected health percentage", "当目标处于防御状态或生命值低于所选百分比时，自动在爆发模式中加入锐眼追击"),
                 KeyValuePair.Create("WILL ONLY WORK IN LARGE SCALE PVP", "仅在大规模PVP中有效"),
+                KeyValuePair.Create("Do not use Purify below set MP", "当魔力低于设定阈值时，不使用净化。"),
                 // Tank
                 KeyValuePair.Create("Role Action Rampart Option", "职能技能-铁壁"),
                 KeyValuePair.Create("Adds Defensive Role Action Rampart to Burst Mode below selected health", "在生命值低于所选阈值时，将防御型职能技能铁壁添加到爆发模式"),
                 KeyValuePair.Create("Use Rampart below set threshold for self", "低于设定阈值时，为自己使用铁壁"),
+                KeyValuePair.Create("Must be missing this much health to use Holy Spirit", "当生命值低于设定阈值时，使用圣灵。"),
+                KeyValuePair.Create("Uses Guard when at or under:", "当生命值低于或等于设定阈值时，使用防御。"),
                 // Magical Ranged DPS
                 KeyValuePair.Create("Phantom Dart Option", "幻影弹"),
                 KeyValuePair.Create("Uses Phantom Dart (if selected) when available at or below set health threshold.", "在可用且目标生命值低于设定阈值时（若已选择），使用幻影弹。"),
+                KeyValuePair.Create("Target HP percent threshold to use Eagle Eye Shot Below.", "锐眼追击的目标生命值百分比阈值"),
                 #endregion
             ];
         }

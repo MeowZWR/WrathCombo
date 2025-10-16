@@ -48,7 +48,7 @@ internal static class SCHPvP
             switch (preset)
             {
                 case Preset.SCHPvP_Diabrosis:
-                    DrawSliderInt(0, 100, SCHPvP_DiabrosisThreshold, "Target HP% to use 溃破");
+                    DrawSliderInt(0, 100, SCHPvP_DiabrosisThreshold, "使用溃破的目标生命百分比");
                     break;
 
                 case Preset.SCHPvP_Adlo:
