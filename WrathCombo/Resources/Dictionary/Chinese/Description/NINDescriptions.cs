@@ -172,7 +172,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Dokumori to Burst Mode.", "将Dokumori加入Burst Mode。"),
                 KeyValuePair.Create("Adds Bunshin to Burst Mode.", "将Bunshin加入Burst Mode。"),
                 KeyValuePair.Create("Adds SeitonTenchu to Burst Mode when the target is below threshold HP%.", "当目标HP低于设定百分比时，将SeitonTenchu加入Burst Mode。"),
-                KeyValuePair.Create("Target's HP% to be at or under", "目标血量百分比需低于或等于")
                 #endregion
             ];
         }

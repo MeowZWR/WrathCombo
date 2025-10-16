@@ -50,6 +50,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds (High) Jump to the rotation when in the target ring (1 yalm) & when not moving.", "当在目标圈内（1 米）且不移动时，将高跳添加到循环中。"),
                 KeyValuePair.Create("Second Wind HP percentage threshold (0 = Disabled)", "内丹生命百分比阈值（0 = 禁用）"),
                 KeyValuePair.Create("Bloodbath HP percentage threshold (0 = Disabled)", "浴血生命百分比阈值（0 = 禁用）"),
+                KeyValuePair.Create("Target's HP% to be at or under", "目标血量百分比需低于或等于"),
                 KeyValuePair.Create("HP% to be at or under", "生命值百分比达到或低于"),
                 KeyValuePair.Create("Wyrmwind Option", "天龙点睛"),
                 KeyValuePair.Create("Replace Full Thrust/Heavens' Thrust with its combo chain.", "用其连击链替换Full Thrust/Heavens' Thrust。"),

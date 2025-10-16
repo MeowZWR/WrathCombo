@@ -99,6 +99,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Set the HP percentage to be at or under for the feature to kick in.", "设置生命值百分比阈值，使功能生效。"),
                 KeyValuePair.Create("100% is considered to start at 8,000 less than your max HP to prevent wastage.", "100%被认为是开始于8,000小于你的最大生命值，以防止浪费。"),
                 KeyValuePair.Create("Target HP% to smite, Max damage below 25%", "猛击的目标生命值百分比阈值，最大伤害低于25%"),
+                KeyValuePair.Create("HP Value to be at or under:", "生命值等于或低于："),
                 // Healer
                 KeyValuePair.Create("Role Action Diabrosis Option", "职能技能-溃破"),
                 KeyValuePair.Create("Adds Role Action Diabrosis to Burst Mode below selected health", "在目标生命值低于所选阈值时，将职能技能溃破添加到爆发模式"),
