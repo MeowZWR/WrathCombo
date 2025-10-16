@@ -55,6 +55,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Solo Mode", "单人模式"),
                 KeyValuePair.Create("Off-cooldown Primal Additions", "冷却结束的蛮神技能补充"),
                 KeyValuePair.Create("Peat Clean", "玩泥球扫除"),
+                KeyValuePair.Create("Feather Rain is Retargeted to your target, so you don't have to place it.", "飞翎雨会自动重定向到你的目标，无需手动放置。"),
                 #endregion
             ];
         }
