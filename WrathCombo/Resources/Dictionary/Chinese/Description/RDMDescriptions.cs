@@ -159,6 +159,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds VerFire", "添加赤火炎"),
                 KeyValuePair.Create("Adds VerStone", "添加赤飞石"),
                 KeyValuePair.Create("Adds Scorch/Resolution Finishers", "添加焦热/决断终结技"),
+                
+                // Additional RDM Opener Options
+                KeyValuePair.Create("GapClosing Adjusted Standard Opener", "调整标准起手式以包含突进技能"),
+                KeyValuePair.Create("Shifts the melee a little bit to put a gapcloser in", "稍微调整近战连击以加入突进技能"),
             ];
         }
     }
