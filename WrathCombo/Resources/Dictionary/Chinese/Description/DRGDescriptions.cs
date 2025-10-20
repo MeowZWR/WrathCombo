@@ -40,6 +40,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Lance Charge and Battle Litany to the rotation.", "在循环中添加猛枪和战斗连祷。"),
                 KeyValuePair.Create("Adds Life Surge, onto proper GCDs, to the rotation.", "在正确的GCD上将龙剑加入循环。"),
                 KeyValuePair.Create("Adds Disembowel combo to the rotation when you are or synced below level 62.", "当你在62级以下或同步到62级以下时，在循环中添加开膛枪连击。"),
+                KeyValuePair.Create("Stop using Buffs when target HP% is at or below (Set to 0 to Disable This Check)", "当目标血量百分比达到或低于此值时停止使用增益（设置为0以禁用此检查）"),
                 KeyValuePair.Create("Standard opener", "标准起手"),
                 KeyValuePair.Create("Uses Standard opener", "使用标准起手"),
                 KeyValuePair.Create("Piercing Talon opener", "穿刺之爪起手"),

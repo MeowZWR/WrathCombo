@@ -33,7 +33,7 @@ internal partial class DRG
                     ImGui.Indent();
 
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        "选择需要进行HP检查的敌人类型：");
 
                     DrawHorizontalRadioButton(DRG_ST_BuffsBossOption,
                         "Non-Bosses", "Only applies the HP check above to non-bosses.\nAllows you to only stop DoTing early when it's not a boss.", 0);

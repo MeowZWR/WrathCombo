@@ -242,6 +242,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Priority", "优先级"),
                 KeyValuePair.Create("Replace", "替换"),
                 KeyValuePair.Create("Early", "尽早使用"),
+                KeyValuePair.Create("Tools", "工具"),
 
                 // Job abbreviations with brackets (for conflict display)
                 KeyValuePair.Create("[FSH]", "[捕鱼人]"),

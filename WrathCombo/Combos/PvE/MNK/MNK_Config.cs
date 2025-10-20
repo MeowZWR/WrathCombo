@@ -33,7 +33,7 @@ internal partial class MNK
                     ImGui.Indent();
 
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        "选择需要进行HP检查的敌人类型：");
 
                     DrawHorizontalRadioButton(MNK_ST_BuffsBossOption,
                         "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);

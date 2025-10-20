@@ -499,13 +499,13 @@ internal partial class MCH : PhysicalRanged
                 if (IsEnabled(Preset.MCH_AoE_Adv_GaussRicochet) &&
                     Config.MCH_AoE_GaussOptions[1] &&
                     (JustUsed(OriginalHook(AutoCrossbow), 1f) ||
-                     JustUsed(OriginalHook(Heatblast), 1f)) && HasNotWeaved)
+                     JustUsed(OriginalHook(Heatblast), 1f)) && !HasWeaved())
                 {
                     if (ActionReady(GaussRound) &&
-                        (UseGaussRound || !LevelChecked(Ricochet)))
+                        (CanGaussRound || !LevelChecked(Ricochet)))
                         return OriginalHook(GaussRound);
 
-                    if (ActionReady(Ricochet) && UseRicochet)
+                    if (ActionReady(Ricochet) && CanRicochet)
                         return OriginalHook(Ricochet);
                 }
             }
