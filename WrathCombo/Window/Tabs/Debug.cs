@@ -366,7 +366,7 @@ internal class Debug : ConfigWindow, IDisposable
             {
                 bool? foundSheet = null;
                 BNpcBase? battleNPCRow = null;
-                if (ActionWatching.BNPCSheet.TryGetValue(target.BaseId,
+                if (ActionWatching.BNPCSheet.TryGetValue(target.DataId,
                         out var sheetRow))
                 {
                     battleNPCRow = sheetRow;
@@ -376,7 +376,7 @@ internal class Debug : ConfigWindow, IDisposable
                     foundSheet = false;
                 
                 CustomStyleText("Name:", target?.Name);
-                CustomStyleText("IDs: (<entity>/<data or base>)", $"{target?.EntityId} / {target?.BaseId}");
+                CustomStyleText("IDs: (<entity>/<data or base>)", $"{target?.EntityId} / {target?.DataId}");
                 CustomStyleText("Nameplate:", target?.GetNameplateKind().ToString());
                 CustomStyleText("Rank:", $"{battleNPCRow?.Rank.ToString() ?? "null"} (found sheet: {(foundSheet is true ? "yes" : "no")})");
                 CustomStyleText("Health:", $"{GetTargetCurrentHP():N0} / {GetTargetMaxHP():N0} ({MathF.Round(GetTargetHPPercent(), 2)}%)");

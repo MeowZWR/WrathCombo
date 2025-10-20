@@ -39,7 +39,7 @@ internal abstract partial class CustomComboFunctions
             return false;
 
         return chara.NameId == 541 //541	striking dummy	0	striking dummies	0	0	1	0	0
-            || ActionWatching.BossesBaseIds.Contains(chara.BaseId);
+            || ActionWatching.BossesBaseIds.Contains(chara.DataId);
     }
 
     /// <summary> Checks if an object is quest-related. Defaults to CurrentTarget unless specified. </summary>
