@@ -263,9 +263,10 @@ internal partial class BLM
     private static class MP
     {
 
-        private static unsafe uint Max = Player.Character->MaxMana;
+        private static unsafe uint Max => Player.Character->MaxMana;
 
-        internal static bool IsFull = Max == Cur;
+        internal static bool IsFull => Max == Cur;
+
         internal static unsafe uint Cur => Player.Character->Mana;
 
         internal static int FireI => GetResourceCost(OriginalHook(Fire));
