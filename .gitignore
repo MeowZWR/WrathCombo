@@ -11,3 +11,4 @@ WrathCombo/bin/
 # Local development files
 .cursor/
 *.sln
+/WrathCombo/packages.lock.json

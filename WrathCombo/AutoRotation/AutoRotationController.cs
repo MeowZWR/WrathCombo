@@ -42,6 +42,8 @@ internal unsafe static class AutoRotationController
 
     const float QueryRange = 30f;
 
+    public static bool CurrentActIsAutorot = false;
+
     static Func<WrathPartyMember, bool> RezQuery => x =>
         x.BattleChara is not null &&
         x.BattleChara.IsDead &&
@@ -318,7 +320,9 @@ internal unsafe static class AutoRotationController
 
                 if (ActionManager.CanUseActionOnTarget(spell, Svc.Targets.FocusTarget.Struct()) && !OutOfRange(spell, Player.Object, Svc.Targets.FocusTarget) && ActionManager.Instance()->GetActionStatus(ActionType.Action, spell) == 0)
                 {
+                    CurrentActIsAutorot = true;
                     ActionManager.Instance()->UseAction(ActionType.Action, regenSpell, Svc.Targets.FocusTarget.GameObjectId);
+                    CurrentActIsAutorot = false;
                     return;
                 }
             }
@@ -367,7 +371,9 @@ internal unsafe static class AutoRotationController
             {
                 if (resSpell == OccultCrescent.Revive)
                 {
+                    CurrentActIsAutorot = true;
                     ActionManager.Instance()->UseAction(ActionType.Action, resSpell, member.BattleChara.GameObjectId);
+                    CurrentActIsAutorot = false;
                     return;
                 }
 
@@ -380,7 +386,9 @@ internal unsafe static class AutoRotationController
                         {
                             if (ActionManager.Instance()->GetActionStatus(ActionType.Action, RoleActions.Magic.Swiftcast) == 0)
                             {
+                                CurrentActIsAutorot = true;
                                 ActionManager.Instance()->UseAction(ActionType.Action, RoleActions.Magic.Swiftcast);
+                                CurrentActIsAutorot = false;
                                 return;
                             }
                         }
@@ -388,7 +396,9 @@ internal unsafe static class AutoRotationController
 
                     if (HasStatusEffect(RoleActions.Magic.Buffs.Swiftcast) || HasStatusEffect(RDM.Buffs.Dualcast) || !IsMoving())
                     {
+                        CurrentActIsAutorot = true;
                         ActionManager.Instance()->UseAction(ActionType.Action, resSpell, member.BattleChara.GameObjectId);
+                        CurrentActIsAutorot = false;
                         return;
                     }
                 }
@@ -397,13 +407,17 @@ internal unsafe static class AutoRotationController
                 {
                     if (ActionReady(RoleActions.Magic.Swiftcast) && !HasStatusEffect(RDM.Buffs.Dualcast))
                     {
+                        CurrentActIsAutorot = true;
                         ActionManager.Instance()->UseAction(ActionType.Action, RoleActions.Magic.Swiftcast);
+                        CurrentActIsAutorot = false;
                         return;
                     }
 
                     if (ActionManager.GetAdjustedCastTime(ActionType.Action, resSpell) == 0)
                     {
+                        CurrentActIsAutorot = true;
                         ActionManager.Instance()->UseAction(ActionType.Action, resSpell, member.BattleChara.GameObjectId);
+                        CurrentActIsAutorot = false;
                     }
 
                 }
@@ -413,7 +427,9 @@ internal unsafe static class AutoRotationController
                     {
                         if (ActionManager.Instance()->GetActionStatus(ActionType.Action, RoleActions.Magic.Swiftcast) == 0)
                         {
+                            CurrentActIsAutorot = true;
                             ActionManager.Instance()->UseAction(ActionType.Action, RoleActions.Magic.Swiftcast);
+                            CurrentActIsAutorot = false;
                             return;
                         }
                     }
@@ -422,7 +438,11 @@ internal unsafe static class AutoRotationController
                     {
 
                         if ((cfg is not null) && ((cfg.HealerSettings.AutoRezRequireSwift && ActionManager.GetAdjustedCastTime(ActionType.Action, resSpell) == 0) || !cfg.HealerSettings.AutoRezRequireSwift))
+                        {
+                            CurrentActIsAutorot = true;
                             ActionManager.Instance()->UseAction(ActionType.Action, resSpell, member.BattleChara.GameObjectId);
+                            CurrentActIsAutorot = false;
+                        }
                     }
                 }
             }
@@ -438,7 +458,11 @@ internal unsafe static class AutoRotationController
         if (GetPartyMembers().FindFirst(x => HasCleansableDebuff(x.BattleChara) && x.GameObject.IsFriendly(), out var member))
         {
             if (InActionRange(RoleActions.Healer.Esuna, member.BattleChara) && IsInLineOfSight(member.BattleChara))
+            {
+                CurrentActIsAutorot = true;
                 ActionManager.Instance()->UseAction(ActionType.Action, RoleActions.Healer.Esuna, member.BattleChara.GameObjectId);
+                CurrentActIsAutorot = false;
+            }
         }
     }
 
@@ -456,7 +480,9 @@ internal unsafe static class AutoRotationController
             var enemiesTargeting = Svc.Objects.Count(x => x.IsTargetable && x.IsHostile() && x.TargetObjectId == member.BattleChara.GameObjectId);
             if (enemiesTargeting > 0 && !HasStatusEffect(SGE.Buffs.Kardion, member.BattleChara))
             {
+                CurrentActIsAutorot = true;
                 ActionManager.Instance()->UseAction(ActionType.Action, SGE.Kardia, member.BattleChara.GameObjectId);
+                CurrentActIsAutorot = false;
                 return;
             }
         }
@@ -583,7 +609,9 @@ internal unsafe static class AutoRotationController
                     if (TimeMoving.TotalMilliseconds > 0 && castTime > 0 && !orbwalking)
                         return false;
 
+                    CurrentActIsAutorot = true;
                     var ret = ActionManager.Instance()->UseAction(ActionType.Action, Service.ActionReplacer.getActionHook.IsEnabled ? gameAct : outAct);
+                    CurrentActIsAutorot = false;
 
                     if (!ret)
                         LastHealAt = Environment.TickCount64 + castTime;
@@ -705,8 +733,12 @@ internal unsafe static class AutoRotationController
 
             if (canUse && (inRange || areaTargeted))
             {
+                var isHeal = attributes.AutoAction!.IsHeal;
+                if (isHeal) CurrentActIsAutorot = true;
                 var ret = ActionManager.Instance()->UseAction(ActionType.Action, Service.ActionReplacer.getActionHook.IsEnabled ? gameAct : outAct, canUseTarget || areaTargeted ? target.GameObjectId : Player.Object.GameObjectId);
-                if (mode is HealerRotationMode && !ret)
+                CurrentActIsAutorot = false;
+
+                if (isHeal && !ret)
                     LastHealAt = Environment.TickCount64 + castTime;
 
                 return !ret;
