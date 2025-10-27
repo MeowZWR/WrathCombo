@@ -94,6 +94,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds the Balance opener at lvl 90/100.", "在90级/100级时添加「The Balance」起手循环。"),
                 KeyValuePair.Create("Adds Hotshot, Drill, Air Anchor, Chainsaw and Excavator to the rotation.", "将热弹、钻头、空气锚、回转飞锯和掘地飞轮添加到循环中。"),
                 KeyValuePair.Create("Adds Bioblaster, Air Anchor, Chainsaw and Excavator to the rotation.", "将毒菌冲击、空气锚、回转飞锯和掘地飞轮添加到循环中。"),
+                KeyValuePair.Create("Stop Using Tools When Target HP% is at or Below (Set to 0 to Disable This Check)", "当目标血量百分比达到或低于此值时停止使用工具（设置为0以禁用此检查）"),
                 #endregion
                 
                 #region MCHPvP
