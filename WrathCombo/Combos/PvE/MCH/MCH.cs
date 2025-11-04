@@ -30,6 +30,9 @@ internal partial class MCH : PhysicalRanged
             // All weaves
             if (CanWeave())
             {
+                if (OvercapLowlevelGaussRound)
+                    return GaussRound;
+
                 if (RobotActive && ActionReady(RookOverdrive) &&
                     GetTargetHPPercent() <= 1)
                     return OriginalHook(RookOverdrive);
@@ -43,11 +46,10 @@ internal partial class MCH : PhysicalRanged
                 // Gauss Round and Ricochet during HC
                 if (JustUsed(OriginalHook(Heatblast), 1f) && !HasWeaved())
                 {
-                    if (ActionReady(GaussRound) &&
-                        (CanGaussRound || !LevelChecked(Ricochet)))
+                    if (CanGaussRound || !LevelChecked(Ricochet))
                         return OriginalHook(GaussRound);
 
-                    if (ActionReady(Ricochet) && CanRicochet)
+                    if (CanRicochet)
                         return OriginalHook(Ricochet);
                 }
 
@@ -75,11 +77,11 @@ internal partial class MCH : PhysicalRanged
                         JustUsed(Drill, 2f) ||
                         JustUsed(Excavator, 2f))
                     {
-                        if (ActionReady(GaussRound) &&
+                        if (CanGaussRound &&
                             !JustUsed(OriginalHook(GaussRound), 2f))
                             return OriginalHook(GaussRound);
 
-                        if (ActionReady(Ricochet) &&
+                        if (CanRicochet &&
                             !JustUsed(OriginalHook(Ricochet), 2f))
                             return OriginalHook(Ricochet);
                     }
@@ -144,16 +146,18 @@ internal partial class MCH : PhysicalRanged
             // All weaves
             if (CanWeave())
             {
+                if (OvercapLowlevelGaussRound)
+                    return GaussRound;
+
                 //AutoCrossbow, Gauss, Rico
                 if (IsOverheated &&
                     (JustUsed(OriginalHook(AutoCrossbow), 1f) ||
                      JustUsed(OriginalHook(Heatblast), 1f)) && !HasWeaved())
                 {
-                    if (ActionReady(GaussRound) &&
-                        (CanGaussRound || !LevelChecked(Ricochet)))
+                    if (CanGaussRound || !LevelChecked(Ricochet))
                         return OriginalHook(GaussRound);
 
-                    if (ActionReady(Ricochet) && CanRicochet)
+                    if (CanRicochet)
                         return OriginalHook(Ricochet);
                 }
 
@@ -180,14 +184,13 @@ internal partial class MCH : PhysicalRanged
                         return Hypercharge;
 
                     //gauss and ricochet outside HC
-                    if (ActionReady(GaussRound) &&
+                    if (CanGaussRound &&
                         !JustUsed(OriginalHook(GaussRound), 2.5f))
                         return OriginalHook(GaussRound);
 
-                    if (ActionReady(Ricochet) &&
+                    if (CanRicochet &&
                         !JustUsed(OriginalHook(Ricochet), 2.5f))
                         return OriginalHook(Ricochet);
-
 
                     // Interrupt
                     if (Role.CanHeadGraze(true))
@@ -273,6 +276,10 @@ internal partial class MCH : PhysicalRanged
             // All weaves
             if (CanWeave())
             {
+                if (IsEnabled(Preset.MCH_ST_Adv_GaussRicochet) &&
+                    OvercapLowlevelGaussRound)
+                    return GaussRound;
+
                 if (IsEnabled(Preset.MCH_ST_Adv_QueenOverdrive) &&
                     RobotActive && ActionReady(RookOverdrive) &&
                     GetTargetHPPercent() <= MCH_ST_QueenOverDriveHPThreshold)
@@ -290,13 +297,11 @@ internal partial class MCH : PhysicalRanged
                 if (IsEnabled(Preset.MCH_ST_Adv_GaussRicochet) &&
                     JustUsed(OriginalHook(Heatblast), 1f) && !HasWeaved())
                 {
-                    if (ActionReady(GaussRound) &&
-                        GetRemainingCharges(OriginalHook(GaussRound)) > MCH_ST_GaussRicoPool &&
+                    if (GetRemainingCharges(OriginalHook(GaussRound)) > MCH_ST_GaussRicoPool &&
                         (CanGaussRound || !LevelChecked(Ricochet)))
                         return OriginalHook(GaussRound);
 
-                    if (ActionReady(Ricochet) &&
-                        GetRemainingCharges(OriginalHook(Ricochet)) > MCH_ST_GaussRicoPool &&
+                    if (GetRemainingCharges(OriginalHook(Ricochet)) > MCH_ST_GaussRicoPool &&
                         CanRicochet)
                         return OriginalHook(Ricochet);
                 }
@@ -334,14 +339,12 @@ internal partial class MCH : PhysicalRanged
                          JustUsed(Drill, 2f) ||
                          JustUsed(Excavator, 2f)))
                     {
-                        if (ActionReady(GaussRound) &&
-                            GetRemainingCharges(OriginalHook(GaussRound)) > MCH_ST_GaussRicoPool &&
-                            !JustUsed(OriginalHook(GaussRound), 2f))
+                        if (GetRemainingCharges(OriginalHook(GaussRound)) > MCH_ST_GaussRicoPool &&
+                            CanGaussRound && !JustUsed(OriginalHook(GaussRound), 2f))
                             return OriginalHook(GaussRound);
 
-                        if (ActionReady(Ricochet) &&
-                            GetRemainingCharges(OriginalHook(Ricochet)) > MCH_ST_GaussRicoPool &&
-                            !JustUsed(OriginalHook(Ricochet), 2f))
+                        if (GetRemainingCharges(OriginalHook(Ricochet)) > MCH_ST_GaussRicoPool &&
+                            CanRicochet && !JustUsed(OriginalHook(Ricochet), 2f))
                             return OriginalHook(Ricochet);
                     }
 
@@ -424,6 +427,10 @@ internal partial class MCH : PhysicalRanged
             // All weaves
             if (CanWeave())
             {
+                if (IsEnabled(Preset.MCH_AoE_Adv_GaussRicochet) &&
+                    OvercapLowlevelGaussRound)
+                    return GaussRound;
+
                 if (IsEnabled(Preset.MCH_AoE_Adv_QueenOverdrive) &&
                     Gauge.IsRobotActive && ActionReady(RookOverdrive) &&
                     GetTargetHPPercent() <= MCH_AoE_QueenOverDriveHPThreshold)
@@ -435,11 +442,10 @@ internal partial class MCH : PhysicalRanged
                     (JustUsed(OriginalHook(AutoCrossbow), 1f) ||
                      JustUsed(OriginalHook(Heatblast), 1f)) && !HasWeaved())
                 {
-                    if (ActionReady(GaussRound) &&
-                        (CanGaussRound || !LevelChecked(Ricochet)))
+                    if (CanGaussRound || !LevelChecked(Ricochet))
                         return OriginalHook(GaussRound);
 
-                    if (ActionReady(Ricochet) && CanRicochet)
+                    if (CanRicochet)
                         return OriginalHook(Ricochet);
                 }
 
@@ -477,12 +483,10 @@ internal partial class MCH : PhysicalRanged
                     if (IsEnabled(Preset.MCH_AoE_Adv_GaussRicochet) &&
                         Config.MCH_AoE_GaussOptions[0])
                     {
-                        if (ActionReady(GaussRound) &&
-                            !JustUsed(OriginalHook(GaussRound), 2.5f))
+                        if (CanGaussRound && !JustUsed(OriginalHook(GaussRound), 2.5f))
                             return OriginalHook(GaussRound);
 
-                        if (ActionReady(Ricochet) &&
-                            !JustUsed(OriginalHook(Ricochet), 2.5f))
+                        if (CanRicochet && !JustUsed(OriginalHook(Ricochet), 2.5f))
                             return OriginalHook(Ricochet);
                     }
 

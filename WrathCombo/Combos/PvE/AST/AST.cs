@@ -278,7 +278,7 @@ internal partial class AST : Healer
                     return OriginalHook(AstralDraw);
 
                 //Lightspeed Burst
-                if (IsEnabled(Preset.AST_DPS_LightspeedBurst) && ActionReady(Lightspeed) &&
+                if (IsEnabled(Preset.AST_DPS_LightspeedBurst) && IsEnabled(Preset.AST_DPS_Divination) && ActionReady(Lightspeed) &&
                     !HasStatusEffect(Buffs.Lightspeed) && DivinationCD < 5 && WaitGCDs)
                     return Lightspeed;
 
@@ -294,8 +294,9 @@ internal partial class AST : Healer
                 if (IsEnabled(Preset.AST_ST_DPS_EarthlyStar) && IsOffCooldown(EarthlyStar) && 
                     LevelChecked(EarthlyStar) && !HasStatusEffect(Buffs.EarthlyDominance) &&
                     (WaitGCDs || StandStill))
-                    return EarthlyStar.Retarget
-                        (replacedActions, SimpleTarget.HardTarget.IfHostile() ?? SimpleTarget.Stack.Allies);
+                    return AST_ST_DPS_EarthlyStarSubOption == 1 
+                        ? EarthlyStar.Retarget(replacedActions, SimpleTarget.Self) 
+                        : EarthlyStar.Retarget(replacedActions, SimpleTarget.HardTarget.IfHostile() ?? SimpleTarget.Stack.Allies);
 
                 //Stellar Detonation
                 if (IsEnabled(Preset.AST_ST_DPS_StellarDetonation) &&
@@ -404,7 +405,7 @@ internal partial class AST : Healer
                     return OriginalHook(AstralDraw);
 
                 //Lightspeed Burst
-                if (IsEnabled(Preset.AST_AOE_LightspeedBurst) && ActionReady(Lightspeed) && 
+                if (IsEnabled(Preset.AST_AOE_LightspeedBurst) && IsEnabled(Preset.AST_AOE_Divination) && ActionReady(Lightspeed) && 
                     !HasStatusEffect(Buffs.Lightspeed) &&
                     DivinationCD < 5 && WaitGCDs)
                     return Lightspeed;
@@ -422,8 +423,9 @@ internal partial class AST : Healer
                     LevelChecked(EarthlyStar) && IsOffCooldown(EarthlyStar) &&
                     !HasStatusEffect(Buffs.EarthlyDominance) && 
                     (WaitGCDs || StandStill))
-                    return EarthlyStar.Retarget(GravityList.ToArray(),
-                        SimpleTarget.HardTarget.IfHostile() ?? SimpleTarget.Stack.Allies);
+                    return AST_AOE_DPS_EarthlyStarSubOption == 1 
+                        ? EarthlyStar.Retarget(GravityList.ToArray(), SimpleTarget.Self) 
+                        : EarthlyStar.Retarget(GravityList.ToArray(), SimpleTarget.HardTarget.IfHostile() ?? SimpleTarget.Stack.Allies);
 
                 //Stellar Detonation
                 if (IsEnabled(Preset.AST_AOE_DPS_StellarDetonation) &&

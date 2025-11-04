@@ -74,10 +74,10 @@ internal partial class NIN : Melee
             #endregion
 
             #region Ninjutsu
-            if (CanUseHyoshoRanryu && MudraState.CastHyoshoRanryu(ref actionID) ||
-                CanUseSuiton && TrickCD <= 18 && MudraState.CastSuiton(ref actionID) ||
-                CanUseRaiton && MudraState.CastRaiton(ref actionID) ||
-                CanUseFumaShuriken && !LevelChecked(Raiton) && MudraState.CastFumaShuriken(ref actionID))
+            if ((CanUseHyoshoRanryu && MudraState.CastHyoshoRanryu(ref actionID)) ||
+                (CanUseSuiton && TrickCD <= 18 && MudraState.CastSuiton(ref actionID)) ||
+                (CanUseRaiton && MudraState.CastRaiton(ref actionID)) ||
+                (CanUseFumaShuriken && !LevelChecked(Raiton) && MudraState.CastFumaShuriken(ref actionID)))
                 return actionID;
             #endregion
 
@@ -196,11 +196,11 @@ internal partial class NIN : Melee
             #endregion
 
             #region Ninjutsu
-            if (CanUseGokaMekkyaku && MudraState.CastGokaMekkyaku(ref actionID) ||
-                CanUseHuton && TrickCD <= 18 && MudraState.CastHuton(ref actionID) ||
-                CanUseDoton && GetTargetHPPercent() >= 30 && MudraState.CastDoton(ref actionID) ||
-                CanUseKaton && MudraState.CastKaton(ref actionID) ||
-                CanUseFumaShuriken && !LevelChecked(Katon) && MudraState.CastFumaShuriken(ref actionID))
+            if ((CanUseGokaMekkyaku && MudraState.CastGokaMekkyaku(ref actionID)) ||
+                (CanUseHuton && TrickCD <= 18 && MudraState.CastHuton(ref actionID)) ||
+                (CanUseDoton && GetTargetHPPercent() >= 30 && MudraState.CastDoton(ref actionID)) ||
+                (CanUseKaton && MudraState.CastKaton(ref actionID)) ||
+                (CanUseFumaShuriken && !LevelChecked(Katon) && MudraState.CastFumaShuriken(ref actionID)))
                 return actionID;
             #endregion
 

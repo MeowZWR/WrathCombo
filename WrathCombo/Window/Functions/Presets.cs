@@ -168,7 +168,7 @@ internal class Presets : ConfigWindow
             if (P.UIHelper.ShowIPCControlledCheckboxIfNeeded
                 ($"###AutoAction{preset}", ref autoOn, preset, false))
             {
-                DebugFile.AddLog($"将 {preset} 的自动模式设置为 {autoOn}");
+                DebugFile.AddSettingLog($"将 {preset} 的自动模式设置为 {autoOn}");
                 P.IPCSearch.UpdateActiveJobPresets();
                 Service.Configuration.AutoActions[preset] = autoOn;
                 Service.Configuration.Save();
@@ -201,7 +201,7 @@ internal class Presets : ConfigWindow
                 PresetStorage.DisablePreset(preset);
             }
             P.IPCSearch.UpdateActiveJobPresets();
-            DebugFile.AddLog($"Set {preset} to {enabled}");
+            DebugFile.AddSettingLog($"Set {preset} to {enabled}");
 
             Service.Configuration.Save();
         }
