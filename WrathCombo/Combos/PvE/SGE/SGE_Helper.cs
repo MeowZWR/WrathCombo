@@ -5,6 +5,7 @@ using ECommons.GameFunctions;
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
@@ -212,7 +213,8 @@ internal partial class SGE
 
             case 7:
                 action = Zoe;
-                enabled = IsEnabled(Preset.SGE_AoE_Heal_Zoe);
+                enabled = IsEnabled(Preset.SGE_AoE_Heal_Zoe) &&
+                          (ActionReady(Pneuma) || !SGE_AoE_Heal_ZoePneuma || !LevelChecked(Pneuma));
                 return SGE_AoE_Heal_ZoeOption;
 
             case 8:

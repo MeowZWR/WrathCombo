@@ -88,19 +88,44 @@ internal class Settings : ConfigWindow
 
             #endregion
 
-            #region TargetHelper
+            #region Target Helper
 
-            Vector4 colour = Service.Configuration.TargetHighlightColor;
-            if (ImGui.ColorEdit4("目标高亮颜色", ref colour, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.AlphaPreview | ImGuiColorEditFlags.AlphaBar))
+            #region Target Helper Display
+            var targetHelperDisplay = Service.Configuration.ShowTargetHighlight;
+
+            if (ImGui.Checkbox("显示目标高亮框", ref targetHelperDisplay))
             {
-                Service.Configuration.TargetHighlightColor = colour;
+                Service.Configuration.ShowTargetHighlight = targetHelperDisplay;
                 Service.Configuration.Save();
             }
 
-            ImGuiComponents.HelpMarker("在原生队伍列表中为被特定功能选中的队员绘制高亮框。\n将Alpha设为0可隐藏高亮框。");
+            ImGuiComponents.HelpMarker("在原生队员列表中，为部分功能锁定的目标队员绘制高亮框。");
 
             ImGui.SameLine();
-            ImGui.TextColored(ImGuiColors.DalamudGrey, $"（目前仅用于 {Job.AST.Name()}）");
+            ImGui.TextColored(ImGuiColors.DalamudGrey, $"（当前仅用于{Job.AST.Name()}和{Job.DNC.Name()}）");
+
+            #endregion
+
+            #region Target Helper Color
+
+            if (targetHelperDisplay)
+            {
+                ImGui.Indent();
+                var targetHelperColor = Service.Configuration.TargetHighlightColor;
+                if (ImGui.ColorEdit4("高亮颜色", ref targetHelperColor,
+                        ImGuiColorEditFlags.NoInputs |
+                        ImGuiColorEditFlags.AlphaPreview |
+                        ImGuiColorEditFlags.AlphaBar))
+                {
+                    Service.Configuration.TargetHighlightColor = targetHelperColor;
+                    Service.Configuration.Save();
+                }
+
+                ImGuiComponents.HelpMarker("用于设置队员高亮框的颜色。");
+                ImGui.Unindent();
+            }
+
+            #endregion
 
             #endregion
 
@@ -430,34 +455,9 @@ internal class Settings : ConfigWindow
                 "如果未开启“重定向治疗技能”，则仅用于判断治疗技能触发阈值的目标。\n" +
                 "如果开启，则该目标也会作为实际治疗技能的目标（即使技能本身不检测该目标的血量，例如连击的被替换技能）。");
 
-            var healStackText = "";
-            var nextStackItemMarker = "   >   ";
-            if (useCusHealStack)
-            {
-                foreach (var item in Service.Configuration.CustomHealStack
-                    .Select((value, index) => new { value, index }))
-                {
-                    healStackText += UserConfig.TargetDisplayNameFromPropertyName(item.value);
-                    if (item.index < Service.Configuration.CustomHealStack.Length - 1)
-                        healStackText += nextStackItemMarker;
-                }
-            }
-            else
-            {
-                if (Service.Configuration.UseUIMouseoverOverridesInDefaultHealStack)
-                    healStackText += "UI-鼠标悬停目标" + nextStackItemMarker;
-                if (Service.Configuration.UseFieldMouseoverOverridesInDefaultHealStack)
-                    healStackText += "地面-鼠标悬停目标" + nextStackItemMarker;
-                healStackText += "软目标" + nextStackItemMarker;
-                healStackText += "硬目标" + nextStackItemMarker;
-                if (Service.Configuration.UseFocusTargetOverrideInDefaultHealStack)
-                    healStackText += "焦点目标" + nextStackItemMarker;
-                if (Service.Configuration.UseLowestHPOverrideInDefaultHealStack)
-                    healStackText += "最低HP%队友" + nextStackItemMarker;
-                healStackText += "自己";
-            }
             ImGuiEx.Spacing(new Vector2(10, 0));
-            ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey, healStackText);
+            ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
+                useCusHealStack.DisplayStack());
 
             ImGuiEx.Spacing(new Vector2(0, 10));
 

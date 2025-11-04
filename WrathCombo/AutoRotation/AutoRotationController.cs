@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using WrathCombo.Attributes;
-using WrathCombo.Combos;
 using WrathCombo.Combos.PvE;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
@@ -77,9 +76,7 @@ internal unsafe static class AutoRotationController
         }
     }
 
-    private static bool _ninjaLockedAoE;
-
-    static bool CombatBypass =>  DPSTargeting.BaseSelection.Any(x => (cfg.BypassQuest && IsQuestMob(x)) || (cfg.BypassFATE && x.Struct()->FateId != 0 && InFATE()));
+    static bool CombatBypass => DPSTargeting.BaseSelection.Any(x => (cfg.BypassQuest && IsQuestMob(x)) || (cfg.BypassFATE && x.Struct()->FateId != 0 && InFATE()));
     static bool NotInCombat => !GetPartyMembers().Any(x => x.BattleChara is not null && x.BattleChara.Struct()->InCombat && !x.IsOutOfPartyNPC) || PartyEngageDuration().TotalSeconds < cfg.CombatDelay;
 
     private static bool ShouldSkipAutorotation()
@@ -223,7 +220,6 @@ internal unsafe static class AutoRotationController
         {
             LockedAoE = false;
             LockedST = false;
-            _ninjaLockedAoE = false;
         }
 
         ProcessAutoActions(autoActions, ref _, canHeal, false);
@@ -623,9 +619,9 @@ internal unsafe static class AutoRotationController
             {
 
                 var target = !cfg.DPSSettings.AoEIgnoreManual && cfg.DPSRotationMode == DPSRotationMode.Manual ? Svc.Targets.Target : DPSTargeting.BaseSelection.MaxBy(x => NumberOfEnemiesInRange(OriginalHook(gameAct), x, true));
-                var numEnemies = NumberOfEnemiesInRange(OriginalHook(gameAct), target, true);
-                if (!_ninjaLockedAoE)
+                if (!NIN.InMudra)
                 {
+                    var numEnemies = NumberOfEnemiesInRange(OriginalHook(gameAct), target, true);
                     if (cfg.DPSSettings.DPSAoETargets == null || numEnemies < cfg.DPSSettings.DPSAoETargets)
                     {
                         LockedAoE = false;
@@ -637,7 +633,6 @@ internal unsafe static class AutoRotationController
                         LockedST = false;
                     }
                 }
-
                 uint outAct = OriginalHook(InvokeCombo(preset, attributes, ref gameAct));
                 if (outAct is All.SavageBlade) return true;
                 if (!CanQueue(outAct)) return false;
@@ -674,12 +669,10 @@ internal unsafe static class AutoRotationController
                     Service.ActionReplacer.getActionHook.IsEnabled ? gameAct : outAct,
                     (mustTarget && target != null) || switched ? target.GameObjectId : Player.Object.GameObjectId);
 
-                if (outAct is NIN.Ten or NIN.Chi or NIN.Jin or NIN.TenCombo or NIN.ChiCombo or NIN.JinCombo
-                    or NIN.TCJFumaShurikenTen or NIN.TCJFumaShurikenChi or NIN.TCJFumaShurikenJin or NIN.TCJKaton or NIN.TCJRaiton && ret)
-
-                    _ninjaLockedAoE = true;
+                if (NIN.MudraSigns.Contains(outAct))
+                    _lockedAoE = true;
                 else
-                    _ninjaLockedAoE = false;
+                    _lockedAoE = false;
 
                 return true;
 
@@ -689,9 +682,8 @@ internal unsafe static class AutoRotationController
 
         public static bool ExecuteST(Enum mode, Preset preset, Presets.PresetAttributes attributes, uint gameAct)
         {
-            if (_ninjaLockedAoE) return false;
             var target = GetSingleTarget(mode);
-            
+
             var outAct = OriginalHook(InvokeCombo(preset, attributes, ref gameAct, target));
             if (!CanQueue(outAct))
             {
@@ -725,7 +717,7 @@ internal unsafe static class AutoRotationController
 
             if (canUse || cfg.DPSSettings.AlwaysSelectTarget)
                 Svc.Targets.Target = target;
-            
+
             var castTime = ActionManager.GetAdjustedCastTime(ActionType.Action, outAct);
             bool orbwalking = cfg.OrbwalkerIntegration && OrbwalkerIPC.CanOrbwalk;
             if (TimeMoving.TotalMilliseconds > 0 && castTime > 0 && !orbwalking)
@@ -740,6 +732,11 @@ internal unsafe static class AutoRotationController
 
                 if (isHeal && !ret)
                     LastHealAt = Environment.TickCount64 + castTime;
+
+                if (NIN.MudraSigns.Contains(outAct))
+                    _lockedST = true;
+                else
+                    _lockedST = false;
 
                 return !ret;
             }
@@ -878,7 +875,6 @@ internal unsafe static class AutoRotationController
                 .OrderByDescending(x => IsCombatPriority(x))
                 .ThenBy(x => GetTargetMaxHP(x))
                 .ThenBy(x => GetTargetHPPercent(x))
-                .ThenBy(x => GetTargetDistance(x))
                 .FirstOrDefault();
         }
 

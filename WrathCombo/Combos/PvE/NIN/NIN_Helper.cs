@@ -52,7 +52,7 @@ internal partial class NIN
                                           NIN_AoE_AdvancedMode_Katon_Options[1] && !InMeleeRange() && 
                                           GetCooldownChargeRemainingTime(Ten) <= TrickCD - 10); //Uptime option
     
-    internal static bool CanUseDoton => LevelChecked(Doton) && MudraReady && DotonStoppedMoving &&
+    internal static bool CanUseDoton => LevelChecked(Doton) && MudraReady && DotonStoppedMoving && !JustUsed(Doton) &&
                                         (!HasDoton || DotonRemaining <= 2) &&
                                         (TrickDebuff || //Buff Window
                                          GetCooldownChargeRemainingTime(Ten) < 3); // Use if you have Kassatsu before you get Hosho Ranryu
@@ -213,7 +213,7 @@ internal partial class NIN
         
         public bool ContinueCurrentMudra(ref uint actionID)
         {
-            if (ActionWatching.TimeSinceLastAction.TotalSeconds >= 2 && CurrentNinjutsu == Ninjutsu)
+            if (ActionWatching.TimeSinceLastAction.TotalSeconds >= 2 && OriginalHook(Ninjutsu) is Rabbit or Ninjutsu)
             {
                 InMudra = false;
                 ActionWatching.LastAction = 0;
@@ -280,12 +280,12 @@ internal partial class NIN
                 // Finish the Mudra
                 if (ActionWatching.LastAction is Ten or TenCombo) 
                 {
-                    actionID = OriginalHook(Ninjutsu);
+                    actionID = FumaShuriken;
                     return true;
                 }
                 // Start the Mudra
                 CurrentMudra = MudraState.CastingFumaShuriken;
-                actionID = OriginalHook(Ten);
+                actionID = HasStatusEffect(Buffs.Kassatsu) ? TenCombo : Ten;
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -302,15 +302,15 @@ internal partial class NIN
                 switch (ActionWatching.LastAction)
                 {
                     case Ten or TenCombo or Jin or JinCombo:
-                        actionID = OriginalHook(Chi);
+                        actionID = ChiCombo;
                         return true;
                     case Chi or ChiCombo: //Chi == Bailout Fuma
-                        actionID = OriginalHook(Ninjutsu);
+                        actionID = Raiton;
                         return true;
                 }
                 // Start the Mudra
                 CurrentMudra = MudraState.CastingRaiton;
-                actionID = OriginalHook(Ten);
+                actionID = HasStatusEffect(Buffs.Kassatsu) ? TenCombo: Ten;
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -327,18 +327,18 @@ internal partial class NIN
                 switch (ActionWatching.LastAction)
                 {
                     case Ten or TenCombo:
-                        actionID = OriginalHook(Chi);
+                        actionID = ChiCombo;
                         return true;
                     case Chi or ChiCombo: //Chi == Bailout Hyoten
-                        actionID = OriginalHook(Jin);
+                        actionID = JinCombo;
                         return true;
                     case Jin or JinCombo: //Jin == Bailout Fuma
-                        actionID = OriginalHook(Ninjutsu);
+                        actionID = Suiton;
                         return true;
                 }
                 // Start the Mudra
                 CurrentMudra = MudraState.CastingSuiton;
-                actionID = OriginalHook(Ten);
+                actionID = HasStatusEffect(Buffs.Kassatsu) ? TenCombo : Ten;
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -358,12 +358,12 @@ internal partial class NIN
                         actionID = JinCombo;
                         return true;
                     case Jin or JinCombo: //Jin == Bailout to Fuma
-                        actionID = OriginalHook(Ninjutsu);
+                        actionID = HyoshoRanryu;
                         return true;
                 }
                 // Start the Mudra
                 CurrentMudra = MudraState.CastingHyoshoRanryu;
-                actionID = OriginalHook(Ten);
+                actionID = HasStatusEffect(Buffs.Kassatsu) ? TenCombo : Ten;
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -380,15 +380,15 @@ internal partial class NIN
                 switch (ActionWatching.LastAction)
                 {
                     case Jin or JinCombo or Chi or ChiCombo:
-                        actionID = OriginalHook(Ten);
+                        actionID = TenCombo;
                         return true;
                     case Ten or TenCombo: //Ten == Bailout to Fuma
-                        actionID = OriginalHook(Ninjutsu);
+                        actionID = Katon;
                         return true;
                 }
                 // Start the Mudra
                 CurrentMudra = MudraState.CastingKaton;
-                actionID = OriginalHook(Jin);
+                actionID = HasStatusEffect(Buffs.Kassatsu) ? ChiCombo: Chi;
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -405,18 +405,18 @@ internal partial class NIN
                 switch (ActionWatching.LastAction)
                 {
                     case Jin or JinCombo: 
-                        actionID = OriginalHook(Ten);
+                        actionID = TenCombo;
                         return true;
                     case Ten or TenCombo: // Ten == Bailout to Raiton
-                        actionID = OriginalHook(Chi);
+                        actionID = ChiCombo;
                         return true;
                     case Chi or ChiCombo: //Chi == Bailout Fuma
-                        actionID = OriginalHook(Ninjutsu);
+                        actionID = Doton;
                         return true;
                 }
                 // Start the Mudra
                 CurrentMudra = MudraState.CastingDoton;
-                actionID = OriginalHook(Jin);
+                actionID = HasStatusEffect(Buffs.Kassatsu) ? JinCombo: Jin;
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -433,18 +433,18 @@ internal partial class NIN
                 switch (ActionWatching.LastAction)
                 {
                     case Jin or JinCombo:
-                        actionID = OriginalHook(Chi);
+                        actionID = ChiCombo;
                         return true;
                     case Chi or ChiCombo: //Chi == Bailout katon
-                        actionID = OriginalHook(Ten);
+                        actionID = TenCombo;
                         return true;
                     case Ten or TenCombo: // Ten == Bailout to Fuma
-                        actionID = OriginalHook(Ninjutsu);
+                        actionID = Huton;
                         return true;
                 }
                 // Start the Mudra
                 CurrentMudra = MudraState.CastingHuton;
-                actionID = OriginalHook(Jin);
+                actionID = HasStatusEffect(Buffs.Kassatsu) ? JinCombo: Jin;
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -461,15 +461,15 @@ internal partial class NIN
                 switch (ActionWatching.LastAction)
                 {
                     case Jin or JinCombo or Chi or ChiCombo:
-                        actionID = OriginalHook(Ten);
+                        actionID = TenCombo;
                         return true;
                     case Ten or TenCombo: // Ten == Bailout to Fuma
-                        actionID = OriginalHook(Ninjutsu);
+                        actionID = GokaMekkyaku;
                         return true;
                 }
                 // Start the Mudra
                 CurrentMudra = MudraState.CastingGokaMekkyaku;
-                actionID = OriginalHook(Jin);
+                actionID = HasStatusEffect(Buffs.Kassatsu) ? JinCombo: Jin;
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -483,16 +483,17 @@ internal partial class NIN
      // Single Target
     internal static uint UseFumaShuriken(uint actionId)
     {
-        return OriginalHook(Ninjutsu) == FumaShuriken ? OriginalHook(Ninjutsu) : Ten;
+        return ActionWatching.LastAction is Ten or Chi or Jin ? FumaShuriken : Ten;
     }
     internal static uint UseRaiton(uint actionId) // Ten Chi
     {
-        if (OriginalHook(Ninjutsu) == Ninjutsu) 
-            return HasKassatsu ? TenCombo : Ten;
-        return OriginalHook(Ninjutsu) == FumaShuriken &&
-               ActionWatching.LastAction is TenCombo or Ten or JinCombo or Jin 
-            ? ChiCombo 
-            : OriginalHook(Ninjutsu);
+        if (ActionWatching.LastAction is Ten or Jin)
+            return ChiCombo;
+
+        if (ActionWatching.LastAction is ChiCombo)
+            return Raiton;
+
+        return actionId;
     }
     internal static uint UseHyoshoRanryu(uint actionId) // Ten Jin
     {

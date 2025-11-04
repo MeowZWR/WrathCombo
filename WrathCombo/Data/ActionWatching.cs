@@ -368,6 +368,7 @@ public static class ActionWatching
                     }
                 }
 
+                var modifiedAction = Service.ActionReplacer.LastActionInvokeFor.ContainsKey(actionId) ? Service.ActionReplacer.LastActionInvokeFor[actionId] : actionId;
                 var changed = CheckForChangedTarget(original, ref targetId,
                     out var replacedWith); //Passes the original action to the retargeting framework, outputs a targetId and a replaced action
 
@@ -405,6 +406,12 @@ public static class ActionWatching
                 if (changed && areaTargeted)
                     ActionManager.Instance()->AreaTargetingExecuteAtObject =
                         targetId;
+
+                if (NIN.MudraSigns.Contains(modifiedAction))
+                {
+                    NIN.InMudra = true;
+                    TimeLastActionUsed = DateTime.Now;
+                }
 
                 return hookResult;
             }

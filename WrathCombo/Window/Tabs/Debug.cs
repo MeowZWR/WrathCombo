@@ -34,6 +34,7 @@ using Action = Lumina.Excel.Sheets.Action;
 using BattleNPCSubKind = Dalamud.Game.ClientState.Objects.Enums.BattleNpcSubKind;
 using ObjectKind = Dalamud.Game.ClientState.Objects.Enums.ObjectKind;
 using Status = Dalamud.Game.ClientState.Statuses.Status;
+using WrathCombo.Combos.PvE;
 
 #endregion
 
@@ -92,7 +93,42 @@ internal class Debug : ConfigWindow, IDisposable
         {
             try
             {
-                var base64 = Convert.FromBase64String(_debugConfig);
+                // Trim off anything extra copied from that section of the file
+                var stripped = _debugConfig;
+                const string startMarker = "START DEBUG CODE";
+                const string endMarker = "END DEBUG CODE";
+                var startIdx = stripped.IndexOf(startMarker, StringComparison.OrdinalIgnoreCase);
+                if (startIdx >= 0)
+                {
+                    startIdx += startMarker.Length;
+                    var endIdx = stripped.IndexOf(endMarker, startIdx, StringComparison.OrdinalIgnoreCase);
+                    stripped = endIdx >= 0 ? stripped.Substring(startIdx, endIdx - startIdx) : stripped[startIdx..];
+                }
+                // Remove all whitespace characters (spaces, tabs, newlines)
+                stripped = new string(stripped
+                    .Where(c => !char.IsWhiteSpace(c)).ToArray());
+
+                // Try to load the data from the string
+                byte[] base64;
+                try
+                {
+                    base64 = Convert.FromBase64String(stripped);
+                }
+                // Fix when editors don't want to copy the padding at the end
+                catch (FormatException)
+                {
+                    // If there's not a padding issue, re-throw the error
+                    if (stripped.Length % 4 == 0)
+                        throw;
+                    
+                    // Try to fix padding issues
+                    var paddingNeeded = 4 - (stripped.Length % 4);
+                    stripped = stripped
+                        .PadRight(stripped.Length + paddingNeeded, '=');
+                    base64 = Convert.FromBase64String(stripped);
+                }
+
+                // Decode the data
                 var decode = Encoding.UTF8.GetString(base64);
                 var config = JsonConvert.DeserializeObject<PluginConfiguration>(decode);
                 if (config != null)
@@ -117,7 +153,8 @@ internal class Debug : ConfigWindow, IDisposable
             "在此粘贴 base64 编码的配置以加载到插件中。" +
             "\n该内容来自调试文件。" +
             "\n这将临时覆盖你当前的配置，关闭调试模式后会恢复你自己的配置。" +
-            "\n如果卸载插件，调试模式也会被禁用。");
+            "\n如果卸载插件，调试模式也会被禁用。" +
+            "\n\n提示：为方便复制文件内容，可以选择从“Start Debug Code”到“End Debug Code”进行复制（多余内容会被自动忽略）。");
 
         if (DebugConfig)
             if (ImGui.Button("关闭调试配置模式"))
@@ -619,6 +656,7 @@ internal class Debug : ConfigWindow, IDisposable
             CustomStyleText($"Duty Action 3:", $"{Action3.ActionName()}");
             CustomStyleText($"Duty Action 4:", $"{Action4.ActionName()}");
             CustomStyleText($"Duty Action 5:", $"{Action5.ActionName()}");
+            CustomStyleText($"In Mudra:", NIN.InMudra);
 
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
 

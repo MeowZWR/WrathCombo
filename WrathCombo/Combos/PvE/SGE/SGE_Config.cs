@@ -331,7 +331,7 @@ internal partial class SGE
                         "Pneuma Option", "Chain to Pneuma After.");
 
                     DrawPriorityInput(SGE_AoE_Heals_Priority,
-                        9, 7, $"{Pneuma.ActionName()} Priority: ");
+                        9, 7, $"{Zoe.ActionName()} Priority: ");
                     break;
 
                 case Preset.SGE_AoE_Heal_EPrognosis:

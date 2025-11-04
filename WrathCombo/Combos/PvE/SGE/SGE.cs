@@ -504,6 +504,9 @@ internal partial class SGE : Healer
 
             if (Role.CanLucidDream(6500))
                 return Role.LucidDreaming;
+            
+            if (ActionReady(Pneuma) && HasStatusEffect(Buffs.Zoe))
+                return Pneuma;
 
             if (ActionReady(Rhizomata) && !HasAddersgall() &&
                 CanWeave())
@@ -528,19 +531,15 @@ internal partial class SGE : Healer
 
             if (ActionReady(Panhaima) && !HasStatusEffect(Buffs.Eudaimonia))
                 return Panhaima;
-
-            if (ActionReady(Zoe) || HasStatusEffect(Buffs.Zoe))
-                return ActionReady(Pneuma) && !HasStatusEffect(Buffs.Zoe) || !LevelChecked(Pneuma)
-                    ? Zoe
-                    : Pneuma;
-
+            
+            if (ActionReady(Zoe) && (ActionReady(Pneuma) || !LevelChecked(Pneuma)))
+                return Zoe;
+            
             if (ActionReady(Pepsis) &&
                 HasStatusEffect(Buffs.EukrasianPrognosis))
                 return Pepsis;
 
-            if (ActionReady(Eukrasia) &&
-                (GetPartyBuffPercent(Buffs.EukrasianPrognosis) <= 50 ||
-                 GetPartyBuffPercent(SCH.Buffs.Galvanize) <= 50))
+            if (ActionReady(Eukrasia) && GetPartyBuffPercent(Buffs.EukrasianPrognosis) <= 50 && GetPartyBuffPercent(SCH.Buffs.Galvanize) <= 50)
                 return HasStatusEffect(Buffs.Eukrasia)
                     ? EukrasianPrognosis
                     : Eukrasia;
@@ -651,7 +650,7 @@ internal partial class SGE : Healer
             #endregion
 
             //Zoe -> Pneuma like Eukrasia 
-            if (SGE_AoE_Heal_ZoePneuma &&
+            if (SGE_AoE_Heal_ZoePneuma && ActionReady(Pneuma) &&
                 HasStatusEffect(Buffs.Zoe))
                 return Pneuma;
 

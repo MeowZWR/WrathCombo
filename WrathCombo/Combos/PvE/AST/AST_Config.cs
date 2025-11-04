@@ -53,12 +53,14 @@ internal partial class AST
             AST_ST_DPS_DivinationSubOption = new("AST_ST_DPS_DivinationSubOption", 0),
             AST_ST_DPS_Balance_Content = new("AST_ST_DPS_Balance_Content", 1),
             AST_ST_DPS_CombustSubOption = new("AST_ST_DPS_CombustSubOption", 0),
+            AST_ST_DPS_EarthlyStarSubOption = new("AST_ST_DPS_EarthlyStarSubOption", 0),
             AST_ST_DPS_StellarDetonation_Threshold = new("AST_ST_DPS_StellarDetonation_Threshold", 0),
             AST_ST_DPS_StellarDetonation_SubOption = new("AST_ST_DPS_StellarDetonation_SubOption", 0),
             AST_AOE_LucidDreaming = new("AST_AOE_LucidDreaming", 8000),
             AST_AOE_DivinationSubOption = new("AST_AOE_DivinationSubOption", 0),
             AST_AOE_DivinationOption = new("AST_AOE_DivinationOption"),
             AST_AOE_LightSpeedOption = new("AST_AOE_LightSpeedOption"),
+            AST_AOE_DPS_EarthlyStarSubOption = new("AST_AOE_DPS_EarthlyStarSubOption", 0),
             AST_AOE_DPS_StellarDetonation_Threshold = new("AST_AOE_DPS_StellarDetonation_Threshold", 0),
             AST_AOE_DPS_StellarDetonation_SubOption = new("AST_AOE_DPS_StellarDetonation_SubOption", 0),
             AST_AOE_DPS_MacroCosmos_SubOption = new("AST_AOE_DPS_MacroCosmos_SubOption", 0),
@@ -149,6 +151,13 @@ internal partial class AST
                     DrawAdditionalBoolChoice(AST_ST_DPS_OverwriteHealCards, "Overwrite Non-DPS Cards", "Will draw even if you have healing cards remaining.");
                     break;
                 
+                case Preset.AST_ST_DPS_EarthlyStar:
+                    DrawHorizontalRadioButton(AST_ST_DPS_EarthlyStarSubOption,
+                        "Normal Targeting", "Follows normal targeting plan", 0);
+                    DrawHorizontalRadioButton(AST_ST_DPS_EarthlyStarSubOption,
+                        "Self Only", "Places at own feet only", 1);
+                    break;
+                
                 case Preset.AST_ST_DPS_StellarDetonation:
                     DrawHorizontalRadioButton(AST_ST_DPS_StellarDetonation_SubOption,
                         "Non-boss Encounters Only", $"Non-Boss Encounters only", 0);
@@ -181,6 +190,13 @@ internal partial class AST
 
                 case Preset.AST_AOE_AutoDraw:
                     DrawAdditionalBoolChoice(AST_AOE_DPS_OverwriteHealCards, "Overwrite Non-DPS Cards", "Will draw even if you have healing cards remaining.");
+                    break;
+                
+                case Preset.AST_AOE_DPS_EarthlyStar:
+                    DrawHorizontalRadioButton(AST_AOE_DPS_EarthlyStarSubOption,
+                        "Normal Targeting", "Follows normal targeting plan", 0);
+                    DrawHorizontalRadioButton(AST_AOE_DPS_EarthlyStarSubOption,
+                        "Self Only", "Places at own feet only", 1);
                     break;
                 
                 case Preset.AST_AOE_DPS_StellarDetonation:
