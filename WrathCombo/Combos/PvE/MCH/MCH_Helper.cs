@@ -1,19 +1,18 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Types;
+using ECommons.MathHelpers;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using static WrathCombo.Combos.PvE.MCH.Config;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
-using static WrathCombo.Data.ActionWatching;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class MCH
 {
-    private static int BSUsed =>
-        CombatActions.Count(x => x == BarrelStabilizer);
+    private static float WFCD =>
+        GetCooldownRemainingTime(Wildfire);
 
     #region Hypercharge
 
@@ -24,10 +23,13 @@ internal partial class MCH
             case false when
                 (Heat >= 50 || HasStatusEffect(Buffs.Hypercharged)) &&
                 !IsComboExpiring(6) && ActionReady(Hypercharge) &&
+                !JustUsed(BarrelStabilizer) &&
                 DrillCD && AirAnchorCD && ChainSawCD &&
-                (LevelChecked(FullMetalField) && JustUsed(FullMetalField) ||
-                 !LevelChecked(FullMetalField) && ActionReady(Wildfire) ||
-                 GetCooldownRemainingTime(Wildfire) > 40 ||
+                !HasStatusEffect(Buffs.ExcavatorReady) &&
+                (ActionReady(Wildfire) ||
+                 MCH_ST_WildfireBossOption == 1 && !TargetIsBoss() ||
+                 GetCooldownRemainingTime(Wildfire) > GCD * 15 ||
+                 Heat is 100 && GetCooldownRemainingTime(Wildfire) > 10 ||
                  !LevelChecked(Wildfire)):
 
             case true when
@@ -48,44 +50,38 @@ internal partial class MCH
 
     #region Queen
 
-    private static bool CanQueen(bool simpleMode = false)
+    private static bool CanQueen()
     {
         if (!HasStatusEffect(Buffs.Wildfire) &&
-            !JustUsed(OriginalHook(Heatblast)) && ActionReady(RookAutoturret) &&
+            ActionReady(RookAutoturret) &&
             !RobotActive && Battery >= 50)
         {
-            if ((MCH_ST_QueenBossOption == 0 || InBossEncounter() ||
-                 simpleMode && InBossEncounter()) &&
-                (GetCooldownRemainingTime(Wildfire) > GCD || !LevelChecked(Wildfire)))
+            if (LevelChecked(Wildfire))
             {
-                if (LevelChecked(BarrelStabilizer))
+                if (MCH_ST_WildfireBossOption == 0 || TargetIsBoss())
                 {
-                    switch (BSUsed)
+                    switch (Battery)
                     {
-                        //1min
-                        case 1 when Battery >= 90:
+                        //Always use on 100
+                        case 100:
 
-                        //even mins
-                        case >= 2 when Battery == 100:
+                        //Failsafe
+                        case > 80 when
+                            HasStatusEffect(Buffs.ExcavatorReady) ||
+                            ActionReady(Chainsaw) ||
+                            ActionReady(OriginalHook(AirAnchor)):
 
-                        //odd mins 1st queen
-                        case >= 2 when Battery is 50 && LastSummonBattery is 100:
+                        case > 90 when ComboAction == OriginalHook(SlugShot):
                             return true;
-                    }
 
-                    //odd mins 2nd queen
-                    if ((BSUsed % 3 is 2 && Battery >= 60 ||
-                         BSUsed % 3 is 0 && Battery >= 70 ||
-                         BSUsed % 3 is 1 && Battery >= 80) && LastSummonBattery is 50)
-                        return true;
+                    }
                 }
 
-                if (!LevelChecked(BarrelStabilizer))
+                if (MCH_ST_WildfireBossOption == 1 && !TargetIsBoss() && Battery >= MCH_ST_TurretUsage)
                     return true;
             }
 
-            if (simpleMode && !InBossEncounter() && Battery is 100 ||
-                MCH_ST_QueenBossOption == 1 && !InBossEncounter() && Battery >= MCH_ST_TurretUsage)
+            if (!LevelChecked(Wildfire) && Battery >= MCH_ST_TurretUsage)
                 return true;
         }
 
@@ -96,22 +92,24 @@ internal partial class MCH
 
     #region Gauss and Rico
 
-    private static bool OvercapLowlevelGaussRound =>
-        ActionReady(GaussRound) && !LevelChecked(Hypercharge) && GetRemainingCharges(GaussRound) is 2;
+    private static bool OvercapGaussRound =>
+        ActionReady(GaussRound) && ((!LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(GaussRound)) is 1 ||
+                                     LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(GaussRound)) is 2) &&
+                                    GetCooldownChargeRemainingTime(OriginalHook(GaussRound)) < 25 ||
+                                    !LevelChecked(Hypercharge) && GetRemainingCharges(OriginalHook(GaussRound)) is 2);
+
+    private static bool OvercapRicochet =>
+        ActionReady(Ricochet) && (!LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(Ricochet)) is 1 ||
+                                  LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(Ricochet)) is 2) &&
+        GetCooldownChargeRemainingTime(OriginalHook(Ricochet)) < 25;
 
     private static bool CanGaussRound =>
         ActionReady(GaussRound) &&
-        GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet)) ||
-        (!LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(GaussRound)) is 1 ||
-         LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(GaussRound)) is 2) &&
-        GetCooldownChargeRemainingTime(OriginalHook(GaussRound)) < 15;
+        GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet));
 
     private static bool CanRicochet =>
         ActionReady(Ricochet) &&
-        GetRemainingCharges(OriginalHook(Ricochet)) > GetRemainingCharges(OriginalHook(GaussRound)) ||
-        (!LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(Ricochet)) is 1 ||
-         LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(Ricochet)) is 2) &&
-        GetCooldownChargeRemainingTime(OriginalHook(Ricochet)) < 15;
+        GetRemainingCharges(OriginalHook(Ricochet)) > GetRemainingCharges(OriginalHook(GaussRound));
 
     #endregion
 
@@ -128,6 +126,14 @@ internal partial class MCH
     private static int HPThresholdTools =>
         MCH_ST_ToolsBossOption == 1 ||
         !TargetIsBoss() ? MCH_ST_ToolsBossOption : 0;
+
+    private static int HPThresholdBarrelStabilizer =>
+        MCH_ST_BarrelStabilizerHPBossOption == 1 ||
+        !TargetIsBoss() ? MCH_ST_BarrelStabilizerHPBossOption : 0;
+
+    private static int HPThresholdWildFire =>
+        MCH_ST_WildfireBossHPOption == 1 ||
+        !TargetIsBoss() ? MCH_ST_WildfireBossHPOption : 0;
 
     #endregion
 
@@ -159,6 +165,12 @@ internal partial class MCH
         !HasStatusEffect(Buffs.Reassembled) && GetRemainingCharges(Reassemble) <= MCH_ST_ReassemblePool ||
         !IsEnabled(Preset.MCH_ST_Adv_Reassemble);
 
+    private static bool ReassembledHotShotST =>
+        IsEnabled(Preset.MCH_ST_Adv_Reassemble) && MCH_ST_Reassembled[2] && (HasStatusEffect(Buffs.Reassembled) || !HasStatusEffect(Buffs.Reassembled)) ||
+        IsEnabled(Preset.MCH_ST_Adv_Reassemble) && !MCH_ST_Reassembled[2] && !HasStatusEffect(Buffs.Reassembled) ||
+        !HasStatusEffect(Buffs.Reassembled) && GetRemainingCharges(Reassemble) <= MCH_ST_ReassemblePool ||
+        !IsEnabled(Preset.MCH_ST_Adv_Reassemble);
+
     private static bool ReassembledExcavatorAoE =>
         IsEnabled(Preset.MCH_AoE_Adv_Reassemble) && MCH_AoE_Reassembled[3] && HasStatusEffect(Buffs.Reassembled) ||
         IsEnabled(Preset.MCH_AoE_Adv_Reassemble) && !MCH_AoE_Reassembled[3] && !HasStatusEffect(Buffs.Reassembled) ||
@@ -187,32 +199,23 @@ internal partial class MCH
         if (!JustUsed(OriginalHook(Heatblast)) &&
             !HasStatusEffect(Buffs.Reassembled) && ActionReady(Reassemble))
         {
-            switch (onExcavator)
-            {
-                case true when
-                    IsNotEnabled(Preset.MCH_ST_Adv_TurretQueen) || MCH_ST_QueenBossOption == 1 && !InBossEncounter() &&
-                    LevelChecked(Excavator) && HasStatusEffect(Buffs.ExcavatorReady):
-
-                case true when
-                    IsEnabled(Preset.MCH_ST_Adv_TurretQueen) && (MCH_ST_QueenBossOption == 0 || InBossEncounter()) &&
-                    LevelChecked(Excavator) && HasStatusEffect(Buffs.ExcavatorReady) &&
-                    (BSUsed is 1 ||
-                     BSUsed % 3 is 2 && Battery <= 40 ||
-                     BSUsed % 3 is 0 && Battery <= 50 ||
-                     BSUsed % 3 is 1 && Battery <= 60 ||
-                     GetStatusEffectRemainingTime(Buffs.ExcavatorReady) <= 6):
-                    return true;
-            }
+            if (onExcavator &&
+                LevelChecked(Excavator) && Battery < 90 &&
+                HasStatusEffect(Buffs.ExcavatorReady) &&
+                InActionRange(Excavator))
+                return true;
 
             if (onChainsaw &&
-                LevelChecked(Chainsaw) && !MaxBattery &&
+                LevelChecked(Chainsaw) && Battery < 90 &&
                 GetCooldownRemainingTime(Chainsaw) < GCD &&
+                InActionRange(Chainsaw) &&
                 (!LevelChecked(Excavator) || !MCH_ST_Reassembled[0]))
                 return true;
 
             if (onAirAnchor &&
-                LevelChecked(AirAnchor) && !MaxBattery &&
+                LevelChecked(AirAnchor) && Battery < 90 &&
                 GetCooldownRemainingTime(AirAnchor) < GCD &&
+                InActionRange(AirAnchor) &&
                 (!LevelChecked(Excavator) || MCH_ST_Reassembled[0] && GetCooldownRemainingTime(Chainsaw) > 40 || !MCH_ST_Reassembled[0]))
                 return true;
 
@@ -220,10 +223,17 @@ internal partial class MCH
                 LevelChecked(Drill) &&
                 (TraitLevelChecked(Traits.EnhancedMultiWeapon) && GetRemainingCharges(Drill) is 1 or 2 ||
                  GetCooldownRemainingTime(Drill) < GCD) &&
-                GetCooldownRemainingTime(Wildfire) is >= 20 or <= 10 &&
+                InActionRange(Drill) &&
+                !WFCD.InRange(11, 21) &&
                 (!LevelChecked(AirAnchor) || MCH_ST_Reassembled[2] && GetCooldownRemainingTime(AirAnchor) > 20 || !MCH_ST_Reassembled[2]) &&
                 (!LevelChecked(Chainsaw) || MCH_ST_Reassembled[1] && GetCooldownRemainingTime(Chainsaw) > 40 || !MCH_ST_Reassembled[1]) &&
                 (!LevelChecked(Excavator) || MCH_ST_Reassembled[0] && GetCooldownRemainingTime(Chainsaw) > 40 || !MCH_ST_Reassembled[0]))
+                return true;
+
+            if (onAirAnchor && Battery < 90 &&
+                !LevelChecked(CleanShot) &&
+                GetCooldownRemainingTime(HotShot) < GCD &&
+                InActionRange(HotShot))
                 return true;
         }
 
@@ -247,32 +257,19 @@ internal partial class MCH
         !LevelChecked(Chainsaw) ||
         LevelChecked(Chainsaw) && GetCooldownRemainingTime(Chainsaw) >= 9;
 
-    private static bool CanUseTools(ref uint actionID, bool useExcavator, bool useChainsaw, bool useAirAnchor, bool useDrill, bool simpleMode = false)
+    private static bool CanUseTools(ref uint actionID, bool useExcavator, bool useChainsaw, bool useAirAnchor, bool useDrill)
     {
-        switch (useExcavator)
+        if (useExcavator &&
+            ReassembledExcavatorST &&
+            LevelChecked(Excavator) && HasStatusEffect(Buffs.ExcavatorReady))
         {
-            case true when
-                ReassembledExcavatorST &&
-                (IsNotEnabled(Preset.MCH_ST_Adv_TurretQueen) || (MCH_ST_QueenBossOption == 1 || simpleMode) && !InBossEncounter()) &&
-                LevelChecked(Excavator) && HasStatusEffect(Buffs.ExcavatorReady):
-
-            case true when
-                ReassembledExcavatorST &&
-                (IsEnabled(Preset.MCH_ST_Adv_TurretQueen) && (MCH_ST_QueenBossOption == 0 || InBossEncounter()) ||
-                 simpleMode && InBossEncounter()) &&
-                LevelChecked(Excavator) && HasStatusEffect(Buffs.ExcavatorReady) &&
-                (BSUsed is 1 ||
-                 BSUsed % 3 is 2 && Battery <= 40 ||
-                 BSUsed % 3 is 0 && Battery <= 50 ||
-                 BSUsed % 3 is 1 && Battery <= 60 ||
-                 GetStatusEffectRemainingTime(Buffs.ExcavatorReady) <= 6):
-                actionID = Excavator;
-                return true;
+            actionID = Excavator;
+            return true;
         }
 
         if (useChainsaw &&
             ReassembledChainsawST &&
-            !MaxBattery && !HasStatusEffect(Buffs.ExcavatorReady) && LevelChecked(Chainsaw) &&
+            !HasStatusEffect(Buffs.ExcavatorReady) && LevelChecked(Chainsaw) &&
             GetCooldownRemainingTime(Chainsaw) <= GCD / 2)
         {
             actionID = Chainsaw;
@@ -281,7 +278,7 @@ internal partial class MCH
 
         if (useAirAnchor &&
             ReassembledAnchorST &&
-            !MaxBattery && LevelChecked(AirAnchor) &&
+            LevelChecked(AirAnchor) &&
             GetCooldownRemainingTime(AirAnchor) <= GCD / 2)
         {
             actionID = AirAnchor;
@@ -293,14 +290,15 @@ internal partial class MCH
             LevelChecked(Drill) &&
             (TraitLevelChecked(Traits.EnhancedMultiWeapon) && GetRemainingCharges(Drill) is 1 or 2 ||
              GetCooldownRemainingTime(Drill) < GCD / 2) &&
-            GetCooldownRemainingTime(Wildfire) is >= 20 or <= 10)
+            !WFCD.InRange(11, 21))
         {
             actionID = Drill;
             return true;
         }
 
         if (useAirAnchor &&
-            LevelChecked(HotShot) && !LevelChecked(AirAnchor) && !MaxBattery &&
+            ReassembledHotShotST &&
+            LevelChecked(HotShot) && !LevelChecked(AirAnchor) &&
             GetCooldownRemainingTime(HotShot) <= GCD / 2)
         {
             actionID = HotShot;

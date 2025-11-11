@@ -311,7 +311,17 @@ internal abstract partial class CustomComboFunctions
                     if (HasStatusEffect(4196)) return targetID != 18052; // Alliance C Blue Vaunted
                 }
                 return false;
-
+            
+            case 1263: // M8S
+                // Wolf of Wind = 18219
+                // Wolf of Stone = 18225
+                if (targetID is 18219 or 18225)
+                {
+                    if (HasStatusEffect(4389)) return targetID != 18219; // Target Wolf of Stone
+                    if (HasStatusEffect(4390)) return targetID != 18225; // Target Wolf of Wind
+                }
+                return false;
+            
             case 1267: //Sunken Temple of Qarn Temple Guardian
                 if (targetID is 18300 && HasStatusEffect(350, tar, true)) return true;
                 return false;
@@ -351,7 +361,7 @@ internal abstract partial class CustomComboFunctions
     /// </summary>
     /// <param name="target"></param>
     /// <returns></returns>
-    public unsafe static bool TargetIsStatusCapped(IGameObject? target)
+    public static unsafe bool TargetIsStatusCapped(IGameObject? target)
     {
         target ??= LocalPlayer;
         if (target is IBattleChara bc)

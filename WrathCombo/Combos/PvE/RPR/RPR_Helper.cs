@@ -1,4 +1,5 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Types;
+using ECommons.MathHelpers;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ internal partial class RPR
 
             //Natural Odd Minute Shrouds
             if (!HasStatusEffect(Buffs.ArcaneCircle) && !IsDebuffExpiring(5) &&
-                GetCooldownRemainingTime(ArcaneCircle) is >= 50 and <= 65)
+                GetCooldownRemainingTime(ArcaneCircle).InRange(49, 66))
                 return true;
 
             // Correction for 2 min windows 
@@ -91,10 +92,12 @@ internal partial class RPR
                     }
                     break;
                 }
+                
                 case false when RPR_ST_ArcaneCircleBossOption == 1 && !InBossEncounter() &&
                                 !HasStatusEffect(Buffs.Enshrouded) &&
                                 GetStatusEffectRemainingTime(Debuffs.DeathsDesign, CurrentTarget) <= RPR_SoDRefreshRange:
                     return true;
+                
                 case false:
                 {
                     if (RPR_ST_ArcaneCircleBossOption == 0 || InBossEncounter() ||
@@ -151,15 +154,20 @@ internal partial class RPR
 
     internal static WrathOpener Opener()
     {
-        if (StandardOpener.LevelChecked)
-            return StandardOpener;
+        if (StandardOpenerLvl90.LevelChecked)
+            return StandardOpenerLvl90;
+        
+        if (StandardOpenerLvl100.LevelChecked)
+            return StandardOpenerLvl100;
 
         return WrathOpener.Dummy;
     }
 
-    internal static RPRStandardOpener StandardOpener = new();
+    internal static RPRStandardOpenerLvl100 StandardOpenerLvl100 = new();
+    
+    internal static RPRStandardOpenerLvl90 StandardOpenerLvl90 = new();
 
-    internal class RPRStandardOpener : WrathOpener
+    internal class RPRStandardOpenerLvl100 : WrathOpener
     {
         public override int MinOpenerLevel => 100;
 
@@ -203,6 +211,57 @@ internal partial class RPR
             ([7], ExecutionersGibbet, () => HasStatusEffect(Buffs.EnhancedGibbet)),
             ([20], UnveiledGallows, () => HasStatusEffect(Buffs.EnhancedGallows)),
             ([21], Gallows, () => HasStatusEffect(Buffs.EnhancedGallows))
+        ];
+
+        internal override UserData ContentCheckConfig => RPR_Balance_Content;
+
+        public override bool HasCooldowns() =>
+            GetRemainingCharges(SoulSlice) is 2 &&
+            IsOffCooldown(ArcaneCircle) &&
+            IsOffCooldown(Gluttony);
+    }
+    
+    internal class RPRStandardOpenerLvl90 : WrathOpener
+    {
+        public override int MinOpenerLevel => 90;
+
+        public override int MaxOpenerLevel => 90;
+
+        public override List<uint> OpenerActions { get; set; } =
+        [
+            Harpe,
+            ShadowOfDeath,
+            ArcaneCircle,
+            SoulSlice,
+            SoulSlice,
+            PlentifulHarvest,
+            Enshroud,
+            VoidReaping,
+            CrossReaping,
+            LemuresSlice,
+            VoidReaping,
+            CrossReaping,
+            LemuresSlice,
+            Communio,
+            HarvestMoon,
+            Gluttony,
+            Gibbet, //16
+            Gallows, //17
+            UnveiledGibbet, //18
+            Gibbet, //19
+        ];
+
+        public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
+        [
+            ([1], () => RPR_Opener_StartChoice == 1)
+        ];
+
+        public override List<(int[], uint, Func<bool>)> SubstitutionSteps { get; set; } =
+        [
+            ([16], Gallows, OnTargetsRear),
+            ([17], Gibbet, () => HasStatusEffect(Buffs.EnhancedGibbet)),
+            ([18], UnveiledGallows, () => HasStatusEffect(Buffs.EnhancedGallows)),
+            ([19], Gallows, () => HasStatusEffect(Buffs.EnhancedGallows))
         ];
 
         internal override UserData ContentCheckConfig => RPR_Balance_Content;

@@ -5022,7 +5022,7 @@ public enum Preset
     RPR_ST_AdvancedMode = 12001,
 
     [ParentCombo(RPR_ST_AdvancedMode)]
-    [CustomComboInfo("Balance Opener (Level 100)", "Adds the Balance opener at level 100.", Job.RPR)]
+    [CustomComboInfo("Balance Opener (Level 90/100)", "Adds the Balance opener at level 90/100.", Job.RPR)]
     RPR_ST_Opener = 12002,
 
     [ParentCombo(RPR_ST_AdvancedMode)]
@@ -5127,7 +5127,7 @@ public enum Preset
     RPR_AoE_WoD = 12102,
 
     [ParentCombo(RPR_AoE_AdvancedMode)]
-    [CustomComboInfo("Soulsow", "Adds Soulsow to the rotation when out of combat and u dont have the buff.", Job.RPR)]
+    [CustomComboInfo("Soulsow", "Adds Soulsow to the rotation when out of combat and you dont have the buff.", Job.RPR)]
     RPR_AoE_SoulSow = 12117,
 
     [ParentCombo(RPR_AoE_AdvancedMode)]

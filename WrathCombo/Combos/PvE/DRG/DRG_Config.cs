@@ -54,7 +54,7 @@ internal partial class DRG
 
                 case Preset.DRG_ST_Mirage:
                     DrawAdditionalBoolChoice(DRG_ST_DoubleMirage,
-                        "苍天龙血期间爆发幻象冲", "在苍天龙血效果下将幻象冲添加到循环中");
+                        "红莲龙血期间爆发幻象冲", "在红莲龙血效果下将幻象冲添加到循环中。\n最佳效果为2.50 GCD。");
                     break;
 
                 case Preset.DRG_ST_DragonfireDive:

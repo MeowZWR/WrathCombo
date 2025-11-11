@@ -407,7 +407,9 @@ public static class ActionWatching
                     ActionManager.Instance()->AreaTargetingExecuteAtObject =
                         targetId;
 
-                if (NIN.MudraSigns.Contains(modifiedAction))
+                var success = hookResult && !(mode == ActionManager.UseActionMode.None && actionManager->QueuedActionId > 0);
+
+                if (NIN.MudraSigns.Contains(modifiedAction) && success)
                 {
                     NIN.InMudra = true;
                     TimeLastActionUsed = DateTime.Now;

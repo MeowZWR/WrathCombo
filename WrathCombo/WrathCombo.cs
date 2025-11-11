@@ -61,7 +61,26 @@ public sealed partial class WrathCombo : IDalamudPlugin
 
     private readonly TextPayload starterMotd = new("[Wrath 日报] ");
     private static Job? jobID;
-    private static bool inInstancedContent;
+    private static bool EnteringInstancedContent
+    {
+        get
+        {
+            return field;
+        }
+        set
+        {
+            if (field != value)
+            {
+                if (Service.Configuration.RotationConfig.EnableInInstance && value)
+                    Service.Configuration.RotationConfig.Enabled = true;
+
+                if (Service.Configuration.RotationConfig.DisableAfterInstance && !value)
+                    Service.Configuration.RotationConfig.Enabled = false;
+
+                field = value;
+            }
+        }
+    }
 
     public static readonly List<Job> DisabledJobsPVE =
     [
@@ -125,19 +144,12 @@ public sealed partial class WrathCombo : IDalamudPlugin
                 P.IPC.Leasing.SuspendLeases(CancellationReason.JobChanged);
             }
 
-            if (onTerritoryChange)
+            if (onTerritoryChange || firstRun)
             {
-                if (Service.Configuration.RotationConfig.EnableInInstance && Content.InstanceContentRow?.RowId > 0 && !inInstancedContent)
-                {
-                    Service.Configuration.RotationConfig.Enabled = true;
-                    inInstancedContent = true;
-                }
-
-                if (Service.Configuration.RotationConfig.DisableAfterInstance && Content.InstanceContentRow?.RowId == 0 && inInstancedContent)
-                {
-                    Service.Configuration.RotationConfig.Enabled = false;
-                    inInstancedContent = false;
-                }
+                if (Content.InstanceContentRow?.RowId > 0)
+                    EnteringInstancedContent = true;
+                else if (Content.InstanceContentRow?.RowId == 0)
+                    EnteringInstancedContent = false;
             }
 
             return true;
