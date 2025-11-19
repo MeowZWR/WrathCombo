@@ -78,7 +78,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Delay from first 明镜止水 to next step. (seconds)", "从第一次明镜止水到下一步的延迟时间（秒）"),
                 KeyValuePair.Create("HP percent threshold to not save Kenki", "生命值百分比阈值低于此值时不保留剑气"),
                 KeyValuePair.Create("Delay is enforced by replacing your button with Savage Blade.", "通过将你的按钮替换为狂怒剑来强制执行延迟。"),
-                KeyValuePair.Create("Stop using Higanbana on targets below this HP % (0% = always use).", "目标生命值百分比低于此值时停用彼岸花（0 = 总是使用）"),
+                KeyValuePair.Create($"Stop using {Higanbana.ActionName()} on targets below this HP % (0% = always use).", "目标生命值百分比低于此值时停用彼岸花（0 = 总是使用）"),
                 KeyValuePair.Create($"Adds {OgiNamikiri.ActionName()} and {KaeshiNamikiri.ActionName()} when you're not moving.", "当你不移动时添加奥义斩浪和回返斩浪。"),
                 KeyValuePair.Create("Guren Option", "必杀剑·红莲"),
                 KeyValuePair.Create($"Adds {Guren.ActionName()} to the rotation if Senei is not unlocked.", "如果未解锁必杀剑·闪影，则添加必杀剑·红莲到连击中。"),
@@ -119,6 +119,10 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create($"Replace Enpi with {OgiNamikiri.ActionName()} and {KaeshiNamikiri.ActionName()} when applicable.", "在适用时用奥义斩浪和回返斩浪替换燕飞。"),
                 KeyValuePair.Create($"Include {Iaijutsu.ActionName()}", "包含居合术"),
                 KeyValuePair.Create($"Replace Enpi with {Iaijutsu.ActionName()} and Kaeshi variant when applicable.", "在适用时用居合术和回返变体替换燕飞。"),
+                KeyValuePair.Create("Adds the Balance opener at level 70/80/90/100.", "在70/80/90/100级时添加「The Balance」起手式。"),
+                KeyValuePair.Create($"Seconds remaining before reapplying {Higanbana.ActionName()}.", $"在重新应用{Higanbana.ActionName()}前剩余的秒数。"),
+                KeyValuePair.Create("Set to Zero to disable this check.", "设置为零以禁用此检查。"),
+                KeyValuePair.Create("Will use Ogi or Iaijutsu when possible and enabled.", "在可能且启用时使用奥义斩浪或居合术。"),
                 #endregion
                 
                 #region SAMPvP
