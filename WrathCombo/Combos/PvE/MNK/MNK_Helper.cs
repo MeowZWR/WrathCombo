@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
-using WrathCombo.Data;
 using static WrathCombo.Combos.PvE.MNK.Config;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 namespace WrathCombo.Combos.PvE;
@@ -17,10 +16,6 @@ internal partial class MNK
     private static int HPThresholdBuffs =>
         MNK_ST_BuffsBossOption == 1 ||
         !InBossEncounter() ? MNK_ST_BuffsHPThreshold : 0;
-
-    private static bool M6SReady =>
-        !HiddenFeaturesData.IsEnabledWith(Preset.MNK_Hid_M6SHoldSquirrelBurst, () =>
-            HiddenFeaturesData.Targeting.R6SSquirrel && CombatEngageDuration().TotalSeconds < 300);
 
     #region Basic Combo
 

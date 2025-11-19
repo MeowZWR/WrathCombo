@@ -1244,10 +1244,6 @@ public enum Preset
     BLM_ST_Movement = 2113,
 
     [ParentCombo(BLM_ST_AdvancedMode)]
-    [CustomComboInfo("Scathe Option", "Add Scathe while moving and below lvl 66.", Job.BLM)]
-    BLM_ST_UseScathe = 2116,
-
-    [ParentCombo(BLM_ST_AdvancedMode)]
     [CustomComboInfo("Manaward Option", "Adds Manaward to the rotation when below HP Treshold and when raidwide is casting.", Job.BLM)]
     BLM_ST_Manaward = 2199,
 
@@ -2706,28 +2702,8 @@ public enum Preset
     [Hidden]
     DRK_Hidden = 5200,
 
-    [ParentCombo(DRK_Hidden)]
-    [CustomComboInfo("R6S: Hold Burst on Squirrels", "When you're targeting Squirrels in R6S add phase, hold burst.\n(until about the time the first manta is dying)", Job.DRK)]
-    [Hidden]
-    DRK_Hid_R6SHoldSquirrelBurst = 5201,
-
-    [ParentCombo(DRK_Hidden)]
-    [CustomComboInfo("R6S: Only Stun Jabberwock", "When in R6S, stun will only ever be used on the Jabberwock.", Job.DRK)]
-    [Hidden]
-    DRK_Hid_R6SStunJabberOnly = 5202,
-
-    [ParentCombo(DRK_Hidden)]
-    [CustomComboInfo("R6S: Save Reprisal and Dark Missionary", "When in R6S, never try use Reprisal or Dark Missionary automatically.", Job.DRK)]
-    [Hidden]
-    DRK_Hid_R6SNoAutoGroupMits = 5203,
-
-    [ParentCombo(DRK_Hidden)]
-    [CustomComboInfo("R7S: Only Interrupt the adds casting Circle AoEs", "When you're in R7S, Interrupting will only work when you're targeting an add casting the circle AoE.", Job.DRK)]
-    [Hidden]
-    DRK_Hid_R7SCircleCastOnly = 5204,
-
     #endregion
-    // Last value = 5204
+    // Last value = 5200
 
     #endregion
 
@@ -4063,15 +4039,11 @@ public enum Preset
     [Hidden]
     [CustomComboInfo("Hidden Options", "Collection of cheeky or encounter-specific extra options only available to those in the know.\nDo not expect these options to be maintained, or even kept, after they are no longer Current.", Job.MNK)]
     MNK_Hidden = 9300,
-
-    [ParentCombo(MNK_Hidden)]
-    [Hidden]
-    [CustomComboInfo("M6S: Hold Burst on Squirrels", "When you're targeting Squirrels in M6S add phase, hold burst.\n(until about the time the first manta is dying)", Job.MNK)]
-    MNK_Hid_M6SHoldSquirrelBurst = 9301,
-
+    
     #endregion
 
     // Last value = 9045
+    // Hidden = 9300
 
     #endregion
 
@@ -4865,8 +4837,8 @@ public enum Preset
 
     #region Basic combo
 
-    [ReplaceSkill(PLD.RageOfHalone)]
-    [CustomComboInfo("Basic Combo", "Replace Rage Of Halone with its combo chain.", Job.PLD)]
+    [ReplaceSkill(PLD.RageOfHalone, PLD.RoyalAuthority)]
+    [CustomComboInfo("Basic Combo", "Replace Rage Of Halone or Royal Authority with its combo chain.", Job.PLD)]
     [BasicCombo]
     PLD_ST_BasicCombo = 11061,
 
@@ -6407,19 +6379,14 @@ public enum Preset
     [CustomComboInfo("Hidden Options", "Collection of cheeky or encounter-specific extra options only available to those in the know.\nDo not expect these options to be maintained, or even kept, after they are no longer Current.", Job.SAM)]
     [Hidden]
     SAM_Hidden = 15300,
-
-    [ParentCombo(SAM_Hidden)]
-    [CustomComboInfo("M6S: Hold Burst on Squirrels", "When you're targeting Squirrels in M6S add phase, hold burst.\n(until about the time the first manta is dying)", Job.SAM)]
-    [Hidden]
-    SAM_Hid_M6SHoldSquirrelBurst = 15301,
+    
 
     #endregion
 
     // Last Value ST = 15027
     // Last Value AoE = 15113
     // Last Value Misc = 15257
-    // Last Value Hidden = 15301
-
+    // Last Value Hidden = 153010
     #endregion
 
     #region SCHOLAR

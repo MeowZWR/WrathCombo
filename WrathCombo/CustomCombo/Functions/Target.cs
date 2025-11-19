@@ -58,8 +58,15 @@ internal abstract partial class CustomComboFunctions
             return false;
 
         //This is a glorified universal check for friendly targets. Will return a correct value regardless of role, level or whatever.
-        var ret = ActionManager.CanUseActionOnTarget(Healer.Role.Esuna, chara.Struct());
-        return ret;
+        var isFriendly = chara.CanUseOn(Healer.Role.Esuna);
+        
+        // Try to handle heal-able job NPCs being difficult
+        if (!isFriendly && chara.ObjectKind == ObjectKind.EventNpc)
+        {
+            isFriendly = chara.CanUseOn(WHM.Cure);
+        }
+        
+        return isFriendly;
     }
 
     /// <summary> Checks if the player's current target is hostile. </summary>

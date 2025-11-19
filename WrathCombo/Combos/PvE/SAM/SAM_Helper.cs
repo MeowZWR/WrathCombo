@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
-using WrathCombo.Data;
 using static FFXIVClientStructs.FFXIV.Client.Game.ActionManager;
 using static WrathCombo.Combos.PvE.SAM.Config;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
@@ -26,11 +25,6 @@ internal partial class SAM
 
     private static int SenCount =>
         GetSenCount();
-
-    private static bool M6SReady =>
-        !HiddenFeaturesData.IsEnabledWith(Preset.SAM_Hid_M6SHoldSquirrelBurst, () =>
-            HiddenFeaturesData.Targeting.R6SSquirrel && CombatEngageDuration().TotalSeconds < 275);
-
 
     #region Basic Combo
 

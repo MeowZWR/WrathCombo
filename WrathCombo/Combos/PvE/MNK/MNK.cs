@@ -182,7 +182,7 @@ internal partial class MNK : Melee
                 return contentAction;
 
             // OGCDs
-            if (CanWeave() && M6SReady && InCombat())
+            if (CanWeave() && InCombat())
             {
                 if (IsEnabled(Preset.MNK_STUseBuffs) &&
                     GetTargetHPPercent() > HPThresholdBuffs)
@@ -286,7 +286,7 @@ internal partial class MNK : Melee
                 return contentAction;
 
             // OGCD's
-            if (CanWeave() && M6SReady && InCombat())
+            if (CanWeave() && InCombat())
             {
                 if (IsEnabled(Preset.MNK_AoEUseBuffs) &&
                     GetTargetHPPercent() >= MNK_AoE_BuffsHPThreshold)

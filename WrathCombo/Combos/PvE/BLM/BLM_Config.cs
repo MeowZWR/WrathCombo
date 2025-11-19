@@ -57,28 +57,34 @@ internal partial class BLM
 
                 case Preset.BLM_ST_Movement:
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"使用{Triplecast.ActionName()}", "", 4, 0);
+                        $"Use {Triplecast.ActionName()}", "", 5, 0);
 
                     DrawPriorityInput(BLM_ST_Movement_Priority,
-                        4, 0, $"{Triplecast.ActionName()}优先级：");
+                        5, 0, $"{Triplecast.ActionName()}优先级：");
 
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"使用{Paradox.ActionName()}", "", 4, 1);
+                        $"Use {Paradox.ActionName()}", "", 5, 1);
 
                     DrawPriorityInput(BLM_ST_Movement_Priority,
-                        4, 1, $"{Paradox.ActionName()}优先级：");
+                        5, 1, $"{Paradox.ActionName()}优先级：");
 
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"使用{Role.Swiftcast.ActionName()}", "", 4, 2);
+                        $"Use {Role.Swiftcast.ActionName()}", "", 5, 2);
 
                     DrawPriorityInput(BLM_ST_Movement_Priority,
-                        4, 2, $"{Role.Swiftcast.ActionName()}优先级：");
+                        5, 2, $"{Role.Swiftcast.ActionName()}优先级：");
 
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"使用{Foul.ActionName()} / {Xenoglossy.ActionName()}", "", 4, 3);
+                        $"Use {Foul.ActionName()} / {Xenoglossy.ActionName()}", "", 5, 3);
 
                     DrawPriorityInput(BLM_ST_Movement_Priority,
-                        4, 3, $"{Xenoglossy.ActionName()}优先级：");
+                        5, 3, $"{Xenoglossy.ActionName()}优先级：");
+                    
+                    DrawHorizontalMultiChoice(BLM_ST_MovementOption,
+                        $"Use {Scathe.ActionName()}", "", 5, 4);
+
+                    DrawPriorityInput(BLM_ST_Movement_Priority,
+                        5, 4, $"{Scathe.ActionName()}优先级：");
                     break;
 
                 case Preset.BLM_ST_UsePolyglot:

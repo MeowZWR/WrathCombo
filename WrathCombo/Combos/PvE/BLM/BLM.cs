@@ -376,11 +376,6 @@ internal partial class BLM : Caster
                 }
             }
 
-            if (IsEnabled(Preset.BLM_ST_UseScathe) &&
-                IsMoving() && !LevelChecked(Triplecast) &&
-                ActionReady(Scathe))
-                return Scathe;
-
             //Overcap protection
             if (IsEnabled(Preset.BLM_ST_UsePolyglot) &&
                 HasMaxPolyglotStacks && PolyglotTimer <= 5)

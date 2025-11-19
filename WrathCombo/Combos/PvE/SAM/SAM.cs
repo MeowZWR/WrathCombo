@@ -205,7 +205,7 @@ internal partial class SAM : Melee
                 return contentAction;
 
             //oGCDs
-            if (CanWeave() && M6SReady)
+            if (CanWeave())
             {
                 if (IsEnabled(Preset.SAM_ST_CDs))
                 {
@@ -291,8 +291,7 @@ internal partial class SAM : Melee
 
                 //Ogi Namikiri Feature
                 if (IsEnabled(Preset.SAM_ST_CDs_OgiNamikiri) &&
-                    (!SAM_ST_CDs_OgiNamikiri_Movement || !IsMoving()) &&
-                    M6SReady && CanOgi())
+                    (!SAM_ST_CDs_OgiNamikiri_Movement || !IsMoving()) && CanOgi())
                     return OriginalHook(OgiNamikiri);
 
                 // Iaijutsu Feature
@@ -329,7 +328,7 @@ internal partial class SAM : Melee
                 return contentAction;
 
             //oGCD feature
-            if (CanWeave() && M6SReady)
+            if (CanWeave())
             {
                 if (IsEnabled(Preset.SAM_AoE_Hagakure) &&
                     OriginalHook(Iaijutsu) is MidareSetsugekka && LevelChecked(Hagakure))
@@ -391,7 +390,7 @@ internal partial class SAM : Melee
             if (IsEnabled(Preset.SAM_AoE_Damage))
             {
                 if (IsEnabled(Preset.SAM_AoE_OgiNamikiri) &&
-                    ActionReady(OgiNamikiri) && M6SReady &&
+                    ActionReady(OgiNamikiri) &&
                     (!IsMoving() && HasStatusEffect(Buffs.OgiNamikiriReady) || NamikiriReady))
                     return OriginalHook(OgiNamikiri);
 
