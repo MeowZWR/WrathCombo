@@ -193,6 +193,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Combo", "连击"),
                 KeyValuePair.Create("Kenki", "剑气"),
                 KeyValuePair.Create(" to ", "->"),
+                KeyValuePair.Create("Standard", "标准"),
                 KeyValuePair.Create("and", "和"),
                 KeyValuePair.Create("movement", "移动"),
                 KeyValuePair.Create("Movement", "移动"),
@@ -243,6 +244,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Replace", "替换"),
                 KeyValuePair.Create("Early", "尽早使用"),
                 KeyValuePair.Create("Tools", "工具"),
+                KeyValuePair.Create("opener", "起手"),
 
                 // Job abbreviations with brackets (for conflict display)
                 KeyValuePair.Create("[FSH]", "[捕鱼人]"),
