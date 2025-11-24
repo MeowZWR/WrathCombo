@@ -133,17 +133,17 @@ public class Conflict
 
     #region UI Display Strings
 
-    private const string ComboConflictStart = "Conflicting Combo";
-    private const string ComboConflictEnd = "Plugin(s) Detected!";
+    private const string ComboConflictStart = "检测到";
+    private const string ComboConflictEnd = "冲突的连招插件！";
 
-    private const string TargetingConflictStart = "Conflicting Action";
-    private const string TargetingConflictEnd = "Retargeting Detected!";
+    private const string TargetingConflictStart = "检测到";
+    private const string TargetingConflictEnd = "冲突的技能重定向！";
 
-    private const string SettingsConflictStart = "Conflicting Plugin";
-    private const string SettingsConflictEnd = "Setting(s) Detected!";
+    private const string SettingsConflictStart = "检测到";
+    private const string SettingsConflictEnd = "冲突的插件设置！";
 
-    private const string GameConflictStart = "Conflicting Game";
-    private const string GameConflictEnd = "Setting(s) Detected!";
+    private const string GameConflictStart = "检测到";
+    private const string GameConflictEnd = "冲突的游戏设置！";
 
     #endregion
 }

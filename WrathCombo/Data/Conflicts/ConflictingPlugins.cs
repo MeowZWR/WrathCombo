@@ -139,11 +139,11 @@ public static class ConflictingPlugins
                                      ? ""
                                      : $" ({x.Reason})")));
             var tooltipText =
-                "The following plugins are known to conflict " +
-                $"with {P.Name}:\n" +
+                "以下插件已知与 " +
+                $"{P.Name} 存在冲突：\n" +
                 conflictingPluginsText +
-                "\n\nIt is recommended you disable these plugins, or their " +
-                "rotation\ncomponents, to prevent unexpected behavior and bugs.";
+                "\n\n建议禁用这些插件，或禁用它们的 " +
+                "循环\n组件，以防止意外行为和错误。";
 
             ShowWarning(ConflictType.Combo, tooltipText, false);
         }
@@ -156,12 +156,12 @@ public static class ConflictingPlugins
                     .Select(x => $"{x.Name} {x.Version} (setting: {x.Reason})"));
 
             var tooltipText =
-                "The following plugins are known to conflict with\n" +
-                $"{P.Name}'s Settings, which you have enabled:\n" +
+                "以下插件已知与您已启用的\n" +
+                $"{P.Name} 设置存在冲突：\n" +
                 conflictingSettingsText +
-                "\n\nIt is recommended you disable these plugins, or\n" +
-                "remove the conflicting setting in the plugins\n" +
-                "to prevent unexpected behavior and bugs.";
+                "\n\n建议禁用这些插件，或\n" +
+                "在插件中移除冲突的设置\n" +
+                "以防止意外行为和错误。";
 
             ShowWarning(ConflictType.Settings, tooltipText,
                 hasComboConflicts || hasTargetingConflicts);
@@ -172,20 +172,20 @@ public static class ConflictingPlugins
             currentConflicts = conflicts[ConflictType.GameSetting];
 
             var tooltipText =
-                "The following game settings are known to conflict with " +
-                $"{P.Name}'s Settings:";
+                "以下游戏设置已知与 " +
+                $"{P.Name} 的设置存在冲突：";
 
             foreach (var conflict in conflicts[ConflictType.GameSetting])
             {
                 var reasonSplit = conflict.Reason.Split("    ");
                 tooltipText +=
-                    $"\n- Setting: {reasonSplit[0]}" +
-                    $"\n    Problem: {reasonSplit[1]}";
+                    $"\n- 设置：{reasonSplit[0]}" +
+                    $"\n    问题：{reasonSplit[1]}";
             }
 
             tooltipText +=
-                "\n\nIt is recommended you change these settings, " +
-                "to prevent unexpected behavior and bugs.";
+                "\n\n建议修改这些设置，" +
+                "以防止意外行为和错误。";
 
             ShowWarning(ConflictType.GameSetting, tooltipText,
                 hasComboConflicts || hasTargetingConflicts || hasSettingsConflicts);
@@ -195,8 +195,8 @@ public static class ConflictingPlugins
         {
             currentConflicts = conflicts[ConflictType.Targeting];
             var tooltipText =
-                "Your configuration in the following plugins will conflict\n" +
-                $"with {P.Name}'s enabled Action Retargeting:";
+                "以下插件中的配置将与\n" +
+                $"{P.Name} 已启用的技能重定向功能存在冲突：";
 
             foreach (var conflict in conflicts[ConflictType.Targeting])
                 tooltipText +=
@@ -205,10 +205,10 @@ public static class ConflictingPlugins
                     string.Join("\n        - ", conflict.Reason.Split(','));
 
             tooltipText +=
-                "\n\nIt is recommended you disable these plugins, or\n" +
-                "remove the conflicting actions from their settings, or\n" +
-                $"disable Retargeting for the action in {P.Name},\n" +
-                "to prevent unexpected behavior and bugs.";
+                "\n\n建议禁用这些插件，或\n" +
+                "从它们的设置中移除冲突的技能，或\n" +
+                $"在 {P.Name} 中禁用该技能的重定向，\n" +
+                "以防止意外行为和错误。";
 
             ShowWarning(ConflictType.Targeting, tooltipText,
                 hasComboConflicts || hasTargetingConflicts ||
@@ -379,7 +379,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Settings,
-                    "AI is enabled WITH targeting [check 'Disable auto-targeting']"))
+                    "AI 已启用并带有目标选择 [勾选 '禁用自动目标选择']"))
                 .ToArray();
         }
 
@@ -387,7 +387,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Settings,
-                    "Manual Queueing is Enabled [uncheck 'Use custom queueing']"))
+                    "手动队列已启用 [取消勾选 '使用自定义队列']"))
                 .ToArray();
         }
 
@@ -399,7 +399,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossModReborn", ConflictType.Settings,
-                    "AI is enabled WITH targeting [check 'Manual targeting']"))
+                    "AI 已启用并带有目标选择 [勾选 '手动目标选择']"))
                 .ToArray();
         }
 
@@ -407,7 +407,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossModReborn", ConflictType.Settings,
-                    "Manual Queueing is Enabled [uncheck 'Use custom queueing']"))
+                    "手动队列已启用 [取消勾选 '使用自定义队列']"))
                 .ToArray();
         }
 
@@ -420,12 +420,12 @@ public static class ConflictingPlugins
             if (ConflictingPluginsChecks.Redirect.ConflictingActions[0] is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "Redirect", ConflictType.Settings,
-                        "Options > Treat all ground-targeted actions as mouseovers"))
+                        "选项 > 将所有地面目标技能视为鼠标悬停"))
                     .ToArray();
             if (ConflictingPluginsChecks.Redirect.ConflictingActions[1] is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "Redirect", ConflictType.Settings,
-                        "Options > Treat all friendly actions as mouseovers"))
+                        "选项 > 将所有友方技能视为鼠标悬停"))
                     .ToArray();
         }
 
@@ -439,25 +439,25 @@ public static class ConflictingPlugins
             if (reFeedback[0].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReAction", ConflictType.Settings,
-                        "Other Settings > Enable Auto Target"))
+                        "其他设置 > 启用自动目标"))
                     .ToArray();
             if (reFeedback[1].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReAction", ConflictType.Settings,
-                        "Stacks > " + reFeedback[1].stackName + " > " +
-                        "'All Actions' is retargeted"))
+                        "堆叠 > " + reFeedback[1].stackName + " > " +
+                        "'所有技能' 已重定向"))
                     .ToArray();
             if (reFeedback[2].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReAction", ConflictType.Settings,
-                        "Stacks > " + reFeedback[2].stackName + " > " +
-                        "'All Harmful Actions' is retargeted"))
+                        "堆叠 > " + reFeedback[2].stackName + " > " +
+                        "'所有有害技能' 已重定向"))
                     .ToArray();
             if (reFeedback[3].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReAction", ConflictType.Settings,
-                        "Stacks > " + reFeedback[3].stackName + " > " +
-                        "'All Beneficial Actions' is retargeted"))
+                        "堆叠 > " + reFeedback[3].stackName + " > " +
+                        "'所有有益技能' 已重定向"))
                     .ToArray();
         }
 
@@ -471,25 +471,25 @@ public static class ConflictingPlugins
             if (reFeedback[0].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReActionEx", ConflictType.Settings,
-                        "Other Settings > Enable Auto Target"))
+                        "其他设置 > 启用自动目标"))
                     .ToArray();
             if (reFeedback[1].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReActionEx", ConflictType.Settings,
-                        "Stacks > " + reFeedback[1].stackName + " > " +
-                        "'All Actions' is retargeted"))
+                        "堆叠 > " + reFeedback[1].stackName + " > " +
+                        "'所有技能' 已重定向"))
                     .ToArray();
             if (reFeedback[2].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReActionEx", ConflictType.Settings,
-                        "Stacks > " + reFeedback[2].stackName + " > " +
-                        "'All Harmful Actions' is retargeted"))
+                        "堆叠 > " + reFeedback[2].stackName + " > " +
+                        "'所有有害技能' 已重定向"))
                     .ToArray();
             if (reFeedback[3].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReActionEx", ConflictType.Settings,
-                        "Stacks > " + reFeedback[3].stackName + " > " +
-                        "'All Beneficial Actions' is retargeted"))
+                        "堆叠 > " + reFeedback[3].stackName + " > " +
+                        "'所有有益技能' 已重定向"))
                     .ToArray();
         }
 
@@ -522,20 +522,20 @@ public static class ConflictingPlugins
             if (ConflictingPluginsChecks.XIV.AutoFaceTargetConflicted)
                 conflicts = conflicts.Append(new Conflict(
                         "XIV", ConflictType.GameSetting,
-                        "Character Configuration > Control Settings > Target > " +
-                        "Target Settings > Automatically face target when using action." +
+                        "角色设置 > 操作设置 > 目标 > " +
+                        "设置目标 > 发动技能时转身面向目标。" +
                         "    " +
-                        "You will have to manually face the target, " +
-                        "outside of Auto Rotation, for actions to execute."))
+                        "您需要手动面向目标，" +
+                        "在自动循环之外，技能才能执行。"))
                     .ToArray();
 
             if (ConflictingPluginsChecks.XIV.GroundTargetingPlacementConflicted)
                 conflicts = conflicts.Append(new Conflict(
                         "XIV", ConflictType.GameSetting,
-                        "Character Configuration > Control Settings > Target > " +
-                        "Ground Targeting Settings > Press action twice to execute." +
+                        "角色设置 > 操作设置 > 目标 > " +
+                        "地面目标设置 > 在地面目标模式中按下同一个地面目标技能时发动该技能。" +
                         "    " +
-                        "Ground Actions cannot be Retargeted without additional click."))
+                        "地面技能无法在没有额外点击的情况下重定向。"))
                     .ToArray();
         }
 
@@ -602,13 +602,13 @@ public static class ConflictingPlugins
         if (ConflictingPluginsChecks.BossMod.Conflicted)
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Combo,
-                    "Autorotation module is queueing actions"))
+                    "自动循环模块正在排队技能"))
                 .ToArray();
         if (ConflictingPluginsChecks.BossModReborn.Conflicted)
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossModReborn", ConflictType.Combo,
-                    "Autorotation module is queueing actions"))
+                    "自动循环模块正在排队技能"))
                 .ToArray();
         }
 
