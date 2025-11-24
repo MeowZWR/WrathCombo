@@ -92,12 +92,12 @@ internal partial class RPR
                     }
                     break;
                 }
-                
+
                 case false when RPR_ST_ArcaneCircleBossOption == 1 && !InBossEncounter() &&
                                 !HasStatusEffect(Buffs.Enshrouded) &&
                                 GetStatusEffectRemainingTime(Debuffs.DeathsDesign, CurrentTarget) <= RPR_SoDRefreshRange:
                     return true;
-                
+
                 case false:
                 {
                     if (RPR_ST_ArcaneCircleBossOption == 0 || InBossEncounter() ||
@@ -154,17 +154,17 @@ internal partial class RPR
 
     internal static WrathOpener Opener()
     {
-        if (StandardOpenerLvl90.LevelChecked)
-            return StandardOpenerLvl90;
-        
         if (StandardOpenerLvl100.LevelChecked)
             return StandardOpenerLvl100;
+
+        if (StandardOpenerLvl90.LevelChecked)
+            return StandardOpenerLvl90;
 
         return WrathOpener.Dummy;
     }
 
     internal static RPRStandardOpenerLvl100 StandardOpenerLvl100 = new();
-    
+
     internal static RPRStandardOpenerLvl90 StandardOpenerLvl90 = new();
 
     internal class RPRStandardOpenerLvl100 : WrathOpener
@@ -220,7 +220,7 @@ internal partial class RPR
             IsOffCooldown(ArcaneCircle) &&
             IsOffCooldown(Gluttony);
     }
-    
+
     internal class RPRStandardOpenerLvl90 : WrathOpener
     {
         public override int MinOpenerLevel => 90;
@@ -248,7 +248,7 @@ internal partial class RPR
             Gibbet, //16
             Gallows, //17
             UnveiledGibbet, //18
-            Gibbet, //19
+            Gibbet //19
         ];
 
         public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =

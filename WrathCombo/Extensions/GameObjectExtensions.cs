@@ -338,8 +338,9 @@ public static class GameObjectExtensions
     {
         return obj.IsDead &&
                obj.IsAPlayer() &&
-               !HasStatusEffect(2648, obj, true) &&
-               !HasStatusEffect(148, obj, true) &&
+               !HasStatusEffect(2648, obj, true) && // just rezzed
+               !HasStatusEffect(148, obj, true) && // pending rezz
+               !HasStatusEffect(4263, obj, true) && // un-rezzable (OC)
                obj.IsTargetable &&
                (TimeSpentDead(obj.GameObjectId)
                    .TotalSeconds > 2 || !obj.IsInParty());

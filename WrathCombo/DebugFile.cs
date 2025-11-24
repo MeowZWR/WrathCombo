@@ -13,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using ECommons.Reflection;
 using WrathCombo.AutoRotation;
 using WrathCombo.Combos.PvE;
@@ -28,6 +27,9 @@ using WrathCombo.Window.Functions;
 using Dalamud.Game.Config;
 using ECommons;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
+using UIConfig = Dalamud.Game.Config.UiConfigOption;
+using UIControl = Dalamud.Game.Config.UiControlOption;
+using SysConfig = Dalamud.Game.Config.SystemConfigOption;
 
 #endregion
 
@@ -99,7 +101,7 @@ public static class DebugFile
                 throw new InvalidOperationException();
             }
 
-            job = Svc.ClientState.LocalPlayer.ClassJob.Value;
+            job = Player.Object.ClassJob.Value;
         }
 
         using (_file = new StreamWriter(GetDebugFilePath(), append: false))
@@ -179,7 +181,7 @@ public static class DebugFile
         var conflicts = conflictsObj.ToArray();
         var conflictingPluginsCount = conflicts.Length;
 
-        AddLine($"Conflicting Plugins: {conflictingPluginsCount}");
+        AddLine($"Conflicts: {conflictingPluginsCount}");
 
         if (!hasConflicts)
         {
@@ -187,20 +189,20 @@ public static class DebugFile
             return;
         }
 
-        AddLine("START CONFLICTING PLUGINS");
+        AddLine("START CONFLICTS");
         foreach (var plugin in conflicts)
-            AddLine($"- {plugin.Name} v{plugin.Version} ({plugin.ConflictType}) " +
+            AddLine($"- {plugin.Name} {plugin.Version} ({plugin.ConflictType}) " +
                     (string.IsNullOrEmpty(plugin.Reason)
                         ? ""
-                        : "reason: " + plugin.Reason));
-        AddLine("END CONFLICTING PLUGINS");
+                        : "reason: " + plugin.Reason.Split("    ")[0]));
+        AddLine("END CONFLICTS");
 
         AddLine();
     }
 
     private static void AddPlayerInfo()
     {
-        var player = Svc.ClientState.LocalPlayer;
+        var player = Player.Object;
         var job = player.ClassJob.Value;
         var currentZone = Content.ContentName ?? "Unknown";
 
@@ -222,7 +224,7 @@ public static class DebugFile
 
     private static void AddTargetInfo()
     {
-        var target = Svc.ClientState.LocalPlayer.TargetObject;
+        var target = Player.Object.TargetObject;
 
         AddLine($"Target: {target?.GameObjectId.ToString() ?? "None"}");
 
@@ -249,6 +251,8 @@ public static class DebugFile
         }
 
         AddLine("START TARGET INFO");
+        AddLine($"IDs: (<entity>/<data or base>): {target?.EntityId} / {target?.BaseId}");
+        AddLine($"Is Friendly: {target.IsFriendly()}");
         AddLine($"Is Hostile: {target.IsHostile()}");
         AddLine($"In Combat: {target.IsInCombat()}");
         AddLine($"Is Boss: {battleTarget.IsBoss()}");
@@ -256,6 +260,7 @@ public static class DebugFile
         AddLine($"Is Dead: {target.IsDead}");
         AddLine($"Distance: {GetTargetDistance(target):F1}y");
         AddLine($"Nameplate: {target.GetNameplateKind()}");
+        AddLine($"Name ID: {target.GetNameId()}");
         if (battleTarget is not null)
         {
             AddLine($"IDs: entity:{battleTarget.EntityId}, " +
@@ -310,7 +315,8 @@ public static class DebugFile
                 },
                 ["XIV"] = new Dictionary<object, object>
                 {
-                    [UiControlOption.AutoFaceTargetOnAction] = "Auto Face Target",
+                    [UIControl.AutoFaceTargetOnAction] = "Auto Face Target",
+                    [UIConfig.GroundTargetActionExcuteType] = "2x-Press Ground Actions",
                 },
             };
 
@@ -335,21 +341,24 @@ public static class DebugFile
                         {
                             switch (property)
                             {
-                                case UiControlOption uiOpt:
+                                case UIControl opt:
                                 {
-                                    if (Svc.GameConfig.TryGet(uiOpt, out bool gameVal))
+                                    if (Svc.GameConfig.TryGet(opt, out bool gameVal))
                                         value = gameVal;
                                     break;
                                 }
-                                case SystemConfigOption sysOpt:
+                                case UIConfig opt:
                                 {
-                                    if (Svc.GameConfig.TryGet(sysOpt, out bool gameVal))
+                                    if (Svc.GameConfig.TryGet(opt, out bool gameVal))
                                         value = gameVal;
                                     break;
                                 }
-                                default:
-                                    value = null;
+                                case SysConfig opt:
+                                {
+                                    if (Svc.GameConfig.TryGet(opt, out bool gameVal))
+                                        value = gameVal;
                                     break;
+                                }
                             }
                         }
                         catch
@@ -633,8 +642,8 @@ public static class DebugFile
 
     private static void AddStatusEffects()
     {
-        var playerID = Svc.ClientState.LocalPlayer.GameObjectId;
-        var statusEffects = Svc.ClientState.LocalPlayer.StatusList;
+        var playerID = Player.Object.GameObjectId;
+        var statusEffects = Player.Object.StatusList;
 
         var statusEffectsCount = 0;
         foreach (var _ in statusEffects)

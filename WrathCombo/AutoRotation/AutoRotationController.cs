@@ -51,6 +51,7 @@ internal unsafe static class AutoRotationController
         GetTargetDistance(x.BattleChara) <= QueryRange &&
         !HasStatusEffect(2648, x.BattleChara, true) && // Transcendent Effect
         !HasStatusEffect(148, x.BattleChara, true) && // Raise Effect
+        !HasStatusEffect(4263, x.BattleChara, true) && // Raise Denied (OC)
         TimeSpentDead(x.BattleChara.GameObjectId).TotalSeconds > 2;
 
     public static bool LockedST
@@ -129,7 +130,7 @@ internal unsafe static class AutoRotationController
                || Svc.Condition[ConditionFlag.PreparingToCraft]
                || Svc.Condition[ConditionFlag.Fishing]
                || Svc.Condition[ConditionFlag.UsingHousingFunctions]
-               || Svc.ClientState.LocalPlayer?.IsTargetable != true;
+               || !Player.Interactable;
     }
 
     internal static void Run()

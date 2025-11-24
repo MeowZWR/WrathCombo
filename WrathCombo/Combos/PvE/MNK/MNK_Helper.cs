@@ -60,6 +60,7 @@ internal partial class MNK
 
     private static bool CanPerfectBalance(bool onAoE = false)
     {
+        var targetCheck = onAoE || HasBattleTarget();
         switch (onAoE)
         {
             case false when
@@ -92,7 +93,7 @@ internal partial class MNK
 
             case true when
                 ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) &&
-                !HasStatusEffect(Buffs.FormlessFist) && HasBattleTarget() &&
+                !HasStatusEffect(Buffs.FormlessFist) && targetCheck && IsOriginal(MasterfulBlitz) &&
                 GetTargetHPPercent() >= MNK_AoE_PerfectBalanceHPThreshold:
             {
                 //Initial/Failsafe

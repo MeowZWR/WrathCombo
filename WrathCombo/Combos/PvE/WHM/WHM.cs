@@ -372,6 +372,9 @@ internal partial class WHM : Healer
         {
             if (actionID is not Cure)
                 return actionID;
+
+            if (ContentSpecificActions.TryGet(out var contentAction, healing: true))
+                return contentAction;
             
             var healTarget = OptionalTarget ?? SimpleTarget.Stack.AllyToHeal;
             
@@ -494,6 +497,9 @@ internal partial class WHM : Healer
         {
             if (actionID is not Cure)
                 return actionID;
+
+            if (ContentSpecificActions.TryGet(out var contentAction, healing: true))
+                return contentAction;
 
             #region Variables
 
@@ -777,15 +783,15 @@ internal partial class WHM : Healer
 
             if (IsEnabled(Preset.WHM_Re_Cure))
             {
-                Cure.Retarget(healStack, dontCull: true);
-                Cure2.Retarget(healStack, dontCull: true);
+                Cure.Retarget(healStack);
+                Cure2.Retarget(healStack);
             }
 
             if (IsEnabled(Preset.WHM_Re_Solace))
-                AfflatusSolace.Retarget(healStack, dontCull: true);
+                AfflatusSolace.Retarget(healStack);
 
             if (IsEnabled(Preset.WHM_Re_Aquaveil))
-                Aquaveil.Retarget(healStack, dontCull: true);
+                Aquaveil.Retarget(healStack);
 
             if (IsEnabled(Preset.WHM_Re_Asylum))
             {
@@ -797,7 +803,7 @@ internal partial class WHM : Healer
                         ? SimpleTarget.HardTarget.IfFriendly()
                         : null) ??
                     SimpleTarget.Self;
-                Asylum.Retarget(asylumTarget, dontCull: true);
+                Asylum.Retarget(asylumTarget);
             }
 
             if (IsEnabled(Preset.WHM_Re_LiturgyOfTheBell))
@@ -810,23 +816,23 @@ internal partial class WHM : Healer
                         ? SimpleTarget.HardTarget.IfFriendly()
                         : null) ??
                     SimpleTarget.Self;
-                LiturgyOfTheBell.Retarget(bellTarget, dontCull: true);
+                LiturgyOfTheBell.Retarget(bellTarget);
             }
 
             if (IsEnabled(Preset.WHM_Re_Cure3))
-                Cure3.Retarget(healStack, dontCull: true);
+                Cure3.Retarget(healStack);
 
             if (IsEnabled(Preset.WHM_Re_Benediction))
-                Benediction.Retarget(healStack, dontCull: true);
+                Benediction.Retarget(healStack);
 
             if (IsEnabled(Preset.WHM_Re_Tetragrammaton))
-                Tetragrammaton.Retarget(healStack, dontCull: true);
+                Tetragrammaton.Retarget(healStack);
 
             if (IsEnabled(Preset.WHM_Re_Regen))
-                Regen.Retarget(healStack, dontCull: true);
+                Regen.Retarget(healStack);
 
             if (IsEnabled(Preset.WHM_Re_DivineBenison))
-                DivineBenison.Retarget(healStack, dontCull: true);
+                DivineBenison.Retarget(healStack);
 
             return actionID;
         }

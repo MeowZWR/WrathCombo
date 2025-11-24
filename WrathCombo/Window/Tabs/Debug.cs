@@ -165,7 +165,7 @@ internal class Debug : ConfigWindow, IDisposable
         ImGuiEx.Spacing(new Vector2(0f, SpacingMedium));
 
         var target = Svc.Targets.Target;
-        var player = Svc.ClientState.LocalPlayer;
+        var player = Player.Object;
 
         // Custom 2-Column Styling
         static void CustomStyleText(string firstColumn, object? secondColumn, bool useMonofont = false, Vector4? optionalColor = null)
@@ -413,7 +413,6 @@ internal class Debug : ConfigWindow, IDisposable
                     foundSheet = false;
                 
                 CustomStyleText("Name:", target?.Name);
-                CustomStyleText("IDs: (<entity>/<data or base>)", $"{target?.EntityId} / {target?.DataId}");
                 CustomStyleText("Nameplate:", target?.GetNameplateKind().ToString());
                 CustomStyleText("Rank:", $"{battleNPCRow?.Rank.ToString() ?? "null"} (found sheet: {(foundSheet is true ? "yes" : "no")})");
                 CustomStyleText("Health:", $"{GetTargetCurrentHP():N0} / {GetTargetMaxHP():N0} ({MathF.Round(GetTargetHPPercent(), 2)}%)");
@@ -462,7 +461,7 @@ internal class Debug : ConfigWindow, IDisposable
 
             if (ImGui.TreeNode("对象数据"))
             {
-                CustomStyleText("DataId:", target?.DataId);
+                CustomStyleText("Data/BaseId:", target?.BaseId);
 
                 // Display 'EntityId' only if it differs from 'GameObjectId'
                 if (target is not null && target.EntityId != target.GameObjectId)
@@ -472,6 +471,7 @@ internal class Debug : ConfigWindow, IDisposable
                 }
 
                 CustomStyleText("ObjectId:", target?.GameObjectId);
+                CustomStyleText("NameId:", target?.GetNameId());
                 CustomStyleText("ObjectKind:", target?.ObjectKind);
                 CustomStyleText("ObjectSubKind:", target?.SubKind);
                 CustomStyleText("ObjectType:", target?.GetType()?.Name);
@@ -953,7 +953,7 @@ internal class Debug : ConfigWindow, IDisposable
 
                     var createdTimeString = retarget.Created.ToString(@"HH\:mm\:ss");
                     CustomStyleText($"Created: {createdTimeString}",
-                        $"Don't Cull Setting: {(retarget.DontCull ? "On" : "Off")}");
+                        $"");
 
                     ImGui.Unindent();
 
