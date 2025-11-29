@@ -121,7 +121,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create($"Replace Enpi with {Iaijutsu.ActionName()} and Kaeshi variant when applicable.", "在适用时用居合术和回返变体替换燕飞。"),
                 KeyValuePair.Create("Adds the Balance opener at level 70/80/90/100.", "在70/80/90/100级时添加「The Balance」起手式。"),
                 KeyValuePair.Create($"Seconds remaining before reapplying {Higanbana.ActionName()}.", $"在重新应用{Higanbana.ActionName()}前剩余的秒数。"),
-                KeyValuePair.Create("Set to Zero to disable this check.", "设置为零以禁用此检查。"),
                 KeyValuePair.Create("Will use Ogi or Iaijutsu when possible and enabled.", "在可能且启用时使用奥义斩浪或居合术。"),
                 #endregion
                 
