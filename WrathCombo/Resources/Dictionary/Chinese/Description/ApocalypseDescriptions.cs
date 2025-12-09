@@ -95,6 +95,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Select what difficulties ", "选择"),
                 KeyValuePair.Create("Select what difficulties Emergency Living Dead should be used in:", "选择紧急"),
                 KeyValuePair.Create("should be used in:", "应在哪些难度下使用："),
+                KeyValuePair.Create("Seconds remaining before reapplying the DoT", "重新应用DoT前剩余秒数。"),
                 KeyValuePair.Create("Set to Zero to disable this check.", "设置为零禁用此检测。"),
                 KeyValuePair.Create("Set to Zero to disable this check", "设置为零禁用此检测"),
                 KeyValuePair.Create("Stop using at Enemy HP %.", "在敌人血量百分比达到此值时停用。"),
@@ -116,6 +117,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("when below this MP", "（当低于此魔力值）"),
                 KeyValuePair.Create("to the AoE combo.", "到AOE连击。"),
                 KeyValuePair.Create("with its combo chain.", "为其连击链。"),
+                KeyValuePair.Create("Non boss encounter.", "非Boss战"),
+                KeyValuePair.Create("Bosses Only.", "仅Boss战"),
+                KeyValuePair.Create("Boss Encounter Non Bosses.", "Boss战中非Boss战"),
                 
                 // Three
                 KeyValuePair.Create("Magical Ranged DPS", "远程魔法职业"),
