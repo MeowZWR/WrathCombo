@@ -40,8 +40,8 @@ public partial class Configuration : IPluginConfiguration
     /// Whether to hide the children of a feature if it is disabled. Default: false.
     /// <seealso cref="Presets.DrawPreset"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Hide Sub-Combo Options",
-        "Will hide the Features and Options under disabled Combos.",
+    [Setting("隐藏子功能选项",
+        "隐藏已禁用功能的子选项。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool HideChildren = false;
@@ -51,8 +51,8 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="PvEFeatures.DrawHeadingContents"/>
     /// <seealso cref="PvPFeatures.DrawHeadingContents"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Hide Conflicted Combos",
-        "Will hide Combos that conflict with Combos that you have enabled.",
+    [Setting("隐藏冲突连击",
+        "隐藏与您已选择的其他连击冲突的连击。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool HideConflictedCombos = false;
@@ -60,12 +60,11 @@ public partial class Configuration : IPluginConfiguration
     /// If the DTR Bar text should be shortened. Default: false.
     /// <seealso cref="WrathCombo.OnFrameworkUpdate"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Shorten Server Info Bar Text",
-        "Will hide the number of active Auto-Mode Combos.\n" +
-        "By default the Server Info Bar shows:\n" +
-        "- Whether Auto-Rotation is on or off\n" +
-        "- (if on) The number of active Auto-Mode Combos\n" +
-        "- (if applicable) Whether another plugin is controlling the state of Auto-Rotation.",
+    [Setting("简化服务器信息栏文本",
+        "将不再显示已启用的自动模式连击数量。\n" +
+        "默认情况下，Wrath Combo 的服务器信息栏会显示自动循环是否开启，\n" +
+        "如果开启，则会显示已启用的自动模式连击数量。\n" +
+        "最后还会显示是否有其他插件控制该值。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool ShortDTRText = false;
@@ -73,9 +72,9 @@ public partial class Configuration : IPluginConfiguration
     /// Hides the message of the day. Default: false.
     /// <seealso cref="WrathCombo.PrintLoginMessage"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Suppress Set and Unset commands feedback",
-        "Will hide chat feedback for /wrath set and /wrath unset commands.\n" +
-        "(Will still show feedback if the command is being overriden by IPC, or fails)",
+    [Setting("隐藏设置和取消设置命令反馈",
+        "隐藏 /wrath set 和 /wrath unset 命令的聊天反馈。\n" +
+        "(如果命令被IPC覆盖或失败，仍会显示反馈)",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool SuppressSetCommands = false;
@@ -83,8 +82,8 @@ public partial class Configuration : IPluginConfiguration
     /// Hides the message of the day. Default: false.
     /// <seealso cref="WrathCombo.PrintLoginMessage"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Hide Message of the Day",
-        "Will prevent the Message of the Day from being shown in your chat upon login.",
+    [Setting("隐藏每日提示",
+        "登录时不在聊天栏显示每日提示信息。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool HideMessageOfTheDay = false;
@@ -93,11 +92,11 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="TargetHelper"/>
     /// <seealso cref="TargetHighlightColor"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Show Target Highlighter",
-        "Draws a box around party members in the vanilla Party List, when targeted by certain Features.",
+    [Setting("显示目标高亮框",
+        "在原生队员列表中，为部分功能锁定的目标队员绘制高亮框。",
         recommendedValue: "Preference",
         defaultValue: "Off",
-        extraText: "(Only used by AST and DNC currently)")]
+        extraText: "(当前仅用于占星和舞者)")]
     public bool ShowTargetHighlight = false;
 
     /// The color of box to draw around targeted party members. Default: 808080FF.
@@ -105,8 +104,8 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="TargetHelper"/>
     [SettingParent(nameof(ShowTargetHighlight))]
     [SettingCategory(Main_UI_Options)]
-    [Setting("Target Highlighter Color",
-        "Controls the color of the box drawn around party members.",
+    [Setting("高亮颜色",
+        "用于设置队员高亮框的颜色。",
         recommendedValue: "Preference",
         defaultValue: "#808080FF",
         type: Setting.Type.Color)]
@@ -126,10 +125,10 @@ public partial class Configuration : IPluginConfiguration
     /// Whether to label Presets with their ID. Default: true.
     /// <seealso cref="Presets.DrawPreset"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Show Preset IDs next to Combo Names",
-        "Displays the Preset ID number next to the name of each Combo and Feature.\n" +
-        "These are the IDs used for commands like `/wrath toggle <ID>`.\n" +
-        "Pre-7.3 the behavior was to show a number here, but it was much shorter, and did not work in commands.",
+    [Setting("在描述前显示预设ID",
+        "切换是否在描述前显示预设（连击、功能等）ID。\n" +
+        "这些ID可用于如 `/wrath toggle <ID>` 等命令。\n" +
+        "7.3版本前此处显示的数字更短，不是完整ID,无法用于命令。",
         recommendedValue: "On",
         defaultValue: "On")]
     public bool UIShowPresetIDs = true;
@@ -138,8 +137,8 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="FeaturesWindow.DrawSearchBar"/>
     /// <seealso cref="ConfigWindow.Search"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Show Search Bars",
-        "Controls whether Search Bars should be shown in Settings, and PvE and PvP Jobs.",
+    [Setting("在职业页显示搜索栏",
+        "切换是否在所有PvE和PvP职业页顶部显示搜索栏",
         recommendedValue: "On",
         defaultValue: "On")]
     public bool UIShowSearchBar = true;
@@ -172,9 +171,9 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="WrathCombo.HandleOpenCommand"/>
     [Space]
     [SettingCategory(Main_UI_Options)]
-    [Setting("Open Wrath to the PvE Features Tab",
-        "When you open Wrath with `/wrath`, it will open to the PvE Features tab, instead of the last tab you were on." +
-        "\nSame as always using the `/wrath pve` command to open Wrath.",
+    [Setting("打开Wrath时默认进入PvE功能页",
+        "使用 `/wrath` 命令打开Wrath时，默认进入PvE功能页，而不是上次停留的标签页。" +
+        "\n等同于每次都使用 `/wrath pve` 命令。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool OpenToPvE = false;
@@ -182,9 +181,9 @@ public partial class Configuration : IPluginConfiguration
     /// Whether, upon opening, it should go to the PvP tab in PvP zones. Default: false.
     /// <seealso cref="WrathCombo.HandleOpenCommand"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Open Wrath to the PvP Features Tab in PvP areas",
-        "Same as above, when you open Wrath with `/wrath`, it will open to the PvP Features tab, instead of the last tab you were on, when in a PvP area." +
-        "\nSimilar to using the `/wrath pvp` command to open Wrath.",
+    [Setting("在PvP区域打开Wrath时默认进入PvP功能页",
+        "同上，在PvP区域使用 `/wrath` 命令时，默认进入PvP功能页，而不是上次停留的标签页。" +
+        "\n类似于使用 `/wrath pvp` 命令。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool OpenToPvP = false;
@@ -192,8 +191,8 @@ public partial class Configuration : IPluginConfiguration
     /// Whether the PvE Features tab should open to your current Job. Default: false.
     /// <seealso cref="PvEFeatures.OpenToCurrentJob"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Open PvE Features Tab to Current Job on Opening",
-        "When the PvE Features tab is opened it will automatically open to your current Job.",
+    [Setting("打开PvE功能页时自动切换到当前职业",
+        "打开Wrath界面时，如果上次停留在PvE页，将自动切换到当前所玩的职业。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool OpenToCurrentJob = false;
@@ -201,8 +200,8 @@ public partial class Configuration : IPluginConfiguration
     /// Whether the PvE Features tab, upon switching jobs, should open to your new Job. Default: false.
     /// <seealso cref="PvEFeatures.OpenToCurrentJob"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Open PvE Features Tab to Current Job on Switching Jobs",
-        "Will automatically switch the PvE Features tab to the job you are currently playing, when you switch jobs.",
+    [Setting("切换职业时自动切换到对应PvE功能页",
+        "切换职业时，PvE功能页会自动切换到当前所玩的职业。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool OpenToCurrentJobOnSwitch = false;
@@ -214,10 +213,10 @@ public partial class Configuration : IPluginConfiguration
     /// Whether all Combos should be <see cref="All.SavageBlade"/> when moving. Default: false.
     /// <seealso cref="ActionReplacer.GetAdjustedAction"/>
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Block Spells while Moving",
-        "Will completely block actions while moving, by replacing Combo outputs with Savage Blade.\n" +
-        "This would supersede combo-specific movement options, which many jobs have.",
-        recommendedValue: "Off (Most Jobs will handle this better with their Features)",
+    [Setting("移动时阻止施法",
+        "移动时完全阻止法术释放，会用狂怒剑替换你的技能。\n" +
+        "此设置会覆盖大多数职业的连击专属移动选项。",
+        recommendedValue: "Off (大部分职业的连击已能更优雅地处理移动)",
         defaultValue: "Off")]
     public bool BlockSpellOnMove = false;
 
@@ -225,10 +224,10 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="SetActionChanging" />
     /// <seealso cref="WrathCombo.HandleComboCommands" />
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Action Replacing",
-        "Controls whether Actions on your Hotbar will be Replaced with combos from the plugin.\n" +
-        "If disabled, your manual presses of abilities will no longer be affected by any Wrath settings.\n\n" +
-        "Auto-Rotation will work regardless of the setting.",
+    [Setting("技能替换",
+        "控制是否由插件拦截并替换技能为连击。\n" +
+        "关闭后，你手动按下的技能将不再受Wrath设置影响。\n\n" +
+        "自动循环无论此设置如何都可用。",
         recommendedValue: "On (This is essentially turning OFF most of Wrath)",
         defaultValue: "On",
         warningMark: "Wrath is largely designed with Action Replacing in mind.\n" +
@@ -310,12 +309,12 @@ public partial class Configuration : IPluginConfiguration
     /// Delay before recognizing movement. Default: 0.
     /// <seealso cref="CustomComboFunctions.IsMoving"/>
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Movement Check Delay",
-        "This controls how long of a delay is needed before Wrath recognizes you as moving.\n" +
-        "This allows you to not have to worry about small movements affecting your rotation, primarily for casters.",
+    [Setting("移动判定延迟",
+        "许多功能会检测你是否在移动，此项可设置需要持续移动多久才判定为移动。\n" +
+        "这样可以避免短暂的小幅移动影响循环，主要用于法系职业。",
         recommendedValue: "0.0-1.0 (Above that gets into the territory of breaking any Movement Options in your Job)",
         defaultValue: "0.0",
-        unitLabel: "seconds",
+        unitLabel: "秒",
         type: Setting.Type.Number_Float,
         sliderMin: 0,
         sliderMax: 10)]
@@ -329,7 +328,7 @@ public partial class Configuration : IPluginConfiguration
         "Can be necessary for some casters to increase, particularly when the first action of an Opener is a hard-cast.",
         recommendedValue: "4.0-7.0 (Above that can really screw Openers)",
         defaultValue: "4.0",
-        unitLabel: "seconds",
+        unitLabel: "秒",
         type: Setting.Type.Number_Float,
         sliderMin: 0,
         sliderMax: 20)]
@@ -346,7 +345,7 @@ public partial class Configuration : IPluginConfiguration
         "(melee actions wouldn't work, but it would give you some warning instead of just suddenly doing less optimal actions).",
         recommendedValue: "0",
         defaultValue: "0",
-        unitLabel: "yalms",
+        unitLabel: "码",
         type: Setting.Type.Number_Float,
         sliderMin: -3,
         sliderMax: 30)]
@@ -371,14 +370,13 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="CanWeave"/>
     /// <seealso cref="CanDelayedWeave"/>
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Maximum Number of Weaves",
-        "Controls how many oGCDs are allowed between GCDs.\n" +
-        "The 'default' for the game is double weaving, but triple weaving is completely possible with low enough latency (of every kind);" +
-        "but if you struggle with latency of any sort then single weaving may even be a good answer to try for you.\n" +
-        "Triple weaving is already done in a manner where we try to avoid clipping GCDs, and as such doesn't happen particularly often even if you have good latency, and is a valid thing to do, so it is a safe option if you want.",
+    [Setting("最大插入能力技数",
+        "控制每个GCD之间允许插入的能力技数量。\n" +
+        "游戏默认是双插，低延迟下也可以三插；如果你网络延迟较高，建议只用单插。\n" +
+        "三插会尽量避免卡GCD，实际触发频率也不高，所以对大部分玩家来说是安全的。",
         recommendedValue: "2-3",
         defaultValue: "2",
-        unitLabel: "# of oGCDs",
+        unitLabel: "个",
         type: Setting.Type.Slider_Int,
         sliderMin: 1,
         sliderMax: 3)]
@@ -391,10 +389,10 @@ public partial class Configuration : IPluginConfiguration
     /// Whether to retarget heals to the Heal Stack. Default: false.
     /// <seealso cref="HealRetargeting"/>
     [SettingCategory(Targeting_Options)]
-    [Setting("Retarget (Single Target) Healing Actions",
-        "Will Retarget all Single-Target Healing Actions to the Heal Stack as shown below,\n" +
-        "similarly to how Redirect or Reaction would.\n" +
-        "This ensures that the target used to check HP% threshold logic for healing actions is the same target that will receive that heal.",
+    [Setting("重定向（单体）治疗技能",
+        "此项会将所有单体治疗技能重定向到下方的治疗目标堆栈。\n" +
+        "类似于Redirect或Reaction的功能。\n" +
+        "用于判断治疗技能触发阈值的目标和实际接受治疗的目标一致。",
         recommendedValue: "On (If you customize the Heal Stack AT ALL)",
         defaultValue: "Off")]
     [Retarget]
@@ -403,11 +401,11 @@ public partial class Configuration : IPluginConfiguration
     /// Whether to include out-of-party NPCs to retargeting. Default: false.
     /// <seealso cref="GetPartyMembers"/>
     [SettingCategory(Targeting_Options)]
-    [Setting("Add Out-of-Party NPCs to Retargeting",
-        "This will add any NPCs that are not in your party to the retargeting logic for healing actions.\n\n" +
-        "Useful for healers who want to be able to target NPCs that are not in their party, such as quest NPCs.\n" +
-        "These NPCs will not generally work with any role-based custom Heal Stack entries\n" +
-        "(even if an NPC looks like a tank, they're not always classified as one)",
+    [Setting("将非队伍NPC加入治疗重定向",
+        "此项会将不在队伍中的NPC加入治疗技能的重定向逻辑。\n\n" +
+        "适用于希望治疗任务NPC等非队友目标的奶妈。\n\n" +
+        "这些NPC无法参与基于职业的自定义堆栈\n" +
+        "（即使NPC看起来像防护职业，也不会被识别为防护职业）。",
         recommendedValue: "On (If you use Retargeting at all)",
         defaultValue: "Off")]
     public bool AddOutOfPartyNPCsToRetargeting = false;
@@ -420,9 +418,9 @@ public partial class Configuration : IPluginConfiguration
     // The spaces make it align better with the raise stack collapsible group
     [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
     [SettingGroup("defaultPlus", "healStackPlus")]
-    [Setting("Add UI MouseOver to the Default Healing Stack",
-        "Will add any UI MouseOver targets to the top of the Default Heal Stack, overriding the rest of the stack if you are mousing over any party member UI.\n\n" +
-        "It is recommended to enable this if you are a keyboard+mouse user and enable Retarget Healing Actions (or have UI MouseOver targets in your Redirect/Reaction configuration).",
+    [Setting("添加UI-鼠标悬停目标到默认治疗堆栈",
+        "此选项会将任何UI鼠标悬停目标添加到默认治疗堆栈的顶部，如果你将鼠标悬停在任何队员UI上，将覆盖堆栈的其余部分。\n\n" +
+        "如果你是键鼠用户，并启用了重定向治疗技能（或在Redirect/Reaction插件的配置中有UI鼠标悬停目标），推荐启用此项时。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool UseUIMouseoverOverridesInDefaultHealStack = false;
@@ -444,8 +442,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Targeting_Options)]
     [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
     [SettingGroup("defaultPlus", "healStackPlus")]
-    [Setting("Add Focus Target to the Default Healing Stack",
-        "This will add your focus target under your hard and soft targets in the Default Heal Stack, overriding the rest of the stack if you have a living focus target.",
+    [Setting("将焦点目标添加到默认治疗堆栈",
+        "此选项会将你的焦点目标添加到默认治疗堆栈的软目标和硬目标之后，如果你有存活的焦点目标，将覆盖堆栈的其余部分。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool UseFocusTargetOverrideInDefaultHealStack = false;
@@ -455,8 +453,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Targeting_Options)]
     [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
     [SettingGroup("defaultPlus", "healStackPlus")]
-    [Setting("Add Lowest HP% Ally to the Default Healing Stack",
-        "This will add a nearby party member with the lowest HP% to bottom of the Default Heal Stack, overriding only yourself.",
+    [Setting("将最低HP%队友添加到默认治疗堆栈",
+        "此选项会将附近HP百分比最低的队友添加到默认治疗堆栈的底部，仅覆盖你自己。",
         recommendedValue: "Preference",
         defaultValue: "Off",
         warningMark: "Unlike the other Default+ Options, " +
@@ -475,9 +473,9 @@ public partial class Configuration : IPluginConfiguration
     [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
     [SettingGroup("custom", "healStackPlus", false)]
     [SettingCategory(Targeting_Options)]
-    [Setting("Use a Custom Heal Stack Instead",
-        "Select this if you would rather make your own stack of target priorities for Heal Targets instead of using our default stack.\n\n" +
-        "It is recommended to use this to align with your Redirect/Reaction configuration IF you're not using the Retarget Healing Actions option above; otherwise it is preference.",
+    [Setting("使用自定义治疗堆栈",
+        "如果你希望自定义治疗目标优先级堆栈而不是使用默认堆栈，请选择此项。\n\n" +
+        "如果你没有使用重定向治疗技能设置，建议根据你的Redirect/Reaction插件配置进行自定义，否则按个人喜好。",
         recommendedValue: "Preference",
         defaultValue: "Off")]
     public bool UseCustomHealStack = false;
@@ -489,14 +487,13 @@ public partial class Configuration : IPluginConfiguration
     [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
     [SettingParent(nameof(UseCustomHealStack))]
     [SettingCategory(Targeting_Options)]
-    [Setting("Custom Heal Stack",
-        "If there are fewer than 4 items, and all return nothing when checked, will fall back to Self.\n\n" +
-        "These targets will only be considered valid if they are friendly and within 25y.\n\n" +
-        "When applied to something like Esuna, " +
-        "these targets will be checked for having a Cleansable Debuff, etc.\n" +
-        "So adding 'Any Cleansable Ally' or similar is not necessary.",
+    [Setting("自定义治疗堆栈",
+        "如果少于4个项目，且全部检查无效，则会回退到自己。\n\n" +
+        "仅在目标为友方且在25米范围内时才有效。\n\n" +
+        "当此堆栈用于复活或康复时，将检查目标是否死亡或有可净化的异常。\n" +
+        "（复活时：堆栈会回退到你的硬目标或任意死亡队员）\n\n默认：",
         recommendedValue: "Preference",
-        defaultValue: "Focus Target > Hard Target > Self",
+        defaultValue: "焦点目标 > 硬目标 > 自己",
         type: Setting.Type.Stack,
         stackStringsToExclude:
         ["Enemy", "Attack", "Dead", "Living"])]
@@ -525,7 +522,7 @@ public partial class Configuration : IPluginConfiguration
         recommendedValue: "Preference",
         defaultValue: "Any Healer > Any Tank > Any Raiser > Any Dead Party Member",
         type: Setting.Type.Stack,
-        extraText: "(all targets are checked for rezz-ability)",
+        extraText: "(所有目标都会检查是否可被复活)",
         stackStringsToExclude:
         ["Enemy", "Attack", "MissingHP", "Lowest", "Chocobo", "Living"])]
     public string[] RaiseStack =
@@ -543,8 +540,8 @@ public partial class Configuration : IPluginConfiguration
     /// Whether to output Combo actions to the chatbox.
     /// <seealso cref="Data.ActionWatching.UpdateLastUsedAction"/>
     [SettingCategory(Troubleshooting_Options)]
-    [Setting("Output Log to Chat",
-        "Will print to chat every time you use an action provided by Wrath.",
+    [Setting("输出日志到聊天",
+        "每次你通过Wrath使用技能时，插件都会将其输出到聊天。",
         recommendedValue: "On (IF trying to report an issue)",
         defaultValue: "Off")]
     public bool EnabledOutputLog = false;
@@ -552,9 +549,8 @@ public partial class Configuration : IPluginConfiguration
     /// Whether to output Opener state to the chatbox.
     /// <seealso cref="CustomComboNS.WrathOpener.CurrentState"/>
     [SettingCategory(Troubleshooting_Options)]
-    [Setting("Output Opener Status to Chat",
-        "Will print the status of your Job's Opener to chat.\n" +
-        "e.g. When it is Ready, Fails, or Finishes.",
+    [Setting("输出起手状态到聊天",
+        "每当你的职业起手准备好、失败或如预期完成时，都会输出到聊天。",
         recommendedValue: "On (IF trying to troubleshoot an Opener)",
         defaultValue: "Off")]
     public bool OutputOpenerLogs;
