@@ -10,12 +10,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class MNK
 {
-    private static float GCD =>
-        GetCooldown(OriginalHook(Bootshine)).CooldownTotal;
-
-    private static int HPThresholdBuffs =>
-        MNK_ST_BuffsBossOption == 1 ||
-        !InBossEncounter() ? MNK_ST_BuffsHPThreshold : 0;
 
     #region Basic Combo
 
@@ -60,7 +54,7 @@ internal partial class MNK
 
     private static bool CanPerfectBalance(bool onAoE = false)
     {
-        var targetCheck = onAoE || HasBattleTarget();
+        bool targetCheck = onAoE || HasBattleTarget();
         switch (onAoE)
         {
             case false when
@@ -257,6 +251,33 @@ internal partial class MNK
 
     #endregion
 
+    #region Misc
+
+    private static float GCD =>
+        GetCooldown(OriginalHook(Bootshine)).CooldownTotal;
+
+    private static int HPThresholdBuffs =>
+        MNK_ST_BuffsBossOption == 1 ||
+        !InBossEncounter() ? MNK_ST_BuffsHPThreshold : 0;
+
+    private static bool CanMantra() =>
+        ActionReady(Mantra) &&
+        !HasStatusEffect(Buffs.Mantra) &&
+        RaidWideCasting(3f);
+
+    private static bool CanRoE() =>
+        ActionReady(RiddleOfEarth) &&
+        RaidWideCasting(2f) &&
+        !HasStatusEffect(Buffs.RiddleOfEarth) &&
+        !HasStatusEffect(Buffs.EarthsRumination);
+
+    private static bool CanEarthsReply() =>
+        HasStatusEffect(Buffs.EarthsRumination) &&
+        NumberOfAlliesInRange(EarthsReply) >= GetPartyMembers().Count * .75 &&
+        GetPartyAvgHPPercent() <= MNK_ST_EarthsReplyHPThreshold;
+
+    #endregion
+
     #region Masterful Blitz
 
     private static bool CanMasterfulBlitz(bool onAoE)
@@ -405,43 +426,39 @@ internal partial class MNK
          GetStatusEffectRemainingTime(Buffs.WindsRumination) < GCD * 2 ||
          !InMeleeRange());
 
-    private static bool CanMantra() =>
-        ActionReady(Mantra) &&
-        !HasStatusEffect(Buffs.Mantra) &&
-        RaidWideCasting(3f);
-
-    private static bool CanRoE() =>
-        ActionReady(RiddleOfEarth) &&
-        RaidWideCasting(2f) &&
-        !HasStatusEffect(Buffs.RiddleOfEarth) &&
-        !HasStatusEffect(Buffs.EarthsRumination);
-
-    private static bool CanEarthsReply() =>
-        HasStatusEffect(Buffs.EarthsRumination) &&
-        NumberOfAlliesInRange(EarthsReply) >= GetPartyMembers().Count * .75 &&
-        GetPartyAvgHPPercent() <= MNK_ST_EarthsReplyHPThreshold;
-
     #endregion
 
     #region Openers
 
     internal static WrathOpener Opener()
     {
-        if (LLOpener.LevelChecked &&
-            MNK_SelectedOpener == 0)
-            return LLOpener;
+        if (MNK_SelectedOpener == 0)
+        {
+            if (Lvl100LLOpener.LevelChecked)
+                return Lvl100LLOpener;
 
-        if (SLOpener.LevelChecked &&
-            MNK_SelectedOpener == 1)
-            return SLOpener;
+            if (Lvl90LLOpener.LevelChecked)
+                return Lvl90LLOpener;
+        }
+
+        if (MNK_SelectedOpener == 1)
+        {
+            if (Lvl100SLOpener.LevelChecked)
+                return Lvl100SLOpener;
+
+            if (Lvl90SLOpener.LevelChecked)
+                return Lvl90SLOpener;
+        }
 
         return WrathOpener.Dummy;
     }
 
-    internal static MNKLLOpener LLOpener = new();
-    internal static MNKSLOpener SLOpener = new();
+    internal static MNKLvl90LLOpener Lvl90LLOpener = new();
+    internal static MNKLvl100LLOpener Lvl100LLOpener = new();
+    internal static MNKLvl90SLOpener Lvl90SLOpener = new();
+    internal static MNKLvl100SLOpener Lvl100SLOpener = new();
 
-    internal class MNKLLOpener : WrathOpener
+    internal class MNKLvl100LLOpener : WrathOpener
     {
         public override int MinOpenerLevel => 100;
 
@@ -492,7 +509,7 @@ internal partial class MNK
             CoeurlStacks is 0;
     }
 
-    internal class MNKSLOpener : WrathOpener
+    internal class MNKLvl100SLOpener : WrathOpener
     {
         public override int MinOpenerLevel => 100;
 
@@ -522,6 +539,110 @@ internal partial class MNK
             DragonKick,
             ElixirBurst,
             LeapingOpo
+        ];
+
+        public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
+        [
+            ([1], () => Chakra >= 5),
+            ([2], () => HasStatusEffect(Buffs.FormlessFist))
+        ];
+
+        internal override UserData ContentCheckConfig => MNK_Balance_Content;
+
+        public override bool HasCooldowns() =>
+            GetRemainingCharges(PerfectBalance) is 2 &&
+            IsOffCooldown(Brotherhood) &&
+            IsOffCooldown(RiddleOfFire) &&
+            IsOffCooldown(RiddleOfWind) &&
+            NadiFlag is Nadi.None &&
+            OpoOpoStacks is 0 &&
+            RaptorStacks is 0 &&
+            CoeurlStacks is 0;
+    }
+
+    internal class MNKLvl90LLOpener : WrathOpener
+    {
+        public override int MinOpenerLevel => 90;
+
+        public override int MaxOpenerLevel => 90;
+
+        public override List<uint> OpenerActions { get; set; } =
+        [
+            ForbiddenMeditation,
+            FormShift,
+            TwinSnakes,
+            Demolish,
+            TheForbiddenChakra,
+            DragonKick,
+            Brotherhood,
+            PerfectBalance,
+            Bootshine,
+            RiddleOfWind,
+            RiddleOfFire,
+            DragonKick,
+            Bootshine,
+            ElixirField,
+            DragonKick,
+            TwinSnakes,
+            Demolish,
+            Bootshine,
+            PerfectBalance,
+            DragonKick,
+            Bootshine,
+            DragonKick,
+            ElixirField
+        ];
+
+        public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
+        [
+            ([1], () => Chakra >= 5),
+            ([2], () => HasStatusEffect(Buffs.FormlessFist))
+        ];
+
+        internal override UserData ContentCheckConfig => MNK_Balance_Content;
+
+        public override bool HasCooldowns() =>
+            GetRemainingCharges(PerfectBalance) is 2 &&
+            IsOffCooldown(Brotherhood) &&
+            IsOffCooldown(RiddleOfFire) &&
+            IsOffCooldown(RiddleOfWind) &&
+            NadiFlag is Nadi.None &&
+            OpoOpoStacks is 0 &&
+            RaptorStacks is 0 &&
+            CoeurlStacks is 0;
+    }
+
+    internal class MNKLvl90SLOpener : WrathOpener
+    {
+        public override int MinOpenerLevel => 90;
+
+        public override int MaxOpenerLevel => 90;
+
+        public override List<uint> OpenerActions { get; set; } =
+        [
+            ForbiddenMeditation,
+            FormShift,
+            TwinSnakes,
+            Demolish,
+            TheForbiddenChakra,
+            DragonKick,
+            Brotherhood,
+            PerfectBalance,
+            TwinSnakes,
+            RiddleOfWind,
+            RiddleOfFire,
+            Demolish,
+            Bootshine,
+            RisingPhoenix,
+            DragonKick,
+            TwinSnakes,
+            Demolish,
+            Bootshine,
+            PerfectBalance,
+            DragonKick,
+            Bootshine,
+            DragonKick,
+            ElixirField
         ];
 
         public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =

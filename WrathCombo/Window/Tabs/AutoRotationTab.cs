@@ -249,6 +249,15 @@ internal class AutoRotationTab : ConfigWindow
                 changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
                     $"应用于{Job.SMN.Shorthand()}和{Job.RDM.Shorthand()}", ref cfg.HealerSettings.AutoRezDPSJobs, "AutoRezDPSJobs");
                 ImGuiComponents.HelpMarker($"作为{Job.SMN.Shorthand()}或{Job.RDM.Shorthand()}时也会尝试复活队友。{Job.RDM.Shorthand()}仅在有{RoleActions.Magic.Buffs.Swiftcast.StatusName()}或{RDM.Buffs.Dualcast.StatusName()}时复活。");
+
+                if (cfg.HealerSettings.AutoRezDPSJobs)
+                {
+                    ImGuiExtensions.Prefix(true);
+                    P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoRezDPSJobsHealersOnly");
+                    changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
+                        $"仅复活治疗职业", ref cfg.HealerSettings.AutoRezDPSJobsHealersOnly, "AutoRezDPSJobsHealersOnly");
+                    ImGuiComponents.HelpMarker($"作为{Job.SMN.Shorthand()}或{Job.RDM.Shorthand()}时，仅尝试复活治疗职业和复活职业。");
+                }
             }
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("AutoCleanse");
@@ -266,8 +275,8 @@ internal class AutoRotationTab : ConfigWindow
                 changed |= ImGui.Checkbox($"仅在防护职业间切换{SGE.Kardia.ActionName()}", ref cfg.HealerSettings.KardiaTanksOnly);
             }
 
-            changed |= ImGui.Checkbox($"[白魔/占星] 战斗外预读持续治疗到焦点目标", ref cfg.HealerSettings.PreEmptiveHoT);
-            ImGuiComponents.HelpMarker($"当焦点目标在非战斗状态且距离敌人30y以内时，会自动施加{WHM.Regen.ActionName()}/{AST.AspectedBenefic.ActionName()}。（无视“仅在战斗中启用”设置）");
+            changed |= ImGui.Checkbox($"[{Job.WHM.Shorthand()}/{Job.AST.Shorthand()}/{Job.SCH.Shorthand()}/{Job.SGE.Shorthand()}] 战斗外预读持续治疗到焦点目标", ref cfg.HealerSettings.PreEmptiveHoT);
+            ImGuiComponents.HelpMarker($"当焦点目标在非战斗状态且距离敌人30y以内时，会自动施加{WHM.Regen.ActionName()}/{AST.AspectedBenefic.ActionName()}/{SGE.EukrasianDiagnosis.ActionName()}/{SCH.Adloquium.ActionName()}。（无视“仅在战斗中启用”设置）");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("IncludeNPCs");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded("治疗友方NPC", ref cfg.HealerSettings.IncludeNPCs);

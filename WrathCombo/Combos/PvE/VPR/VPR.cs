@@ -666,6 +666,10 @@ internal partial class VPR : Melee
             if (actionID is not ReavingFangs)
                 return actionID;
 
+            if (DeathRattleWeave &&
+                LevelChecked(SerpentsTail) && InRange())
+                return OriginalHook(SerpentsTail);
+
             if (ComboTimer > 0 && !HasStatusEffect(Buffs.Reawakened))
             {
                 if (ComboAction is ReavingFangs or SteelFangs)

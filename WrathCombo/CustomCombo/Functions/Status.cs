@@ -308,7 +308,16 @@ internal abstract partial class CustomComboFunctions
                     if (bossHasParry && (!isTank || !isFrontFacing)) return true;
                 }
                 return false;
+            case 1174:
+                // Colossus Rubricatus = 9511
+                // No point attacking anymore when it begins to cast self-detonate = 14574
 
+                if (targetID is 9511)
+                {
+                    return tar.CastActionId == 14574;
+                }
+
+                return false;
             case 1248: // Jeuno 1 Ark Angels
                 // ArkAngel HM = 1804
                 // ArkAngel MR = 18051 (A)

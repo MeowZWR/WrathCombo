@@ -1,4 +1,3 @@
-using Dalamud.Interface.Colors;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using static WrathCombo.Window.Functions.UserConfig;
@@ -114,23 +113,18 @@ internal partial class BLM
 
                 case Preset.BLM_ST_Thunder:
 
-                    DrawSliderInt(0, 50, BLM_ST_ThunderHPOption,
-                        "敌人HP低于此百分比时停止使用。设为0禁用此检查。");
+                    DrawSliderInt(0, 100, BLM_ST_ThunderBossOption,
+                        "Bosses Only. Stop using at Enemy HP %.");
+
+                    DrawSliderInt(0, 100, BLM_ST_ThunderBossAddsOption,
+                        "Boss Encounter Non Bosses. Stop using at Enemy HP %.");
+
+                    DrawSliderInt(0, 100, BLM_ST_ThunderTrashOption,
+                        "Non boss encounter. Stop using at Enemy HP %.");
 
                     ImGui.Indent();
-
-                    ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "请选择HP检测应应用于哪些类型的敌人：");
-
-                    DrawHorizontalRadioButton(BLM_ST_ThunderBossOption,
-                        "非Boss", "仅对非Boss敌人应用上述HP检测。\n只在不是Boss时提前停止DoT。", 0);
-
-                    DrawHorizontalRadioButton(BLM_ST_ThunderBossOption,
-                        "全部敌人", "对所有敌人应用上述HP检测。", 1);
-
                     DrawSliderInt(0, 5, BLM_ST_ThunderRefresh,
-                        "剩余多少秒应用DoT。设置为零禁用此检测。");
-
+                        "Seconds remaining before reapplying the DoT. Set to Zero to disable this check.");
                     ImGui.Unindent();
                     break;
 
@@ -243,8 +237,9 @@ internal partial class BLM
             BLM_ST_LeyLinesMovement = new("BLM_ST_LeyLinesMovement", 0),
             BLM_ST_LeyLinesHPOption = new("BLM_ST_LeyLinesOption", 25),
             BLM_ST_LeyLinesBossOption = new("BLM_ST_LeyLinesSubOption", 0),
-            BLM_ST_ThunderHPOption = new("BLM_ST_ThunderOption", 10),
-            BLM_ST_ThunderBossOption = new("BLM_ST_Thunder_SubOption", 0),
+            BLM_ST_ThunderBossOption = new("BLM_ST_ThunderBossOption", 0),
+            BLM_ST_ThunderBossAddsOption = new("BLM_ST_ThunderBossAddsOption", 50),
+            BLM_ST_ThunderTrashOption = new("BLM_ST_ThunderTrashOption", 50),
             BLM_ST_Triplecast_WhenToUse = new("BLM_ST_Triplecast_WhenToUse", 1),
             BLM_ST_ThunderRefresh = new("BLM_ST_ThunderUptime_Threshold", 5),
             BLM_ST_Triplecast_MovementCharges = new("BLM_ST_Triplecast_MovementCharges", 1),

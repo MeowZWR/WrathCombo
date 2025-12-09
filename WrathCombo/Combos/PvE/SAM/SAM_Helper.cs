@@ -14,17 +14,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class SAM
 {
-    private static bool RefreshFugetsu =>
-        GetStatusEffectRemainingTime(Buffs.Fugetsu) < 8;
-
-    private static bool RefreshFuka =>
-        GetStatusEffectRemainingTime(Buffs.Fuka) < 8;
-
-    private static bool EnhancedSenei =>
-        TraitLevelChecked(Traits.EnhancedHissatsu);
-
-    private static int SenCount =>
-        GetSenCount();
 
     #region Basic Combo
 
@@ -78,39 +67,29 @@ internal partial class SAM
 
     #region Iaijutsu
 
-    private static bool CanUseIaijutsu(bool useHiganbana, bool useTenkaGoken, bool useMidare, bool simpleMode = false)
+    private static bool CanUseIaijutsu(bool useHiganbana, bool useTenkaGoken, bool useMidare)
     {
-        int higanbanaHPThreshold = SAM_ST_HiganbanaHPThreshold;
         int higanbanaRefresh = SAM_ST_HiganbanaRefresh;
 
         if (LevelChecked(Iaijutsu) && InActionRange(OriginalHook(Iaijutsu)))
         {
             //Higanbana
-            if (!simpleMode &&
-                useHiganbana &&
-                SenCount is 1 && GetTargetHPPercent() > higanbanaHPThreshold &&
-                (SAM_ST_HiganbanaBossOption == 0 || TargetIsBoss()) &&
-                CanApplyStatus(CurrentTarget, Debuffs.Higanbana) &&
+            if (useHiganbana &&
+                SenCount is 1 && CanUseHiganbana() &&
                 (JustUsed(MeikyoShisui, 15f) && GetStatusEffectRemainingTime(Debuffs.Higanbana, CurrentTarget) <= higanbanaRefresh ||
                  !HasStatusEffect(Debuffs.Higanbana, CurrentTarget)))
                 return true;
 
             //Tenka Goken
-            if (useTenkaGoken && SenCount is 2 &&
+            if (useTenkaGoken &&
+                SenCount is 2 &&
                 !LevelChecked(MidareSetsugekka))
                 return true;
 
             //Midare Setsugekka
-            if (useMidare && SenCount is 3 &&
+            if (useMidare &&
+                SenCount is 3 &&
                 LevelChecked(MidareSetsugekka) && !HasStatusEffect(Buffs.TsubameReady))
-                return true;
-
-            //Higanbana Simple Mode
-            if (simpleMode && useHiganbana &&
-                SenCount is 1 && GetTargetHPPercent() > 1 && TargetIsBoss() &&
-                CanApplyStatus(CurrentTarget, Debuffs.Higanbana) &&
-                (JustUsed(MeikyoShisui, 15f) && GetStatusEffectRemainingTime(Debuffs.Higanbana, CurrentTarget) <= 15 ||
-                 !HasStatusEffect(Debuffs.Higanbana, CurrentTarget)))
                 return true;
         }
         return false;
@@ -132,6 +111,59 @@ internal partial class SAM
 
         internal static int Shinten => GetResourceCost(SAM.Shinten);
     }
+
+    #endregion
+
+    #region Higanbana
+
+    private static bool CanUseHiganbana()
+    {
+        int hpThreshold = IsNotEnabled(Preset.SAM_ST_SimpleMode) ? computeHpThresholdHiganbana() : 0;
+        double dotRefresh = IsNotEnabled(Preset.SAM_ST_SimpleMode) ? SAM_ST_HiganbanaRefresh : 15;
+        float dotRemaining = GetStatusEffectRemainingTime(Debuffs.Higanbana, CurrentTarget);
+
+        return ActionReady(Higanbana) && SenCount is 1 &&
+               CanApplyStatus(CurrentTarget, Debuffs.Higanbana) &&
+               HasBattleTarget() &&
+               GetTargetHPPercent() > hpThreshold &&
+               dotRemaining <= dotRefresh;
+    }
+
+    private static int computeHpThresholdHiganbana()
+    {
+        if (InBossEncounter())
+            return TargetIsBoss() ? SAM_ST_HiganbanaBossOption : SAM_ST_HiganbanaBossAddsOption;
+
+        return SAM_ST_HiganbanaTrashOption;
+    }
+
+    #endregion
+
+    #region Misc
+
+    private static bool RefreshFugetsu =>
+        GetStatusEffectRemainingTime(Buffs.Fugetsu) <=
+        GetStatusEffectRemainingTime(Buffs.Fuka);
+
+    private static bool RefreshFuka =>
+        GetStatusEffectRemainingTime(Buffs.Fuka) <=
+        GetStatusEffectRemainingTime(Buffs.Fugetsu);
+
+    private static bool EnhancedSenei =>
+        TraitLevelChecked(Traits.EnhancedHissatsu);
+
+    private static int SenCount =>
+        GetSenCount();
+
+    private static bool CanUseThirdEye =>
+        ActionReady(OriginalHook(ThirdEye)) &&
+        (RaidWideCasting(2f) || !IsInParty());
+
+    //Auto Meditate
+    private static bool CanUseMeditate =>
+        ActionReady(Meditate) &&
+        !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(SAM_ST_MeditateTimeStill) &&
+        InCombat() && !HasBattleTarget();
 
     #endregion
 
@@ -278,13 +310,15 @@ internal partial class SAM
             if (GetTargetHPPercent() < shintenTreshhold)
                 return true;
 
-            if (Kenki >= 95)
+            if (Kenki is 100 && ComboAction == OriginalHook(Gyofu) ||
+                Kenki >= 95 && ComboAction is Jinpu or Shifu)
                 return true;
 
             if (EnhancedSenei &&
                 !HasStatusEffect(Buffs.ZanshinReady))
             {
-                if (GetCooldownRemainingTime(Senei) < GCD * 2)
+                if (GetCooldownRemainingTime(Senei) < GCD * 2 &&
+                    Kenki >= 95)
                     return true;
 
                 if (JustUsed(Senei, 15f) &&

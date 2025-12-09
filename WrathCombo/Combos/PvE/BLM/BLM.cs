@@ -21,10 +21,6 @@ internal partial class BLM : Caster
 
             if (CanWeave())
             {
-                if (ActionReady(Manaward) &&
-                    PlayerHealthPercentageHp() < 40 && RaidWideCasting())
-                    return Manaward;
-
                 if (ActionReady(Amplifier) && !HasMaxPolyglotStacks)
                     return Amplifier;
 
@@ -66,6 +62,10 @@ internal partial class BLM : Caster
                         HasBattleTarget() && InActionRange(Fire))
                         return Role.Swiftcast;
                 }
+
+                if (ActionReady(Manaward) &&
+                    PlayerHealthPercentageHp() < 40 && RaidWideCasting())
+                    return Manaward;
             }
 
             if (IsMoving() && !LevelChecked(Triplecast) &&
@@ -78,11 +78,7 @@ internal partial class BLM : Caster
                     ? Xenoglossy
                     : Foul;
 
-            if (ActionReady(OriginalHook(Thunder)) && HasStatusEffect(Buffs.Thunderhead) &&
-                CanApplyStatus(CurrentTarget, ThunderList[OriginalHook(Thunder)]) &&
-                (ThunderDebuffST is null && ThunderDebuffAoE is null ||
-                 ThunderDebuffST?.RemainingTime <= RefreshTimerThunder ||
-                 ThunderDebuffAoE?.RemainingTime <= RefreshTimerThunder))
+            if (CanUseThunder())
                 return OriginalHook(Thunder);
 
             if (LevelChecked(Amplifier) &&
@@ -305,15 +301,6 @@ internal partial class BLM : Caster
 
             if (CanWeave())
             {
-                if (IsEnabled(Preset.BLM_ST_Manaward) &&
-                    ActionReady(Manaward) &&
-                    PlayerHealthPercentageHp() < BLM_ST_Manaward_Threshold && RaidWideCasting())
-                    return Manaward;
-
-                if (IsEnabled(Preset.BLM_ST_Addle) &&
-                    Role.CanAddle() && RaidWideCasting())
-                    return Role.Addle;
-
                 if (IsEnabled(Preset.BLM_ST_Amplifier) &&
                     ActionReady(Amplifier) && !HasMaxPolyglotStacks)
                     return Amplifier;
@@ -380,6 +367,15 @@ internal partial class BLM : Caster
                             return Triplecast;
                     }
                 }
+
+                if (IsEnabled(Preset.BLM_ST_Manaward) &&
+                    ActionReady(Manaward) &&
+                    PlayerHealthPercentageHp() < BLM_ST_Manaward_Threshold && RaidWideCasting())
+                    return Manaward;
+
+                if (IsEnabled(Preset.BLM_ST_Addle) &&
+                    Role.CanAddle() && RaidWideCasting())
+                    return Role.Addle;
             }
 
             //Overcap protection
@@ -390,12 +386,7 @@ internal partial class BLM : Caster
                     : Foul;
 
             if (IsEnabled(Preset.BLM_ST_Thunder) &&
-                ActionReady(OriginalHook(Thunder)) && HasStatusEffect(Buffs.Thunderhead) &&
-                CanApplyStatus(CurrentTarget, ThunderList[OriginalHook(Thunder)]) &&
-                (ThunderDebuffST is null && ThunderDebuffAoE is null ||
-                 ThunderDebuffST?.RemainingTime <= RefreshTimerThunder ||
-                 ThunderDebuffAoE?.RemainingTime <= RefreshTimerThunder) &&
-                GetTargetHPPercent() > HPThresholdThunder)
+                CanUseThunder())
                 return OriginalHook(Thunder);
 
             if (IsEnabled(Preset.BLM_ST_Amplifier) &&
@@ -408,7 +399,7 @@ internal partial class BLM : Caster
             if (IsMoving() && InCombat() &&
                 HasBattleTarget() && InActionRange(Fire))
             {
-                foreach(int priority in BLM_ST_Movement_Priority.Items.OrderBy(x => x))
+                foreach(int priority in BLM_ST_Movement_Priority.OrderBy(x => x))
                 {
                     int index = BLM_ST_Movement_Priority.IndexOf(priority);
                     if (CheckMovementConfigMeetsRequirements(index, out uint action))

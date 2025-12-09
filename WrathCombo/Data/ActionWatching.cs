@@ -24,6 +24,7 @@ using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
+using WrathCombo.Services.ActionRequestIPC;
 using static FFXIVClientStructs.FFXIV.Client.Game.Character.ActionEffectHandler;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 using Action = Lumina.Excel.Sheets.Action;
@@ -350,7 +351,7 @@ public static class ActionWatching
         try
         {
 
-            if (actionType is ActionType.Action or ActionType.Ability)
+            if (actionType is ActionType.Action)
             {
                 var original = actionId; //Save the original action, do not modify
                 var originalTargetId = targetId; //Save the original target, do not modify
@@ -358,9 +359,10 @@ public static class ActionWatching
                 if (Service.Configuration.ActionChanging && Service.Configuration.PerformanceMode) //Performance mode only logic, to modify the actionId
                 {
                     var result = actionId;
-                    foreach (var combo in ActionReplacer.FilteredCombos)
+
+                    foreach(var combo in ActionReplacer.FilteredCombos)
                     {
-                        if (combo.TryInvoke(actionId, out result))
+                        if(combo.TryInvoke(actionId, out result))
                         {
                             actionId = Service.ActionReplacer.LastActionInvokeFor[actionId] = result; //Sets actionId and the LastActionInvokeFor dictionary entry to the result of the combo
                             break;
