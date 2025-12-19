@@ -10,7 +10,6 @@ public enum DPSRotationMode
     Tank_Target = 5,
     Nearest = 6,
     Furthest = 7,
-    ManualNonPlayer = 8
 }
 
 public enum HealerRotationMode

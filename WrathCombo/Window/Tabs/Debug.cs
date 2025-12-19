@@ -434,7 +434,7 @@ internal class Debug : ConfigWindow, IDisposable
             {
                 bool? foundSheet = null;
                 BNpcBase? battleNPCRow = null;
-                if (ActionWatching.BNPCSheet.TryGetValue(target.DataId,
+                if (ActionWatching.BNPCSheet.TryGetValue(target.BaseId,
                         out var sheetRow))
                 {
                     battleNPCRow = sheetRow;

@@ -494,8 +494,7 @@ internal partial class MCH : PhysicalRanged
                         return Hypercharge;
 
                     //gauss and ricochet outside HC
-                    if (IsEnabled(Preset.MCH_AoE_Adv_GaussRicochet) &&
-                        Config.MCH_AoE_GaussOptions[0])
+                    if (IsEnabled(Preset.MCH_AoE_Adv_GaussRicochet))
                     {
                         if (CanGaussRound && (!JustUsed(OriginalHook(GaussRound), 2.5f) || !LevelChecked(Ricochet)))
                             return OriginalHook(GaussRound);
@@ -511,20 +510,6 @@ internal partial class MCH : PhysicalRanged
                     if (IsEnabled(Preset.MCH_AoE_Adv_SecondWind) &&
                         Role.CanSecondWind(MCH_AoE_SecondWindHPThreshold))
                         return Role.SecondWind;
-                }
-
-                //AutoCrossbow, Gauss, Rico
-                if (IsEnabled(Preset.MCH_AoE_Adv_GaussRicochet) &&
-                    Config.MCH_AoE_GaussOptions[1] &&
-                    (JustUsed(OriginalHook(AutoCrossbow), 1f) ||
-                     JustUsed(OriginalHook(Heatblast), 1f)) && !HasWeaved())
-                {
-                    if (ActionReady(GaussRound) &&
-                        (CanGaussRound || !LevelChecked(Ricochet)))
-                        return OriginalHook(GaussRound);
-
-                    if (ActionReady(Ricochet) && CanRicochet)
-                        return OriginalHook(Ricochet);
                 }
             }
 

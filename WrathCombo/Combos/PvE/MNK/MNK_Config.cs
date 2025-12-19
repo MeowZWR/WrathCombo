@@ -75,7 +75,7 @@ internal partial class MNK
                         $"Replaces {Brotherhood.ActionName()}", $"Replaces {Brotherhood.ActionName()} with {RiddleOfFire.ActionName()} when {Brotherhood.ActionName()} is on cooldown.", 0);
 
                     DrawRadioButton(MNK_BH_RoF,
-                        $"Replaces {RiddleOfFire.ActionName()}", $"Replaces {RiddleOfFire.ActionName()} with {Brotherhood.ActionName()} when {RiddleOfFire.ActionName()} is on cooldown.", 1);
+                        $"Replaces {RiddleOfFire.ActionName()}", $"Replaces {RiddleOfFire.ActionName()} with {Brotherhood.ActionName()}when {RiddleOfFire.ActionName()} is on cooldown.", 1);
                     break;
 
                 case Preset.MNK_Retarget_Thunderclap:

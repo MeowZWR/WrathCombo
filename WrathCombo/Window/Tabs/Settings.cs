@@ -15,7 +15,6 @@ using WrathCombo.Attributes;
 using WrathCombo.Core;
 using WrathCombo.Services;
 using WrathCombo.Window.Functions;
-using ECommons.DalamudServices;
 using WrathCombo.Resources.Dictionary.Chinese;
 using Setting = WrathCombo.Window.Functions.Setting;
 
@@ -99,14 +98,14 @@ internal class Settings : ConfigWindow
                 // Draw collapsible group only once
                 if (setting.CollapsibleGroupName is not null)
                     DrawCollapseGroup(setting.CollapsibleGroupName);
-
+                
                 // Draw normally
                 else
                     DrawSetting(setting);
             }
 
             #region Debug File Button
-
+        
             if (!IsSearching)
             {
                 if (ImGui.Button("Create Debug File"))

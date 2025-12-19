@@ -224,10 +224,6 @@ internal partial class MCH
                         $"Stop Using {BarrelStabilizer.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)");
                     break;
 
-                case Preset.MCH_AoE_Adv_GaussRicochet:
-                    DrawHorizontalMultiChoice(MCH_AoE_GaussOptions, "在超荷外使用", "在超荷外使用虹吸弹和弹射或双将和将死", 2, 0);
-                    DrawHorizontalMultiChoice(MCH_AoE_GaussOptions, "在超荷内使用", "在超荷内使用虹吸弹和弹射或双将和将死", 2, 1);
-                    break;
                 #endregion
 
                 case Preset.MCH_GaussRoundRicochet:

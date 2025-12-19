@@ -528,20 +528,20 @@ public partial class WrathCombo
             return;
         }
 
-        if (Service.Configuration.IgnoredNPCs.Any(x => x.Key == target.DataId))
+        if (Service.Configuration.IgnoredNPCs.Any(x => x.Key == target.BaseId))
         {
             DuoLog.Error(
-                $"{target.Name} (ID: {target.DataId}) is already on the ignored list");
+                $"{target.Name} (ID: {target.BaseId}) is already on the ignored list");
             return;
         }
 
-        if (Service.Configuration.IgnoredNPCs.All(x => x.Key != target.DataId))
+        if (Service.Configuration.IgnoredNPCs.All(x => x.Key != target.BaseId))
         {
             Service.Configuration.IgnoredNPCs.Add(target.BaseId, target.GetNameId());
             Service.Configuration.Save();
 
             DuoLog.Information(
-                $"Successfully added {target.Name} (ID: {target.DataId}) to ignored list");
+                $"Successfully added {target.Name} (ID: {target.BaseId}) to ignored list");
         }
     }
 

@@ -35,7 +35,6 @@ internal partial class VPR
 
                     DrawSliderInt(0, 5, VPR_ST_ReAwaken_Threshold,
                         $"设置HP百分比阈值，在可用时使用{Reawaken.ActionName()}。（仅限Boss战）");
-
                     break;
 
                 case Preset.VPR_ST_UncoiledFury:
@@ -62,7 +61,6 @@ internal partial class VPR
 
                     DrawSliderInt(0, 100, VPR_ST_Bloodbath_Threshold,
                         $"{Role.Bloodbath.ActionName()}触发HP百分比阈值");
-
                     break;
 
                 case Preset.VPR_AoE_UncoiledFury:
@@ -71,7 +69,6 @@ internal partial class VPR
 
                     DrawSliderInt(0, 5, VPR_AoE_UncoiledFury_Threshold,
                         $"设置HP百分比阈值，低于该值时全部使用{UncoiledFury.ActionName()}。");
-
                     break;
 
                 case Preset.VPR_AoE_Reawaken:
@@ -107,7 +104,6 @@ internal partial class VPR
 
                     DrawSliderInt(0, 100, VPR_AoE_Bloodbath_Threshold,
                         $"{Role.Bloodbath.ActionName()}触发HP百分比阈值");
-
                     break;
 
                 case Preset.VPR_ReawakenLegacy:
@@ -116,7 +112,6 @@ internal partial class VPR
 
                     DrawRadioButton(VPR_ReawakenLegacyButton,
                         $"替换为{ReavingFangs.ActionName()}", $"将{ReavingFangs.ActionName()}替换为完整祖灵之牙-祖灵之蛇连击。", 1);
-
                     break;
 
                 case Preset.VPR_Retarget_Slither:

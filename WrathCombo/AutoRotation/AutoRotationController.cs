@@ -1,5 +1,4 @@
 ﻿using Dalamud.Game.ClientState.Conditions;
-using Dalamud.Game.ClientState.Objects.Enums;
 using Dalamud.Game.ClientState.Objects.Types;
 using ECommons;
 using ECommons.DalamudServices;
@@ -622,7 +621,6 @@ internal unsafe static class AutoRotationController
                     IGameObject? target = dpsmode switch
                     {
                         DPSRotationMode.Manual => Svc.Targets.Target,
-                        DPSRotationMode.ManualNonPlayer => TankTargeting.CustomTargeting.GetManualNonPlayerTarget(),
                         DPSRotationMode.Highest_Max => TankTargeting.GetHighestMaxTarget(),
                         DPSRotationMode.Lowest_Max => TankTargeting.GetLowestMaxTarget(),
                         DPSRotationMode.Highest_Current => TankTargeting.GetHighestCurrentTarget(),
@@ -639,7 +637,6 @@ internal unsafe static class AutoRotationController
                     IGameObject? target = dpsmode switch
                     {
                         DPSRotationMode.Manual => Svc.Targets.Target,
-                        DPSRotationMode.ManualNonPlayer => TankTargeting.CustomTargeting.GetManualNonPlayerTarget(),
                         DPSRotationMode.Highest_Max => DPSTargeting.GetHighestMaxTarget(),
                         DPSRotationMode.Lowest_Max => DPSTargeting.GetLowestMaxTarget(),
                         DPSRotationMode.Highest_Current => DPSTargeting.GetHighestCurrentTarget(),
@@ -880,7 +877,7 @@ internal unsafe static class AutoRotationController
             IsInRange(chara, cfg.DPSSettings.MaxDistance) &&
             GetTargetHeightDifference(chara) <= cfg.DPSSettings.MaxDistance &&
             !TargetIsInvincible(chara) &&
-            !Service.Configuration.IgnoredNPCs.ContainsKey(chara.DataId) &&
+            !Service.Configuration.IgnoredNPCs.ContainsKey(chara.BaseId) &&
             ((cfg.DPSSettings.OnlyAttackInCombat && chara.Struct()->InCombat) || !cfg.DPSSettings.OnlyAttackInCombat) &&
             IsInLineOfSight(chara);
 
@@ -1123,57 +1120,5 @@ internal unsafe static class AutoRotationController
                 .ThenByDescending(x => GetTargetMaxHP(x))
                 .ThenBy(x => GetTargetHPPercent(x)).FirstOrDefault();
         }
-
-        public static class CustomTargeting
-        {
-            /// <summary>
-            /// 获取手动选择的非玩家目标。
-            /// </summary>
-            public static IGameObject? GetManualNonPlayerTarget()
-            {
-                IGameObject? target = Svc.Targets.Target;
-
-                if (IsValidNonPlayerTarget(target))
-                {
-                    return target;
-                }
-
-                return null;
-            }
-
-            /// <summary>
-            /// 检查目标是否为有效的非玩家目标。
-            /// </summary>
-            private static bool IsValidNonPlayerTarget(IGameObject? target)
-            {
-                if (target == null)
-                    return false;
-
-                if (target.ObjectKind == ObjectKind.Player)
-                    return false;
-
-                if (target is not IBattleChara chara || chara.IsDead || !chara.IsTargetable)
-                    return false;
-
-                if (GetTargetDistance(target) > 25)
-                    return false;
-
-                if (cfg.DPSSettings.OnlyAttackInCombat && !chara.Struct()->InCombat)
-                    return false;
-
-                return true;
-            }
-
-            /// <summary>
-            /// 获取目标与玩家的距离。
-            /// </summary>
-            private static float GetTargetDistance(IGameObject target)
-            {
-                var targetStruct = (FFXIVClientStructs.FFXIV.Client.Game.Object.GameObject*)target.Address;
-                float centerDistance = Vector3.Distance(Player.Object.Position, target.Position);
-                return Math.Max(0, centerDistance - targetStruct->HitboxRadius);
-            }
-        }
-
     }
 }

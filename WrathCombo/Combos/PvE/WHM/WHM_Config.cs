@@ -389,11 +389,11 @@ internal partial class WHM
         private const string partyStartUsingAtDescription =
             "队伍平均血量百分比低于该值时开始使用（100=禁用检测）";
 
-        /// 非Boss目标停止使用的HP%描述
+        /// Bar Description for target HP% to start using plus disable text
         private const string targetStopUsingAtDescription =
             "目标血量百分比高于该值时停止使用（0=总是使用，100=从不使用）";
 
-        /// Boss目标停止使用的HP%描述
+        /// Bar Description for target HP% to start using plus disable text
         private const string targetStopUsingOnBossAtDescription =
             " Boss目标血量百分比高于该值时停止使用（0=总是使用，100=从不使用）";
 

@@ -491,7 +491,7 @@ public partial class Configuration : IPluginConfiguration
         "如果少于4个项目，且全部检查无效，则会回退到自己。\n\n" +
         "仅在目标为友方且在25米范围内时才有效。\n\n" +
         "当此堆栈用于复活或康复时，将检查目标是否死亡或有可净化的异常。\n" +
-        "（复活时：堆栈会回退到你的硬目标或任意死亡队员）\n\n默认：",
+        "因此，不需要再额外添加诸如 “任意可驱散的友方” 之类的目标条件。",
         recommendedValue: "Preference",
         defaultValue: "焦点目标 > 硬目标 > 自己",
         type: Setting.Type.Stack,
