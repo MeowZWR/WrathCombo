@@ -10,7 +10,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class DRG
 {
-
     #region Lifesurge
 
     private static bool CanLifeSurge()
@@ -45,7 +44,7 @@ internal partial class DRG
 
     #region Misc
 
-    private static Status? ChaosDebuff =>
+    private static IStatus? ChaosDebuff =>
         GetStatusEffect(ChaoticList[OriginalHook(ChaosThrust)], CurrentTarget);
 
     private static int HPThresholdBuffs =>
@@ -163,7 +162,7 @@ internal partial class DRG
 
     #region Gauge
 
-    private static DRGGauge Gauge = GetJobGauge<DRGGauge>();
+    private static DRGGauge Gauge => GetJobGauge<DRGGauge>();
 
     private static bool LoTDActive => Gauge.IsLOTDActive;
 
@@ -243,5 +242,4 @@ internal partial class DRG
     }
 
     #endregion
-
 }

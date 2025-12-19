@@ -63,9 +63,9 @@ internal partial class WHM
                        GetTargetHPPercent(healTarget,
                            WHM_STHeals_IncludeShields);
         float refreshTime = WHM_STHeals_RegenTimer;
-        bool tankCheck = healTarget.IsInParty() && healTarget.GetRole() is CombatRole.Tank;
-        Status? regenHoT = GetStatusEffect(Buffs.Regen, healTarget);
-        Status? BenisonShield = GetStatusEffect(Buffs.DivineBenison, healTarget);
+        bool tankCheck = healTarget.IsInParty() && healTarget.Role is CombatRole.Tank;
+        IStatus? regenHoT = GetStatusEffect(Buffs.Regen, healTarget);
+        IStatus? BenisonShield = GetStatusEffect(Buffs.DivineBenison, healTarget);
 
         switch (i)
         {
@@ -262,6 +262,13 @@ internal partial class WHM
                !HasStatusEffect(Buffs.LiturgyOfTheBell) &&
                RaidWideCasting() && CanWeave();
     }
+    internal static bool RaidwidePlenaryIndulgence()
+    {
+        return IsEnabled(Preset.WHM_Raidwide_PlenaryIndulgence) &&
+               ActionReady(PlenaryIndulgence) &&
+               RaidWideCasting() && CanWeave();
+    }
+
 
     #endregion
 

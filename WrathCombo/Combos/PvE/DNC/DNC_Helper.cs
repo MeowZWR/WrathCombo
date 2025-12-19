@@ -364,7 +364,7 @@ internal partial class DNC
                     PartnerPriority.RolePrio.GetValueOrDefault(
                         x.ClassJob.Value.Role, int.MaxValue));
 
-            switch (Player.Level)
+            switch (Svc.PlayerState.EffectiveLevel)
             {
                 case < 100 and >= 90:
                     orderedFilter = orderedFilter

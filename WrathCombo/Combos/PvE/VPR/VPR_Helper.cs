@@ -11,7 +11,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class VPR
 {
-
     #region Misc
 
     private static float IreCD =>
@@ -97,7 +96,6 @@ internal partial class VPR
     {
         if (!canAoE && HasStatusEffect(Buffs.Reawakened))
         {
-
             #region Pre Ouroboros
 
             if (!TraitLevelChecked(Traits.EnhancedSerpentsLineage))
@@ -149,12 +147,10 @@ internal partial class VPR
                 }
 
             #endregion
-
         }
 
         if (canAoE && HasStatusEffect(Buffs.Reawakened))
         {
-
             #region Pre Ouroboros
 
             if (!TraitLevelChecked(Traits.EnhancedSerpentsLineage))
@@ -206,7 +202,6 @@ internal partial class VPR
                 }
 
             #endregion
-
         }
 
         return false;
@@ -339,7 +334,7 @@ internal partial class VPR
 
     #region Gauge
 
-    private static VPRGauge Gauge = GetJobGauge<VPRGauge>();
+    private static VPRGauge Gauge => GetJobGauge<VPRGauge>();
 
     private static byte RattlingCoilStacks => Gauge.RattlingCoilStacks;
 
@@ -463,5 +458,4 @@ internal partial class VPR
     }
 
     #endregion
-
 }

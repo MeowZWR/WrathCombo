@@ -63,7 +63,7 @@ internal partial class PLD
     /// <remarks>
     ///     Each logic check is already combined with checking if the preset
     ///     <see cref="IsEnabled(Preset)">is enabled</see>
-    ///     and if the action is <see cref="ActionReady(uint)">ready</see> and
+    ///     and if the action is <see cref="ActionReady(uint,bool,bool)">ready</see> and
     ///     <see cref="LevelChecked(uint)">level-checked</see>.<br />
     ///     Do not add any of these checks to <c>Logic</c>.
     /// </remarks>
@@ -83,17 +83,17 @@ internal partial class PLD
                   IsInParty()),
         //Rampart
         (Role.Rampart, Preset.PLD_Mit_Rampart,
-            () => Role.CanRampart(PLD_Mit_Rampart_Health)),
+            () => Role.CanRampart()),
         //Sentinel
         (OriginalHook(Sentinel), Preset.PLD_Mit_Sentinel,
-            () => PlayerHealthPercentageHp() <= PLD_Mit_Sentinel_Health),
+            () => true),
         //Arm's Length
         (Role.ArmsLength, Preset.PLD_Mit_ArmsLength,
             () => Role.CanArmsLength(PLD_Mit_ArmsLength_EnemyCount,
                 PLD_Mit_ArmsLength_Boss)),
         //Bulwark
         (Bulwark, Preset.PLD_Mit_Bulwark,
-            () => PlayerHealthPercentageHp() <= PLD_Mit_Bulwark_Health),
+            () => true),
         //Hallowed Ground
         (HallowedGround, Preset.PLD_Mit_HallowedGround,
             () => PlayerHealthPercentageHp() <= PLD_Mit_HallowedGround_Health &&

@@ -498,7 +498,7 @@ internal partial class AST : Healer
             if (ActionReady(EssentialDignity) && GetTargetHPPercent(healTarget) <= 30)
                 return EssentialDignity.RetargetIfEnabled(OptionalTarget, Benefic);
             
-            if (ActionReady(Exaltation) && (healTarget.IsInParty() && healTarget.GetRole() is CombatRole.Tank || !IsInParty()))
+            if (ActionReady(Exaltation) && (healTarget.IsInParty() && healTarget.Role is CombatRole.Tank || !IsInParty()))
                 return Exaltation.RetargetIfEnabled(OptionalTarget, Benefic);
 
             if (!InBossEncounter())
@@ -522,7 +522,7 @@ internal partial class AST : Healer
                 return OriginalHook(AspectedBenefic).RetargetIfEnabled(OptionalTarget, Benefic);
             
             if ((HasArrow || HasBole) && 
-                (healTarget.IsInParty() && healTarget.GetRole() is CombatRole.Tank || !IsInParty())) 
+                (healTarget.IsInParty() && healTarget.Role is CombatRole.Tank || !IsInParty())) 
                 return OriginalHook(Play2).RetargetIfEnabled(OptionalTarget, Benefic);
             
             if (HasEwer || HasSpire) 
@@ -690,7 +690,7 @@ internal partial class AST : Healer
             }
 
             //Hot Check for if you are in Aspected Helios Mode
-            Status? hotCheck = HeliosConjuction.LevelChecked() ? GetStatusEffect(Buffs.HeliosConjunction) : GetStatusEffect(Buffs.AspectedHelios);
+            IStatus? hotCheck = HeliosConjuction.LevelChecked() ? GetStatusEffect(Buffs.HeliosConjunction) : GetStatusEffect(Buffs.AspectedHelios);
             if (!nonAspectedMode && hotCheck is not null && hotCheck.RemainingTime > GetActionCastTime(OriginalHook(AspectedHelios)) + 1f)
                 return Helios;
 

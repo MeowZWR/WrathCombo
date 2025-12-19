@@ -142,14 +142,16 @@ public abstract class WrathOpener
 
     internal abstract UserData? ContentCheckConfig { get; }
 
-    public bool LevelChecked => Player.Level >= MinOpenerLevel && Player.Level <= MaxOpenerLevel;
+    public bool LevelChecked => Svc.PlayerState.EffectiveLevel >= MinOpenerLevel && Svc.PlayerState.EffectiveLevel <= MaxOpenerLevel;
 
     public abstract bool HasCooldowns();
+
+    public bool CacheReady = false;
 
     public unsafe bool FullOpener(ref uint actionID)
     {
         bool inContent = ContentCheckConfig is UserBoolArray ? ContentCheck.IsInConfiguredContent((UserBoolArray)ContentCheckConfig, ContentCheck.ListSet.BossOnly) : ContentCheckConfig is UserInt ? ContentCheck.IsInConfiguredContent((UserInt)ContentCheckConfig, ContentCheck.ListSet.BossOnly) : false;
-        if (!LevelChecked || OpenerActions.Count == 0 || !inContent)
+        if (!LevelChecked || OpenerActions.Count == 0 || !inContent || !CacheReady)
         {
             return false;
         }
@@ -239,7 +241,7 @@ public abstract class WrathOpener
                 }
 
                 while (OpenerStep > 1 && !ActionReady(CurrentOpenerAction) &&
-                       !SkipSteps.Any(x => x.Steps.Any(y => y == OpenerStep - 1)) &&
+                       !SkipSteps.Any(x => x.Steps.Any(y => y == OpenerStep)) &&
                        ActionWatching.TimeSinceLastAction.TotalSeconds > Math.Max(1.5, Math.Max(GCDTotal, Player.Object.TotalCastTime + 0.2f)))
                 {
                     if (OpenerStep >= OpenerActions.Count)
@@ -296,6 +298,7 @@ public abstract class WrathOpener
             Job.WHM => WHM.Opener(),
             _ => Dummy
         };
+        CurrentOpener?.CacheReady = true;
     }
 
     public static WrathOpener? CurrentOpener

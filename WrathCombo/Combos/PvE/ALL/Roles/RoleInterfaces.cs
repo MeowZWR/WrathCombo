@@ -122,7 +122,7 @@ internal static partial class RoleActions
     internal interface IRampart
     {
         uint Rampart { get; }
-        bool CanRampart(int healthPercent);
+        bool CanRampart(int healthPercent = 100);
     }
 
     internal interface ILowBlow

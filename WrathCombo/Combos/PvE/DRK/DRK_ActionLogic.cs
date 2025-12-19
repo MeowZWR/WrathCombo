@@ -1007,13 +1007,22 @@ internal partial class DRK
         PrioritizedMitigation =>
     [
         (BlackestNight, Preset.DRK_Mit_TheBlackestNight,
-            () => !HasAnyTBN && LocalPlayer.CurrentMp > 3000 &&
-                  PlayerHealthPercentageHp() <= DRK_Mit_TBN_Health),
+            () => !((TargetIsFriendly() &&
+                     HasStatusEffect(Buffs.BlackestNightShield,
+                         CurrentTarget,
+                         anyOwner: true)) ||
+                    (!TargetIsFriendly() &&
+                     HasStatusEffect(Buffs.BlackestNightShield,
+                         anyOwner: true))) &&
+                  LocalPlayer.CurrentMp > 3000),
         (Oblation, Preset.DRK_Mit_Oblation,
             () => !((TargetIsFriendly() &&
-                     HasStatusEffect(Buffs.Oblation, CurrentTarget, true)) ||
+                     HasStatusEffect(Buffs.Oblation,
+                         CurrentTarget,
+                         anyOwner: true)) ||
                     (!TargetIsFriendly() &&
-                     HasStatusEffect(Buffs.Oblation, anyOwner: true))) &&
+                     HasStatusEffect(Buffs.Oblation,
+                         anyOwner: true))) &&
                   GetRemainingCharges(Oblation) > DRK_Mit_Oblation_Charges),
         (Role.Reprisal, Preset.DRK_Mit_Reprisal,
             () => Role.CanReprisal()),
@@ -1021,7 +1030,7 @@ internal partial class DRK
             () => DRK_Mit_DarkMissionary_PartyRequirement ==
                 (int)PartyRequirement.No || IsInParty()),
         (Role.Rampart, Preset.DRK_Mit_Rampart,
-            () => Role.CanRampart(DRK_Mit_Rampart_Health)),
+            () => Role.CanRampart()),
         (DarkMind, Preset.DRK_Mit_DarkMind, () => true),
         (Role.ArmsLength, Preset.DRK_Mit_ArmsLength,
             () => Role.CanArmsLength(DRK_Mit_ArmsLength_EnemyCount,

@@ -10,7 +10,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class MNK
 {
-
     #region Basic Combo
 
     private static uint DoBasicCombo(uint actionId, bool useTrueNorthIfEnabled = true)
@@ -124,7 +123,6 @@ internal partial class MNK
         {
             case false when HasStatusEffect(Buffs.PerfectBalance):
             {
-
             #region Open Lunar
 
                 if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
@@ -197,7 +195,6 @@ internal partial class MNK
 
             case true when HasStatusEffect(Buffs.PerfectBalance):
             {
-
             #region Open Lunar
 
                 if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
@@ -358,7 +355,6 @@ internal partial class MNK
             default:
                 return false;
         }
-
     }
 
     private static bool CanUseChakra(bool onAoE = false)
@@ -381,7 +377,6 @@ internal partial class MNK
             default:
                 return false;
         }
-
     }
 
     #endregion
@@ -668,7 +663,7 @@ internal partial class MNK
 
     #region Gauge
 
-    private static MNKGauge Gauge = GetJobGauge<MNKGauge>();
+    private static MNKGauge Gauge => GetJobGauge<MNKGauge>();
 
     private static byte Chakra => Gauge.Chakra;
 
@@ -761,5 +756,4 @@ internal partial class MNK
     }
 
     #endregion
-
 }

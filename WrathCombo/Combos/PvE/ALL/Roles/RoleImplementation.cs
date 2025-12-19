@@ -241,7 +241,7 @@ internal static partial class RoleActions
                 public bool CanArmsLength(int enemyCount, All.Enums.BossAvoidance avoidanceSetting) =>
                     RoleActions.Physical.CanArmsLength(enemyCount, avoidanceSetting);
 
-                public bool CanRampart(int healthPercent) =>
+                public bool CanRampart(int healthPercent = 100) =>
                     RoleActions.Tank.CanRampart(healthPercent);
 
                 public bool CanLowBlow() =>

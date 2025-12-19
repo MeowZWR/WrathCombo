@@ -11,7 +11,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class RPR
 {
-
     #region Misc
 
     //Auto Arcane Crest
@@ -65,7 +64,7 @@ internal partial class RPR
 
     #region SoD
 
-    private static bool CanUseShadowOfDeath(bool SimpleMode = false)
+    private static bool CanUseShadowOfDeath(bool simpleMode = false)
     {
         if (LevelChecked(ShadowOfDeath) && !HasStatusEffect(Buffs.SoulReaver) &&
             !HasStatusEffect(Buffs.Executioner) && !HasStatusEffect(Buffs.PerfectioParata) &&
@@ -73,7 +72,7 @@ internal partial class RPR
             CanApplyStatus(CurrentTarget, Debuffs.DeathsDesign) &&
             !JustUsed(ShadowOfDeath))
         {
-            switch (SimpleMode)
+            switch (simpleMode)
             {
                 case true when !InBossEncounter() && LevelChecked(PlentifulHarvest) && !HasStatusEffect(Buffs.Enshrouded) &&
                                GetStatusEffectRemainingTime(Debuffs.DeathsDesign, CurrentTarget) <= 8:
@@ -285,7 +284,7 @@ internal partial class RPR
 
     #region Gauge
 
-    private static RPRGauge Gauge = GetJobGauge<RPRGauge>();
+    private static RPRGauge Gauge => GetJobGauge<RPRGauge>();
 
     private static byte Shroud => Gauge.Shroud;
 
@@ -381,5 +380,4 @@ internal partial class RPR
     }
 
     #endregion
-
 }

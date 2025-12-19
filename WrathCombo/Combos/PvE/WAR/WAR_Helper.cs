@@ -214,7 +214,7 @@ internal partial class WAR : Tank
             () => PlayerHealthPercentageHp() <= WAR_Mit_ThrillOfBattle_Health),
             //Rampart
             (Role.Rampart, Preset.WAR_Mit_Rampart,
-            () => Role.CanRampart(WAR_Mit_Rampart_Health)),
+            () => Role.CanRampart()),
             //Shake it Off
             (ShakeItOff, Preset.WAR_Mit_ShakeItOff,
             () => !HasStatusEffect(Buffs.ShakeItOff) && (WAR_Mit_ShakeItOff_PartyRequirement == (int)PartyRequirement.No || IsInParty())),
@@ -223,7 +223,7 @@ internal partial class WAR : Tank
             () => Role.CanArmsLength(WAR_Mit_ArmsLength_EnemyCount, WAR_Mit_ArmsLength_Boss)),
             //Vengeance
             (OriginalHook(Vengeance), Preset.WAR_Mit_Vengeance,
-            () => PlayerHealthPercentageHp() <= WAR_Mit_Vengeance_Health)
+            () => true)
         ];
 
     /// <summary>

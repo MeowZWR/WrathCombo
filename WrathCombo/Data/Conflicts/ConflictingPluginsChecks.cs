@@ -6,7 +6,9 @@ using System;
 using System.Linq;
 using Dalamud.Game.Config;
 using WrathCombo.AutoRotation;
+using WrathCombo.Combos.PvE;
 using WrathCombo.Core;
+using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Services.IPC_Subscriber;
 using EZ = ECommons.Throttlers.EzThrottler;
@@ -203,14 +205,34 @@ public static class ConflictingPluginsChecks
         /// </remarks>
         public uint[] ConflictingActions = [0, 0];
 
+        public bool BunnyConflict;
+
+        private DateTime _lastBunnyReload = DateTime.Now;
+
         protected override RedirectIPC IPC => (RedirectIPC)_ipc;
 
         public override void CheckForConflict(bool forceRefresh = false)
         {
+            if (!IPC.IsEnabled)
+            {
+                BunnyConflict = false;
+                _lastBunnyReload = DateTime.Now;
+            }
             if (!ThrottlePassed(forceRefresh: forceRefresh))
                 return;
 
             ConflictingActions = [0, 0];
+
+            // Check if the user has bunny recently
+            if (CustomComboFunctions.JustUsed(NIN.Rabbit, 45) &&
+                DateTime.Now - _lastBunnyReload > TS.FromSeconds(30))
+            {
+                PluginLog.Verbose(
+                    $"[ConflictingPlugins] [{Name}] Recent Bunny Detected");
+                BunnyConflict = true;
+            }
+            else
+                BunnyConflict = false;
 
             var conflictedThisCheck = false;
             var wrathRetargeted = PresetStorage.AllRetargetedActions.ToHashSet();

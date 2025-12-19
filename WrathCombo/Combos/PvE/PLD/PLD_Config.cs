@@ -52,11 +52,8 @@ internal partial class PLD
             //One-Button Mitigation
             PLD_Mit_HallowedGround_Max_Health = new("PLD_Mit_HallowedGround_Max_Health", 20),
             PLD_Mit_DivineVeil_PartyRequirement = new("PLD_Mit_DivineVeil_PartyRequirement", (int)PartyRequirement.Yes),
-            PLD_Mit_Rampart_Health = new("PLD_Mit_Rampart_Health", 65),
-            PLD_Mit_Sentinel_Health = new("PLD_Mit_Sentinel_Health", 60),
             PLD_Mit_ArmsLength_Boss = new("PLD_Mit_ArmsLength_Boss", (int)BossAvoidance.On),
             PLD_Mit_ArmsLength_EnemyCount = new("PLD_Mit_ArmsLength_EnemyCount", 0),
-            PLD_Mit_Bulwark_Health = new("PLD_Mit_Bulwark_Health", 50),
             PLD_Mit_HallowedGround_Health = new("PLD_Mit_HallowedGround_Health", 35),
             PLD_Mit_Clemency_Health = new("PLD_Mit_Clemency_Health", 40);
 
@@ -261,7 +258,7 @@ internal partial class PLD
                 
                 // Retarget Cover Feature
                 case Preset.PLD_RetargetCover_LowHP:
-                    DrawSliderInt(1, 100, PLD_RetargetCover_Health, "Player HP%", 200);
+                    DrawSliderInt(1, 100, PLD_RetargetCover_Health, "Ally HP%", 200);
                     break;
 
                 // Simple ST Mitigations Option
@@ -341,27 +338,18 @@ internal partial class PLD
                         outputValue: (int)PartyRequirement.No);
                     ImGui.Unindent();
 
-                    ImGui.NewLine();
                     DrawPriorityInput(PLD_Mit_Priorities,
                         numberMitigationOptions, 2,
                         "Divine Veil Priority:");
                     break;
 
                 case Preset.PLD_Mit_Rampart:
-                    DrawSliderInt(1, 100, PLD_Mit_Rampart_Health,
-                        "HP% to use at or below (100 = Disable check)",
-                        sliderIncrement: SliderIncrements.Ones);
-
                     DrawPriorityInput(PLD_Mit_Priorities,
                         numberMitigationOptions, 3,
                         "Rampart Priority:");
                     break;
 
                 case Preset.PLD_Mit_Sentinel:
-                    DrawSliderInt(1, 100, PLD_Mit_Sentinel_Health,
-                        "HP% to use at or below (100 = Disable check)",
-                        sliderIncrement: SliderIncrements.Ones);
-
                     DrawPriorityInput(PLD_Mit_Priorities,
                         numberMitigationOptions, 4,
                         "Sentinel Priority:");
@@ -379,7 +367,6 @@ internal partial class PLD
                         outputValue: (int)BossAvoidance.On, itemWidth: 125f);
                     ImGui.Unindent();
 
-                    ImGui.NewLine();
                     DrawSliderInt(0, 3, PLD_Mit_ArmsLength_EnemyCount,
                         "How many enemies should be nearby? (0 = No Requirement)");
 
@@ -389,10 +376,6 @@ internal partial class PLD
                     break;
 
                 case Preset.PLD_Mit_Bulwark:
-                    DrawSliderInt(1, 100, PLD_Mit_Bulwark_Health,
-                        "HP% to use at or below (100 = Disable check)",
-                        sliderIncrement: SliderIncrements.Ones);
-
                     DrawPriorityInput(PLD_Mit_Priorities,
                         numberMitigationOptions, 6,
                         "Bulwark Priority:");

@@ -428,6 +428,11 @@ public static class ConflictingPlugins
                         "选项 > 将所有友方技能视为鼠标悬停"))
                     .ToArray();
         }
+        if (ConflictingPluginsChecks.Redirect.BunnyConflict)
+            conflicts = conflicts.Append(new Conflict(
+                    "Redirect", ConflictType.Settings,
+                    "Whole Plugin - Could be causing Bunnies [Reload or Disable Redirect]"))
+                .ToArray();
 
         #endregion
 
@@ -500,7 +505,7 @@ public static class ConflictingPlugins
 
     #endregion
 
-    #region Setting Conflicts
+    #region Game Setting Conflicts
 
     /// <summary>
     ///     Checks for conflicts from specific settings in the game,

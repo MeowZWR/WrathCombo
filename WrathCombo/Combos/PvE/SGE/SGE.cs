@@ -11,7 +11,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class SGE : Healer
 {
-
     #region Simple DPS Mode
 
     internal class SGE_ST_Simple_DPS : CustomCombo
@@ -183,13 +182,13 @@ internal partial class SGE : Healer
 
         protected override uint Invoke(uint actionID)
         {
-            var DosisActions = (int)SGE_ST_DPS_Adv switch
+            uint[] dosisActions = (int)SGE_ST_DPS_Adv switch
             {
                 1 => [Dosis2],
-                _ => DosisList.Keys.ToArray(),
+                var _ => DosisList.Keys.ToArray()
             };
 
-            if (!DosisActions.Contains(actionID))
+            if (!dosisActions.Contains(actionID))
                 return actionID;
 
             // Kardia Reminder
@@ -235,7 +234,7 @@ internal partial class SGE : Healer
                 if (IsEnabled(Preset.SGE_ST_DPS_AddersgallProtect) &&
                     ActionReady(Druochole) && Addersgall >= SGE_ST_DPS_AddersgallProtect)
                     return Druochole
-                        .RetargetIfEnabled(null, DosisActions);
+                        .RetargetIfEnabled(null, dosisActions);
 
                 // Psyche
                 if (IsEnabled(Preset.SGE_ST_DPS_Psyche) &&
@@ -438,7 +437,7 @@ internal partial class SGE : Healer
                 !InBossEncounter())
                 return Kerachole;
 
-            if (healTarget.IsInParty() && healTarget.GetRole() is CombatRole.Tank || !IsInParty())
+            if (healTarget.IsInParty() && healTarget.Role is CombatRole.Tank || !IsInParty())
             {
                 if (ActionReady(Krasis))
                     return Krasis.RetargetIfEnabled(OptionalTarget, Diagnosis);
@@ -508,10 +507,10 @@ internal partial class SGE : Healer
 
             if (ActionReady(Panhaima) && !HasStatusEffect(Buffs.Eudaimonia))
                 return Panhaima;
-            
+
             if (ActionReady(Zoe) && (ActionReady(Pneuma) || !LevelChecked(Pneuma)))
                 return Zoe;
-            
+
             if (ActionReady(Pepsis) &&
                 HasStatusEffect(Buffs.EukrasianPrognosis))
                 return Pepsis;
@@ -625,7 +624,7 @@ internal partial class SGE : Healer
                     : Eukrasia;
 
             #endregion
-           
+
             if (IsEnabled(Preset.SGE_AoE_Heal_EPrognosis) &&
                 HasStatusEffect(Buffs.Eukrasia))
                 return OriginalHook(Prognosis);
@@ -906,5 +905,4 @@ internal partial class SGE : Healer
     }
 
     #endregion
-
 }

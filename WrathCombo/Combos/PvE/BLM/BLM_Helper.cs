@@ -12,7 +12,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class BLM
 {
-
     #region Misc
 
     private static int MaxPolyglot =>
@@ -28,10 +27,10 @@ internal partial class BLM
     private static bool CanFlarestar =>
         LevelChecked(FlareStar) && AstralSoulStacks is 6;
 
-    private static Status? ThunderDebuffST =>
-        GetStatusEffect(ThunderList[OriginalHook(Thunder)], CurrentTarget);
+    private static IStatus? ThunderDebuffST =>
+        GetStatusEffect(ThunderList[OriginalHook(Thunder)],CurrentTarget);
 
-    private static Status? ThunderDebuffAoE =>
+    private static IStatus? ThunderDebuffAoE =>
         GetStatusEffect(ThunderList[OriginalHook(Thunder2)], CurrentTarget);
 
     private static float TimeSinceFirestarterBuff =>
@@ -67,7 +66,7 @@ internal partial class BLM
     internal static bool CanUseThunder()
     {
         uint dotAction = OriginalHook(Thunder);
-        int hpThreshold = IsNotEnabled(Preset.BLM_ST_SimpleMode) ? computeHpThreshold() : 0;
+        int hpThreshold = IsNotEnabled(Preset.BLM_ST_SimpleMode) ? ComputeHpThreshold() : 0;
         ThunderList.TryGetValue(dotAction, out ushort dotDebuffID);
         int dotRefresh = IsNotEnabled(Preset.BLM_ST_SimpleMode) ? BLM_ST_ThunderRefresh : 5;
         float dotRemaining = GetStatusEffectRemainingTime(dotDebuffID, CurrentTarget);
@@ -80,7 +79,7 @@ internal partial class BLM
                dotRemaining <= dotRefresh;
     }
 
-    internal static int computeHpThreshold()
+    internal static int ComputeHpThreshold()
     {
         if (InBossEncounter())
             return TargetIsBoss() ? BLM_ST_ThunderBossOption : BLM_ST_ThunderBossAddsOption;
@@ -273,7 +272,7 @@ internal partial class BLM
 
     #region Gauge
 
-    private static BLMGauge Gauge = GetJobGauge<BLMGauge>();
+    private static BLMGauge Gauge => GetJobGauge<BLMGauge>();
 
     private static bool FirePhase => Gauge.InAstralFire;
 
@@ -295,7 +294,6 @@ internal partial class BLM
 
     private static class MP
     {
-
         private static unsafe uint Max => Player.Character->MaxMana;
 
         internal static bool Full => Max == Cur;
@@ -304,19 +302,7 @@ internal partial class BLM
 
         internal static int FireI => GetResourceCost(OriginalHook(Fire));
 
-        internal static int FlareAoE => GetResourceCost(OriginalHook(Flare));
-
         internal static int FireAoE => GetResourceCost(OriginalHook(Fire2));
-
-        internal static int FireIII => GetResourceCost(OriginalHook(Fire3));
-
-        internal static int BlizzardAoE => GetResourceCost(OriginalHook(Blizzard2));
-
-        internal static int BlizzardI => GetResourceCost(OriginalHook(Blizzard));
-
-        internal static int Freeze => GetResourceCost(OriginalHook(BLM.Freeze));
-
-        internal static int Despair => GetResourceCost(OriginalHook(BLM.Despair));
     }
 
     private static readonly FrozenDictionary<uint, ushort> ThunderList = new Dictionary<uint, ushort>
@@ -404,5 +390,4 @@ internal partial class BLM
     }
 
     #endregion
-
 }

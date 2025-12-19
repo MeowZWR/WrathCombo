@@ -1,0 +1,9 @@
+<Project>
+    <PropertyGroup Condition="
+    '$(MSBuildProjectName)' == 'ECommons'
+    Or '$(MSBuildProjectName)' == 'PunishLib'
+    Or '$(MSBuildProjectName)' == 'WrathCombo'">
+        <NoWarn>$(NoWarn);MSB3277</NoWarn>
+        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
+    </PropertyGroup>
+</Project>

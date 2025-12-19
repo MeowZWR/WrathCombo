@@ -144,6 +144,7 @@ public static class DebugFile
 
             AddDebugCode();
             AddSettingsHistory();
+            AddPluginList();
             AddDalamudLog();
 
             AddLine("END DEBUG LOG");
@@ -228,9 +229,9 @@ public static class DebugFile
         AddLine($"Current Zone: {currentZone}");
         AddLine($"Current Party Size: {GetPartyMembers().Count}");
         AddLine();
-        AddLine($"HP: {(float)(player.CurrentHp) / player.MaxHp * 100:F0}%");
+        AddLine($"HP: {(float)player.CurrentHp / player.MaxHp * 100:F0}%");
         AddLine($"+Shield: {player.ShieldPercentage:F0}%");
-        AddLine($"MP: {(float)(player.CurrentMp) / player.MaxMp * 100:F0}%");
+        AddLine($"MP: {(float)player.CurrentMp / player.MaxMp * 100:F0}%");
         AddLine("END PLAYER INFO");
 
         AddLine();
@@ -283,7 +284,7 @@ public static class DebugFile
             AddLine($"Is Casting: {battleTarget.IsCasting}");
             AddLine($"Is Cast Interruptable: {battleTarget.IsCastInterruptible}");
             AddLine();
-            AddLine($"HP: {(battleTarget.CurrentHp / battleTarget.MaxHp * 100):F0}%");
+            AddLine($"HP: {((float)battleTarget.CurrentHp / battleTarget.MaxHp * 100):F0}%");
             AddLine($"+Shield: {battleTarget.ShieldPercentage:F0}%");
 
             if (battleNPCRow is not null)
@@ -760,7 +761,23 @@ public static class DebugFile
 
         AddLine();
     }
-    
+
+    private static void AddPluginList()
+    {
+        var plugins = Svc.PluginInterface.InstalledPlugins
+            .Where(x => x.IsLoaded).ToArray();
+        AddLine($"Total Plugins Loaded: {plugins.Length}");
+
+        AddLine("START PLUGIN LIST");
+        foreach (var plugin in plugins)
+        {
+            AddLine($"- {plugin.InternalName} ({plugin.Name}) v{plugin.Version}");
+        }
+        AddLine("END PLUGIN LIST");
+
+        AddLine();
+    }
+
     /// <summary>
     ///     Gets the last lines of the dalamud log file.
     /// </summary>

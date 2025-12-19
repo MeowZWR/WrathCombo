@@ -185,7 +185,6 @@ internal partial class NIN
             _ => actionID,
         };
 
-        Svc.Log.Debug($"{ActionWatching.LastAction is not TCJSuiton && original != actionID}");
         return ActionWatching.LastAction is not TCJSuiton && original != actionID;
     }
     internal static bool AoETenChiJinDoton(ref uint actionID)
@@ -248,7 +247,7 @@ internal partial class NIN
             if (ActionWatching.TimeSinceLastAction.TotalSeconds >= 2 && OriginalHook(Ninjutsu) is Rabbit or Ninjutsu)
             {
                 InMudra = false;
-                ActionWatching.LastAction = 0;
+                //ActionWatching.LastAction = 0;
                 CurrentMudra = MudraState.None;
                 return false;
             }

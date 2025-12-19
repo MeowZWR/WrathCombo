@@ -9,6 +9,7 @@ using WrathCombo.Window.Functions;
 using BossAvoidance = WrathCombo.Combos.PvE.All.Enums.BossAvoidance;
 using PartyRequirement = WrathCombo.Combos.PvE.All.Enums.PartyRequirement;
 
+// ReSharper disable RedundantArgumentDefaultValue
 // ReSharper disable AccessToStaticMemberViaDerivedType
 // ReSharper disable once GrammarMistakeInComment
 // ReSharper disable SwitchStatementMissingSomeEnumCasesNoDefault
@@ -359,10 +360,6 @@ internal partial class DRK
                     break;
 
                 case Preset.DRK_Mit_TheBlackestNight:
-                    UserConfig.DrawSliderInt(1, 100, DRK_Mit_TBN_Health,
-                        startUsingAtDescriptionPlusDisable,
-                        itemWidth: medium, sliderIncrement: SliderIncrements.Tens);
-
                     UserConfig.DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 0,
                         "The Blackest Night Priority:");
@@ -401,7 +398,6 @@ internal partial class DRK
                         outputValue: (int)PartyRequirement.No, itemWidth: medium);
                     ImGui.Unindent();
 
-                    ImGui.NewLine();
                     UserConfig.DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 3,
                         "暗黑布道优先级：");
@@ -409,10 +405,6 @@ internal partial class DRK
                     break;
 
                 case Preset.DRK_Mit_Rampart:
-                    UserConfig.DrawSliderInt(1, 100, DRK_Mit_Rampart_Health,
-                        startUsingAtDescriptionPlusDisable,
-                        itemWidth: medium, sliderIncrement: SliderIncrements.Ones);
-
                     UserConfig.DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 4,
                         "铁壁优先级：");
@@ -438,7 +430,6 @@ internal partial class DRK
                         outputValue: (int)BossAvoidance.On, itemWidth: 125f);
                     ImGui.Unindent();
 
-                    ImGui.NewLine();
                     UserConfig.DrawSliderInt(0, 3, DRK_Mit_ArmsLength_EnemyCount,
                         "附近有多少敌人？（0 = 无要求）",
                         itemWidth: little, sliderIncrement: SliderIncrements.Ones);
@@ -1158,18 +1149,6 @@ internal partial class DRK
                 new("DRK_Mit_Priorities");
 
         /// <summary>
-        ///     Self HP% to use The Blackest Night below in the Mitigation Rotation.
-        /// </summary>
-        /// <value>
-        ///     <b>Default</b>: 60 <br />
-        ///     <b>Range</b>: 10 - 100 <br />
-        ///     <b>Step</b>: <see cref="SliderIncrements.Tens" />
-        /// </value>
-        /// <seealso cref="Preset.DRK_Mit_TheBlackestNight" />
-        public static UserInt DRK_Mit_TBN_Health =
-            new("DRK_Mit_TBN_Health", 60);
-
-        /// <summary>
         ///     Party requirement for using Dark Missionary in the Mitigation Rotation.
         /// </summary>
         /// <value>
@@ -1180,18 +1159,6 @@ internal partial class DRK
             DRK_Mit_DarkMissionary_PartyRequirement =
                 new("DRK_Mit_DarkMissionary_PartyRequirement",
                     (int)PartyRequirement.Yes);
-
-        /// <summary>
-        ///     Self HP% to use Rampart below in the Mitigation Rotation.
-        /// </summary>
-        /// <value>
-        ///     <b>Default</b>: 65 <br />
-        ///     <b>Range</b>: 40 - 100 <br />
-        ///     <b>Step</b>: <see cref="SliderIncrements.Fives" />
-        /// </value>
-        /// <seealso cref="Preset.DRK_Mit_Rampart" />
-        public static UserInt DRK_Mit_Rampart_Health =
-            new("DRK_Mit_Rampart_Health", 65);
 
         /// <summary>
         ///     Arm's Length Boss Restriction for Mitigation.

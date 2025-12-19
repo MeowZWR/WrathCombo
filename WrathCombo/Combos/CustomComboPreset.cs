@@ -233,6 +233,12 @@ public enum Preset
     [CustomComboInfo("Variant Spirit Dart", "Use Variant Spirit Dart whenever the debuff is not present or less than 3s", Job.ADV)]
     Variant_Tank_SpiritDart = 200004,
 
+    [Variant]
+    [Role(JobRole.Tank)]
+    [ParentCombo(Variant_Tank)]
+    [CustomComboInfo("Variant Eagle Eye Shot", "Use Variant Eagle Eye Shot on cooldown.", Job.ADV)]
+    Variant_Tank_EagleEyeShot = 200024,
+
 
     [Variant]
     [Role(JobRole.Healer)]
@@ -258,6 +264,12 @@ public enum Preset
     [ParentCombo(Variant_Healer)]
     [CustomComboInfo("Variant Rampart", "Use Variant Rampart on cooldown.", Job.ADV)]
     Variant_Healer_Rampart = 200008,
+
+    [Variant]
+    [Role(JobRole.Healer)]
+    [ParentCombo(Variant_Healer)]
+    [CustomComboInfo("Variant Eagle Eye Shot", "Use Variant Eagle Eye Shot on cooldown.", Job.ADV)]
+    Variant_Healer_EagleEyeShot = 200025,
 
 
     [Variant]
@@ -292,6 +304,12 @@ public enum Preset
     [CustomComboInfo("Variant Rampart", "Use Variant Rampart on cooldown.", Job.ADV)]
     Variant_Melee_Rampart = 200013,
 
+    [Variant]
+    [Role(JobRole.MeleeDPS)]
+    [ParentCombo(Variant_Melee)]
+    [CustomComboInfo("Variant Eagle Eye Shot", "Use Variant Eagle Eye Shot on cooldown.", Job.ADV)]
+    Variant_Melee_EagleEyeShot = 200026,
+
 
     [Variant]
     [Role(JobRole.RangedDPS)]
@@ -325,6 +343,12 @@ public enum Preset
     [CustomComboInfo("Variant Rampart", "Use Variant Rampart on cooldown.", Job.ADV)]
     Variant_PhysRanged_Rampart = 200018,
 
+    [Variant]
+    [Role(JobRole.RangedDPS)]
+    [ParentCombo(Variant_PhysRanged)]
+    [CustomComboInfo("Variant Eagle Eye Shot", "Use Variant Eagle Eye Shot on cooldown.", Job.ADV)]
+    Variant_PhysRanged_EagleEyeShot = 200027,
+
 
     [Variant]
     [Role(JobRole.MagicalDPS)]
@@ -357,6 +381,14 @@ public enum Preset
     [ParentCombo(Variant_Magic)]
     [CustomComboInfo("Variant Rampart", "Use Variant Rampart on cooldown.", Job.ADV)]
     Variant_Magic_Rampart = 200023,
+
+    [Variant]
+    [Role(JobRole.MagicalDPS)]
+    [ParentCombo(Variant_Magic)]
+    [CustomComboInfo("Variant Eagle Eye Shot", "Use Variant Eagle Eye Shot on cooldown.", Job.ADV)]
+    Variant_Magic_EagleEyeShot = 200028,
+
+    // last value = 200028
 
     #endregion
 
@@ -3626,22 +3658,6 @@ public enum Preset
     [CustomComboInfo("Tools", "Adds Hotshot, Drill, Air Anchor, Chainsaw and Excavator to the rotation.", Job.MCH)]
     MCH_ST_Adv_Tools = 8119,
 
-    [ParentCombo(MCH_ST_Adv_Tools)]
-    [CustomComboInfo("Drill Option", "Adds Drill to the rotation.", Job.MCH)]
-    MCH_ST_Adv_Drill = 8109,
-
-    [ParentCombo(MCH_ST_Adv_Tools)]
-    [CustomComboInfo("Hot Shot / Air Anchor Option", "Adds Hot Shot/Air Anchor to the rotation.", Job.MCH)]
-    MCH_ST_Adv_AirAnchor = 8102,
-
-    [ParentCombo(MCH_ST_Adv_Tools)]
-    [CustomComboInfo("Chain Saw Option", "Adds Chain Saw to the rotation.", Job.MCH)]
-    MCH_ST_Adv_Chainsaw = 8112,
-
-    [ParentCombo(MCH_ST_Adv_Tools)]
-    [CustomComboInfo("Excavator Option", "Adds Excavator to the rotation.\nWill follow Balance logic if selected on Turret/Queen.", Job.MCH)]
-    MCH_ST_Adv_Excavator = 8116,
-
     #endregion
 
     #region Queen
@@ -3732,22 +3748,6 @@ public enum Preset
     [ParentCombo(MCH_AoE_AdvancedMode)]
     [CustomComboInfo("Tools", "Adds Bioblaster, Air Anchor, Chainsaw and Excavator to the rotation.", Job.MCH)]
     MCH_AoE_Adv_Tools = 8315,
-
-    [ParentCombo(MCH_AoE_Adv_Tools)]
-    [CustomComboInfo("Bioblaster Option", "Adds Bioblaster to the rotation.", Job.MCH)]
-    MCH_AoE_Adv_Bioblaster = 8306,
-
-    [ParentCombo(MCH_AoE_Adv_Tools)]
-    [CustomComboInfo("Air Anchor Option", "Adds Air Anchor to the the rotation.", Job.MCH)]
-    MCH_AoE_Adv_AirAnchor = 8313,
-
-    [ParentCombo(MCH_AoE_Adv_Tools)]
-    [CustomComboInfo("Chain Saw Option", "Adds Chain Saw to the the rotation.", Job.MCH)]
-    MCH_AoE_Adv_Chainsaw = 8309,
-
-    [ParentCombo(MCH_AoE_Adv_Tools)]
-    [CustomComboInfo("Excavator Option", "Adds Excavator to the rotation.", Job.MCH)]
-    MCH_AoE_Adv_Excavator = 8310,
     
     #endregion
 
@@ -4921,7 +4921,7 @@ public enum Preset
     PLD_Mit_Bulwark = 11055,
 
     [ParentCombo(PLD_Mit_OneButton)]
-    [CustomComboInfo("Hallowed Ground Option", "Adds Hallowed Ground to the one-button mitigation.", Job.PLD)]
+    [CustomComboInfo("Hallowed Ground Option", "Adds Hallowed Ground to the one-button mitigation (not at max priority).", Job.PLD)]
     PLD_Mit_HallowedGround = 11056,
 
     [ParentCombo(PLD_Mit_OneButton)]
@@ -4960,53 +4960,53 @@ public enum Preset
 
     [ReplaceSkill(PLD.Clemency)]
     [CustomComboInfo("Retarget Clemency Feature", "Will retarget Clemency according to following Suboptions", Job.PLD)]
-    [Retargeted(PLD.Clemency)]
+    [Retargeted]
     PLD_RetargetClemency = 11067,
 
     [ParentCombo(PLD_RetargetClemency)]
     [CustomComboInfo("Mouseover Clemency Option", "Adds UI mouseover to the priority. Above LowHP option.", Job.PLD)]
-    [Retargeted]
+    [Retargeted(PLD.Clemency)]
     PLD_RetargetClemency_MO = 11071,
 
     [ParentCombo(PLD_RetargetClemency)]
     [CustomComboInfo("Low hp Clemency Option", "Will Heal Lowest Health Party member until you fall below set threshold", Job.PLD)]
-    [Retargeted]
+    [Retargeted(PLD.Clemency)]
     PLD_RetargetClemency_LowHP = 11072,
 
     [ReplaceSkill(PLD.Sheltron)]
     [CustomComboInfo("Sheltron to Intervention Feature", "Will use intervention on your Hard Target if target is a friendly party member, if not then Sheltron." +
                                                          "\n- UI Mouseover > Hard target > Target's target > Self Sheltron", Job.PLD)]
-    [Retargeted(PLD.Sheltron)]
+    [Retargeted]
     PLD_RetargetSheltron = 11068,
 
     [ParentCombo(PLD_RetargetSheltron)]
     [CustomComboInfo("Mouseover Intervention Option", "Adds UI mouseover to the priority.", Job.PLD)]
-    [Retargeted]
+    [Retargeted(PLD.Sheltron)]
     PLD_RetargetSheltron_MO = 11069,
 
     [ParentCombo(PLD_RetargetSheltron)]
     [CustomComboInfo("Target's Target Intervention Option", "Adds Target's Target to the priority when you do not have agro.", Job.PLD)]
-    [Retargeted]
+    [Retargeted(PLD.Sheltron)]
     PLD_RetargetSheltron_TT = 11070,
 
-    [Retargeted(PLD.ShieldBash)]
     [ConflictingCombos(ALL_Tank_Interrupt)]
     [CustomComboInfo("Retarget Shield Bash", "Redirects your Shield Bash to a stunnable enemy if your current target cannot be stunned.", Job.PLD)]
+    [Retargeted(PLD.ShieldBash)]
     PLD_RetargetShieldBash = 11073,
     
     [ReplaceSkill(PLD.Cover)]
     [CustomComboInfo("Retarget Cover Feature", "Will retarget Cover according to the following options", Job.PLD)]
-    [Retargeted(PLD.Cover)]
+    [Retargeted]
     PLD_RetargetCover = 11075,
     
     [ParentCombo(PLD_RetargetCover)]
-    [CustomComboInfo("Mouseover Cover Option", "Adds UI mouseover to the priority. Above LowHP option.", Job.PLD)]
-    [Retargeted]
+    [CustomComboInfo("Mouseover Cover Option", "Adds UI mouseover to the priority, above Low HP option in priority.", Job.PLD)]
+    [Retargeted(PLD.Cover)]
     PLD_RetargetCover_MO = 11076,
 
     [ParentCombo(PLD_RetargetCover)]
-    [CustomComboInfo("Low hp Cover Option", "Will Heal Lowest Health Party member until you fall below set threshold", Job.PLD)]
-    [Retargeted]
+    [CustomComboInfo("Low HP% Cover Option", "Will Cover the Lowest Health (by percentage) Party member when they fall below set threshold", Job.PLD)]
+    [Retargeted(PLD.Cover)]
     PLD_RetargetCover_LowHP = 11077,
 
     #endregion
@@ -5331,7 +5331,7 @@ public enum Preset
 
     [ParentCombo(RDM_ST_DPS)]
     [CustomComboInfo("Opener (Level 100)",
-        "Adds the opener at level 100.\n**Must move into melee range before melee combo for standard**", Job.RDM)]
+        "Adds the opener at level 100.\n**Standard Opener must move into melee range to use Corps/Engagement**", Job.RDM)]
     RDM_Balance_Opener = 13002,
 
     [ParentCombo(RDM_ST_DPS)]
@@ -5363,7 +5363,7 @@ public enum Preset
 
     [ParentCombo(RDM_ST_MeleeCombo)]
     [CustomComboInfo("Gap-Close with Corps-a-corps Option",
-        "Use Corp-a-corps when out of melee range and you have enough mana to start the melee combo or starting Manafication Burst.", Job.RDM)]
+        "Use Corp-a-corps when out of melee range and you have enough mana to start the melee combo.", Job.RDM)]
     RDM_ST_MeleeCombo_GapCloser = 13008,
 
     [ParentCombo(RDM_ST_MeleeCombo)]
@@ -6133,7 +6133,7 @@ public enum Preset
     SAM_ST_CDs_MeikyoShisui = 15018,
 
     [ParentCombo(SAM_ST_CDs)]
-    [CustomComboInfo("Ikishoten Option", "Adds Ikishoten when at or below 50 Kenki.\nWill dump Kenki at 10 seconds left to allow Ikishoten to be used.", Job.SAM)]
+    [CustomComboInfo("Ikishoten Option", "Adds Ikishoten when at or below 50 Kenki.\nPRE 94: Will dump Kenki at 10 seconds left to allow Ikishoten to be used.\nPOST 94: Will use during burst window.", Job.SAM)]
     SAM_ST_CDs_Ikishoten = 15012,
 
     #endregion
@@ -8340,6 +8340,12 @@ public enum Preset
         "Will try to weave LiturgyOfTheBell when a raidwide casting. " +
         "\nWill be used in all 4 main combos.", Job.WHM)]
     WHM_Raidwide_LiturgyOfTheBell = 19223,
+    
+    [ParentCombo(WHM_Raidwide)]
+    [CustomComboInfo("RaidWide Plenary Indulgence Option",
+        "Will try to weave Plenary Indulgence when a raidwide casting. " +
+        "\nWill be used in all 4 main combos.", Job.WHM)]
+    WHM_Raidwide_PlenaryIndulgence = 19224,
 
     #endregion
 

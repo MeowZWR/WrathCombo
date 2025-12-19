@@ -81,11 +81,9 @@ internal partial class WAR
             WAR_Mit_Bloodwhetting_Health = new("WAR_Mit_Bloodwhetting_Health", 70),
             WAR_Mit_Equilibrium_Health = new("WAR_Mit_Equilibrium_Health", 45),
             WAR_Mit_ThrillOfBattle_Health = new("WAR_Mit_ThrillOfBattle_Health", 60),
-            WAR_Mit_Rampart_Health = new("WAR_Mit_Rampart_Health", 65),
             WAR_Mit_ShakeItOff_PartyRequirement = new("WAR_Mit_ShakeItOff_PartyRequirement", (int)PartyRequirement.Yes),
             WAR_Mit_ArmsLength_Boss = new("WAR_Mit_ArmsLength_Boss", (int)BossAvoidance.On),
             WAR_Mit_ArmsLength_EnemyCount = new("WAR_Mit_ArmsLength_EnemyCount", 0),
-            WAR_Mit_Vengeance_Health = new("WAR_Mit_Vengeance_Health", 50),
             WAR_Bozja_LostCure_Health = new("WAR_Bozja_LostCure_Health", 50),
             WAR_Bozja_LostCure2_Health = new("WAR_Bozja_LostCure2_Health", 50),
             WAR_Bozja_LostCure3_Health = new("WAR_Bozja_LostCure3_Health", 50),
@@ -436,9 +434,6 @@ internal partial class WAR
                     break;
 
                 case Preset.WAR_Mit_Rampart:
-                    DrawSliderInt(1, 100, WAR_Mit_Rampart_Health,
-                        "HP% to use at or below (100 = Disable check)", sliderIncrement: SliderIncrements.Ones);
-
                     DrawPriorityInput(WAR_Mit_Priorities, NumMitigationOptions, 4,
                         "Rampart Priority:");
                     break;
@@ -452,8 +447,6 @@ internal partial class WAR
                         "总是使用", "使用摆脱时不要求有队伍。",
                         outputValue: (int)PartyRequirement.No);
                     ImGui.Unindent();
-
-                    ImGui.NewLine();
                     DrawPriorityInput(WAR_Mit_Priorities, NumMitigationOptions, 5,
                         "摆脱优先级：");
                     break;
@@ -467,16 +460,12 @@ internal partial class WAR
                         "避免Boss", "Boss战时尽量不使用亲疏自行。",
                         outputValue: (int)BossAvoidance.On, itemWidth: 125f);
                     ImGui.Unindent();
-                    ImGui.NewLine();
                     DrawSliderInt(0, 3, WAR_Mit_ArmsLength_EnemyCount,
                         "附近需要多少敌人？（0=无要求）");
                     DrawPriorityInput(WAR_Mit_Priorities, NumMitigationOptions, 6, "Arm'亲疏自行优先级：");
                     break;
 
                 case Preset.WAR_Mit_Vengeance:
-                    DrawSliderInt(1, 100, WAR_Mit_Vengeance_Health,
-                        "血量低于等于此值时使用（100=禁用检测）",
-                        sliderIncrement: SliderIncrements.Ones);
                     DrawPriorityInput(WAR_Mit_Priorities, NumMitigationOptions, 7, "复仇优先级：");
                     break;
                 #endregion

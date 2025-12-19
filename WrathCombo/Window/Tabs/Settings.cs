@@ -559,7 +559,7 @@ internal class Settings : ConfigWindow
         ImGui.SameLine();
         ImGui.SetNextItemWidth(searchWidth);
         ImGui.InputTextWithHint(
-            "", searchHintText,
+            "##settingsSearch", searchHintText,
             ref Search, 30,
             ImGuiInputTextFlags.AutoSelectAll);
     }
