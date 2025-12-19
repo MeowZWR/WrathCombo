@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using Dalamud.Interface;
 using Dalamud.Interface.Colors;
@@ -26,7 +26,7 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
     /// <summary>
     ///     Create a major changes window, with some settings about it.
     /// </summary>
-    public MajorChangesWindow() : base("Wrath Combo | New Changes")
+    public MajorChangesWindow() : base("Wrath Combo | 新变更")
     {
         PluginLog.Debug(
             "MajorChangesWindow: " +
@@ -48,7 +48,7 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
     /// </summary>
     public override void Draw()
     {
-        PadOutMinimumWidthFor("Wrath Combo | New Changes");
+        PadOutMinimumWidthFor("Wrath Combo | 新变更");
 
         /*ImGuiEx.Spacing(new System.Numerics.Vector2(0, 10));
         ImGui.Separator();
@@ -56,21 +56,21 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
 
         #region NIN
 
-        ImGuiEx.TextUnderlined("NIN Ninjitsu-related settings have been restructured");
+        ImGuiEx.TextUnderlined("忍者忍术相关设置已重新构建");
         if (WasUsingOldNINConfigs)
             ImGuiEx.Text(ImGuiColors.DalamudYellow,
-                "You were using one of these options! Please Read!");
+                "您正在使用这些选项之一！请仔细阅读！");
         ImGuiEx.Text(
-            "Ninja's Ninjitsu-related settings are now each their own Feature,\n" +
-            "instead of checkboxes under the Ninjitsu Option.\n" +
-            "If you were using one of these options then you'll need to setup these new settings.\n\n" +
-            "You can find these moved settings here:\n" +
-            "PvE Features > NIN > Single Target and AoE Advanced > Ninjitsu Option");
+            "忍者的忍术相关设置现在各自成为独立的功能，\n" +
+            "而不再是忍术选项下的复选框。\n" +
+            "如果您正在使用这些选项之一，则需要重新设置这些新设置。\n\n" +
+            "您可以在以下位置找到这些已移动的设置：\n" +
+            "PvE功能 > 忍者 > 单体目标和范围攻击高级 > 忍术选项");
         ImGui.NewLine();
-        if (ImGui.Button("> Open Ninja's Config##majorSettings2"))
+        if (ImGui.Button("> 打开忍者配置##majorSettings2"))
             P.HandleOpenCommand(["NIN"], forceOpen: true);
         ImGui.SameLine();
-        ImGui.Text("(then just search for Ninjitsu)");
+        ImGui.Text("（然后搜索\"Ninjitsu\"即可）");
 
         #endregion
 
@@ -79,10 +79,10 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
         ImGuiEx.Spacing(new System.Numerics.Vector2(0, 20));
         ImGui.Separator();
         ImGuiHelpers.CenterCursorFor(
-            ImGuiHelpers.GetButtonSize("Close and Do Not Show again").X
+            ImGuiHelpers.GetButtonSize("关闭且不再显示").X
             //+ ImGui.GetStyle().ItemSpacing.X * 2
         );
-        if (ImGui.Button("Close and Do Not Show again"))
+        if (ImGui.Button("关闭且不再显示"))
         {
             Service.Configuration.HideMajorChangesForVersion = Version;
             Service.Configuration.Save();
