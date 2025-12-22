@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using WrathCombo.API.Enum;
 using WrathCombo.Attributes;
 using WrathCombo.AutoRotation;
 using WrathCombo.Core;

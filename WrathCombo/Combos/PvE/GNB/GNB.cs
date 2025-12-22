@@ -619,7 +619,7 @@ internal partial class GNB : Tank
     internal class GNB_Mit_Party : CustomCombo
     {
         protected internal override Preset Preset => Preset.GNB_Mit_Party;
-        protected override uint Invoke(uint action) => action != HeartOfLight ? action : ActionReady(Role.Reprisal) ? Role.Reprisal : action;
+        protected override uint Invoke(uint action) => action != HeartOfLight ? action : Role.CanReprisal() ? Role.Reprisal : action;
     }
     #endregion
 

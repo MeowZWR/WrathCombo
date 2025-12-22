@@ -1,4 +1,6 @@
-﻿using Dalamud.Interface.Components;
+﻿#region
+
+using Dalamud.Interface.Components;
 using Dalamud.Interface.Utility.Raii;
 using ECommons;
 using ECommons.DalamudServices;
@@ -12,6 +14,10 @@ using WrathCombo.Extensions;
 using WrathCombo.Services;
 using WrathCombo.Services.IPC;
 using WrathCombo.Services.IPC_Subscriber;
+using WrathCombo.API.Enum;
+
+#endregion
+
 namespace WrathCombo.Window.Tabs;
 
 internal class AutoRotationTab : ConfigWindow
@@ -85,7 +91,7 @@ internal class AutoRotationTab : ConfigWindow
                                        "手动非玩家 - 手动选择非玩家目标。");
             ImGui.Spacing();
 
-            if (cfg.DPSRotationMode == AutoRotation.DPSRotationMode.Manual)
+            if (cfg.DPSRotationMode is DPSRotationMode.Manual)
             {
                 changed |= ImGui.Checkbox("强制选择最佳AOE目标", ref cfg.DPSSettings.AoEIgnoreManual);
 

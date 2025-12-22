@@ -3,7 +3,7 @@
     '$(MSBuildProjectName)' == 'ECommons'
     Or '$(MSBuildProjectName)' == 'PunishLib'
     Or '$(MSBuildProjectName)' == 'WrathCombo'">
-        <NoWarn>$(NoWarn);MSB3277</NoWarn>
-        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
+        <NoWarn>$(NoWarn);MSB3277;MSB3245</NoWarn>
+        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277;MSB3245</MSBuildWarningsAsMessages>
     </PropertyGroup>
 </Project>

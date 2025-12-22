@@ -10,6 +10,8 @@ internal partial class SMN
     {
         #region Options
         public static UserInt
+            SMN_ST_Simple_Combo_Gapclose = new("SMN_ST_Simple_Combo_Gapclose"),
+            
             SMN_ST_Advanced_Combo_AltMode = new("SMN_ST_Advanced_Combo_AltMode"),
             SMN_ST_Lucid = new("SMN_ST_Lucid", 8000),
             SMN_ST_SwiftcastPhase = new("SMN_SwiftcastPhase", 1),
@@ -35,6 +37,11 @@ internal partial class SMN
             switch (preset)
             {
                 #region Single Target
+                case Preset.SMN_ST_Simple_Combo:
+                    DrawHorizontalRadioButton(SMN_ST_Simple_Combo_Gapclose, "Safe Mode (Will not gap close)", "Will only use Crimson Cyclone when in Melee Range", 0);
+                    DrawHorizontalRadioButton(SMN_ST_Simple_Combo_Gapclose, "Standard Rotation", "Will gap close with Crimson Cyclone.", 1 );
+                    break;
+                    
                 case Preset.SMN_ST_Advanced_Combo:
                     DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, "在毁灭、毁坏和毁荡上", "", 0);
                     DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, "仅在毁灭和毁坏上", "替代DPS模式。保持毁荡独立以获得纯DPS。", 1);
@@ -130,8 +137,8 @@ internal partial class SMN
                     break;
                     #endregion
 
-                    #region Standalones
-                    #endregion
+                #region Standalones
+                #endregion
             }
         }
     }

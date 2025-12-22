@@ -10,6 +10,7 @@ using Lumina.Excel.Sheets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WrathCombo.API.Enum;
 using WrathCombo.AutoRotation;
 using WrathCombo.Core;
 using WrathCombo.Data;

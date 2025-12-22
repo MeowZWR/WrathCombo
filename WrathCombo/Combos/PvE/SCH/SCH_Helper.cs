@@ -296,6 +296,11 @@ internal partial class SCH
             ([13], Dissipation, () => SCH_ST_DPS_OpenerOption == 1)
         ];
 
+        public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
+        [
+            ([7,9,11,17,19,21], () => Gauge.Aetherflow == 0)
+        ];
+
         public override int MinOpenerLevel => 100;
         public override int MaxOpenerLevel => 109;
 

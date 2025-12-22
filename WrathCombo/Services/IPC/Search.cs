@@ -7,15 +7,14 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using WrathCombo.API.Enum;
 using WrathCombo.Attributes;
-using WrathCombo.Combos;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Window.Tabs;
 using EZ = ECommons.Throttlers.EzThrottler;
 using TS = System.TimeSpan;
-using static ECommons.ExcelServices.ExcelJobHelper;
 
 #endregion
 

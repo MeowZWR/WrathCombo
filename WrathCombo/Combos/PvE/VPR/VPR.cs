@@ -21,12 +21,7 @@ internal partial class VPR : Melee
             //oGCDs
             if (CanWeave())
             {
-                //Serpents Ire
-                if (InCombat() && !MaxCoils() &&
-                    ActionReady(SerpentsIre))
-                    return SerpentsIre;
-
-                // Legacy Weaves
+               // Legacy Weaves
                 if (LevelChecked(SerpentsTail) &&
                     (Legacyweaves || DeathRattleWeave) && InRange())
                     return OriginalHook(SerpentsTail);
@@ -46,8 +41,13 @@ internal partial class VPR : Melee
 
                     if (HasStatusEffect(Buffs.SwiftskinsVenom))
                         return OriginalHook(Twinblood);
+                    
+                    //Serpents Ire
+                    if (InCombat() && !MaxCoils() &&
+                        ActionReady(SerpentsIre))
+                        return SerpentsIre;
                 }
-
+                
                 // healing
                 if (Role.CanSecondWind(40))
                     return Role.SecondWind;
@@ -325,18 +325,12 @@ internal partial class VPR : Melee
             //oGCDs
             if (CanWeave())
             {
-                //Serpents Ire
-                if (IsEnabled(Preset.VPR_ST_SerpentsIre) && InCombat() &&
-                    !MaxCoils() && ActionReady(SerpentsIre) &&
-                    (VPR_ST_SerpentsIre_SubOption == 0 || InBossEncounter()))
-                    return SerpentsIre;
-
                 // Death Rattle / Legacy Weaves
                 if ((IsEnabled(Preset.VPR_ST_SerpentsTail) && DeathRattleWeave ||
                      IsEnabled(Preset.VPR_ST_LegacyWeaves) && Legacyweaves) &&
                     LevelChecked(SerpentsTail) && InRange())
                     return OriginalHook(SerpentsTail);
-
+                
                 // Fury Twin Weaves
                 if (IsEnabled(Preset.VPR_ST_UncoiledFuryCombo))
                 {
@@ -357,7 +351,13 @@ internal partial class VPR : Melee
                     if (HasStatusEffect(Buffs.SwiftskinsVenom))
                         return OriginalHook(Twinblood);
                 }
-
+                
+                //Serpents Ire
+                if (IsEnabled(Preset.VPR_ST_SerpentsIre) && InCombat() &&
+                    !MaxCoils() && ActionReady(SerpentsIre) &&
+                    (VPR_ST_SerpentsIre_SubOption == 0 || InBossEncounter()))
+                    return SerpentsIre;
+                
                 if (IsEnabled(Preset.VPR_ST_Feint) &&
                     Role.CanFeint() &&
                     RaidWideCasting())

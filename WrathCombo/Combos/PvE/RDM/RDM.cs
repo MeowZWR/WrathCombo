@@ -43,7 +43,7 @@ internal partial class RDM : Caster
                 if (CanEngagement && PoolEngagement)
                     return Engagement;
 
-                if (CanCorps && InMeleeRange())
+                if (CanCorps && InMeleeRange() && !IsMoving())
                     return Corpsacorps;
 
                 if (CanPrefulgence && HasEmbolden)
@@ -140,7 +140,7 @@ internal partial class RDM : Caster
                 if (CanEngagement && PoolEngagement)
                     return Engagement;
 
-                if (CanCorps && InMeleeRange())
+                if (CanCorps && InMeleeRange() && !IsMoving())
                     return Corpsacorps;
 
                 if (CanPrefulgence && HasEmbolden)

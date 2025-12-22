@@ -1,4 +1,6 @@
-﻿using Dalamud.Game.ClientState.Conditions;
+﻿#region
+
+using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Game.ClientState.Objects.Types;
 using ECommons;
 using ECommons.DalamudServices;
@@ -13,16 +15,19 @@ using System.Linq;
 using System.Numerics;
 using WrathCombo.Attributes;
 using WrathCombo.Combos.PvE;
+using WrathCombo.Combos.PvE.Enums;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
-using WrathCombo.Services.ActionRequestIPC;
 using WrathCombo.Services.IPC_Subscriber;
 using WrathCombo.Window.Functions;
+using WrathCombo.API.Enum;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 using static WrathCombo.Data.ActionWatching;
 using ActionType = FFXIVClientStructs.FFXIV.Client.Game.ActionType;
+
+#endregion
 
 #pragma warning disable CS0414 // Field is assigned but its value is never used
 
@@ -202,7 +207,8 @@ internal unsafe static class AutoRotationController
             OccultCrescent.IsEnabledAndUsable(Preset.Phantom_Chemist_Revive, OccultCrescent.Revive) ||
             Variant.CanRaise())
         {
-            if (!needsHeal)
+            if (!needsHeal && WrathOpener.CurrentOpener.CurrentState is not 
+                OpenerState.InOpener)
             {
                 if (cfg.HealerSettings.AutoCleanse && isHealer)
                     CleanseParty();

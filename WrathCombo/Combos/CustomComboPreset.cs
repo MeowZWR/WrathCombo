@@ -4754,8 +4754,20 @@ public enum Preset
     PLD_ST_AdvancedMode_Sheltron = 11007,
 
     [ParentCombo(PLD_ST_AdvancedMode_Mitigation)]
-    [CustomComboInfo("Rampart Option", "Adds Rampart.\n- Player HP must be under:", Job.PLD)]
-    PLD_ST_AdvancedMode_Rampart = 11039,
+    [CustomComboInfo("Reprisal Option", "Uses Reprisal when a raidwide is in the process of casting.", Job.PLD)]
+    PLD_ST_AdvancedMode_Reprisal = 11080,
+
+    [ParentCombo(PLD_ST_AdvancedMode_Mitigation)]
+    [CustomComboInfo("Divine Veil Option", "Uses Divine Veil when a raidwide is in the process of casting.", Job.PLD)]
+    PLD_ST_AdvancedMode_DivineVeil = 11081,
+
+    [ParentCombo(PLD_ST_AdvancedMode_DivineVeil)]
+    [CustomComboInfo("Avoid Doubling up on Group Mit", "Won't use Divine Veil if your own Reprisal is on the target.", Job.PLD)]
+    PLD_ST_AdvancedMode_DivineVeilAvoid = 11082,
+
+    [ParentCombo(PLD_ST_AdvancedMode_Mitigation)]
+    [CustomComboInfo("Bulwark Option", "Adds Bulwark.\n- Player HP must be under:", Job.PLD)]
+    PLD_ST_AdvancedMode_Bulwark = 11079,
 
     [ParentCombo(PLD_ST_AdvancedMode_Mitigation)]
     [CustomComboInfo("Sentinel Option", "Adds Sentinel.\n- Player HP must be under:", Job.PLD)]
@@ -4858,8 +4870,24 @@ public enum Preset
     PLD_AoE_AdvancedMode_Sheltron = 11023,
 
     [ParentCombo(PLD_AoE_AdvancedMode_Mitigation)]
+    [CustomComboInfo("Reprisal Option", "Adds Reprisal.\n- Player HP must be under:", Job.PLD)]
+    PLD_AoE_AdvancedMode_Reprisal = 11083,
+
+    [ParentCombo(PLD_AoE_AdvancedMode_Mitigation)]
+    [CustomComboInfo("Divine Veil Option", "Adds Divine Veil.\n- Player HP must be under:", Job.PLD)]
+    PLD_AoE_AdvancedMode_DivineVeil = 11084,
+    
+    [ParentCombo(PLD_AoE_AdvancedMode_Mitigation)]
     [CustomComboInfo("Rampart Option", "Adds Rampart.\n- Player HP must be under:", Job.PLD)]
     PLD_AoE_AdvancedMode_Rampart = 11043,
+
+    [ParentCombo(PLD_AoE_AdvancedMode_Mitigation)]
+    [CustomComboInfo("Arms's Length Option", "Adds Arm's Length.", Job.PLD)]
+    PLD_AoE_AdvancedMode_ArmsLength = 11085,
+    
+    [ParentCombo(PLD_AoE_AdvancedMode_Mitigation)]
+    [CustomComboInfo("Bulwark Option", "Adds Bulwark.\n- Player HP must be under:", Job.PLD)]
+    PLD_AoE_AdvancedMode_Bulwark = 11078,
 
     [ParentCombo(PLD_AoE_AdvancedMode_Mitigation)]
     [CustomComboInfo("Sentinel Option", "Adds Sentinel.\n- Player HP must be under:", Job.PLD)]
@@ -4907,23 +4935,19 @@ public enum Preset
     PLD_Mit_Rampart = 11052,
 
     [ParentCombo(PLD_Mit_OneButton)]
-    [CustomComboInfo("Sentinel Option", "Adds Sentinel / Guardian to the one-button mitigation.", Job.PLD)]
-    PLD_Mit_Sentinel = 11053,
-
+    [CustomComboInfo("Bulwark Option",
+        "Adds Bulwark to the one-button mitigation." +
+        "\nNOTE: even if disabled, will still try to use Bulwark as the lowest priority.", Job.PLD)]
+    PLD_Mit_Bulwark = 11055,
+    
     [ParentCombo(PLD_Mit_OneButton)]
     [CustomComboInfo("Arm's Length Option", "Adds Arm's Length to the one-button mitigation.", Job.PLD)]
     PLD_Mit_ArmsLength = 11054,
 
     [ParentCombo(PLD_Mit_OneButton)]
-    [CustomComboInfo("Bulwark Option",
-        "Adds Bulwark to the one-button mitigation." +
-        "\nNOTE: even if disabled, will still try to use Bulwark as the lowest priority.", Job.PLD)]
-    PLD_Mit_Bulwark = 11055,
-
-    [ParentCombo(PLD_Mit_OneButton)]
-    [CustomComboInfo("Hallowed Ground Option", "Adds Hallowed Ground to the one-button mitigation (not at max priority).", Job.PLD)]
-    PLD_Mit_HallowedGround = 11056,
-
+    [CustomComboInfo("Sentinel Option", "Adds Sentinel / Guardian to the one-button mitigation.", Job.PLD)]
+    PLD_Mit_Sentinel = 11053,
+    
     [ParentCombo(PLD_Mit_OneButton)]
     [CustomComboInfo("Clemency Option", "Adds Clemency to the one-button mitigation.", Job.PLD)]
     PLD_Mit_Clemency = 11057,
@@ -5011,7 +5035,7 @@ public enum Preset
 
     #endregion
 
-    //// Last value = 11077
+    //// Last value = 11085
 
     #endregion
 
@@ -7470,36 +7494,37 @@ public enum Preset
     WAR_ST_Mitigation = 18040,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Bloodwhetting Option", "Adds Raw Intuition / Bloodwhetting into the rotation based on Health percentage remaining.", Job.WAR)]
+    [CustomComboInfo("Bloodwhetting Option", "Adds Raw Intuition / Bloodwhetting.\n- Player HP must be under:", Job.WAR)]
     WAR_ST_Bloodwhetting = 18031,
-
+    
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Equilibrium Option", "Adds Equilibrium into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_ST_Equilibrium = 18043,
-
-    [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Rampart Option", "Adds Rampart into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_ST_Rampart = 18032,
-
-    [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Thrill of Battle Option", "Adds Thrill of Battle into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_ST_Thrill = 18042,
-
-    [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Vengeance Option", "Adds Vengeance / Damnation into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_ST_Vengeance = 18033,
-
-    [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Holmgang Option", "Adds Holmgang into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_ST_Holmgang = 18034,
-
-    [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Reprisal Option", "Adds Reprisal into the rotation based on Health percentage remaining.", Job.WAR)]
+    [CustomComboInfo("Reprisal Option", "Uses Reprisal when a raidwide is in the process of casting.", Job.WAR)]
     WAR_ST_Reprisal = 18061,
 
     [ParentCombo(WAR_ST_Mitigation)]
-    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_ST_ArmsLength = 18062,
+    [CustomComboInfo("Shake it Off Option", "Uses Shake it Off when a raidwide is in the process of casting.", Job.WAR)]
+    WAR_ST_ShakeItOff = 18131,
+
+    [ParentCombo(WAR_ST_ShakeItOff)]
+    [CustomComboInfo("Avoid Doubling up on Group Mit", "Won't use Shake it Off if your own Reprisal is on the target.", Job.WAR)]
+    WAR_ST_ShakeItOffAvoid = 18132,
+
+    [ParentCombo(WAR_ST_Mitigation)]
+    [CustomComboInfo("Equilibrium Option", "Adds Equilibrium.\n- Player HP must be under:", Job.WAR)]
+    WAR_ST_Equilibrium = 18043,
+    
+    [ParentCombo(WAR_ST_Mitigation)]
+    [CustomComboInfo("Thrill of Battle Option", "Adds Thrill of Battle.\n- Player HP must be under:", Job.WAR)]
+    WAR_ST_Thrill = 18042,
+
+    [ParentCombo(WAR_ST_Mitigation)]
+    [CustomComboInfo("Vengeance Option", "Adds Vengeance / Damnation.\n- Player HP must be under:", Job.WAR)]
+    WAR_ST_Vengeance = 18033,
+
+    [ParentCombo(WAR_ST_Mitigation)]
+    [CustomComboInfo("Holmgang Option", "Adds Holmgang.\n- Player HP must be under:", Job.WAR)]
+    WAR_ST_Holmgang = 18034,
+
     #endregion
 
     #endregion
@@ -7562,36 +7587,41 @@ public enum Preset
     WAR_AoE_Mitigation = 18035,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Bloodwhetting Option", "Adds Raw Intuition / Bloodwhetting into the rotation based on Health percentage remaining.", Job.WAR)]
+    [CustomComboInfo("Bloodwhetting Option", "Adds Raw Intuition / Bloodwhetting.\n- Player HP must be under:", Job.WAR)]
     WAR_AoE_Bloodwhetting = 18036,
+    
+    [ParentCombo(WAR_AoE_Mitigation)]
+    [CustomComboInfo("Reprisal Option", "Adds Reprisal.\n- Player HP must be under:", Job.WAR)]
+    WAR_AoE_Reprisal = 18063,
+
+    [ParentCombo(PLD_AoE_AdvancedMode_Mitigation)]
+    [CustomComboInfo("Shake it Off Option", "Adds Shake it Off.\n- Player HP must be under:", Job.WAR)]
+    WAR_AoE_ShakeItOff = 18133,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Equilibrium Option", "Adds Equilibrium into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_AoE_Equilibrium = 18044,
-
-    [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Rampart Option", "Adds Rampart into the rotation based on Health percentage remaining.", Job.WAR)]
+    [CustomComboInfo("Rampart Option", "Adds Rampart.\n- Player HP must be under:", Job.WAR)]
     WAR_AoE_Rampart = 18037,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Thrill of Battle Option", "Adds Thrill of Battle into the rotation based on Health percentage remaining.", Job.WAR)]
+    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length.", Job.WAR)]
+    WAR_AoE_ArmsLength = 18064,
+
+    [ParentCombo(WAR_AoE_Mitigation)]
+    [CustomComboInfo("Equilibrium Option", "Adds Equilibrium.\n- Player HP must be under:", Job.WAR)]
+    WAR_AoE_Equilibrium = 18044,
+    
+    [ParentCombo(WAR_AoE_Mitigation)]
+    [CustomComboInfo("Thrill of Battle Option", "Adds Thrill of Battle.\n- Player HP must be under:", Job.WAR)]
     WAR_AoE_Thrill = 18041,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Vengeance Option", "Adds Vengeance / Damnation into the rotation based on Health percentage remaining.", Job.WAR)]
+    [CustomComboInfo("Vengeance Option", "Adds Vengeance / Damnation.\n- Player HP must be under:", Job.WAR)]
     WAR_AoE_Vengeance = 18038,
 
     [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Holmgang Option", "Adds Holmgang into the rotation based on Health percentage remaining.", Job.WAR)]
+    [CustomComboInfo("Holmgang Option", "Adds Holmgang.\n- Player HP must be under:", Job.WAR)]
     WAR_AoE_Holmgang = 18039,
-
-    [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Reprisal Option", "Adds Reprisal into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_AoE_Reprisal = 18063,
-
-    [ParentCombo(WAR_AoE_Mitigation)]
-    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length into the rotation based on Health percentage remaining.", Job.WAR)]
-    WAR_AoE_ArmsLength = 18064,
+    
     #endregion
 
     #endregion

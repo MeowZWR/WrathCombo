@@ -247,7 +247,7 @@ internal partial class NIN
             if (ActionWatching.TimeSinceLastAction.TotalSeconds >= 2 && OriginalHook(Ninjutsu) is Rabbit or Ninjutsu)
             {
                 InMudra = false;
-                //ActionWatching.LastAction = 0;
+                ActionWatching.LastAction = 0;
                 CurrentMudra = MudraState.None;
                 return false;
             }

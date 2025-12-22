@@ -337,7 +337,7 @@ internal partial class GNB
                         "Avoid Bosses", "Will try not to use Arm's Length when in a boss fight.",
                         (int)BossAvoidance.On, 125f);
                     ImGui.Unindent();
-                    DrawSliderInt(0, 3, GNB_Mit_ArmsLength_EnemyCount,
+                    DrawSliderInt(0, 5, GNB_Mit_ArmsLength_EnemyCount,
                         "How many enemies should be nearby? (0 = No Requirement)");
                     DrawPriorityInput(GNB_Mit_Priorities, NumMitigationOptions, 6,
                         "Arm's Length Priority:");

@@ -23,6 +23,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using WrathCombo.API.Enum;
 using WrathCombo.AutoRotation;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Core;

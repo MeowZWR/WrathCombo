@@ -26,12 +26,11 @@ public static class GameObjectExtensions
         {
             get
             {
-                if (obj is not IBattleChara battleChara ||
-                    battleChara.ClassJob.ValueNullable is null)
+                if (obj is not ICharacter chara ||
+                    chara.ClassJob.ValueNullable is null)
                     return CombatRole.NonCombat;
 
-                var role = battleChara.ClassJob.Value.Role;
-                return (CombatRole)role;
+                return chara.GetRole();
             }
         }
         

@@ -5,6 +5,7 @@ using ECommons.Logging;
 using System;
 using System.Linq;
 using Dalamud.Game.Config;
+using WrathCombo.API.Enum;
 using WrathCombo.AutoRotation;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Core;

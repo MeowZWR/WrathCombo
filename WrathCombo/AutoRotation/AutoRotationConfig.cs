@@ -1,4 +1,6 @@
-﻿namespace WrathCombo.AutoRotation;
+﻿using WrathCombo.API.Enum;
+
+namespace WrathCombo.AutoRotation;
 
 public class AutoRotationConfig
 {

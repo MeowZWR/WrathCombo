@@ -3,16 +3,17 @@
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Components;
 using Dalamud.Interface.Utility.Raii;
-using ECommons.GameHelpers;
 using ECommons.ImGuiMethods;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using ECommons;
+using ECommons.DalamudServices;
 using ECommons.Logging;
 using WrathCombo.Attributes;
 using WrathCombo.Core;
+using WrathCombo.Data.Conflicts;
 using WrathCombo.Services;
 using WrathCombo.Window.Functions;
 using WrathCombo.Resources.Dictionary.Chinese;
@@ -109,12 +110,10 @@ internal class Settings : ConfigWindow
             if (!IsSearching)
             {
                 if (ImGui.Button("Create Debug File"))
-                {
-                    if (Player.Available)
-                        DebugFile.MakeDebugFile();
-                    else
-                        DebugFile.MakeDebugFile(allJobs: true);
-                }
+                    Svc.Framework.RunOnTick(ConflictingPluginsChecks.ForceRunChecks)
+                        .ContinueWith(_ =>
+                            Svc.Framework.RunOnTick(() =>
+                                DebugFile.MakeDebugFile()));
 
                 ImGuiComponents.HelpMarker(
                     "将在桌面生成一个调试文件。\n可用于开发者协助排查问题。\n等同于使用以下命令：/wrath debug");

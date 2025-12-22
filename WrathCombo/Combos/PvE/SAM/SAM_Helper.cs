@@ -120,7 +120,7 @@ internal partial class SAM
                GetTargetHPPercent() > hpThreshold &&
                (dotRemaining <= dotRefresh ||
                 JustUsed(MeikyoShisui, 15f) &&
-                GetStatusEffectRemainingTime(Debuffs.Higanbana) <= 15);
+                dotRemaining <= 15);
     }
 
     private static int ComputeHpThresholdHiganbana()

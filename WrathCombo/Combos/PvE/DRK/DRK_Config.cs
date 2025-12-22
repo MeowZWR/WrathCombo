@@ -298,8 +298,8 @@ internal partial class DRK
                     UserConfig.DrawSliderInt(20, 100, DRK_AoE_Mit_ReprisalThreshold,
                         startUsingAtDescriptionPlusDisable,
                         itemWidth: medium, sliderIncrement: SliderIncrements.Fives);
-                    UserConfig.DrawSliderInt(1, 10, DRK_AoE_ReprisalEnemyCount,
-                        "# 范围内敌人",
+                    UserConfig.DrawSliderInt(1, 5, DRK_AoE_ReprisalEnemyCount,
+                        "# enemies in range",
                         itemWidth: little, sliderIncrement: SliderIncrements.Ones);
 
                     break;
@@ -318,8 +318,8 @@ internal partial class DRK
                     break;
 
                 case Preset.DRK_AoE_Mit_ArmsLength:
-                    UserConfig.DrawSliderInt(1, 10, DRK_AoE_ArmsLengthEnemyCount,
-                        "# 范围内敌人",
+                    UserConfig.DrawSliderInt(1, 5, DRK_AoE_ArmsLengthEnemyCount,
+                        "# enemies in range",
                         itemWidth: little, sliderIncrement: SliderIncrements.Ones);
 
                     break;
@@ -430,8 +430,8 @@ internal partial class DRK
                         outputValue: (int)BossAvoidance.On, itemWidth: 125f);
                     ImGui.Unindent();
 
-                    UserConfig.DrawSliderInt(0, 3, DRK_Mit_ArmsLength_EnemyCount,
-                        "附近有多少敌人？（0 = 无要求）",
+                    UserConfig.DrawSliderInt(0, 5, DRK_Mit_ArmsLength_EnemyCount,
+                        "How many enemies should be nearby? (0 = No Requirement)",
                         itemWidth: little, sliderIncrement: SliderIncrements.Ones);
 
                     UserConfig.DrawPriorityInput(DRK_Mit_Priorities,

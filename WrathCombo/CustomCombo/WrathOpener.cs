@@ -51,7 +51,13 @@ public abstract class WrathOpener
 
     public virtual OpenerState CurrentState
     {
-        get => currentState;
+        get => currentState switch
+        {
+            OpenerState.OpenerReady when openerStep > 1 &&
+                                         openerStep <= OpenerActions.Count =>
+                OpenerState.InOpener,
+            _ => currentState,
+        };
         set
         {
             if (value != currentState)
@@ -168,7 +174,7 @@ public abstract class WrathOpener
             }
         }
 
-        if (CurrentState == OpenerState.OpenerReady)
+        if (CurrentState is OpenerState.OpenerReady or OpenerState.InOpener)
         {
             if (!HasCooldowns() && OpenerStep == 1)
             {
@@ -333,7 +339,7 @@ public abstract class WrathOpener
 
     private static void RevertInterruptedCasts(uint interruptedAction)
     {
-        if (CurrentOpener?.CurrentState is OpenerState.OpenerReady)
+        if (CurrentOpener?.CurrentState is OpenerState.OpenerReady or OpenerState.InOpener)
         {
             if (CurrentOpener?.OpenerStep > 1 && interruptedAction == CurrentOpener.PreviousOpenerAction)
                 CurrentOpener.OpenerStep -= 1;

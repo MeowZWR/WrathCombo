@@ -291,7 +291,8 @@ internal partial class SMN : Caster
                 if (GemshineReady && (!IsMoving() || HasStatusEffect(Role.Buffs.Swiftcast)))
                     return OriginalHook(Gemshine);
 
-                if (HasStatusEffect(Buffs.IfritsFavor) || HasStatusEffect(Buffs.CrimsonStrike) && InMeleeRange())
+                if (HasStatusEffect(Buffs.IfritsFavor) && (InMeleeRange() ||  SMN_ST_Simple_Combo_Gapclose > 0)
+                    || HasStatusEffect(Buffs.CrimsonStrike) && InMeleeRange())
                     return OriginalHook(AstralFlow);
 
                 if (ActionReady(Ruin4) && !HasStatusEffect(Role.Buffs.Swiftcast) && GemshineReady)
