@@ -108,7 +108,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Balance Charges Option", "平衡充能选项"),
                 KeyValuePair.Create("Will only use if Tetra Charges are greater than or equal to Divine Benison Charges.", "只有当神名充能大于或等于神祝祷充能时才使用。"),
                 KeyValuePair.Create("Will only use if Divine Benison Charges are greater than or equal to Tetragrammaton Charges.", "只有当神祝祷充能大于或等于神名充能时才使用。"),
-                KeyValuePair.Create("Not On Bosses", "不对首领使用"),
                 KeyValuePair.Create("Will not use on ST in Boss encounters.", "在首领战中不会对单体目标使用。"),
                 KeyValuePair.Create("Tanks Only", "仅防护职业"),
                 KeyValuePair.Create("Only on Tanks", "仅对防护职业使用"),
@@ -150,6 +149,9 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("RaidWide LiturgyOfTheBell Option", "礼仪之铃"),
                 KeyValuePair.Create("Will try to weave LiturgyOfTheBell when a raidwide casting.", "在检测到全屏AoE读条时会尝试插入礼仪之铃。"),
                 KeyValuePair.Create("Changes Asylum into Temperance and then Divine Caress after use.", "使用后将庇护所变为节制，然后是神爱抚。"),
+                KeyValuePair.Create("Time in Seconds to use Afflatus Rapture before overcapping Lily stacks", "在血百合层数溢出前使用狂喜之心的秒数"),
+                KeyValuePair.Create("RaidWide Plenary Indulgence Option", "全大赦"),
+                KeyValuePair.Create("Will try to weave Plenary Indulgence when a raidwide casting.", "在检测到全屏AoE读条时会尝试插入全大赦。"),
                 
             ];
         }

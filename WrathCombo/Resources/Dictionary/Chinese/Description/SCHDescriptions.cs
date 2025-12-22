@@ -113,7 +113,6 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Seconds remaining before reapplying (0 = Do not reapply early)", "重新应用前剩余秒数（0 = 不提前重新应用）"),
                 KeyValuePair.Create("Maximum number of targets to employ multi-dotting", "使用多目标DoT的最大目标数量"),
                 KeyValuePair.Create("Aetherflow remaining cooldown", "以太超流剩余冷却时间"),
-                KeyValuePair.Create("Not on Bosses", "不对Boss使用"),
                 KeyValuePair.Create("Baneful Only", "仅埋伏之毒"),
                 KeyValuePair.Create("Will only use Chain Strategem when high enough level to use Baneful Impaction", "仅在有足够等级使用埋伏之毒时使用连环计"),
                 KeyValuePair.Create("Scholar Shield Check", "学者护盾检查"),
@@ -133,6 +132,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("This will be targeted at yourself for simplicity and reliability.", "这将以您自己为目标，以确保简单性和可靠性。"),
                 KeyValuePair.Create("Will use Expedient if available.", "如果可用，将使用疾风怒涛之计。"),
                 KeyValuePair.Create("Will summon Seraph if available and use Consolation for more shield.", "如果可用，将召唤炽天召唤并使用慰藉以获得更多护盾。"),
+                KeyValuePair.Create("Advanced Option: Include Shields in HP Percent Sliders", "高级选项：在HP百分比滑块中包含护盾"),
                 #endregion
 
                 // Manually added

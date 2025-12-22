@@ -116,7 +116,7 @@ internal partial class WHM
 
                 case Preset.WHM_STHeals_Tetragrammaton:
                     DrawAdditionalBoolChoice(WHM_STHeals_TetraBalance, 
-                        "Balance Charges Option", "Will only use if Tetra Charges are greater than or equal to Divine Benison Charges.");
+                        "平衡充能选项", "只有当神名充能大于或等于神祝祷充能时才使用。");
                     DrawAdditionalBoolChoice(WHM_STHeals_TetraWeave,
                         weaveDescription, "");
                     DrawSliderInt(1, 100, WHM_STHeals_TetraHP,
@@ -127,7 +127,7 @@ internal partial class WHM
 
                 case Preset.WHM_STHeals_Benison:
                     DrawAdditionalBoolChoice(WHM_STHeals_BenisonBalance, 
-                        "Balance Charges Option", "Will only use if Divine Benison Charges are greater than or equal to Tetragrammaton Charges.");
+                        "平衡充能选项", "只有当神祝祷充能大于或等于神名充能时才使用。");
                     DrawAdditionalBoolChoice(WHM_STHeals_BenisonWeave,
                         weaveDescription, "");
                     DrawSliderInt(0, 1, WHM_STHeals_BenisonCharges, 

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using WrathCombo.AutoRotation;
+using WrathCombo.API.Enum;
 
 namespace WrathCombo.Resources.Dictionary.Chinese
 {

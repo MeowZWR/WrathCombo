@@ -39,7 +39,7 @@ internal partial class MCH
                         ImGui.Indent();
 
                         ImGui.TextColored(ImGuiColors.DalamudYellow,
-                            "Select what kind of enemies the HP check should be applied to:");
+                            "选择HP检查应用于哪些类型的敌人：");
 
                         DrawHorizontalRadioButton(MCH_ST_WildfireBossHPOption,
                             "Non-Bosses", "Only apply the HP check above to non-bosses.", 0);
@@ -66,7 +66,7 @@ internal partial class MCH
                         ImGui.Indent();
 
                         ImGui.TextColored(ImGuiColors.DalamudYellow,
-                            "Select what kind of enemies the HP check should be applied to:");
+                            "选择HP检查应用于哪些类型的敌人：");
 
                         DrawHorizontalRadioButton(MCH_ST_BarrelStabilizerHPBossOption,
                             "Non-Bosses", "Only apply the HP check above to non-bosses.", 0);

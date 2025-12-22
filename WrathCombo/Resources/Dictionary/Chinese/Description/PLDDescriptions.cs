@@ -67,6 +67,8 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Gives max priority to Hallowed Ground when the Health percentage threshold is met.", "当HP百分比达到阈值时，优先使用神圣领域。"),
                 KeyValuePair.Create("Adds Sheltron to the one-button mitigation.", "将盾阵添加到一键减伤。"),
                 KeyValuePair.Create("Adds Divine Veil to the one-button mitigation.", "将圣光幕帘添加到一键减伤。"),
+                KeyValuePair.Create("Uses Divine Veil when a raidwide is in the process of casting.", "当全屏AOE正在施放时，使用圣光幕帘。"),
+                KeyValuePair.Create("Won't use Divine Veil if your own Reprisal is on the target.", "如果自己的雪仇正在目标身上，则不使用圣光幕帘。"),
                 KeyValuePair.Create("Adds Sentinel / Guardian to the one-button mitigation.", "将预警/守护添加到一键减伤。"),
                 KeyValuePair.Create("Adds Hallowed Ground to the one-button mitigation.", "将神圣领域添加到一键减伤。"),
                 KeyValuePair.Create("Adds Clemency to the one-button mitigation.", "将深仁厚泽添加到一键减伤。"),
@@ -134,6 +136,12 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Block Combos for Passage of Arms", "武装戍卫时阻止连击"),
                 KeyValuePair.Create("Will block the main Combos with Savage Blade while Passage of Arms is still active, to prevent actions from those combos cancelling Passage of Arms early.", "在武装戍卫仍然激活时，将使用暴乱剑替换主连击，以防止连击中的技能提前取消武装戍卫。"),
                 KeyValuePair.Create("This will leave it up to you to cancel Passage of Arms via other actions or movement (or letting it be used fully).", "你可以通过其他技能或移动来取消武装戍卫（或直到持续时间结束）。"),
+                KeyValuePair.Create("Retarget Cover Feature", "重定向保护"),
+                KeyValuePair.Create("Will retarget Cover according to the following options", "将根据以下子选项重定向保护"),
+                KeyValuePair.Create("Mouseover Cover Option", "鼠标悬停保护"),
+                KeyValuePair.Create("Adds UI mouseover to the priority, above Low HP option in priority.", "将UI鼠标悬停优先级提升至低血量选项之上。"),
+                KeyValuePair.Create("Low HP% Cover Option", "低血量保护"),
+                KeyValuePair.Create("Will Cover the Lowest Health (by percentage) Party member when they fall below set threshold", "当血量最低的队员（按百分比）低于设定阈值时，对其使用保护"),
                 #endregion
             ];
         }

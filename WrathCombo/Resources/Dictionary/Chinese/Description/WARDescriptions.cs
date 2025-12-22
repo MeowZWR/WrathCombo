@@ -121,6 +121,8 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Use when Beast Gauge is less than or equal to:", "当兽魂小于或等于以下值时使用"),
                 KeyValuePair.Create("Use when Distance from target is less than or equal to:", "当与目标的距离小于或等于以下值时使用"),
                 KeyValuePair.Create("Adds Berserk / Inner Release into the AoE rotation.", "将狂暴/原初的解放加入AOE循环。"),
+                KeyValuePair.Create("Uses Shake it Off when a raidwide is in the process of casting.", "当全屏AOE正在施法时使用摆脱。"),
+                KeyValuePair.Create("Won't use Shake it Off if your own Reprisal is on the target.", "如果你的雪仇已在目标身上，则不会使用摆脱。"),
                 #endregion
 
                 #region WARPvP

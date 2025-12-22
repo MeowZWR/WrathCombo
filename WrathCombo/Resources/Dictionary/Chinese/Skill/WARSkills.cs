@@ -51,6 +51,7 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Raw Intuition", WAR.RawIntuition.ActionName()),
                 KeyValuePair.Create("Equilibrium", WAR.Equilibrium.ActionName()),
                 KeyValuePair.Create("Shake It Off", WAR.ShakeItOff.ActionName()),
+                KeyValuePair.Create("Shake it Off", WAR.ShakeItOff.ActionName()),
                 KeyValuePair.Create("Nascent Flash", WAR.NascentFlash.ActionName()),
                 KeyValuePair.Create("Bloodwhetting", WAR.Bloodwhetting.ActionName()),
                 KeyValuePair.Create("Damnation", WAR.Damnation.ActionName()),

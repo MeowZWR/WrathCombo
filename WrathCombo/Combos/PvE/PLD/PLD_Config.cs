@@ -30,7 +30,7 @@ internal partial class PLD
                     ImGui.Indent();
 
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        "选择HP检查应用于哪些类型的敌人：");
 
                     DrawHorizontalRadioButton(PLD_ST_FoF_BossOption,
                         "Non-Bosses", "Only apply the HP check above to non-bosses.", 0);
