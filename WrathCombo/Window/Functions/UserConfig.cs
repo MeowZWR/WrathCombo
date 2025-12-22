@@ -354,7 +354,7 @@ public static class UserConfig
         ImGuiEx.Spacing(new Vector2(21, 0));
         bool enabled = output == outputValue;
 
-        if (ImGui.RadioButton($"{checkBoxName}###{config}{outputValue}", enabled))
+        if (ImGui.RadioButton($"{C(checkBoxName)}###{config}{outputValue}", enabled))
             Configuration.SetCustomIntValue(config, outputValue);
 
         if (!checkboxDescription.IsNullOrEmpty())
@@ -490,7 +490,7 @@ public static class UserConfig
             ImGuiEx.Spacing(new Vector2(3, 0));
             if (isConditionalChoice) ImGui.Indent(); //Align checkbox after the + symbol
         }
-        if (ImGui.Checkbox($"{checkBoxName}##{config}", ref output))
+        if (ImGui.Checkbox($"{C(checkBoxName)}##{config}", ref output))
             Configuration.SetCustomBoolValue(config, output);
 
         DrawResetContextMenu(config);
@@ -544,7 +544,7 @@ public static class UserConfig
             if (finishPos >= ImGui.GetContentRegionMax().X)
                 ImGui.NewLine();
 
-            if (ImGui.Checkbox($"{checkBoxName}###{config}{choice}", ref values[choice]))
+            if (ImGui.Checkbox($"{C(checkBoxName)}###{config}{choice}", ref values[choice]))
                 Configuration.SetCustomBoolArrayValue(config, values);
 
             if (!checkboxDescription.IsNullOrEmpty() && ImGui.IsItemHovered())
