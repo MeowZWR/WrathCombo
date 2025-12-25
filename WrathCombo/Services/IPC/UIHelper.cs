@@ -260,14 +260,15 @@ public class UIHelper(Leasing leasing)
     #region Tooltips
 
     private const string IndicatorTooltip =
-        "This option is controlled by another plugin.\n" +
-        "Click the X to revoke control.";
+        "这个选项被其他插件控制。\n" +
+        "点击 'X' 按钮可以撤销控制。";
 
     private const string OptionTooltip =
-        "This option is controlled by another plugin.\n" +
-        "There is a 'Controlled by:' label above this option,\n" +
-        "which lists the plugins controlling this option,\n" +
-        "and a 'X' button to revoke control.";
+        "这个选项被其他插件控制。\n" +
+        "这个选项上方有一个 '被控制' 标签，\n" +
+        "列出了控制这个选项的插件，\n" +
+        "还有一个 'X' 按钮可以撤销控制。\n" +
+        "点击 'X' 按钮可以撤销控制。";
 
     #endregion
 
@@ -341,8 +342,8 @@ public class UIHelper(Leasing leasing)
         ImGui.PushStyleColor(ImGuiCol.ButtonHovered, _backgroundColor);
         ImGui.PushStyleColor(ImGuiCol.ButtonActive, _backgroundColor);
         var buttonText = shortDisplay
-            ? "Controlled"
-            : "Controlled by: " + controlled.Value.controllers;
+            ? "被控制"
+            : "被 " + controlled.Value.controllers + " 控制";
         ImGui.SmallButton(buttonText);
         ImGui.PopStyleColor(2);
 

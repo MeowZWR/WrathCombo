@@ -176,9 +176,12 @@ public partial class Helper(ref Leasing leasing)
         if (comboStates is null || comboStates.Count == 0)
             return null;
 
+        // Bail if the mode (SingleTarget/MultiTarget) is not found for this job
+        if (!comboStates.TryGetValue(mode, out var modeStates) || modeStates.Count == 0)
+            return null;
+
         // Try to get the Simple Mode settings
-        comboStates[mode]
-            .TryGetValue(ComboSimplicityLevelKeys.Simple, out var simpleResults);
+        modeStates.TryGetValue(ComboSimplicityLevelKeys.Simple, out var simpleResults);
         var simpleHigher = simpleResults?.FirstOrDefault();
         var simple = simpleHigher?.Value;
 
@@ -200,8 +203,11 @@ public partial class Helper(ref Leasing leasing)
         #endregion
 
         // Get the Advanced Mode settings
-        var (advancedKey, advancedValue) =
-            comboStates[mode][ComboSimplicityLevelKeys.Advanced].First();
+        if (!modeStates.TryGetValue(ComboSimplicityLevelKeys.Advanced, out var advancedResults) ||
+            advancedResults.Count == 0)
+            return null;
+
+        var (advancedKey, advancedValue) = advancedResults.First();
 
         #region Override the Values with any IPC-control
 
@@ -269,70 +275,78 @@ public partial class Helper(ref Leasing leasing)
 
         #region Single Target
 
-        comboStates[ComboTargetTypeKeys.SingleTarget]
-            .TryGetValue(ComboSimplicityLevelKeys.Simple, out var stSimpleResults);
-        var stSimple =
-            stSimpleResults?.FirstOrDefault();
-
-        if (stSimple is not null)
-            combos.Add(comboStates[ComboTargetTypeKeys.SingleTarget]
-                [ComboSimplicityLevelKeys.Simple].First().Key);
-        else
+        if (comboStates.TryGetValue(ComboTargetTypeKeys.SingleTarget, out var stModeStates))
         {
-            var stAdvanced = comboStates[ComboTargetTypeKeys.SingleTarget]
-                [ComboSimplicityLevelKeys.Advanced].First().Key;
-            combos.Add(stAdvanced);
-            if (includeOptions)
-                combos.AddRange(P.IPCSearch.OptionNamesByJob[job][stAdvanced]);
+            stModeStates.TryGetValue(ComboSimplicityLevelKeys.Simple, out var stSimpleResults);
+            var stSimple = stSimpleResults?.FirstOrDefault();
+
+            if (stSimple.HasValue)
+            {
+                combos.Add(stSimple.Value.Key);
+            }
+            else if (stModeStates.TryGetValue(ComboSimplicityLevelKeys.Advanced, out var stAdvancedResults) &&
+                     stAdvancedResults.Count > 0)
+            {
+                var stAdvanced = stAdvancedResults.First().Key;
+                combos.Add(stAdvanced);
+                if (includeOptions && P.IPCSearch.OptionNamesByJob.TryGetValue(job, out var optionNames) &&
+                    optionNames.TryGetValue(stAdvanced, out var options))
+                    combos.AddRange(options);
+            }
         }
 
         #endregion
 
         #region Multi Target
 
-        comboStates[ComboTargetTypeKeys.MultiTarget]
-            .TryGetValue(ComboSimplicityLevelKeys.Simple, out var mtSimpleResults);
-        var mtSimple =
-            mtSimpleResults?.FirstOrDefault();
-
-        if (mtSimple is not null)
-            combos.Add(comboStates[ComboTargetTypeKeys.MultiTarget]
-                [ComboSimplicityLevelKeys.Simple].First().Key);
-        else
+        if (comboStates.TryGetValue(ComboTargetTypeKeys.MultiTarget, out var mtModeStates))
         {
-            var mtAdvanced = comboStates[ComboTargetTypeKeys.MultiTarget]
-                [ComboSimplicityLevelKeys.Advanced].First().Key;
-            combos.Add(mtAdvanced);
-            if (includeOptions)
-                combos.AddRange(P.IPCSearch.OptionNamesByJob[job][mtAdvanced]);
+            mtModeStates.TryGetValue(ComboSimplicityLevelKeys.Simple, out var mtSimpleResults);
+            var mtSimple = mtSimpleResults?.FirstOrDefault();
+
+            if (mtSimple.HasValue)
+            {
+                combos.Add(mtSimple.Value.Key);
+            }
+            else if (mtModeStates.TryGetValue(ComboSimplicityLevelKeys.Advanced, out var mtAdvancedResults) &&
+                     mtAdvancedResults.Count > 0)
+            {
+                var mtAdvanced = mtAdvancedResults.First().Key;
+                combos.Add(mtAdvanced);
+                if (includeOptions && P.IPCSearch.OptionNamesByJob.TryGetValue(job, out var optionNames) &&
+                    optionNames.TryGetValue(mtAdvanced, out var options))
+                    combos.AddRange(options);
+            }
         }
 
         #endregion
 
         #region Heals
 
-        if (comboStates.TryGetValue(ComboTargetTypeKeys.HealST, out var healResults))
-            combos.Add(healResults
-                [ComboSimplicityLevelKeys.Other].First().Key);
-        var healST = healResults?.FirstOrDefault().Key;
-        if (healST is not null)
+        if (comboStates.TryGetValue(ComboTargetTypeKeys.HealST, out var healSTResults))
         {
-            var healSTPreset = comboStates[ComboTargetTypeKeys.HealST]
-                [ComboSimplicityLevelKeys.Other].First().Key;
-            if (includeOptions)
-                combos.AddRange(P.IPCSearch.OptionNamesByJob[job][healSTPreset]);
+            if (healSTResults.TryGetValue(ComboSimplicityLevelKeys.Other, out var healSTOther) &&
+                healSTOther.Count > 0)
+            {
+                var healSTPreset = healSTOther.First().Key;
+                combos.Add(healSTPreset);
+                if (includeOptions && P.IPCSearch.OptionNamesByJob.TryGetValue(job, out var optionNames) &&
+                    optionNames.TryGetValue(healSTPreset, out var options))
+                    combos.AddRange(options);
+            }
         }
 
-        if (comboStates.TryGetValue(ComboTargetTypeKeys.HealMT, out healResults))
-            combos.Add(healResults
-                [ComboSimplicityLevelKeys.Other].First().Key);
-        var healMT = healResults?.FirstOrDefault().Key;
-        if (healMT is not null)
+        if (comboStates.TryGetValue(ComboTargetTypeKeys.HealMT, out var healMTResults))
         {
-            var healMTPreset = comboStates[ComboTargetTypeKeys.HealMT]
-                [ComboSimplicityLevelKeys.Other].First().Key;
-            if (includeOptions)
-                combos.AddRange(P.IPCSearch.OptionNamesByJob[job][healMTPreset]);
+            if (healMTResults.TryGetValue(ComboSimplicityLevelKeys.Other, out var healMTOther) &&
+                healMTOther.Count > 0)
+            {
+                var healMTPreset = healMTOther.First().Key;
+                combos.Add(healMTPreset);
+                if (includeOptions && P.IPCSearch.OptionNamesByJob.TryGetValue(job, out var optionNames) &&
+                    optionNames.TryGetValue(healMTPreset, out var options))
+                    combos.AddRange(options);
+            }
         }
 
         #endregion
