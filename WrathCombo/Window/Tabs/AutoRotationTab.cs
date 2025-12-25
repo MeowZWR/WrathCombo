@@ -87,8 +87,7 @@ internal class AutoRotationTab : ConfigWindow
                                        "当前血量最低 - 优先当前血量最低的敌人。\n" +
                                        "防护职业目标 - 优先选择与你队伍中第一个防护职业相同的目标。\n" +
                                        "最近 - 优先选择距离你最近的目标。\n" +
-                                       "最远 - 优先选择距离你最远的目标。\n" +
-                                       "手动非玩家 - 手动选择非玩家目标。");
+                                       "最远 - 优先选择距离你最远的目标。");
             ImGui.Spacing();
 
             if (cfg.DPSRotationMode is DPSRotationMode.Manual)
@@ -255,7 +254,7 @@ internal class AutoRotationTab : ConfigWindow
                 changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
                     $"应用于{Job.SMN.Shorthand()}和{Job.RDM.Shorthand()}", ref cfg.HealerSettings.AutoRezDPSJobs, "AutoRezDPSJobs");
                 ImGuiComponents.HelpMarker($"作为{Job.SMN.Shorthand()}或{Job.RDM.Shorthand()}时也会尝试复活队友。{Job.RDM.Shorthand()}仅在有{RoleActions.Magic.Buffs.Swiftcast.StatusName()}或{RDM.Buffs.Dualcast.StatusName()}时复活。");
-
+                
                 if (cfg.HealerSettings.AutoRezDPSJobs)
                 {
                     ImGuiExtensions.Prefix(true);
