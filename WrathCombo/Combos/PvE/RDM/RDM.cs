@@ -268,14 +268,14 @@ internal partial class RDM : Caster
                 
                 if (IsEnabled(Preset.RDM_ST_Addle) && 
                     Role.CanAddle() &&
-                    RaidWideCasting())
+                    GroupDamageIncoming())
                     return Role.Addle;
                 
                 if (IsEnabled(Preset.RDM_ST_MagickBarrier) && 
                     NumberOfAlliesInRange(MagickBarrier) >= GetPartyMembers().Count * .75 &&
                     !HasStatusEffect(Buffs.MagickBarrier, anyOwner:true) &&
                     !JustUsed(Role.Addle, 6) &&
-                    ActionReady(MagickBarrier) && RaidWideCasting())
+                    ActionReady(MagickBarrier) && GroupDamageIncoming())
                     return MagickBarrier;
             }
             #endregion

@@ -26,7 +26,7 @@ internal partial class SAM : Melee
             if (CanWeave())
             {
                 //Meikyo Feature
-                if (CanMeikyo(true))
+                if (CanMeikyo())
                     return MeikyoShisui;
 
                 //Ikishoten Feature
@@ -265,7 +265,7 @@ internal partial class SAM : Melee
 
                 if (IsEnabled(Preset.SAM_ST_Feint) &&
                     Role.CanFeint() &&
-                    RaidWideCasting())
+                    GroupDamageIncoming())
                     return Role.Feint;
 
                 //Auto Third Eye

@@ -31,8 +31,9 @@ internal partial class SGE
     private static IGameObject? HealStack =>
         SimpleTarget.Stack.AllyToHeal;
 
-    private static bool HasAddersgall() =>
-        Addersgall > 0;
+    private static bool HasAddersgall() => Addersgall > 0;
+    
+    private static bool AdvancedHasAddersgall() => Addersgall > SGE_Heal_HoldAddersgall;
 
     private static bool HasAddersting() =>
         Addersting > 0;
@@ -106,12 +107,12 @@ internal partial class SGE
 
     private static bool RaidwideKerachole() =>
         IsEnabled(Preset.SGE_Raidwide_Kerachole) &&
-        ActionReady(Kerachole) && HasAddersgall() &&
-        CanWeave() && RaidWideCasting();
+        ActionReady(Kerachole) && AdvancedHasAddersgall() &&
+        CanWeave() && GroupDamageIncoming();
 
     private static bool RaidwideHolos() =>
         IsEnabled(Preset.SGE_Raidwide_Holos) &&
-        ActionReady(Holos) && CanWeave() && RaidWideCasting() &&
+        ActionReady(Holos) && CanWeave() && GroupDamageIncoming() &&
         GetPartyAvgHPPercent() <= SGE_Raidwide_HolosOption;
 
     private static bool RaidwideEprognosis()
@@ -119,7 +120,7 @@ internal partial class SGE
         bool shieldCheck = GetPartyBuffPercent(Buffs.EukrasianPrognosis) <= SGE_AoE_Heal_EPrognosisOption &&
                            GetPartyBuffPercent(SCH.Buffs.Galvanize) <= SGE_AoE_Heal_EPrognosisOption;
 
-        return IsEnabled(Preset.SGE_Raidwide_EPrognosis) && shieldCheck && RaidWideCasting();
+        return IsEnabled(Preset.SGE_Raidwide_EPrognosis) && shieldCheck && GroupDamageIncoming();
     }
 
     #endregion
@@ -159,7 +160,7 @@ internal partial class SGE
 
             case 3:
                 action = Taurochole;
-                enabled = IsEnabled(Preset.SGE_ST_Heal_Taurochole) && HasAddersgall() &&
+                enabled = IsEnabled(Preset.SGE_ST_Heal_Taurochole) && AdvancedHasAddersgall() &&
                           (tankCheck || !IsInParty() || !SGE_ST_Heal_Taurochole_TankOnly);
                 return SGE_ST_Heal_Taurochole;
 
@@ -179,7 +180,7 @@ internal partial class SGE
 
             case 6:
                 action = Druochole;
-                enabled = IsEnabled(Preset.SGE_ST_Heal_Druochole) && HasAddersgall();
+                enabled = IsEnabled(Preset.SGE_ST_Heal_Druochole) && AdvancedHasAddersgall();
                 return SGE_ST_Heal_Druochole;
 
             case 7:
@@ -191,7 +192,7 @@ internal partial class SGE
 
             case 8:
                 action = Kerachole;
-                enabled = IsEnabled(Preset.SGE_ST_Heal_Kerachole) && HasAddersgall() &&
+                enabled = IsEnabled(Preset.SGE_ST_Heal_Kerachole) && AdvancedHasAddersgall() &&
                           (!SGE_ST_Heal_KeracholeBossOption || !InBossEncounter());
                 return SGE_ST_Heal_KeracholeHP;
 
@@ -238,13 +239,13 @@ internal partial class SGE
                 enabled = IsEnabled(Preset.SGE_AoE_Heal_Kerachole) &&
                           (!SGE_AoE_Heal_KeracholeTrait ||
                            SGE_AoE_Heal_KeracholeTrait && TraitLevelChecked(Traits.EnhancedKerachole)) &&
-                          HasAddersgall();
+                          AdvancedHasAddersgall();
                 return SGE_AoE_Heal_KeracholeOption;
 
             case 1:
                 action = Ixochole;
                 enabled = IsEnabled(Preset.SGE_AoE_Heal_Ixochole) &&
-                          HasAddersgall();
+                          AdvancedHasAddersgall();
                 return SGE_AoE_Heal_IxocholeOption;
 
             case 2:
@@ -379,7 +380,7 @@ internal partial class SGE
         ];
 
         internal override UserData ContentCheckConfig => SGE_Balance_Content;
-
+        public override Preset Preset => Preset.SGE_ST_DPS_Opener;
         public override bool HasCooldowns() =>
             GetRemainingCharges(Phlegma3) is 2 &&
             IsOffCooldown(Psyche) &&
@@ -420,7 +421,7 @@ internal partial class SGE
         ];
 
         internal override UserData ContentCheckConfig => SGE_Balance_Content;
-
+        public override Preset Preset => Preset.SGE_ST_DPS_Opener;
         public override bool HasCooldowns() =>
             GetRemainingCharges(Phlegma3) is 2 &&
             IsOffCooldown(Psyche) &&

@@ -30,7 +30,7 @@ public abstract class WrathOpener
             CurrentOpener.FullOpener(ref _);
         }
 
-            
+
     }
 
     public void ProgressOpener(uint actionId)
@@ -150,6 +150,10 @@ public abstract class WrathOpener
 
     public bool LevelChecked => Svc.PlayerState.EffectiveLevel >= MinOpenerLevel && Svc.PlayerState.EffectiveLevel <= MaxOpenerLevel;
 
+    public abstract Preset Preset { get; }
+
+    public bool Enabled => Preset.FullLineageEnabled();
+
     public abstract bool HasCooldowns();
 
     public bool CacheReady = false;
@@ -176,7 +180,7 @@ public abstract class WrathOpener
 
         if (CurrentState is OpenerState.OpenerReady or OpenerState.InOpener)
         {
-            if (!HasCooldowns() && OpenerStep == 1)
+            if (!ActionWatching.UpdatingActions && !HasCooldowns() && OpenerStep == 1)
             {
                 ResetOpener();
                 return false;
@@ -184,7 +188,7 @@ public abstract class WrathOpener
 
             if (OpenerStep > 1)
             {
-                bool prevStepSkipping = SkipSteps.FindFirst(x => x.Steps.FindFirst(y => y == OpenerStep  - 1, out var t), out var p);
+                bool prevStepSkipping = SkipSteps.FindFirst(x => x.Steps.FindFirst(y => y == OpenerStep - 1, out var t), out var p);
                 if (prevStepSkipping)
                     prevStepSkipping = p.Condition();
 
@@ -248,7 +252,7 @@ public abstract class WrathOpener
 
                 while (OpenerStep > 1 && !ActionReady(CurrentOpenerAction) &&
                        !SkipSteps.Any(x => x.Steps.Any(y => y == OpenerStep)) &&
-                       ActionWatching.TimeSinceLastAction.TotalSeconds > Math.Max(1.5, Math.Max(GCDTotal, Player.Object.TotalCastTime + 0.2f)))
+                       ActionWatching.TimeSinceLastAction.TotalSeconds > Math.Max(Service.Configuration.OpenerTimeout, Math.Max(GCDTotal, Player.Object.TotalCastTime + 0.2f)))
                 {
                     if (OpenerStep >= OpenerActions.Count)
                         break;
@@ -354,6 +358,8 @@ public class DummyOpener : WrathOpener
     public override List<uint> OpenerActions { get; set; } = [];
     public override int MinOpenerLevel => 1;
     public override int MaxOpenerLevel => 10000;
+
+    public override Preset Preset { get; }
 
     internal override UserData? ContentCheckConfig => null;
 

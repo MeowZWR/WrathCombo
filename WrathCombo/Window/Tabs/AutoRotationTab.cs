@@ -134,13 +134,13 @@ internal class AutoRotationTab : ConfigWindow
             if (cfg.DPSSettings.OnlyAttackInCombat && changed)
                 cfg.DPSSettings.PreferNonCombat = false;
 
-            changed |= ImGui.Checkbox("无论技能是否需要都始终选中目标", ref cfg.DPSSettings.AlwaysSelectTarget);
+            changed |= ImGui.Checkbox("热病时取消目标并停止使用技能", ref cfg.DPSSettings.UnTargetAndDisableForPenalty);
 
-            ImGuiComponents.HelpMarker("通常情况下，一键输出循环只会在下一个技能需要目标时才选中敌人。启用此项后，无论技能是否需要目标都会选中。");
+            ImGuiComponents.HelpMarker("如果检测到玩家身上有热病（或类似加速炸弹等）会导致行动受罚的机制时，将取消当前目标并禁用一键输出循环。");
 
-            changed |= ImGui.Checkbox("检测到惩罚时取消目标并停止操作", ref cfg.DPSSettings.UnTargetAndDisableForPenalty);
+            changed |= ImGui.Checkbox("始终设置硬目标", ref cfg.DPSSettings.DPSAlwaysHardTarget);
 
-            ImGuiComponents.HelpMarker("如果检测到玩家身上有Pyretic（或类似加速炸弹等）会导致行动受罚的机制时，将取消当前目标并禁用一键输出循环。");
+            ImGuiComponents.HelpMarker("一键输出循环无需锁定敌人即可运作，但启用此设置后，执行攻击时将始终为您锁定一个硬目标。");
 
             var npcs = Service.Configuration.IgnoredNPCs.ToList();
             var selected = npcs.FirstOrNull(x => x.Key == _selectedNpc);
@@ -286,6 +286,10 @@ internal class AutoRotationTab : ConfigWindow
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("IncludeNPCs");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded("治疗友方NPC", ref cfg.HealerSettings.IncludeNPCs);
             ImGuiComponents.HelpMarker("适用于需要治疗NPC但未直接加入队伍的治疗任务。");
+
+            changed |= ImGui.Checkbox("Always Set Hard Target###HealerHardTarget", ref cfg.HealerSettings.HealerAlwaysHardTarget);
+
+            ImGuiComponents.HelpMarker("Auto-rotation does not need to target allies to work, however with this setting enabled it will always set your hard target when it executes a heal.");
 
         }
 

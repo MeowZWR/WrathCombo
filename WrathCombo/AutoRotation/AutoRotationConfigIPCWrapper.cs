@@ -130,13 +130,23 @@ public class DPSSettingsIPCWrapper(DPSSettings settings)
         }
     }
 
+    public bool DPSAlwaysHardTarget
+    {
+        get
+        {
+            var checkControlled =
+                P.UIHelper.AutoRotationConfigControlled("DPSAlwaysHardTarget");
+            return checkControlled is not null
+                ? checkControlled.Value.state == 1
+                : settings.DPSAlwaysHardTarget;
+        }
+    }
+
     #region Direct Pass-Throughs (no IPC check)
 
     public bool PreferNonCombat => settings.PreferNonCombat;
 
     public float MaxDistance => settings.MaxDistance;
-
-    public bool AlwaysSelectTarget => settings.AlwaysSelectTarget;
 
     public bool AoEIgnoreManual => settings.AoEIgnoreManual;
     
@@ -232,6 +242,18 @@ public class HealerSettingsIPCWrapper(HealerSettings settings)
             return checkControlled is not null
                 ? checkControlled.Value.state == 1
                 : settings.IncludeNPCs;
+        }
+    }
+
+    public bool HealerAlwaysHardTarget
+    {
+        get
+        {
+            var checkControlled =
+                P.UIHelper.AutoRotationConfigControlled("HealerAlwaysHardTarget");
+            return checkControlled is not null
+                ? checkControlled.Value.state == 1
+                : settings.HealerAlwaysHardTarget;
         }
     }
 

@@ -129,6 +129,8 @@ public sealed partial class WrathCombo : IDalamudPlugin
     {
         WrathOpener.CurrentOpener?.CacheReady = false;
         WrathOpener.CurrentOpener?.ResetOpener(); //Clears opener values, just in case
+        ActionRequestIPCProvider.ResetAllBlacklist();
+        ActionRequestIPCProvider.ResetAllRequests();
         TM.DelayNext(1000);
         TM.Enqueue(() =>
         {
@@ -279,43 +281,50 @@ public sealed partial class WrathCombo : IDalamudPlugin
 
     private void OnFrameworkUpdate(IFramework framework)
     {
-        if (Player.Object is not null)
+        try
         {
-            JobID = Player.Job;
-            CustomComboFunctions.IsMoving(); //Hacky workaround to ensure it's always running
+            if (Player.Object is not null)
+            {
+                JobID = Player.Job;
+                CustomComboFunctions.IsMoving(); //Hacky workaround to ensure it's always running
+            }
+
+            BlueMageService.PopulateBLUSpells();
+            TargetHelper.Draw();
+            AutoRotationController.Run();
+            Configuration.ProcessSaveQueue();
+
+            Service.Configuration.SetActionChanging();
+
+            if (Player.Available && Player.IsDead)
+                ActionRetargeting.Retargets.Clear();
+
+            PresetStorage.HandleDuplicatePresets();
+            PresetStorage.HandleCurrentConflicts();
+
+            // Skip the IPC checking if hidden
+            if (DtrBarEntry.UserHidden) return;
+
+            var autoOn = IPC.GetAutoRotationState();
+            var icon = new IconPayload(autoOn
+                ? BitmapFontIcon.SwordUnsheathed
+                : BitmapFontIcon.SwordSheathed);
+
+            var text = autoOn ? ":：开" : "：关";
+            if (!Service.Configuration.ShortDTRText && autoOn)
+                text += $"（{P.IPCSearch.ActiveJobPresets} 有效）";
+            var ipcControlledText =
+                P.UIHelper.AutoRotationStateControlled() is not null
+                    ? "（已锁定）"
+                    : "";
+
+            var payloadText = new TextPayload(text + ipcControlledText);
+            DtrBarEntry.Text = new SeString(icon, payloadText);
         }
-
-        BlueMageService.PopulateBLUSpells();
-        TargetHelper.Draw();
-        AutoRotationController.Run();
-        Configuration.ProcessSaveQueue();
-
-        Service.Configuration.SetActionChanging();
-
-        if (Player.Available && Player.IsDead)
-            ActionRetargeting.Retargets.Clear();
-        
-        PresetStorage.HandleDuplicatePresets();
-        PresetStorage.HandleCurrentConflicts();
-
-        // Skip the IPC checking if hidden
-        if (DtrBarEntry.UserHidden) return;
-
-        var autoOn = IPC.GetAutoRotationState();
-        var icon = new IconPayload(autoOn
-            ? BitmapFontIcon.SwordUnsheathed
-            : BitmapFontIcon.SwordSheathed);
-
-        var text = autoOn ? "：开" : "：关";
-        if (!Service.Configuration.ShortDTRText && autoOn)
-            text += $"（{P.IPCSearch.ActiveJobPresets} 有效）";
-        var ipcControlledText =
-            P.UIHelper.AutoRotationStateControlled() is not null
-                ? "（已锁定）"
-                : "";
-
-        var payloadText = new TextPayload(text + ipcControlledText);
-        DtrBarEntry.Text = new SeString(icon, payloadText);
+        catch(Exception ex)
+        {
+            ex.Log($"Pls no crash game ty");
+        }
     }
 
     private static void ResetFeatures()

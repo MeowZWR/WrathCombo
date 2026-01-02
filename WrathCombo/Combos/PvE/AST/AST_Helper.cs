@@ -84,15 +84,15 @@ internal partial class AST
     
     internal static bool RaidwideCollectiveUnconscious()
     {
-        return IsEnabled(Preset.AST_Raidwide_CollectiveUnconscious) && ActionReady(CollectiveUnconscious) && CanWeave() && RaidWideCasting();
+        return IsEnabled(Preset.AST_Raidwide_CollectiveUnconscious) && ActionReady(CollectiveUnconscious) && CanWeave() && GroupDamageIncoming();
     }
     internal static bool RaidwideNeutralSect()
     {
-        return IsEnabled(Preset.AST_Raidwide_NeutralSect) && ActionReady(OriginalHook(NeutralSect)) && CanWeave() && RaidWideCasting();
+        return IsEnabled(Preset.AST_Raidwide_NeutralSect) && ActionReady(OriginalHook(NeutralSect)) && CanWeave() && GroupDamageIncoming();
     }
     internal static bool RaidwideAspectedHelios()
     {
-        return IsEnabled(Preset.AST_Raidwide_AspectedHelios) && HasStatusEffect(Buffs.NeutralSect) && RaidWideCasting() && 
+        return IsEnabled(Preset.AST_Raidwide_AspectedHelios) && HasStatusEffect(Buffs.NeutralSect) && GroupDamageIncoming() && 
                !HasStatusEffect(Buffs.NeutralSectShield);
     }
     
@@ -492,6 +492,8 @@ internal partial class AST
         ];
         public override int MinOpenerLevel => 92;
         public override int MaxOpenerLevel => 109;
+
+        public override Preset Preset => Preset.AST_ST_DPS_Opener;
 
         internal override UserData? ContentCheckConfig => AST_ST_DPS_Balance_Content;
 
