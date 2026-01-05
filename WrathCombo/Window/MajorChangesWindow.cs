@@ -103,8 +103,8 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
             "已通过检查视觉效果新增了防护职业死刑检测功能！\n" +
             "作为防护职业应对这些攻击的减伤选项位于上方新的减伤选项中。\n\n" +
             "可在以下位置找到新的防护职业死刑减伤选项：\n" +
-            "PvE 功能 > [选择的防护职业] > 高级减伤选项 > 首领遭遇战\n" +
-            "（也可以在您的防护职业配置中搜索'防护职业死刑'）"
+            "PvE 功能 > [选择的防护职业] > 高级减伤选项 > Boss战斗减伤\n" +
+            "（也可以在您的防护职业配置中搜索'TankBuster'）"
         );
 
         #endregion
