@@ -36,6 +36,8 @@ using WrathCombo.Services.IPC;
 using WrathCombo.Window;
 using WrathCombo.Window.Tabs;
 using WrathCombo.Services.ActionRequestIPC;
+using GenericHelpers = ECommons.GenericHelpers;
+
 namespace WrathCombo;
 
 /// <summary> Main plugin implementation. </summary>
@@ -283,27 +285,43 @@ public sealed partial class WrathCombo : IDalamudPlugin
     {
         try
         {
-            if (Player.Object is not null)
-            {
-                JobID = Player.Job;
-                CustomComboFunctions.IsMoving(); //Hacky workaround to ensure it's always running
-            }
-
-            BlueMageService.PopulateBLUSpells();
-            TargetHelper.Draw();
-            AutoRotationController.Run();
-            Configuration.ProcessSaveQueue();
+            #region Checks that don't require the Player to be loaded
 
             Service.Configuration.SetActionChanging();
-
-            if (Player.Available && Player.IsDead)
-                ActionRetargeting.Retargets.Clear();
+            Configuration.ProcessSaveQueue();
 
             PresetStorage.HandleDuplicatePresets();
             PresetStorage.HandleCurrentConflicts();
 
+            //Hacky workaround to ensure it's always running
+            CustomComboFunctions.IsMoving();
+
+            #endregion
+
+            // Skip Player-requiring code if not ready
+            if (Player.Object is null ||
+                !GenericHelpers.IsScreenReady() ||
+                !Svc.ClientState.IsLoggedIn)
+                return;
+
+            #region Checks and Updates that require the Player
+
+            JobID = Player.Job;
+
+            BlueMageService.PopulateBLUSpells();
+            TargetHelper.Draw();
+
+            AutoRotationController.Run();
+
+            if (Player.IsDead)
+                ActionRetargeting.Retargets.Clear();
+
+            #endregion
+
             // Skip the IPC checking if hidden
             if (DtrBarEntry.UserHidden) return;
+
+            #region DTR Bar Updating
 
             var autoOn = IPC.GetAutoRotationState();
             var icon = new IconPayload(autoOn
@@ -320,10 +338,12 @@ public sealed partial class WrathCombo : IDalamudPlugin
 
             var payloadText = new TextPayload(text + ipcControlledText);
             DtrBarEntry.Text = new SeString(icon, payloadText);
+
+            #endregion
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            ex.Log($"Pls no crash game ty");
+            ex.Log("Pls no crash game ty");
         }
     }
 
