@@ -37,7 +37,7 @@ internal unsafe static class AutoRotationController
 {
     public static AutoRotationConfigIPCWrapper? cfg;
 
-    static long LastHealAt = 0;
+    public static long HealThrottle = 0;
     static long LastRezAt = 0;
 
     static bool _lockedST = false;
@@ -207,7 +207,10 @@ internal unsafe static class AutoRotationController
             OccultCrescent.IsEnabledAndUsable(Preset.Phantom_Chemist_Revive, OccultCrescent.Revive) ||
             Variant.CanRaise())
         {
-            if (!needsHeal && WrathOpener.CurrentOpener?.CurrentState is not
+            if (ActionManager.Instance()->QueuedActionId == RoleActions.Healer.Esuna)
+                ActionManager.Instance()->QueuedActionId = 0;
+
+            if ((!needsHeal || GetPartyMembers().Any(x => HasCleansableDoom(x.BattleChara))) && WrathOpener.CurrentOpener?.CurrentState is not
                 OpenerState.InOpener)
             {
                 if (cfg.HealerSettings.AutoCleanse && isHealer)
@@ -514,15 +517,15 @@ internal unsafe static class AutoRotationController
 
     private static void CleanseParty()
     {
-        if (HasStatusEffect(418)) return;
-        if (ActionManager.Instance()->QueuedActionId == RoleActions.Healer.Esuna)
-            ActionManager.Instance()->QueuedActionId = 0;
+        if (HasStatusEffect(418) || LocalPlayer is not { } || !EzThrottler.Throttle("CleanseThrottle", 50)) return;
 
-        if (GetPartyMembers().FindFirst(x => HasCleansableDebuff(x.BattleChara) && x.GameObject.IsFriendly(), out var member))
+        if (GetPartyMembers().FindFirst(x => HasCleansableDebuff(x.BattleChara) && x.GameObject.IsFriendly(), out var member) && member.BattleChara is { } memberBC)
         {
-            if (InActionRange(RoleActions.Healer.Esuna, member.BattleChara) && IsInLineOfSight(member.BattleChara))
+            var res = ActionManager.GetActionInRangeOrLoS(Healer.Role.Esuna, LocalPlayer.GameObject(), memberBC.GameObject());
+            if (res is 0 or 565)
             {
-                ActionManager.Instance()->UseAction(ActionType.Action, RoleActions.Healer.Esuna, member.BattleChara.GameObjectId);
+                Svc.Log.Debug($"Cleansing {memberBC.Name}");
+                ActionManager.Instance()->UseAction(ActionType.Action, RoleActions.Healer.Esuna, memberBC.GameObjectId);
             }
         }
     }
@@ -578,7 +581,7 @@ internal unsafe static class AutoRotationController
     {
         var mode = cfg.HealerRotationMode;
         if (Player.Object?.IsCasting() is true) return false;
-        if (Environment.TickCount64 < LastHealAt + 1200) return false;
+        if (Environment.TickCount64 < HealThrottle) return false;
 
         if (attributes.AutoAction!.IsAoE)
         {
@@ -676,8 +679,6 @@ internal unsafe static class AutoRotationController
                     var ret = ActionManager.Instance()->UseAction(ActionType.Action, outAct, targetId);
                     WouldLikeToGroundTarget = false;
                     Service.ActionReplacer.EnableActionReplacingIfRequired();
-
-                    LastHealAt = Environment.TickCount64 + castTime;
 
                     return true;
                 }
@@ -824,8 +825,6 @@ internal unsafe static class AutoRotationController
 
             if (canUse && (inRange || areaTargeted))
             {
-                Svc.Log.Debug($"Using {outAct.ActionName()} on {(canUseTarget ? target?.Name : player.Name)}");
-
                 Service.ActionReplacer.DisableActionReplacingIfRequired();
                 var targetId = canUseTarget || areaTargeted ? target.GameObjectId : canUseSelf ? player.GameObjectId : 0xE000_0000;
                 var changed = CheckForChangedTarget(gameAct, ref targetId, out var replacedWith);
@@ -835,15 +834,12 @@ internal unsafe static class AutoRotationController
                 Service.ActionReplacer.EnableActionReplacingIfRequired();
                 OverrideTarget = null;
 
-                if (isHeal && !ret)
-                    LastHealAt = Environment.TickCount64 + castTime;
-
                 if (NIN.MudraSigns.Contains(outAct))
                     _lockedST = true;
                 else
                     _lockedST = false;
 
-                return !ret;
+                return true;
             }
 
             return false;

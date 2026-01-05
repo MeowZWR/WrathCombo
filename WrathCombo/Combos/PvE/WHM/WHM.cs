@@ -86,8 +86,7 @@ internal partial class WHM : Healer
                 AeroList.TryGetValue(dotAction, out var dotDebuffID);
                 var target = SimpleTarget.DottableEnemy(
                     dotAction, dotDebuffID, 0, 20, 99);
-                if (IsEnabled(Preset.WHM_ST_MainCombo_Move_DoT) &&
-                    target is not null)
+                if (target is not null)
                     return dotAction.Retarget(StoneGlareList.ToArray(), target);
             }
 

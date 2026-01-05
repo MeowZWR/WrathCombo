@@ -343,8 +343,9 @@ internal partial class DNC : PhysicalRanged
                 return StarfallDance;
 
             // ST Tillana (Emergency Use)
-            if (GetStatusEffectRemainingTime(Buffs.FlourishingFinish) < GCD * 2.5 &&
+            if (GetPossessedStatusRemainingTime(Buffs.FlourishingFinish) < GCD * 2.5 &&
                 tillanaDropProtectionActive &&
+                LevelChecked(Tillana) &&
                 EnemyIn15Yalms)
                 return Tillana;
 
@@ -380,6 +381,7 @@ internal partial class DNC : PhysicalRanged
             // ST Tillana
             if (HasStatusEffect(Buffs.FlourishingFinish) &&
                 IsEnabled(Preset.DNC_ST_Adv_Tillana) &&
+                LevelChecked(Tillana) &&
                 EnemyIn15Yalms)
                 return Tillana;
 
@@ -645,8 +647,9 @@ internal partial class DNC : PhysicalRanged
                 return StarfallDance;
 
             // ST Tillana (Emergency Use)
-            if (GetStatusEffectRemainingTime(Buffs.FlourishingFinish) < GCD * 1.5 &&
+            if (GetPossessedStatusRemainingTime(Buffs.FlourishingFinish) < GCD * 1.5 &&
                 Gauge.Esprit < 100 &&
+                LevelChecked(Tillana) &&
                 EnemyIn15Yalms)
                 return Tillana;
 
@@ -677,6 +680,7 @@ internal partial class DNC : PhysicalRanged
 
             // ST Tillana
             if (HasStatusEffect(Buffs.FlourishingFinish) &&
+                LevelChecked(Tillana) &&
                 EnemyIn15Yalms)
                 return Tillana;
 
@@ -949,7 +953,8 @@ internal partial class DNC : PhysicalRanged
 
             // AoE Tillana
             if (HasStatusEffect(Buffs.FlourishingFinish) &&
-                IsEnabled(Preset.DNC_AoE_Adv_Tillana))
+                IsEnabled(Preset.DNC_AoE_Adv_Tillana) &&
+                LevelChecked(Tillana))
                 return Tillana;
 
             // AoE Saber Dance
@@ -1187,7 +1192,8 @@ internal partial class DNC : PhysicalRanged
                 return StarfallDance;
 
             // AoE Tillana
-            if (HasStatusEffect(Buffs.FlourishingFinish))
+            if (HasStatusEffect(Buffs.FlourishingFinish) &&
+                LevelChecked(Tillana))
                 return Tillana;
 
             // AoE combos and burst attacks
