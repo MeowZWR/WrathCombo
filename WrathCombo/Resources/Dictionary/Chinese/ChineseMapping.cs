@@ -13,6 +13,14 @@ namespace WrathCombo.Resources.Dictionary.Chinese
     // 统一替换文字的扩展方法
     public static class TextReplacer
     {
+        private const int CacheCapacity = 512;
+        private static readonly object CacheLock = new();
+        private static readonly Dictionary<string, string> ReplacementCache = new();
+        private static readonly Queue<string> CacheOrder = new();
+        private static readonly Regex ChineseCharWhitespaceRegex = new(
+            @"\s*([\u4e00-\u9fa5])\s*",
+            RegexOptions.Compiled);
+
         public static string ReplaceWithChinese(this string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -22,43 +30,47 @@ namespace WrathCombo.Resources.Dictionary.Chinese
             DictionaryDebugger.StartReplacementSession(text);
 #endif
 
-            var lines = text.Split(['\n'], StringSplitOptions.None);
-            bool anyReplacement = false;
-
-            for (int i = 0; i < lines.Length; i++)
+            string? cachedResult;
+            lock (CacheLock)
             {
-                string originalLine = lines[i];
-                string replacedLine = originalLine;
+                if (ReplacementCache.TryGetValue(text, out cachedResult))
+                    return cachedResult;
+            }
 
-                foreach (var pair in ReplacementsDictionary.Replacements)
-                {
-                    if (replacedLine.Contains(pair.Key))
-                    {
-                        string beforeReplace = replacedLine;
-                        replacedLine = replacedLine.Replace(pair.Key, pair.Value);
+            var replacedText = text;
 
-                        if (beforeReplace != replacedLine)
-                        {
-#if DEBUG
-                            DictionaryDebugger.RecordUsedKeyInSession(pair.Key, text);
-#endif
-                            anyReplacement = true;
-                        }
-                    }
-                }
+            foreach (var pair in ReplacementsDictionary.Replacements)
+            {
+                if (!replacedText.Contains(pair.Key))
+                    continue;
 
-                lines[i] = Regex.Replace(replacedLine, @"\s*([\u4e00-\u9fa5])\s*", "$1");
+                var beforeReplace = replacedText;
+                replacedText = replacedText.Replace(pair.Key, pair.Value);
 
 #if DEBUG
-                if (originalLine == replacedLine && !string.IsNullOrWhiteSpace(originalLine) &&
-                    !Regex.IsMatch(originalLine, @"^\s*$"))
-                {
-                    DictionaryDebugger.RecordUnreplacedText(originalLine);
-                }
+                if (!ReferenceEquals(beforeReplace, replacedText))
+                    DictionaryDebugger.RecordUsedKeyInSession(pair.Key, text);
 #endif
             }
 
-            return string.Join("\n", lines);
+            replacedText = ChineseCharWhitespaceRegex.Replace(replacedText, "$1");
+
+            lock (CacheLock)
+            {
+                if (!ReplacementCache.ContainsKey(text))
+                {
+                    if (ReplacementCache.Count >= CacheCapacity && CacheOrder.Count > 0)
+                    {
+                        var oldestKey = CacheOrder.Dequeue();
+                        ReplacementCache.Remove(oldestKey);
+                    }
+
+                    ReplacementCache[text] = replacedText;
+                    CacheOrder.Enqueue(text);
+                }
+            }
+
+            return replacedText;
         }
     }
 
