@@ -122,7 +122,11 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("with its combo chain.", "为其连击链。"),
                 KeyValuePair.Create("Non boss encounter.", "非Boss战"),
                 KeyValuePair.Create("Bosses Only.", "仅Boss战"),
-                KeyValuePair.Create("Boss Encounter Non Bosses.", "Boss战中非Boss战"),
+                KeyValuePair.Create("Boss Encounter Non Bosses.", "Boss战中非Boss"),
+                KeyValuePair.Create("Include Advanced Mitigations", "包含高级减伤"),
+                KeyValuePair.Create("Enables the use of mitigations.", "启用减伤。"),
+                KeyValuePair.Create("Exclude Advanced Mitigations", "排除高级减伤"),
+                KeyValuePair.Create("Disables the use of mitigations.", "禁用减伤。"),
                 
                 // Three
                 KeyValuePair.Create("Magical Ranged DPS", "远程魔法职业"),
