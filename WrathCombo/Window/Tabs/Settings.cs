@@ -293,9 +293,9 @@ internal class Settings : ConfigWindow
             {
                 var value = (float)setting.Value;
                 ImGui.PushItemWidth(75);
-                changed = ImGui.InputFloat(label, ref value);
+                changed = ImGui.InputFloat(label, ref value, format: $"{value:N1}");
                 if (changed)
-                    setting.Value = value;
+                    setting.Value = Math.Round(value,1);
                 ImGui.SameLine();
                 cursorXAfterInput = ImGui.GetCursorPosX();
                 ImGui.Text(setting.UnitLabel ?? setting.Name);
@@ -328,14 +328,15 @@ internal class Settings : ConfigWindow
                 ImGui.PushItemWidth(75);
                 if (setting.SliderMin is null ||
                     setting.SliderMax is null)
-                    changed = ImGui.SliderFloat(label, ref value);
+                    changed = ImGui.SliderFloat(label, ref value, format: $"{value:N1}");
                 else
                     changed = ImGui.SliderFloat(label,
                         ref value,
                         (float)setting.SliderMin,
-                        (float)setting.SliderMax);
+                        (float)setting.SliderMax,
+                        $"{value:N1}");
                 if (changed)
-                    setting.Value = value;
+                    setting.Value = Math.Round(value,1);
                 ImGui.SameLine();
                 cursorXAfterInput = ImGui.GetCursorPosX();
                 ImGui.Text(setting.UnitLabel ?? setting.Name);

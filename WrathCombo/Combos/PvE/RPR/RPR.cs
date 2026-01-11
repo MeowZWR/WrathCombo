@@ -97,7 +97,7 @@ internal partial class RPR : Melee
             }
 
             //Shadow Of Death
-            if (CanUseShadowOfDeath(true))
+            if (CanUseShadowOfDeath())
                 return ShadowOfDeath;
 
             //Perfectio
@@ -275,16 +275,16 @@ internal partial class RPR : Melee
 
             int positionalChoice = RPR_Positional;
 
-            //RPR Opener
-            if (IsEnabled(Preset.RPR_ST_Opener) &&
-                Opener().FullOpener(ref actionID))
-                return actionID;
-
             //Soulsow
             if (IsEnabled(Preset.RPR_ST_SoulSow) &&
                 LevelChecked(Soulsow) &&
                 !HasStatusEffect(Buffs.Soulsow) && !PartyInCombat())
                 return Soulsow;
+
+            //RPR Opener
+            if (IsEnabled(Preset.RPR_ST_Opener) &&
+                Opener().FullOpener(ref actionID))
+                return actionID;
 
             if (ContentSpecificActions.TryGet(out uint contentAction))
                 return contentAction;
@@ -313,7 +313,8 @@ internal partial class RPR : Melee
                     !IsComboExpiring(3))
                 {
                     if (IsEnabled(Preset.RPR_ST_TrueNorthDynamic) &&
-                        GetCooldownRemainingTime(Gluttony) <= GCD && Role.CanTrueNorth())
+                        GetCooldownRemainingTime(Gluttony) <= GCD && Role.CanTrueNorth() &&
+                        GetRemainingCharges(Role.TrueNorth) > RPR_ManualTN)
                         return Role.TrueNorth;
 
                     //Gluttony
@@ -384,14 +385,14 @@ internal partial class RPR : Melee
                 ActionReady(HarvestMoon) && !InMeleeRange() && HasBattleTarget() &&
                 !HasStatusEffect(Buffs.Executioner) && !HasStatusEffect(Buffs.SoulReaver) && HasStatusEffect(Buffs.Soulsow))
                 return HarvestMoon;
-                
+
             //Ranged Attacks
             if (IsEnabled(Preset.RPR_ST_RangedFiller) &&
                 ActionReady(Harpe) && !InMeleeRange() && HasBattleTarget() &&
                 !HasStatusEffect(Buffs.Executioner) && !HasStatusEffect(Buffs.SoulReaver))
             {
                 return HasStatusEffect(Buffs.Enshrouded) && Lemure is 1 &&
-                       LevelChecked(Communio) 
+                       LevelChecked(Communio)
                     ? Communio
                     : Harpe;
             }
@@ -420,7 +421,8 @@ internal partial class RPR : Melee
                            (RPR_ST_TrueNorthDynamic_HoldCharge &&
                             GetRemainingCharges(Role.TrueNorth) is 2 ||
                             !RPR_ST_TrueNorthDynamic_HoldCharge) &&
-                           Role.CanTrueNorth() && !OnTargetsFlank()
+                           Role.CanTrueNorth() && !OnTargetsFlank() &&
+                           GetRemainingCharges(Role.TrueNorth) > RPR_ManualTN
                         ? Role.TrueNorth
                         : OriginalHook(Gibbet);
                 }
@@ -434,7 +436,8 @@ internal partial class RPR : Melee
                            (RPR_ST_TrueNorthDynamic_HoldCharge &&
                             GetRemainingCharges(Role.TrueNorth) is 2 ||
                             !RPR_ST_TrueNorthDynamic_HoldCharge) &&
-                           Role.CanTrueNorth() && !OnTargetsRear()
+                           Role.CanTrueNorth() && !OnTargetsRear() &&
+                           GetRemainingCharges(Role.TrueNorth) > RPR_ManualTN
                         ? Role.TrueNorth
                         : OriginalHook(Gallows);
                 }

@@ -1327,6 +1327,10 @@ public enum Preset
     [ParentCombo(AST_ST_Heals)]
     [CustomComboInfo("Lady Option", "Adds Lady of Crowns, if the card is drawn.", Job.AST)]
     AST_ST_Heals_SoloLady = 1070,
+    
+    [ParentCombo(AST_ST_Heals)]
+    [CustomComboInfo("Neutral Sect Option", "Adds Neutral Sect/Sun Sign.", Job.AST)]
+    AST_ST_Heals_NeutralSect = 1097,
 
     [AutoAction(true, true)]
     [ReplaceSkill(AST.Helios, AST.AspectedHelios, AST.HeliosConjuction)]
@@ -1487,7 +1491,7 @@ public enum Preset
     AST_Retargets_EarthlyStar = 1093,
     #endregion
 
-    // Last value = 1095
+    // Last value = 1097
 
     #endregion
 
@@ -1701,7 +1705,7 @@ public enum Preset
     [ConflictingCombos(BLM_Retargetting_Aetherial_Manipulation)]
     [CustomComboInfo("Aetherial Manipulation Feature", "Replaces Aetherial Manipulation with Between the Lines when you are out of active Ley Lines and standing still.", Job.BLM)]
     BLM_Aetherial_Manipulation = 2055,
-
+    
     #endregion
 
     // Last value ST = 2117
@@ -2089,9 +2093,26 @@ public enum Preset
         "Add Mage's Ballad and Army's Paeon to Wanderer's Minuet depending on cooldowns.", Job.BRD)]
     BRD_OneButtonSongs = 3014,
 
+    [ReplaceSkill(BRD.VenomousBite, BRD.CausticBite)]
+    [CustomComboInfo("One Button Dots Feature", "Replaces Venomous Bite/Caustic Bite with Windbite/Stormbite if target is missing that DoT.", Job.BRD)]
+    BRD_OneButtonDots = 3004,
+
+    [ParentCombo(BRD_OneButtonDots)]
+    [CustomComboInfo("Iron Jaws Reapply Feature", "If both DoTs are applied, returns Iron Jaws if able to be used.", Job.BRD)]
+    BRD_OneButtonDots_IronJaws = 3071,
+
+    [Retargeted]
+    [ParentCombo(BRD_OneButtonDots)]
+    [CustomComboInfo("Multi-Target Feature", "Will apply DoTs to as many targets you're in combat with as possible.", Job.BRD)]
+    BRD_OneButtonDots_Retargeted = 3072,
+
+    [ParentCombo(BRD_OneButtonDots_Retargeted)]
+    [CustomComboInfo("Savage Blade Lockout Feature", "If nothing is left to DoT or refresh within 5s, lockout with Savage Blade", Job.BRD)]
+    BRD_OneButtonDots_SavageBlade = 3073,
+
     #endregion
 
-    // Last value = 3069
+    // Last value = 3073
 
     #endregion
 
@@ -2858,7 +2879,7 @@ public enum Preset
     DRK_Mitigation_NonBoss_Oblation = 5318,
     
     [ParentCombo(DRK_Mitigation)]
-    [CustomComboInfo("Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter.", Job.DRK)]
+    [CustomComboInfo("Boss Encounter Mitigation", "Adds Mitigation to the combos when in a boss encounter.", Job.DRK)]
     DRK_Mitigation_Boss = 5309,
     
     [ParentCombo(DRK_Mitigation_Boss)]
@@ -3433,15 +3454,15 @@ public enum Preset
     GNB_Mitigation_NonBoss = 7701,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
-    [CustomComboInfo("Rampart Option", "Adds Rampart when 3 or more targets", Job.GNB)]
+    [CustomComboInfo("Rampart Option", "Adds Rampart when 3 or more targets.", Job.GNB)]
     GNB_Mitigation_NonBoss_Rampart = 7702,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
-    [CustomComboInfo("Nebula Option", "Adds Nebula/Great Nebula when 3 or more targets", Job.GNB)]
+    [CustomComboInfo("Nebula Option", "Adds Nebula/Great Nebula when 3 or more targets.", Job.GNB)]
     GNB_Mitigation_NonBoss_Nebula = 7703,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
-    [CustomComboInfo("Camouflage Option", "Adds Camouflage when 3 or more targets", Job.GNB)]
+    [CustomComboInfo("Camouflage Option", "Adds Camouflage when 3 or more targets.", Job.GNB)]
     GNB_Mitigation_NonBoss_Camouflage = 7704,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
@@ -3449,11 +3470,15 @@ public enum Preset
     GNB_Mitigation_NonBoss_Aurora = 7705,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
-    [CustomComboInfo("Superbolide Option", "Adds Superbolide when 5 or more targets", Job.GNB)]
+    [CustomComboInfo("Superbolide Option", "Adds Superbolide when 5 or more targets as part of the mitigation rotation. (Recommended)", Job.GNB)]
     GNB_Mitigation_NonBoss_Superbolide = 7706,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
-    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length when 5 or more targets", Job.GNB)]
+    [CustomComboInfo("Superbolide Emergency Option", "Adds Superbolide when in emergency health situation. \nWill likely be on coodown if using above setting as reccomended.", Job.GNB)]
+    GNB_Mitigation_NonBoss_SuperBolideEmergency = 7721,
+    
+    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [CustomComboInfo("Arm's Length Option", "Adds Arm's Length when 5 or more targets.", Job.GNB)]
     GNB_Mitigation_NonBoss_ArmsLength = 7707,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
@@ -3469,7 +3494,7 @@ public enum Preset
     GNB_Mitigation_NonBoss_HeartOfStone = 7710,
     
     [ParentCombo(GNB_Mitigation)]
-    [CustomComboInfo("Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated.", Job.GNB)]
+    [CustomComboInfo("Boss Encounter Mitigation", "Adds Mitigation to the combos when in a boss encounter. Will not overlap separate options unless stated.", Job.GNB)]
     GNB_Mitigation_Boss = 7711,
     
     [ParentCombo(GNB_Mitigation_Boss)]
@@ -4998,8 +5023,12 @@ public enum Preset
     PLD_Mitigation_NonBoss_Bulwark = 11090,
     
     [ParentCombo(PLD_Mitigation_NonBoss)]
-    [CustomComboInfo("Hallowed Ground Option", "Adds Hallowed Ground when 5 or more targets", Job.PLD)]
+    [CustomComboInfo("Hallowed Ground Option", "Adds Hallowed Ground when 5 or more targets as part of the mitigation rotation. (Recommended)", Job.PLD)]
     PLD_Mitigation_NonBoss_HallowedGround = 11091,
+    
+    [ParentCombo(PLD_Mitigation_NonBoss)]
+    [CustomComboInfo("Hallowed Ground Emergency Option", "Adds Hallowed Ground when in emergency health situation. \nWill likely be on coodown if using above setting as reccomended.", Job.PLD)]
+    PLD_Mitigation_NonBoss_HallowedGroundEmergency = 11104,
     
     [ParentCombo(PLD_Mitigation_NonBoss)]
     [CustomComboInfo("Arm's Length Option", "Adds Arm's Length when 5 or more targets", Job.PLD)]
@@ -5018,7 +5047,7 @@ public enum Preset
     PLD_Mitigation_NonBoss_DivineVeil = 11094,
     
     [ParentCombo(PLD_Mitigation)]
-    [CustomComboInfo("Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. \nTankbuster Detection Experimental", Job.PLD)]
+    [CustomComboInfo("Boss Encounter Mitigation", "Adds Mitigation to the combos when in a boss encounter. \nTankbuster Detection Experimental", Job.PLD)]
     PLD_Mitigation_Boss = 11095,
     
     [ParentCombo(PLD_Mitigation_Boss)]
@@ -7763,7 +7792,7 @@ public enum Preset
     WAR_Mitigation_NonBoss_Holmgang= 18141,
     
     [ParentCombo(WAR_Mitigation)]
-    [CustomComboInfo("Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated.", Job.WAR)]
+    [CustomComboInfo("Boss Encounter Mitigation", "Adds Mitigation to the combos when in a boss encounter. Will not overlap separate options unless stated.", Job.WAR)]
     WAR_Mitigation_Boss = 18142,
     
     [ParentCombo(WAR_Mitigation_Boss)]
@@ -8181,7 +8210,7 @@ public enum Preset
     WHM_STHeals_Temperance = 19310,
 
     [ParentCombo(WHM_STHeals)]
-    [CustomComboInfo("Asylum Option", "Adds Asylum.", Job.WHM)]
+    [CustomComboInfo("Asylum Option", "Adds Asylum at your feet.", Job.WHM)]
     [Retargeted(WHM.Asylum)]
     WHM_STHeals_Asylum = 19311,
 
@@ -9252,8 +9281,18 @@ public enum Preset
     [PvPCustomCombo]
     [CustomComboInfo("Phantom Dart Option", "Uses Phantom Dart (if selected) when available at or below set health threshold.", Job.PCT)]
     PCTPvP_PhantomDart = 140009,
+    
+    [PvPCustomCombo]
+    [ReplaceSkill(PCTPvP.LivingMuse)]
+    [CustomComboInfo("One Button Motifs", "Replaces Living Muse with One button Motifs", Job.PCT)]
+    PCTPvP_OneButtonMotifs = 140010,
 
-    // Last value = 140009
+    [PvPCustomCombo]
+    [ParentCombo(PCTPvP_OneButtonMotifs)]
+    [CustomComboInfo("Star Prism Option", "Adds Star Prism.", Job.PCT)]
+    PCTPvP_StarPrismOneButtonMotifs = 140011,
+
+    // Last value = 140011
 
     #endregion
 
@@ -9766,8 +9805,13 @@ public enum Preset
     [ParentCombo(WHMPvP_Heals)]
     [CustomComboInfo("Aquaveil Option", "Adds Aquaviel to Cure II when available.", Job.WHM)]
     WHMPvP_Aquaveil = 129007,
+    
+    [PvPCustomCombo]
+    [ReplaceSkill(WHMPvP.SeraphStrike)]
+    [CustomComboInfo("Seraph Strike to Glare 4", "Replaces Seraph Strike with Glare 4", Job.WHM)]
+    WHMPvP_Seraphstrike = 129011,
 
-    // Last value = 129010
+    // Last value = 129011
 
     #endregion
 

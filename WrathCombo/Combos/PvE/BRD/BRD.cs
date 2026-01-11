@@ -115,7 +115,9 @@ internal partial class BRD : PhysicalRanged
 
             #region GCDS
             if (HasStatusEffect(Buffs.Barrage))
-                return OriginalHook(WideVolley);
+                return NumberOfEnemiesInRange(OriginalHook(WideVolley)) >= 3
+                    ? OriginalHook(WideVolley)
+                    : OriginalHook(StraightShot);
 
             if (HasStatusEffect(Buffs.BlastArrowReady))
                 return BlastArrow;
@@ -139,9 +141,9 @@ internal partial class BRD : PhysicalRanged
             var purpleDotAction = OriginalHook(VenomousBite);
             BlueList.TryGetValue(blueDotAction, out var blueDotDebuffID);
             PurpleList.TryGetValue(purpleDotAction, out var purpleDotDebuffID);
-            var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, 50, 6);
-            var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, 50, 0);
-            var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, 50, 0);
+            var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, 50, computeAoERefresh());
+            var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, 50, computeAoERefresh());
+            var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, 50, computeAoERefresh());
             #endregion
 
             if (ironTarget is not null && LevelChecked(IronJaws))
@@ -154,7 +156,7 @@ internal partial class BRD : PhysicalRanged
                 return purpleDotAction.Retarget([Ladonsbite, QuickNock], purpleTarget);
 
             #endregion
-
+            
             #endregion
 
             return actionID;
@@ -301,9 +303,9 @@ internal partial class BRD : PhysicalRanged
             var purpleDotAction = OriginalHook(VenomousBite);
             BlueList.TryGetValue(blueDotAction, out var blueDotDebuffID);
             PurpleList.TryGetValue(purpleDotAction, out var purpleDotDebuffID);
-            var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, 50, 4);
-            var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, 50, 0);
-            var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, 50, 0);
+            var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, 50, computeRefresh());
+            var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, 50, computeRefresh());
+            var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, 50, computeRefresh());
             #endregion
 
             if (ironTarget is not null && LevelChecked(IronJaws))
@@ -448,7 +450,9 @@ internal partial class BRD : PhysicalRanged
 
             #region GCDS
             if (HasStatusEffect(Buffs.Barrage))
-                return OriginalHook(WideVolley);
+                return NumberOfEnemiesInRange(OriginalHook(WideVolley)) >= 3
+                    ? OriginalHook(WideVolley)
+                    : OriginalHook(StraightShot);
 
             if (IsEnabled(Preset.BRD_AoE_BuffsEncore) && HasStatusEffect(Buffs.RadiantEncoreReady) && RadiantFinaleDuration < 16 &&
                (HasStatusEffect(Buffs.RagingStrikes) || !ragingEnabled))
@@ -480,9 +484,9 @@ internal partial class BRD : PhysicalRanged
                 var purpleDotAction = OriginalHook(VenomousBite);
                 BlueList.TryGetValue(blueDotAction, out var blueDotDebuffID);
                 PurpleList.TryGetValue(purpleDotAction, out var purpleDotDebuffID);
-                var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, BRD_AoE_Adv_Multidot_HPThreshold, 6);
-                var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, BRD_AoE_Adv_Multidot_HPThreshold, 0);
-                var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, BRD_AoE_Adv_Multidot_HPThreshold, 0);
+                var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, computeAoEDoTHpThreshold(), computeAoERefresh());
+                var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, computeAoEDoTHpThreshold(), computeAoERefresh());
+                var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, computeAoEDoTHpThreshold(), computeAoERefresh());
                 #endregion
 
                 if (ironTarget is not null && LevelChecked(IronJaws))
@@ -493,11 +497,9 @@ internal partial class BRD : PhysicalRanged
 
                 if (purpleTarget is not null && LevelChecked(VenomousBite))
                     return purpleDotAction.Retarget([Ladonsbite, QuickNock], purpleTarget);
-
-
             }
             #endregion
-
+            
             #endregion
 
             return actionID;
@@ -519,7 +521,6 @@ internal partial class BRD : PhysicalRanged
             bool barrageEnabled = BRD_Adv_Buffs_Options[2];
             bool radiantEnabled = BRD_Adv_Buffs_Options[3];
             bool allBuffsEnabled = radiantEnabled && battleVoiceEnabled && ragingEnabled && barrageEnabled;
-            int dotThreshold = BRD_Adv_DoT_SubOption == 1 || !InBossEncounter() ? BRD_Adv_DoT_Threshold : 0;
             int buffThreshold = BRD_Adv_Buffs_SubOption == 1 || !InBossEncounter() ? BRD_Adv_Buffs_Threshold : 0;
             #endregion
 
@@ -621,17 +622,17 @@ internal partial class BRD : PhysicalRanged
                 if (ActionReady(Bloodletter) &&
                     (IsEnabled(Preset.BRD_Adv_Pooling) && UsePooledBloodRain() || !IsEnabled(Preset.BRD_Adv_Pooling)))
                     return OriginalHook(Bloodletter);
-                
+
                 if (ActionReady(Troubadour) &&
-                    IsEnabled(Preset.BRD_Adv_Troubadour) && !GroupDamageIncoming() && 
+                    IsEnabled(Preset.BRD_Adv_Troubadour) && !GroupDamageIncoming() &&
                     NumberOfAlliesInRange(Troubadour) >= GetPartyMembers().Count * .75 &&
-                    !HasAnyStatusEffects ([Buffs.Troubadour, DNC.Buffs.ShieldSamba, MCH.Buffs.Tactician, Buffs.WanderersMinuet], anyOwner: true))
+                    !HasAnyStatusEffects([Buffs.Troubadour, DNC.Buffs.ShieldSamba, MCH.Buffs.Tactician, Buffs.WanderersMinuet], anyOwner: true))
                     return Troubadour;
-                
+
                 if (ActionReady(NaturesMinne) &&
-                   IsEnabled(Preset.BRD_Adv_NaturesMinne) && !GroupDamageIncoming() && 
+                   IsEnabled(Preset.BRD_Adv_NaturesMinne) && !GroupDamageIncoming() &&
                    NumberOfAlliesInRange(NaturesMinne) >= GetPartyMembers().Count * .75 &&
-                   !HasAnyStatusEffects ([Buffs.Troubadour, Buffs.NaturesMinne, Buffs.WanderersMinuet], anyOwner: true))
+                   !HasAnyStatusEffects([Buffs.Troubadour, Buffs.NaturesMinne, Buffs.WanderersMinuet], anyOwner: true))
                     return NaturesMinne;
             }
             #endregion
@@ -654,7 +655,7 @@ internal partial class BRD : PhysicalRanged
             #endregion
 
             #region Dot Management
-            if (IsEnabled(Preset.BRD_Adv_DoT) && GetTargetHPPercent() > dotThreshold)
+            if (IsEnabled(Preset.BRD_Adv_DoT) && GetTargetHPPercent() > computeHpThreshold())
             {
                 if (BRD_Adv_DoT_Options[0] && UseIronJaws())
                     return IronJaws;
@@ -704,9 +705,9 @@ internal partial class BRD : PhysicalRanged
                 var purpleDotAction = OriginalHook(VenomousBite);
                 BlueList.TryGetValue(blueDotAction, out var blueDotDebuffID);
                 PurpleList.TryGetValue(purpleDotAction, out var purpleDotDebuffID);
-                var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, dotThreshold, 4);
-                var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, dotThreshold, 0);
-                var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, dotThreshold, 0);
+                var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, computeHpThreshold(), computeRefresh());
+                var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, computeHpThreshold(), computeRefresh());
+                var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, computeHpThreshold(), computeRefresh());
 
                 #endregion
 
@@ -735,20 +736,20 @@ internal partial class BRD : PhysicalRanged
         {
             if (actionID is not (StraightShot or RefulgentArrow))
                 return actionID;
-            
+
             if (CanBardWeave && IsEnabled(Preset.BRD_StraightShotUpgrade_OGCDs))
             {
                 if (ActionReady(EmpyrealArrow) && BRD_StraightShotUpgrade_OGCDs_Options[0])
                     return EmpyrealArrow;
-                
+
                 if (PitchPerfected() && BRD_StraightShotUpgrade_OGCDs_Options[1])
                     return OriginalHook(PitchPerfect);
-                
+
                 if (ActionReady(Sidewinder) && BRD_StraightShotUpgrade_OGCDs_Options[3])
                     return Sidewinder;
 
-                if (ActionReady(Bloodletter) && BRD_StraightShotUpgrade_OGCDs_Options[2] && 
-                    (BloodletterCharges == 3 && TraitLevelChecked(Traits.EnhancedBloodletter) || 
+                if (ActionReady(Bloodletter) && BRD_StraightShotUpgrade_OGCDs_Options[2] &&
+                    (BloodletterCharges == 3 && TraitLevelChecked(Traits.EnhancedBloodletter) ||
                     BloodletterCharges == 2 && !TraitLevelChecked(Traits.EnhancedBloodletter)))
                     return OriginalHook(Bloodletter);
             }
@@ -756,11 +757,16 @@ internal partial class BRD : PhysicalRanged
             if (IsEnabled(Preset.BRD_DoTMaintainance) &&
                 InCombat())
             {
-                if (UseIronJaws())
+                if (ActionReady(IronJaws) && Purple is not null && Blue is not null && 
+                    (PurpleRemaining < 4 || BlueRemaining < 4))
                     return IronJaws;
-                if (ApplyBlueDot())
+                
+                if (ActionReady(Windbite) && DebuffCapCanBlue && 
+                    (Blue is null || !CanIronJaws && BlueRemaining < 4))
                     return OriginalHook(Windbite);
-                if (ApplyPurpleDot())
+                
+                if (ActionReady(VenomousBite) && DebuffCapCanPurple &&
+                    (Purple is null || !CanIronJaws && PurpleRemaining < 4))
                     return OriginalHook(VenomousBite);
             }
 
@@ -769,7 +775,7 @@ internal partial class BRD : PhysicalRanged
                 : OriginalHook(HeavyShot);
         }
     }
-    
+
     internal class BRD_IronJaws : CustomCombo
     {
         protected internal override Preset Preset => Preset.BRD_IronJaws;
@@ -778,13 +784,16 @@ internal partial class BRD : PhysicalRanged
             if (actionID is not IronJaws)
                 return actionID;
 
-            if (UseIronJaws())
+            if (ActionReady(IronJaws) && Purple is not null && Blue is not null && 
+                (PurpleRemaining < 4 || BlueRemaining < 4))
                 return IronJaws;
-
-            if (ApplyBlueDot())
+            
+            if (ActionReady(Windbite) && DebuffCapCanBlue && 
+                (Blue is null || !CanIronJaws && BlueRemaining < 4))
                 return OriginalHook(Windbite);
-
-            if (ApplyPurpleDot())
+            
+            if (ActionReady(VenomousBite) && DebuffCapCanPurple &&
+                (Purple is null || !CanIronJaws && PurpleRemaining < 4))
                 return OriginalHook(VenomousBite);
 
             // Apex Option
@@ -796,16 +805,94 @@ internal partial class BRD : PhysicalRanged
                 if (gauge.SoulVoice == 100)
                     return ApexArrow;
             }
-            
+
             if (BRD_IronJaws_Alternate)
                 return LevelChecked(Windbite) && BlueRemaining <= PurpleRemaining ?
                     OriginalHook(Windbite) :
                     OriginalHook(VenomousBite);
-            
+
             return actionID;
         }
     }
-    
+
+    internal class BRD_One_Button_Dot : CustomCombo
+    {
+        protected internal override Preset Preset => Preset.BRD_OneButtonDots;
+
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID is not VenomousBite and not CausticBite)
+                return actionID;
+
+            bool retargeted = IsEnabled(Preset.BRD_OneButtonDots_Retargeted);
+            bool ironJaws = IsEnabled(Preset.BRD_OneButtonDots_IronJaws);
+            bool savage = IsEnabled(Preset.BRD_OneButtonDots_SavageBlade);
+            var blueDotAction = OriginalHook(Windbite);
+            var purpleDotAction = OriginalHook(VenomousBite);
+            BlueList.TryGetValue(blueDotAction, out var blueDotDebuffID);
+            PurpleList.TryGetValue(purpleDotAction, out var purpleDotDebuffID);
+
+            if (!retargeted)
+            {
+                var purpleDotRemaining = GetStatusEffectRemainingTime(purpleDotDebuffID, CurrentTarget);
+                var blueDotRemaining = GetStatusEffectRemainingTime(blueDotDebuffID, CurrentTarget);
+
+                if (ironJaws && purpleDotRemaining > 0 && blueDotRemaining > 0 && ActionReady(IronJaws))
+                    return IronJaws;
+
+                if (purpleDotRemaining <= blueDotRemaining && ActionReady(purpleDotAction))
+                    return purpleDotAction;
+
+                if (blueDotRemaining <= purpleDotRemaining && ActionReady(blueDotAction))
+                    return blueDotAction;
+            }
+            else
+            {
+                var lowestPurple = SimpleTarget.TargetWithDoTLowestRemainingTimer(purpleDotAction, purpleDotDebuffID);
+                var lowestBlue = SimpleTarget.TargetWithDoTLowestRemainingTimer(purpleDotAction, purpleDotDebuffID);
+                var lowestPurpleRemaining = GetStatusEffectRemainingTime(purpleDotDebuffID, lowestPurple);
+                var lowestBlueRemaining = GetStatusEffectRemainingTime(blueDotDebuffID, lowestBlue);
+
+                var purpleDotTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, maxNumberOfEnemiesInRange: 99);
+                var blueDotTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, maxNumberOfEnemiesInRange: 99);
+
+                if (ironJaws && InCombat() && purpleDotTarget == null && blueDotTarget == null && ActionReady(IronJaws))
+                {
+                    if ((!savage) || (savage && lowestBlueRemaining <= 5 || lowestPurpleRemaining <= 5))
+                    {
+                        if (lowestPurpleRemaining <= lowestBlueRemaining)
+                            return IronJaws.Retarget([CausticBite, VenomousBite], lowestPurple);
+                        else
+                            return IronJaws.Retarget([CausticBite, VenomousBite], lowestBlue);
+                    }
+                    else
+                        return All.SavageBlade;
+                }
+
+                if (purpleDotTarget != null && ActionReady(purpleDotAction))
+                    return purpleDotAction.Retarget([CausticBite, VenomousBite], purpleDotTarget);
+
+                if (blueDotTarget != null && ActionReady(blueDotAction))
+                    return blueDotAction.Retarget([CausticBite, VenomousBite], blueDotTarget);
+
+                if (lowestPurple != null && lowestBlue != null)
+                {
+                    if ((!savage) || (savage && lowestPurpleRemaining <= 5 || lowestBlueRemaining <= 5))
+                    {
+                        if (lowestPurpleRemaining <= lowestBlueRemaining)
+                            return purpleDotAction.Retarget([CausticBite, VenomousBite], lowestPurple);
+                        else
+                            return blueDotAction.Retarget([CausticBite, VenomousBite], lowestBlue);
+                    }
+                    else
+                        return All.SavageBlade;
+                }
+            }
+
+            return actionID;
+        }
+    }
+
     internal class BRD_AoE_oGCD : CustomCombo
     {
         protected internal override Preset Preset => Preset.BRD_AoE_oGCD;
@@ -841,7 +928,7 @@ internal partial class BRD : PhysicalRanged
             return actionID;
         }
     }
-    
+
     internal class BRD_ST_oGCD : CustomCombo
     {
         protected internal override Preset Preset => Preset.BRD_ST_oGCD;
@@ -877,7 +964,7 @@ internal partial class BRD : PhysicalRanged
             return actionID;
         }
     }
-    
+
     internal class BRD_AoE_Combo : CustomCombo
     {
         protected internal override Preset Preset => Preset.BRD_WideVolleyUpgrade;
@@ -885,20 +972,20 @@ internal partial class BRD : PhysicalRanged
         {
             if (actionID is not (WideVolley or Shadowbite))
                 return actionID;
-            
+
             if (CanBardWeave && IsEnabled(Preset.BRD_WideVolleyUpgrade_OGCDs))
             {
                 if (ActionReady(EmpyrealArrow) && BRD_WideVolleyUpgrade_OGCDs_Options[0])
                     return EmpyrealArrow;
-                
+
                 if (PitchPerfected() && BRD_WideVolleyUpgrade_OGCDs_Options[1])
                     return OriginalHook(PitchPerfect);
-                
+
                 if (ActionReady(Sidewinder) && BRD_WideVolleyUpgrade_OGCDs_Options[3])
                     return Sidewinder;
 
-                if (ActionReady(Bloodletter) && BRD_WideVolleyUpgrade_OGCDs_Options[2] && 
-                    (BloodletterCharges == 3 && TraitLevelChecked(Traits.EnhancedBloodletter) || 
+                if (ActionReady(Bloodletter) && BRD_WideVolleyUpgrade_OGCDs_Options[2] &&
+                    (BloodletterCharges == 3 && TraitLevelChecked(Traits.EnhancedBloodletter) ||
                      BloodletterCharges == 2 && !TraitLevelChecked(Traits.EnhancedBloodletter)))
                     return LevelChecked(RainOfDeath)
                         ? RainOfDeath
@@ -913,14 +1000,14 @@ internal partial class BRD : PhysicalRanged
                 if (HasStatusEffect(Buffs.BlastArrowReady))
                     return BlastArrow;
             }
-            
+
             return LevelChecked(WideVolley) && (HasStatusEffect(Buffs.HawksEye) || HasStatusEffect(Buffs.Barrage))
                 ? actionID
                 : OriginalHook(QuickNock);
 
         }
     }
-    
+
     internal class BRD_Buffs : CustomCombo
     {
         protected internal override Preset Preset => Preset.BRD_Buffs;
@@ -941,7 +1028,7 @@ internal partial class BRD : PhysicalRanged
             return actionID;
         }
     }
-    
+
     internal class BRD_OneButtonSongs : CustomCombo
     {
         protected internal override Preset Preset => Preset.BRD_OneButtonSongs;

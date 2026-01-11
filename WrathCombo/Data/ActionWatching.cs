@@ -70,11 +70,43 @@ public static class ActionWatching
     private delegate void SendActionDelegate(ulong targetObjectId, byte actionType, uint actionId, ushort sequence, long a5, long a6, long a7, long a8, long a9);
     private static readonly Hook<SendActionDelegate>? SendActionHook;
 
+    public unsafe delegate bool CanQueueActionDelegate(ActionManager* actionManager, uint actionType, uint actionID);
+    public static readonly Hook<CanQueueActionDelegate> CanQueueAction;
+
     private static Task UpdateActionTask = null!;
     private static CancellationTokenSource source = new CancellationTokenSource();
     private static CancellationToken token;
 
     public static bool UpdatingActions;
+
+    static unsafe ActionWatching()
+    {
+        ReceiveActionEffectHook ??= Svc.Hook.HookFromAddress<ReceiveActionEffectDelegate>(Addresses.Receive.Value, ReceiveActionEffectDetour);
+        SendActionHook ??= Svc.Hook.HookFromSignature<SendActionDelegate>("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 8B E9 41 0F B7 D9", SendActionDetour);
+        UseActionHook ??= Svc.Hook.HookFromAddress<UseActionDelegate>(ActionManager.Addresses.UseAction.Value, UseActionDetour);
+        OnCastInterrupted += CancelPendingLastActionUpdate;
+        CanQueueAction ??= Svc.Hook.HookFromSignature<CanQueueActionDelegate>("E8 ?? ?? ?? ?? 3C 01 0F 85 ?? ?? ?? ?? 88 45 68", CanQueueActionDetour);
+    }
+
+    public static void Enable()
+    {
+        ReceiveActionEffectHook?.Enable();
+        SendActionHook?.Enable();
+        UseActionHook?.Enable();
+        Svc.Condition.ConditionChange += ResetActions;
+        CanQueueAction?.Enable();
+    }
+
+
+    public static void Dispose()
+    {
+        Disable();
+        ReceiveActionEffectHook?.Dispose();
+        SendActionHook?.Dispose();
+        UseActionHook?.Dispose();
+        OnCastInterrupted -= CancelPendingLastActionUpdate;
+        CanQueueAction?.Dispose();
+    }
 
     /// <summary> Handles logic when an action causes an effect. </summary>
     private unsafe static void ReceiveActionEffectDetour(uint casterEntityId, Character* casterPtr, Vector3* targetPos, Header* header, TargetEffects* effects, GameObjectId* targetEntityIds)
@@ -324,6 +356,22 @@ public static class ActionWatching
         }
     }
 
+    private static unsafe bool CanQueueActionDetour(ActionManager* actionManager, uint actionType, uint actionID)
+    {
+        if (Service.Configuration.QueueAdjust && actionType == 1 && RemainingGCD > 0)
+        {
+            float threshold = Service.Configuration.QueueAdjustThreshold;
+            if (RemainingGCD < threshold)
+                return true;
+
+            return false;
+        }
+        else
+        {
+            return CanQueueAction.Original(actionManager, actionType, actionID);
+        }
+    }
+
     /// <summary> Gets the amount of GCDs used since combat started. </summary>
     public static int NumberOfGcdsUsed => CombatActions.Count(x => x.ActionAttackType() is ActionAttackType.Spell or ActionAttackType.Weaponskill);
 
@@ -354,22 +402,6 @@ public static class ActionWatching
         DuoLog.Information($"You just used: {CombatActions.LastOrDefault().ActionName()} x{LastActionUseCount}");
     }
 
-    public static void Dispose()
-    {
-        Disable();
-        ReceiveActionEffectHook?.Dispose();
-        SendActionHook?.Dispose();
-        UseActionHook?.Dispose();
-        OnCastInterrupted -= CancelPendingLastActionUpdate;
-    }
-
-    static unsafe ActionWatching()
-    {
-        ReceiveActionEffectHook ??= Svc.Hook.HookFromAddress<ReceiveActionEffectDelegate>(Addresses.Receive.Value, ReceiveActionEffectDetour);
-        SendActionHook ??= Svc.Hook.HookFromSignature<SendActionDelegate>("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 8B E9 41 0F B7 D9", SendActionDetour);
-        UseActionHook ??= Svc.Hook.HookFromAddress<UseActionDelegate>(ActionManager.Addresses.UseAction.Value, UseActionDetour);
-        OnCastInterrupted += CancelPendingLastActionUpdate;
-    }
 
     private static void CancelPendingLastActionUpdate(uint interruptedAction)
     {
@@ -388,20 +420,6 @@ public static class ActionWatching
             {
                 var original = actionId; //Save the original action, do not modify
                 var originalTargetId = targetId; //Save the original target, do not modify
-
-                if (Service.Configuration.ActionChanging && Service.Configuration.PerformanceMode) //Performance mode only logic, to modify the actionId
-                {
-                    var result = actionId;
-
-                    foreach(var combo in ActionReplacer.FilteredCombos)
-                    {
-                        if(combo.TryInvoke(actionId, out result))
-                        {
-                            actionId = Service.ActionReplacer.LastActionInvokeFor[actionId] = result; //Sets actionId and the LastActionInvokeFor dictionary entry to the result of the combo
-                            break;
-                        }
-                    }
-                }
 
                 var modifiedAction = Service.ActionReplacer.LastActionInvokeFor.ContainsKey(actionId) ? Service.ActionReplacer.LastActionInvokeFor[actionId] : actionId;
                 var changed = CheckForChangedTarget(original, ref targetId,
@@ -433,7 +451,7 @@ public static class ActionWatching
                         (actionType, replacedWith, location: &location);
                 }
 
-                //Important to pass actionId here and not replaced. Performance mode = result from earlier, which could be modified. Non-performance mode = original action, which gets modified by the hook. Same result.
+                //Important to pass actionId here and not replaced.
                 var hookResult = changed ? UseActionHook.Original(actionManager, actionType, actionId, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted) :
                     UseActionHook.Original(actionManager, actionType, actionId, originalTargetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
 
@@ -490,14 +508,6 @@ public static class ActionWatching
         return true;
     }
 
-    public static void Enable()
-    {
-        ReceiveActionEffectHook?.Enable();
-        SendActionHook?.Enable();
-        UseActionHook?.Enable();
-        Svc.Condition.ConditionChange += ResetActions;
-    }
-
     private static void ResetActions(ConditionFlag flag, bool value)
     {
         if (flag == ConditionFlag.InCombat && !value)
@@ -519,6 +529,7 @@ public static class ActionWatching
         SendActionHook?.Disable();
         UseActionHook?.Disable();
         Svc.Condition.ConditionChange -= ResetActions;
+        CanQueueAction?.Disable();
     }
 
     [Obsolete("Use CustomComboFunctions.GetActionName instead. This method will be removed in a future update.")]

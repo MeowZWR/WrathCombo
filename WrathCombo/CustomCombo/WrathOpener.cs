@@ -21,18 +21,6 @@ public abstract class WrathOpener
     private int openerStep;
     private static WrathOpener? currentOpener;
 
-    private void UpdateOpener(Dalamud.Plugin.Services.IFramework framework)
-    {
-        if (Service.Configuration.PerformanceMode)
-        {
-            CurrentOpener = this;
-            uint _ = 0;
-            CurrentOpener.FullOpener(ref _);
-        }
-
-
-    }
-
     public void ProgressOpener(uint actionId)
     {
         if (actionId == CurrentOpenerAction || (AllowUpgradeSteps.Any(x => x == OpenerStep) && OriginalHook(CurrentOpenerAction) == actionId))
@@ -160,13 +148,14 @@ public abstract class WrathOpener
 
     public unsafe bool FullOpener(ref uint actionID)
     {
+        if (CurrentOpener != this)
+            SelectOpener();
+
         bool inContent = ContentCheckConfig is UserBoolArray ? ContentCheck.IsInConfiguredContent((UserBoolArray)ContentCheckConfig, ContentCheck.ListSet.BossOnly) : ContentCheckConfig is UserInt ? ContentCheck.IsInConfiguredContent((UserInt)ContentCheckConfig, ContentCheck.ListSet.BossOnly) : false;
         if (!LevelChecked || OpenerActions.Count == 0 || !inContent || !CacheReady)
         {
             return false;
         }
-
-        CurrentOpener = this;
 
         if (CurrentState == OpenerState.OpenerNotReady)
         {
@@ -318,7 +307,6 @@ public abstract class WrathOpener
         {
             if (currentOpener != null && currentOpener != value)
             {
-                Svc.Framework.Update -= currentOpener.UpdateOpener;
                 OnCastInterrupted -= RevertInterruptedCasts;
                 Svc.Condition.ConditionChange -= ResetAfterCombat;
                 Svc.Log.Debug($"Removed update hook {value.GetType()} {currentOpener.GetType()}");
@@ -328,7 +316,6 @@ public abstract class WrathOpener
             {
                 Svc.Log.Debug($"Setting CurrentOpener");
                 currentOpener = value;
-                Svc.Framework.Update += currentOpener.UpdateOpener;
                 OnCastInterrupted += RevertInterruptedCasts;
                 Svc.Condition.ConditionChange += ResetAfterCombat;
             }

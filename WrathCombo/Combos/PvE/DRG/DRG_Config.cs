@@ -73,6 +73,11 @@ internal partial class DRG
                         "近战范围内", $"仅在近战范围内使用{Stardiver.ActionName()}", 2, 1);
                     break;
 
+                case Preset.DRG_TrueNorthDynamic:
+                    DrawSliderInt(0, 1, DRG_ManualTN,
+                        "How many charges to keep for manual usage.");
+                    break;
+
                 case Preset.DRG_ST_ComboHeals:
                     DrawSliderInt(0, 100, DRG_ST_SecondWindHPThreshold,
                         $"{Role.SecondWind.ActionName()}血量百分比阈值");
@@ -132,6 +137,7 @@ internal partial class DRG
             DRG_Balance_Content = new("DRG_Balance_Content", 1),
             DRG_ST_BuffsHPOption = new("DRG_ST_BuffsHPOption", 10),
             DRG_ST_BuffsBossOption = new("DRG_ST_BuffsBossOption"),
+            DRG_ManualTN = new("DRG_ManualTN"),
             DRG_ST_SecondWindHPThreshold = new("DRG_STSecondWindThreshold", 40),
             DRG_ST_BloodbathHPThreshold = new("DRG_STBloodbathThreshold", 30),
             DRG_AoE_LitanyHPTreshold = new("DRG_AoE_LitanyHP", 40),

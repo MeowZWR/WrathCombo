@@ -10,6 +10,55 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class DRG
 {
+    #region Basic Combo
+
+    private static uint BasicCombo(uint actionId, bool useTrueNorth = false)
+    {
+        int tnCharges = IsNotEnabled(Preset.DRG_ST_SimpleMode) ? DRG_ManualTN : 0;
+
+        if (ComboTimer > 0)
+        {
+            if (ComboAction is TrueThrust or RaidenThrust && LevelChecked(VorpalThrust))
+                return LevelChecked(Disembowel) &&
+                       (LevelChecked(ChaosThrust) && ChaosDebuff is null &&
+                        CanApplyStatus(CurrentTarget, ChaoticList[OriginalHook(ChaosThrust)]) ||
+                        GetStatusEffectRemainingTime(Buffs.PowerSurge) < 15)
+                    ? OriginalHook(Disembowel)
+                    : OriginalHook(VorpalThrust);
+
+            if (ComboAction == OriginalHook(Disembowel) && LevelChecked(ChaosThrust))
+                return useTrueNorth &&
+                       GetRemainingCharges(Role.TrueNorth) > tnCharges &&
+                       Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsRear()
+                    ? Role.TrueNorth
+                    : OriginalHook(ChaosThrust);
+
+            if (ComboAction == OriginalHook(ChaosThrust) && LevelChecked(WheelingThrust))
+                return useTrueNorth &&
+                       GetRemainingCharges(Role.TrueNorth) > tnCharges &&
+                       Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsRear()
+                    ? Role.TrueNorth
+                    : WheelingThrust;
+
+            if (ComboAction == OriginalHook(VorpalThrust) && LevelChecked(FullThrust))
+                return OriginalHook(FullThrust);
+
+            if (ComboAction == OriginalHook(FullThrust) && LevelChecked(FangAndClaw))
+                return useTrueNorth &&
+                       GetRemainingCharges(Role.TrueNorth) > tnCharges &&
+                       Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsFlank()
+                    ? Role.TrueNorth
+                    : FangAndClaw;
+
+            if (ComboAction is WheelingThrust or FangAndClaw && LevelChecked(Drakesbane))
+                return Drakesbane;
+        }
+
+        return actionId;
+    }
+
+    #endregion
+
     #region Lifesurge
 
     private static bool CanLifeSurge()

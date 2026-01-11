@@ -44,6 +44,11 @@ internal partial class MNK
                     ImGui.Unindent();
                     break;
 
+                case Preset.MNK_STUseTrueNorth:
+                    DrawSliderInt(0, 1, MNK_ManualTN,
+                        "How many charges to keep for manual usage.");
+                    break;
+
                 case Preset.MNK_ST_ComboHeals:
                     DrawSliderInt(0, 100, MNK_ST_SecondWindHPThreshold,
                         $"{Role.SecondWind.ActionName()} HP percentage threshold");
@@ -114,6 +119,7 @@ internal partial class MNK
             MNK_Balance_Content = new("MNK_Balance_Content", 1),
             MNK_ST_BuffsBossOption = new("MNK_ST_BuffsBossOption"),
             MNK_ST_BuffsHPThreshold = new("MNK_ST_BuffsHPThreshold", 10),
+            MNK_ManualTN = new("MNK_ManualTN"),
             MNK_ST_EarthsReplyHPThreshold = new("MNK_ST_EarthsReplyHPThreshold", 50),
             MNK_ST_SecondWindHPThreshold = new("MNK_ST_SecondWindHPThreshold", 40),
             MNK_ST_BloodbathHPThreshold = new("MNK_ST_BloodbathHPThreshold", 30),

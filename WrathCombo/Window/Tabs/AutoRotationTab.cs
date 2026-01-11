@@ -71,7 +71,16 @@ internal class AutoRotationTab : ConfigWindow
         changed |= ImGui.Checkbox("副本中自动启用", ref cfg.EnableInInstance);
         changed |= ImGui.Checkbox("离开副本后自动禁用", ref cfg.DisableAfterInstance);
 
-        if (ImGui.CollapsingHeader("输出设置"))
+        ImGuiEx.SetNextItemWidthScaled(100);
+        changed |= ImGuiEx.SliderFloat("Queue Window (s)", ref cfg.QueueWindow, 0f, 0.5f, $"{cfg.QueueWindow:N1}");
+        cfg.QueueWindow = (float)Math.Round(cfg.QueueWindow, 1);
+        ImGuiComponents.HelpMarker("This will determine how soon before the GCD is finished to queue up the next weaponskill or spell. Your latency may have an effect on what actions are performed so please adjust this if you're noticing improper action use, i.e double Blizzard IV casts due to MP not updating in time.");
+        if (cfg.QueueWindow > 0.5f)
+            cfg.QueueWindow = 0.5f;
+        if (cfg.QueueWindow < 0)
+            cfg.QueueWindow = 0;
+
+        if (ImGui.CollapsingHeader("伤害设置"))
         {
             ImGuiEx.TextUnderlined($"目标选择模式");
 

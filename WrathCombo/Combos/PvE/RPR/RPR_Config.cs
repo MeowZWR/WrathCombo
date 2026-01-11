@@ -53,10 +53,14 @@ internal partial class RPR
                     break;
 
                 case Preset.RPR_ST_TrueNorthDynamic:
+                    DrawSliderInt(0, 1, RPR_ManualTN,
+                        "How many charges to keep for manual usage.");
+
                     DrawAdditionalBoolChoice(RPR_ST_TrueNorthDynamic_HoldCharge,
-                        "为暴食保留真北", "为暴食保留最后一层真北，即使绞决/缢杀位置不正确时也会保留");
+                        "为暴食保留真北", "为暴食保留最后一层真北，即使绞决/缢杀位置不正确时也会保留。\n" +
+                                                               "If Above Slider is set to 1, it will NOT use the remaining charge for Gluttony, but for manual use.");
                     break;
-                
+
                 case Preset.RPR_AoE_WoD:
                     DrawSliderInt(0, 100, RPR_WoDHPThreshold,
                         $"Set a HP% Threshold for when {WhorlOfDeath.ActionName()} will not be automatically applied to the target.");
@@ -82,7 +86,7 @@ internal partial class RPR
                     DrawSliderInt(0, 100, RPR_AoEBloodbathHPThreshold,
                         $"{Role.Bloodbath.ActionName()} HP percentage threshold");
                     break;
-                
+
                 case Preset.RPR_ST_BasicCombo_SoD:
                     DrawSliderInt(0, 10, RPR_SoDRefreshRangeBasicCombo,
                         $"Seconds remaining before refreshing {ShadowOfDeath.ActionName()}.");
@@ -118,6 +122,7 @@ internal partial class RPR
             RPR_SoDRefreshRange = new("RPR_SoDRefreshRange", 6),
             RPR_SoDRefreshRangeBasicCombo = new("RPR_SoDRefreshRangeBasicCombo", 6),
             RPR_SoDHPThreshold = new("RPR_SoDThreshold"),
+            RPR_ManualTN = new("RPR_ManualTN"),
             RPR_ST_ArcaneCircleBossOption = new("RPR_ST_ArcaneCircle_SubOption", 1),
             RPR_STSecondWindHPThreshold = new("RPR_STSecondWindThreshold", 40),
             RPR_STBloodbathHPThreshold = new("RPR_STBloodbathThreshold", 30),

@@ -27,11 +27,14 @@ internal partial class VPR
                     break;
 
                 case Preset.VPR_ST_Reawaken:
-                    DrawHorizontalRadioButton(VPR_ST_ReAwaken_SubOption,
-                        "全部内容", $"无论内容如何均使用{Reawaken.ActionName()}。", 0);
+                    DrawSliderInt(0, 100, VPR_ST_ReawakenBossOption,
+                        "Bosses Only. Stop using at Enemy HP %.");
 
-                    DrawHorizontalRadioButton(VPR_ST_ReAwaken_SubOption,
-                        "仅限Boss战", $"仅在Boss战中使用{Reawaken.ActionName()}。", 1);
+                    DrawSliderInt(0, 100, VPR_ST_ReawakenBossAddsOption,
+                        "Boss Encounter Non Bosses. Stop using at Enemy HP %.");
+
+                    DrawSliderInt(0, 100, VPR_ST_ReawakenTrashOption,
+                        "Non boss encounter. Stop using at Enemy HP %.");
 
                     DrawSliderInt(0, 5, VPR_ST_ReAwaken_Threshold,
                         $"设置HP百分比阈值，在可用时使用{Reawaken.ActionName()}。（仅限Boss战）");
@@ -52,9 +55,14 @@ internal partial class VPR
 
                 case Preset.VPR_ST_Vicewinder:
                     DrawAdditionalBoolChoice(VPR_TrueNortVicewinder,
-                        $"{Role.TrueNorth.ActionName()}选项", "可用时加入真北。");
+                        $"{Role.TrueNorth.ActionName()}选项", "可用时加入真北。\n Respects the manual TN charge.");
                     break;
 
+                case Preset.VPR_TrueNorthDynamic:
+                    DrawSliderInt(0, 1, VPR_ManualTN,
+                        "How many charges to keep for manual usage.");
+                    break;
+                
                 case Preset.VPR_ST_ComboHeals:
                     DrawSliderInt(0, 100, VPR_ST_SecondWind_Threshold,
                         $"{Role.SecondWind.ActionName()}触发HP百分比阈值");
@@ -128,8 +136,11 @@ internal partial class VPR
             VPR_ST_SerpentsIre_SubOption = new("VPR_ST_SerpentsIre_SubOption", 1),
             VPR_ST_UncoiledFury_HoldCharges = new("VPR_ST_UncoiledFury_HoldCharges", 1),
             VPR_ST_UncoiledFury_Threshold = new("VPR_ST_UncoiledFury_Threshold", 1),
-            VPR_ST_ReAwaken_SubOption = new("VPR_ST_ReAwaken_SubOption"),
-            VPR_ST_ReAwaken_Threshold = new("VPR_ST_ReAwaken_Threshold", 1),
+            VPR_ST_ReawakenBossOption = new("VPR_ST_ReawakenBossOption"),
+            VPR_ST_ReawakenBossAddsOption = new("VPR_ST_ReawakenBossAddsOption", 10),
+            VPR_ST_ReawakenTrashOption = new("VPR_ST_ReawakenTrashOption", 25),
+            VPR_ST_ReAwaken_Threshold = new("VPR_ST_ReAwaken_Threshold", 5),
+            VPR_ManualTN = new("VPR_ManualTN"),
             VPR_ST_SecondWind_Threshold = new("VPR_ST_SecondWindThreshold", 40),
             VPR_ST_Bloodbath_Threshold = new("VPR_ST_BloodbathThreshold", 30),
             VPR_AoE_UncoiledFury_Threshold = new("VPR_AoE_UncoiledFury_Threshold", 1),
