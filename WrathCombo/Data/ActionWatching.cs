@@ -19,12 +19,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using WrathCombo.AutoRotation;
 using WrathCombo.Combos.PvE;
-using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
-using WrathCombo.Services.ActionRequestIPC;
 using static FFXIVClientStructs.FFXIV.Client.Game.Character.ActionEffectHandler;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 using Action = Lumina.Excel.Sheets.Action;
@@ -306,7 +304,7 @@ public static class ActionWatching
     {
         try
         {
-            if(P.IPC.OnActionUsedProvider.SubscriptionCount > 0)
+            if (P.IPC.OnActionUsedProvider.SubscriptionCount > 0)
             {
                 P.IPC.OnActionUsedProvider.SendMessage((ActionType)actionType, actionId);
             }
@@ -358,17 +356,23 @@ public static class ActionWatching
 
     private static unsafe bool CanQueueActionDetour(ActionManager* actionManager, uint actionType, uint actionID)
     {
-        if (Service.Configuration.QueueAdjust && actionType == 1 && RemainingGCD > 0)
-        {
-            float threshold = Service.Configuration.QueueAdjustThreshold;
-            if (RemainingGCD < threshold)
-                return true;
+        float threshold = Service.Configuration.QueueAdjust ? Service.Configuration.QueueAdjustThreshold : 0.5f;
 
-            return false;
-        }
-        else
+        return GetRemainingActionRecast(actionManager, actionType, actionID) is { } remaining && remaining <= threshold;
+
+        unsafe float? GetRemainingActionRecast(ActionManager* actionManager, uint actionType, uint actionID)
         {
-            return CanQueueAction.Original(actionManager, actionType, actionID);
+            var recastGroupDetail = actionManager->GetRecastGroupDetail(actionManager->GetRecastGroup((int)actionType, actionID));
+            if (recastGroupDetail == null) return null;
+
+            var additionalRecastGroupDetail = actionManager->GetRecastGroupDetail(actionManager->GetAdditionalRecastGroup((ActionType)actionType, actionID));
+            var additionalRecastRemaining = additionalRecastGroupDetail != null && additionalRecastGroupDetail->IsActive ? additionalRecastGroupDetail->Total - additionalRecastGroupDetail->Elapsed : 0;
+
+            if (!recastGroupDetail->IsActive) return additionalRecastRemaining;
+
+            var charges = GetMaxCharges(actionID);
+            var recastRemaining = recastGroupDetail->Total / charges - recastGroupDetail->Elapsed;
+            return recastRemaining > additionalRecastRemaining ? recastRemaining : additionalRecastRemaining;
         }
     }
 

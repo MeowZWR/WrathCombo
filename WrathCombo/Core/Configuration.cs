@@ -299,7 +299,7 @@ public partial class Configuration : IPluginConfiguration
         recommendedValue: "1.5-2.5",
         defaultValue: "1.5",
         warningMark: "Setting this too low or to zero will make it really hard to manually queue.",
-        unitLabel: "ms",
+        unitLabel: "seconds",
         type: Setting.Type.Slider_Float,
         sliderMin: 0f,
         sliderMax: 2.5f)]
