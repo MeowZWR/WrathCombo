@@ -370,7 +370,7 @@ public static class ActionWatching
 
             if (!recastGroupDetail->IsActive) return additionalRecastRemaining;
 
-            var charges = GetMaxCharges(actionID);
+            var charges = actionType == 1 ? GetMaxCharges(actionID) : 1;
             var recastRemaining = recastGroupDetail->Total / charges - recastGroupDetail->Elapsed;
             return recastRemaining > additionalRecastRemaining ? recastRemaining : additionalRecastRemaining;
         }
