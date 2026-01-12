@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
@@ -95,6 +95,14 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Adds Hotshot, Drill, Air Anchor, Chainsaw and Excavator to the rotation.", "将热弹、钻头、空气锚、回转飞锯和掘地飞轮添加到循环中。"),
                 KeyValuePair.Create("Adds Bioblaster, Air Anchor, Chainsaw and Excavator to the rotation.", "将毒菌冲击、空气锚、回转飞锯和掘地飞轮添加到循环中。"),
                 KeyValuePair.Create("Stop Using Tools When Target HP% is at or Below (Set to 0 to Disable This Check)", "当目标血量百分比达到或低于此值时停止使用工具（设置为0以禁用此检查）"),
+                KeyValuePair.Create("Save for 2 minute windows", "为2分钟团辅窗口保留整备"),
+                KeyValuePair.Create("Saves Reassemble for 2 minute windows", "为2分钟团辅窗口保留整备"),
+                KeyValuePair.Create("THIS WILL OVERCAP UR REASSEMBLE.", "这将导致整备充能溢出。"),
+                KeyValuePair.Create("Use every minute", "每分钟使用一次"),
+                KeyValuePair.Create("Uses Reassemble every minute/whenever ur highest lvl tool is off cooldown.", "每分钟或当最高级工具冷却结束时使用整备。"),
+                KeyValuePair.Create("Only apply the HP check above to non-bosses.", "仅将上述HP检查应用于非Boss敌人。"),
+                KeyValuePair.Create("Apply the HP check above to all enemies.", "将上述HP检查应用于所有敌人。"),
+                KeyValuePair.Create("Stop using at Enemy HP %. Set to Zero to disable this check.", "当敌人HP百分比达到此值时停止使用（设置为0以禁用此检查）。"),
                 #endregion
                 
                 #region MCHPvP

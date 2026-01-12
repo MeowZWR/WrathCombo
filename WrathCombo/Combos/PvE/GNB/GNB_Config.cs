@@ -177,7 +177,7 @@ internal partial class GNB
 
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        "选择HP检查应用于哪些类型的敌人：");
 
                     DrawHorizontalRadioButton(GNB_ST_NM_BossOption,
                         "Non-Bosses", "Only apply the HP check above to non-bosses.", 0);
@@ -194,16 +194,16 @@ internal partial class GNB
                         "不包含溢出保护", $"无论弹药数量如何都不包含{BurstStrike.ActionName()}", 1);
                     ImGui.Spacing();
                     DrawHorizontalRadioButton(GNB_ST_BurstStrike_Setup,
-                        "Precede No Mercy", $"Allow preceding {NoMercy.ActionName()} with {BurstStrike.ActionName()} for a buffed {Hypervelocity.ActionName()} (BS->NM->HV) - ONLY APPLIES TO 2.50", 0);
+                        "优先使用无情", $"允许在{BurstStrike.ActionName()}之前使用{NoMercy.ActionName()}，以获得{Hypervelocity.ActionName()}的增益（BS->NM->HV）- 仅适用于2.50 GCD", 0);
                     DrawHorizontalRadioButton(GNB_ST_BurstStrike_Setup,
-                        "Don't Precede No Mercy", $"Forbid preceding {NoMercy.ActionName()} with {BurstStrike.ActionName()}", 1);
+                        "不优先使用无情", $"禁止在{BurstStrike.ActionName()}之前使用{NoMercy.ActionName()}", 1);
                     break;
 
                 case Preset.GNB_ST_RangedUptime:
                     DrawHorizontalRadioButton(GNB_ST_HoldLightningShot,
-                        "Hold for Continuation", "Holds Lightning Shot if you have any Continuation procs available to avoid loss", 1);
+                        "等待续剑", $"如果存在续剑，则不使用{LightningShot.ActionName()}以避免损失", 1);
                     DrawHorizontalRadioButton(GNB_ST_HoldLightningShot,
-                        "Don't Hold for Continuation", "Uses Lightning Shot regardless of any Continuation procs currently available", 0);
+                        "不等待续剑", $"无论是否存在续剑，都使用{LightningShot.ActionName()}", 0);
                     break;
 
                 #endregion
@@ -227,16 +227,16 @@ internal partial class GNB
                         "不包含爆发击", $"当{FatedCircle.ActionName()}不可用时，不使用{BurstStrike.ActionName()}", 1);
                     ImGui.Spacing();
                     DrawHorizontalRadioButton(GNB_AoE_FatedCircle_Setup,
-                        "Precede No Mercy", $"Allow preceding {NoMercy.ActionName()} with {FatedCircle.ActionName()} for a buffed {FatedBrand.ActionName()} (FC->NM->FB) - ONLY APPLIES TO 2.50", 0);
+                        "优先使用无情", $"允许在{FatedCircle.ActionName()}之前使用{NoMercy.ActionName()}，以获得{FatedBrand.ActionName()}的增益（FC->NM->FB）- 仅适用于2.50 GCD", 0);
                     DrawHorizontalRadioButton(GNB_AoE_FatedCircle_Setup,
-                        "Don't Precede No Mercy", $"Forbid preceding {NoMercy.ActionName()} with {FatedCircle.ActionName()}", 1);
+                        "不优先使用无情", $"禁止在{FatedCircle.ActionName()}之前使用{NoMercy.ActionName()}", 1);
                     break;
 
                 case Preset.GNB_AoE_SonicBreak:
                     DrawHorizontalRadioButton(GNB_AoE_SonicBreak_EarlyOrLate,
-                        "Normal Usage", $"Uses {SonicBreak.ActionName()} normally", 0);
+                        "正常使用", $"正常使用{SonicBreak.ActionName()}", 0);
                     DrawHorizontalRadioButton(GNB_AoE_SonicBreak_EarlyOrLate,
-                        "Late Usage", $"Uses {SonicBreak.ActionName()} as the last GCD in burst", 1);
+                        "延迟使用", $"在爆发结束前的最后一个GCD使用{SonicBreak.ActionName()}", 1);
                     break;
 
                 #endregion
@@ -341,9 +341,9 @@ internal partial class GNB
                         "Exclude Overcap Protection", $"Excludes {BurstStrike.ActionName()}, regardless of cartridge count", 1);
                     ImGui.Spacing();
                     DrawHorizontalRadioButton(GNB_GF_BurstStrike_Setup,
-                        "Precede No Mercy", $"Allow preceding {NoMercy.ActionName()} with {BurstStrike.ActionName()} for a buffed {Hypervelocity.ActionName()} (BS->NM->HV) - ONLY APPLIES TO 2.50", 0);
+                        "优先使用无情", $"允许在{BurstStrike.ActionName()}之前使用{NoMercy.ActionName()}，以获得{Hypervelocity.ActionName()}的增益（BS->NM->HV）- 仅适用于2.50 GCD", 0);
                     DrawHorizontalRadioButton(GNB_GF_BurstStrike_Setup,
-                        "Don't Precede No Mercy", $"Forbid preceding {NoMercy.ActionName()} with {BurstStrike.ActionName()}", 1);
+                        "不优先使用无情", $"禁止在{BurstStrike.ActionName()}之前使用{NoMercy.ActionName()}", 1);
                     break;
 
                     #endregion
