@@ -42,8 +42,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Main_UI_Options)]
     [Setting("隐藏子功能选项",
         "隐藏已禁用功能的子选项。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool HideChildren = false;
 
     /// Whether to hide combos which conflict with enabled presets. Default: false.
@@ -53,8 +53,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Main_UI_Options)]
     [Setting("隐藏冲突连击",
         "隐藏与您已选择的其他连击冲突的连击。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool HideConflictedCombos = false;
 
     /// If the DTR Bar text should be shortened. Default: false.
@@ -65,8 +65,8 @@ public partial class Configuration : IPluginConfiguration
         "默认情况下，Wrath Combo 的服务器信息栏会显示自动循环是否开启，\n" +
         "如果开启，则会显示已启用的自动模式连击数量。\n" +
         "最后还会显示是否有其他插件控制该值。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool ShortDTRText = false;
 
     /// Hides the message of the day. Default: false.
@@ -75,17 +75,17 @@ public partial class Configuration : IPluginConfiguration
     [Setting("隐藏设置和取消设置命令反馈",
         "隐藏 /wrath set 和 /wrath unset 命令的聊天反馈。\n" +
         "(如果命令被IPC覆盖或失败，仍会显示反馈)",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool SuppressSetCommands = false;
 
     /// Hides the Autorot set message. Default: false.
     /// <seealso cref="WrathCombo.PrintLoginMessage"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Suppress Auto-Rotation commands feedback",
-        "Will hide chat feedback for /wrath auto commands",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+    [Setting("隐藏自动循环命令反馈",
+        "隐藏 /wrath auto 命令的聊天反馈。",
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool SuppressAutorotCommand = false;
 
     /// Hides the message of the day. Default: false.
@@ -93,8 +93,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Main_UI_Options)]
     [Setting("隐藏每日提示",
         "登录时不在聊天栏显示每日提示信息。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool HideMessageOfTheDay = false;
 
     /// Whether to draw a box around targeted party members. Default: false.
@@ -103,8 +103,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Main_UI_Options)]
     [Setting("显示目标高亮框",
         "在原生队员列表中，为部分功能锁定的目标队员绘制高亮框。",
-        recommendedValue: "Preference",
-        defaultValue: "Off",
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭",
         extraText: "(当前仅用于占星和舞者)")]
     public bool ShowTargetHighlight = false;
 
@@ -115,7 +115,7 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Main_UI_Options)]
     [Setting("高亮颜色",
         "用于设置队员高亮框的颜色。",
-        recommendedValue: "Preference",
+        recommendedValue: "用户偏好",
         defaultValue: "#808080FF",
         type: Setting.Type.Color)]
     public Vector4 TargetHighlightColor =
@@ -125,10 +125,10 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="Presets.DrawPreset"/>
     /// <seealso cref="InfoBox"/>
     [SettingCategory(Main_UI_Options)]
-    [Setting("Show Borders around Combos and Features with Options",
-        "Will draw a border around Combos and Features that have Features and Options of their own.",
-        recommendedValue: "Preference",
-        defaultValue: "On")]
+    [Setting("为带有子功能或选项的连击和功能显示边框",
+        "为包含其他功能和选项的连击或功能绘制边框，方便区分。",
+        recommendedValue: "用户偏好",
+        defaultValue: "开启")]
     public bool ShowBorderAroundOptionsWithChildren = true;
 
     /// Whether to label Presets with their ID. Default: true.
@@ -138,8 +138,8 @@ public partial class Configuration : IPluginConfiguration
         "切换是否在描述前显示预设（连击、功能等）ID。\n" +
         "这些ID可用于如 `/wrath toggle <ID>` 等命令。\n" +
         "7.3版本前此处显示的数字更短，不是完整ID,无法用于命令。",
-        recommendedValue: "On",
-        defaultValue: "On")]
+        recommendedValue: "开启",
+        defaultValue: "开启")]
     public bool UIShowPresetIDs = true;
 
     /// Whether to show search bars. Default: true.
@@ -148,8 +148,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Main_UI_Options)]
     [Setting("在职业页显示搜索栏",
         "切换是否在所有PvE和PvP职业页顶部显示搜索栏",
-        recommendedValue: "On",
-        defaultValue: "On")]
+        recommendedValue: "开启",
+        defaultValue: "开启")]
     public bool UIShowSearchBar = true;
 
     #region Future Search Settings
@@ -183,8 +183,8 @@ public partial class Configuration : IPluginConfiguration
     [Setting("打开Wrath时默认进入PvE功能页",
         "使用 `/wrath` 命令打开Wrath时，默认进入PvE功能页，而不是上次停留的标签页。" +
         "\n等同于每次都使用 `/wrath pve` 命令。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool OpenToPvE = false;
 
     /// Whether, upon opening, it should go to the PvP tab in PvP zones. Default: false.
@@ -193,8 +193,8 @@ public partial class Configuration : IPluginConfiguration
     [Setting("在PvP区域打开Wrath时默认进入PvP功能页",
         "同上，在PvP区域使用 `/wrath` 命令时，默认进入PvP功能页，而不是上次停留的标签页。" +
         "\n类似于使用 `/wrath pvp` 命令。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool OpenToPvP = false;
 
     /// Whether the PvE Features tab should open to your current Job. Default: false.
@@ -202,8 +202,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Main_UI_Options)]
     [Setting("打开PvE功能页时自动切换到当前职业",
         "打开Wrath界面时，如果上次停留在PvE页，将自动切换到当前所玩的职业。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool OpenToCurrentJob = false;
 
     /// Whether the PvE Features tab, upon switching jobs, should open to your new Job. Default: false.
@@ -211,8 +211,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Main_UI_Options)]
     [Setting("切换职业时自动切换到对应PvE功能页",
         "切换职业时，PvE功能页会自动切换到当前所玩的职业。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool OpenToCurrentJobOnSwitch = false;
 
     #endregion
@@ -226,7 +226,7 @@ public partial class Configuration : IPluginConfiguration
         "移动时完全阻止法术释放，会用狂怒剑替换你的技能。\n" +
         "此设置会覆盖大多数职业的连击专属移动选项。",
         recommendedValue: "Off (大部分职业的连击已能更优雅地处理移动)",
-        defaultValue: "Off")]
+        defaultValue: "关闭")]
     public bool BlockSpellOnMove = false;
 
     /// Whether Hotbars will be walked, and matching actions updated. Default: true.
@@ -237,69 +237,65 @@ public partial class Configuration : IPluginConfiguration
         "控制是否由插件拦截并替换技能为连击。\n" +
         "关闭后，你手动按下的技能将不再受Wrath设置影响。\n\n" +
         "自动循环无论此设置如何都可用。",
-        recommendedValue: "On (This is essentially turning OFF most of Wrath)",
-        defaultValue: "On",
-        warningMark: "Wrath is largely designed with Action Replacing in mind.\n" +
-                     "Only Auto-Rotation will work if this is disabled.\n" +
-                     "Disabling it may also lead to unexpected behavior, such as " +
-                     "regarding Retargeting.")]
+        recommendedValue: "开启（关闭此项相当于禁用Wrath大部分功能）",
+        defaultValue: "开启",
+        warningMark: "Wrath的设计核心是技能替换功能。\n关闭本项后，仅自动循环能正常工作。\n禁用后可能会影响重定向等功能，出现不可预期的问题。")]
     public bool ActionChanging = true;
 
     /// Whether to suppress other combos when an action is queued. Default: true.
     /// <seealso cref="CustomComboNS.CustomCombo.TryInvoke"/>
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Queued Action Suppression",
-        "While Enabled:\n" +
-        "When an action is Queued that is not the same as the button on the Hotbar, Wrath will disable every other Combo, preventing them from thinking the Queued action should trigger them.\n" +
-        "- This prevents combos from conflicting with each other, with overlap in actions that combos return and actions that combos replace.\n" +
-        "- This does however cause the Replaced Action for each combo to 'flash' through during Suppression.\n" +
-        "That 'flashed' hotbar action won't go through, it is only visual.\n\n" +
-        "While Disabled:\n" +
-        "Combos will not be disabled when actions are queued from a combo.\n" +
-        "- This prevents your hotbars 'flashing', that is the only real benefit.\n" +
-        "- This does however allow Combos to conflict with each other, if one combo returns an action that another combo has as its Replaced Action.\n" +
-        "We do NOT mark these types of conflicts, and we do NOT try to avoid them as we add new features",
-        recommendedValue: "On (NO SUPPORT if off)",
-        defaultValue: "On",
-        extraHelpMark: "With this enabled, whenever you queue an action that is not the same as the button you are pressing, it will disable every other button's feature from running. " +
-                       "This resolves a number of issues where incorrect actions are performed due to how the game processes queued actions, however the visual experience on your hotbars is degraded. " +
-                       "This is not recommended to be disabled, however if you feel uncomfortable with hotbar icons changing quickly this is one way to resolve it but be aware that this may introduce unintended side effects to combos if you have a lot enabled for a job.\n\n" +
-                       "For a more complicated explanation, whenever an action is used, the following happens:\n" +
-                       "1. If the action invokes the GCD (Weaponskills & Spells), if the GCD currently isn't active it will use it right away.\n" +
-                       "2. Otherwise, if you're within the \"Queue Window\" (normally the last 0.5s of the GCD), it gets added to the queue before it is used.\n" +
-                       "3. If the action is an Ability, as long as there's no animation lock currently happening it will execute right away.\n" +
-                       "4. Otherwise, it is added to the queue immediately and then used when the animation lock is finished.\n\n" +
-                       "For step 1, the action being passed to the game is the original, unmodified action, which is then converted at use time. " +
-                       "At step 2, things get messy as the queued action still remains the unmodified action, but when the queue is executed it treats it as if the modified action *is* the unmodified action.\n\n" +
-                       "E.g. Original action Cure, modified action Cure II. At step 1, the game is okay to convert Cure to Cure II because that is what we're telling it to do. However, when Cure is passed to the queue, it treats it as if the unmodified action is Cure II.\n\n" +
-                       "This is similar for steps 3 & 4, except it can just happen earlier.\n\n" +
-                       "How this impacts us is if using the example before, we have a feature replacing Cure with Cure II, " +
-                       "and another replacing Cure II with Regen and you enable both, the following happens:\n\n" +
-                       "Step 1, Cure is passed to the game, is converted to Cure II.\n" +
-                       "You press Cure again at the Queue Window, Cure is passed to the queue, however the queue when it goes to execute will treat it as Cure II.\n" +
-                       "Result is instead of Cure II being executed, it's Regen, because we've told it to modify Cure II to Regen.\n" +
-                       "This was not part of the first Feature, but rather the result of a Feature replacing an action you did not even press, therefore an incorrect action.\n\n" +
-                       "Our workaround for this is to disable all other actions being replaced if they don't match the queued action, which this setting controls.",
-        warningMark: "Wrath is entirely designed with Queued Action Suppression in mind.\n" +
-                     "Disabling it WILL lead to unexpected behavior, which we DO NOT support.")]
+    [Setting("队列动作抑制",
+        "启用时：\n" +
+        "当队列中的动作与热键栏上的按钮不同时，Wrath会禁用其他所有连击，防止它们认为队列动作应该触发自己。\n" +
+        "- 这可以防止连击之间相互冲突，避免连击返回的动作与连击替换的动作重叠。\n" +
+        "- 但这会导致每个连击的替换动作在抑制期间出现'闪烁'。\n" +
+        "这种'闪烁'的热键栏动作不会执行，仅仅是视觉效果。\n\n" +
+        "禁用时：\n" +
+        "当从连击中队列动作时，连击不会被禁用。\n" +
+        "- 这可以防止热键栏'闪烁'，这是唯一的真正好处。\n" +
+        "- 但这会允许连击之间相互冲突，如果一个连击返回的动作是另一个连击的替换动作。\n" +
+        "我们不会标记这些类型的冲突，在添加新功能时也不会尝试避免它们",
+        recommendedValue: "开启（关闭时不提供支持）",
+        defaultValue: "开启",
+        extraHelpMark: "启用此功能后，每当你队列一个与你按下的按钮不同的动作时，它会禁用其他所有按钮的功能运行。" +
+                       "这解决了许多由于游戏处理队列动作的方式而执行错误动作的问题，但是热键栏的视觉体验会下降。" +
+                       "不建议禁用此功能，但如果你对热键栏图标快速变化感到不适，这是一种解决方法，但请注意，如果你为一个职业启用了很多功能，这可能会给连击带来意外的副作用。\n\n" +
+                       "更复杂的解释是，每当使用一个动作时，会发生以下情况：\n" +
+                       "1. 如果动作触发GCD（武器技能和法术），如果GCD当前未激活，它会立即使用。\n" +
+                       "2. 否则，如果你在“队列窗口”内（通常是GCD的最后0.5秒），它会在使用前被添加到队列中。\n" +
+                       "3. 如果动作是能力技，只要当前没有动画锁定，它就会立即执行。\n" +
+                       "4. 否则，它会立即添加到队列中，然后在动画锁定结束时使用。\n\n" +
+                       "对于步骤1，传递给游戏的动作是原始的、未修改的动作，然后在使用时进行转换。" +
+                       "在步骤2，事情变得复杂，因为队列中的动作仍然是未修改的动作，但当队列执行时，它将修改后的动作视为未修改的动作。\n\n" +
+                       "例如：原始动作治疗术，修改后动作救疗。在步骤1，游戏可以将治疗术转换为救疗，因为这是我们告诉它要做的。但是，当治疗术传递到队列时，它将其视为未修改的动作是救疗。\n\n" +
+                       "这对步骤3和4也类似，只是可能发生得更早。\n\n" +
+                       "这如何影响我们：使用之前的例子，我们有一个功能将治疗术替换为救疗，" +
+                       "另一个将救疗替换为再生，如果你启用两者，会发生以下情况：\n\n" +
+                       "步骤1，治疗术传递给游戏，转换为救疗。\n" +
+                       "你在队列窗口再次按下治疗术，治疗术传递到队列，但队列执行时会将其视为救疗。\n" +
+                       "结果是执行的不是救疗，而是再生，因为我们告诉它将救疗修改为再生。\n" +
+                       "这不是第一个功能的一部分，而是替换你甚至没有按下的动作的功能的结果，因此是错误的动作。\n\n" +
+                       "我们的解决方法是，如果其他动作与队列动作不匹配，则禁用所有其他被替换的动作，这个设置控制此行为。",
+        warningMark: "Wrath完全是在考虑队列动作抑制的情况下设计的。\n" +
+                     "禁用它将导致意外行为，我们不提供支持。")]
     public bool SuppressQueuedActions = true;
 
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Custom Manual Queue Window",
-    "Allows you to adjust your queue window to any time during the GCD rather than just within the last 0.3-0.5s. Useful if you're not mashing " +
-    "the key or using Auto-Rotation and wish to manually intervene.",
-    recommendedValue: "On",
-    defaultValue: "Off")]
+    [Setting("自定义手动技能队列窗口期",
+    "允许你自定义GCD期间可按键进入队列的时间范围，而不仅限于最后0.3-0.5秒。如果你不习惯连续按键，或在使用自动循环但需要手动介入时非常实用。",
+    recommendedValue: "开启",
+    defaultValue: "关闭")]
     public bool QueueAdjust = false;
 
     [SettingParent(nameof(QueueAdjust))]
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Allow Queueing At",
-        "Will allow you to queue when the GCD is at this time or less.",
+    [Setting("允许队列时机",
+        "当GCD剩余时间达到或少于此值时，允许将技能加入队列。",
         recommendedValue: "1.5-2.5",
         defaultValue: "1.5",
-        warningMark: "Setting this too low or to zero will make it really hard to manually queue.",
-        unitLabel: "seconds",
+        warningMark: "设置过低或为零会使手动队列变得非常困难。",
+        unitLabel: "秒",
         type: Setting.Type.Slider_Float,
         sliderMin: 0f,
         sliderMax: 2.5f)]
@@ -309,15 +305,15 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="ActionChanging"/>
     /// <seealso cref="ActionReplacer.GetAdjustedActionDetour"/>
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Action Updater Throttle",
-        "Will restrict how often Combos will update the Action on your Hotbar.\n" +
-        "At 50ms it's not really restrictive, always giving you an up to date action.\n\n" +
-        "If you are looking for some (fairly minor) FPS gains then you can increase this value to make Combos run less often.\n" +
-        "This makes your combos less responsive, and perhaps even clips GCDs.\n" +
-        "At high values this will clip your GCDs by several seconds or break your rotation altogether.",
+    [Setting("技能更新节流",
+        "限制连击功能更新热键栏技能的频率。\n" +
+        "50毫秒时限制不大，始终为你提供最新的技能。\n\n" +
+        "如果你希望获得一些（相当微小的）FPS提升，可以增加此值以降低连击运行频率。\n" +
+        "这会使你的连击响应性降低，甚至可能卡GCD。\n" +
+        "设置过高会导致GCD被卡住数秒或完全破坏循环。",
         recommendedValue: "20-200",
         defaultValue: "50",
-        unitLabel: "milliseconds",
+        unitLabel: "毫秒",
         type: Setting.Type.Number_Int,
         sliderMin: 0,
         sliderMax: 500)]
@@ -329,7 +325,7 @@ public partial class Configuration : IPluginConfiguration
     [Setting("移动判定延迟",
         "许多功能会检测你是否在移动，此项可设置需要持续移动多久才判定为移动。\n" +
         "这样可以避免短暂的小幅移动影响循环，主要用于法系职业。",
-        recommendedValue: "0.0-1.0 (Above that gets into the territory of breaking any Movement Options in your Job)",
+        recommendedValue: "0.0-1.0 (超过此值可能会破坏职业的移动选项)",
         defaultValue: "0.0",
         unitLabel: "秒",
         type: Setting.Type.Number_Float,
@@ -340,10 +336,10 @@ public partial class Configuration : IPluginConfiguration
     /// The timeout for opener failure. Default: 4.
     /// <seealso cref="CustomComboNS.WrathOpener.FullOpener"/>
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Opener Failure Timeout",
-        "Controls how long of a gap with no action is allowed in an Opener, before it is considered failed and normal rotation is resumed.\n" +
-        "Can be necessary for some casters to increase, particularly when the first action of an Opener is a hard-cast.",
-        recommendedValue: "4.0-7.0 (Above that can really screw Openers)",
+    [Setting("起手失败超时",
+        "控制起手过程中允许的无动作间隔时间，超过此时间将被视为起手失败并恢复正常循环。\n" +
+        "对于某些法系职业可能需要增加此值，特别是当起手第一个技能是硬读条时。",
+        recommendedValue: "4.0-7.0 (超过此值可能会严重影响起手)",
         defaultValue: "4.0",
         unitLabel: "秒",
         type: Setting.Type.Number_Float,
@@ -354,12 +350,12 @@ public partial class Configuration : IPluginConfiguration
     /// The offset of the melee range check. Default: 0.
     /// <seealso cref="InMeleeRange"/>
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Melee Distance Offset",
-        "Controls what is considered to be in melee range.\n" +
-        "Mainly for those who don't want to switch to ranged attacks if the boss walks slightly outside of range.\n" +
-        "For example a value of -0.5 would make you have to be 0.5 yalms closer to the target,\n" +
-        "or a value of 2 would allow you to be 2 yalms further away and still be considered in melee range\n" +
-        "(melee actions wouldn't work, but it would give you some warning instead of just suddenly doing less optimal actions).",
+    [Setting("近战距离偏移",
+        "控制判定为近战范围的距离标准。\n" +
+        "主要用于那些不希望在Boss稍微移出范围时就切换到远程攻击的玩家。\n" +
+        "例如，设置为-0.5会要求你距离目标更近0.5码，\n" +
+        "设置为2则允许你距离目标更远2码仍被视为在近战范围内\n" +
+        "（近战技能实际无法使用，但会给你一些预警，而不是突然执行次优技能）。",
         recommendedValue: "0",
         defaultValue: "0",
         unitLabel: "码",
@@ -372,12 +368,12 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="CanInterruptEnemy"/>
     /// <seealso cref="CanStunToInterruptEnemy"/>
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Interrupt Delay",
-        "Controls the percentage of a total cast time to wait before interrupting enemy casts.\n" +
-        "Applies to all interrupts (including stuns used to interrupt) in every Job's Combos.",
-        recommendedValue: "below 40 (Above that and you start failing to interrupt many short casts)",
+    [Setting("打断延迟",
+        "控制在打断敌人施法前等待的施法时间百分比。\n" +
+        "适用于所有职业连击中的所有打断技能（包括用于打断的眩晕技能）。",
+        recommendedValue: "低于40 (超过此值会导致许多短读条技能打断失败)",
         defaultValue: "0",
-        unitLabel: "% of cast",
+        unitLabel: "施法进度百分比",
         type: Setting.Type.Slider_Int,
         sliderMin: 0,
         sliderMax: 100)]
@@ -411,7 +407,7 @@ public partial class Configuration : IPluginConfiguration
         "类似于Redirect或Reaction的功能。\n" +
         "用于判断治疗技能触发阈值的目标和实际接受治疗的目标一致。",
         recommendedValue: "On (If you customize the Heal Stack AT ALL)",
-        defaultValue: "Off")]
+        defaultValue: "关闭")]
     [Retarget]
     public bool RetargetHealingActionsToStack = false;
 
@@ -424,7 +420,7 @@ public partial class Configuration : IPluginConfiguration
         "这些NPC无法参与基于职业的自定义堆栈\n" +
         "（即使NPC看起来像防护职业，也不会被识别为防护职业）。",
         recommendedValue: "On (If you use Retargeting at all)",
-        defaultValue: "Off")]
+        defaultValue: "关闭")]
     public bool AddOutOfPartyNPCsToRetargeting = false;
 
     #region Default+ Heal Stack
@@ -433,50 +429,50 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.GetStack"/>
     [SettingCategory(Targeting_Options)]
     // The spaces make it align better with the raise stack collapsible group
-    [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
+    [SettingCollapsibleGroup("治疗堆栈自定义选项  ")]
     [SettingGroup("defaultPlus", "healStackPlus")]
     [Setting("添加UI-鼠标悬停目标到默认治疗堆栈",
         "此选项会将任何UI鼠标悬停目标添加到默认治疗堆栈的顶部，如果你将鼠标悬停在任何队员UI上，将覆盖堆栈的其余部分。\n\n" +
         "如果你是键鼠用户，并启用了重定向治疗技能（或在Redirect/Reaction插件的配置中有UI鼠标悬停目标），推荐启用此项时。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool UseUIMouseoverOverridesInDefaultHealStack = false;
     
     /// Whether to include UI Mouseover in 'default' Heal Stack. Default: false.
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.GetStack"/>
     [SettingCategory(Targeting_Options)]
-    [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
+    [SettingCollapsibleGroup("治疗堆栈自定义选项  ")]
     [SettingGroup("defaultPlus", "healStackPlus")]
-    [Setting("Add Field MouseOver to the Default Healing Stack",
-        "Will add any MouseOver targets to the top of the Default Heal Stack, overriding the rest of the stack if you are mousing over any party member UI.\n\n" +
-        "It is recommended to enable this if you are a keyboard+mouse user and enable Retarget Healing Actions (or have UI MouseOver targets in your Redirect/Reaction configuration).",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+    [Setting("添加场地鼠标悬停目标到默认治疗堆栈",
+        "此选项会将任何场地鼠标悬停目标添加到默认治疗堆栈的顶部，如果你将鼠标悬停在任何队员上，将覆盖堆栈的其余部分。\n\n" +
+        "如果你是键鼠用户，并启用了重定向治疗技能（或在Redirect/Reaction插件的配置中有场地鼠标悬停目标），推荐启用此项。",
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool UseFieldMouseoverOverridesInDefaultHealStack = false;
     
     /// Whether to include Focus Target in 'default' Heal Stack. Default: false.
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.GetStack"/>
     [SettingCategory(Targeting_Options)]
-    [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
+    [SettingCollapsibleGroup("治疗堆栈自定义选项  ")]
     [SettingGroup("defaultPlus", "healStackPlus")]
     [Setting("将焦点目标添加到默认治疗堆栈",
         "此选项会将你的焦点目标添加到默认治疗堆栈的软目标和硬目标之后，如果你有存活的焦点目标，将覆盖堆栈的其余部分。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool UseFocusTargetOverrideInDefaultHealStack = false;
     
     /// Whether to include Lowest HP% in 'default' Heal Stack. Default: false.
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.GetStack"/>
     [SettingCategory(Targeting_Options)]
-    [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
+    [SettingCollapsibleGroup("治疗堆栈自定义选项  ")]
     [SettingGroup("defaultPlus", "healStackPlus")]
     [Setting("将最低HP%队友添加到默认治疗堆栈",
         "此选项会将附近HP百分比最低的队友添加到默认治疗堆栈的底部，仅覆盖你自己。",
-        recommendedValue: "Preference",
-        defaultValue: "Off",
-        warningMark: "Unlike the other Default+ Options, " +
-                     "this one is not an option in most other Retargeting Plugins.\n" +
-                     "THIS SHOULD BE USED WITH THE 'RETARGET HEALING ACTIONS' SETTING ABOVE!")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭",
+        warningMark: "与其他默认+选项不同，" +
+                     "此选项在大多数其他重定向插件中都不存在。\n" +
+                     "此选项应与上方的'重定向治疗技能'设置一起使用！")]
     public bool UseLowestHPOverrideInDefaultHealStack = false;
 
     #endregion
@@ -487,21 +483,21 @@ public partial class Configuration : IPluginConfiguration
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.GetStack"/>
     /// <seealso cref="HealRetargeting.RetargetSettingOn"/>
     [Or]
-    [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
+    [SettingCollapsibleGroup("治疗堆栈自定义选项  ")]
     [SettingGroup("custom", "healStackPlus", false)]
     [SettingCategory(Targeting_Options)]
     [Setting("使用自定义治疗堆栈",
         "如果你希望自定义治疗目标优先级堆栈而不是使用默认堆栈，请选择此项。\n\n" +
         "如果你没有使用重定向治疗技能设置，建议根据你的Redirect/Reaction插件配置进行自定义，否则按个人喜好。",
-        recommendedValue: "Preference",
-        defaultValue: "Off")]
+        recommendedValue: "用户偏好",
+        defaultValue: "关闭")]
     public bool UseCustomHealStack = false;
 
     /// The Custom Heal Stack.
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.GetStack"/>
     /// <seealso cref="HealRetargeting.HealStack"/>
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.AllyToHeal"/>
-    [SettingCollapsibleGroup("Heal Stack Customization Options  ")]
+    [SettingCollapsibleGroup("治疗堆栈自定义选项  ")]
     [SettingParent(nameof(UseCustomHealStack))]
     [SettingCategory(Targeting_Options)]
     [Setting("自定义治疗堆栈",
@@ -509,7 +505,7 @@ public partial class Configuration : IPluginConfiguration
         "仅在目标为友方且在25米范围内时才有效。\n\n" +
         "当此堆栈用于复活或康复时，将检查目标是否死亡或有可净化的异常。\n" +
         "因此，不需要再额外添加诸如 “任意可驱散的友方” 之类的目标条件。",
-        recommendedValue: "Preference",
+        recommendedValue: "用户偏好",
         defaultValue: "焦点目标 > 硬目标 > 自己",
         type: Setting.Type.Stack,
         stackStringsToExclude:
@@ -526,18 +522,18 @@ public partial class Configuration : IPluginConfiguration
     /// The Custom Raise Stack.
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.GetStack"/>
     /// <seealso cref="CustomComboNS.SimpleTarget.Stack.AllyToRaise"/>
-    [SettingCollapsibleGroup("Raise Stack Customization Options")]
+    [SettingCollapsibleGroup("复活堆栈自定义选项")]
     [SettingCategory(Targeting_Options)]
-    [Setting("Custom Raise Stack",
-        "This is the order in which Wrath will try to select a " +
-        "target to Raise,\nif Retargeting of any Raise Feature is enabled.\n\n" +
-        "You can find Raise Features under PvE>General,\n" +
-        "or under each caster that has a Raise.\n\n" +
-        "If there are fewer than 5 items, and all return nothing when checked, will fall back to:\n" +
-        "your Hard Target if they're dead, or <Any Dead Party Member>.\n\n"+
-        "These targets will only be considered valid if they are friendly, dead, and within 30y.\n",
-        recommendedValue: "Preference",
-        defaultValue: "Any Healer > Any Tank > Any Raiser > Any Dead Party Member",
+    [Setting("自定义复活堆栈",
+        "这是Wrath尝试选择复活目标的优先级顺序，\n" +
+        "当任何复活功能的重定向功能启用时生效。\n\n" +
+        "你可以在PvE>通用设置下找到复活功能，\n" +
+        "或在每个拥有复活技能的职业下找到。\n\n" +
+        "如果少于5个项目，且全部检查无效，则会回退到：\n" +
+        "你的硬目标（如果已死亡），或<任意死亡队员>。\n\n"+
+        "这些目标只有在友方、死亡且在30米范围内时才被视为有效。\n",
+        recommendedValue: "用户偏好",
+        defaultValue: "任意治疗 > 任意坦克 > 任意复活职业 > 任意死亡队员",
         type: Setting.Type.Stack,
         extraText: "(所有目标都会检查是否可被复活)",
         stackStringsToExclude:
@@ -560,7 +556,7 @@ public partial class Configuration : IPluginConfiguration
     [Setting("输出日志到聊天",
         "每次你通过Wrath使用技能时，插件都会将其输出到聊天。",
         recommendedValue: "On (IF trying to report an issue)",
-        defaultValue: "Off")]
+        defaultValue: "关闭")]
     public bool EnabledOutputLog = false;
 
     /// Whether to output Opener state to the chatbox.
@@ -568,8 +564,8 @@ public partial class Configuration : IPluginConfiguration
     [SettingCategory(Troubleshooting_Options)]
     [Setting("输出起手状态到聊天",
         "每当你的职业起手准备好、失败或如预期完成时，都会输出到聊天。",
-        recommendedValue: "On (IF trying to troubleshoot an Opener)",
-        defaultValue: "Off")]
+        recommendedValue: "开启（如果尝试排查起手问题）",
+        defaultValue: "关闭")]
     public bool OutputOpenerLogs;
 
     #endregion

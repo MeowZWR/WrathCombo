@@ -362,8 +362,8 @@ internal class Settings : ConfigWindow
                     ref t,
                     setting.StackStringsToExclude,
                     setting.HelpMark +
-                    $"\n\nRecommended Value: {setting.RecommendedValue}\n" +
-                    $"Default Value: {setting.DefaultValue}" +
+                    $"\n\n推荐值: {setting.RecommendedValue}\n" +
+                    $"默认值: {setting.DefaultValue}" +
                     $"\n\n{stackHelp}",
                     setting.Name.Contains("Raise")
                 );
@@ -408,8 +408,8 @@ internal class Settings : ConfigWindow
         if (setting.Type != Attributes.Setting.Type.Stack)
             ImGuiComponents.HelpMarker(
                 setting.HelpMark +
-                $"\n\nRecommended Value: {setting.RecommendedValue}\n" +
-                $"Default Value: {setting.DefaultValue}"
+                $"\n\n推荐值: {setting.RecommendedValue}\n" +
+                $"默认值: {setting.DefaultValue}"
             );
         if (setting.ExtraHelpMark is not null)
             ImGuiComponents.HelpMarker(setting.ExtraHelpMark);
