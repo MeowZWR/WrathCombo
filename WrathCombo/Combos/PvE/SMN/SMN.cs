@@ -240,6 +240,9 @@ internal partial class SMN : Caster
                 if (ActionReady(LuxSolaris) &&
                    (PlayerHealthPercentageHp() < 100 || (GetStatusEffectRemainingTime(Buffs.RefulgentLux) is < 3 and > 0)))
                     return OriginalHook(LuxSolaris);
+                
+                if (Role.CanAddle() && GroupDamageIncoming())
+                    return Role.Addle;
 
                 // Self Shield Overcap
                 if (!HasStatusEffect(Buffs.SearingLight) && !HasStatusEffect(Buffs.TitansFavor) &&

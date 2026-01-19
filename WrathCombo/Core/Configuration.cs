@@ -301,6 +301,13 @@ public partial class Configuration : IPluginConfiguration
         sliderMax: 2.5f)]
     public float QueueAdjustThreshold = 1.5f;
 
+    [SettingCategory(Rotation_Behavior_Options)]
+    [Setting("Overwrite Queue",
+        "This will allow you to overwrite whatever is currently queued up with another action.",
+        recommendedValue: "On",
+        defaultValue: "Off")]
+    public bool OverwriteQueue = false;
+
     /// The throttle for how often the hotbar gets walked. Default: 50.
     /// <seealso cref="ActionChanging"/>
     /// <seealso cref="ActionReplacer.GetAdjustedActionDetour"/>

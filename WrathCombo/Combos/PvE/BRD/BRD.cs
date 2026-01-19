@@ -94,7 +94,9 @@ internal partial class BRD : PhysicalRanged
                     return Role.HeadGraze;
 
                 if (ActionReady(RainOfDeath) && UsePooledBloodRain())
-                    return OriginalHook(RainOfDeath);
+                    return NumberOfEnemiesInRange(RainOfDeath) >= 2 
+                        ? OriginalHook(RainOfDeath)
+                        : OriginalHook(Bloodletter);
 
                 if (!LevelChecked(RainOfDeath) && !(WasLastAction(Bloodletter) && BloodletterCharges > 0))
                     return OriginalHook(Bloodletter);
@@ -132,7 +134,9 @@ internal partial class BRD : PhysicalRanged
                 return OriginalHook(RadiantEncore);
 
             if (HasStatusEffect(Buffs.HawksEye) && ActionReady(WideVolley))
-                return OriginalHook(WideVolley);
+                return NumberOfEnemiesInRange(OriginalHook(WideVolley)) >= 2
+                    ? OriginalHook(WideVolley)
+                    : OriginalHook(StraightShot);
 
             #region Multidot Management
 
@@ -253,6 +257,16 @@ internal partial class BRD : PhysicalRanged
 
                 if (Role.CanSecondWind(40))
                     return Role.SecondWind;
+                
+                if (ActionReady(Troubadour) && !GroupDamageIncoming() && !JustUsed(NaturesMinne) &&
+                    NumberOfAlliesInRange(Troubadour) >= GetPartyMembers().Count * .75 &&
+                    !HasAnyStatusEffects([Buffs.Troubadour, DNC.Buffs.ShieldSamba, MCH.Buffs.Tactician, Buffs.WanderersMinuet], anyOwner: true))
+                    return Troubadour;
+
+                if (ActionReady(NaturesMinne) && !GroupDamageIncoming() && !JustUsed(Troubadour) &&
+                    NumberOfAlliesInRange(NaturesMinne) >= GetPartyMembers().Count * .75 &&
+                    !HasAnyStatusEffects([Buffs.Troubadour, Buffs.NaturesMinne, Buffs.WanderersMinuet], anyOwner: true))
+                    return NaturesMinne;
 
                 if (ActionReady(TheWardensPaeon))
                 {
@@ -424,7 +438,9 @@ internal partial class BRD : PhysicalRanged
 
                 if (ActionReady(RainOfDeath) &&
                     (IsEnabled(Preset.BRD_AoE_Pooling) && UsePooledBloodRain() || !IsEnabled(Preset.BRD_AoE_Pooling)))
-                    return OriginalHook(RainOfDeath);
+                    return NumberOfEnemiesInRange(RainOfDeath) >= 2
+                        ? OriginalHook(RainOfDeath)
+                        : OriginalHook(Bloodletter);
 
                 if (!LevelChecked(RainOfDeath) && !WasLastAction(Bloodletter) && BloodletterCharges > 0)
                     return OriginalHook(Bloodletter);
@@ -474,7 +490,9 @@ internal partial class BRD : PhysicalRanged
             }
 
             if (HasStatusEffect(Buffs.HawksEye) && ActionReady(WideVolley))
-                return OriginalHook(WideVolley);
+                return NumberOfEnemiesInRange(OriginalHook(WideVolley)) >= 2
+                    ? OriginalHook(WideVolley)
+                    : OriginalHook(StraightShot);
 
             #region Multidot Management
             if (IsEnabled(Preset.BRD_AoE_Adv_Multidot))
@@ -623,13 +641,13 @@ internal partial class BRD : PhysicalRanged
                     (IsEnabled(Preset.BRD_Adv_Pooling) && UsePooledBloodRain() || !IsEnabled(Preset.BRD_Adv_Pooling)))
                     return OriginalHook(Bloodletter);
 
-                if (ActionReady(Troubadour) &&
+                if (ActionReady(Troubadour) && !JustUsed(NaturesMinne) &&
                     IsEnabled(Preset.BRD_Adv_Troubadour) && !GroupDamageIncoming() &&
                     NumberOfAlliesInRange(Troubadour) >= GetPartyMembers().Count * .75 &&
                     !HasAnyStatusEffects([Buffs.Troubadour, DNC.Buffs.ShieldSamba, MCH.Buffs.Tactician, Buffs.WanderersMinuet], anyOwner: true))
                     return Troubadour;
 
-                if (ActionReady(NaturesMinne) &&
+                if (ActionReady(NaturesMinne) && !JustUsed(Troubadour) &&
                    IsEnabled(Preset.BRD_Adv_NaturesMinne) && !GroupDamageIncoming() &&
                    NumberOfAlliesInRange(NaturesMinne) >= GetPartyMembers().Count * .75 &&
                    !HasAnyStatusEffects([Buffs.Troubadour, Buffs.NaturesMinne, Buffs.WanderersMinuet], anyOwner: true))

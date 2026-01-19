@@ -17,11 +17,11 @@ internal partial class MCH
         switch (onAoE)
         {
             case false when
-                (Heat >= 50 || HasStatusEffect(Buffs.Hypercharged)) &&
-                !IsComboExpiring(6) && ActionReady(Hypercharge) &&
-                !JustUsed(BarrelStabilizer) &&
+                (ActionReady(Hypercharge) || HasStatusEffect(Buffs.Hypercharged)) &&
+                !IsComboExpiring(6) &&
                 DrillCD && AirAnchorCD && ChainSawCD &&
                 !HasStatusEffect(Buffs.ExcavatorReady) &&
+                !HasStatusEffect(Buffs.FullMetalMachinist) &&
                 (ActionReady(Wildfire) ||
                  MCH_ST_WildfireBossOption == 1 && !TargetIsBoss() ||
                  GetCooldownRemainingTime(Wildfire) > GCD * 15 ||
@@ -29,8 +29,8 @@ internal partial class MCH
                  !LevelChecked(Wildfire)):
 
             case true when
-                (Heat >= 50 || HasStatusEffect(Buffs.Hypercharged)) && LevelChecked(Hypercharge) &&
-                LevelChecked(AutoCrossbow) &&
+                (ActionReady(Hypercharge) || HasStatusEffect(Buffs.Hypercharged)) &&
+                ActionReady(AutoCrossbow) &&
                 (LevelChecked(BioBlaster) && GetCooldownRemainingTime(BioBlaster) > 10 ||
                  !LevelChecked(BioBlaster)) &&
                 (LevelChecked(Flamethrower) && GetCooldownRemainingTime(Flamethrower) > 10 ||
@@ -49,7 +49,7 @@ internal partial class MCH
     {
         if (!HasStatusEffect(Buffs.Wildfire) &&
             ActionReady(RookAutoturret) &&
-            !RobotActive && Battery >= 50)
+            !RobotActive)
         {
             if (LevelChecked(Wildfire))
             {
@@ -110,7 +110,8 @@ internal partial class MCH
     {
         uint remainingCharges = GetRemainingCharges(Reassemble);
 
-        if (HasStatusEffect(Buffs.Reassembled) || !HasBattleTarget() || !InActionRange(Drill))
+        if (HasStatusEffect(Buffs.Reassembled) || !HasBattleTarget() ||
+            !InActionRange(Drill) || JustUsed(Reassemble))
             return false;
 
         if (remainingCharges == 0)

@@ -88,6 +88,14 @@ internal partial class PLD
 
                 case Preset.PLD_ST_AdvancedMode_BalanceOpener:
                     DrawBossOnlyChoice(PLD_Balance_Content);
+                    ImGui.NewLine();
+                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_BalanceOpener_Intervene, "Use Gap Closers", "Does not skip Intervene in the Opener.", 0);
+                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_BalanceOpener_Intervene, "Skip Gap Closers", "Skips Intervene in the Opener.", 1);
+                    break;
+                
+                case Preset.PLD_ST_AdvancedMode_GoringBlade:
+                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_GoringBladePrioritize, "Prioritize Goring Blade", "Prioritizes Goring Blade before Confiteor Combo is if Melee Range.", 0);
+                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_GoringBladePrioritize, "Prioritize Confiteor Combo", "Will Goring Blade after Confiteor Combo.", 1);
                     break;
 
                 // Fight or Flight
@@ -344,6 +352,7 @@ internal partial class PLD
             
             //ST
             PLD_Balance_Content = new("PLD_Balance_Content", 1),
+            PLD_ST_AdvancedMode_BalanceOpener_Intervene = new("PLD_ST_AdvancedMode_BalanceOpener_Intervene"),
             PLD_ST_Intervene_Charges = new("PLD_ST_Intervene_Charges"),
             PLD_ST_Intervene_Movement = new("PLD_ST_Intervene_Movement"),
             PLD_ST_Intervene_Distance = new("PLD_ST_Intervene_Distance", 3),
@@ -351,6 +360,7 @@ internal partial class PLD
             PLD_ST_FoF_BossOption = new("PLD_ST_FoF_BossOption"),
             PLD_ST_FoF_HPOption = new("PLD_ST_FoF_HPOption", 10),
             PLD_ST_ShieldLob_SubOption = new("PLD_ST_ShieldLob_SubOption"),
+            PLD_ST_AdvancedMode_GoringBladePrioritize = new("PLD_ST_AdvancedMode_GoringBladePrioritize"),
             
             //AoE
             PLD_AoE_FoF_Trigger = new("PLD_AoE_FoF_Trigger", 25),

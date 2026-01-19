@@ -59,6 +59,14 @@ internal partial class RDM : Caster
 
                 if (CanSwiftcast || CanSwiftcastMovement)
                     return Role.Swiftcast;
+                
+                if (Role.CanAddle() && GroupDamageIncoming())
+                    return Role.Addle;
+
+                if (NumberOfAlliesInRange(MagickBarrier) >= GetPartyMembers().Count * .75 &&
+                    !HasStatusEffect(Buffs.MagickBarrier, anyOwner: true) && !JustUsed(Role.Addle, 6) &&
+                    ActionReady(MagickBarrier) && GroupDamageIncoming())
+                    return MagickBarrier;
             }
             #endregion
 
@@ -311,7 +319,8 @@ internal partial class RDM : Caster
             #endregion
 
             #region GCD Casts
-            if (IsEnabled(Preset.RDM_ST_ThunderAero) && CanInstantCast)
+            
+            if (IsEnabled(Preset.RDM_ST_ThunderAero) && (CanInstantCast || !InCombat() && RDM_ST_ThunderAero_Pull))
                 return UseInstantCastST(actionID);
 
             if (CanGrandImpact)

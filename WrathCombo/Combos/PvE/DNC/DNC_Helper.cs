@@ -381,7 +381,7 @@ internal partial class DNC
             }
 
             // Simple ilvl tie-breaker
-            orderedFilter = orderedFilter.ThenBy(x => x.MaxHp);
+            orderedFilter = orderedFilter.ThenByDescending(x => x.MaxHp);
 
             filter = orderedFilter.ToList();
 

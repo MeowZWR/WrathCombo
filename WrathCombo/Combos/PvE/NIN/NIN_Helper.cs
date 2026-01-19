@@ -154,9 +154,9 @@ internal partial class NIN
                                       (BuffWindow || TrickDisabledAoE);
 
     internal static bool CanAssassinate => !MudraPhase && ActionReady(OriginalHook(Assassinate)) && NinjaWeave &&
-                                           (BuffWindow || TrickDisabledST);
+                                           (BuffWindow || TrickDisabledST || !LevelChecked(Suiton));
     internal static bool CanAssassinateAoE => !MudraPhase && ActionReady(OriginalHook(Assassinate)) && NinjaWeave &&
-                                           (BuffWindow || TrickDisabledAoE);
+                                           (BuffWindow || TrickDisabledAoE || !LevelChecked(Huton));
 
     internal static bool CanTenChiJin => !MudraPhase && !MudraAlmostReady && IsOffCooldown(TenChiJin) && LevelChecked(TenChiJin) && NinjaWeave &&
                                          (BuffWindow || TrickDisabledST);

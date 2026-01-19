@@ -33,17 +33,17 @@ internal partial class SAM : Melee
                 if (CanIkishoten())
                     return Ikishoten;
 
-                //Senei Feature
-                if (Kenki >= SAMKenki.Senei)
-                {
-                    if (CanSenei())
-                        return Senei;
+                if (GetTargetHPPercent() < ShintenTreshhold)
+                    return ExecuteKenkiSpender(actionID, true);
 
-                    //Guren if no Senei
-                    if (!LevelChecked(Senei) &&
-                        ActionReady(Guren) && InActionRange(Guren))
-                        return Guren;
-                }
+                //Senei Feature
+                if (CanSenei())
+                    return Senei;
+
+                //Guren if no Senei
+                if (!LevelChecked(Senei) &&
+                    ActionReady(Guren) && InActionRange(Guren))
+                    return Guren;
 
                 //Zanshin Usage
                 if (CanZanshin())
@@ -56,6 +56,10 @@ internal partial class SAM : Melee
                 //Shinten Usage
                 if (CanShinten())
                     return Shinten;
+
+                if (Role.CanFeint() &&
+                    GroupDamageIncoming())
+                    return Role.Feint;
 
                 //Auto Third Eye
                 if (CanUseThirdEye)
@@ -120,6 +124,7 @@ internal partial class SAM : Melee
 
                 if (ActionReady(MeikyoShisui) &&
                     !HasStatusEffect(Buffs.MeikyoShisui) &&
+                    !JustUsed(MeikyoShisui) &&
                     ComboTimer is 0)
                     return MeikyoShisui;
 
@@ -134,10 +139,10 @@ internal partial class SAM : Melee
                     };
                 }
 
-                if (ActionReady(Zanshin) && HasStatusEffect(Buffs.ZanshinReady) && Kenki >= 50)
+                if (ActionReady(Zanshin) && HasStatusEffect(Buffs.ZanshinReady))
                     return Zanshin;
 
-                if (ActionReady(Guren) && Kenki >= 25)
+                if (ActionReady(Guren))
                     return Guren;
 
                 if (ActionReady(Shoha) && MeditationStacks is 3)
@@ -203,7 +208,8 @@ internal partial class SAM : Melee
 
             // Opener for SAM
             if (IsEnabled(Preset.SAM_ST_Opener) &&
-                Opener().FullOpener(ref actionID))
+                Opener().FullOpener(ref actionID) &&
+                HasBattleTarget())
                 return actionID;
 
             //Meikyo to start before combat
@@ -211,7 +217,8 @@ internal partial class SAM : Melee
                 IsEnabled(Preset.SAM_ST_CDs_MeikyoShisui) &&
                 ActionReady(MeikyoShisui) &&
                 !HasStatusEffect(Buffs.MeikyoShisui) &&
-                !InCombat() && HasBattleTarget() && TargetIsBoss())
+                !InCombat() && HasBattleTarget() &&
+                !JustUsed(MeikyoShisui))
                 return MeikyoShisui;
 
             if (ContentSpecificActions.TryGet(out uint contentAction))
@@ -235,9 +242,11 @@ internal partial class SAM : Melee
 
                 if (IsEnabled(Preset.SAM_ST_Damage))
                 {
+                    if (GetTargetHPPercent() < ShintenTreshhold)
+                        return ExecuteKenkiSpender(actionID);
+
                     //Senei feature
-                    if (IsEnabled(Preset.SAM_ST_CDs_Senei)
-                        && Kenki >= SAMKenki.Senei)
+                    if (IsEnabled(Preset.SAM_ST_CDs_Senei))
                     {
                         if (CanSenei())
                             return Senei;
@@ -257,11 +266,11 @@ internal partial class SAM : Melee
                     if (IsEnabled(Preset.SAM_ST_CDs_Shoha) &&
                         CanShoha())
                         return Shoha;
-                }
 
-                if (IsEnabled(Preset.SAM_ST_Shinten) &&
-                    CanShinten())
-                    return Shinten;
+                    if (IsEnabled(Preset.SAM_ST_Shinten) &&
+                        CanShinten())
+                        return Shinten;
+                }
 
                 if (IsEnabled(Preset.SAM_ST_Feint) &&
                     Role.CanFeint() &&
@@ -339,7 +348,8 @@ internal partial class SAM : Melee
                 IsEnabled(Preset.SAM_AoE_MeikyoShisui) &&
                 ActionReady(MeikyoShisui) &&
                 !HasStatusEffect(Buffs.MeikyoShisui) &&
-                !InCombat() && HasBattleTarget())
+                !InCombat() && HasBattleTarget() &&
+                !JustUsed(MeikyoShisui))
                 return MeikyoShisui;
 
             if (ContentSpecificActions.TryGet(out uint contentAction))
@@ -357,6 +367,7 @@ internal partial class SAM : Melee
                     if (IsEnabled(Preset.SAM_AoE_MeikyoShisui) &&
                         ActionReady(MeikyoShisui) &&
                         !HasStatusEffect(Buffs.MeikyoShisui) &&
+                        !JustUsed(MeikyoShisui) &&
                         ComboTimer is 0)
                         return MeikyoShisui;
 
@@ -376,11 +387,11 @@ internal partial class SAM : Melee
                 if (IsEnabled(Preset.SAM_AoE_Damage))
                 {
                     if (IsEnabled(Preset.SAM_AoE_Zanshin) &&
-                        ActionReady(Zanshin) && HasStatusEffect(Buffs.ZanshinReady) && Kenki >= 50)
+                        ActionReady(Zanshin) && HasStatusEffect(Buffs.ZanshinReady))
                         return Zanshin;
 
                     if (IsEnabled(Preset.SAM_AoE_Guren) &&
-                        ActionReady(Guren) && Kenki >= 25)
+                        ActionReady(Guren))
                         return Guren;
 
                     if (IsEnabled(Preset.SAM_AoE_Shoha) &&
@@ -843,6 +854,21 @@ internal partial class SAM : Melee
 
             return !LevelChecked(Senei)
                 ? Guren
+                : actionID;
+        }
+    }
+
+    internal class SAM_OgiShoha : CustomCombo
+    {
+        protected internal override Preset Preset => Preset.SAM_OgiShoha;
+
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID is not OgiNamikiri)
+                return actionID;
+
+            return LevelChecked(Shoha) && MeditationStacks is 3
+                ? Shoha
                 : actionID;
         }
     }

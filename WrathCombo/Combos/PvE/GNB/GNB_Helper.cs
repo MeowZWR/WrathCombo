@@ -60,7 +60,8 @@ internal partial class GNB : Tank
         HasStatusEffect(Buffs.ReadyToReign); //has appropriate buff needed
     private static bool CanUse(uint action) =>
         LevelChecked(action) && //unlocked
-        GetCooldownRemainingTime(action) < 0.5f; //off cooldown
+        GetCooldownRemainingTime(action) < 0.5f && //off cooldown
+        InActionRange(action); //enemy in range of the skill
     private static bool MitigationRunning =>
         HasStatusEffect(Role.Buffs.ArmsLength) ||
         HasStatusEffect(Role.Buffs.Rampart) || 

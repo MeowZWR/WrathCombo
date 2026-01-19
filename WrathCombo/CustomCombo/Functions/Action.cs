@@ -21,6 +21,8 @@ internal abstract partial class CustomComboFunctions
     public const float BaseActionQueue = 0.5f;
     public const float BaseAnimationLock = 0.6f;
 
+    public unsafe static float AnimationLock => ActionManager.Instance()->AnimationLock;
+
     /// <summary> Gets the original hook of an action. </summary>
     /// <param name="actionId"> The action ID. </param>
     public static uint OriginalHook(uint actionId) => Service.ActionReplacer.OriginalHook(actionId);

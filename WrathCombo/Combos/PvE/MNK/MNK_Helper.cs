@@ -63,25 +63,25 @@ internal partial class MNK
             case false when
                 ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) &&
                 !HasStatusEffect(Buffs.FormlessFist) && IsOriginal(MasterfulBlitz) &&
-                HasBattleTarget():
+                HasBattleTarget() && !JustUsed(PerfectBalance):
             {
                 // Odd window
-                if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                if ((JustUsed(OriginalHook(Bootshine), GCD * 3) || JustUsed(DragonKick, GCD * 3)) &&
                     !JustUsed(PerfectBalance, 20) && HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.Brotherhood))
                     return true;
 
                 // Even window first use
-                if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                if ((JustUsed(OriginalHook(Bootshine), GCD * 3) || JustUsed(DragonKick, GCD * 3)) &&
                     GetCooldownRemainingTime(Brotherhood) <= GCD * 3 && GetCooldownRemainingTime(RiddleOfFire) <= GCD * 3)
                     return true;
 
                 // Even window second use
-                if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                if ((JustUsed(OriginalHook(Bootshine), GCD * 3) || JustUsed(DragonKick, GCD * 3)) &&
                     HasStatusEffect(Buffs.Brotherhood) && HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.FiresRumination))
                     return true;
 
                 // Low level
-                if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                if ((JustUsed(OriginalHook(Bootshine), GCD * 3) || JustUsed(DragonKick, GCD * 3)) &&
                     (HasStatusEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
                      !LevelChecked(RiddleOfFire)))
                     return true;
@@ -89,7 +89,7 @@ internal partial class MNK
             }
 
             case true when
-                ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) &&
+                ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) && !JustUsed(PerfectBalance) &&
                 !HasStatusEffect(Buffs.FormlessFist) && targetCheck && IsOriginal(MasterfulBlitz) &&
                 GetTargetHPPercent() >= MNK_AoE_PerfectBalanceHPThreshold:
             {
@@ -410,7 +410,8 @@ internal partial class MNK
     //Brotherhood
     private static bool CanBrotherhood() =>
         ActionReady(Brotherhood) &&
-        ActionReady(RiddleOfFire);
+        ActionReady(RiddleOfFire) &&
+        (InBossEncounter() || TimeStoodStill.Seconds >= 2);
 
     //RoW
     private static bool CanRoW() =>

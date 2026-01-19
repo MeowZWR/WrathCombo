@@ -55,10 +55,10 @@ internal partial class MCH : PhysicalRanged
                 if (!IsOverheated)
                 {
                     // BarrelStabilizer
-                    if (TargetIsBoss() &&
+                    if (ActionReady(BarrelStabilizer) &&
+                        TargetIsBoss() &&
                         DrillCD && AirAnchorCD && ChainSawCD &&
                         GetCooldownRemainingTime(Wildfire) <= GCD &&
-                        ActionReady(BarrelStabilizer) &&
                         !HasStatusEffect(Buffs.FullMetalMachinist))
                         return BarrelStabilizer;
 
@@ -86,6 +86,12 @@ internal partial class MCH : PhysicalRanged
                         if (CanRicochet && !JustUsed(OriginalHook(Ricochet), 2f))
                             return OriginalHook(Ricochet);
                     }
+
+                    if (ActionReady(Dismantle) &&
+                        !HasStatusEffect(Debuffs.Dismantled, CurrentTarget, true) &&
+                        CanApplyStatus(CurrentTarget, Debuffs.Dismantled) &&
+                        GroupDamageIncoming())
+                        return Dismantle;
 
                     // Healing
                     if (Role.CanSecondWind(40))
@@ -174,7 +180,8 @@ internal partial class MCH : PhysicalRanged
                         !HasStatusEffect(Buffs.FullMetalMachinist))
                         return BarrelStabilizer;
 
-                    if (Battery is 100)
+                    if (ActionReady(RookAutoturret) &&
+                        Battery is 100)
                         return OriginalHook(RookAutoturret);
 
                     if (ActionReady(Reassemble) && !HasStatusEffect(Buffs.Wildfire) &&
@@ -324,9 +331,12 @@ internal partial class MCH : PhysicalRanged
 
                     // BarrelStabilizer
                     if (IsEnabled(Preset.MCH_ST_Adv_Stabilizer) &&
-                        (MCH_ST_BarrelStabilizerBossOption == 0 && GetTargetHPPercent() > HPThresholdBarrelStabilizer || TargetIsBoss()) &&
-                        DrillCD && AirAnchorCD && ChainSawCD && GetCooldownRemainingTime(Wildfire) <= GCD &&
-                        ActionReady(BarrelStabilizer) && !HasStatusEffect(Buffs.FullMetalMachinist))
+                        ActionReady(BarrelStabilizer) &&
+                        (MCH_ST_BarrelStabilizerBossOption == 0 && GetTargetHPPercent() > HPThresholdBarrelStabilizer ||
+                         TargetIsBoss()) &&
+                        DrillCD && AirAnchorCD && ChainSawCD &&
+                        GetCooldownRemainingTime(Wildfire) <= GCD &&
+                        !HasStatusEffect(Buffs.FullMetalMachinist))
                         return BarrelStabilizer;
 
                     // Queen

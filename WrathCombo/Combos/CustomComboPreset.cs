@@ -1519,7 +1519,7 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(BLM.Fire)]
-    [ConflictingCombos(BLM_ST_SimpleMode, BLM_Fire1and3)]
+    [ConflictingCombos(BLM_ST_SimpleMode, BLM_Fire1and3, BLM_F1toF4)]
     [CustomComboInfo("Advanced Mode - Single Target", "Replaces Fire with a full one-button single target rotation.\nThese features are ideal if you want to customize the rotation.", Job.BLM)]
     [AdvancedCombo]
     BLM_ST_AdvancedMode = 2100,
@@ -1649,9 +1649,14 @@ public enum Preset
     BLM_TriplecastProtection = 2056,
 
     [ReplaceSkill(BLM.Fire, BLM.Fire3)]
-    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_ST_SimpleMode)]
+    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_ST_SimpleMode, BLM_F1toF4)]
     [CustomComboInfo("Fire I/III Feature", "Replaces Fire I or Fire III with the options below.", Job.BLM)]
     BLM_Fire1and3 = 2054,
+
+    [ReplaceSkill(BLM.Fire)]
+    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_ST_SimpleMode, BLM_Fire1and3)]
+    [CustomComboInfo("Fire I to Fire IV Feature", "Replaces Fire I with Fire IV when available.", Job.BLM)]
+    BLM_F1toF4 = 2070,
 
     [ReplaceSkill(BLM.Fire4)]
     [CustomComboInfo("Fire IV Feature", "Replaces Fire IV with the options below.", Job.BLM)]
@@ -1662,8 +1667,14 @@ public enum Preset
     BLM_Flare = 2069,
 
     [ReplaceSkill(BLM.Blizzard, BLM.Blizzard3)]
+    [ConflictingCombos(BLM_B1toB4)]
     [CustomComboInfo("Blizzard I/III Feature", "Replaces Blizzard I or Blizzard III with the options below.", Job.BLM)]
     BLM_Blizzard1and3 = 2052,
+
+    [ReplaceSkill(BLM.Blizzard)]
+    [ConflictingCombos(BLM_Blizzard1and3)]
+    [CustomComboInfo("Blizzard I to Blizzard IV Feature", "Replaces Blizzard I with Blizzard IV when available.", Job.BLM)]
+    BLM_B1toB4 = 2071,
 
     [ReplaceSkill(BLM.Blizzard4)]
     [CustomComboInfo("Blizzard IV to Despair", "Replaces Blizzard IV with Despair when in Astral Fire.", Job.BLM)]
@@ -1710,7 +1721,7 @@ public enum Preset
 
     // Last value ST = 2117
     //Last Value AoE = 2213
-    //Last Value misc = 2069
+    //Last Value misc = 2071
 
     #endregion
 
@@ -6407,15 +6418,16 @@ public enum Preset
     SAM_ST_CDs_Shoha = 15019,
 
     [ParentCombo(SAM_ST_Damage)]
+    [CustomComboInfo("Shinten Option", "Adds Shinten to the rotation.\nWill pool kenki for burst.", Job.SAM)]
+    SAM_ST_Shinten = 15008,
+
+
+    [ParentCombo(SAM_ST_Damage)]
     [CustomComboInfo("Ranged Uptime Feature", "Adds Enpi to the rotation when you are out of range.\nWill use Ogi or Iaijutsu when possible and enabled.", Job.SAM)]
     SAM_ST_RangedUptime = 15097,
 
     #endregion
-
-    [ParentCombo(SAM_ST_AdvancedMode)]
-    [CustomComboInfo("Shinten Option", "Adds Shinten to the rotation.\nWill pool kenki for burst.", Job.SAM)]
-    SAM_ST_Shinten = 15008,
-
+    
     [ParentCombo(SAM_ST_AdvancedMode)]
     [CustomComboInfo("True North Feature", "Adds True North when you are not in the correct position for the enhanced potency bonus.", Job.SAM)]
     SAM_ST_TrueNorth = 15099,
@@ -6648,6 +6660,10 @@ public enum Preset
     [ReplaceSkill(SAM.Senei)]
     [CustomComboInfo("Senei - Guren Feature", "Hissatsu: Senei becomes Hissatsu : Guren when synched below lvl 72.", Job.SAM)]
     SAM_SeneiGuren = 15215,
+    
+    [ReplaceSkill(SAM.OgiNamikiri)]
+    [CustomComboInfo("Ogi Namikiri - Shoha Feature", "Ogi Namikiri becomes Shoha when u have 3 meditation stacks.", Job.SAM)]
+    SAM_OgiShoha = 15258,
 
     #endregion
 
@@ -6662,7 +6678,7 @@ public enum Preset
 
     // Last Value ST = 15027
     // Last Value AoE = 15113
-    // Last Value Misc = 15257
+    // Last Value Misc = 15258
     // Last Value Hidden = 153010
     #endregion
 
@@ -7556,12 +7572,22 @@ public enum Preset
     #region Miscellaneous
 
     [ReplaceSkill(VPR.Vicewinder)]
+    [ConflictingCombos(VPR_VicewinderProtection)]
     [CustomComboInfo("Vicewinder - Coils", "Replaces Vicewinder with Hunter's/Swiftskin's Coils.\nWill automatically swap depending on your position.", Job.VPR)]
     VPR_VicewinderCoils = 30200,
 
+    [ParentCombo(VPR_VicewinderCoils)]
+    [CustomComboInfo("Include Twin Combo Actions", "Adds Twinfang and Twinblood to the button.", Job.VPR)]
+    VPR_VicewinderCoils_oGCDs = 30206,
+
     [ReplaceSkill(VPR.Vicepit)]
+    [ConflictingCombos(VPR_VicewinderProtection)]
     [CustomComboInfo("Vicepit - Dens", "Replaces Vicepit with Hunter's/Swiftskin's Dens.", Job.VPR)]
     VPR_VicepitDens = 30201,
+
+    [ParentCombo(VPR_VicepitDens)]
+    [CustomComboInfo("Include Twin Combo Actions", "Adds Twinfang and Twinblood to the button.", Job.VPR)]
+    VPR_VicepitDens_oGCDs = 30207,
 
     [ReplaceSkill(VPR.UncoiledFury)]
     [CustomComboInfo("Uncoiled - Twins", "Replaces Uncoiled Fury with Uncoiled Twinfang and Uncoiled Twinblood.", Job.VPR)]
@@ -7579,15 +7605,7 @@ public enum Preset
     [ReplaceSkill(VPR.SerpentsTail)]
     [CustomComboInfo("Combined Combo Ability Feature", "Combines Serpent's Tail, Twinfang, and Twinblood to one button.", Job.VPR)]
     VPR_TwinTails = 30205,
-
-    [ParentCombo(VPR_VicewinderCoils)]
-    [CustomComboInfo("Include Twin Combo Actions", "Adds Twinfang and Twinblood to the button.", Job.VPR)]
-    VPR_VicewinderCoils_oGCDs = 30206,
-
-    [ParentCombo(VPR_VicepitDens)]
-    [CustomComboInfo("Include Twin Combo Actions", "Adds Twinfang and Twinblood to the button.", Job.VPR)]
-    VPR_VicepitDens_oGCDs = 30207,
-
+    
     [ReplaceSkill(VPR.SteelFangs, VPR.ReavingFangs, VPR.HuntersCoil, VPR.SwiftskinsCoil)]
     [ConflictingCombos(VPR_ST_SimpleMode, VPR_ST_AdvancedMode, VPR_SerpentsTail, VPR_ReawakenLegacy, VPR_ST_BasicCombo)]
     [CustomComboInfo("Legacy Buttons", "Replaces Generations with the Legacys.", Job.VPR)]
@@ -7597,11 +7615,16 @@ public enum Preset
     [ConflictingCombos(VPR_ST_SimpleMode, VPR_AoE_SimpleMode, VPR_ST_AdvancedMode, VPR_AoE_AdvancedMode, VPR_Legacies, VPR_ST_BasicCombo)]
     [CustomComboInfo("Serpents Tail", "Replaces basic combo with Death Rattle or Last Lash when applicable.", Job.VPR)]
     VPR_SerpentsTail = 30210,
+    
+    [ReplaceSkill(VPR.Vicewinder, VPR.Vicepit)]
+    [ConflictingCombos(VPR_VicepitDens, VPR_VicewinderCoils)]
+    [CustomComboInfo("Perfect Balance Protection", "Replaces Perfect Balance with Savage Blade when you already have Perfect Balance active.", Job.VPR)]
+    VPR_VicewinderProtection = 30212,
 
     #endregion
     //ST 30016
     //AoE 30115
-    //Misc 30211
+    //Misc 30212
 
     #endregion
 
@@ -8027,7 +8050,7 @@ public enum Preset
 
     [AutoAction(false, true)]
     [ReplaceSkill(WHM.Cure)]
-    [ConflictingCombos(WHM_STHeals)]
+    [ConflictingCombos(WHM_STHeals, WHM_Re_Cure)]
     [CustomComboInfo("Simple Healing Mode - Single Target", "Replaces Cure with a full one-button single target healing utility." +
                                                             "\nThis is the ideal option for newcomers to the job. Particularly with autorotation.", Job.WHM)]
     [SimpleCombo]
@@ -8155,7 +8178,7 @@ public enum Preset
 
     [AutoAction(false, true)]
     [ReplaceSkill(WHM.Cure)]
-    [ConflictingCombos(WHM_SimpleSTHeals)]
+    [ConflictingCombos(WHM_SimpleSTHeals, WHM_Re_Cure)]
     [CustomComboInfo("Advanced Healing Mode - Single Target", "Replaces Cure with a one button single target healing setup.",
         Job.WHM)]
     [PossiblyRetargeted(WHM.Cure)]
@@ -8334,11 +8357,18 @@ public enum Preset
     [CustomComboInfo("Retargeting Features", "Collection of Options to Retarget Manually-Used Single Target Heals.", Job.WHM)]
     WHM_Retargets = 19037,
 
+    [ConflictingCombos(WHM_SimpleSTHeals, WHM_STHeals)]
     [ParentCombo(WHM_Retargets)]
-    [ReplaceSkill(WHM.Cure, WHM.Cure2)]
-    [CustomComboInfo("Cure Option", "Retargets Cure and Cure II to the heal stack (even from the Cure II Sync Feature above).", Job.WHM)]
-    [Retargeted(WHM.Cure, WHM.Cure2)]
+    [ReplaceSkill(WHM.Cure)]
+    [CustomComboInfo("Cure Option", "Retargets Cure to the heal stack (even from the Cure II Sync Feature above).", Job.WHM)]
+    [Retargeted(WHM.Cure)]
     WHM_Re_Cure = 19038,
+
+    [ParentCombo(WHM_Retargets)]
+    [ReplaceSkill(WHM.Cure2)]
+    [CustomComboInfo("Cure II Option", "Retargets Cure II to the heal stack.", Job.WHM)]
+    [Retargeted(WHM.Cure2)]
+    WHM_Re_Cure2 = 19055,
 
     [ParentCombo(WHM_Retargets)]
     [ReplaceSkill(WHM.AfflatusSolace)]

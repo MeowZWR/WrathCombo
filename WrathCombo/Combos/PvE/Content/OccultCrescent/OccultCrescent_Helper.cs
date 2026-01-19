@@ -217,6 +217,10 @@ internal partial class OccultCrescent
             Vigilance = 4277,
             CloudyCaress = 4280,
             BlazingSpellblade = 4790,
+            PoisedToSwordDance = 4794,
+            TemptedToTango = 4795,
+            Jitterbugged = 4796,
+            WillingToWaltz = 4797,
             Quickstep = 4798;
     }
 

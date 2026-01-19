@@ -67,11 +67,31 @@ public class AutoRotationConfigIPCWrapper(AutoRotationConfig? config)
         }
     }
 
+    public bool BypassQuest
+    {
+        get
+        {
+            var checkControlled =
+                P.UIHelper.AutoRotationConfigControlled("BypassQuest");
+            return checkControlled is not null
+                ? checkControlled.Value.state == 1
+                : config.BypassQuest;
+        }
+    }
+
+    public bool BypassFATE
+    {
+        get
+        {
+            var checkControlled =
+                P.UIHelper.AutoRotationConfigControlled("BypassFATE");
+            return checkControlled is not null
+                ? checkControlled.Value.state == 1
+                : config.BypassFATE;
+        }
+    }
+
     #region Direct Pass-Throughs (no IPC check)
-
-    public bool BypassQuest => config.BypassQuest;
-
-    public bool BypassFATE => config.BypassFATE;
 
     public bool BypassBuffs => config.BypassBuffs;
 

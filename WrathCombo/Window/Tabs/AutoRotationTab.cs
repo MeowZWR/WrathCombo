@@ -52,11 +52,11 @@ internal class AutoRotationTab : ConfigWindow
                 ImGuiComponents.HelpMarker($"许多职业有可在非战斗中使用的技能，例如 {RPR.Soulsow.ActionName()} 或 {MNK.ForbiddenMeditation.ActionName()}。启用此项后可在非战斗中使用这些技能。");
 
                 ImGuiExtensions.Prefix(false);
-                changed |= ImGui.Checkbox($"任务目标时绕过仅战斗限制", ref cfg.BypassQuest);
+                changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded($"对任务目标绕过仅战斗限制", ref cfg.BypassQuest, "BypassQuest");
                 ImGuiComponents.HelpMarker("除非你在任务目标范围内，否则在非战斗中禁用自动模式。");
 
                 ImGuiExtensions.Prefix(false);
-                changed |= ImGui.Checkbox($"对FATE目标绕过仅战斗限制", ref cfg.BypassFATE);
+                changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded($"对FATE目标绕过仅战斗限制", ref cfg.BypassFATE, "BypassFATE");
                 ImGuiComponents.HelpMarker("除非你同步到FATE，否则在非战斗中禁用自动模式。");
 
                 ImGuiExtensions.Prefix(true);
@@ -72,9 +72,9 @@ internal class AutoRotationTab : ConfigWindow
         changed |= ImGui.Checkbox("离开副本后自动禁用", ref cfg.DisableAfterInstance);
 
         ImGuiEx.SetNextItemWidthScaled(100);
-        changed |= ImGuiEx.SliderFloat("Queue Window (s)", ref cfg.QueueWindow, 0f, 0.5f, $"{cfg.QueueWindow:N1}");
+        changed |= ImGuiEx.SliderFloat("技能排队窗口（秒）", ref cfg.QueueWindow, 0f, 0.5f, $"{cfg.QueueWindow:N1}");
         cfg.QueueWindow = (float)Math.Round(cfg.QueueWindow, 1);
-        ImGuiComponents.HelpMarker("This will determine how soon before the GCD is finished to queue up the next weaponskill or spell. Your latency may have an effect on what actions are performed so please adjust this if you're noticing improper action use, i.e double Blizzard IV casts due to MP not updating in time.");
+        ImGuiComponents.HelpMarker("该设置决定在GCD结束前多早开始排队下一个战技或魔法。你的网络延迟可能会影响技能执行，如果你发现技能释放异常（例如因MP未及时刷新导致黑魔连续使用冰澈），请适当调整此项。");
         if (cfg.QueueWindow > 0.5f)
             cfg.QueueWindow = 0.5f;
         if (cfg.QueueWindow < 0)
@@ -147,7 +147,7 @@ internal class AutoRotationTab : ConfigWindow
 
             ImGuiComponents.HelpMarker("如果检测到玩家身上有热病（或类似加速炸弹等）会导致行动受罚的机制时，将取消当前目标并禁用一键输出循环。");
 
-            changed |= ImGui.Checkbox("始终设置硬目标", ref cfg.DPSSettings.DPSAlwaysHardTarget);
+            changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded("始终设置硬目标", ref cfg.DPSSettings.DPSAlwaysHardTarget, "DPSAlwaysHardTarget");
 
             ImGuiComponents.HelpMarker("一键输出循环无需锁定敌人即可运作，但启用此设置后，执行攻击时将始终为您锁定一个硬目标。");
 
@@ -296,7 +296,7 @@ internal class AutoRotationTab : ConfigWindow
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded("治疗友方NPC", ref cfg.HealerSettings.IncludeNPCs);
             ImGuiComponents.HelpMarker("适用于需要治疗NPC但未直接加入队伍的治疗任务。");
 
-            changed |= ImGui.Checkbox("Always Set Hard Target###HealerHardTarget", ref cfg.HealerSettings.HealerAlwaysHardTarget);
+            changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded("Always Set Hard Target###HealerHardTarget", ref cfg.HealerSettings.HealerAlwaysHardTarget, "HealerAlwaysHardTarget");
 
             ImGuiComponents.HelpMarker("Auto-rotation does not need to target allies to work, however with this setting enabled it will always set your hard target when it executes a heal.");
 

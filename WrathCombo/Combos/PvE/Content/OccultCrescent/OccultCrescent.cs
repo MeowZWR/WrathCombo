@@ -648,22 +648,22 @@ internal partial class OccultCrescent
         if (CanWeaveNow) return false;
         
         #region Dances
-        if (IsEnabledAndUsable(Preset.Phantom_Dancer_Dance, PoisedToSwordDance))
+        if (IsEnabled(Preset.Phantom_Dancer_Dance) && HasStatusEffect(Buffs.PoisedToSwordDance))
         {
             actionID = PoisedToSwordDance;
             return true;
         }
-        if (IsEnabledAndUsable(Preset.Phantom_Dancer_Dance, TemptedToTango))
+        if (IsEnabled(Preset.Phantom_Dancer_Dance) && HasStatusEffect(Buffs.TemptedToTango))
         {
             actionID = TemptedToTango;
             return true;
         }
-        if (IsEnabledAndUsable(Preset.Phantom_Dancer_Dance, Jitterbug))
+        if (IsEnabled(Preset.Phantom_Dancer_Dance) && HasStatusEffect(Buffs.Jitterbugged))
         {
             actionID = Jitterbug;
             return true;
         }
-        if (IsEnabledAndUsable(Preset.Phantom_Dancer_Dance, WillingToWaltz))
+        if (IsEnabled(Preset.Phantom_Dancer_Dance) && HasStatusEffect(Buffs.WillingToWaltz))
         {
             actionID = WillingToWaltz;
             return true;

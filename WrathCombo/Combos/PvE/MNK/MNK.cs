@@ -41,6 +41,9 @@ internal partial class MNK : Melee
                 if (CanUseChakra())
                     return OriginalHook(SteelPeak);
 
+                if (Role.CanFeint() && GroupDamageIncoming())
+                    return Role.Feint;
+
                 if (Role.CanSecondWind(25))
                     return Role.SecondWind;
 

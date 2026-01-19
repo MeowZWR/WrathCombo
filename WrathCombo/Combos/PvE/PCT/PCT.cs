@@ -69,6 +69,17 @@ internal partial class PCT : Caster
                 //LucidDreaming
                 if (Role.CanLucidDream(PCT_ST_AdvancedMode_LucidOption))
                     return Role.LucidDreaming;
+                
+                if (CanWeave() && GroupDamageIncoming() && !JustUsed(Role.Addle, 6))
+                {
+                    if (LevelChecked(TempuraCoat) && IsOffCooldown(TempuraCoat))
+                        return TempuraCoat;
+                    
+                    if (IsInParty() && LevelChecked(TempuraGrassa) &&
+                        NumberOfAlliesInRange(TempuraGrassa) >= GetPartyMembers().Count * .75 &&
+                        HasStatusEffect(Buffs.TempuraCoat))
+                        return TempuraGrassa;
+                }
             }
             #endregion
 

@@ -41,6 +41,13 @@ internal abstract partial class CustomComboFunctions
 
     /// <summary> Checks if an object is dead. Defaults to CurrentTarget unless specified. </summary>
     internal static bool TargetIsDead(IGameObject? optionalTarget = null) => (optionalTarget ?? CurrentTarget) is IBattleChara chara && chara.IsDead;
+    
+    /// Enemies that are definitely not bosses, but should be considered as such.
+    private static readonly uint[] EnemiesThatShouldBeConsideredBosses =
+    [
+        19169, //M9S Fatal Flail
+        19170, //M9S Deadly Doornail
+    ];
 
     /// <summary> Checks if an object is a boss. Defaults to CurrentTarget unless specified. </summary>
     internal static bool TargetIsBoss(IGameObject? optionalTarget = null)
@@ -48,8 +55,9 @@ internal abstract partial class CustomComboFunctions
         if ((optionalTarget ?? CurrentTarget) is not IBattleChara chara)
             return false;
 
-        return chara.NameId == 541 //541	striking dummy	0	striking dummies	0	0	1	0	0
-            || ActionWatching.BossesBaseIds.Contains(chara.BaseId);
+        return chara.NameId == 541 // Dummies
+               || EnemiesThatShouldBeConsideredBosses.Contains(chara.BaseId)
+               || ActionWatching.BossesBaseIds.Contains(chara.BaseId);
     }
 
     /// <summary> Checks if an object is quest-related. Defaults to CurrentTarget unless specified. </summary>

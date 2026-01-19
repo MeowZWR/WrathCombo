@@ -252,7 +252,6 @@ internal partial class BLM
             BLM_AoE_LeyLinesOption = new("BLM_AoE_LeyLinesOption", 40),
             BLM_AoE_ThunderHP = new("BLM_AoE_ThunderHP", 40),
             BLM_B1to3 = new("BLM_B1to3"),
-            BLM_B4toDespair = new("BLM_B4toDespair"),
             BLM_F1to3 = new("BLM_F1to3"),
             BLM_Fire4_FireAndIce = new("BLM_Fire4_FireAndIce");
 

@@ -90,8 +90,6 @@ internal partial class DNC : PhysicalRanged
                 GetCooldownRemainingTime(StandardStep) <
                 longAlignmentThreshold && // Up or about to be (some anti-drift)
                 !HasStatusEffect(Buffs.FinishingMoveReady) &&
-                (IsOffCooldown(Flourish) ||
-                 GetCooldownRemainingTime(Flourish) > 5) &&
                 !HasStatusEffect(Buffs.TechnicalFinish);
 
             #endregion
@@ -387,14 +385,12 @@ internal partial class DNC : PhysicalRanged
                 return Tillana;
 
             // ST Saber Dance
-            if (IsEnabled(Preset.DNC_ST_Adv_SaberDance) &&
-                ActionReady(SaberDance) &&
-                Gauge.Esprit >=
-                DNC_ST_Adv_SaberThreshold || // Above esprit threshold use
-                (HasStatusEffect(Buffs.TechnicalFinish) &&
-                 Gauge.Esprit >= 50) && // Burst
-                (GetCooldownRemainingTime(TechnicalStep) > 5 ||
-                 IsOffCooldown(TechnicalStep))) // Tech is up
+            if(IsEnabled(Preset.DNC_ST_Adv_SaberDance) &&
+               ActionReady(SaberDance) &&
+               Gauge.Esprit >= 50 &&
+               (Gauge.Esprit >= DNC_ST_Adv_SaberThreshold ||
+                HasStatusEffect(Buffs.TechnicalFinish) ||
+                JustUsed(TechnicalFinish4)))
                 return SaberDance;
 
             // ST combos and burst attacks
@@ -608,9 +604,15 @@ internal partial class DNC : PhysicalRanged
                     if (!LevelChecked(TechnicalStep) && Gauge.Feathers > 0)
                         return FanDance1;
                 }
+                if (ActionReady(ShieldSamba) && GroupDamageIncoming() && 
+                    NumberOfAlliesInRange(ShieldSamba) >= GetPartyMembers().Count * .75 &&
+                    !HasAnyStatusEffects ([BRD.Buffs.Troubadour, Buffs.ShieldSamba, MCH.Buffs.Tactician], anyOwner: true))
+                    return ShieldSamba;
 
                 // ST Panic Heals
-
+                if (ActionReady(CuringWaltz) && PlayerHealthPercentageHp() < 40)
+                    return CuringWaltz;
+                
                 if (Role.CanSecondWind(40))
                     return Role.SecondWind;
             }
@@ -735,9 +737,6 @@ internal partial class DNC : PhysicalRanged
             var needToStandardOrFinish =
                 ActionReady(StandardStep) && // Up
                 GetTargetHPPercent() > targetHpThresholdStandard && // HP% check
-                (IsOffCooldown(
-                     TechnicalStep) || // Checking burst is ready for standard
-                 GetCooldownRemainingTime(TechnicalStep) > 5) && // Don't mangle
                 LevelChecked(StandardStep);
 
             var needToFinish =
@@ -749,8 +748,6 @@ internal partial class DNC : PhysicalRanged
                 IsEnabled(Preset.DNC_AoE_Adv_SS) && // Enabled
                 DNC_AoE_Adv_SS_IncludeSS == (int)IncludeStep.Yes &&
                 !HasStatusEffect(Buffs.FinishingMoveReady) &&
-                (IsOffCooldown(Flourish) ||
-                 GetCooldownRemainingTime(Flourish) > 5) &&
                 !HasStatusEffect(Buffs.TechnicalFinish);
 
             #endregion

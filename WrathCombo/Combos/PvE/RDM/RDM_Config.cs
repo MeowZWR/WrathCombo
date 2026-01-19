@@ -9,6 +9,8 @@ internal partial class RDM
     internal static class Config
     {
         #region Options
+        public static UserBool RDM_ST_ThunderAero_Pull = new("RDM_ST_ThunderAero_Pull", true);
+        
         public static UserInt
             RDM_ST_Lucid_Threshold = new("RDM_LucidDreaming_Threshold", 6500),
             RDM_AoE_Lucid_Threshold = new("RDM_AoE_Lucid_Threshold", 6500),
@@ -58,6 +60,10 @@ internal partial class RDM
                     ImGui.Indent();
                     DrawBossOnlyChoice(RDM_BalanceOpener_Content);
                     ImGui.Unindent();
+                    break;
+                
+                case Preset.RDM_ST_ThunderAero:
+                    DrawAdditionalBoolChoice(RDM_ST_ThunderAero_Pull, "Pull with Thunder/Aero", "Starts with Thunder/Aero if out of combat.");
                     break;
                 
                 case Preset.RDM_ST_VerCure:

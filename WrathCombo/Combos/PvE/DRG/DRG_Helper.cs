@@ -63,7 +63,7 @@ internal partial class DRG
 
     private static bool CanLifeSurge()
     {
-        if (ActionReady(LifeSurge) && !HasStatusEffect(Buffs.LifeSurge))
+        if (ActionReady(LifeSurge) && !HasStatusEffect(Buffs.LifeSurge) && InActionRange(TrueThrust))
         {
             if (LevelChecked(Drakesbane) && LoTDActive &&
                 (HasStatusEffect(Buffs.LanceCharge) || HasStatusEffect(Buffs.BattleLitany)) &&
@@ -91,6 +91,90 @@ internal partial class DRG
 
     #endregion
 
+    #region Burst skills
+
+    private static bool CanWyrmwind =>
+        ActionReady(WyrmwindThrust) &
+        FirstmindsFocus is 2 &&
+        (LoTDActive ||
+         HasStatusEffect(Buffs.DraconianFire) ||
+         NumberOfEnemiesInRange(WyrmwindThrust, CurrentTarget) >= 2) &&
+        InActionRange(WyrmwindThrust);
+
+    private static bool CanMirageDive(bool isAoE = false)
+    {
+        bool mirageBurst = IsNotEnabled(Preset.DRG_ST_SimpleMode) ? DRG_ST_DoubleMirage : false;
+
+        if (ActionReady(MirageDive) &&
+            HasStatusEffect(Buffs.DiveReady) &&
+            OriginalHook(Jump) is MirageDive &&
+            InActionRange(MirageDive))
+        {
+            switch (isAoE)
+            {
+                case false when
+                    mirageBurst &&
+                    (LoTDActive ||
+                     GetStatusEffectRemainingTime(Buffs.DiveReady) <= 1.2f &&
+                     GetCooldownRemainingTime(Geirskogul) > 3):
+
+                case true when
+                    LoTDActive ||
+                    GetStatusEffectRemainingTime(Buffs.DiveReady) <= 1.2f &&
+                    GetCooldownRemainingTime(Geirskogul) > 3:
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static uint OutsideOfMeleeNoWeave(uint actionId, bool simpleMode = false)
+    {
+        //Mirage Feature
+        if ((simpleMode || IsEnabled(Preset.DRG_ST_Mirage)) &&
+            ActionReady(MirageDive) &&
+            HasStatusEffect(Buffs.DiveReady) &&
+            InActionRange(MirageDive))
+            return MirageDive;
+
+        //Wyrmwind Thrust Feature
+        if ((simpleMode || IsEnabled(Preset.DRG_ST_Wyrmwind)) &&
+            CanWyrmwind)
+            return WyrmwindThrust;
+
+        //Geirskogul Feature
+        if ((simpleMode || IsEnabled(Preset.DRG_ST_Geirskogul)) &&
+            ActionReady(Geirskogul) &&
+            !LoTDActive && InActionRange(Geirskogul))
+            return Geirskogul;
+
+        //Starcross Feature
+        if ((simpleMode || IsEnabled(Preset.DRG_ST_Starcross)) &&
+            ActionReady(Starcross) &&
+            HasStatusEffect(Buffs.StarcrossReady) &&
+            InActionRange(Starcross))
+            return Starcross;
+
+        //Rise of the Dragon Feature
+        if ((simpleMode || IsEnabled(Preset.DRG_ST_Dives_RiseOfTheDragon)) &&
+            ActionReady(RiseOfTheDragon) &&
+            HasStatusEffect(Buffs.DragonsFlight) &&
+            InActionRange(RiseOfTheDragon))
+            return RiseOfTheDragon;
+
+        //Nastrond Feature
+        if ((simpleMode || IsEnabled(Preset.DRG_ST_Nastrond)) &&
+            ActionReady(Nastrond) &&
+            HasStatusEffect(Buffs.NastrondReady) &&
+            LoTDActive && InActionRange(Nastrond))
+            return Nastrond;
+
+        return actionId;
+    }
+
+    #endregion
+
     #region Misc
 
     private static IStatus? ChaosDebuff =>
@@ -100,7 +184,7 @@ internal partial class DRG
         DRG_ST_BuffsBossOption == 1 ||
         !InBossEncounter() ? DRG_ST_BuffsHPOption : 0;
 
-  #endregion
+    #endregion
 
     #region Openers
 

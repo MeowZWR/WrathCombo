@@ -1,3 +1,4 @@
+using Dalamud.Interface.Colors;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using static WrathCombo.Window.Functions.UserConfig;
@@ -12,28 +13,25 @@ internal partial class RPR
             switch (preset)
             {
                 case Preset.RPR_ST_Opener:
-
-                    if (DrawHorizontalRadioButton(RPR_Opener_StartChoice,
-                        "标准起手", $"使用{Harpe.ActionName()}开始起手", 0))
-                    {
-                        if (!CustomComboFunctions.InCombat())
-                            Opener().OpenerStep = 1;
-                    }
-
-                    DrawHorizontalRadioButton(RPR_Opener_StartChoice,
-                        "提前起手", $"使用{ShadowOfDeath.ActionName()}开始起手，跳过{Harpe.ActionName()}", 1);
-
-                    ImGui.Spacing();
-
                     DrawBossOnlyChoice(RPR_Balance_Content);
                     break;
 
                 case Preset.RPR_ST_ArcaneCircle:
-                    DrawHorizontalRadioButton(RPR_ST_ArcaneCircleBossOption,
-                        "All content", $"Uses {ArcaneCircle.ActionName()} regardless of content.", 0);
+                    DrawSliderInt(0, 50, RPR_ST_ArcaneCircleHPOption,
+                        "Stop using at Enemy HP %. Set to Zero to disable this check.");
+
+                    ImGui.Indent();
+
+                    ImGui.TextColored(ImGuiColors.DalamudYellow,
+                        "Select what kind of enemies the HP check should be applied to:");
 
                     DrawHorizontalRadioButton(RPR_ST_ArcaneCircleBossOption,
-                        "Boss encounters Only", $"Only uses {ArcaneCircle.ActionName()} when in Boss encounters.", 1);
+                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
+
+                    DrawHorizontalRadioButton(RPR_ST_ArcaneCircleBossOption,
+                        "All Enemies", "Applies the HP check above to all enemies.", 1);
+
+                    ImGui.Unindent();
                     break;
 
                 case Preset.RPR_ST_AdvancedMode:
@@ -58,7 +56,7 @@ internal partial class RPR
 
                     DrawAdditionalBoolChoice(RPR_ST_TrueNorthDynamic_HoldCharge,
                         "为暴食保留真北", "为暴食保留最后一层真北，即使绞决/缢杀位置不正确时也会保留。\n" +
-                                                               "If Above Slider is set to 1, it will NOT use the remaining charge for Gluttony, but for manual use.");
+                                                               "如果上方滑块设置为1，剩余的真北层数将不会用于暴食，而用于手动释放。");
                     break;
 
                 case Preset.RPR_AoE_WoD:
@@ -117,13 +115,13 @@ internal partial class RPR
 
         public static UserInt
             RPR_Positional = new("RPR_Positional"),
-            RPR_Opener_StartChoice = new("RPR_Opener_StartChoice"),
             RPR_Balance_Content = new("RPR_Balance_Content", 1),
+            RPR_ST_ArcaneCircleHPOption = new("RPR_ST_ArcaneCircleHPOption", 10),
+            RPR_ST_ArcaneCircleBossOption = new("RPR_ST_ArcaneCircleBossOption"),
             RPR_SoDRefreshRange = new("RPR_SoDRefreshRange", 6),
             RPR_SoDRefreshRangeBasicCombo = new("RPR_SoDRefreshRangeBasicCombo", 6),
             RPR_SoDHPThreshold = new("RPR_SoDThreshold"),
             RPR_ManualTN = new("RPR_ManualTN"),
-            RPR_ST_ArcaneCircleBossOption = new("RPR_ST_ArcaneCircle_SubOption", 1),
             RPR_STSecondWindHPThreshold = new("RPR_STSecondWindThreshold", 40),
             RPR_STBloodbathHPThreshold = new("RPR_STBloodbathThreshold", 30),
             RPR_WoDHPThreshold = new("RPR_WoDThreshold", 40),

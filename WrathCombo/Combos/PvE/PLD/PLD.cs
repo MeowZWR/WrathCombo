@@ -377,6 +377,11 @@ internal partial class PLD : Tank
                         return OriginalHook(Requiescat);
                 }
 
+                // Goring Blade Prioritized
+                if (IsEnabled(Preset.PLD_ST_AdvancedMode_GoringBlade) &&
+                    HasStatusEffect(Buffs.GoringBladeReady) && InMeleeRange() && PLD_ST_AdvancedMode_GoringBladePrioritize == 0)
+                    return GoringBlade;
+                
                 // Requiescat Phase
                 switch (HasDivineMagicMP)
                 {

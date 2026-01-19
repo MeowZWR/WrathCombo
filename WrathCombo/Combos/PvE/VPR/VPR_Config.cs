@@ -1,3 +1,4 @@
+using Dalamud.Interface.Colors;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using static WrathCombo.Window.Functions.UserConfig;
@@ -19,11 +20,21 @@ internal partial class VPR
                     break;
 
                 case Preset.VPR_ST_SerpentsIre:
-                    DrawHorizontalRadioButton(VPR_ST_SerpentsIre_SubOption,
-                        "全部内容", $"无论内容如何均使用{SerpentsIre.ActionName()}。", 0);
+                    DrawSliderInt(0, 50, VPR_ST_SerpentsIreHPOption,
+                        "Stop using at Enemy HP %. Set to Zero to disable this check.");
 
-                    DrawHorizontalRadioButton(VPR_ST_SerpentsIre_SubOption,
-                        "仅限Boss战", $"仅在Boss战中使用{SerpentsIre.ActionName()}。", 1);
+                    ImGui.Indent();
+
+                    ImGui.TextColored(ImGuiColors.DalamudYellow,
+                        "Select what kind of enemies the HP check should be applied to:");
+
+                    DrawHorizontalRadioButton(VPR_ST_SerpentsIreBossOption,
+                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
+
+                    DrawHorizontalRadioButton(VPR_ST_SerpentsIreBossOption,
+                        "All Enemies", "Applies the HP check above to all enemies.", 1);
+
+                    ImGui.Unindent();
                     break;
 
                 case Preset.VPR_ST_Reawaken:
@@ -58,11 +69,20 @@ internal partial class VPR
                         $"{Role.TrueNorth.ActionName()}选项", "可用时加入真北。\n Respects the manual TN charge.");
                     break;
 
+                case Preset.VPR_ST_VicewinderCombo:
+                    DrawAdditionalBoolChoice(VPR_VicewinderBuffPrio,
+                        "Buff Prio Option", "Forces HuntersCoil or SwiftskinsCoil if buff needs to be reapplied.");
+                    break;
+
                 case Preset.VPR_TrueNorthDynamic:
                     DrawSliderInt(0, 1, VPR_ManualTN,
                         "How many charges to keep for manual usage.");
+
+                    DrawAdditionalBoolChoice(VPR_ST_TrueNorthDynamic_HoldCharge,
+                        "Hold True North for Vicewinder Option", "Will hold the last charge of True North for use with Vicewinder, even when out of position for normal GCD.\n" +
+                                                                 "If Above Slider is set to 1, it will NOT use the remaining charge for Vicewinder, but for manual use.");
                     break;
-                
+
                 case Preset.VPR_ST_ComboHeals:
                     DrawSliderInt(0, 100, VPR_ST_SecondWind_Threshold,
                         $"{Role.SecondWind.ActionName()}触发HP百分比阈值");
@@ -133,13 +153,14 @@ internal partial class VPR
 
         public static UserInt
             VPR_Balance_Content = new("VPR_Balance_Content", 1),
-            VPR_ST_SerpentsIre_SubOption = new("VPR_ST_SerpentsIre_SubOption", 1),
             VPR_ST_UncoiledFury_HoldCharges = new("VPR_ST_UncoiledFury_HoldCharges", 1),
             VPR_ST_UncoiledFury_Threshold = new("VPR_ST_UncoiledFury_Threshold", 1),
             VPR_ST_ReawakenBossOption = new("VPR_ST_ReawakenBossOption"),
             VPR_ST_ReawakenBossAddsOption = new("VPR_ST_ReawakenBossAddsOption", 10),
             VPR_ST_ReawakenTrashOption = new("VPR_ST_ReawakenTrashOption", 25),
             VPR_ST_ReAwaken_Threshold = new("VPR_ST_ReAwaken_Threshold", 5),
+            VPR_ST_SerpentsIreHPOption = new("VPR_ST_SerpentsIreHPOption", 10),
+            VPR_ST_SerpentsIreBossOption = new("VPR_ST_SerpentsIreBossOption"),
             VPR_ManualTN = new("VPR_ManualTN"),
             VPR_ST_SecondWind_Threshold = new("VPR_ST_SecondWindThreshold", 40),
             VPR_ST_Bloodbath_Threshold = new("VPR_ST_BloodbathThreshold", 30),
@@ -157,7 +178,9 @@ internal partial class VPR
             VPR_Opener_ExcludeUF = new("VPR_Opener_ExcludeUF"),
             VPR_ST_RangedUptimeUncoiledFury = new("VPR_ST_RangedUptimeUncoiledFury"),
             VPR_TrueNortVicewinder = new("VPR_TrueNortVicewinder"),
-            VPR_Slither_FieldMouseover = new("VPR_Slither_FieldMouseover");
+            VPR_Slither_FieldMouseover = new("VPR_Slither_FieldMouseover"),
+            VPR_ST_TrueNorthDynamic_HoldCharge = new("VPR_ST_TrueNorthDynamic_HoldCharge"),
+            VPR_VicewinderBuffPrio = new("VPR_VicewinderBuffPrio");
 
         #endregion
     }

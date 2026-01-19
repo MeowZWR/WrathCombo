@@ -92,7 +92,8 @@ internal unsafe static class AutoRotationController
                || IsOccupied()
                || Player.Mounted
                || !EzThrottler.Throttle("Autorot", cfg.Throttler)
-               || (cfg.DPSSettings.UnTargetAndDisableForPenalty && PlayerHasActionPenalty());
+               || (cfg.DPSSettings.UnTargetAndDisableForPenalty && PlayerHasActionPenalty())
+               || (ActionManager.Instance()->QueuedActionId > 0);
     }
 
     private static bool IsOccupied()
@@ -195,10 +196,6 @@ internal unsafe static class AutoRotationController
                        && (DateTime.Now - TimeToHeal.Value).TotalSeconds >= cfg.HealerSettings.HealDelay
                        && actCheck;
 
-        // Don't act if currently casting
-        if (Player.Object?.CurrentCastTime > 0)
-            return;
-
         // Healer cleanse/rez logic
         if (isHealer ||
             (Player.Job is Job.SMN or Job.RDM && cfg.HealerSettings.AutoRezDPSJobs) ||
@@ -222,10 +219,6 @@ internal unsafe static class AutoRotationController
         // SGE Kardia logic
         if (Player.Job is Job.SGE && cfg.HealerSettings.ManageKardia)
             UpdateKardiaTarget();
-
-        //// Don't act if animation locked
-        //if (ActionManager.Instance()->AnimationLock > 0)
-        //    return;
 
         // Reset locks if no action for 3 seconds
         if (TimeSinceLastAction.TotalSeconds >= 3)
@@ -261,13 +254,7 @@ internal unsafe static class AutoRotationController
                 continue;
 
             uint gameAct = attributes.ReplaceSkill!.ActionIDs.First();
-
-            // Skip if action is unavailable
-            if (ActionManager.Instance()->GetActionStatus(ActionType.Action, gameAct) == 639)
-                continue;
-
-            var outAct = OriginalHook(AutoRotationHelper.InvokeCombo(entry.Preset, attributes, ref _));
-            if (!CanQueue(outAct) && outAct is not All.SavageBlade)
+            if (!ActionReady(gameAct))
                 continue;
 
             if (action.IsHeal)
@@ -686,12 +673,19 @@ internal unsafe static class AutoRotationController
             }
             else
             {
+                var target = !cfg.DPSSettings.AoEIgnoreManual && cfg.DPSRotationMode == DPSRotationMode.Manual ?
+                    Svc.Targets.Target : DPSTargeting.BaseSelection.MaxBy(x => NumberOfEnemiesInRange(OriginalHook(gameAct), x, true));
 
-                var target = !cfg.DPSSettings.AoEIgnoreManual && cfg.DPSRotationMode == DPSRotationMode.Manual ? Svc.Targets.Target : DPSTargeting.BaseSelection.MaxBy(x => NumberOfEnemiesInRange(OriginalHook(gameAct), x, true));
                 if (!NIN.InMudra)
                 {
-                    var numEnemies = NumberOfEnemiesInRange(OriginalHook(gameAct), target, true);
-                    if (cfg.DPSSettings.DPSAoETargets == null || numEnemies < cfg.DPSSettings.DPSAoETargets)
+                    var st = GetSingleTarget(mode);
+                    var maxHit = NumberOfEnemiesInRange(OriginalHook(gameAct), target, true);
+                    var singleTargetModeTarget = NumberOfEnemiesInRange(OriginalHook(gameAct), st, true);
+
+                    if (singleTargetModeTarget >= maxHit)
+                        target = st;
+
+                    if (cfg.DPSSettings.DPSAoETargets == null || maxHit < cfg.DPSSettings.DPSAoETargets)
                     {
                         LockedAoE = false;
                         return false;
@@ -705,21 +699,20 @@ internal unsafe static class AutoRotationController
                 OverrideTarget = target;
                 uint outAct = OriginalHook(InvokeCombo(preset, attributes, ref gameAct, target));
                 if (outAct is All.SavageBlade) return true;
-                if (!CanQueue(outAct)) return false;
-                if (!ActionReady(outAct, true, true))
+                if (!ActionReady(outAct))
                 {
                     OverrideTarget = null;
                     return false;
                 }
 
-                var canQueue = outAct.ActionAttackType() is { } type && (type is ActionAttackType.Ability || type is not ActionAttackType.Ability && RemainingGCD <= cfg.QueueWindow);
+                var canQueue = outAct.ActionAttackType() is { } type && ((type is ActionAttackType.Ability && AnimationLock == 0) || (type is not ActionAttackType.Ability && RemainingGCD <= cfg.QueueWindow));
                 if (!canQueue)
                 {
                     OverrideTarget = null;
                     return false;
                 }
                 var sheet = ActionSheet[outAct];
-                var mustTarget = sheet.CanTargetHostile;
+                var targetsHostile = sheet.CanTargetHostile;
 
                 bool switched = SwitchOnDChole(attributes, outAct, ref target);
                 var castTime = ActionManager.GetAdjustedCastTime(ActionType.Action, outAct);
@@ -734,10 +727,11 @@ internal unsafe static class AutoRotationController
                     Svc.Targets.Target = target;
 
                 var canUseSelf = sheet.CanTargetSelf;
+                var areaTargeted = ActionSheet[outAct].TargetArea;
                 var acRangeCheck = ActionManager.GetActionInRangeOrLoS(outAct, player.GameObject(), target is null ? player.GameObject() : target.Struct());
-                var inRange = acRangeCheck is 0 or 565 || canUseSelf;
+                var inRange = acRangeCheck is 0 or 565 || canUseSelf || areaTargeted;
 
-                if (mustTarget && target is not null)
+                if (targetsHostile && target is not null)
                 {
                     Svc.GameConfig.TryGet(Dalamud.Game.Config.UiControlOption.AutoFaceTargetOnAction, out uint original);
                     Svc.GameConfig.Set(Dalamud.Game.Config.UiControlOption.AutoFaceTargetOnAction, 1);
@@ -750,9 +744,9 @@ internal unsafe static class AutoRotationController
                 {
                     //Chance target of target.GameObjectID can be null
                     Service.ActionReplacer.DisableActionReplacingIfRequired();
-                    var targetId = (mustTarget && target != null) || switched ? target.GameObjectId : canUseSelf ? player.GameObjectId : 0xE000_0000;
+                    var targetId = (targetsHostile && target != null) || switched ? target.GameObjectId : canUseSelf ? player.GameObjectId : 0xE000_0000;
                     var changed = CheckForChangedTarget(gameAct, ref targetId, out var replacedWith);
-                    WouldLikeToGroundTarget = ActionSheet[outAct].TargetArea;
+                    WouldLikeToGroundTarget = areaTargeted;
                     var ret = ActionManager.Instance()->UseAction(ActionType.Action, outAct, targetId);
                     WouldLikeToGroundTarget = false;
                     Service.ActionReplacer.EnableActionReplacingIfRequired();
@@ -810,7 +804,7 @@ internal unsafe static class AutoRotationController
             var acRangeCheck = ActionManager.GetActionInRangeOrLoS(outAct, player.GameObject(), target is null ? player.GameObject() : target.Struct());
             var inRange = acRangeCheck is 0 or 565 || canUseSelf;
 
-            var canUse = (canUseSelf || canUseTarget || areaTargeted) && outAct.ActionAttackType() is { } type && (type is ActionAttackType.Ability || type is not ActionAttackType.Ability && RemainingGCD <= cfg.QueueWindow);
+            var canUse = (canUseSelf || canUseTarget || areaTargeted) && outAct.ActionAttackType() is { } type && ((type is ActionAttackType.Ability && AnimationLock == 0) || (type is not ActionAttackType.Ability && RemainingGCD <= cfg.QueueWindow));
             var isHeal = attributes.AutoAction!.IsHeal;
 
             if ((!isHeal && cfg.DPSSettings.DPSAlwaysHardTarget && mode is not DPSRotationMode.Manual) || (isHeal && cfg.HealerSettings.HealerAlwaysHardTarget && mode is not HealerRotationMode.Manual))

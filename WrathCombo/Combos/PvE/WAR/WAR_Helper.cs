@@ -38,7 +38,7 @@ internal partial class WAR : Tank
     internal static bool HasWrath => HasStatusEffect(Buffs.Wrathful);
     internal static bool Minimal => InCombat() && HasBattleTarget();
 
-    internal static bool SafeToShakeItOff => !HasAnyStatusEffects([Buffs.ThrillOfBattle, Buffs.Damnation, Buffs.VengeanceDefense, Buffs.BloodwhettingDefenseLong]);
+    internal static bool SafeToShakeItOff => !HasAnyStatusEffects([Buffs.ThrillOfBattle, Buffs.Damnation, Buffs.Vengeance, Buffs.BloodwhettingDefenseLong]);
     
     
     
@@ -56,7 +56,7 @@ internal partial class WAR : Tank
         HasStatusEffect(Role.Buffs.Rampart) || 
         HasStatusEffect(Buffs.Holmgang) ||
         HasStatusEffect(Buffs.ThrillOfBattle) ||
-        HasStatusEffect(Buffs.VengeanceDefense) || 
+        HasStatusEffect(Buffs.Vengeance) || 
         HasStatusEffect(Buffs.Damnation) ||
         HasStatusEffect(Role.Debuffs.Reprisal, CurrentTarget);
 
@@ -567,8 +567,7 @@ internal partial class WAR : Tank
         #endregion
         #region Defensive
 
-            VengeanceRetaliation = 89, //applied by Vengeance to self, retaliation for physical attacks
-            VengeanceDefense = 912, //applied by Vengeance to self, -30% damage taken
+            Vengeance = 89, //applied by Vengeance to self this is the whole buff
             Damnation = 3832, //applied by Damnation to self, -40% damage taken and retaliation for physical attacks
             PrimevalImpulse = 3900, //hot applied after hit under Damnation
             ThrillOfBattle = 87, //applied by Thrill of Battle to self

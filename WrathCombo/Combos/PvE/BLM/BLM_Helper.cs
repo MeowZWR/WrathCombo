@@ -100,7 +100,8 @@ internal partial class BLM
                   ActionReady(Triplecast) &&
                   !HasStatusEffect(Buffs.Triplecast) &&
                   !HasStatusEffect(Role.Buffs.Swiftcast) &&
-                  !HasStatusEffect(Buffs.LeyLines)),
+                  !HasStatusEffect(Buffs.LeyLines) &&
+                  !JustUsed(Triplecast)),
 
         // Paradox
         (OriginalHook(Paradox), Preset.BLM_ST_Movement,

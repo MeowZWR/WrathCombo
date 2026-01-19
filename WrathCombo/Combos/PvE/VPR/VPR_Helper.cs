@@ -38,6 +38,9 @@ internal partial class VPR
                         if ((HasStatusEffect(Buffs.FlanksbaneVenom) || HasStatusEffect(Buffs.HindsbaneVenom)) &&
                             LevelChecked(HindstingStrike))
                             return useTrueNorth &&
+                                   (VPR_ST_TrueNorthDynamic_HoldCharge &&
+                                    GetRemainingCharges(Role.TrueNorth) is 2 ||
+                                    !VPR_ST_TrueNorthDynamic_HoldCharge) &&
                                    GetRemainingCharges(Role.TrueNorth) > TnCharges &&
                                    Role.CanTrueNorth() &&
                                    (!OnTargetsRear() && HasStatusEffect(Buffs.HindsbaneVenom) ||
@@ -48,6 +51,9 @@ internal partial class VPR
                         if ((HasStatusEffect(Buffs.FlankstungVenom) || HasStatusEffect(Buffs.HindstungVenom)) &&
                             LevelChecked(FlanksbaneFang))
                             return useTrueNorth &&
+                                   (VPR_ST_TrueNorthDynamic_HoldCharge &&
+                                    GetRemainingCharges(Role.TrueNorth) is 2 ||
+                                    !VPR_ST_TrueNorthDynamic_HoldCharge) &&
                                    GetRemainingCharges(Role.TrueNorth) > TnCharges &&
                                    Role.CanTrueNorth() &&
                                    (!OnTargetsRear() && HasStatusEffect(Buffs.HindstungVenom) ||
@@ -160,6 +166,14 @@ internal partial class VPR
         !HasStatusEffect(Buffs.PoisedForTwinblood) &&
         !HasStatusEffect(Buffs.PoisedForTwinfang);
 
+    private static bool HasBothBuffs =>
+        HasStatusEffect(Buffs.Swiftscaled) &&
+        HasStatusEffect(Buffs.HuntersInstinct);
+
+    private static int HPThresholdSerpentsIre =>
+        VPR_ST_SerpentsIreBossOption == 1 ||
+        !InBossEncounter() ? VPR_ST_SerpentsIreHPOption : 0;
+
     #endregion
 
     #region Reawaken
@@ -180,7 +194,7 @@ internal partial class VPR
                     GetTargetHPPercent() > hpThresholdUsageST)
                 {
                     //Use whenever
-                    if (SerpentOffering >= 50 && TargetIsBoss() &&
+                    if (TargetIsBoss() &&
                         GetTargetHPPercent() < hpThresholdDontSaveST)
                         return true;
 
@@ -199,12 +213,11 @@ internal partial class VPR
                         return true;
 
                     //non-boss encounters
-                    if (!InBossEncounter() && SerpentOffering >= 50)
+                    if (!InBossEncounter())
                         return true;
 
                     //Lower lvl
-                    if (SerpentOffering >= 50 &&
-                        WasLastWeaponskill(FourthGeneration) && !LevelChecked(Ouroboros))
+                    if (WasLastWeaponskill(FourthGeneration) && !LevelChecked(Ouroboros))
                         return true;
                 }
                 break;
@@ -308,12 +321,12 @@ internal partial class VPR
 
     #endregion
 
-    #region Vicewinder & Uncoied Fury Combo
+    #region Vicewinder & Uncoiled Fury Combo
 
     private static bool CanUseVicewinder =>
         ActionReady(Vicewinder) && InActionRange(Vicewinder) && InCombat() &&
         !IsComboExpiring(4) && !IsVenomExpiring(4) && !IsHoningExpiring(4) &&
-        !VicewinderReady && !HuntersCoilReady && !SwiftskinsCoilReady &&
+        !VicewinderReady && !HuntersCoilReady && !SwiftskinsCoilReady && !JustUsed(Vicewinder) &&
         (IreCD >= GCD * 3 && InBossEncounter() || !InBossEncounter() || !LevelChecked(SerpentsIre));
 
     private static bool CanUseUncoiledFury(bool isAoE = false)
@@ -353,24 +366,22 @@ internal partial class VPR
             LevelChecked(Vicewinder) && InActionRange(Vicewinder) &&
             !HasStatusEffect(Buffs.Reawakened))
         {
-            // Swiftskin's Coil
+            // Swiftskin's Coil (Rear)
             if (VicewinderReady &&
-                (!OnTargetsFlank() ||
-                 !TargetNeedsPositionals() ||
-                 !HasStatusEffect(Buffs.Swiftscaled) ||
-                 IsEmpowermentExpiring(6)) ||
+                (!HasStatusEffect(Buffs.Swiftscaled) ||
+                 HasBothBuffs && (!OnTargetsFlank() || !TargetNeedsPositionals()) ||
+                 VPR_VicewinderBuffPrio && GetStatusEffectRemainingTime(Buffs.Swiftscaled) < GCD * 6) ||
                 HuntersCoilReady)
             {
                 actionId = SwiftskinsCoil;
                 return true;
             }
 
-            // Hunter's Coil
+            // Hunter's Coil (Flank)
             if (VicewinderReady &&
-                (!OnTargetsRear() ||
-                 !TargetNeedsPositionals() ||
-                 !HasStatusEffect(Buffs.HuntersInstinct) ||
-                 IsEmpowermentExpiring(6)) ||
+                (!HasStatusEffect(Buffs.HuntersInstinct) ||
+                 HasBothBuffs && (!OnTargetsRear() || !TargetNeedsPositionals()) ||
+                 VPR_VicewinderBuffPrio && GetStatusEffectRemainingTime(Buffs.HuntersInstinct) < GCD * 6) ||
                 SwiftskinsCoilReady)
             {
                 actionId = HuntersCoil;
@@ -428,7 +439,7 @@ internal partial class VPR
             UncoiledFury, //24
             UncoiledTwinfang, //25
             UncoiledTwinblood, //26
-            HindstingStrike,
+            HindstingStrike, //27
             DeathRattle,
             Vicewinder,
             UncoiledFury, //30
@@ -454,7 +465,8 @@ internal partial class VPR
 
         public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
         [
-            ([21, 22, 23, 24, 25, 26, 30, 31, 32], () => VPR_Opener_ExcludeUF)
+            ([21, 22, 23, 24, 25, 26, 30, 31, 32], () => VPR_Opener_ExcludeUF || !HasCharges(UncoiledFury)),
+            ([27], () => ComboTimer is 0)
         ];
 
         internal override UserData ContentCheckConfig => VPR_Balance_Content;

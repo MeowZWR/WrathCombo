@@ -476,7 +476,7 @@ internal partial class PLD
 
         public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
         [
-            ([11, 13], () => !HasCharges(Intervene))
+            ([11, 13], () => !HasCharges(Intervene) || PLD_ST_AdvancedMode_BalanceOpener_Intervene != 0)
         ];
 
         public override Preset Preset => Preset.PLD_ST_AdvancedMode_BalanceOpener;
@@ -487,7 +487,6 @@ internal partial class PLD
             IsOffCooldown(Imperator) &&
             IsOffCooldown(CircleOfScorn) &&
             IsOffCooldown(Expiacion) &&
-            GetRemainingCharges(Intervene) >= 2 &&
             IsOffCooldown(GoringBlade);
     }
 

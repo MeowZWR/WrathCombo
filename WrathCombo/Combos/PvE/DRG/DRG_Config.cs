@@ -36,7 +36,7 @@ internal partial class DRG
                         "选择需要进行HP检查的敌人类型：");
 
                     DrawHorizontalRadioButton(DRG_ST_BuffsBossOption,
-                        "Non-Bosses", "Only applies the HP check above to non-bosses.\nAllows you to only stop DoTing early when it's not a boss.", 0);
+                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
 
                     DrawHorizontalRadioButton(DRG_ST_BuffsBossOption,
                         "All Enemies", "Applies the HP check above to all enemies.", 1);
