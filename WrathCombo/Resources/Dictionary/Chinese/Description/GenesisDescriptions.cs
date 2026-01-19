@@ -143,6 +143,11 @@ namespace WrathCombo.Resources.Dictionary.Chinese.Description
                 KeyValuePair.Create("Phantom Dart Option", "幻影弹"),
                 KeyValuePair.Create("Uses Phantom Dart (if selected) when available at or below set health threshold.", "在可用且目标生命值低于设定阈值时（若已选择），使用幻影弹。"),
                 KeyValuePair.Create("Target HP percent threshold to use Eagle Eye Shot Below.", "锐眼追击的目标生命值百分比阈值"),
+
+                // Jobs Config
+                KeyValuePair.Create("Select what kind of enemies the HP check should be applied to:", "选择HP检查应应用于哪些类型的敌人："),
+                KeyValuePair.Create("Select which difficulties the ability should be used in:", "选择应在哪些难度下使用："),
+                KeyValuePair.Create("How many charges to keep for manual usage.", "保留多少充能数供手动使用："),
                 #endregion
             ];
         }
