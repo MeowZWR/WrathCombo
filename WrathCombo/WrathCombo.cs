@@ -219,9 +219,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
 
         Svc.Framework.Update += OnFrameworkUpdate;
         Svc.ClientState.TerritoryChanged += ClientState_TerritoryChanged;
-        
-        PresetStorage.HandleDuplicatePresets();
-        PresetStorage.HandleCurrentConflicts();
+
         CustomComboFunctions.TimerSetup();
 
         // Starts Retarget list cleaning process after a delay
@@ -291,7 +289,6 @@ public sealed partial class WrathCombo : IDalamudPlugin
             Configuration.ProcessSaveQueue();
 
             PresetStorage.HandleDuplicatePresets();
-            PresetStorage.HandleCurrentConflicts();
 
             //Hacky workaround to ensure it's always running
             CustomComboFunctions.IsMoving();
@@ -307,6 +304,8 @@ public sealed partial class WrathCombo : IDalamudPlugin
             #region Checks and Updates that require the Player
 
             JobID = Player.Job;
+
+            PresetStorage.HandleCurrentConflicts();
 
             BlueMageService.PopulateBLUSpells();
             TargetHelper.Draw();

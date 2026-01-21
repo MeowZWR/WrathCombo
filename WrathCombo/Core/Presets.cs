@@ -213,7 +213,12 @@ internal static class PresetStorage
                     continue;
                 
                 if (DisablePreset(conflict, ConfigChangeSource.Task))
+                {
                     removedPresets.Add(conflict);
+                    DuoLog.Warning($"Disabled `{conflict.NameWithFullLineage()}`, " +
+                                   $"because it conflicts with " +
+                                   $"`{preset.NameWithFullLineage()}`.");
+                }
             }
         }
     }
