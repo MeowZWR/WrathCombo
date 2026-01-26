@@ -203,7 +203,10 @@ internal partial class PLD
     private static bool CanUseNonBossMits(RotationMode rotationFlags, ref uint actionID)
     {
         #region Initial Bailout
-        if (!InCombat() || InBossEncounter() || !IsEnabled(Preset.PLD_Mitigation_NonBoss))  
+        if (!InCombat() || 
+            InBossEncounter() || 
+            !IsEnabled(Preset.PLD_Mitigation_NonBoss) || 
+            (CombatEngageDuration().TotalSeconds <= 15 && IsMoving()))
             return false;
         #endregion
         

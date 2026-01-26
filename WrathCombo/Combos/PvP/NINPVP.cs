@@ -149,7 +149,7 @@ internal static class NINPvP
                     return OriginalHook(SeitonTenchu);
 
                 //Smite
-                if (IsEnabled(Preset.NINPvP_Smite) && PvPMelee.CanSmite() && GetTargetDistance() <= 10 && HasTarget() &&
+                if (IsEnabled(Preset.NINPvP_Smite) && PvPMelee.CanSmite() && InActionRange(PvPMelee.Smite) && HasTarget() &&
                     GetTargetHPPercent() <= (NINPvP_SmiteThreshold))
                     return PvPMelee.Smite;
 

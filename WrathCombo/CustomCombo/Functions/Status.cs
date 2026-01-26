@@ -208,9 +208,12 @@ internal abstract partial class CustomComboFunctions
     {
         if (target is not IBattleChara tar)
             return false;
+        var statuses = tar.SafeStatusList;
+        if (statuses is null)
+            return false;
 
         // Turn Target's status to uint hashset
-        var targetStatuses = tar.StatusList.Select(s => s.StatusId).ToHashSet();
+        var targetStatuses = statuses.Select(s => s.StatusId).ToHashSet();
         uint targetID = tar.BaseId;
 
         // Returning False in each case because there should be no other General Invincibility Check needed
@@ -274,11 +277,9 @@ internal abstract partial class CustomComboFunctions
                     if (targetID is 9340) return HasStatusEffect(671, tar, true); // F being covered by M
                 }
 
-                //Savage/Ultimate? Not sure which omega fight uses 3499 and 3500.
-                //Also, SE, why use a new Omega-M status and reuse the old Omega-F? -_-'
-                //Wonder if targetIDs are the same......
-                if ((tar.StatusList.Any(x => x.StatusId == 3454) && HasStatusEffect(3499)) ||
-                    (tar.StatusList.Any(x => x.StatusId == 1675) && HasStatusEffect(3500)))
+                //Savage/Ultimate? Not sure which omega fight uses 3499 and 3500
+                if ((tar.SafeStatusList?.Any(x => x.StatusId == 3454) is true && HasStatusEffect(3499)) ||
+                    (tar.SafeStatusList?.Any(x => x.StatusId == 1675) is true && HasStatusEffect(3500)))
                     return true;
 
                 //Check for any ol invincibility
@@ -398,6 +399,11 @@ internal abstract partial class CustomComboFunctions
                     if (HasStatusEffect(4545)) return targetID != 18579; // Delta
                 }
                 return false;
+            
+            case 1323: //M10S
+                // 19287 Red Hot
+                // 19288 Deep Blue
+                return targetID is 19287 or 19288 && GetTargetCurrentHP(target) <= 1;
 
             default:
                 // General invincibility check

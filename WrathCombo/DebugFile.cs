@@ -224,6 +224,7 @@ public static class DebugFile
         var currentZone = Content.ContentName is null or ""
             ? Content.TerritoryName
             : Content.ContentName;
+        var gotVFX = VfxManager.TryGetVfxFor(player.GameObjectId, out var vfxList);
 
         AddLine("START PLAYER INFO");
         AddLine($"Job: {job.Abbreviation} / {job.Name} / {job.NameEnglish}");
@@ -236,6 +237,13 @@ public static class DebugFile
         AddLine($"HP: {(float)player.CurrentHp / player.MaxHp * 100:F0}%");
         AddLine($"+Shield: {player.ShieldPercentage:F0}%");
         AddLine($"MP: {(float)player.CurrentMp / player.MaxMp * 100:F0}%");
+        AddLine();
+        AddLine($"VFX on Player: {(gotVFX ? vfxList.Count.ToString() : "None")}");
+        
+        if (gotVFX)
+            foreach (var vfx in vfxList)
+                AddLine($"- `{vfx.Path}` ({vfx.AgeSeconds:F1}s old)");
+        
         AddLine("END PLAYER INFO");
 
         AddLine();
@@ -694,7 +702,13 @@ public static class DebugFile
     private static void AddStatusEffects()
     {
         var playerID = Player.Object.GameObjectId;
-        var statusEffects = Player.Object.StatusList;
+        var statusEffects = Player.Object.StatusList ?? null;
+
+        if (statusEffects == null)
+        {
+            Svc.Log.Warning("[AddStatusEffects] Somehow a status list is null. Called on a null player?");
+            return;
+        }
 
         var statusEffectsCount = 0;
         foreach (var _ in statusEffects)

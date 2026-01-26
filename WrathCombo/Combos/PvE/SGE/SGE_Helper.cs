@@ -79,7 +79,7 @@ internal partial class SGE
     internal static bool NeedsDoT()
     {
         uint dotAction = OriginalHook(Dosis);
-        int hpThreshold = IsNotEnabled(Preset.SGE_ST_Simple_DPS) ? ComputeHpThreshold() : 0;
+        int hpThreshold = IsNotEnabled(Preset.SGE_ST_Simple_DPS) ? ComputeHpThreshold(CurrentTarget) : 0;
         EukrasianDosisList.TryGetValue(dotAction, out ushort dotDebuffID);
         double dotRefresh = IsNotEnabled(Preset.SGE_ST_Simple_DPS) ? SGE_ST_DPS_EukrasianDosisUptime_Threshold : 2.5;
         float dotRemaining = GetStatusEffectRemainingTime(dotDebuffID, CurrentTarget);
@@ -91,10 +91,13 @@ internal partial class SGE
                dotRemaining <= dotRefresh;
     }
 
-    internal static int ComputeHpThreshold()
+    internal static int ComputeHpThreshold(IGameObject? x)
     {
+        if (x is null)
+            return 0;
+        
         if (InBossEncounter())
-            return TargetIsBoss() ? SGE_ST_DPS_EukrasianDosisBossOption : SGE_ST_DPS_EukrasianDosisBossAddsOption;
+            return x.IsBoss() ? SGE_ST_DPS_EukrasianDosisBossOption : SGE_ST_DPS_EukrasianDosisBossAddsOption;
 
         return SGE_ST_DPS_EukrasianDosisTrashOption;
     }

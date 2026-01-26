@@ -6,13 +6,11 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Networking.Http;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-using Dalamud.Utility;
 using ECommons;
 using ECommons.Automation.LegacyTaskManager;
 using ECommons.DalamudServices;
 using ECommons.ExcelServices;
 using ECommons.GameHelpers;
-using ECommons.Logging;
 using Newtonsoft.Json.Linq;
 using PunishLib;
 using System;
@@ -23,7 +21,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WrathCombo.API.Enum;
-using WrathCombo.Attributes;
 using WrathCombo.AutoRotation;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
@@ -175,7 +172,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         ActionRequestIPCProvider.Initialize();
 
         TM = new();
-        RemoveNullAutos(); 
+        RemoveNullAutos();
         Service.Configuration = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         Service.Address = new AddressResolver();
         Service.Address.Setup(Svc.SigScanner);
@@ -196,7 +193,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         ws.AddWindow(ConfigWindow);
         ws.AddWindow(_majorChangesWindow);
         ws.AddWindow(TargetHelper);
-        
+
         Configuration.ConfigChanged += DebugFile.LoggingConfigChanges;
 
         Svc.PluginInterface.UiBuilder.Draw += ws.Draw;
@@ -227,7 +224,9 @@ public sealed partial class WrathCombo : IDalamudPlugin
             TimeSpan.FromSeconds(60));
 
 #if DEBUG
+        VfxManager.Logging  = true;
         ConfigWindow.IsOpen = true;
+        VfxManager.Logging = true;
         Svc.Framework.RunOnTick(() =>
         {
             if (Service.Configuration.OpenToCurrentJob && Player.Available)
@@ -351,7 +350,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         // Enumerable.Range is a start and count, not a start and end.
         // Enumerable.Range(Start, Count)
         Service.Configuration.ResetFeatures("1.0.0.6_DNCRework", Enumerable.Range(4000, 150).ToArray());
-        Service.Configuration.ResetFeatures("1.0.0.11_DRKRework", Enumerable.Range(5000, 200).ToArray()); 
+        Service.Configuration.ResetFeatures("1.0.0.11_DRKRework", Enumerable.Range(5000, 200).ToArray());
         Service.Configuration.ResetFeatures("1.0.1.11_RDMRework", Enumerable.Range(13000, 999).ToArray());
         Service.Configuration.ResetFeatures("1.0.2.3_NINRework", Enumerable.Range(10000, 100).ToArray());
     }
@@ -374,8 +373,8 @@ public sealed partial class WrathCombo : IDalamudPlugin
     {
         try
         {
-            var basicMessage = $"欢迎使用 WrathCombo ，当前版本：v{this.GetType().Assembly
-                .GetName().Version}！";
+            var basicMessage = $"欢迎使用 WrathCombo，当前版本：v{GetType().Assembly
+                .GetName().Version}!";
             using var motd =
                 httpClient.GetAsync("https://static.meowrs.com/Plugins/WrathCombo/res/motd.txt").Result;
             motd.EnsureSuccessStatusCode();
@@ -427,13 +426,13 @@ public sealed partial class WrathCombo : IDalamudPlugin
         Svc.ClientState.TerritoryChanged -= ClientState_TerritoryChanged;
         Svc.PluginInterface.UiBuilder.OpenConfigUi -= OnOpenConfigUi;
         Svc.PluginInterface.UiBuilder.Draw -= DrawUI;
-        
+
         Service.ActionReplacer.Dispose();
         Service.ComboCache.Dispose();
         ActionWatching.Dispose();
         CustomComboFunctions.TimerDispose();
         IPC.Dispose();
-        MoveHook?.Dispose();
+        MoveHook.Dispose();
 
         ConflictingPluginsChecks.Dispose();
         AllStaticIPCSubscriptions.Dispose();

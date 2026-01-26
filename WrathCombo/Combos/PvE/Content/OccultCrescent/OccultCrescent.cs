@@ -22,7 +22,6 @@ internal partial class OccultCrescent
     private static bool InCombatNow => InCombat();
     private static bool CanWeaveNow => CanWeave();
     private static bool HasTargetNow => HasBattleTarget();
-    private static float TargetDistance => GetTargetDistance();
     private static float TargetHP => GetTargetHPPercent();
     private static float PlayerHP => PlayerHealthPercentageHp();
     private static uint PlayerMP => LocalPlayer.CurrentMp;
@@ -131,14 +130,14 @@ internal partial class OccultCrescent
         }
 
         if (IsEnabledAndUsable(Preset.Phantom_Monk_PhantomKick, PhantomKick) &&
-            !IsMovingNow && TargetDistance <= 15f)
+            !IsMovingNow && InActionRange(PhantomKick))
         {
             actionID = PhantomKick; // damage buff + dash
             return true;
         }
 
         if (IsEnabledAndUsable(Preset.Phantom_Monk_OccultCounter, OccultCounter) &&
-            TargetDistance <= 6f)
+            InActionRange(OccultCounter))
         {
             actionID = OccultCounter; // counter-attack
             return true;
@@ -169,7 +168,7 @@ internal partial class OccultCrescent
             return true;
         }
 
-        if (HasTargetNow && TargetDistance <= 5f)
+        if (HasTargetNow && InActionRange(Steal))
         {
             if (IsEnabledAndUsable(Preset.Phantom_Thief_Steal, Steal) &&
                 TargetHP <= Phantom_Thief_Steal_Health)
@@ -205,7 +204,7 @@ internal partial class OccultCrescent
         if (!CanWeaveNow && HasTargetNow)
         {
             if (IsEnabledAndUsable(Preset.Phantom_Samurai_Mineuchi, Mineuchi) &&
-                CanInterruptEnemy() && TargetDistance <= 5f)
+                CanInterruptEnemy() && InActionRange(Mineuchi))
             {
                 actionID = Mineuchi; // stun
                 return true;
@@ -219,7 +218,7 @@ internal partial class OccultCrescent
             }
 
             if (IsEnabledAndUsable(Preset.Phantom_Samurai_Iainuki, Iainuki) &&
-                !IsMovingNow && TargetDistance <= 8f)
+                !IsMovingNow && InActionRange(Iainuki))
             {
                 actionID = Iainuki; // cone
                 return true;
@@ -237,14 +236,14 @@ internal partial class OccultCrescent
         if (!HasTargetNow) return false;
         
         if (IsEnabledAndUsable(Preset.Phantom_Berserker_Rage, Rage) &&
-            TargetDistance <= 3f && CanWeaveNow)
+            InActionRange(Rage) && CanWeaveNow)
         {
             actionID = Rage; // buff
             return true;
         }
 
         if (IsEnabledAndUsable(Preset.Phantom_Berserker_DeadlyBlow, DeadlyBlow) &&
-            GetStatusEffectRemainingTime(Buffs.PentupRage) <= 3f && TargetDistance <= 5f && !CanWeaveNow)
+            GetStatusEffectRemainingTime(Buffs.PentupRage) <= 3f && InActionRange(DeadlyBlow) && !CanWeaveNow)
         {
             actionID = DeadlyBlow; // better when buff timer is low
             return true;

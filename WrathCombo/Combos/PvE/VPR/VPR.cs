@@ -15,7 +15,6 @@ internal partial class VPR : Melee
             if (actionID is not SteelFangs)
                 return actionID;
 
-
             if (ContentSpecificActions.TryGet(out uint contentAction))
                 return contentAction;
 
@@ -66,12 +65,6 @@ internal partial class VPR : Melee
                     return Role.LegSweep;
             }
 
-            //Ranged
-            if (LevelChecked(WrithingSnap) && !InMeleeRange() && HasBattleTarget())
-                return HasRattlingCoilStacks
-                    ? UncoiledFury
-                    : WrithingSnap;
-
             //Vicewinder Combo
             if (CanVicewinderCombo(ref actionID))
                 return actionID;
@@ -96,6 +89,11 @@ internal partial class VPR : Melee
             // Uncoiled Fury
             if (CanUseUncoiledFury())
                 return UncoiledFury;
+
+            //Ranged
+            if (ActionReady(WrithingSnap) &&
+                !InMeleeRange() && HasBattleTarget())
+                return WrithingSnap;
 
             //Reawaken combo / 1-2-3 (4-5-6) Combo
             return HasStatusEffect(Buffs.Reawakened)
@@ -161,11 +159,11 @@ internal partial class VPR : Melee
             //Vicepit combo
             if (!HasStatusEffect(Buffs.Reawakened))
             {
-                if (SwiftskinsDenReady &&
+                if (UsedSwiftskinsDen &&
                     InActionRange(HuntersDen))
                     return HuntersDen;
 
-                if (VicepitReady &&
+                if (UsedVicepit &&
                     InActionRange(SwiftskinsDen))
                     return SwiftskinsDen;
             }
@@ -270,14 +268,6 @@ internal partial class VPR : Melee
                     return Role.LegSweep;
             }
 
-            //Ranged
-            if (IsEnabled(Preset.VPR_ST_RangedUptime) &&
-                LevelChecked(WrithingSnap) && !InMeleeRange() && HasBattleTarget())
-                return VPR_ST_RangedUptimeUncoiledFury &&
-                       HasRattlingCoilStacks
-                    ? UncoiledFury
-                    : WrithingSnap;
-
             //Vicewinder Combo
             if (IsEnabled(Preset.VPR_ST_VicewinderCombo) &&
                 CanVicewinderCombo(ref actionID))
@@ -308,6 +298,12 @@ internal partial class VPR : Melee
             if (IsEnabled(Preset.VPR_ST_UncoiledFury) &&
                 CanUseUncoiledFury())
                 return UncoiledFury;
+
+            //Ranged
+            if (!InMeleeRange() && HasBattleTarget() &&
+                IsEnabled(Preset.VPR_ST_RangedUptime) &&
+                ActionReady(WrithingSnap))
+                return WrithingSnap;
 
             //Reawaken combo / 1-2-3 (4-5-6) Combo
             return IsEnabled(Preset.VPR_ST_GenerationCombo) &&
@@ -386,11 +382,11 @@ internal partial class VPR : Melee
             if (IsEnabled(Preset.VPR_AoE_VicepitCombo) &&
                 !HasStatusEffect(Buffs.Reawakened))
             {
-                if (SwiftskinsDenReady &&
+                if (UsedSwiftskinsDen &&
                     (InActionRange(HuntersDen) || VPR_AoE_VicepitCombo_SubOption == 1))
                     return HuntersDen;
 
-                if (VicepitReady &&
+                if (UsedVicepit &&
                     (InActionRange(SwiftskinsDen) || VPR_AoE_VicepitCombo_SubOption == 1))
                     return SwiftskinsDen;
             }
@@ -478,11 +474,11 @@ internal partial class VPR : Melee
             }
 
             // Swiftskin's Coil
-            if (VicewinderReady && (!OnTargetsFlank() || !TargetNeedsPositionals()) || HuntersCoilReady)
+            if (UsedVicewinder && (!OnTargetsFlank() || !TargetNeedsPositionals()) || UsedHuntersCoil)
                 return SwiftskinsCoil;
 
             // Hunter's Coil
-            if (VicewinderReady && (!OnTargetsRear() || !TargetNeedsPositionals()) || SwiftskinsCoilReady)
+            if (UsedVicewinder && (!OnTargetsRear() || !TargetNeedsPositionals()) || UsedSwiftskinsCoil)
                 return HuntersCoil;
 
             return actionID;
@@ -507,10 +503,10 @@ internal partial class VPR : Melee
                     return OriginalHook(Twinblood);
             }
 
-            if (SwiftskinsDenReady)
+            if (UsedSwiftskinsDen)
                 return HuntersDen;
 
-            if (VicepitReady)
+            if (UsedVicepit)
                 return SwiftskinsDen;
 
             return actionID;
@@ -637,8 +633,8 @@ internal partial class VPR : Melee
             if (actionID is not (Vicewinder or Vicepit))
                 return actionID;
 
-            return (VicewinderReady || HuntersCoilReady || SwiftskinsCoilReady ||
-                    VicepitReady || HuntersDenReady || SwiftskinsDenReady) &&
+            return (UsedVicewinder || UsedHuntersCoil || UsedSwiftskinsCoil ||
+                    UsedVicepit || UsedHuntersDen || UsedSwiftskinsDen) &&
                    LevelChecked(Vicewinder)
                 ? All.SavageBlade
                 : actionID;

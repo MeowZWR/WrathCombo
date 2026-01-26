@@ -59,11 +59,6 @@ internal partial class VPR
                         $"设置HP百分比阈值，低于该值时全部使用{UncoiledFury.ActionName()}。");
                     break;
 
-                case Preset.VPR_ST_RangedUptime:
-                    DrawAdditionalBoolChoice(VPR_ST_RangedUptimeUncoiledFury,
-                        $"包含{UncoiledFury.ActionName()}", $"当你处于远程状态且拥有{RattlingCoil.ActionName()}层数时，将{UncoiledFury.ActionName()}加入循环。");
-                    break;
-
                 case Preset.VPR_ST_Vicewinder:
                     DrawAdditionalBoolChoice(VPR_TrueNortVicewinder,
                         $"{Role.TrueNorth.ActionName()}选项", "可用时加入真北。\n Respects the manual TN charge.");
@@ -176,7 +171,6 @@ internal partial class VPR
 
         public static UserBool
             VPR_Opener_ExcludeUF = new("VPR_Opener_ExcludeUF"),
-            VPR_ST_RangedUptimeUncoiledFury = new("VPR_ST_RangedUptimeUncoiledFury"),
             VPR_TrueNortVicewinder = new("VPR_TrueNortVicewinder"),
             VPR_Slither_FieldMouseover = new("VPR_Slither_FieldMouseover"),
             VPR_ST_TrueNorthDynamic_HoldCharge = new("VPR_ST_TrueNorthDynamic_HoldCharge"),

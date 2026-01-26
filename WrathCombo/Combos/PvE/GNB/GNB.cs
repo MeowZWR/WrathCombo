@@ -1,5 +1,6 @@
 #region Dependencies
 
+using Dalamud.Game.ClientState.Objects.Types;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Data;
@@ -720,6 +721,32 @@ internal partial class GNB : Tank
     }
 
     #endregion
+    
+    internal class GNB_RetargetTrajectory: CustomCombo
+    {
+        protected internal override Preset Preset => Preset.GNB_RetargetTrajectory;
+
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID is not Trajectory)
+                return actionID;
+            
+            IGameObject? target =
+                // Mouseover
+                SimpleTarget.Stack.MouseOver.IfHostile()
+                    .IfWithinRange(Trajectory.ActionRange()) ??
+
+                // Nearest Enemy to Mouseover
+                SimpleTarget.NearestEnemyToTarget(SimpleTarget.Stack.MouseOver,
+                    Trajectory.ActionRange()) ??
+    
+                CurrentTarget.IfHostile().IfWithinRange(Trajectory.ActionRange());
+            
+            return target != null
+                ? actionID.Retarget(target)
+                : actionID;
+        }
+    }
 
     #region Basic Combo
     internal class GNB_ST_BasicCombo : CustomCombo

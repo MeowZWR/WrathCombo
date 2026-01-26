@@ -785,7 +785,7 @@ internal class Debug : ConfigWindow, IDisposable
                 CustomStyleText("Charges (Level):", $"{GetCooldown(_debugSpell.Value.RowId).MaxCharges}");
                 CustomStyleText("Range:", $"{GetActionRange(_debugSpell.Value.RowId)}");
                 CustomStyleText("Effect Range:", $"{_debugSpell.Value.EffectRange}");
-                CustomStyleText("In Range:", $"{ActionManager.Instance()->IsActionTargetInRange(ActionType.Action, _debugSpell.Value.RowId)}");
+                CustomStyleText("In Range:", $"{InActionRange(_debugSpell.Value.RowId)}");
                 CustomStyleText("Can Target Hostile:", $"{_debugSpell.Value.CanTargetHostile}");
                 CustomStyleText("Can Target Self:", $"{_debugSpell.Value.CanTargetSelf}");
                 CustomStyleText("Can Target Friendly:", $"{_debugSpell.Value.CanTargetAlly}");

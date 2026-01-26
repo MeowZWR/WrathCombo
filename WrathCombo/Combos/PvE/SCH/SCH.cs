@@ -338,7 +338,7 @@ internal partial class SCH : Healer
             {
                 var dotAction = OriginalHook(Bio);
                 BioList.TryGetValue(dotAction, out var dotDebuffID);
-                var target = SimpleTarget.DottableEnemy(dotAction, dotDebuffID, computeHpThreshold(), SCH_ST_DPS_BioUptime_Threshold, 2);
+                var target = SimpleTarget.DottableEnemy(dotAction, dotDebuffID, ComputeHpThreshold, SCH_ST_DPS_BioUptime_Threshold, 2);
                 
                 //Single Target Dotting, needed because dottableenemy will not maintain single dot on main target of more than one target exists. 
                 if (NeedsDoT()) 

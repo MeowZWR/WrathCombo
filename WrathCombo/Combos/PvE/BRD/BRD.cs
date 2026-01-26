@@ -502,9 +502,9 @@ internal partial class BRD : PhysicalRanged
                 var purpleDotAction = OriginalHook(VenomousBite);
                 BlueList.TryGetValue(blueDotAction, out var blueDotDebuffID);
                 PurpleList.TryGetValue(purpleDotAction, out var purpleDotDebuffID);
-                var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, computeAoEDoTHpThreshold(), computeAoERefresh());
-                var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, computeAoEDoTHpThreshold(), computeAoERefresh());
-                var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, computeAoEDoTHpThreshold(), computeAoERefresh());
+                var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, ComputeAoEDoTHpThreshold, computeAoERefresh());
+                var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, ComputeAoEDoTHpThreshold, computeAoERefresh());
+                var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, ComputeAoEDoTHpThreshold, computeAoERefresh());
                 #endregion
 
                 if (ironTarget is not null && LevelChecked(IronJaws))
@@ -673,7 +673,7 @@ internal partial class BRD : PhysicalRanged
             #endregion
 
             #region Dot Management
-            if (IsEnabled(Preset.BRD_Adv_DoT) && GetTargetHPPercent() > computeHpThreshold())
+            if (IsEnabled(Preset.BRD_Adv_DoT) && GetTargetHPPercent() > ComputeHpThreshold(CurrentTarget))
             {
                 if (BRD_Adv_DoT_Options[0] && UseIronJaws())
                     return IronJaws;
@@ -723,9 +723,9 @@ internal partial class BRD : PhysicalRanged
                 var purpleDotAction = OriginalHook(VenomousBite);
                 BlueList.TryGetValue(blueDotAction, out var blueDotDebuffID);
                 PurpleList.TryGetValue(purpleDotAction, out var purpleDotDebuffID);
-                var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, computeHpThreshold(), computeRefresh());
-                var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, computeHpThreshold(), computeRefresh());
-                var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, computeHpThreshold(), computeRefresh());
+                var ironTarget = SimpleTarget.BardRefreshableEnemy(IronJaws, blueDotDebuffID, purpleDotDebuffID, ComputeHpThreshold, computeRefresh());
+                var blueTarget = SimpleTarget.DottableEnemy(blueDotAction, blueDotDebuffID, ComputeHpThreshold, computeRefresh());
+                var purpleTarget = SimpleTarget.DottableEnemy(purpleDotAction, purpleDotDebuffID, ComputeHpThreshold, computeRefresh());
 
                 #endregion
 

@@ -254,7 +254,9 @@ internal unsafe static class AutoRotationController
                 continue;
 
             uint gameAct = attributes.ReplaceSkill!.ActionIDs.First();
-            if (!LevelChecked(gameAct))
+            var status = ActionManager.Instance()->GetActionStatus(ActionType.Action, gameAct, checkCastingActive: false, checkRecastActive: false);
+
+            if (!LevelChecked(gameAct) || status == 581)
                 continue;
 
             if (action.IsHeal)
@@ -660,13 +662,11 @@ internal unsafe static class AutoRotationController
                     if (TimeMoving.TotalMilliseconds > 0 && castTime > 0 && !orbwalking)
                         return false;
 
-                    Service.ActionReplacer.DisableActionReplacingIfRequired();
                     var targetId = player.GameObjectId;
                     var changed = CheckForChangedTarget(gameAct, ref targetId, out var replacedWith);
                     WouldLikeToGroundTarget = ActionSheet[outAct].TargetArea;
-                    var ret = ActionManager.Instance()->UseAction(ActionType.Action, outAct, targetId);
+                    var ret = ActionManager.Instance()->UseAction(ActionType.Action, Service.Configuration.ActionChanging ? gameAct : outAct, targetId);
                     WouldLikeToGroundTarget = false;
-                    Service.ActionReplacer.EnableActionReplacingIfRequired();
 
                     return true;
                 }
@@ -743,14 +743,11 @@ internal unsafe static class AutoRotationController
                 if (inRange)
                 {
                     //Chance target of target.GameObjectID can be null
-                    Service.ActionReplacer.DisableActionReplacingIfRequired();
                     var targetId = (targetsHostile && target != null) || switched ? target.GameObjectId : canUseSelf ? player.GameObjectId : 0xE000_0000;
                     var changed = CheckForChangedTarget(gameAct, ref targetId, out var replacedWith);
                     WouldLikeToGroundTarget = areaTargeted;
-                    var ret = ActionManager.Instance()->UseAction(ActionType.Action, outAct, targetId);
+                    var ret = ActionManager.Instance()->UseAction(ActionType.Action, Service.Configuration.ActionChanging ? gameAct : outAct, targetId);
                     WouldLikeToGroundTarget = false;
-                    Service.ActionReplacer.EnableActionReplacingIfRequired();
-                    OverrideTarget = null;
                     if (NIN.MudraSigns.Contains(outAct))
                         _lockedAoE = true;
                     else
@@ -820,14 +817,11 @@ internal unsafe static class AutoRotationController
 
             if (canUse && (inRange || areaTargeted))
             {
-                Service.ActionReplacer.DisableActionReplacingIfRequired();
                 var targetId = canUseTarget || areaTargeted ? target.GameObjectId : canUseSelf ? player.GameObjectId : 0xE000_0000;
                 var changed = CheckForChangedTarget(gameAct, ref targetId, out var replacedWith);
                 WouldLikeToGroundTarget = ActionSheet[outAct].TargetArea;
-                var ret = ActionManager.Instance()->UseAction(ActionType.Action, outAct, targetId);
+                var ret = ActionManager.Instance()->UseAction(ActionType.Action, Service.Configuration.ActionChanging ? gameAct : outAct, targetId);
                 WouldLikeToGroundTarget = false;
-                Service.ActionReplacer.EnableActionReplacingIfRequired();
-                OverrideTarget = null;
 
                 if (NIN.MudraSigns.Contains(outAct))
                     _lockedST = true;

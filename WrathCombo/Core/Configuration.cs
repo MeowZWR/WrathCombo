@@ -242,45 +242,6 @@ public partial class Configuration : IPluginConfiguration
         warningMark: "Wrath的设计核心是技能替换功能。\n关闭本项后，仅自动循环能正常工作。\n禁用后可能会影响重定向等功能，出现不可预期的问题。")]
     public bool ActionChanging = true;
 
-    /// Whether to suppress other combos when an action is queued. Default: true.
-    /// <seealso cref="CustomComboNS.CustomCombo.TryInvoke"/>
-    [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("队列动作抑制",
-        "启用时：\n" +
-        "当队列中的动作与热键栏上的按钮不同时，Wrath会禁用其他所有连击，防止它们认为队列动作应该触发自己。\n" +
-        "- 这可以防止连击之间相互冲突，避免连击返回的动作与连击替换的动作重叠。\n" +
-        "- 但这会导致每个连击的替换动作在抑制期间出现'闪烁'。\n" +
-        "这种'闪烁'的热键栏动作不会执行，仅仅是视觉效果。\n\n" +
-        "禁用时：\n" +
-        "当从连击中队列动作时，连击不会被禁用。\n" +
-        "- 这可以防止热键栏'闪烁'，这是唯一的真正好处。\n" +
-        "- 但这会允许连击之间相互冲突，如果一个连击返回的动作是另一个连击的替换动作。\n" +
-        "我们不会标记这些类型的冲突，在添加新功能时也不会尝试避免它们",
-        recommendedValue: "开启（关闭时不提供支持）",
-        defaultValue: "开启",
-        extraHelpMark: "启用此功能后，每当你队列一个与你按下的按钮不同的动作时，它会禁用其他所有按钮的功能运行。" +
-                       "这解决了许多由于游戏处理队列动作的方式而执行错误动作的问题，但是热键栏的视觉体验会下降。" +
-                       "不建议禁用此功能，但如果你对热键栏图标快速变化感到不适，这是一种解决方法，但请注意，如果你为一个职业启用了很多功能，这可能会给连击带来意外的副作用。\n\n" +
-                       "更复杂的解释是，每当使用一个动作时，会发生以下情况：\n" +
-                       "1. 如果动作触发GCD（武器技能和法术），如果GCD当前未激活，它会立即使用。\n" +
-                       "2. 否则，如果你在“队列窗口”内（通常是GCD的最后0.5秒），它会在使用前被添加到队列中。\n" +
-                       "3. 如果动作是能力技，只要当前没有动画锁定，它就会立即执行。\n" +
-                       "4. 否则，它会立即添加到队列中，然后在动画锁定结束时使用。\n\n" +
-                       "对于步骤1，传递给游戏的动作是原始的、未修改的动作，然后在使用时进行转换。" +
-                       "在步骤2，事情变得复杂，因为队列中的动作仍然是未修改的动作，但当队列执行时，它将修改后的动作视为未修改的动作。\n\n" +
-                       "例如：原始动作治疗术，修改后动作救疗。在步骤1，游戏可以将治疗术转换为救疗，因为这是我们告诉它要做的。但是，当治疗术传递到队列时，它将其视为未修改的动作是救疗。\n\n" +
-                       "这对步骤3和4也类似，只是可能发生得更早。\n\n" +
-                       "这如何影响我们：使用之前的例子，我们有一个功能将治疗术替换为救疗，" +
-                       "另一个将救疗替换为再生，如果你启用两者，会发生以下情况：\n\n" +
-                       "步骤1，治疗术传递给游戏，转换为救疗。\n" +
-                       "你在队列窗口再次按下治疗术，治疗术传递到队列，但队列执行时会将其视为救疗。\n" +
-                       "结果是执行的不是救疗，而是再生，因为我们告诉它将救疗修改为再生。\n" +
-                       "这不是第一个功能的一部分，而是替换你甚至没有按下的动作的功能的结果，因此是错误的动作。\n\n" +
-                       "我们的解决方法是，如果其他动作与队列动作不匹配，则禁用所有其他被替换的动作，这个设置控制此行为。",
-        warningMark: "Wrath完全是在考虑队列动作抑制的情况下设计的。\n" +
-                     "禁用它将导致意外行为，我们不提供支持。")]
-    public bool SuppressQueuedActions = true;
-
     [SettingCategory(Rotation_Behavior_Options)]
     [Setting("自定义手动技能队列窗口期",
     "允许你自定义GCD期间可按键进入队列的时间范围，而不仅限于最后0.3-0.5秒。如果你不习惯连续按键，或在使用自动循环但需要手动介入时非常实用。",
@@ -302,10 +263,10 @@ public partial class Configuration : IPluginConfiguration
     public float QueueAdjustThreshold = 1.5f;
 
     [SettingCategory(Rotation_Behavior_Options)]
-    [Setting("Overwrite Queue",
-        "This will allow you to overwrite whatever is currently queued up with another action.",
-        recommendedValue: "On",
-        defaultValue: "Off")]
+    [Setting("覆盖队列",
+        "允许使用另一个技能覆盖当前排队的任何技能。",
+        recommendedValue: "开启",
+        defaultValue: "关闭")]
     public bool OverwriteQueue = false;
 
     /// The throttle for how often the hotbar gets walked. Default: 50.

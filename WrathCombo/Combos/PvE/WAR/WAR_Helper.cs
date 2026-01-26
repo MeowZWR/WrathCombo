@@ -226,7 +226,10 @@ internal partial class WAR : Tank
     private static bool CanUseNonBossMits(RotationMode rotationFlags, ref uint actionID)
     {
         #region Initial Bailout
-        if (!InCombat() ||  InBossEncounter() ||  !IsEnabled(Preset.WAR_Mitigation_NonBoss)) 
+        if (!InCombat() ||  
+            InBossEncounter() || 
+            !IsEnabled(Preset.WAR_Mitigation_NonBoss) || 
+            (CombatEngageDuration().TotalSeconds <= 15 && IsMoving()))
             return false;
         #endregion
         
@@ -414,10 +417,12 @@ internal partial class WAR : Tank
         #endregion
         
         #region Equilibrium
-        var equilibriumThreshold = rotationFlags.HasFlag(RotationMode.simple) ? 50 : WAR_Mitigation_Boss_Equilibrium_Health;
+        var equilibriumEmergencyThreshold = rotationFlags.HasFlag(RotationMode.simple) ? 30 : WAR_Mitigation_Boss_Equilibrium_Health;
+        var equilibriumTankbusterThreshold = rotationFlags.HasFlag(RotationMode.simple) ? 80 : WAR_Mitigation_Boss_Tankbuster_Equilibrium_Health;
         if (IsEnabled(Preset.WAR_Mitigation_Boss_Equilibrium) && 
             ActionReady(Equilibrium) &&
-            PlayerHealthPercentageHp() <= equilibriumThreshold)
+            (PlayerHealthPercentageHp() <= equilibriumEmergencyThreshold || 
+            (PlayerHealthPercentageHp() <= equilibriumTankbusterThreshold && HasIncomingTankBusterEffect())))
         {
             actionID = Equilibrium;
             return true;

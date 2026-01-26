@@ -1,4 +1,5 @@
 using ECommons.ImGuiMethods;
+using System.Numerics;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Window.Functions;
@@ -14,16 +15,32 @@ internal partial class SAM
             switch (preset)
             {
                 case Preset.SAM_ST_Opener:
+                    ImGui.Indent();
                     DrawBossOnlyChoice(SAM_Balance_Content);
-                    ImGui.NewLine();
+                    ImGui.Unindent();
+
+                    ImGuiEx.Spacing(new Vector2(0, 10));
+
                     DrawSliderInt(0, 13, SAM_Opener_PrePullDelay,
-                        $"从首次{MeikyoShisui.ActionName()}到下一步的延迟（秒）\n此延迟通过将你的按钮替换为狂怒剑来强制执行。");
+                        $"从首次{MeikyoShisui.ActionName()}到下一步的延迟（秒）", 75f.Scale());
+
+                    if (ImGui.IsItemHovered())
+                        ImGui.SetTooltip("此延迟通过将你的按钮替换为狂怒剑来强制执行。");
+
+                    ImGuiEx.Spacing(new Vector2(0, 10));
+                    ImGui.NewLine();
 
                     DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
-                        $"Include {Gyoten.ActionName()}", $"Include {Gyoten.ActionName()}", 0);
+                        $"Include 2x {Gyoten.ActionName()}", $"Includes both usages of {Gyoten.ActionName()}", 0);
 
                     DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
-                        $"Skip {Gyoten.ActionName()}", $"Skip {Gyoten.ActionName()} in the opener.", 1);
+                        "Skip Both", $"Skips both usages of {Gyoten.ActionName()} in the opener.", 1);
+
+                    DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
+                        "Skip First", $"Skips first usage of {Gyoten.ActionName()} in the opener, keeps the second.", 2);
+
+                    DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
+                        "Skip Second", $"Skips second usage of {Gyoten.ActionName()} in the opener, keeps the first.", 3);
                     break;
 
                 case Preset.SAM_ST_CDs_UseHiganbana:

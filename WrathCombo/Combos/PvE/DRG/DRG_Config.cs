@@ -25,20 +25,37 @@ internal partial class DRG
                     DrawBossOnlyChoice(DRG_Balance_Content);
                     break;
 
-                case Preset.DRG_ST_Buffs:
+                case Preset.DRG_ST_BattleLitany:
 
-                    DrawSliderInt(0, 50, DRG_ST_BuffsHPOption,
+                    DrawSliderInt(0, 50, DRG_ST_BattleLitanyHPOption,
                         "Stop using at Enemy HP %. Set to Zero to disable this check.");
 
                     ImGui.Indent();
-
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
                         "选择需要进行HP检查的敌人类型：");
 
-                    DrawHorizontalRadioButton(DRG_ST_BuffsBossOption,
+                    DrawHorizontalRadioButton(DRG_ST_BattleLitanyBossOption,
                         "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
 
-                    DrawHorizontalRadioButton(DRG_ST_BuffsBossOption,
+                    DrawHorizontalRadioButton(DRG_ST_BattleLitanyBossOption,
+                        "All Enemies", "Applies the HP check above to all enemies.", 1);
+
+                    ImGui.Unindent();
+                    break;
+
+                case Preset.DRG_ST_LanceCharge:
+
+                    DrawSliderInt(0, 50, DRG_ST_LanceChargeHPOption,
+                        "Stop using at Enemy HP %. Set to Zero to disable this check.");
+
+                    ImGui.Indent();
+                    ImGui.TextColored(ImGuiColors.DalamudYellow,
+                        "Select what kind of enemies the HP check should be applied to:");
+
+                    DrawHorizontalRadioButton(DRG_ST_LanceChargeBossOption,
+                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
+
+                    DrawHorizontalRadioButton(DRG_ST_LanceChargeBossOption,
                         "All Enemies", "Applies the HP check above to all enemies.", 1);
 
                     ImGui.Unindent();
@@ -55,6 +72,17 @@ internal partial class DRG
                 case Preset.DRG_ST_Mirage:
                     DrawAdditionalBoolChoice(DRG_ST_DoubleMirage,
                         "红莲龙血期间爆发幻象冲", "在红莲龙血效果下将幻象冲添加到循环中。\n最佳效果为2.50 GCD。");
+                    break;
+
+                case Preset.DRG_ST_Geirskogul:
+                    DrawSliderInt(0, 100, DRG_ST_GeirskogulBossOption,
+                        "Bosses Only. Stop using at Enemy HP %.");
+
+                    DrawSliderInt(0, 100, DRG_ST_GeirskogulBossAddsOption,
+                        "Boss Encounter Non Bosses. Stop using at Enemy HP %.");
+
+                    DrawSliderInt(0, 100, DRG_ST_GeirskogulTrashOption,
+                        "Non boss encounter. Stop using at Enemy HP %.");
                     break;
 
                 case Preset.DRG_ST_DragonfireDive:
@@ -86,9 +114,14 @@ internal partial class DRG
                         $"{Role.Bloodbath.ActionName()}血量百分比阈值");
                     break;
 
-                case Preset.DRG_AoE_Buffs:
-                    DrawSliderInt(0, 100, DRG_AoE_LitanyHPTreshold,
-                        "Stop using Buffs when target HP% is at or below (Set to 0 to Disable This Check)");
+                case Preset.DRG_AoE_BattleLitany:
+                    DrawSliderInt(0, 100, DRG_AoE_BattleLitanyHPTreshold,
+                        "Stop using when target HP% is at or below (Set to 0 to Disable This Check)");
+                    break;
+
+                case Preset.DRG_AoE_LanceCharge:
+                    DrawSliderInt(0, 100, DRG_AoE_LanceChargeHPTreshold,
+                        "Stop using when target HP% is at or below (Set to 0 to Disable This Check)");
                     break;
 
                 case Preset.DRG_AoE_HighJump:
@@ -135,13 +168,18 @@ internal partial class DRG
         public static UserInt
             DRG_SelectedOpener = new("DRG_SelectedOpener"),
             DRG_Balance_Content = new("DRG_Balance_Content", 1),
-            DRG_ST_BuffsHPOption = new("DRG_ST_BuffsHPOption", 10),
-            DRG_ST_BuffsBossOption = new("DRG_ST_BuffsBossOption"),
+            DRG_ST_BattleLitanyHPOption = new("DRG_ST_BattleLitanyHPOption", 25),
+            DRG_ST_BattleLitanyBossOption = new("DRG_ST_BattleLitanyBossOption"),
+            DRG_ST_LanceChargeHPOption = new("DRG_ST_LanceChargeHPOption", 25),
+            DRG_ST_LanceChargeBossOption = new("DRG_ST_LanceChargeBossOption"),
+            DRG_ST_GeirskogulBossOption = new("DRG_ST_GeirskogulBossOption"),
+            DRG_ST_GeirskogulBossAddsOption = new("DRG_ST_GeirskogulBossAddsOption", 10),
+            DRG_ST_GeirskogulTrashOption = new("DRG_ST_GeirskogulTrashOption", 25),
             DRG_ManualTN = new("DRG_ManualTN"),
             DRG_ST_SecondWindHPThreshold = new("DRG_STSecondWindThreshold", 40),
             DRG_ST_BloodbathHPThreshold = new("DRG_STBloodbathThreshold", 30),
-            DRG_AoE_LitanyHPTreshold = new("DRG_AoE_LitanyHP", 40),
-            DRG_AoE_LanceChargeHPTreshold = new("DRG_AoE_LanceChargeHP", 40),
+            DRG_AoE_BattleLitanyHPTreshold = new("DRG_AoE_BattleLitanyHPTreshold", 25),
+            DRG_AoE_LanceChargeHPTreshold = new("DRG_AoE_LanceChargeHPTreshold", 25),
             DRG_AoE_SecondWindHPThreshold = new("DRG_AoE_SecondWindThreshold", 40),
             DRG_AoE_BloodbathHPThreshold = new("DRG_AoE_BloodbathThreshold", 30);
 

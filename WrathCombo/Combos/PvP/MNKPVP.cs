@@ -72,7 +72,7 @@ internal static class MNKPvP
 
             if (!PvPCommon.TargetImmuneToDamage())
             {
-                if (IsEnabled(Preset.MNKPvP_Smite) && PvPMelee.CanSmite() && GetTargetDistance() <= 10 && HasTarget() &&
+                if (IsEnabled(Preset.MNKPvP_Smite) && PvPMelee.CanSmite() && InActionRange(PvPMelee.Smite) && HasTarget() &&
                     GetTargetHPPercent() <= MNKPvP_SmiteThreshold)
                     return PvPMelee.Smite;
 

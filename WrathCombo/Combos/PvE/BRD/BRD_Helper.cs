@@ -143,19 +143,22 @@ internal partial class BRD
         {
             return ActionReady(IronJaws) && HasStatusEffect(Buffs.RagingStrikes) && PurpleRemaining < 35 && BlueRemaining < 35;
         }
-        internal static int computeHpThreshold()
+        internal static int ComputeHpThreshold(IGameObject? x)
         {
+            if (x is null)
+                return 0;
+            
             if (InBossEncounter())
             {
-                return TargetIsBoss() ? BRD_ST_DPS_DotBossOption : BRD_ST_DPS_DotBossAddsOption;
+                return x.IsBoss() ? BRD_ST_DPS_DotBossOption : BRD_ST_DPS_DotBossAddsOption;
             }
             return BRD_ST_DPS_DotTrashOption;
         }
-        internal static int computeAoEDoTHpThreshold()
+        internal static int ComputeAoEDoTHpThreshold(IGameObject? x)
         {
             if (InBossEncounter())
             {
-                return TargetIsBoss() ? BRD_AoE_Adv_MultidotBossOption : BRD_AoE_Adv_MultidotBossAddsOption;
+                return x.IsBoss() ? BRD_AoE_Adv_MultidotBossOption : BRD_AoE_Adv_MultidotBossAddsOption;
             }
             return BRD_AoE_Adv_MultidotTrashOption;
         }
@@ -196,8 +199,12 @@ internal partial class BRD
             {
                 if (SongNone) // No song, use wanderer first
                    return true;
-                    
-                if (SongArmy && (CanWeaveDelayed || !BardHasTarget) && (SongTimerInSeconds <= 12 || gauge.Repertoire == 4)) //Transition to wanderer as soon as it is ready
+                
+                var canTransition =  IsEnabled(Preset.BRD_Hidden_Song_Extension) 
+                    ? SongTimerInSeconds <= 3 
+                    : SongTimerInSeconds <= 12 || gauge.Repertoire == 4;
+                
+                if (SongArmy && (CanWeaveDelayed || !BardHasTarget) && canTransition) //Transition to wanderer as soon as it is ready
                     return true;
             }
             return false;

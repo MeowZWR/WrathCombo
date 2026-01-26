@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.Core;
 using WrathCombo.Data;
-using WrathCombo.Extensions;
 using WrathCombo.Services;
 using WrathCombo.Services.ActionRequestIPC;
 using static WrathCombo.Data.ActionWatching;
@@ -97,22 +96,67 @@ internal abstract partial class CustomComboFunctions
     /// </summary>
     public static bool InActionRange(uint actionId, IGameObject? optionalTarget = null)
     {
+        optionalTarget ??= CurrentTarget;
+        var actSheet = ActionSheet[actionId];
+        var areaTargeted = actSheet.TargetArea;
+        var selfUse = actSheet.CanTargetSelf;
+        var hostile = actSheet.CanTargetHostile;
         var actionRange = GetActionRange(actionId);
 
-        // Has Range
-        // Eg. Geirskogul, Fleche
-        if (actionRange > 0f)
-            return (optionalTarget ??= CurrentTarget) != null && GetTargetDistance(optionalTarget) <= actionRange;
+        // Covers self-use and self-area targeted actions
+        if (actionRange == 0)
+        {
+            var effectRange = GetActionEffectRange(actionId);
 
-        var actionRadius = GetActionEffectRange(actionId);
+            if (effectRange == 0) //Range 0, EffectRange 0 = Purely self use so won't impact a target
+                return true;
 
-        // Has Radius Only
-        // Eg. Dyskrasia, Art of War
-        if (actionRadius > 0f)
-            return (optionalTarget ??= CurrentTarget) != null && GetTargetDistance(optionalTarget) <= actionRadius;
+            // Try and make sure to only call action range on stuff that *can* hit something else, whether it be friendly or hostile
+            // since stuff like Leylines technically falls into this area. Don't really want to make an exception list
+            return actSheet.CastType switch
+            {
+                1 => true,
+                2 => TargetInSelfCircle(optionalTarget, effectRange),
+                3 => TargetInCone(optionalTarget, effectRange), //Weirdly only BLU will meet this condition
+                4 => TargetInLine(optionalTarget, effectRange, actSheet.XAxisModifier),
+                _ => false
+            };
+        }
 
-        // Has Neither
-        // Eg. Reassemble, True North
+        // If we don't have a target and the action cannot be used on ourselves, we're not in range clearly
+        if (optionalTarget is null && !selfUse)
+            return false;
+
+        // Deal with actions that don't area target
+        if (!areaTargeted)
+        {
+            unsafe
+            {
+                if (LocalPlayer is not { } || !IsInLineOfSight(optionalTarget))
+                    return false;
+
+                // LocalPlayer is always the source, our target, regardless of hostile/friendly, can be the object to check distance against
+                // We should also remember this is just a range check, not a target compatibility check (use (IGameObject).CanUseOn for this) 
+                var status = ActionManager.GetActionInRangeOrLoS(actionId, LocalPlayer.GameObject(), optionalTarget.Struct());
+                return status is 0 or 565; //0 = no message, 565 = Target is not in range (however this only generates if you're not facing them so it's technically fine with the auto-face setting)
+            }
+        }
+
+        // Now we deal with area targeted
+        // Area targeted generally means things will be placed on the ground, and it's whatever is placed on the ground that will height check
+        // As of writing this, only 24 actions players use are area targeted and none of them have any other form of targeting mode, it's strictly on the ground
+        // Range = 0 means it's something that can only be placed on the player, otherwise the range indicates how far the action can be placed away from the player
+        // Radius indicates how big the effect is once placed on the ground
+        // Will have to test if the radius impacts height aswell as the horizontal distance (I think it does), but it will mostly affect PvP if so
+        // For the purpose of this, it's mainly range we need to consider as even if the target is within the radius of the placed object, we can only place as far as the range
+        // Also, this would have to be managed via retargeting for actually placing elsewhere not on top of the player
+
+        if (GetTargetDistance(optionalTarget) > actionRange || !IsInLineOfSight(optionalTarget))
+            return false;
+
+        // At this point the only thing left to even consider is if they're outside the action range, would the target still get hit by the effect range once placed
+        // However, that's probably going a bit too far so we'll just consider it as in range as long as the action range is good
+
         return true;
     }
 
@@ -122,7 +166,7 @@ internal abstract partial class CustomComboFunctions
     {
         uint hookedId = OriginalHook(actionId);
 
-        if(ActionRequestIPCProvider.GetArtificialCooldown(ActionType.Action, hookedId) > 0)
+        if (ActionRequestIPCProvider.GetArtificialCooldown(ActionType.Action, hookedId) > 0)
         {
             return false;
         }
@@ -257,7 +301,7 @@ internal abstract partial class CustomComboFunctions
         var animationLock = ActionManager.Instance()->AnimationLock;
 
         return WeaveActions.Count < weaveLimit &&                                    // Multi-weave Check
-               animationLock <= BaseActionQueue &&                                   // Animation Threshold
+               animationLock <= BaseAnimationLock &&                                   // Animation Threshold
                remainingCast <= BaseActionQueue &&                                   // Casting Threshold
                RemainingGCD > (remainingCast + estimatedWeaveTime + animationLock);  // Window End Threshold
     }
@@ -424,7 +468,7 @@ internal abstract partial class CustomComboFunctions
     public static int TimesUsedSinceOtherAction(uint actionToCheckAgainst, uint[] actionsToCount)
     {
         int useCount = 0;
-        foreach(uint actionId in actionsToCount)
+        foreach (uint actionId in actionsToCount)
         {
             useCount += TimesUsedSinceOtherAction(actionToCheckAgainst, actionId);
         }
@@ -449,4 +493,6 @@ internal abstract partial class CustomComboFunctions
 
         return 0;
     }
+
+    public static bool ActionIsFriendly(uint actionId) => ActionSheet.TryGetValue(actionId, out var s) && s.Unknown4 == 2;
 }

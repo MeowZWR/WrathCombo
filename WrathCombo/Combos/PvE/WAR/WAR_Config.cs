@@ -40,23 +40,24 @@ internal partial class WAR
                     DrawSliderFloat(0, 100, WAR_Mitigation_NonBoss_MitigationThreshold, "Stop using when average health percentage of nearby enemies is below set. \n(Set to 0 to disable this check) ", decimals: 0);
                     break;
                 case Preset.WAR_Mitigation_NonBoss_ShakeItOff:
-                    DrawSliderInt(1, 100, WAR_Mitigation_NonBoss_ShakeItOff_Health, "Player HP% to use Shake It Off at or below (100 = Disable check)");
+                    DrawSliderInt(1, 100, WAR_Mitigation_NonBoss_ShakeItOff_Health, "Player HP% to use Shake It Off at or below");
                     break;
                 case Preset.WAR_Mitigation_NonBoss_Equilibrium:
-                    DrawSliderInt(1, 100, WAR_Mitigation_NonBoss_Equilibrium_Health, "Player HP% to use Equilibrium at or below (100 = Disable check)");
+                    DrawSliderInt(1, 100, WAR_Mitigation_NonBoss_Equilibrium_Health, "Player HP% to use Equilibrium at or below");
                     break;
                 case Preset.WAR_Mitigation_NonBoss_Holmgang:
-                    DrawSliderInt(1, 100, WAR_Mitigation_NonBoss_Holmgang_Health, "Player HP% to use Holmgang at or below (100 = Disable check)");
+                    DrawSliderInt(1, 100, WAR_Mitigation_NonBoss_Holmgang_Health, "Player HP% to use Holmgang at or below");
                     break;
                 
                 case Preset.WAR_Mitigation_Boss_Equilibrium:
-                    DrawSliderInt(1, 100, WAR_Mitigation_Boss_Equilibrium_Health, "Player HP% to use Equilibrium at or below (100 = Disable check)");
+                    DrawSliderInt(1, 100, WAR_Mitigation_Boss_Equilibrium_Health, "Player HP% to use Equilibrium at or below.");
+                    DrawSliderInt(1, 100, WAR_Mitigation_Boss_Tankbuster_Equilibrium_Health, "Player HP% to use Equilibrium at or below when incoming tankbuster is detected.");
                     break;
                 
                 case Preset.WAR_Mitigation_Boss_RawIntuition_OnCD:
                     DrawDifficultyMultiChoice(WAR_Mitigation_Boss_RawIntuition_OnCD_Difficulty, WAR_Boss_Mit_DifficultyListSet ,
                         "Select which difficulties the ability should be used in:");
-                    DrawSliderInt(1, 100, WAR_Mitigation_Boss_RawIntuition_Health, "Player HP% to use Raw Intuition/Bloodwhetting at or below (100 = Disable check)");
+                    DrawSliderInt(1, 100, WAR_Mitigation_Boss_RawIntuition_Health, "Player HP% to use Raw Intuition/Bloodwhetting at or below");
                     break;
                 
                 case Preset.WAR_Mitigation_Boss_RawIntuition_TankBuster:
@@ -402,6 +403,10 @@ internal partial class WAR
                         "如果你不使用这些功能来进行个人减伤，建议不要启用此选项。");
                     ImGui.Unindent();
                     break;
+                
+                case Preset.WAR_ArmsLengthLockout:
+                    DrawSliderInt(0, 5, WAR_ArmsLengthLockout_Time, "Time (In Seconds) remaining on Inner Strength to Lock out Arm's Length until.");
+                    break;
 
                     #endregion
             }
@@ -420,6 +425,7 @@ internal partial class WAR
             WAR_Mitigation_NonBoss_Holmgang_Health = new("WAR_Mitigation_NonBoss_Holmgang_Health", 20),
             WAR_Mitigation_Boss_RawIntuition_Health = new("WAR_Mitigation_Boss_RawIntuition_Health", 99),
             WAR_Mitigation_Boss_Equilibrium_Health = new("WAR_Mitigation_Boss_Equilibrium_Health", 30),
+            WAR_Mitigation_Boss_Tankbuster_Equilibrium_Health = new("WAR_Mitigation_Boss_Tankbuster_Equilibrium_Health", 80),
             WAR_Infuriate_Charges = new("WAR_Infuriate_Charges"),
             WAR_Infuriate_Range = new("WAR_Infuriate_Range"),
             WAR_SurgingRefreshRange = new("WAR_SurgingRefreshRange", 10),
@@ -460,8 +466,7 @@ internal partial class WAR
             WAR_Mit_ShakeItOff_PartyRequirement = new("WAR_Mit_ShakeItOff_PartyRequirement", (int)PartyRequirement.Yes),
             WAR_Mit_ArmsLength_Boss = new("WAR_Mit_ArmsLength_Boss", (int)BossAvoidance.On),
             WAR_Mit_ArmsLength_EnemyCount = new("WAR_Mit_ArmsLength_EnemyCount"),
-            WAR_Bozja_LostCure_Health = new("WAR_Bozja_LostCure_Health", 50),
-            WAR_Bozja_LostReraise_Health = new("WAR_Bozja_LostReraise_Health", 10);
+            WAR_ArmsLengthLockout_Time = new("WAR_ArmsLengthLockout_Time", 3);
 
         public static UserFloat
             WAR_Mitigation_NonBoss_MitigationThreshold = new("WAR_Mitigation_NonBoss_MitigationThreshold", 20f),

@@ -262,7 +262,7 @@ internal partial class SGE : Healer
             {
                 var dotAction = OriginalHook(Dosis);;
                 DosisList.TryGetValue(dotAction, out var debuff);
-                var target = SimpleTarget.DottableEnemy(dotAction, debuff.Debuff, ComputeHpThreshold(), SGE_ST_DPS_EukrasianDosisUptime_Threshold, 2);
+                var target = SimpleTarget.DottableEnemy(dotAction, debuff.Debuff, ComputeHpThreshold, SGE_ST_DPS_EukrasianDosisUptime_Threshold, 2);
                 
                 //Single Target Dotting, needed because dottableenemy will not maintain single dot on main target of more than one target exists. 
                 if (NeedsDoT())

@@ -349,6 +349,9 @@ internal partial class DRK
             // Bail if non-boss mitigation is not enabled
             if (!IsEnabled(Preset.DRK_Mitigation_NonBoss))
                 return false;
+            //Bail if we haven't been in combat long enough and are moving (Still Pulling)
+            if (CombatEngageDuration().TotalSeconds <= 15 && IsMoving()) 
+                return false;
 
             #region Living Dead
 

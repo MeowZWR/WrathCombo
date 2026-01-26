@@ -226,7 +226,7 @@ internal partial class WHM : Healer
             {
                 var dotAction = OriginalHook(Aero);
                 AeroList.TryGetValue(dotAction, out var dotDebuffID);
-                var target = SimpleTarget.DottableEnemy(dotAction, dotDebuffID, computeHpThreshold(), WHM_ST_DPS_AeroUptime_Threshold, 2);
+                var target = SimpleTarget.DottableEnemy(dotAction, dotDebuffID, ComputeHpThreshold, WHM_ST_DPS_AeroUptime_Threshold, 2);
                 
                 //Single Target Dotting, needed because dottableenemy will not maintain single dot on main target of more than one target exists. 
                 if (NeedsDoT()) 

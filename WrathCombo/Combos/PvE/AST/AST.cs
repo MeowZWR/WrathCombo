@@ -329,7 +329,7 @@ internal partial class AST : Healer
             {
                 var dotAction = OriginalHook(Combust);
                 CombustList.TryGetValue(dotAction, out var dotDebuffID);
-                var target = SimpleTarget.DottableEnemy(dotAction, dotDebuffID, computeHpThreshold(), AST_ST_DPS_CombustUptime_Threshold, 2);
+                var target = SimpleTarget.DottableEnemy(dotAction, dotDebuffID, ComputeHpThreshold, AST_ST_DPS_CombustUptime_Threshold, 2);
                 
                 //Single Target Dotting, needed because dottableenemy will not maintain single dot on main target of more than one target exists. 
                 if (NeedsDoT()) 

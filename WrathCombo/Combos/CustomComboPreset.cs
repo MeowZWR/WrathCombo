@@ -2122,8 +2122,13 @@ public enum Preset
     BRD_OneButtonDots_SavageBlade = 3073,
 
     #endregion
+    #region Hidden
+    [CustomComboInfo("Hidden Extended Army's Paeon", "Will extend your Army's Paeon to 3 seconds left on it's timer. For longer burst holds without dropping songs.", Job.BRD)]
+    [Hidden]
+    BRD_Hidden_Song_Extension = 3074,
+    #endregion
 
-    // Last value = 3073
+    // Last value = 3074
 
     #endregion
 
@@ -2850,7 +2855,8 @@ public enum Preset
     DRK_Mitigation = 5300,
     
     [ParentCombo(DRK_Mitigation)]
-    [CustomComboInfo("Non Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated.", Job.DRK)]
+    [CustomComboInfo("Non Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated. " +
+                                                      "\nWill not use mitigation in the first 15 seconds of a pull unless you are not moving.", Job.DRK)]
     DRK_Mitigation_NonBoss = 5301,
     
     [ParentCombo(DRK_Mitigation_NonBoss)]
@@ -3061,12 +3067,17 @@ public enum Preset
     [ParentCombo(DRK_Retarget_Oblation)]
     [CustomComboInfo("Prevent Double Oblations", "Will change Oblation to Savage Blade when your target already has Oblation on them.", Job.DRK)]
     DRK_Retarget_Oblation_DoubleProtection = 5134,
+    
+    [ReplaceSkill(DRK.Shadowstride)]
+    [CustomComboInfo("Mouseover Shadowstride Option", "Will retarget Shadowstride to your field or UI mouseover target (If Hostile) or the nearest hostile target to your mouseover target (If friendly).", Job.DRK)]
+    [Retargeted(DRK.Shadowstride)]
+    DRK_RetargetShadowstride = 5135,
 
     #endregion
-    // Last value = 5134
+    // Last value = 5135
 
     #endregion
-    // Last value = 5134
+    // Last value = 5135
 
     #region Hidden Features
 
@@ -3122,59 +3133,63 @@ public enum Preset
 
     [ParentCombo(DRG_ST_Buffs)]
     [CustomComboInfo("Battle Litany Option", "Adds Battle Litany to the rotation.", Job.DRG)]
-    DRG_ST_Litany = 6103,
+    DRG_ST_BattleLitany = 6103,
 
     [ParentCombo(DRG_ST_Buffs)]
     [CustomComboInfo("Lance Charge Option", "Adds Lance Charge to the rotation.", Job.DRG)]
-    DRG_ST_Lance = 6104,
+    DRG_ST_LanceCharge = 6104,
 
-    #endregion
-
-    #region Cooldowns ST
-
-    [ParentCombo(DRG_ST_AdvancedMode)]
-    [CustomComboInfo("Cooldowns Option", "Adds various cooldowns to the rotation.", Job.DRG)]
-    DRG_ST_CDs = 6105,
-
-    [ParentCombo(DRG_ST_CDs)]
+    [ParentCombo(DRG_ST_Buffs)]
     [CustomComboInfo("Life Surge Option", "Adds Life Surge, on the proper GCD, to the rotation.", Job.DRG)]
     DRG_ST_LifeSurge = 6106,
+    
+    #endregion
+    
+    #region Damage SKills
 
-    [ParentCombo(DRG_ST_CDs)]
+    [ParentCombo(DRG_ST_AdvancedMode)]
+    [CustomComboInfo("Damage skills on Main Combo", "Collection of Damage skills on main combo.", Job.DRG)]
+    DRG_ST_Damage = 6105,
+
+    [ParentCombo(DRG_ST_Damage)]
     [CustomComboInfo("High Jump Option", "Adds (High) Jump to the rotation.", Job.DRG)]
     DRG_ST_HighJump = 6113,
 
-    [ParentCombo(DRG_ST_CDs)]
+    [ParentCombo(DRG_ST_Damage)]
     [CustomComboInfo("Mirage Dive Option", "Adds Mirage Dive to the rotation.", Job.DRG)]
     DRG_ST_Mirage = 6115,
 
-    [ParentCombo(DRG_ST_CDs)]
-    [CustomComboInfo("Dragonfire Dive Option", "Adds Dragonfire Dive to the rotation.", Job.DRG)]
-    DRG_ST_DragonfireDive = 6107,
-
-    [ParentCombo(DRG_ST_CDs)]
+    [ParentCombo(DRG_ST_Damage)]
     [CustomComboInfo("Geirskogul Option", "Adds Geirskogul to the rotation.", Job.DRG)]
     DRG_ST_Geirskogul = 6116,
 
-    [ParentCombo(DRG_ST_CDs)]
+    [ParentCombo(DRG_ST_Damage)]
     [CustomComboInfo("Nastrond Option", "Adds Nastrond to the rotation.", Job.DRG)]
     DRG_ST_Nastrond = 6117,
 
-    [ParentCombo(DRG_ST_CDs)]
-    [CustomComboInfo("Stardiver Option", "Adds Stardiver to the rotation.", Job.DRG)]
-    DRG_ST_Stardiver = 6110,
-
-    [ParentCombo(DRG_ST_CDs)]
+    [ParentCombo(DRG_ST_Damage)]
     [CustomComboInfo("Wyrmwind Thrust Option", "Adds Wyrmwind Thrust to the rotation.", Job.DRG)]
     DRG_ST_Wyrmwind = 6118,
 
-    [ParentCombo(DRG_ST_CDs)]
-    [CustomComboInfo("Rise of the Dragon Option", "Adds Rise of the Dragon to the rotation.", Job.DRG)]
-    DRG_ST_Dives_RiseOfTheDragon = 6109,
+    [ParentCombo(DRG_ST_Damage)]
+    [CustomComboInfo("Stardiver Option", "Adds Stardiver to the rotation.", Job.DRG)]
+    DRG_ST_Stardiver = 6110,
 
-    [ParentCombo(DRG_ST_CDs)]
+    [ParentCombo(DRG_ST_Damage)]
     [CustomComboInfo("Starcross Option", "Adds Starcross to the rotation.", Job.DRG)]
     DRG_ST_Starcross = 6112,
+
+    [ParentCombo(DRG_ST_Damage)]
+    [CustomComboInfo("Dragonfire Dive Option", "Adds Dragonfire Dive to the rotation.", Job.DRG)]
+    DRG_ST_DragonfireDive = 6107,
+
+    [ParentCombo(DRG_ST_Damage)]
+    [CustomComboInfo("Rise of the Dragon Option", "Adds Rise of the Dragon to the rotation.", Job.DRG)]
+    DRG_ST_RiseOfTheDragon = 6109,
+
+    [ParentCombo(DRG_ST_Damage)]
+    [CustomComboInfo("Ranged Uptime Option", "Adds Piercing Talon to the rotation when you are out of melee range.", Job.DRG)]
+    DRG_ST_RangedUptime = 6197,
 
     #endregion
 
@@ -3185,11 +3200,7 @@ public enum Preset
     [ParentCombo(DRG_ST_AdvancedMode)]
     [CustomComboInfo("Leg Sweep Option", "Adds Leg Sweep when target non-boss is casting.", Job.DRG)]
     DRG_ST_StunInterupt = 6196,
-
-    [ParentCombo(DRG_ST_AdvancedMode)]
-    [CustomComboInfo("Ranged Uptime Option", "Adds Piercing Talon to the rotation when you are out of melee range.", Job.DRG)]
-    DRG_ST_RangedUptime = 6197,
-
+    
     [ParentCombo(DRG_ST_AdvancedMode)]
     [CustomComboInfo("Combo Heals Option", "Adds Bloodbath and Second Wind to the rotation.", Job.DRG)]
     DRG_ST_ComboHeals = 6198,
@@ -3217,75 +3228,74 @@ public enum Preset
 
     [ParentCombo(DRG_AoE_Buffs)]
     [CustomComboInfo("Battle Litany AoE Option", "Adds Battle Litany to the rotation.", Job.DRG)]
-    DRG_AoE_Litany = 6203,
+    DRG_AoE_BattleLitany = 6203,
 
     [ParentCombo(DRG_AoE_Buffs)]
     [CustomComboInfo("Lance Charge AoE Option", "Adds Lance Charge to the rotation.", Job.DRG)]
-    DRG_AoE_Lance = 6204,
+    DRG_AoE_LanceCharge = 6204,
+
+    [ParentCombo(DRG_AoE_Buffs)]
+    [CustomComboInfo("Life Surge Option", "Adds Life Surge, onto proper GCDs, to the rotation.", Job.DRG)]
+    DRG_AoE_LifeSurge = 6206,
 
     #endregion
 
     #region cooldowns AoE
 
     [ParentCombo(DRG_AoE_AdvancedMode)]
-    [CustomComboInfo("Cooldowns Option", "Adds various cooldowns to the rotation.", Job.DRG)]
-    DRG_AoE_CDs = 6205,
-
-    [ParentCombo(DRG_AoE_CDs)]
-    [CustomComboInfo("Life Surge Option", "Adds Life Surge, onto proper GCDs, to the rotation.", Job.DRG)]
-    DRG_AoE_LifeSurge = 6206,
-
-    [ParentCombo(DRG_AoE_CDs)]
+    [CustomComboInfo("Damage skills on Main Combo", "Collection of Damage skills on main combo.", Job.DRG)]
+    DRG_AoE_Damage = 6205,
+    
+    [ParentCombo(DRG_AoE_Damage)]
     [CustomComboInfo("High Jump Option", "Adds (High) Jump to the rotation.", Job.DRG)]
     DRG_AoE_HighJump = 6213,
 
-    [ParentCombo(DRG_AoE_CDs)]
+    [ParentCombo(DRG_AoE_Damage)]
     [CustomComboInfo("Mirage Dive Option", "Adds Mirage Dive to the rotation.", Job.DRG)]
     DRG_AoE_Mirage = 6215,
 
-    [ParentCombo(DRG_AoE_CDs)]
-    [CustomComboInfo("Dragonfire Dive Option", "Adds Dragonfire Dive to the rotation.", Job.DRG)]
-    DRG_AoE_DragonfireDive = 6207,
-
-    [ParentCombo(DRG_AoE_CDs)]
+    [ParentCombo(DRG_AoE_Damage)]
     [CustomComboInfo("Geirskogul Option", "Adds Geirskogul to the rotation.", Job.DRG)]
     DRG_AoE_Geirskogul = 6216,
 
-    [ParentCombo(DRG_AoE_CDs)]
+    [ParentCombo(DRG_AoE_Damage)]
     [CustomComboInfo("Nastrond Option", "Adds Nastrond to the rotation.", Job.DRG)]
     DRG_AoE_Nastrond = 6217,
 
-    [ParentCombo(DRG_AoE_CDs)]
-    [CustomComboInfo("Stardiver Option", "Adds Stardiver to the rotation.", Job.DRG)]
-    DRG_AoE_Stardiver = 6210,
-
-    [ParentCombo(DRG_AoE_CDs)]
+    [ParentCombo(DRG_AoE_Damage)]
     [CustomComboInfo("Wyrmwind Option", "Adds Wyrmwind Thrust to the rotation.", Job.DRG)]
     DRG_AoE_Wyrmwind = 6218,
 
-    [ParentCombo(DRG_AoE_CDs)]
-    [CustomComboInfo("Rise of the Dragon Option", "Adds Rise of the Dragon to the rotation.", Job.DRG)]
-    DRG_AoE_RiseOfTheDragon = 6209,
+    [ParentCombo(DRG_AoE_Damage)]
+    [CustomComboInfo("Stardiver Option", "Adds Stardiver to the rotation.", Job.DRG)]
+    DRG_AoE_Stardiver = 6210,
 
-    [ParentCombo(DRG_AoE_CDs)]
+    [ParentCombo(DRG_AoE_Damage)]
     [CustomComboInfo("Starcross Option", "Adds Starcross to the rotation.", Job.DRG)]
     DRG_AoE_Starcross = 6212,
 
-    #endregion
+    [ParentCombo(DRG_AoE_Damage)]
+    [CustomComboInfo("Dragonfire Dive Option", "Adds Dragonfire Dive to the rotation.", Job.DRG)]
+    DRG_AoE_DragonfireDive = 6207,
 
-    [ParentCombo(DRG_AoE_AdvancedMode)]
+    [ParentCombo(DRG_AoE_Damage)]
+    [CustomComboInfo("Rise of the Dragon Option", "Adds Rise of the Dragon to the rotation.", Job.DRG)]
+    DRG_AoE_RiseOfTheDragon = 6209,
+    
+    [ParentCombo(DRG_AoE_Damage)]
+    [CustomComboInfo("Ranged Uptime Option", "Adds Piercing Talon to the rotation when you are out of melee range.", Job.DRG)]
+    DRG_AoE_RangedUptime = 6298,
+
+    [ParentCombo(DRG_AoE_Damage)]
     [CustomComboInfo("Low Level Disembowel", "Adds Disembowel combo to the rotation when you are or synced below level 62.", Job.DRG)]
     DRG_AoE_Disembowel = 6297,
 
+    #endregion
+    
     [ParentCombo(DRG_AoE_AdvancedMode)]
     [CustomComboInfo("Leg Sweep Option", "Adds Leg Sweep when target non-boss is casting.", Job.DRG)]
     DRG_AoE_StunInterupt = 6296,
-
-    [ParentCombo(DRG_AoE_AdvancedMode)]
-    [CustomComboInfo("Ranged Uptime Option", "Adds Piercing Talon to the rotation when you are out of melee range.",
-        Job.DRG)]
-    DRG_AoE_RangedUptime = 6298,
-
+    
     [ParentCombo(DRG_AoE_AdvancedMode)]
     [CustomComboInfo("Combo Heals Option", "Adds Bloodbath and Second Wind to the rotation.", Job.DRG)]
     DRG_AoE_ComboHeals = 6299,
@@ -3310,7 +3320,7 @@ public enum Preset
     [CustomComboInfo("Lance Charge to Battle Litany Feature", "Turns Lance Charge into Battle Litany when the former is on cooldown.", Job.DRG)]
     DRG_BurstCDFeature = 6301,
 
-    // Last value ST = 6119
+    // Last value ST = 6120
     // Last value AoE = 6216
 
     #endregion
@@ -3461,7 +3471,8 @@ public enum Preset
     GNB_Mitigation = 7700,
     
     [ParentCombo(GNB_Mitigation)]
-    [CustomComboInfo("Non Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated.", Job.GNB)]
+    [CustomComboInfo("Non Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated." +
+                                                      "\nWill not use mitigation in the first 15 seconds of a pull unless you are not moving.", Job.GNB)]
     GNB_Mitigation_NonBoss = 7701,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
@@ -3766,10 +3777,15 @@ public enum Preset
     [Retargeted(GNB.HeartOfCorundum, GNB.HeartOfStone)]
     GNB_RetargetHeartofStone_TT = 7090,
     #endregion
+    
+    [ReplaceSkill(GNB.Trajectory)]
+    [CustomComboInfo("Mouseover Trajectory Option", "Will retarget Trajectory to your field or UI mouseover target (If Hostile) or the nearest hostile target to your mouseover target (If friendly).", Job.GNB)]
+    [Retargeted(GNB.Trajectory)]
+    GNB_RetargetTrajectory = 7091,
 
     #endregion
 
-    // Last Value = 7090
+    // Last Value = 7091
     #endregion
 
     #region MACHINIST
@@ -5018,7 +5034,8 @@ public enum Preset
     PLD_Mitigation = 11086,
     
     [ParentCombo(PLD_Mitigation)]
-    [CustomComboInfo("Non Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated.", Job.PLD)]
+    [CustomComboInfo("Non Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated." +
+                                                      "\nWill not use mitigation in the first 15 seconds of a pull unless you are not moving.", Job.PLD)]
     PLD_Mitigation_NonBoss = 11087,
     
     [ParentCombo(PLD_Mitigation_NonBoss)]
@@ -5233,10 +5250,15 @@ public enum Preset
     [CustomComboInfo("Low HP% Cover Option", "Will Cover the Lowest Health (by percentage) Party member when they fall below set threshold", Job.PLD)]
     [Retargeted(PLD.Cover)]
     PLD_RetargetCover_LowHP = 11077,
+    
+    [ReplaceSkill(PLD.Intervene)]
+    [CustomComboInfo("Mouseover Intervene Option", "Will retarget intervene to your field or UI mouseover target (If Hostile) or the nearest hostile target to your mouseover target (If friendly).", Job.PLD)]
+    [Retargeted(PLD.Intervene)]
+    PLD_RetargetIntervene = 11105,
 
     #endregion
 
-    //// Last value = 11099
+    //// Last value = 11105
 
     #endregion
 
@@ -6420,8 +6442,7 @@ public enum Preset
     [ParentCombo(SAM_ST_Damage)]
     [CustomComboInfo("Shinten Option", "Adds Shinten to the rotation.\nWill pool kenki for burst.", Job.SAM)]
     SAM_ST_Shinten = 15008,
-
-
+    
     [ParentCombo(SAM_ST_Damage)]
     [CustomComboInfo("Ranged Uptime Feature", "Adds Enpi to the rotation when you are out of range.\nWill use Ogi or Iaijutsu when possible and enabled.", Job.SAM)]
     SAM_ST_RangedUptime = 15097,
@@ -7431,7 +7452,7 @@ public enum Preset
     VPR_ST_AdvancedMode = 30001,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Balance Opener (Level 100)", "Adds the Balance opener at level 100.\n Does not check positional choice.\n Always does Hunter's Coil first (FLANK)", Job.VPR)]
+    [CustomComboInfo("Balance Opener (Level 100)", "Adds the Balance opener at level 100.\n First Vicewinder is ALWAYS FLANK FIRST.", Job.VPR)]
     VPR_ST_Opener = 30002,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
@@ -7483,9 +7504,9 @@ public enum Preset
     VPR_ST_StunInterupt = 30096,
 
     [ParentCombo(VPR_ST_AdvancedMode)]
-    [CustomComboInfo("Ranged Uptime Option", "Adds Writhing Snap to the rotation when you are out of melee range.", Job.VPR)]
+    [CustomComboInfo("Ranged Uptime Option", "Adds Writhing Snap to the rotation when you are out of melee range.\nWill prioritise other abilities when in range.", Job.VPR)]
     VPR_ST_RangedUptime = 30095,
-
+    
     [ParentCombo(VPR_ST_AdvancedMode)]
     [CustomComboInfo("Combo Heals Option", "Adds Bloodbath and Second Wind to the rotation.", Job.VPR)]
     VPR_ST_ComboHeals = 30097,
@@ -7618,10 +7639,11 @@ public enum Preset
     
     [ReplaceSkill(VPR.Vicewinder, VPR.Vicepit)]
     [ConflictingCombos(VPR_VicepitDens, VPR_VicewinderCoils)]
-    [CustomComboInfo("Perfect Balance Protection", "Replaces Perfect Balance with Savage Blade when you already have Perfect Balance active.", Job.VPR)]
+    [CustomComboInfo("Vicewinder / Vicepit Protection", "Replaces Vicewinder / Vicepit with Savage Blade when you already have Vicewinder / Vicepit active.", Job.VPR)]
     VPR_VicewinderProtection = 30212,
 
     #endregion
+    
     //ST 30016
     //AoE 30115
     //Misc 30212
@@ -7775,7 +7797,8 @@ public enum Preset
     WAR_Mitigation = 18131,
     
     [ParentCombo(WAR_Mitigation)]
-    [CustomComboInfo("Non Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated.", Job.WAR)]
+    [CustomComboInfo("Non Boss Encounter Mitigation", "Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated." +
+                                                      "\nWill not use mitigation in the first 15 seconds of a pull unless you are not moving.", Job.WAR)]
     WAR_Mitigation_NonBoss = 18132,
     
     [ParentCombo(WAR_Mitigation_NonBoss)]
@@ -7990,6 +8013,15 @@ public enum Preset
     [CustomComboInfo("Include Target's Target", "If your target's target is not you, will Retarget Nascent Flash onto them.\n(if you're not top aggro, and not mousing over or hard targeting an ally)", Job.WAR)]
     [Retargeted]
     WAR_RawIntuition_Targeting_TT = 18121,
+    
+    [ReplaceSkill(WAR.Onslaught)]
+    [CustomComboInfo("Mouseover Onslaught Option", "Will retarget Onslaught to your field or UI mouseover target (If Hostile) or the nearest hostile target to your mouseover target (If friendly).", Job.WAR)]
+    [Retargeted(WAR.Onslaught)]
+    WAR_RetargetOnslaught = 18152,
+    
+    [ReplaceSkill(RoleActions.Physical.ArmsLength)]
+    [CustomComboInfo("Double Anti-Knockback Protection", "Will lock out Arm's Length in boss encounters when you already have knockback immunity from Inner Release.", Job.WAR)]
+    WAR_ArmsLengthLockout = 18153,
 
     [ReplaceSkill(WAR.Holmgang)]
     [CustomComboInfo("Retarget Holmgang Feature", "Will Retarget Holmgang to yourself, instead of letting it go on enemies.", Job.WAR)]
@@ -8025,7 +8057,7 @@ public enum Preset
     #endregion
 
     #endregion
-    // Last value = 18145
+    // Last value = 18153
     #endregion
 
     #region WHITE MAGE

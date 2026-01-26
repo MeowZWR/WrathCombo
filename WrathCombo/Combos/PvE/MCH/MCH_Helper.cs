@@ -10,6 +10,18 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class MCH
 {
+    #region Misc
+
+    private static bool CanUseFullMetalField =>
+        HasStatusEffect(Buffs.FullMetalMachinist) &&
+        !IsOverheated &&
+        (ActionReady(Wildfire) ||
+         GetCooldownRemainingTime(Wildfire) > 90 ||
+         GetCooldownRemainingTime(Wildfire) <= GCD ||
+         GetStatusEffectRemainingTime(Buffs.FullMetalMachinist) <= 6);
+
+    #endregion
+
     #region Hypercharge
 
     private static bool CanHypercharge(bool onAoE = false)
@@ -18,11 +30,12 @@ internal partial class MCH
         {
             case false when
                 (ActionReady(Hypercharge) || HasStatusEffect(Buffs.Hypercharged)) &&
-                !IsComboExpiring(6) &&
+                !IsComboExpiring(6) && !IsOverheated &&
                 DrillCD && AirAnchorCD && ChainSawCD &&
                 !HasStatusEffect(Buffs.ExcavatorReady) &&
                 !HasStatusEffect(Buffs.FullMetalMachinist) &&
                 (ActionReady(Wildfire) ||
+                 JustUsed(FullMetalField, GCD / 2) ||
                  MCH_ST_WildfireBossOption == 1 && !TargetIsBoss() ||
                  GetCooldownRemainingTime(Wildfire) > GCD * 15 ||
                  Heat is 100 && GetCooldownRemainingTime(Wildfire) > 10 ||

@@ -174,7 +174,7 @@ internal partial class RDM : Caster
             if (HasManaStacks)
                 return UseHolyFlare(actionID);
 
-            if (ActionReady(Moulinet) && HasBattleTarget() && GetTargetDistance() < 8 &&
+            if (ActionReady(Moulinet) && HasBattleTarget() && InActionRange(OriginalHook(Moulinet)) &&
                 (CanMagickedSwordplay || HasEnoughManaToStart || ComboAction is EnchantedMoulinet or Moulinet or EnchantedMoulinetDeux && HasEnoughManaForCombo))
                 return OriginalHook(Moulinet);
 
@@ -418,8 +418,8 @@ internal partial class RDM : Caster
             if (IsEnabled(Preset.RDM_AoE_MeleeCombo))
             {
                 if (ActionReady(Moulinet) &&
-                    (IsNotEnabled(Preset.RDM_AoE_MeleeCombo_Target) && !HasBattleTarget() || HasBattleTarget() && GetTargetDistance() < 8) &&
-                    (CanMagickedSwordplay || HasEnoughManaToStart || ComboAction is EnchantedMoulinet or Moulinet or EnchantedMoulinetDeux && HasEnoughManaForCombo))
+                    (IsNotEnabled(Preset.RDM_AoE_MeleeCombo_Target) && !HasBattleTarget() || HasBattleTarget() && InActionRange(OriginalHook(Moulinet)) &&
+                    (CanMagickedSwordplay || HasEnoughManaToStart || ComboAction is EnchantedMoulinet or Moulinet or EnchantedMoulinetDeux && HasEnoughManaForCombo)))
                     return OriginalHook(Moulinet);
 
                 if (!LevelChecked(Moulinet) && InMeleeRange() && HasEnoughManaForCombo)
@@ -704,7 +704,7 @@ internal partial class RDM : Caster
             actionID is Displacement
             && LevelChecked(Displacement)
             && HasTarget()
-            && GetTargetDistance() >= 5 ? Corpsacorps : actionID;
+            && GetTargetDistance() >= 5 && InActionRange(Corpsacorps) ? Corpsacorps : actionID;
     }
 
     internal class RDM_EmboldenProtection : CustomCombo
@@ -787,7 +787,7 @@ internal partial class RDM : Caster
 
             if (RDM_OGCDs_Options[4] &&
                 GetRemainingCharges(Corpsacorps) > RDM_OGCDs_Options_CorpsCharges &&
-                (InMeleeRange() || GetTargetDistance() <= RDM_OGCDs_Options_Corpsacorps_Distance))
+                (InMeleeRange() || GetTargetDistance() <= RDM_OGCDs_Options_Corpsacorps_Distance) && InActionRange(Corpsacorps))
                 return Corpsacorps;
 
             return RDM_OGCDs_Options[0] && GetCooldownRemainingTime(ContreSixte) < GetCooldownRemainingTime(Fleche) ? ContreSixte : actionID;

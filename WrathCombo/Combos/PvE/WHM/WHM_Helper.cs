@@ -33,7 +33,7 @@ internal partial class WHM
     internal static bool NeedsDoT()
     {
         var dotAction = OriginalHook(Aero);
-        var hpThreshold = IsNotEnabled(Preset.WHM_ST_Simple_DPS) ? computeHpThreshold() : 0;
+        var hpThreshold = IsNotEnabled(Preset.WHM_ST_Simple_DPS) ? ComputeHpThreshold(CurrentTarget) : 0;
         AeroList.TryGetValue(dotAction, out var dotDebuffID);
         var dotRefresh = IsNotEnabled(Preset.WHM_ST_Simple_DPS) ? WHM_ST_DPS_AeroUptime_Threshold : 2.5;
         var dotRemaining = GetStatusEffectRemainingTime(dotDebuffID, CurrentTarget);
@@ -46,11 +46,14 @@ internal partial class WHM
                dotRemaining <= dotRefresh;
     }
 
-    internal static int computeHpThreshold()
+    internal static int ComputeHpThreshold(IGameObject? x)
     {
+        if (x is null)
+            return 0;
+        
         if (InBossEncounter())
         {
-            return TargetIsBoss() ? WHM_ST_DPS_AeroBossOption : WHM_ST_DPS_AeroBossAddsOption;
+            return x.IsBoss() ? WHM_ST_DPS_AeroBossOption : WHM_ST_DPS_AeroBossAddsOption;
         }
         return WHM_ST_DPS_AeroTrashOption;
     }

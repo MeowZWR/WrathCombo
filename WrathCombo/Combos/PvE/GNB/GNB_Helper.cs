@@ -96,7 +96,10 @@ internal partial class GNB : Tank
     private static bool CanUseNonBossMits(RotationMode rotationFlags, ref uint actionID)
     {
         #region Initial Bailout
-        if (!InCombat() || InBossEncounter() || !IsEnabled(Preset.GNB_Mitigation_NonBoss))  
+        if (!InCombat() || 
+            InBossEncounter() || 
+            !IsEnabled(Preset.GNB_Mitigation_NonBoss) || 
+            (CombatEngageDuration().TotalSeconds <= 15 && IsMoving()))  
             return false;
         #endregion
         
@@ -752,7 +755,7 @@ internal partial class GNB : Tank
     private static bool ShouldUseLightningShot(Preset preset, int holdforproc) =>
         IsEnabled(preset) && //option enabled
         (holdforproc == 0 || (holdforproc == 1 && !(CanContinue || HasStatusEffect(Buffs.ReadyToBlast)))) && //not holding for proc
-        ((CanContinue || HasStatusEffect(Buffs.ReadyToBlast)) ? GetTargetDistance() > 5 : !InMeleeRange()) && //out of melee range
+        ((CanContinue || HasStatusEffect(Buffs.ReadyToBlast)) ? GetTargetDistance() > 5 && InActionRange(LightningShot) : !InMeleeRange()) && //out of melee range
         HasBattleTarget() && //has a target
         LevelChecked(LightningShot); //unlocked 
 

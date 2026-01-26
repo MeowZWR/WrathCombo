@@ -12,46 +12,83 @@ internal partial class DRG
 {
     #region Basic Combo
 
-    private static uint BasicCombo(uint actionId, bool useTrueNorth = false)
+    private static uint BasicCombo(uint actionId, bool useTrueNorth = false, bool isAoE = false, bool simpleAoE = false)
     {
         int tnCharges = IsNotEnabled(Preset.DRG_ST_SimpleMode) ? DRG_ManualTN : 0;
 
-        if (ComboTimer > 0)
+        switch (isAoE)
         {
-            if (ComboAction is TrueThrust or RaidenThrust && LevelChecked(VorpalThrust))
-                return LevelChecked(Disembowel) &&
-                       (LevelChecked(ChaosThrust) && ChaosDebuff is null &&
-                        CanApplyStatus(CurrentTarget, ChaoticList[OriginalHook(ChaosThrust)]) ||
-                        GetStatusEffectRemainingTime(Buffs.PowerSurge) < 15)
-                    ? OriginalHook(Disembowel)
-                    : OriginalHook(VorpalThrust);
+            case false:
+            {
+                if (ComboTimer > 0)
+                {
+                    if (ComboAction is TrueThrust or RaidenThrust && LevelChecked(VorpalThrust))
+                        return LevelChecked(Disembowel) &&
+                               (LevelChecked(ChaosThrust) && ChaosDebuff is null &&
+                                CanApplyStatus(CurrentTarget, ChaoticList[OriginalHook(ChaosThrust)]) ||
+                                GetStatusEffectRemainingTime(Buffs.PowerSurge) < 15)
+                            ? OriginalHook(Disembowel)
+                            : OriginalHook(VorpalThrust);
 
-            if (ComboAction == OriginalHook(Disembowel) && LevelChecked(ChaosThrust))
-                return useTrueNorth &&
-                       GetRemainingCharges(Role.TrueNorth) > tnCharges &&
-                       Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsRear()
-                    ? Role.TrueNorth
-                    : OriginalHook(ChaosThrust);
+                    if (ComboAction == OriginalHook(Disembowel) && LevelChecked(ChaosThrust))
+                        return useTrueNorth &&
+                               GetRemainingCharges(Role.TrueNorth) > tnCharges &&
+                               Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsRear()
+                            ? Role.TrueNorth
+                            : OriginalHook(ChaosThrust);
 
-            if (ComboAction == OriginalHook(ChaosThrust) && LevelChecked(WheelingThrust))
-                return useTrueNorth &&
-                       GetRemainingCharges(Role.TrueNorth) > tnCharges &&
-                       Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsRear()
-                    ? Role.TrueNorth
-                    : WheelingThrust;
+                    if (ComboAction == OriginalHook(ChaosThrust) && LevelChecked(WheelingThrust))
+                        return useTrueNorth &&
+                               GetRemainingCharges(Role.TrueNorth) > tnCharges &&
+                               Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsRear()
+                            ? Role.TrueNorth
+                            : WheelingThrust;
 
-            if (ComboAction == OriginalHook(VorpalThrust) && LevelChecked(FullThrust))
-                return OriginalHook(FullThrust);
+                    if (ComboAction == OriginalHook(VorpalThrust) && LevelChecked(FullThrust))
+                        return OriginalHook(FullThrust);
 
-            if (ComboAction == OriginalHook(FullThrust) && LevelChecked(FangAndClaw))
-                return useTrueNorth &&
-                       GetRemainingCharges(Role.TrueNorth) > tnCharges &&
-                       Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsFlank()
-                    ? Role.TrueNorth
-                    : FangAndClaw;
+                    if (ComboAction == OriginalHook(FullThrust) && LevelChecked(FangAndClaw))
+                        return useTrueNorth &&
+                               GetRemainingCharges(Role.TrueNorth) > tnCharges &&
+                               Role.CanTrueNorth() && CanDRGWeave() && !OnTargetsFlank()
+                            ? Role.TrueNorth
+                            : FangAndClaw;
 
-            if (ComboAction is WheelingThrust or FangAndClaw && LevelChecked(Drakesbane))
-                return Drakesbane;
+                    if (ComboAction is WheelingThrust or FangAndClaw && LevelChecked(Drakesbane))
+                        return Drakesbane;
+                }
+                break;
+            }
+
+            case true:
+            {
+                if (ComboTimer > 0)
+                {
+                    if ((simpleAoE || IsEnabled(Preset.DRG_AoE_Disembowel)) &&
+                        !LevelChecked(SonicThrust))
+                    {
+                        if (ComboAction == TrueThrust && LevelChecked(Disembowel))
+                            return Disembowel;
+
+                        if (ComboAction == Disembowel && LevelChecked(ChaosThrust))
+                            return OriginalHook(ChaosThrust);
+                    }
+
+                    else
+                    {
+                        if (ComboAction is DoomSpike or DraconianFury && LevelChecked(SonicThrust))
+                            return SonicThrust;
+
+                        if (ComboAction == SonicThrust && LevelChecked(CoerthanTorment))
+                            return CoerthanTorment;
+                    }
+                }
+
+                if ((simpleAoE || IsEnabled(Preset.DRG_AoE_Disembowel)) &&
+                    !HasStatusEffect(Buffs.PowerSurge) && !LevelChecked(SonicThrust))
+                    return OriginalHook(TrueThrust);
+                break;
+            }
         }
 
         return actionId;
@@ -93,82 +130,141 @@ internal partial class DRG
 
     #region Burst skills
 
-    private static bool CanWyrmwind =>
+    private static bool CanUseWyrmwind =>
         ActionReady(WyrmwindThrust) &
         FirstmindsFocus is 2 &&
+        InActionRange(WyrmwindThrust) &&
         (LoTDActive ||
          HasStatusEffect(Buffs.DraconianFire) ||
-         NumberOfEnemiesInRange(WyrmwindThrust, CurrentTarget) >= 2) &&
-        InActionRange(WyrmwindThrust);
+         NumberOfEnemiesInRange(WyrmwindThrust, CurrentTarget) >= 2);
 
-    private static bool CanMirageDive(bool isAoE = false)
+    private static bool CanMirageDive =>
+        ActionReady(MirageDive) &&
+        HasStatusEffect(Buffs.DiveReady) &&
+        OriginalHook(Jump) is MirageDive &&
+        InActionRange(MirageDive) &&
+        (IsEnabled(Preset.DRG_ST_SimpleMode) ||
+         LoTDActive ||
+         GetStatusEffectRemainingTime(Buffs.DiveReady) <= 1.2f && GetCooldownRemainingTime(Geirskogul) > 3 ||
+         !DRG_ST_DoubleMirage);
+
+    private static bool CanUseGeirskogul()
     {
-        bool mirageBurst = IsNotEnabled(Preset.DRG_ST_SimpleMode) ? DRG_ST_DoubleMirage : false;
+        int hpThreshold = IsNotEnabled(Preset.DRG_ST_SimpleMode) ? ComputeHpThresholGeirskogul() : 0;
 
-        if (ActionReady(MirageDive) &&
-            HasStatusEffect(Buffs.DiveReady) &&
-            OriginalHook(Jump) is MirageDive &&
-            InActionRange(MirageDive))
-        {
-            switch (isAoE)
-            {
-                case false when
-                    mirageBurst &&
-                    (LoTDActive ||
-                     GetStatusEffectRemainingTime(Buffs.DiveReady) <= 1.2f &&
-                     GetCooldownRemainingTime(Geirskogul) > 3):
-
-                case true when
-                    LoTDActive ||
-                    GetStatusEffectRemainingTime(Buffs.DiveReady) <= 1.2f &&
-                    GetCooldownRemainingTime(Geirskogul) > 3:
-                    return true;
-            }
-        }
-
-        return false;
+        return ActionReady(Geirskogul) &&
+               InActionRange(Geirskogul) &&
+               HasBattleTarget() &&
+               !LoTDActive &&
+               GetTargetHPPercent() > hpThreshold;
     }
 
-    private static uint OutsideOfMeleeNoWeave(uint actionId, bool simpleMode = false)
+    private static int ComputeHpThresholGeirskogul()
     {
-        //Mirage Feature
-        if ((simpleMode || IsEnabled(Preset.DRG_ST_Mirage)) &&
-            ActionReady(MirageDive) &&
-            HasStatusEffect(Buffs.DiveReady) &&
-            InActionRange(MirageDive))
-            return MirageDive;
+        if (InBossEncounter())
+            return TargetIsBoss() ? DRG_ST_GeirskogulBossOption : DRG_ST_GeirskogulBossAddsOption;
 
-        //Wyrmwind Thrust Feature
-        if ((simpleMode || IsEnabled(Preset.DRG_ST_Wyrmwind)) &&
-            CanWyrmwind)
-            return WyrmwindThrust;
+        return DRG_ST_GeirskogulTrashOption;
+    }
 
-        //Geirskogul Feature
-        if ((simpleMode || IsEnabled(Preset.DRG_ST_Geirskogul)) &&
-            ActionReady(Geirskogul) &&
-            !LoTDActive && InActionRange(Geirskogul))
-            return Geirskogul;
+    private static uint OutsideOfMelee(uint actionId, bool simpleMode = false, bool isAoe = false)
+    {
+        switch (isAoe)
+        {
+            case false:
+            {
+                if (simpleMode || IsEnabled(Preset.DRG_ST_Damage) && InCombat() && InActionRange(actionId))
+                {
+                    //Mirage Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_ST_Mirage)) &&
+                        CanMirageDive)
+                        return MirageDive;
 
-        //Starcross Feature
-        if ((simpleMode || IsEnabled(Preset.DRG_ST_Starcross)) &&
-            ActionReady(Starcross) &&
-            HasStatusEffect(Buffs.StarcrossReady) &&
-            InActionRange(Starcross))
-            return Starcross;
+                    //Wyrmwind Thrust Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_ST_Wyrmwind)) &&
+                        CanUseWyrmwind)
+                        return WyrmwindThrust;
 
-        //Rise of the Dragon Feature
-        if ((simpleMode || IsEnabled(Preset.DRG_ST_Dives_RiseOfTheDragon)) &&
-            ActionReady(RiseOfTheDragon) &&
-            HasStatusEffect(Buffs.DragonsFlight) &&
-            InActionRange(RiseOfTheDragon))
-            return RiseOfTheDragon;
+                    //Starcross Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_ST_Starcross)) &&
+                        ActionReady(Starcross) &&
+                        HasStatusEffect(Buffs.StarcrossReady))
+                        return Starcross;
 
-        //Nastrond Feature
-        if ((simpleMode || IsEnabled(Preset.DRG_ST_Nastrond)) &&
-            ActionReady(Nastrond) &&
-            HasStatusEffect(Buffs.NastrondReady) &&
-            LoTDActive && InActionRange(Nastrond))
-            return Nastrond;
+                    //Rise of the Dragon Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_ST_RiseOfTheDragon)) &&
+                        ActionReady(RiseOfTheDragon) &&
+                        HasStatusEffect(Buffs.DragonsFlight))
+                        return RiseOfTheDragon;
+
+                    //Geirskogul Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_ST_Geirskogul)) &&
+                        CanUseGeirskogul())
+                        return Geirskogul;
+
+                    //Nastrond Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_ST_Nastrond)) &&
+                        ActionReady(Nastrond) &&
+                        HasStatusEffect(Buffs.NastrondReady) &&
+                        LoTDActive)
+                        return Nastrond;
+
+                    // Piercing Talon Uptime Option
+                    if ((simpleMode || IsEnabled(Preset.DRG_ST_RangedUptime)) &&
+                        ActionReady(PiercingTalon))
+                        return PiercingTalon;
+                }
+                break;
+            }
+
+            case true:
+            {
+                if (simpleMode || IsEnabled(Preset.DRG_AoE_Damage) && InCombat() && InActionRange(actionId))
+                {
+                    //Mirage Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_AoE_Mirage)) &&
+                        ActionReady(MirageDive) &&
+                        HasStatusEffect(Buffs.DiveReady))
+                        return MirageDive;
+
+                    //Wyrmwind Thrust Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_AoE_Wyrmwind)) &&
+                        CanUseWyrmwind)
+                        return WyrmwindThrust;
+
+                    //Starcross Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_AoE_Starcross)) &&
+                        ActionReady(Starcross) &&
+                        HasStatusEffect(Buffs.StarcrossReady))
+                        return Starcross;
+
+                    //Rise of the Dragon Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_AoE_RiseOfTheDragon)) &&
+                        ActionReady(RiseOfTheDragon) &&
+                        HasStatusEffect(Buffs.DragonsFlight))
+                        return RiseOfTheDragon;
+
+                    //Geirskogul Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_AoE_Geirskogul)) &&
+                        ActionReady(Geirskogul) &&
+                        !LoTDActive)
+                        return Geirskogul;
+
+                    //Nastrond Feature
+                    if ((simpleMode || IsEnabled(Preset.DRG_AoE_Nastrond)) &&
+                        ActionReady(Nastrond) &&
+                        HasStatusEffect(Buffs.NastrondReady) &&
+                        LoTDActive)
+                        return Nastrond;
+
+                    // Piercing Talon Uptime Option
+                    if ((simpleMode || IsEnabled(Preset.DRG_AoE_RangedUptime)) &&
+                        ActionReady(PiercingTalon) && !CanDRGWeave())
+                        return PiercingTalon;
+                }
+                break;
+            }
+        }
 
         return actionId;
     }
@@ -180,9 +276,13 @@ internal partial class DRG
     private static IStatus? ChaosDebuff =>
         GetStatusEffect(ChaoticList[OriginalHook(ChaosThrust)], CurrentTarget);
 
-    private static int HPThresholdBuffs =>
-        DRG_ST_BuffsBossOption == 1 ||
-        !InBossEncounter() ? DRG_ST_BuffsHPOption : 0;
+    private static int HPThresholdBattleLitany =>
+        DRG_ST_BattleLitanyBossOption == 1 ||
+        !InBossEncounter() ? DRG_ST_BattleLitanyHPOption : 0;
+
+    private static int HPThresholdLanceCharge =>
+        DRG_ST_LanceChargeBossOption == 1 ||
+        !InBossEncounter() ? DRG_ST_LanceChargeHPOption : 0;
 
     #endregion
 
