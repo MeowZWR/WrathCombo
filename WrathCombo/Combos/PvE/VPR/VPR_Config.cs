@@ -63,12 +63,12 @@ internal partial class VPR
 
                 case Preset.VPR_ST_Vicewinder:
                     DrawAdditionalBoolChoice(VPR_TrueNorthVicewinder,
-                        $"{Role.TrueNorth.ActionName()} 选项", "可用时加入真北。\n Respects the manual TN charge.");
+                        $"{Role.TrueNorth.ActionName()} 选项", "可用时加入真北。\n 该逻辑会尊重手动预留的层数。");
                     break;
 
                 case Preset.VPR_ST_VicewinderCombo:
                     DrawAdditionalBoolChoice(VPR_VicewinderBuffPrio,
-                        "Buff Prio Option", "Forces HuntersCoil or SwiftskinsCoil if buff needs to be reapplied.");
+                        "Buff 优先级", "如果 Buff 需要重新补齐，将强制优先使用「猛袭盘蛇」或「疾速盘蛇」。");
                     break;
 
                 case Preset.VPR_TrueNorthDynamic:
