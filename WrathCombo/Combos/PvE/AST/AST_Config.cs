@@ -405,6 +405,7 @@ internal partial class AST
                     DrawRadioButton(AST_QuickTarget_Override, "强制目标覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的强制目标，将用该目标覆盖选择。", 1, descriptionAsTooltip: true);
                     DrawRadioButton(AST_QuickTarget_Override, "UI鼠标悬停覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的UI鼠标悬停目标，将用该目标覆盖选择。", 2, descriptionAsTooltip: true);
                     DrawRadioButton(AST_QuickTarget_Override, "任意鼠标悬停覆盖", "如果你有一个在范围内且没有伤害降低或复活虚弱的UI、姓名板或模型鼠标悬停目标（按此顺序），将用该目标覆盖选择。", 3, descriptionAsTooltip: true);
+                    DrawRadioButton(AST_QuickTarget_Override, "焦点目标覆盖（职能正确时）", "如果你设定了焦点目标，且该目标在范围内、没有伤害降低或复活虚弱，则根据卡牌类型进行覆盖：太阳神之衡（近战卡）发给近战职能，放浪神之箭（远程卡）发给远程职能（包括辅助职业）。", 4, descriptionAsTooltip: true);
                     break;
                 
                 case Preset.AST_Retargets_EarthlyStar:

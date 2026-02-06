@@ -31,7 +31,7 @@ using ActionType = FFXIVClientStructs.FFXIV.Client.Game.ActionType;
 
 namespace WrathCombo.AutoRotation;
 
-internal unsafe static class AutoRotationController
+internal unsafe class AutoRotationController
 {
     public static AutoRotationConfigIPCWrapper? cfg;
 
@@ -46,6 +46,23 @@ internal unsafe static class AutoRotationController
     const float QueryRange = 30f;
 
     public static bool WouldLikeToGroundTarget;
+    public static bool PausedForError;
+
+    public AutoRotationController()
+    {
+        OnPartyCombatChanged += ResetError;
+    }
+
+    public void Dispose()
+    {
+        OnPartyCombatChanged -= ResetError;
+    }
+
+    private void ResetError(bool state)
+    {
+        if (!state)
+            PausedForError = false;
+    }
 
     static Func<WrathPartyMember, bool> RezQuery => x =>
         x.BattleChara is not null &&
@@ -93,7 +110,8 @@ internal unsafe static class AutoRotationController
                || Player.Mounted
                || !EzThrottler.Throttle("Autorot", cfg.Throttler)
                || (cfg.DPSSettings.UnTargetAndDisableForPenalty && PlayerHasActionPenalty())
-               || (ActionManager.Instance()->QueuedActionId > 0);
+               || (ActionManager.Instance()->QueuedActionId > 0)
+               || PausedForError;
     }
 
     private static bool IsOccupied()

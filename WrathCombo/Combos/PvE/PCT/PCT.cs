@@ -39,7 +39,7 @@ internal partial class PCT : Caster
 
             #region OGCD
 
-            if (InCombat())
+            if (InCombat() && HasBattleTarget())
             {
                 // SubtractivePalette
                 if (PaletteReady && CanWeave())
@@ -242,7 +242,7 @@ internal partial class PCT : Caster
 
             #region OGCD
             // General Weaves
-            if (InCombat())
+            if (InCombat() && HasBattleTarget())
             {
                 // SubtractivePalette
                 if (paletteEnabled && CanWeave() && PaletteReady)
@@ -425,7 +425,7 @@ internal partial class PCT : Caster
 
             #region OGCD
             // General Weaves
-            if (InCombat() && CanWeave())
+            if (InCombat() && HasBattleTarget() && CanWeave())
             {
                 // ScenicMuse
                 if (ScenicMuseReady)
@@ -612,7 +612,7 @@ internal partial class PCT : Caster
 
             #region OGCD
             // General Weaves
-            if (InCombat() && CanWeave())
+            if (InCombat() && HasBattleTarget() && CanWeave())
             {
                 // ScenicMuse
                 if (scenicMuseEnabled && ScenicMuseReady &&

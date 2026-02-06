@@ -12,6 +12,8 @@ internal partial class MNK
         {
             switch (preset)
             {
+                #region ST
+
                 case Preset.MNK_STUseOpener:
                     DrawHorizontalRadioButton(MNK_SelectedOpener,
                         "Double Lunar", "Uses Lunar/Lunar opener",
@@ -57,6 +59,10 @@ internal partial class MNK
                         $"{Role.Bloodbath.ActionName()} HP percentage threshold");
                     break;
 
+                #endregion
+
+                #region AoE
+
                 case Preset.MNK_AoEUseBuffs:
                     DrawSliderInt(0, 100, MNK_AoE_BuffsHPThreshold,
                         "Stop Using Buffs When Target HP% is at or Below (Set to 0 to Disable This Check)");
@@ -75,6 +81,21 @@ internal partial class MNK
                         $"{Role.Bloodbath.ActionName()} HP percentage threshold");
                     break;
 
+                case Preset.MNK_ST_UseRoE:
+                    DrawAdditionalBoolChoice(MNK_ST_EarthsReply,
+                        $"Add {EarthsReply.ActionName()}", $"Add {EarthsReply.ActionName()} to the rotation.");
+
+                    if (MNK_ST_EarthsReply)
+                    {
+                        DrawSliderInt(0, 100, MNK_ST_EarthsReplyHPThreshold,
+                            $"Add {EarthsReply.ActionName()} when average HP% of the party is at or below.");
+                    }
+                    break;
+
+                #endregion
+
+                #region Misc
+
                 case Preset.MNK_Brotherhood_Riddle:
                     DrawRadioButton(MNK_BH_RoF,
                         $"Replaces {Brotherhood.ActionName()}", $"Replaces {Brotherhood.ActionName()} with {RiddleOfFire.ActionName()} when {Brotherhood.ActionName()} is on cooldown.", 0);
@@ -88,18 +109,7 @@ internal partial class MNK
                         "Add Field Mouseover", "Add Field Mouseover targeting.");
                     break;
 
-                case Preset.MNK_ST_UseRoE:
-                    DrawAdditionalBoolChoice(MNK_ST_EarthsReply,
-                        $"Add {EarthsReply.ActionName()}", $"Add {EarthsReply.ActionName()} to the rotation.");
-
-                    if (MNK_ST_EarthsReply)
-                    {
-                        DrawSliderInt(0, 100, MNK_ST_EarthsReplyHPThreshold,
-                            $"Add {EarthsReply.ActionName()} when average HP% of the party is at or below.");
-                    }
-                    break;
-
-                case Preset.MNK_ST_BeastChakras:
+                case Preset.MNK_Basic_BeastChakras:
                     DrawHorizontalMultiChoice(MNK_BasicCombo,
                         "Opo-opo Option", "Replace Bootshine / Leaping Opo with Dragon Kick.", 3, 0);
 
@@ -109,24 +119,32 @@ internal partial class MNK
                     DrawHorizontalMultiChoice(MNK_BasicCombo,
                         "Coeurl Option", "Replace Snap Punch/Pouncing Coeurl with Demolish.", 3, 2);
                     break;
+
+                  #endregion
             }
         }
 
         #region Variables
 
         public static UserInt
+
+            //ST
             MNK_SelectedOpener = new("MNK_SelectedOpener"),
             MNK_Balance_Content = new("MNK_Balance_Content", 1),
             MNK_ST_BuffsBossOption = new("MNK_ST_BuffsBossOption"),
-            MNK_ST_BuffsHPThreshold = new("MNK_ST_BuffsHPThreshold", 10),
+            MNK_ST_BuffsHPThreshold = new("MNK_ST_BuffsHPThreshold", 25),
             MNK_ManualTN = new("MNK_ManualTN"),
-            MNK_ST_EarthsReplyHPThreshold = new("MNK_ST_EarthsReplyHPThreshold", 50),
+            MNK_ST_EarthsReplyHPThreshold = new("MNK_ST_EarthsReplyHPThreshold", 25),
             MNK_ST_SecondWindHPThreshold = new("MNK_ST_SecondWindHPThreshold", 40),
             MNK_ST_BloodbathHPThreshold = new("MNK_ST_BloodbathHPThreshold", 30),
-            MNK_AoE_BuffsHPThreshold = new("MNK_AoE_BuffsHPThreshold", 40),
-            MNK_AoE_PerfectBalanceHPThreshold = new("MNK_AoE_PerfectBalanceHPThreshold", 40),
+
+            //AoE
+            MNK_AoE_BuffsHPThreshold = new("MNK_AoE_BuffsHPThreshold", 25),
+            MNK_AoE_PerfectBalanceHPThreshold = new("MNK_AoE_PerfectBalanceHPThreshold", 25),
             MNK_AoE_SecondWindHPThreshold = new("MNK_AoE_SecondWindThreshold", 40),
             MNK_AoE_BloodbathHPThreshold = new("MNK_AoE_BloodbathThreshold", 30),
+
+            //Misc
             MNK_BH_RoF = new("MNK_BH_RoF");
 
         public static UserBool

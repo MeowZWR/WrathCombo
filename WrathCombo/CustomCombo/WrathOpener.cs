@@ -194,7 +194,16 @@ public abstract class WrathOpener
                 foreach (var (Step, Condition) in SkipSteps.Where(x => x.Steps.Any(y => y == OpenerStep)))
                 {
                     if (Condition())
+                    {
+                        Svc.Log.Debug($"Skipping from Opener Step {OpenerStep} to {OpenerStep + 1}");
                         OpenerStep++;
+                    }
+
+                    if (OpenerStep > OpenerActions.Count)
+                    {
+                        CurrentState = OpenerState.OpenerFinished;
+                        return false;
+                    }
                 }
 
                 actionID = CurrentOpenerAction = AllowUpgradeSteps.Any(x => x == OpenerStep) ? OriginalHook(OpenerActions[OpenerStep - 1]) : OpenerActions[OpenerStep - 1];

@@ -420,9 +420,9 @@ internal partial class RPR : Melee
                     !HasStatusEffect(Buffs.EnhancedGallows))
                 {
                     return IsEnabled(Preset.RPR_ST_TrueNorthDynamic) &&
-                           (RPR_ST_TrueNorthDynamic_HoldCharge &&
+                           (RPR_ST_TrueNorthDynamicHoldCharge &&
                             GetRemainingCharges(Role.TrueNorth) is 2 ||
-                            !RPR_ST_TrueNorthDynamic_HoldCharge) &&
+                            !RPR_ST_TrueNorthDynamicHoldCharge) &&
                            Role.CanTrueNorth() && !OnTargetsFlank() &&
                            GetRemainingCharges(Role.TrueNorth) > RPR_ManualTN
                         ? Role.TrueNorth
@@ -435,9 +435,9 @@ internal partial class RPR : Melee
                     !HasStatusEffect(Buffs.EnhancedGallows))
                 {
                     return IsEnabled(Preset.RPR_ST_TrueNorthDynamic) &&
-                           (RPR_ST_TrueNorthDynamic_HoldCharge &&
+                           (RPR_ST_TrueNorthDynamicHoldCharge &&
                             GetRemainingCharges(Role.TrueNorth) is 2 ||
-                            !RPR_ST_TrueNorthDynamic_HoldCharge) &&
+                            !RPR_ST_TrueNorthDynamicHoldCharge) &&
                            Role.CanTrueNorth() && !OnTargetsRear() &&
                            GetRemainingCharges(Role.TrueNorth) > RPR_ManualTN
                         ? Role.TrueNorth

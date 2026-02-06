@@ -4045,7 +4045,7 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(MNK.Bootshine, MNK.LeapingOpo)]
-    [ConflictingCombos(MNK_ST_BeastChakras, MNK_ST_AdvancedMode)]
+    [ConflictingCombos(MNK_Basic_BeastChakras, MNK_ST_AdvancedMode)]
     [CustomComboInfo("Simple Mode - Single Target", "Replaces Bootshine with a full one-button single target rotation.\nThis is the ideal option for newcomers to the job.", Job.MNK)]
     [SimpleCombo]
     MNK_ST_SimpleMode = 9004,
@@ -4063,7 +4063,7 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(MNK.Bootshine, MNK.LeapingOpo)]
-    [ConflictingCombos(MNK_ST_BeastChakras, MNK_ST_SimpleMode)]
+    [ConflictingCombos(MNK_Basic_BeastChakras, MNK_ST_SimpleMode)]
     [CustomComboInfo("Advanced Mode - Single Target", "Replaces Bootshine with a full one-button single target rotation.\nThese features are ideal if you want to customize the rotation.", Job.MNK)]
     [AdvancedCombo]
     MNK_ST_AdvancedMode = 9005,
@@ -4209,7 +4209,7 @@ public enum Preset
 
     [ConflictingCombos(MNK_ST_AdvancedMode, MNK_ST_SimpleMode)]
     [CustomComboInfo("Beast Chakra Handlers", "Merge single target GCDs which share the same beast chakra", Job.MNK)]
-    MNK_ST_BeastChakras = 9019,
+    MNK_Basic_BeastChakras = 9019,
 
     #endregion
 
@@ -6466,7 +6466,8 @@ public enum Preset
     SAM_ST_Feint = 15095,
 
     [ParentCombo(SAM_ST_AdvancedMode)]
-    [CustomComboInfo("Third Eye Raidwide Option", "Adds Third Eye when Raidwide is detected casting.", Job.SAM)]
+    [CustomComboInfo("Third Eye Raidwide Option", "Adds Third Eye when Raidwide is detected casting. " +
+                                                  "\nWhen Solo, uses on cd.", Job.SAM)]
     SAM_ST_ThirdEye = 15094,
 
     [ParentCombo(SAM_ST_AdvancedMode)]
@@ -6735,7 +6736,7 @@ public enum Preset
     [AutoAction(true, true)]
     [ReplaceSkill(SCH.Succor)]
     [ConflictingCombos(SCH_AoE_Heal)]
-    [CustomComboInfo("Simple Healing Mode - AoE", "Replaces Succor with a full one-button single target healing utility." +
+    [CustomComboInfo("Simple Healing Mode - AoE", "Replaces Succor with a full one-button AoE healing utility." +
                                                             "\nThis is the ideal option for newcomers to the job. Particularly with autorotation.", Job.SCH)]
     [SimpleCombo]
     [PossiblyRetargeted]
@@ -8027,34 +8028,6 @@ public enum Preset
     [CustomComboInfo("Retarget Holmgang Feature", "Will Retarget Holmgang to yourself, instead of letting it go on enemies.", Job.WAR)]
     [Retargeted(WAR.Holmgang)]
     WAR_RetargetHolmgang = 18130,
-
-    #region Hidden Features
-
-    [CustomComboInfo("Hidden Options", "Collection of cheeky or encounter-specific extra options only available to those in the know.\nDo not expect these options to be maintained, or even kept, after they are no longer Current.", Job.WAR)]
-    [Hidden]
-    WAR_Hidden = 18113,
-
-    [ParentCombo(WAR_Hidden)]
-    [CustomComboInfo("R6S: Hold Burst on Squirrels", "When you're targeting Squirrels in R6S add phase, hold burst.\n(until about the time the first manta is dying)", Job.WAR)]
-    [Hidden]
-    WAR_Hid_R6SHoldSquirrelBurst = 18114,
-
-    [ParentCombo(WAR_Hidden)]
-    [CustomComboInfo("R6S: Only Stun Jabberwock", "When in R6S, stun will only ever be used on the Jabberwock.", Job.WAR)]
-    [Hidden]
-    WAR_Hid_R6SStunJabberOnly = 18115,
-
-    [ParentCombo(WAR_Hidden)]
-    [CustomComboInfo("R6S: Save Reprisal ", "When in R6S, never try use Reprisal automatically.", Job.WAR)]
-    [Hidden]
-    WAR_Hid_R6SNoAutoGroupMits = 18116,
-
-    [ParentCombo(WAR_Hidden)]
-    [CustomComboInfo("R7S: Only Interrupt the adds casting Circle AoEs", "When you're in R7S, Interrupting will only work when you're targeting an add casting the circle AoE.", Job.WAR)]
-    [Hidden]
-    WAR_Hid_R7SCircleCastOnly = 18117,
-
-    #endregion
 
     #endregion
     // Last value = 18153
