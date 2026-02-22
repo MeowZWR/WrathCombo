@@ -58,34 +58,40 @@ internal partial class BLM
 
                 case Preset.BLM_ST_Movement:
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"Use {Triplecast.ActionName()}", "", 5, 0);
+                        $"Use {Triplecast.ActionName()}", "Use triplecast when you don't have swiftcast active.", 6, 0);
 
                     DrawPriorityInput(BLM_ST_MovementPriority,
-                        5, 0, $"{Triplecast.ActionName()} 优先级：");
+                        6, 0, $"{Triplecast.ActionName()} 优先级：");
 
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"Use {Paradox.ActionName()}", "", 5, 1);
+                        $"Use {Paradox.ActionName()}", "Use Paradox when in AF 3.", 6, 1);
 
                     DrawPriorityInput(BLM_ST_MovementPriority,
-                        5, 1, $"{Paradox.ActionName()} 优先级：");
+                        6, 1, $"{Paradox.ActionName()} 优先级：");
 
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"Use {Role.Swiftcast.ActionName()}", "", 5, 2);
+                        $"Use {Role.Swiftcast.ActionName()}", "Use swiftcast when you don't have Triplecast.", 6, 2);
 
                     DrawPriorityInput(BLM_ST_MovementPriority,
-                        5, 2, $"{Role.Swiftcast.ActionName()} 优先级：");
+                        6, 2, $"{Role.Swiftcast.ActionName()} 优先级：");
 
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"Use {Foul.ActionName()} / {Xenoglossy.ActionName()}", "", 5, 3);
+                        $"Use {Foul.ActionName()} / {Xenoglossy.ActionName()}", "Use Foul/Xenoglossy.", 6, 3);
 
                     DrawPriorityInput(BLM_ST_MovementPriority,
-                        5, 3, $"{Xenoglossy.ActionName()} 优先级：");
+                        6, 3, $"{Xenoglossy.ActionName()} 优先级：");
 
                     DrawHorizontalMultiChoice(BLM_ST_MovementOption,
-                        $"Use {Scathe.ActionName()}", "", 5, 4);
+                        $"Use {Fire3.ActionName()}", "Use Fire III when you have firestarter proc.", 6, 4);
 
                     DrawPriorityInput(BLM_ST_MovementPriority,
-                        5, 4, $"{Scathe.ActionName()} 优先级：");
+                        6, 4, $"{Fire3.ActionName()} 优先级：");
+
+                    DrawHorizontalMultiChoice(BLM_ST_MovementOption,
+                        $"Use {Scathe.ActionName()}", "Use Scathe.", 6, 5);
+
+                    DrawPriorityInput(BLM_ST_MovementPriority,
+                        6, 5, $"{Scathe.ActionName()} 优先级：");
                     break;
 
                 case Preset.BLM_ST_UsePolyglot:
@@ -123,8 +129,8 @@ internal partial class BLM
 
                     DrawSliderInt(0, 100, BLM_ST_ThunderTrashOption,
                         "Non boss encounter. Stop using at Enemy HP %.");
-                    
-                    DrawSliderInt(0, 5, BLM_ST_ThunderRefresh,
+
+                    DrawRoundedSliderFloat(0, 5, BLM_ST_ThunderRefresh,
                         "Seconds remaining before reapplying the DoT. Set to Zero to disable this check.");
                     break;
 
@@ -252,7 +258,6 @@ internal partial class BLM
             BLM_ST_ThunderBossAddsOption = new("BLM_ST_ThunderBossAddsOption", 10),
             BLM_ST_ThunderTrashOption = new("BLM_ST_ThunderTrashOption", 25),
             BLM_ST_Triplecast_WhenToUse = new("BLM_ST_Triplecast_WhenToUse", 1),
-            BLM_ST_ThunderRefresh = new("BLM_ST_ThunderUptime_Threshold", 5),
             BLM_ST_TriplecastMovementCharges = new("BLM_ST_TriplecastMovementCharges", 1),
             BLM_ST_PolyglotMovement = new("BLM_ST_PolyglotMovement", 1),
             BLM_ST_PolyglotSaveUsage = new("BLM_ST_PolyglotSaveUsage"),
@@ -272,7 +277,8 @@ internal partial class BLM
 
         public static UserFloat
             BLM_ST_LeyLinesTimeStill = new("BLM_ST_LeyLinesTimeStill", 2.5f),
-            BLM_AoE_LeyLinesTimeStill = new("BLM_AoE_LeyLinesTimeStill", 2.5f);
+            BLM_AoE_LeyLinesTimeStill = new("BLM_AoE_LeyLinesTimeStill", 2.5f),
+            BLM_ST_ThunderRefresh = new("BLM_ST_ThunderUptime_Threshold", 2.5f);
 
         public static UserBool
             BLM_AM_FieldMouseover = new("BLM_AM_FieldMouseover"),

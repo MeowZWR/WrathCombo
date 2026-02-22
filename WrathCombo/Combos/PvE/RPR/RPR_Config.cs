@@ -13,7 +13,7 @@ internal partial class RPR
             switch (preset)
             {
                 #region ST
-                
+
                 case Preset.RPR_ST_Opener:
                     DrawBossOnlyChoice(RPR_Balance_Content);
                     break;
@@ -61,6 +61,11 @@ internal partial class RPR
                                                                "如果上方滑块设置为1，剩余的真北层数将不会用于暴食，而用于手动释放。");
                     break;
 
+                case Preset.RPR_ST_RangedFiller:
+                    DrawAdditionalBoolChoice(RPR_ST_EnhancedHarpe,
+                        "Only use with Enhanced Harpe", "Only uses Harpe while u got Enhanced Harpe buff.");
+                    break;
+
                 case Preset.RPR_ST_ComboHeals:
                     DrawSliderInt(0, 100, RPR_STSecondWindHPThreshold,
                         $"{Role.SecondWind.ActionName()} HP percentage threshold");
@@ -68,9 +73,9 @@ internal partial class RPR
                     DrawSliderInt(0, 100, RPR_STBloodbathHPThreshold,
                         $"{Role.Bloodbath.ActionName()} HP percentage threshold");
                     break;
-                
+
                 #endregion
-                
+
                 #region AoE
 
                 case Preset.RPR_AoE_WoD:
@@ -82,7 +87,7 @@ internal partial class RPR
                     DrawSliderInt(0, 100, RPR_AoE_ArcaneCircleHPThreshold,
                         $"Stop Using {ArcaneCircle.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)");
                     break;
-                
+
                 case Preset.RPR_AoE_ComboHeals:
                     DrawSliderInt(0, 100, RPR_AoESecondWindHPThreshold,
                         $"{Role.SecondWind.ActionName()} HP percentage threshold");
@@ -90,11 +95,11 @@ internal partial class RPR
                     DrawSliderInt(0, 100, RPR_AoEBloodbathHPThreshold,
                         $"{Role.Bloodbath.ActionName()} HP percentage threshold");
                     break;
-                
+
                 #endregion
-                
+
                 #region Misc
-                
+
                 case Preset.RPR_ST_BasicCombo_SoD:
                     DrawSliderInt(0, 10, RPR_SoDRefreshRangeBasicCombo,
                         $"Seconds remaining before refreshing {ShadowOfDeath.ActionName()}.");
@@ -118,7 +123,7 @@ internal partial class RPR
                     DrawHorizontalMultiChoice(RPR_SoulsowOptions,
                         $"{BloodStalk.ActionName()}", $"将{Soulsow.ActionName()}添加到{BloodStalk.ActionName()}", 5, 4);
                     break;
-                
+
                 #endregion
             }
         }
@@ -146,9 +151,10 @@ internal partial class RPR
 
             //Misc
             RPR_SoDRefreshRangeBasicCombo = new("RPR_SoDRefreshRangeBasicCombo", 6);
-        
+
         public static UserBool
-            RPR_ST_TrueNorthDynamicHoldCharge = new("RPR_ST_TrueNorthDynamicHoldCharge");
+            RPR_ST_TrueNorthDynamicHoldCharge = new("RPR_ST_TrueNorthDynamicHoldCharge"),
+            RPR_ST_EnhancedHarpe = new("RPR_ST_EnhancedHarpe");
 
         public static UserBoolArray
             RPR_SoulsowOptions = new("RPR_SoulsowOptions");

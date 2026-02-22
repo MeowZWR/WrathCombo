@@ -627,10 +627,10 @@ public enum Preset
     [CustomComboInfo("Occult Resuscitation", "Adds Occult Resuscitation into the rotation.", Job.ADV)]
     Phantom_Freelancer_OccultResuscitation = 110001,
 
-    [OccultCrescent]
-    [ParentCombo(Phantom_Freelancer)]
-    [CustomComboInfo("Occult Treasuresight", "Adds Occult Treasuresight into the rotation.", Job.ADV)]
-    Phantom_Freelancer_OccultTreasuresight = 110002,
+    //[OccultCrescent]
+    //[ParentCombo(Phantom_Freelancer)]
+    //[CustomComboInfo("Occult Treasuresight", "Adds Occult Treasuresight into the rotation.", Job.ADV)]
+    //Phantom_Freelancer_OccultTreasuresight = 110002,
 
     [OccultCrescent(OccultCrescent.JobIDs.Knight)]
     [CustomComboInfo("Knight Job Actions", "Enable this to add Knight-specific actions into the rotation.", Job.ADV)]
@@ -699,10 +699,10 @@ public enum Preset
     [CustomComboInfo("Vigilance", "Adds Vigilance into the rotation.", Job.ADV)]
     Phantom_Thief_Vigilance = 110016,
 
-    [OccultCrescent]
-    [ParentCombo(Phantom_Thief)]
-    [CustomComboInfo("Trap Detection", "Adds Trap Detection into the rotation.", Job.ADV)]
-    Phantom_Thief_TrapDetection = 110017,
+    //[OccultCrescent]
+    //[ParentCombo(Phantom_Thief)]
+    //[CustomComboInfo("Trap Detection", "Adds Trap Detection into the rotation.", Job.ADV)]
+    //Phantom_Thief_TrapDetection = 110017,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Thief)]
@@ -756,15 +756,15 @@ public enum Preset
     [CustomComboInfo("Phantom Aim", "Adds Phantom Aim into the rotation.", Job.ADV)]
     Phantom_Ranger_PhantomAim = 110023,
 
-    [OccultCrescent]
-    [ParentCombo(Phantom_Ranger)]
-    [CustomComboInfo("Occult Featherfoot", "Adds Occult Featherfoot into the rotation.", Job.ADV)]
-    Phantom_Ranger_OccultFeatherfoot = 110024,
+    //[OccultCrescent]
+    //[ParentCombo(Phantom_Ranger)]
+    //[CustomComboInfo("Occult Featherfoot", "Adds Occult Featherfoot into the rotation.", Job.ADV)]
+    //Phantom_Ranger_OccultFeatherfoot = 110024,
 
-    [OccultCrescent]
-    [ParentCombo(Phantom_Ranger)]
-    [CustomComboInfo("Occult Falcon", "Adds Occult Falcon into the rotation.", Job.ADV)]
-    Phantom_Ranger_OccultFalcon = 110025,
+    //[OccultCrescent]
+    //[ParentCombo(Phantom_Ranger)]
+    //[CustomComboInfo("Occult Falcon", "Adds Occult Falcon into the rotation.", Job.ADV)]
+    //Phantom_Ranger_OccultFalcon = 110025,
 
     [OccultCrescent]
     [ParentCombo(Phantom_Ranger)]
@@ -882,25 +882,25 @@ public enum Preset
     [CustomComboInfo("Starfall", "Adds Starfall into the rotation.", Job.ADV)]
     Phantom_Oracle_Starfall = 110048,
 
-    [OccultCrescent]
-    [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Recuperation", "Adds Recuperation into the rotation.", Job.ADV)]
-    Phantom_Oracle_Recuperation = 110049,
+    //[OccultCrescent]
+    //[ParentCombo(Phantom_Oracle)]
+    //[CustomComboInfo("Recuperation", "Adds Recuperation into the rotation.", Job.ADV)]
+    //Phantom_Oracle_Recuperation = 110049,
 
-    [OccultCrescent]
-    [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Phantom Doom", "Adds Phantom Doom into the rotation.", Job.ADV)]
-    Phantom_Oracle_PhantomDoom = 110050,
+    //[OccultCrescent]
+    //[ParentCombo(Phantom_Oracle)]
+    //[CustomComboInfo("Phantom Doom", "Adds Phantom Doom into the rotation.", Job.ADV)]
+    //Phantom_Oracle_PhantomDoom = 110050,
 
-    [OccultCrescent]
-    [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Phantom Rejuvenation", "Adds Phantom Rejuvenation into the rotation.", Job.ADV)]
-    Phantom_Oracle_PhantomRejuvenation = 110051,
+    //[OccultCrescent]
+    //[ParentCombo(Phantom_Oracle)]
+    //[CustomComboInfo("Phantom Rejuvenation", "Adds Phantom Rejuvenation into the rotation.", Job.ADV)]
+    //Phantom_Oracle_PhantomRejuvenation = 110051,
 
-    [OccultCrescent]
-    [ParentCombo(Phantom_Oracle)]
-    [CustomComboInfo("Invulnerability", "Adds Invulnerability into the rotation.", Job.ADV)]
-    Phantom_Oracle_Invulnerability = 110052,
+    //[OccultCrescent]
+    //[ParentCombo(Phantom_Oracle)]
+    //[CustomComboInfo("Invulnerability", "Adds Invulnerability into the rotation.", Job.ADV)]
+    //Phantom_Oracle_Invulnerability = 110052,
 
     [OccultCrescent(OccultCrescent.JobIDs.Cannoneer)]
     [CustomComboInfo("Cannoneer Job Actions", "Enable this to add Cannoneer-specific actions into the rotation.", Job.ADV)]
@@ -1501,7 +1501,7 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(BLM.Fire)]
-    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_Fire1and3)]
+    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_Fire1and3, BLM_F1toF4)]
     [CustomComboInfo("Simple Mode - Single Target", "Replaces Fire with a full one-button single target rotation.\nThis is the ideal option for newcomers to the job.", Job.BLM)]
     [SimpleCombo]
     BLM_ST_SimpleMode = 2001,
@@ -3504,7 +3504,7 @@ public enum Preset
     GNB_Mitigation_NonBoss_ArmsLength = 7707,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
-    [CustomComboInfo("Reprisal Option", "Adds Reprisal when 5 or more targets. Will overlap with others.", Job.GNB)]
+    [CustomComboInfo("Reprisal Option", "Adds Reprisal when 5 or more targets.", Job.GNB)]
     GNB_Mitigation_NonBoss_Reprisal= 7708,
     
     [ParentCombo(GNB_Mitigation_NonBoss)]
@@ -4045,7 +4045,7 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(MNK.Bootshine, MNK.LeapingOpo)]
-    [ConflictingCombos(MNK_Basic_BeastChakras, MNK_ST_AdvancedMode)]
+    [ConflictingCombos(MNK_ST_AdvancedMode)]
     [CustomComboInfo("Simple Mode - Single Target", "Replaces Bootshine with a full one-button single target rotation.\nThis is the ideal option for newcomers to the job.", Job.MNK)]
     [SimpleCombo]
     MNK_ST_SimpleMode = 9004,
@@ -4063,7 +4063,7 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(MNK.Bootshine, MNK.LeapingOpo)]
-    [ConflictingCombos(MNK_Basic_BeastChakras, MNK_ST_SimpleMode)]
+    [ConflictingCombos(MNK_ST_SimpleMode)]
     [CustomComboInfo("Advanced Mode - Single Target", "Replaces Bootshine with a full one-button single target rotation.\nThese features are ideal if you want to customize the rotation.", Job.MNK)]
     [AdvancedCombo]
     MNK_ST_AdvancedMode = 9005,
@@ -4207,7 +4207,6 @@ public enum Preset
 
     #region Basic Combo
 
-    [ConflictingCombos(MNK_ST_AdvancedMode, MNK_ST_SimpleMode)]
     [CustomComboInfo("Beast Chakra Handlers", "Merge single target GCDs which share the same beast chakra", Job.MNK)]
     MNK_Basic_BeastChakras = 9019,
 
@@ -4581,16 +4580,16 @@ public enum Preset
     PCT_ST_Advanced_Openers = 20006,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
-    [CustomComboInfo("Optimal Burst Window Feature", "Uses an optimized rotation for standard burst window", Job.PCT)]
-    PCT_ST_AdvancedMode_Burst_Phase = 20010,
-
-    [ParentCombo(PCT_ST_AdvancedMode)]
     [CustomComboInfo("Subtractive Palette Feature", "Adds Subtractive Palette to the combo.", Job.PCT)]
     PCT_ST_AdvancedMode_SubtractivePalette = 20025,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
     [CustomComboInfo("Blizzard in Cyan Option", "Adds Blizzard in Cyan to the combo.", Job.PCT)]
     PCT_ST_AdvancedMode_BlizzardInCyan = 20033,
+    
+    [ParentCombo(PCT_ST_AdvancedMode)]
+    [CustomComboInfo("Holy in White Option", "Adds Holy in White to the combo when it will strike 2 targets.", Job.PCT)]
+    PCT_ST_AdvancedMode_HolyinWhite = 20072,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
     [CustomComboInfo("Comet in Black Option", "Adds Comet in Black to the combo.", Job.PCT)]
@@ -4675,7 +4674,7 @@ public enum Preset
 
     [ParentCombo(PCT_ST_AdvancedMode_MovementFeature)]
     [CustomComboInfo("Swiftcast Option ", "Adds Swiftcast to the combo while moving.", Job.PCT)]
-    PCT_ST_AdvancedMode_SwitfcastOption = 20032,
+    PCT_ST_AdvancedMode_SwiftcastOption = 20032,
 
     [ParentCombo(PCT_ST_AdvancedMode)]
     [CustomComboInfo("Addle Raidwide Option", "Adds Addle when Raidwide is detected casting.", Job.PCT)]
@@ -4793,7 +4792,7 @@ public enum Preset
 
     [ParentCombo(PCT_AoE_AdvancedMode_MovementFeature)]
     [CustomComboInfo("Swiftcast Option ", "Adds Swiftcast to the combo while moving.", Job.PCT)]
-    PCT_AoE_AdvancedMode_SwitfcastOption = 20065,
+    PCT_AoE_AdvancedMode_SwiftcastOption = 20065,
 
     #endregion
 
@@ -4814,6 +4813,7 @@ public enum Preset
     CombinedPaint = 20004,
 
     #endregion
+    // Last used: 20072
 
     #endregion
 
@@ -5063,7 +5063,7 @@ public enum Preset
     PLD_Mitigation_NonBoss_ArmsLength = 11092,
     
     [ParentCombo(PLD_Mitigation_NonBoss)]
-    [CustomComboInfo("Reprisal Option", "Adds Reprisal when 5 or more targets. Will overlap with others.", Job.PLD)]
+    [CustomComboInfo("Reprisal Option", "Adds Reprisal when 5 or more targets.", Job.PLD)]
     PLD_Mitigation_NonBoss_Reprisal= 11099,
     
     [ParentCombo(PLD_Mitigation_NonBoss)]
@@ -5630,8 +5630,8 @@ public enum Preset
     [CustomComboInfo("Embolden Option", "Add Embolden when Available.", Job.RDM)]
     RDM_ST_Embolden = 13010,
 
-    [ParentCombo(RDM_ST_Embolden)]
-    [CustomComboInfo("Use Manafication", "Add Manafication before embolden for burst.", Job.RDM)]
+    [ParentCombo(RDM_ST_DPS)]
+    [CustomComboInfo("Use Manafication", "Add Manafication before Embolden for burst.", Job.RDM)]
     RDM_ST_Manafication = 13011,
 
     [ParentCombo(RDM_ST_DPS)]
@@ -5657,6 +5657,10 @@ public enum Preset
     [ParentCombo(RDM_ST_Engagement)]
     [CustomComboInfo("Engagement Pooling Option", "Prevents overcap but pools at least one charge for burst window.", Job.RDM)]
     RDM_ST_Engagement_Pooling = 13018,
+    
+    [ParentCombo(RDM_ST_Engagement)]
+    [CustomComboInfo("Engagement Holding Option", "Will hold one charge for manual displacement usage.", Job.RDM)]
+    RDM_ST_Engagement_Saving = 13028,
 
     [ParentCombo(RDM_ST_DPS)]
     [CustomComboInfo("Corps-a-corps Option", "Add Corps-a-corps when available for DPS. \nWill retain a charge for gap-closing.", Job.RDM)]
@@ -5695,7 +5699,7 @@ public enum Preset
     [CustomComboInfo("Vercure Solo Option", "Adds Vercure on self when solo or in a party with no healers.", Job.RDM)]
     RDM_ST_VerCure = 13026,
 
-    //Last Used 13027
+    //Last Used 13028
     #endregion
 
     #region AoE DPS
@@ -5734,8 +5738,8 @@ public enum Preset
     [CustomComboInfo("Embolden Option", "Add Embolden when Available.", Job.RDM)]
     RDM_AoE_Embolden = 13207,
 
-    [ParentCombo(RDM_AoE_Embolden)]
-    [CustomComboInfo("Use Manafication", "Add Manafication before embolden for burst.", Job.RDM)]
+    [ParentCombo(RDM_AoE_DPS)]
+    [CustomComboInfo("Use Manafication", "Add Manafication before Embolden for burst.", Job.RDM)]
     RDM_AoE_Manafication = 13208,
 
     [ParentCombo(RDM_AoE_DPS)]
@@ -5761,6 +5765,10 @@ public enum Preset
     [ParentCombo(RDM_AoE_Engagement)]
     [CustomComboInfo("Engagement Pooling Option", "Prevents overcap but pools at least one charge for burst window.", Job.RDM)]
     RDM_AoE_Engagement_Pooling = 13215,
+    
+    [ParentCombo(RDM_AoE_Engagement)]
+    [CustomComboInfo("Engagement Saving Option", "Will hold one charge for manual displacement usage.", Job.RDM)]
+    RDM_AoE_Engagement_Saving = 13223,
 
     [ParentCombo(RDM_AoE_DPS)]
     [CustomComboInfo("Corps-a-corps Option", "Add Corps-a-corps when available for DPS. \nWill retain a charge for gap-closing.", Job.RDM)]
@@ -5791,7 +5799,7 @@ public enum Preset
     [CustomComboInfo("Vercure Solo Option", "Adds Vercure on self when solo or in a party with no healers.", Job.RDM)]
     RDM_AoE_VerCure = 13222,
 
-    //Last Used 13222
+    //Last Used 13223
 
     #endregion
 
@@ -7202,8 +7210,10 @@ public enum Preset
     SMN_ST_Advanced_Combo_EgiSummons_Attacks = 17004,
 
     [ParentCombo(SMN_ST_Advanced_Combo_EgiSummons_Attacks)]
-    [CustomComboInfo("Use Ruin III instead of Emerald Ruin III when standing still between the levels of 54 and 72",
-        "Replaces Emerald Ruin III with Ruin III in the rotation when standing still and Ruin Mastery III is not active.",
+    [CustomComboInfo("Emerald Ruin III to Ruin III Option",
+        "Replaces Emerald Ruin III with Ruin III in the rotation when standing still and Ruin Mastery III is not active (54-72)." +
+        "\nIt is best, when using this, to set your Garuda to call last during those levels or it will not do other summons until you spend all garuda charges. " +
+        "\nIntended Mainly for 70 Ultimates where it would matter. (Not worth it for average use)",
         Job.SMN)]
     SMN_ST_Ruin3_Emerald_Ruin3 = 17067,
 

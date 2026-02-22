@@ -363,7 +363,8 @@ public partial class Leasing
     /// <seealso cref="Provider.SetCurrentJobAutoRotationReady" />
     internal SetResult AddRegistrationForCurrentJob(Guid lease, Job? jobOverride = null)
     {
-        var registration = Registrations[lease];
+        if (!Registrations.TryGetValue(lease, out var registration))
+            return SetResult.InvalidLease;
 
         if (CustomComboFunctions.LocalPlayer is null)
         {

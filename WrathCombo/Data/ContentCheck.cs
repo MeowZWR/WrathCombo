@@ -148,9 +148,7 @@ public class ContentCheck
             if (!EZ.Throttle("contentCheckInPVP", TS.FromSeconds(5)))
                 return field;
 
-            field = (Content.ContentType is ContentType.OverWorld &&
-                     Content.TerritoryName == "Wolves' Den Pier") ||
-                    Content.ContentType is ContentType.PVP;
+            field = Content.ContentType is ContentType.PVP;
             if (field) return field;
 
             bool CSPvpCheck;
@@ -209,7 +207,7 @@ public class ContentCheck
     {
         get
         {
-            if (!EZ.Throttle("contentCheckInFieldOperations", TS.FromSeconds(5)))
+            if (!EZ.Throttle("contentCheckInFieldRaids", TS.FromSeconds(5)))
                 return field;
 
             field = Content.ContentType is ContentType.FieldRaid;

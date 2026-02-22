@@ -11,6 +11,7 @@ using ECommons.Automation.LegacyTaskManager;
 using ECommons.DalamudServices;
 using ECommons.ExcelServices;
 using ECommons.GameHelpers;
+using Lumina.Excel.Sheets;
 using Newtonsoft.Json.Linq;
 using PunishLib;
 using System;
@@ -28,13 +29,12 @@ using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
 using WrathCombo.Data.Conflicts;
 using WrathCombo.Services;
-using WrathCombo.Services.IPC_Subscriber;
+using WrathCombo.Services.ActionRequestIPC;
 using WrathCombo.Services.IPC;
+using WrathCombo.Services.IPC_Subscriber;
 using WrathCombo.Window;
 using WrathCombo.Window.Tabs;
-using WrathCombo.Services.ActionRequestIPC;
 using GenericHelpers = ECommons.GenericHelpers;
-using Lumina.Excel.Sheets;
 
 namespace WrathCombo;
 
@@ -54,6 +54,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
     };
     private readonly HttpClient httpClient = new(httpHandler) { Timeout = TimeSpan.FromSeconds(5) };
     private readonly IDtrBarEntry DtrBarEntry;
+    public readonly IDtrBarEntry OpenerDtr;
     internal Provider IPC;
     internal Search IPCSearch = null!;
     internal UIHelper UIHelper = null!;
@@ -131,6 +132,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         WrathOpener.CurrentOpener?.ResetOpener(); //Clears opener values, just in case
         ActionRequestIPCProvider.ResetAllBlacklist();
         ActionRequestIPCProvider.ResetAllRequests();
+        CustomComboFunctions.CleanupExpiredLineOfSightCache();
         TM.DelayNext(1000);
         TM.Enqueue(() =>
         {
@@ -186,6 +188,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         ActionRetargeting = new ActionRetargeting();
         ActionWatching.Enable();
         IPC = Provider.Init();
+        PingPluginIPC.Init();
         ConflictingPluginsChecks.Begin();
 
         ConfigWindow = new ConfigWindow();
@@ -213,6 +216,8 @@ public sealed partial class WrathCombo : IDalamudPlugin
         new TextPayload("点击切换Wrath Combo的自动循环开关状态。\n"),
         new TextPayload("可在/xlsettings -> 服务器信息栏中禁用此图标"));
 
+        OpenerDtr ??= Svc.DtrBar.Get("Wrath Combo Opener");
+
         Svc.ClientState.Login += PrintLoginMessage;
         if (Svc.ClientState.IsLoggedIn) ResetFeatures();
 
@@ -227,13 +232,13 @@ public sealed partial class WrathCombo : IDalamudPlugin
             TimeSpan.FromSeconds(60));
 
 #if DEBUG
-        VfxManager.Logging  = true;
+        VfxManager.Logging = true;
         ConfigWindow.IsOpen = true;
         VfxManager.Logging = true;
         Svc.Framework.RunOnTick(() =>
         {
             if (Service.Configuration.OpenToCurrentJob && Player.Available)
-                HandleOpenCommand([""], forceOpen:true);
+                HandleOpenCommand([""], forceOpen: true);
         });
 #endif
     }
@@ -325,32 +330,44 @@ public sealed partial class WrathCombo : IDalamudPlugin
             AutoRotationController.Run();
 
             if (Player.IsDead)
+            {
                 ActionRetargeting.Retargets.Clear();
+                CustomComboFunctions.CleanupExpiredLineOfSightCache();
+            }
 
             #endregion
 
             // Skip the IPC checking if hidden
-            if (DtrBarEntry.UserHidden) return;
+            if (!DtrBarEntry.UserHidden)
+            {
+                #region DTR Bar Updating
 
-            #region DTR Bar Updating
+                var autoOn = IPC.GetAutoRotationState();
+                var icon = new IconPayload(autoOn
+                    ? BitmapFontIcon.SwordUnsheathed
+                    : BitmapFontIcon.SwordSheathed);
 
-            var autoOn = IPC.GetAutoRotationState();
-            var icon = new IconPayload(autoOn
-                ? BitmapFontIcon.SwordUnsheathed
-                : BitmapFontIcon.SwordSheathed);
+                var text = autoOn ? ": 开" : ": 关";
+                if (!Service.Configuration.ShortDTRText && autoOn)
+                    text += $" （{P.IPCSearch.ActiveJobPresets} 有效）";
+                var ipcControlledText =
+                    P.UIHelper.AutoRotationStateControlled() is not null
+                        ? "（已锁定）"
+                        : "";
 
-            var text = autoOn ? ":：开" : "：关";
-            if (!Service.Configuration.ShortDTRText && autoOn)
-                text += $"（{P.IPCSearch.ActiveJobPresets} 有效）";
-            var ipcControlledText =
-                P.UIHelper.AutoRotationStateControlled() is not null
-                    ? "（已锁定）"
-                    : "";
+                var payloadText = new TextPayload(text + ipcControlledText);
+                DtrBarEntry.Text = new SeString(icon, payloadText);
 
-            var payloadText = new TextPayload(text + ipcControlledText);
-            DtrBarEntry.Text = new SeString(icon, payloadText);
+                #endregion
+            }
 
-            #endregion
+            if (Service.Configuration.ShowOpenerDtr)
+            {
+                var status = new TextPayload(WrathOpener.OpenerStatus());
+                OpenerDtr.Text = new SeString(status);
+            }
+            else
+                OpenerDtr.Text = "";
         }
         catch (Exception ex)
         {
@@ -434,6 +451,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
 
         ws.RemoveAllWindows();
         Svc.DtrBar.Remove("Wrath Combo");
+        Svc.DtrBar.Remove("Wrath Combo Opener");
         Configuration.ConfigChanged -= DebugFile.LoggingConfigChanges;
         Svc.Framework.Update -= OnFrameworkUpdate;
         Svc.ClientState.TerritoryChanged -= ClientState_TerritoryChanged;

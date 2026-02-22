@@ -152,7 +152,7 @@ Wrath Combo 可以使用 Orbwalker 在自动循环模式下停止玩家移动，
 2. 勾选"启用 Orbwalker 集成"。
 3. 打开 Orbwalker 并确认您的设置：`/orbwalker`。
 
-### [AutoDuty](https://github.com/ffxivcode/AutoDuty)
+### [AutoDuty](https://github.com/erdelf/AutoDuty)
 
 Wrath Combo 可以作为 AutoDuty 的循环引擎，使得 Wrath Combo 的自动循环将在副本中使用。
 要启用此功能：
@@ -162,7 +162,7 @@ Wrath Combo 可以作为 AutoDuty 的循环引擎，使得 Wrath Combo 的自动
 4. （同时勾选"> Wrath 配置选项 <" -> "为自动循环自动设置职业"）\
    （如果您已经设置好职业，可以跳过此步骤）
 
-### [Questionable](https://git.carvel.li/liza/Questionable)
+### [Questionable](https://puni.sh/plugin/questionable)
 
 Wrath Combo 可以作为 Questionable 的战斗模块，使得 Wrath Combo 的自动循环将在任务期间使用。
 要启用此功能：

@@ -11,20 +11,6 @@ namespace WrathCombo.Combos.PvE;
 
 internal partial class RPR
 {
-    #region Misc
-
-    //Auto Arcane Crest
-    private static bool CanUseArcaneCrest =>
-        ActionReady(ArcaneCrest) && InCombat() &&
-        (GroupDamageIncoming(3f) ||
-         !IsInParty() && IsPlayerTargeted());
-
-    private static int HPThresholdArcaneCircle =>
-        RPR_ST_ArcaneCircleBossOption == 1 ||
-        !InBossEncounter() ? RPR_ST_ArcaneCircleHPOption : 0;
-
-    #endregion
-
     #region Enshroud
 
     private static bool CanEnshroud()
@@ -77,7 +63,7 @@ internal partial class RPR
             !HasStatusEffect(Buffs.Executioner) && !HasStatusEffect(Buffs.PerfectioParata) &&
             !HasStatusEffect(Buffs.ImmortalSacrifice) && !IsComboExpiring(3) &&
             CanApplyStatus(CurrentTarget, Debuffs.DeathsDesign) &&
-            !JustUsed(ShadowOfDeath))
+            !JustUsed(ShadowOfDeath) && InActionRange(ShadowOfDeath))
         {
             if ((IsNotEnabled(Preset.RPR_ST_SimpleMode) && RPR_ST_ArcaneCircleBossOption == 1 && !InBossEncounter() ||
                  IsEnabled(Preset.RPR_ST_SimpleMode) && !InBossEncounter()) &&
@@ -109,6 +95,83 @@ internal partial class RPR
 
         return false;
     }
+
+    #endregion
+
+    #region Ranged Attack
+
+    private static uint RangedAttack(uint actionId, bool simpleMode = false)
+    {
+        //Harvest Moon
+        if ((simpleMode || IsEnabled(Preset.RPR_ST_RangedFillerHarvestMoon)) &&
+            ActionReady(HarvestMoon) && HasStatusEffect(Buffs.Soulsow))
+            return HarvestMoon;
+
+        //Ranged Attacks
+        if ((simpleMode || IsEnabled(Preset.RPR_ST_RangedFiller)) &&
+            ActionReady(Harpe))
+        {
+            //Communio
+            if (HasStatusEffect(Buffs.Enshrouded) && Lemure is 1 &&
+                LevelChecked(Communio))
+                return Communio;
+
+            if (RPR_ST_EnhancedHarpe && HasStatusEffect(Buffs.EnhancedHarpe) ||
+                (!RPR_ST_EnhancedHarpe || simpleMode) && (!IsMoving() || HasStatusEffect(Buffs.EnhancedHarpe)))
+                return Harpe;
+        }
+
+        return actionId;
+    }
+
+    #endregion
+
+    #region Basic Combo
+
+    private static uint BasicCombo(uint actionId, bool isAoE = false)
+    {
+        switch (isAoE)
+        {
+            case false:
+            {
+                if (ComboTimer > 0)
+                {
+                    if (ComboAction == OriginalHook(Slice) && LevelChecked(WaxingSlice))
+                        return OriginalHook(WaxingSlice);
+
+                    if (ComboAction == OriginalHook(WaxingSlice) && LevelChecked(InfernalSlice))
+                        return OriginalHook(InfernalSlice);
+                }
+                break;
+            }
+
+            case true:
+            {
+                if (ComboTimer > 0)
+                {
+                    if (ComboAction == OriginalHook(SpinningScythe) && LevelChecked(NightmareScythe))
+                        return OriginalHook(NightmareScythe);
+                }
+                break;
+            }
+        }
+
+        return actionId;
+    }
+
+    #endregion
+
+    #region Misc
+
+    //Auto Arcane Crest
+    private static bool CanUseArcaneCrest =>
+        ActionReady(ArcaneCrest) && InCombat() &&
+        (GroupDamageIncoming(3f) ||
+         !IsInParty() && IsPlayerTargeted());
+
+    private static int HPThresholdArcaneCircle =>
+        RPR_ST_ArcaneCircleBossOption == 1 ||
+        !InBossEncounter() ? RPR_ST_ArcaneCircleHPOption : 0;
 
     #endregion
 

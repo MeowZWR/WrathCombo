@@ -119,11 +119,16 @@ internal class AutoRotationTab : ConfigWindow
             ImGuiComponents.HelpMarker($"关闭此项将禁用AOE输出功能。否则需要有足够数量的目标在AOE技能范围内才会使用。适用于所有三种职能，以及所有造成AOE伤害的功能。");
 
             ImGuiEx.SetNextItemWidthScaled(100);
-            changed |= ImGui.SliderFloat("最大目标距离", ref cfg.DPSSettings.MaxDistance, 1, 30);
+            changed |= ImGui.SliderFloat("最大目标距离", ref cfg.DPSSettings.MaxDistance, 1, 30, $"{cfg.DPSSettings.MaxDistance:0}");
             cfg.DPSSettings.MaxDistance =
                 Math.Clamp(cfg.DPSSettings.MaxDistance, 1, 30);
 
             ImGuiComponents.HelpMarker("除手动模式外，所有目标模式查找目标的最大距离。仅允许1到30的数值。");
+
+            P.UIHelper.ShowIPCControlledIndicatorIfNeeded("IgnoreRangeInBoss");
+            changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded("Ignore Max Target Distance In Boss Fights", ref cfg.DPSSettings.IgnoreRangeInBoss, "IgnoreRangeInBoss");
+
+            ImGuiComponents.HelpMarker("When in boss fights only, any target regardless of distance can be eligible to be attacked.");
 
             P.UIHelper.ShowIPCControlledIndicatorIfNeeded("FATEPriority");
             changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(

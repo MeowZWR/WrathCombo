@@ -30,6 +30,7 @@ using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 using UIConfig = Dalamud.Game.Config.UiConfigOption;
 using UIControl = Dalamud.Game.Config.UiControlOption;
 using SysConfig = Dalamud.Game.Config.SystemConfigOption;
+using WrathCombo.Services.IPC_Subscriber;
 
 #endregion
 
@@ -243,7 +244,12 @@ public static class DebugFile
         if (gotVFX)
             foreach (var vfx in vfxList)
                 AddLine($"- `{vfx.Path}` ({vfx.AgeSeconds:F1}s old)");
-        
+
+        AddLine();
+        AddLine($"PingPlugin Enabled: {PingPluginIPC.CanGetPing}");
+        if (PingPluginIPC.CanGetPing)
+            AddLine($"Ping: {PingPluginIPC.LastPing}, Average: {PingPluginIPC.AveragePing}");
+
         AddLine("END PLAYER INFO");
 
         AddLine();
@@ -437,7 +443,6 @@ public static class DebugFile
 
                 var displayValue = property switch
                 {
-                    "InterruptDelay" => $"{(float)value * 100}",
                     "CustomHealStack" => Service.Configuration.UseCustomHealStack
                         .DisplayStack(separator: " > "),
                     "RaiseStack" => ((string[])value).StackString(" > ", true),
@@ -675,7 +680,7 @@ public static class DebugFile
                 33 => typeof(AST.Config),
                 34 => typeof(SAM.Config),
                 35 => typeof(RDM.Config),
-                //36 => typeof(BLU.Config),
+                36 => typeof(BLU.Config),
                 37 => typeof(GNB.Config),
                 38 => typeof(DNC.Config),
                 39 => typeof(RPR.Config),

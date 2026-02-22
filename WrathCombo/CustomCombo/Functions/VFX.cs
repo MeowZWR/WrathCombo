@@ -1,5 +1,5 @@
-﻿using Dalamud.Game.ClientState.Objects.Types;
-using Dalamud.Game.ClientState.Conditions;
+﻿using Dalamud.Game.ClientState.Conditions;
+using Dalamud.Game.ClientState.Objects.Types;
 using ECommons.DalamudServices;
 using ECommons.GameFunctions;
 using ECommons.GameHelpers;
@@ -16,55 +16,90 @@ internal abstract partial class CustomComboFunctions
 {
     private const StringComparison Lower = StringComparison.OrdinalIgnoreCase;
 
+    private static readonly StringComparer Lowerer =
+        StringComparer.FromComparison(Lower);
+
+    private static uint? CurrentCFC => Content.ContentFinderConditionRowId;
+
+    /// <summary>
+    /// Determines whether a VFX path matches any list of VFX paths.<br/>
+    /// Also checks that (if the path is restricted to certain duties) the current
+    /// duty matches one of those specified.
+    /// </summary>
+    private static bool CheckPath(
+        FrozenDictionary<string, uint[]> paths, string vfxPath)
+    {
+        foreach (var entry in paths)
+        {
+            if (!vfxPath.StartsWith(entry.Key, Lower))
+                continue;
+
+            if (entry.Value.Length == 0)
+                return true;
+
+            if (CurrentCFC is { } cfc && entry.Value.Contains(cfc))
+                return true;
+        }
+
+        return false;
+    }
+
     /// <summary>
     /// Text Comparison for Tank Buster VFX Paths
     /// </summary>
     /// <param name="vfx">The VFX to check the Path of</param>
     /// <returns>Bool if vfx path matches</returns>
-    public static bool IsTankBusterEffectPath(VfxInfo vfx)
-    {
-        return TankbusterPaths.Any(x => vfx.Path.StartsWith(x, Lower));
-    }
+    public static bool IsTankBusterEffectPath(VfxInfo vfx) =>
+        CheckPath(TankbusterPaths, vfx.Path);
 
-    private static readonly FrozenSet<string> TankbusterPaths = FrozenSet.ToFrozenSet<string>([
-        "vfx/lockon/eff/tank",                          // Generic TB check
-        "vfx/lockon/eff/x6fe_fan100_50_0t1",            // Necron Blue Shockwave - Cone Tankbuster
-        "vfx/common/eff/mon_eisyo03t",                  // M10 Deep Impact AoE TB (also generic?)
-        "vfx/lockon/eff/m0676trg_tw_d0t1p",             // M10 Hot Impact shared TB
-        "vfx/lockon/eff/m0676trg_tw_s6_d0t1p",          // M11 Raw Steel
-        "vfx/lockon/eff/z6r2b3_8sec_lockon_c0a1",       // Kam'lanaut Princely Blow
-        "vfx/lockon/eff/m0742trg_b1t1",                 // M7 Abominable Blink
-        "vfx/lockon/eff/x6r9_tank_lockonae",            // M9 Hardcore Large TB
-        "vfx/lockon/eff/target_ae_s5f",                 // The Tower at Paradigm's Breach
-        "vfx/lockon/eff/sharelaser2tank"                // Found in VFXEditor, unknown source
-    ], StringComparer.OrdinalIgnoreCase);
+    private static readonly FrozenDictionary<string, uint[]> TankbusterPaths =
+        new Dictionary<string, uint[]>
+        {
+            { "vfx/lockon/eff/tank", [] },                    // Generic TB check
+            { "vfx/lockon/eff/x6fe_fan100_50_0t1", [] },      // Necron Blue Shock
+            { "vfx/common/eff/mon_eisyo03t", [] },            // M10 Deep Impact
+            { "vfx/lockon/eff/m0676trg_tw_d0t1p", [] },       // M10 Hot Impact
+            { "vfx/lockon/eff/m0676trg_tw_s6_d0t1p", [] },    // M11 Raw Stee
+            { "vfx/lockon/eff/z6r2b3_8sec_lockon_c0a1", [] }, // Kam'lanaut Princely
+            { "vfx/lockon/eff/m0742trg_b1t1", [] },           // M7 Abominable Blink
+            { "vfx/lockon/eff/x6r9_tank_lockonae", [] },      // M9 Hardcore Big
+            { "vfx/lockon/eff/target_ae_s5f", [779] },        // YorHa 3 (also matches some spread markers)
+            { "vfx/lockon/eff/sharelaser2tank", [] },         // Unknown source
+        }.ToFrozenDictionary(Lowerer);
 
     // List of Multi-Hit Shared Damage Effect Paths
-    private static readonly FrozenSet<string> MHSharedDmgPaths = FrozenSet.ToFrozenSet([
-        "vfx/lockon/eff/com_share4a1",
-        "vfx/lockon/eff/com_share5a1",
-        "vfx/lockon/eff/com_share6m7s_1v",
-        "vfx/lockon/eff/com_share8s_0v",
-        "vfx/lockon/eff/share_laser_5s_c0w",            // Line
-        "vfx/lockon/eff/share_laser_8s_c0g",            // Line
-        "vfx/lockon/eff/m0922trg_t2w"                   // Some Lightning based effect, presume specific raid?
-    ], StringComparer.OrdinalIgnoreCase);
+    private static readonly FrozenDictionary<string, uint[]> MHSharedDmgPaths =
+        new Dictionary<string, uint[]>
+        {
+            { "vfx/lockon/eff/com_share4a1", [] },
+            { "vfx/lockon/eff/com_share5a1", [] },
+            { "vfx/lockon/eff/com_share6m7s_1v", [] },
+            { "vfx/lockon/eff/com_share8s_0v", [] },
+            { "vfx/lockon/eff/share_laser_5s_c0w", [] }, // Line
+            { "vfx/lockon/eff/share_laser_8s_c0g", [] }, // Line
+            { "vfx/lockon/eff/m0922trg_t2w", [] },       // Some Lightning thing
+        }.ToFrozenDictionary(Lowerer);
 
     // List of Regular Shared Damage Effect Paths
-    private static readonly FrozenSet<string> SharedDmgPaths = FrozenSet.ToFrozenSet([
-        "vfx/lockon/eff/coshare",
-        "vfx/lockon/eff/share_laser",
-        "vfx/lockon/eff/share_1",
-        "vfx/lockon/eff/com_share",
-        "vfx/lockon/eff/d1084_share_24m_s6_0k2",        // San d'Oria The Second Walk
-        // Won't work till Static VFX tracking is added
-        "vfx/monster/gimmick2/eff/z3o7_b1_g06c0t",      // Puppet's Bunker, Superior Flight Unit.
-        "vfx/monster/gimmick4/eff/z5r1_b4_g09c0c"       // Aglaia, Nald'thal
-    ], StringComparer.OrdinalIgnoreCase);
+    private static readonly FrozenDictionary<string, uint[]> SharedDmgPaths =
+        new Dictionary<string, uint[]>
+        {
+            { "vfx/lockon/eff/coshare", [] },
+            { "vfx/lockon/eff/share_laser", [] },
+            { "vfx/lockon/eff/share_1", [] },
+            { "vfx/lockon/eff/com_share", [] },
+            { "vfx/lockon/eff/d1084_share_24m_s6_0k2", [] },   // San d'Oria 2nd Walk
+            { "vfx/monster/gimmick2/eff/z3o7_b1_g06c0t", [] }, // YorHa 2, Flight
+            { "vfx/monster/gimmick3/eff/n4r1_b2_g06x", [] },   // Vanguard, Protector
+            { "vfx/monster/gimmick4/eff/z5r1_b4_g09c0c", [] }, // Aglaia, Nald'thal
+        }.ToFrozenDictionary(Lowerer);
 
-    //private static readonly FrozenSet<ushort> NoObjectStackDuties = FrozenSet.ToFrozenSet<ushort>([
-    //    1194 // The Skydeep Cenote
-    //]);
+    /* Associated logic removed. See commit: 844dcef4
+    private static readonly FrozenSet<ushort> NoObjectStackDuties = FrozenSet
+        .ToFrozenSet<ushort>([
+        1194 // The Skydeep Cenote
+    ]);
+    */
 
     /// <summary>
     /// Checks for incoming shared damage effects and retrieves relevant information.
@@ -75,14 +110,13 @@ internal abstract partial class CustomComboFunctions
     /// Party members are prioritized when multiple valid effects are found, and the closest party member is selected.
     /// PartyMember will be null if no party member is affected (alliance / NPC helper).
     /// </remarks>
-    /// <param name="distance">Distance to the effect</param>
     /// <param name="isMultiHit">Returns true if the effect will do multiple hits</param>
-    /// <param name="partyMember">Returns an IBattleChara if the effect is on a party member</param>
-    /// <returns></returns>
-    public static bool CheckForSharedDamageEffect(out float distance, out bool isMultiHit, out IBattleChara? partyMember)
+    /// <param name="partyMember">Returns a Game Object if the effect is on a party member.</param>
+    /// <param name="maxDistance">Maximum distance to the effect</param>
+    public static bool CheckForSharedDamageEffect(out bool isMultiHit,
+        out IGameObject? partyMember, float maxDistance = 30f)
     {
         partyMember = null;
-        distance = float.MaxValue;
         isMultiHit = false;
 
         bool MH = false; //holder for isMultiHit
@@ -94,8 +128,9 @@ internal abstract partial class CustomComboFunctions
             return false;
 
         // First: Get all valid multi-hit effects
-        List<VfxInfo> multiHitEffects = [.. vfxEffects.Where(v =>
-            v.VfxID != 0 && MHSharedDmgPaths.Any(p => v.Path.StartsWith(p, Lower)))];
+        List<VfxInfo> multiHitEffects = vfxEffects
+            .Where(v => v.VfxID != 0 && CheckPath(MHSharedDmgPaths, v.Path))
+            .ToList();
 
         // If any multi-hit found → use that list (priority), else look for regular shared damage effects
         List<VfxInfo> AoEEffects;
@@ -105,19 +140,16 @@ internal abstract partial class CustomComboFunctions
             MH = true;
         }
         else
-        {
-            AoEEffects = [.. vfxEffects.Where(v =>
-                v.VfxID != 0 && SharedDmgPaths.Any(p => v.Path.StartsWith(p, Lower)))];
-        }
+            AoEEffects = vfxEffects
+                .Where(v => v.VfxID != 0 && CheckPath(SharedDmgPaths, v.Path))
+                .ToList();
 
         if (AoEEffects.Count == 0)
             return false;
 
         #if DEBUG
         if (EzThrottler.Throttle("DebugSharedDamageEffectVFX1", 5000))
-        {
             Svc.Log.Debug($"Found Incoming Shared Damage Effects {AoEEffects.Count}");
-        }
 		#endif
 
         // Expected Outcome from the LINQ:
@@ -128,10 +160,10 @@ internal abstract partial class CustomComboFunctions
         // Regular share on other alliance, Ignored
         // Regular share on NPC, That marker
 
-        IBattleChara? bestTarget = null;
+        IGameObject? bestTarget;
 
         if (AoEEffects.Count == 1) // Most battles are singular, skip LINQ if so
-            bestTarget = AoEEffects[0].TargetID.GetObject() as IBattleChara;
+            bestTarget = AoEEffects[0].TargetID.GetObject();
         else
         {
             #if DEBUG
@@ -141,7 +173,8 @@ internal abstract partial class CustomComboFunctions
                 .Select(vfx => vfx.TargetID.GetObject())
                 .OfType<IBattleChara>()
                 // Multi-hit can be on anyone (only 1 per alliance), regular only on party members or NPCs,
-                .Where(chara => MH || chara.IsInParty() || chara is IBattleNpc || PlaybackClosest)
+                .Where(chara => chara.IsWithinRange(maxDistance) &&
+                                (MH || chara.IsInParty() || chara is IBattleNpc || PlaybackClosest))
                 // Prioritize party members first, then by distance
                 .OrderBy(chara => chara.IsInParty() ? 0 : 1)
                 .ThenBy(chara => GetTargetDistance(chara))
@@ -160,26 +193,7 @@ internal abstract partial class CustomComboFunctions
         //return only party member object (Don't want to illegally dash to Alliance or NPCs)
         isMultiHit = MH;
         partyMember = bestTarget.IsInParty() ? bestTarget : null;
-        distance = GetTargetDistance(bestTarget);
         return true;
-
-        // Flan: Saving this here for later in case I figure out how to handle no-object shared damage effects properly.
-        // Don't want to remember what I wrote here otherwise.
-        //else //Not in the object list, all players stack on a tower, not checking at all times.
-        //if (NoObjectStackDuties.Contains(Svc.ClientState.TerritoryType) &&
-        //    InBossEncounter())
-        //{
-        //    AoEEffects = VfxManager.TrackedEffects.FilterToNoTarget();
-        //    sharedVfx = AoEEffects.FirstOrDefault(IsMultiHitSharedDamageEffectPath);
-        //    if (sharedVfx.VfxID != 0) isMultiHit = true;
-        //    else sharedVfx = AoEEffects.FirstOrDefault(IsShareDamageEffectPath);
-
-        //    //Quick and dirty
-        //    distance = Vector3.Distance(LocalPlayer.Position, sharedVfx.Placement.Position);
-        //    return true;
-        //}
-
-        //return false;
     }
 
     /// <summary>

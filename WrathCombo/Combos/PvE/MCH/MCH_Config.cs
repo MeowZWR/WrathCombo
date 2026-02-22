@@ -126,7 +126,7 @@ internal partial class MCH
                 case Preset.MCH_ST_Adv_Reassemble:
 
                     DrawHorizontalRadioButton(MCH_ST_Adv_ReassembleChoice,
-                        "Save for 2 minute windows", "Saves Reassemble for 2 minute windows/nTHIS WILL OVERCAP UR REASSEMBLE.", 0);
+                        "Save for 2 minute windows", "Saves Reassemble for 2 minute windows\nTHIS WILL OVERCAP UR REASSEMBLE.", 0);
 
                     DrawHorizontalRadioButton(MCH_ST_Adv_ReassembleChoice,
                         "Use every minute", "Uses Reassemble every minute/whenever ur highest lvl tool is off cooldown.", 1);

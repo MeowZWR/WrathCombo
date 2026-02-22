@@ -69,6 +69,13 @@ public partial class Configuration : IPluginConfiguration
         defaultValue: "关闭")]
     public bool ShortDTRText = false;
 
+    [SettingCategory(Main_UI_Options)]
+    [Setting("Opener Status in Server Info Bar",
+        "Shows the status of your current opener, if enabled and applicable.",
+        recommendedValue: "Preference", 
+        defaultValue: "Off")]
+    public bool ShowOpenerDtr = false;
+
     /// Hides the message of the day. Default: false.
     /// <seealso cref="WrathCombo.PrintLoginMessage"/>
     [SettingCategory(Main_UI_Options)]

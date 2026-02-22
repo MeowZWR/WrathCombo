@@ -291,7 +291,9 @@ internal partial class VPR : Melee
             if (IsEnabled(Preset.VPR_ST_Vicewinder) &&
                 CanUseVicewinder)
                 return VPR_TrueNorthVicewinder &&
-                       GetRemainingCharges(Role.TrueNorth) > TnCharges &&
+                       (IsEnabled(Preset.VPR_TrueNorthDynamic) &&
+                        GetRemainingCharges(Role.TrueNorth) > TnCharges ||
+                        HasCharges(Role.TrueNorth)) &&
                        Role.CanTrueNorth()
                     ? Role.TrueNorth
                     : Vicewinder;

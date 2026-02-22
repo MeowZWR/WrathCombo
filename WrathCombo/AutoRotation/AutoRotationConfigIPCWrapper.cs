@@ -164,6 +164,18 @@ public class DPSSettingsIPCWrapper(DPSSettings settings)
         }
     }
 
+    public bool IgnoreRangeInBoss
+    {
+        get
+        {
+            var checkControlled =
+                P.UIHelper.AutoRotationConfigControlled("IgnoreRangeInBoss");
+            return checkControlled is not null
+                ? checkControlled.Value.state == 1
+                : settings.IgnoreRangeInBoss;
+        }
+    }
+
     #region Direct Pass-Throughs (no IPC check)
 
     public bool PreferNonCombat => settings.PreferNonCombat;

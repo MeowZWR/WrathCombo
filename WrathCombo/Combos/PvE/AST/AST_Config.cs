@@ -46,6 +46,7 @@ internal partial class AST
             AST_Mit_ST_EssentialDignityThreshold = new("AST_Mit_ST_EssentialDignityThreshold", 80),
             
             //DPS
+            AST_ST_DPS_Opener_SkipStar = new("AST_ST_DPS_Opener_SkipStar"),
             AST_ST_DPS_DivinationOption = new("AST_ST_DPS_DivinationOption"),
             AST_ST_DPS_AltMode = new("AST_ST_DPS_AltMode"),
             AST_ST_DPS_LucidDreaming = new("AST_ST_DPS_LucidDreaming", 8000),
@@ -113,6 +114,9 @@ internal partial class AST
                 #region DPS
                 case Preset.AST_ST_DPS_Opener:
                     DrawBossOnlyChoice(AST_ST_DPS_Balance_Content);
+                    ImGui.NewLine();
+                    DrawHorizontalRadioButton(AST_ST_DPS_Opener_SkipStar, "Use Earthly Star", "Places Earthly Star in the Opener.", 0);
+                    DrawHorizontalRadioButton(AST_ST_DPS_Opener_SkipStar, "Don't Use Earthly Star", "Does not use Earthly Star in the Opener.", 1);
                     break;
 
                 case Preset.AST_ST_DPS:

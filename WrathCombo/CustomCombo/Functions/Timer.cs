@@ -126,9 +126,13 @@ internal abstract partial class CustomComboFunctions
 
     internal static void OnCombat(ConditionFlag flag, bool value)
     {
-        if (flag == ConditionFlag.InCombat && value)
+        if (flag == ConditionFlag.InCombat)
         {
-            combatStart = DateTime.Now;
+            if (value)
+            {
+                combatStart = DateTime.Now;
+                AutoRotationController.PausedForError = false;
+            }
         }
     }
 
