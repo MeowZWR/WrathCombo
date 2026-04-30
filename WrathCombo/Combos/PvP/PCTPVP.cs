@@ -33,7 +33,8 @@ internal static class PCTPvP
             Starstruck = 4118,
             MooglePortrait = 4103,
             MadeenPortrait = 4104,
-            SubtractivePalette = 4102;
+            SubtractivePalette = 4102,
+            QuickSketch = 4324;
     }
     #endregion
 
@@ -44,6 +45,9 @@ internal static class PCTPvP
             PCTPvP_BurstHP = new("PCTPvP_BurstHP", 100),
             PCTPvP_TemperaHP = new("PCTPvP_TemperaHP", 50),
             PCTPvP_PhantomDartThreshold = new("PCTPvP_PhantomDartThreshold", 50);
+        
+        public static UserBool
+            PCTPvP_CreatureMotifEnforceNotMoving = new("PCTPvP_CreatureMotifEnforceNotMoving", true);
 
         internal static void Draw(Preset preset)
         {
@@ -58,6 +62,10 @@ internal static class PCTPvP
                     break;
 
                 case Preset.PCTPvP_TemperaCoat: DrawSliderInt(1, 100, PCTPvP_TemperaHP, "Player HP%", 200);
+                    break;
+                
+                case Preset.PCTPvP_CreatureMotif: DrawAdditionalBoolChoice(PCTPvP_CreatureMotifEnforceNotMoving, 
+                    "Enforce No Movement", "Will not attempt to use Creature Motif when moving unless you have Quick Sketch buff from Smudge.");
                     break;
             }
         }            
@@ -116,7 +124,8 @@ internal static class PCTPvP
                     return OriginalHook(HolyInWhite);
             }
             // Creature Motif
-            if (IsEnabled(Preset.PCTPvP_CreatureMotif) && !hasMotifDrawn && !isMoving)
+            if (IsEnabled(Preset.PCTPvP_CreatureMotif) && !hasMotifDrawn && 
+                (HasStatusEffect(Buffs.QuickSketch) || !isMoving || !PCTPvP_CreatureMotifEnforceNotMoving))
                 return OriginalHook(CreatureMotif);
 
             // Subtractive Palette

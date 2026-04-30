@@ -59,11 +59,20 @@ internal class PvEFeatures : FeaturesWindow
                         string abbreviation = info.JobShorthand;
                         string header = string.IsNullOrEmpty(abbreviation) ? jobName : $"{jobName} - {abbreviation}";
                         var id = info.Job;
+
+                        if (Service.Configuration.AprilFools2026 && IsAprilFools)
+                        {
+                            var mnkInfo = groupedPresets[Job.MNK][0].JobInfo;
+                            jobName = mnkInfo.JobName;
+                            abbreviation = mnkInfo.JobShorthand;
+                            header = $"{jobName} - {abbreviation}";
+                            id = mnkInfo.Job;
+                        }
                         IDalamudTextureWrap? icon = Icons.GetJobIcon(id);
                         ImGuiEx.Spacing(new Vector2(0, 2f.Scale()));
                         using (var disabled = ImRaii.Disabled(DisabledJobsPVE.Any(x => x == id)))
                         {
-                            if (ImGui.Selectable($"###{header}", OpenJob == job, ImGuiSelectableFlags.None, new Vector2(0, IconMaxSize)))
+                            if (ImGui.Selectable($"###{header}{info.Job}", OpenJob == job, ImGuiSelectableFlags.None, new Vector2(0, IconMaxSize)))
                             {
                                 OpenJob = job;
                             }
@@ -83,7 +92,7 @@ internal class PvEFeatures : FeaturesWindow
                             }
                             ImGui.SameLine(LargerIndentWidth);
                             ImGuiEx.Spacing(new Vector2(0, VerticalCenteringPadding));
-                            ImGui.Text($"{header} {(disabled ? FeaturesUI.Warning_DisabledDueToUpdate : "")}");
+                            ImGui.TextWrapped($"{header} {(disabled.Count > 0 ? FeaturesUI.Warning_DisabledDueToUpdate : "")}");
 
                             if (!string.IsNullOrEmpty(abbreviation) &&
                                 P.UIHelper.JobControlled(id) is not null)
@@ -100,9 +109,24 @@ internal class PvEFeatures : FeaturesWindow
             }
             else
             {
+                if (Service.Configuration.AprilFools2026 && IsAprilFools)
+                {
+                    openJob = Job.MNK;
+                }
                 // Draw Presets for a selected Job
                 DrawHeader(openJob.Value);
                 DrawSearchBar();
+                if (OpenJob != openJob)
+                {
+                    ImGuiEx.LineCentered(() =>
+                    {
+                        if (ImGui.Button($"Wait... this isn't {OpenJob?.Name()}. Get me out of here!"))
+                        {
+                            Service.Configuration.AprilFools2026 = false;
+                            OpenJob = null;
+                        }
+                    });
+                }
                 ImGuiEx.Spacing(new Vector2(0, 10));
 
                 using var content = ImRaii.Child(MiscUI.Content, Vector2.Zero);

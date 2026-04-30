@@ -287,7 +287,7 @@ internal partial class DRK : Tank
                 return Role.Interject;
 
             if (IsEnabled(Preset.DRK_oGCD_Delirium) &&
-                ActionReady(BloodWeapon))
+                ActionReady(OriginalHook(BloodWeapon)))
                 return OriginalHook(Delirium);
 
             if (IsEnabled(Preset.DRK_oGCD_Shadow) &&
@@ -411,7 +411,7 @@ internal partial class DRK : Tank
 
             var checkTarget = target ?? SimpleTarget.Self;
             if (IsEnabled(Preset.DRK_Retarget_Oblation_DoubleProtection) &&
-                (HasStatusEffect(Buffs.Oblation, checkTarget, anyOwner: true) ||
+                (GetStatusEffectRemainingTime(Buffs.Oblation, checkTarget, anyOwner: true) > DRK_RetargetOblationDuration ||
                  JustUsedOn(Oblation, checkTarget)) &&
                 CanApplyStatus(checkTarget, Buffs.Oblation))
                 return All.SavageBlade;

@@ -222,8 +222,7 @@ internal static class RDMPvP
             }
 
             // Grand Impact / Jolt III
-            return hasGrandImpact || !isMoving ? OriginalHook(actionID) : All.SavageBlade;
-
+            return OriginalHook(actionID);
         }
     }
     internal class RDMPvP_Dash_Feature : CustomCombo

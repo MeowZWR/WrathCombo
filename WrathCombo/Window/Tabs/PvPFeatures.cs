@@ -130,7 +130,7 @@ internal class PvPFeatures : FeaturesWindow
                             }
                             ImGui.SameLine(LargerIndentWidth);
                             ImGuiEx.Spacing(new Vector2(0, VerticalCenteringPadding));
-                            ImGui.Text($"{header} {(disabled ? FeaturesUI.Warning_DisabledDueToUpdate : "")}");
+                            ImGui.TextWrapped($"{header} {(disabled.Count > 0 ? FeaturesUI.Warning_DisabledDueToUpdate : "")}");
                         }
 
                         ImGui.TableNextColumn();

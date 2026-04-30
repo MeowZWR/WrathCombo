@@ -58,8 +58,11 @@ internal sealed class ActionReplacer : IDisposable
         getActionHook = Svc.Hook.HookFromAddress<GetActionDelegate>((nint)ActionManager.Addresses.GetAdjustedActionId.Value, GetAdjustedActionDetour);
         isActionReplaceableHook = Svc.Hook.HookFromAddress<IsActionReplaceableDelegate>(Service.Address.IsActionIdReplaceable, IsActionReplaceableDetour);
 
-        getActionHook.Enable();
-        isActionReplaceableHook.Enable();
+        if (Service.Configuration.ActionChanging)
+        {
+            getActionHook.Enable();
+            isActionReplaceableHook.Enable();
+        }
     }
 
     public void Dispose()
@@ -78,16 +81,14 @@ internal sealed class ActionReplacer : IDisposable
     internal uint OriginalHook(uint actionID) =>
         getActionHook.Original(_actionManager, actionID);
 
-    private bool actionReplacementEnabled;
     public void EnableActionReplacingIfRequired()
     {
-        if (actionReplacementEnabled)
+        if (Service.Configuration.ActionChanging)
             Service.ActionReplacer.getActionHook.Enable();
     }
 
     public void DisableActionReplacingIfRequired()
     {
-        actionReplacementEnabled = Service.ActionReplacer.getActionHook.IsEnabled;
         Service.ActionReplacer.getActionHook.Disable();
     }
 

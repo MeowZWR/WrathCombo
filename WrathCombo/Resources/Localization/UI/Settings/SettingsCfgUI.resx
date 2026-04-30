@@ -259,7 +259,7 @@ Triple weaving is already done in a manner where we try to avoid clipping GCDs, 
     <value>Maximum Number of Weaves</value>
   </data>
   <data name="MaximumWeavesPerWindow_recommendedValue" xml:space="preserve">
-    <value>46056</value>
+    <value>2-3</value>
   </data>
   <data name="MaximumWeavesPerWindow_unitLabel" xml:space="preserve">
     <value># of oGCDs</value>
@@ -665,5 +665,77 @@ It is recommended to enable this if you are a keyboard+mouse user and enable Ret
   </data>
   <data name="UseUIMouseoverOverridesInDefaultHealStack_recommendedValue" xml:space="preserve">
     <value>Preference</value>
+  </data>
+  <data name="MainUIOptions_Category" xml:space="preserve">
+    <value>Main UI Options</value>
+  </data>
+  <data name="RotationBehaviourOptions_Category" xml:space="preserve">
+    <value>Rotation Behaviour Options</value>
+  </data>
+  <data name="TargetingOptions_Category" xml:space="preserve">
+    <value>Targeting Options</value>
+  </data>
+  <data name="TroubleshootingOptions_Category" xml:space="preserve">
+    <value>Troubleshooting Options</value>
+  </data>
+  <data name="AprilFools2026_Name" xml:space="preserve">
+    <value>April Fools 2026 Feature</value>
+  </data>
+  <data name="AprilFools2026_helpMark" xml:space="preserve">
+    <value>For when you can't get enough MNK in your plugin.</value>
+  </data>
+  <data name="AprilFools2026_recommendedValue" xml:space="preserve">
+    <value>Off, unless your name starts with Beep</value>
+  </data>
+  <data name="AprilFools2026_defaultValue" xml:space="preserve">
+    <value>On, cause it's that type of day y'know</value>
+  </data>
+  <data name="TankbusterTTS_Name" xml:space="preserve">
+    <value>Play TTS on Tankbuster</value>
+  </data>
+  <data name="TankbusterTTS_helpMark" xml:space="preserve">
+    <value>Will play a text-to-speech sound clip whenever a tankbuster is detected, including who it is targeting.</value>
+  </data>
+  <data name="TankbusterTTS_recommendedValue" xml:space="preserve">
+    <value>Preference</value>
+  </data>
+  <data name="TankbusterTTS_defaultValue" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="AoEDamageTTS_Name" xml:space="preserve">
+    <value>Play TTS on Group Damage</value>
+  </data>
+  <data name="AoEDamageTTS_helpMark" xml:space="preserve">
+    <value>Will play a text-to-speech sound clip whenever a stack/group damage cast is detected, including who it is targeting if applicable.</value>
+  </data>
+  <data name="AoEDamageTTS_recommendedValue" xml:space="preserve">
+    <value>Preference</value>
+  </data>
+  <data name="AoEDamageTTS_defaultValue" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="TankbusterToast_Name" xml:space="preserve">
+    <value>Show Toast on Tankbuster</value>
+  </data>
+  <data name="TankbusterToast_helpMark" xml:space="preserve">
+    <value>Show a message on-screen whenever a tankbuster is detected, including who it is targeting.</value>
+  </data>
+  <data name="TankbusterToast_recommendedValue" xml:space="preserve">
+    <value>Preference</value>
+  </data>
+  <data name="TankbusterToast_defaultValue" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="AoEDamageToast_Name" xml:space="preserve">
+    <value>Show Toast on Group Damage</value>
+  </data>
+  <data name="AoEDamageToast_helpMark" xml:space="preserve">
+    <value>Show a message on-screen whenever a stack/group damage cast is detected, including who it is targeting if applicable.</value>
+  </data>
+  <data name="AoEDamageToast_recommendedValue" xml:space="preserve">
+    <value>Preference</value>
+  </data>
+  <data name="AoEDamageToast_defaultValue" xml:space="preserve">
+    <value>Off</value>
   </data>
 </root>

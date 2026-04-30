@@ -69,7 +69,6 @@ public enum Preset
     ALL_Healer_Menu = 100098,
 
     [ReplaceSkill(AST.Ascend, WHM.Raise, SCH.Resurrection, SGE.Egeiro)]
-    [ConflictingCombos(AST_Raise_Alternative, SCH_Raise, SGE_Raise, WHM_Raise)]
     [ParentCombo(ALL_Healer_Menu)]
     [JobInfo(Job.ADV)]
     ALL_Healer_Raise = 100010,
@@ -1291,7 +1290,6 @@ public enum Preset
     AST_Benefic = 1002,
 
     [ReplaceSkill(RoleActions.Magic.Swiftcast)]
-    [ConflictingCombos(ALL_Healer_Raise)]
     [JobInfo(Job.AST)]
     AST_Raise_Alternative = 1003,
 
@@ -1394,8 +1392,8 @@ public enum Preset
     #region Simple Mode
 
     [AutoAction(false, false)]
-    [ReplaceSkill(BLM.Fire)]
-    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_Fire1and3, BLM_F1toF4)]
+    [ReplaceSkill(BLM.Blizzard)]
+    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_Blizzard1and3, BLM_B1toB4)]
     [JobInfo(Job.BLM)]
     [SimpleCombo]
     BLM_ST_SimpleMode = 2001,
@@ -1412,8 +1410,8 @@ public enum Preset
     #region Single Target - Advanced
 
     [AutoAction(false, false)]
-    [ReplaceSkill(BLM.Fire)]
-    [ConflictingCombos(BLM_ST_SimpleMode, BLM_Fire1and3, BLM_F1toF4)]
+    [ReplaceSkill(BLM.Blizzard)]
+    [ConflictingCombos(BLM_ST_SimpleMode, BLM_Blizzard1and3, BLM_B1toB4)]
     [JobInfo(Job.BLM)]
     [AdvancedCombo]
     BLM_ST_AdvancedMode = 2100,
@@ -1543,12 +1541,12 @@ public enum Preset
     BLM_TriplecastProtection = 2056,
 
     [ReplaceSkill(BLM.Fire, BLM.Fire3)]
-    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_ST_SimpleMode, BLM_F1toF4)]
+    [ConflictingCombos(BLM_F1toF4)]
     [JobInfo(Job.BLM)]
     BLM_Fire1and3 = 2054,
 
     [ReplaceSkill(BLM.Fire)]
-    [ConflictingCombos(BLM_ST_AdvancedMode, BLM_ST_SimpleMode, BLM_Fire1and3)]
+    [ConflictingCombos(BLM_Fire1and3)]
     [JobInfo(Job.BLM)]
     BLM_F1toF4 = 2070,
 
@@ -1561,12 +1559,12 @@ public enum Preset
     BLM_Flare = 2069,
 
     [ReplaceSkill(BLM.Blizzard, BLM.Blizzard3)]
-    [ConflictingCombos(BLM_B1toB4)]
+    [ConflictingCombos(BLM_ST_SimpleMode, BLM_ST_AdvancedMode, BLM_B1toB4)]
     [JobInfo(Job.BLM)]
     BLM_Blizzard1and3 = 2052,
 
     [ReplaceSkill(BLM.Blizzard)]
-    [ConflictingCombos(BLM_Blizzard1and3)]
+    [ConflictingCombos(BLM_ST_SimpleMode, BLM_ST_AdvancedMode, BLM_Blizzard1and3)]
     [JobInfo(Job.BLM)]
     BLM_B1toB4 = 2071,
 
@@ -2548,9 +2546,17 @@ public enum Preset
 
     #endregion
 
+    #region Shadowbringer Options
+
     [ParentCombo(DRK_AoE_CDs)]
     [JobInfo(Job.DRK)]
     DRK_AoE_CD_Bringer = 5057,
+    
+    [ParentCombo(DRK_AoE_CD_Bringer)]
+    [JobInfo(Job.DRK)]
+    DRK_AoE_CD_BringerBurst = 5076,
+
+    #endregion
 
     #region Salt Options
 
@@ -2561,6 +2567,10 @@ public enum Preset
     [ParentCombo(DRK_AoE_CD_Salt)]
     [JobInfo(Job.DRK)]
     DRK_AoE_CD_SaltStill = 5059,
+
+    [ParentCombo(DRK_AoE_CDs)]
+    [JobInfo(Job.DRK)]
+    DRK_AoE_CD_Darkness = 5077,
 
     #endregion
 
@@ -2607,7 +2617,7 @@ public enum Preset
     #endregion
 
     #endregion
-    // Last value = 5075
+    // Last value = 5077
 
     #region Advanced Mitigation
     [JobInfo(Job.DRK)]
@@ -3437,10 +3447,6 @@ public enum Preset
     [JobInfo(Job.GNB)]
     GNB_BS_Continuation = 7401,
 
-    [ParentCombo(GNB_BS_Continuation)]
-    [JobInfo(Job.GNB)]
-    GNB_BS_Hypervelocity = 7406,
-
     [ParentCombo(GNB_BS_Features)]
     [JobInfo(Job.GNB)]
     GNB_BS_Bloodfest = 7402,
@@ -3481,10 +3487,6 @@ public enum Preset
     [JobInfo(Job.GNB)]
     GNB_FC_DoubleDown = 7603,
 
-    [ParentCombo(GNB_FC_DoubleDown)]
-    [JobInfo(Job.GNB)]
-    GNB_FC_DoubleDown_NM = 7606,
-
     [ParentCombo(GNB_FC_Features)]
     [JobInfo(Job.GNB)]
     GNB_FC_Reign = 7604,
@@ -3494,14 +3496,14 @@ public enum Preset
     #region Aurora Protection
     [ReplaceSkill(GNB.Aurora)]
     [JobInfo(Job.GNB)]
-    GNB_AuroraProtection = 7023,
+    GNB_AuroraFeatures = 7023,
 
-    [ParentCombo(GNB_AuroraProtection)]
+    [ParentCombo(GNB_AuroraFeatures)]
     [JobInfo(Job.GNB)]
     [Retargeted(GNB.Aurora)]
     GNB_RetargetAurora_MO = 7087,
 
-    [ParentCombo(GNB_AuroraProtection)]
+    [ParentCombo(GNB_AuroraFeatures)]
     [JobInfo(Job.GNB)]
     [Retargeted(GNB.Aurora)]
     GNB_RetargetAurora_TT = 7088,
@@ -4267,14 +4269,14 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(PCT.FireInRed)]
-    [ConflictingCombos(CombinedAetherhues, PCT_ST_AdvancedMode)]
+    [ConflictingCombos(PCT_ST_AdvancedMode)]
     [JobInfo(Job.PCT)]
     [SimpleCombo]
     PCT_ST_SimpleMode = 20000,
 
     [AutoAction(true, false)]
     [ReplaceSkill(PCT.FireIIinRed)]
-    [ConflictingCombos(CombinedAetherhues, PCT_AoE_AdvancedMode)]
+    [ConflictingCombos(PCT_AoE_AdvancedMode)]
     [JobInfo(Job.PCT)]
     [SimpleCombo]
     PCT_AoE_SimpleMode = 20001,
@@ -4285,7 +4287,7 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(PCT.FireInRed)]
-    [ConflictingCombos(CombinedAetherhues, PCT_ST_SimpleMode)]
+    [ConflictingCombos(PCT_ST_SimpleMode)]
     [JobInfo(Job.PCT)]
     [AdvancedCombo]
     PCT_ST_AdvancedMode = 20005,
@@ -4396,7 +4398,7 @@ public enum Preset
 
     [ParentCombo(PCT_ST_AdvancedMode)]
     [JobInfo(Job.PCT)]
-    PCT_ST_AdvancedMode_Tempura = 20071,
+    PCT_ST_AdvancedMode_Tempera = 20071,
 
     #endregion
 
@@ -4404,7 +4406,7 @@ public enum Preset
 
     [AutoAction(true, false)]
     [ReplaceSkill(PCT.FireIIinRed)]
-    [ConflictingCombos(CombinedAetherhues, PCT_AoE_SimpleMode)]
+    [ConflictingCombos(PCT_AoE_SimpleMode)]
     [JobInfo(Job.PCT)]
     [AdvancedCombo]
     PCT_AoE_AdvancedMode = 20040,
@@ -4509,8 +4511,7 @@ public enum Preset
 
     #region Standalone Features
 
-    [ReplaceSkill(PCT.FireInRed, PCT.FireIIinRed)]
-    [ConflictingCombos(PCT_ST_SimpleMode, PCT_AoE_SimpleMode)]
+    [ReplaceSkill(PCT.BlizzardinCyan, PCT.BlizzardIIinCyan)]
     [JobInfo(Job.PCT)]
     CombinedAetherhues = 20002,
 
@@ -5504,6 +5505,21 @@ public enum Preset
     [ParentCombo(RDM_Raise)]
     [JobInfo(Job.RDM)]
     RDM_Raise_Vercure = 13407,
+    
+    [ReplaceSkill(RDM.Vercure)]
+    [JobInfo(Job.RDM)]
+    [Retargeted]
+    RDM_RetargetVercure = 13435,
+
+    [ParentCombo(RDM_RetargetVercure)]
+    [JobInfo(Job.RDM)]
+    [Retargeted(RDM.Vercure)]
+    RDM_RetargetVercure_MO = 13436,
+
+    [ParentCombo(RDM_RetargetVercure)]
+    [JobInfo(Job.RDM)]
+    [Retargeted(RDM.Vercure)]
+    RDM_RetargetVercure_LowHP = 13437,
 
     [ParentCombo(RDM_Raise)]
     [JobInfo(Job.RDM)]
@@ -5850,7 +5866,6 @@ public enum Preset
     SGE_Rhizo = 14037,
 
     [ReplaceSkill(RoleActions.Magic.Swiftcast)]
-    [ConflictingCombos(ALL_Healer_Raise)]
     [JobInfo(Job.SGE)]
     SGE_Raise = 14040,
 
@@ -6634,7 +6649,6 @@ public enum Preset
     SCH_Fairy_Combo_Consolation = 16017,
 
     [ReplaceSkill(RoleActions.Magic.Swiftcast)]
-    [ConflictingCombos(ALL_Healer_Raise)]
     [JobInfo(Job.SCH)]
     SCH_Raise = 16032,
 
@@ -6976,6 +6990,9 @@ public enum Preset
 
     [JobInfo(Job.SMN)]
     SMN_Searing = 17072,
+    
+    [JobInfo(Job.SMN)]
+    SMN_Rekindle = 17083,
     #endregion
 
     // Last Used 17080
@@ -7850,7 +7867,6 @@ public enum Preset
     #region Small Features
 
     [ReplaceSkill(RoleActions.Magic.Swiftcast)]
-    [ConflictingCombos(ALL_Healer_Raise)]
     [JobInfo(Job.WHM)]
     WHM_Raise = 19004,
 

@@ -1,7 +1,9 @@
 using Dalamud.Interface.Colors;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Localization.JobConfigs;
 using static WrathCombo.Window.Functions.UserConfig;
+using static WrathCombo.Window.Text;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class RPR
@@ -20,58 +22,61 @@ internal partial class RPR
 
                 case Preset.RPR_ST_ArcaneCircle:
                     DrawSliderInt(0, 50, RPR_ST_ArcaneCircleHPOption,
-                        "Stop using at Enemy HP %. Set to Zero to disable this check.");
+                        Generics.StopEnemyHpPercent);
 
                     ImGui.Indent();
-
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        Generics.EnemyTypeCheck);
 
                     DrawHorizontalRadioButton(RPR_ST_ArcaneCircleBossOption,
-                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
+                        Generics.NonBosses,
+                        Generics.HPCheckNonBosses, 0);
 
                     DrawHorizontalRadioButton(RPR_ST_ArcaneCircleBossOption,
-                        "All Enemies", "Applies the HP check above to all enemies.", 1);
-
+                        Generics.AllEnemies,
+                        Generics.HPCheckAllEnemies, 1);
                     ImGui.Unindent();
                     break;
 
                 case Preset.RPR_ST_AdvancedMode:
-                    DrawHorizontalRadioButton(RPR_Positional, "Rear First",
-                        $"First positional: {Gallows.ActionName()}.", 0);
+                    DrawHorizontalRadioButton(RPR_Positional,
+                        RPR_Config.RearFirst,
+                        FormatAndCache(RPR_Config.FirstPositional0, Gallows.ActionName()), 0);
 
-                    DrawHorizontalRadioButton(RPR_Positional, "Flank First",
-                        $"First positional: {Gibbet.ActionName()}.", 1);
+                    DrawHorizontalRadioButton(RPR_Positional,
+                        RPR_Config.FlankFirst,
+                        FormatAndCache(RPR_Config.FirstPositional0, Gibbet.ActionName()), 1);
                     break;
 
                 case Preset.RPR_ST_SoD:
                     DrawSliderInt(0, 10, RPR_SoDRefreshRange,
-                        $"Seconds remaining before refreshing {ShadowOfDeath.ActionName()}.\nRecommended is 6.");
+                        FormatAndCache(RPR_Config.SecondsBeforeRefreshing0, ShadowOfDeath.ActionName()));
 
                     DrawSliderInt(0, 100, RPR_SoDHPThreshold,
-                        $"Set a HP% Threshold for when {ShadowOfDeath.ActionName()} will not be automatically applied to the target.");
+                        FormatAndCache(Generics.HPPercentageFor0NotBeApplied, ShadowOfDeath.ActionName()));
                     break;
 
                 case Preset.RPR_ST_TrueNorthDynamic:
                     DrawSliderInt(0, 1, RPR_ManualTN,
-                        "How many charges to keep for manual usage.");
+                        Generics.ChargePool);
 
                     DrawAdditionalBoolChoice(RPR_ST_TrueNorthDynamicHoldCharge,
-                        "Hold True North for Gluttony Option", "Will hold the last charge of True North for use with Gluttony, even when out of position for Gibbet/Gallows.\n" +
-                                                               "If Above Slider is set to 1, it will NOT use the remaining charge for Gluttony, but for manual use.");
+                        FormatAndCache(Generics.Hold0For1, Role.TrueNorth.ActionName(), Gluttony.ActionName()),
+                        FormatAndCache(RPR_Config.WillHoldTNforGluttony, Role.TrueNorth.ActionName(), Gluttony.ActionName(), Gibbet.ActionName(), Gallows.ActionName()));
                     break;
 
                 case Preset.RPR_ST_RangedFiller:
                     DrawAdditionalBoolChoice(RPR_ST_EnhancedHarpe,
-                        "Only use with Enhanced Harpe", "Only uses Harpe while u got Enhanced Harpe buff.");
+                        FormatAndCache(Generics.OnlyUseWith0, Buffs.EnhancedHarpe.StatusName()),
+                        FormatAndCache(RPR_Config.OnlyUse0WhileUGot1, Harpe.ActionName(), Buffs.EnhancedHarpe.StatusName()));
                     break;
 
                 case Preset.RPR_ST_ComboHeals:
                     DrawSliderInt(0, 100, RPR_STSecondWindHPThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.SecondWind.ActionName()));
 
                     DrawSliderInt(0, 100, RPR_STBloodbathHPThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.Bloodbath.ActionName()));
                     break;
 
                 #endregion
@@ -80,20 +85,20 @@ internal partial class RPR
 
                 case Preset.RPR_AoE_WoD:
                     DrawSliderInt(0, 100, RPR_WoDHPThreshold,
-                        $"Set a HP% Threshold for when {WhorlOfDeath.ActionName()} will not be automatically applied to the target.");
+                        FormatAndCache(Generics.HPPercentageFor0NotBeApplied, WhorlOfDeath.ActionName()));
                     break;
 
                 case Preset.RPR_AoE_ArcaneCircle:
                     DrawSliderInt(0, 100, RPR_AoE_ArcaneCircleHPThreshold,
-                        $"Stop Using {ArcaneCircle.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)");
+                        FormatAndCache(Generics.StopUsing0WhenBelowTargetHPPercentage, ArcaneCircle.ActionName()));
                     break;
 
                 case Preset.RPR_AoE_ComboHeals:
                     DrawSliderInt(0, 100, RPR_AoESecondWindHPThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.SecondWind.ActionName()));
 
                     DrawSliderInt(0, 100, RPR_AoEBloodbathHPThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.Bloodbath.ActionName()));
                     break;
 
                 #endregion
@@ -102,26 +107,29 @@ internal partial class RPR
 
                 case Preset.RPR_ST_BasicCombo_SoD:
                     DrawSliderInt(0, 10, RPR_SoDRefreshRangeBasicCombo,
-                        $"Seconds remaining before refreshing {ShadowOfDeath.ActionName()}.");
+                        FormatAndCache(RPR_Config.SecondsBeforeRefreshing0, ShadowOfDeath.ActionName()));
                     break;
 
                 case Preset.RPR_Soulsow:
                     DrawHorizontalMultiChoice(RPR_SoulsowOptions,
-                        $"{Harpe.ActionName()}", $"Adds {Soulsow.ActionName()} to {Harpe.ActionName()}.",
-                        5, 0);
+                        FormatAndCache(RPR_Config.On0, Harpe.ActionName()),
+                        FormatAndCache(Generics.Adds0To1, Soulsow.ActionName(), Harpe.ActionName()), 5, 0);
 
                     DrawHorizontalMultiChoice(RPR_SoulsowOptions,
-                        $"{Slice.ActionName()}", $"Adds {Soulsow.ActionName()} to {Slice.ActionName()}.",
-                        5, 1);
+                        FormatAndCache(RPR_Config.On0, Slice.ActionName()),
+                        FormatAndCache(Generics.Adds0To1, Soulsow.ActionName(), Slice.ActionName()), 5, 1);
 
                     DrawHorizontalMultiChoice(RPR_SoulsowOptions,
-                        $"{SpinningScythe.ActionName()}", $"Adds {Soulsow.ActionName()} to {SpinningScythe.ActionName()}", 5, 2);
+                        FormatAndCache(RPR_Config.On0, SpinningScythe.ActionName()),
+                        FormatAndCache(Generics.Adds0To1, Soulsow.ActionName(), SpinningScythe.ActionName()), 5, 2);
 
                     DrawHorizontalMultiChoice(RPR_SoulsowOptions,
-                        $"{ShadowOfDeath.ActionName()}", $"Adds {Soulsow.ActionName()} to {ShadowOfDeath.ActionName()}.", 5, 3);
+                        FormatAndCache(RPR_Config.On0, ShadowOfDeath.ActionName()),
+                        FormatAndCache(Generics.Adds0To1, Soulsow.ActionName(), ShadowOfDeath.ActionName()), 5, 3);
 
                     DrawHorizontalMultiChoice(RPR_SoulsowOptions,
-                        $"{BloodStalk.ActionName()}", $"Adds {Soulsow.ActionName()} to {BloodStalk.ActionName()}.", 5, 4);
+                        FormatAndCache(RPR_Config.On0, BloodStalk.ActionName()),
+                        FormatAndCache(Generics.Adds0To1, Soulsow.ActionName(), BloodStalk.ActionName()), 5, 4);
                     break;
 
                 #endregion

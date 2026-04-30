@@ -15,6 +15,7 @@ using WrathCombo.Data;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
 using ObjectKind = Dalamud.Game.ClientState.Objects.Enums.ObjectKind;
+using FFXIVClientStructs.FFXIV.Client.Game.Object;
 namespace WrathCombo.CustomComboNS.Functions;
 
 internal abstract partial class CustomComboFunctions
@@ -364,30 +365,33 @@ internal abstract partial class CustomComboFunctions
     public static int NumberOfEnemiesInRange
         (uint aoeSpell, IGameObject? target = null, bool checkIgnoredList = false)
     {
+        return EnemiesInRange(aoeSpell, target, checkIgnoredList).Count();
+    }
+
+    public static IEnumerable<IGameObject> EnemiesInRange(uint aoeSpell, IGameObject? target = null, bool checkIgnoredList = false)
+    {
         if (!ActionWatching.ActionSheet.TryGetValue(aoeSpell, out var sheetSpell))
-            return 0;
+            return Enumerable.Empty<IGameObject>();
 
         if (sheetSpell.CanTargetHostile &&
             ((target ??= CurrentTarget) is null ||
              GetTargetDistance(target) > GetActionRange(sheetSpell.RowId)))
-            return 0;
+            return Enumerable.Empty<IGameObject>();
 
-        var count = sheetSpell.CastType switch
+        return sheetSpell.CastType switch
         {
-            1 => 1,
+            1 => Enumerable.Empty<IGameObject>(),
             2 => sheetSpell.CanTargetSelf
-                ? NumberOfObjectsInRange<SelfCircle>(sheetSpell.EffectRange,
+                ? ObjectsInRange<SelfCircle>(sheetSpell.EffectRange,
                     checkIgnoredList: checkIgnoredList)
-                : NumberOfObjectsInRange<Circle>(sheetSpell.EffectRange, target,
+                : ObjectsInRange<Circle>(sheetSpell.EffectRange, target,
                     checkIgnoredList: checkIgnoredList),
-            3 => NumberOfObjectsInRange<Cone>(sheetSpell.Range, target,
+            3 => ObjectsInRange<Cone>(sheetSpell.Range, target,
                 checkIgnoredList: checkIgnoredList),
-            4 => NumberOfObjectsInRange<Line>(sheetSpell.Range, target,
+            4 => ObjectsInRange<Line>(sheetSpell.Range, target,
                 sheetSpell.XAxisModifier, checkIgnoredList: checkIgnoredList),
-            _ => 0,
+            _ => Enumerable.Empty<IGameObject>(),
         };
-
-        return count;
     }
 
     /// <summary>
@@ -740,32 +744,44 @@ internal abstract partial class CustomComboFunctions
         bool checkInvincible = true)
         where T : IAoeShape
     {
+        return ObjectsInRange<T>(size, target, width, checkIgnoredList, enemies, checkInvincible).Count();
+    }
+
+    internal static IEnumerable<IGameObject> ObjectsInRange<T>
+    (float size,
+        IGameObject? target = null,
+        float width = 0f,
+        bool checkIgnoredList = false,
+        bool enemies = true,
+        bool checkInvincible = true)
+        where T : IAoeShape
+    {
         // Bail if the player is not available
         if (LocalPlayer is not { } player)
-            return 0;
+            return Enumerable.Empty<IGameObject>();
 
         // Bail if the target is required and not available
         if (typeof(T) != typeof(SelfCircle) && (target ??= CurrentTarget) is null)
-            return 0;
+            return Enumerable.Empty<IGameObject>();
 
         // Get all possible enemies to search for the positions of
-        var targets = Svc.Objects.Where(IsValidTarget);
+        var targets = Svc.Objects.Where(x => IsValidTarget(x, enemies, checkInvincible, checkIgnoredList));
 
         // Circle AoEs positioned on self
         if (typeof(T) == typeof(SelfCircle))
-            return targets.Count(o =>
+            return targets.Where(o =>
                 PointInCircle(o.Position - player.Position,
                     size + o.HitboxRadius));
 
         // Circle AoEs centered on a target
         if (typeof(T) == typeof(Circle))
-            return targets.Count(o =>
+            return targets.Where(o =>
                 PointInCircle(o.Position - target.Position,
                     size + o.HitboxRadius));
 
         // Cone AoEs
         if (typeof(T) == typeof(Cone))
-            return targets.Count(o =>
+            return targets.Where(o =>
                 GetTargetDistance(o) <= size &&
                 PointInCone(o.Position - player.Position,
                     PositionalMath.GetDirection(player.Position, target.Position),
@@ -773,33 +789,33 @@ internal abstract partial class CustomComboFunctions
 
         // Line AoEs
         if (typeof(T) == typeof(Line))
-            return targets.Count(o =>
+            return targets.Where(o =>
                 GetTargetDistance(o) <= size &&
                 HitboxInRect(o,
                     PositionalMath.GetRotation(player.Position, target.Position),
                     size * 0.5f, width * 0.5f));
 
         // If it was not a supported type
-        return 0;
+        return Enumerable.Empty<IGameObject>();
+    }
 
-        bool IsValidTarget(IGameObject o)
-        {
-            if (!enemies)
-                return o is IBattleChara &&
-                       o.IsTargetable &&
-                       o.IsWithinRange(60f) &&
-                       o.IsFriendly() &&
-                       IsInLineOfSight(o);
-
-            return o is { ObjectKind: ObjectKind.BattleNpc, IsTargetable: true } &&
+    static bool IsValidTarget(IGameObject o, bool enemies, bool checkInvincible, bool checkIgnoredList)
+    {
+        if (!enemies)
+            return o is IBattleChara &&
+                   o.IsTargetable &&
                    o.IsWithinRange(60f) &&
-                   o.IsHostile() &&
-                   (!checkInvincible ||
-                    !TargetIsInvincible(o)) &&
-                   (!checkIgnoredList ||
-                    !Service.Configuration.IgnoredNPCs.ContainsKey(o.BaseId)) &&
+                   o.IsFriendly() &&
                    IsInLineOfSight(o);
-        }
+
+        return o is { ObjectKind: ObjectKind.BattleNpc, IsTargetable: true } &&
+               o.IsWithinRange(60f) &&
+               o.IsHostile() &&
+               (!checkInvincible ||
+                !TargetIsInvincible(o)) &&
+               (!checkIgnoredList ||
+                !Service.Configuration.IgnoredNPCs.ContainsKey(o.BaseId)) &&
+               IsInLineOfSight(o);
     }
 
     public static bool TargetInSelfCircle(IGameObject? target, float size)

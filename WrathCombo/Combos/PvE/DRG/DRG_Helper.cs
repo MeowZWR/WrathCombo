@@ -155,7 +155,7 @@ internal partial class DRG
         return ActionReady(Geirskogul) &&
                InActionRange(Geirskogul) &&
                HasBattleTarget() &&
-               !LoTDActive &&
+               !LoTDTimerActive &&
                GetTargetHPPercent() > hpThreshold;
     }
 
@@ -217,6 +217,12 @@ internal partial class DRG
                     if ((simpleMode || IsEnabled(Preset.DRG_ST_RangedUptime)) &&
                         ActionReady(PiercingTalon))
                         return PiercingTalon;
+
+                    return simpleMode switch
+                    {
+                        true => BasicCombo(actionId, true),
+                        false => BasicCombo(actionId, IsEnabled(Preset.DRG_TrueNorthDynamic))
+                    };
                 }
                 break;
             }
@@ -270,6 +276,12 @@ internal partial class DRG
                     if ((simpleMode || IsEnabled(Preset.DRG_AoE_RangedUptime)) &&
                         ActionReady(PiercingTalon) && !CanDRGWeave())
                         return PiercingTalon;
+
+                    return simpleMode switch
+                    {
+                        true => BasicCombo(actionId, isAoE: true, simpleAoE: true),
+                        false => BasicCombo(actionId, isAoE: true)
+                    };
                 }
                 break;
             }
@@ -282,16 +294,31 @@ internal partial class DRG
 
     #region Misc
 
+    private static float GCD =>
+        GetCooldown(OriginalHook(TrueThrust)).CooldownTotal;
+
     private static IStatus? ChaosDebuff =>
         GetStatusEffect(ChaoticList[OriginalHook(ChaosThrust)], CurrentTarget);
 
-    private static int HPThresholdBattleLitany =>
+    private static bool CanLanceCharge =>
+        ActionReady(LanceCharge) && HasBattleTarget() &&
+        (IsOnCooldown(BattleLitany) || !LevelChecked(BattleLitany));
+
+    #endregion
+
+    #region HP Thresholds
+
+    private static int HPThresholdSTBattleLitany =>
         DRG_ST_BattleLitanyBossOption == 1 ||
         !InBossEncounter() ? DRG_ST_BattleLitanyHPOption : 0;
 
-    private static int HPThresholdLanceCharge =>
+    private static int HPThresholdSTLanceCharge =>
         DRG_ST_LanceChargeBossOption == 1 ||
         !InBossEncounter() ? DRG_ST_LanceChargeHPOption : 0;
+
+    private static int HPThresholdSTDragonfireDive =>
+        DRG_ST_DragonfireDiveBossOption == 1 ||
+        !InBossEncounter() ? DRG_ST_DragonfireDiveHPOption : 0;
 
     #endregion
 
@@ -349,7 +376,7 @@ internal partial class DRG
 
         public override Preset Preset => Preset.DRG_ST_Opener;
 
-        internal override UserData ContentCheckConfig => DRG_Balance_Content;
+        internal override UserData ContentCheckConfig => DRG_BalanceContent;
 
         public override bool HasCooldowns() =>
             GetRemainingCharges(LifeSurge) is 2 &&
@@ -394,7 +421,7 @@ internal partial class DRG
         ];
 
         public override Preset Preset => Preset.DRG_ST_Opener;
-        internal override UserData ContentCheckConfig => DRG_Balance_Content;
+        internal override UserData ContentCheckConfig => DRG_BalanceContent;
 
         public override bool HasCooldowns() =>
             GetRemainingCharges(LifeSurge) is 2 &&
@@ -411,7 +438,11 @@ internal partial class DRG
 
     private static bool LoTDActive => Gauge.IsLOTDActive;
 
+    private static short LoTDTimer => Gauge.LOTDTimer;
+
     private static byte FirstmindsFocus => Gauge.FirstmindsFocusCount;
+
+    private static bool LoTDTimerActive => LoTDTimer > 0;
 
     private static readonly FrozenDictionary<uint, ushort> ChaoticList = new Dictionary<uint, ushort>
     {
@@ -467,6 +498,7 @@ internal partial class DRG
             RaidenThrustReady = 1863,
             PowerSurge = 2720,
             LifeSurge = 116,
+            LifeOfTheDragon = 3177, // Do not use, for translation only
             DraconianFire = 1863,
             NastrondReady = 3844,
             StarcrossReady = 3846,

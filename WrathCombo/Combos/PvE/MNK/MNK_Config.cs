@@ -1,7 +1,9 @@
 using Dalamud.Interface.Colors;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Localization.JobConfigs;
 using static WrathCombo.Window.Functions.UserConfig;
+using static WrathCombo.Window.Text;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class MNK
@@ -16,90 +18,93 @@ internal partial class MNK
 
                 case Preset.MNK_STUseOpener:
                     DrawHorizontalRadioButton(MNK_SelectedOpener,
-                        "Double Lunar", "Uses Lunar/Lunar opener.", 0);
+                        MNK_Config.DoubleLunarOpener,
+                        MNK_Config.DoubleLunarOpenerDesc, 0);
 
                     DrawHorizontalRadioButton(MNK_SelectedOpener,
-                        "Solar Lunar", "Uses Solar/Lunar opener.", 1);
+                        MNK_Config.SolarLunarOpener,
+                        MNK_Config.SolarLunarOpenerDesc, 1);
                     ImGui.NewLine();
 
                     DrawHorizontalRadioButton(MNK_OpenerCountdown,
-                        "Only with countdown", "Only use the opener when a countdown is active.", 0);
+                        Generics.OnlyWithCountdown,
+                        Generics.OnlyUseOpenerWhenCountdownActive, 0);
 
                     DrawHorizontalRadioButton(MNK_OpenerCountdown,
-                        "Always", "Always use opener.", 1);
+                        Generics.Always,
+                        Generics.UseAlways, 1);
 
-                    ImGui.NewLine();
                     DrawBossOnlyChoice(MNK_Balance_Content);
                     break;
 
                 case Preset.MNK_STUseBrotherhood:
 
                     DrawSliderInt(0, 50, MNK_ST_BHHPThreshold,
-                        "Stop using at Enemy HP %. Set to Zero to disable this check.");
+                        Generics.StopEnemyHpPercent);
 
                     ImGui.Indent();
-
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        Generics.EnemyTypeCheck);
 
                     DrawHorizontalRadioButton(MNK_ST_BHBossOption,
-                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
+                        Generics.NonBosses,
+                        Generics.HPCheckNonBosses, 0);
 
                     DrawHorizontalRadioButton(MNK_ST_BHBossOption,
-                        "All Enemies", "Applies the HP check above to all enemies.", 1);
-
+                        Generics.AllEnemies,
+                        Generics.HPCheckAllEnemies, 1);
                     ImGui.Unindent();
                     break;
 
                 case Preset.MNK_STUseROF:
 
                     DrawSliderInt(0, 50, MNK_ST_RoFHPThreshold,
-                        "Stop using at Enemy HP %. Set to Zero to disable this check.");
+                        Generics.StopEnemyHpPercent);
 
                     ImGui.Indent();
-
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        Generics.EnemyTypeCheck);
 
                     DrawHorizontalRadioButton(MNK_ST_RoFBossOption,
-                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
+                        Generics.NonBosses,
+                        Generics.HPCheckNonBosses, 0);
 
                     DrawHorizontalRadioButton(MNK_ST_RoFBossOption,
-                        "All Enemies", "Applies the HP check above to all enemies.", 1);
-
+                        Generics.AllEnemies,
+                        Generics.HPCheckAllEnemies, 1);
                     ImGui.Unindent();
                     break;
 
                 case Preset.MNK_STUseROW:
 
                     DrawSliderInt(0, 50, MNK_ST_RoWHPThreshold,
-                        "Stop using at Enemy HP %. Set to Zero to disable this check.");
+                        Generics.StopEnemyHpPercent);
 
                     ImGui.Indent();
-
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        Generics.EnemyTypeCheck);
 
                     DrawHorizontalRadioButton(MNK_ST_RoWBossOption,
-                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
+                        Generics.NonBosses,
+                        Generics.HPCheckNonBosses, 0);
 
                     DrawHorizontalRadioButton(MNK_ST_RoWBossOption,
-                        "All Enemies", "Applies the HP check above to all enemies.", 1);
-
+                        Generics.AllEnemies,
+                        Generics.HPCheckAllEnemies, 1);
                     ImGui.Unindent();
                     break;
 
                 case Preset.MNK_STUseTrueNorth:
                     DrawSliderInt(0, 1, MNK_ManualTN,
-                        "How many charges to keep for manual usage.");
+                        Generics.ChargePool);
                     break;
 
                 case Preset.MNK_ST_ComboHeals:
                     DrawSliderInt(0, 100, MNK_ST_SecondWindHPThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.SecondWind.ActionName()));
 
                     DrawSliderInt(0, 100, MNK_ST_BloodbathHPThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.Bloodbath.ActionName()));
                     break;
 
                 #endregion
@@ -108,30 +113,31 @@ internal partial class MNK
 
                 case Preset.MNK_AoEUseBuffs:
                     DrawSliderInt(0, 100, MNK_AoE_BuffsHPThreshold,
-                        "Stop Using Buffs When Target HP% is at or Below (Set to 0 to Disable This Check)");
+                        Generics.StopUsingWhenBelowTargetHPPercent);
                     break;
 
                 case Preset.MNK_AoEUsePerfectBalance:
                     DrawSliderInt(0, 100, MNK_AoE_PerfectBalanceHPThreshold,
-                        $"Stop Using {PerfectBalance.ActionName()} When Target HP% is at or Below (Set to 0 to Disable This Check)");
+                        FormatAndCache(Generics.StopUsing0WhenBelowTargetHPPercentage, PerfectBalance.ActionName()));
                     break;
 
                 case Preset.MNK_AoE_ComboHeals:
                     DrawSliderInt(0, 100, MNK_AoE_SecondWindHPThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.SecondWind.ActionName()));
 
                     DrawSliderInt(0, 100, MNK_AoE_BloodbathHPThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.Bloodbath.ActionName()));
                     break;
 
                 case Preset.MNK_ST_UseRoE:
                     DrawAdditionalBoolChoice(MNK_ST_EarthsReply,
-                        $"Add {EarthsReply.ActionName()}", $"Add {EarthsReply.ActionName()} to the rotation.");
+                        FormatAndCache(Generics.Add0, EarthsReply.ActionName()),
+                        FormatAndCache(Generics.Add0ToTheRotation, EarthsReply.ActionName()));
 
                     if (MNK_ST_EarthsReply)
                     {
                         DrawSliderInt(0, 100, MNK_ST_EarthsReplyHPThreshold,
-                            $"Add {EarthsReply.ActionName()} when average HP% of the party is at or below.");
+                            FormatAndCache(Generics.Add0WhenAverageHpPercentofPartyIsAtOrBelow, EarthsReply.ActionName()));
                     }
                     break;
 
@@ -141,26 +147,32 @@ internal partial class MNK
 
                 case Preset.MNK_Brotherhood_Riddle:
                     DrawRadioButton(MNK_BH_RoF,
-                        $"Replaces {Brotherhood.ActionName()}", $"Replaces {Brotherhood.ActionName()} with {RiddleOfFire.ActionName()} when {Brotherhood.ActionName()} is on cooldown.", 0);
+                        FormatAndCache(Generics.Replaces0, Brotherhood.ActionName()),
+                        FormatAndCache(MNK_Config.Repalce0With1When2IsOnCooldown, Brotherhood.ActionName(), RiddleOfFire.ActionName(), Brotherhood.ActionName()), 0);
 
                     DrawRadioButton(MNK_BH_RoF,
-                        $"Replaces {RiddleOfFire.ActionName()}", $"Replaces {RiddleOfFire.ActionName()} with {Brotherhood.ActionName()}when {RiddleOfFire.ActionName()} is on cooldown.", 1);
+                        FormatAndCache(Generics.Replaces0, RiddleOfFire.ActionName()),
+                        FormatAndCache(MNK_Config.Repalce0With1When2IsOnCooldown, RiddleOfFire.ActionName(), Brotherhood.ActionName(), RiddleOfFire.ActionName()), 1);
                     break;
 
                 case Preset.MNK_Retarget_Thunderclap:
                     DrawAdditionalBoolChoice(MNK_Thunderclap_FieldMouseover,
-                        "Add Field Mouseover", "Add Field Mouseover targeting.");
+                        Generics.FieldMouseover,
+                        Generics.AddFieldMouseoverTargetting);
                     break;
 
                 case Preset.MNK_Basic_BeastChakras:
                     DrawHorizontalMultiChoice(MNK_BasicCombo,
-                        "Opo-opo Option", "Replace Dragon Kick with Bootshine / Leaping Opo.", 3, 0);
+                        FormatAndCache(Generics._0Option, Buffs.OpoOpoForm.StatusName()),
+                        FormatAndCache(Generics.Replace0With1Or2, DragonKick.ActionName(), Bootshine.ActionName(), LeapingOpo.ActionName()), 3, 0);
 
                     DrawHorizontalMultiChoice(MNK_BasicCombo,
-                        "Raptor Option", "Replace Twin Snakes with True Strike/Rising Raptor.", 3, 1);
+                        FormatAndCache(Generics._0Option, Buffs.RaptorForm.StatusName()),
+                        FormatAndCache(Generics.Replace0With1Or2, TwinSnakes.ActionName(), TrueStrike.ActionName(), RisingRaptor.ActionName()), 3, 1);
 
                     DrawHorizontalMultiChoice(MNK_BasicCombo,
-                        "Coeurl Option", "Replace Demolish with Snap Punch/Pouncing Coeurl.", 3, 2);
+                        FormatAndCache(Generics._0Option, Buffs.CoeurlForm.StatusName()),
+                        FormatAndCache(Generics.Replace0With1Or2, Demolish.ActionName(), SnapPunch.ActionName(), PouncingCoeurl.ActionName()), 3, 2);
                     break;
 
                   #endregion

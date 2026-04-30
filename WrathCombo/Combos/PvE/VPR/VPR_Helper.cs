@@ -200,7 +200,7 @@ internal partial class VPR
 
                     //2min burst
                     if (!JustUsed(SerpentsIre, GCD) && HasStatusEffect(Buffs.ReadyToReawaken) ||
-                        JustUsed(Ouroboros, GCD) && IreCD >= 90)
+                        JustUsed(Ouroboros, 6f) && IreCD >= 90)
                         return true;
 
                     //1min
@@ -234,41 +234,19 @@ internal partial class VPR
 
     private static uint ReawakenCombo(uint actionId)
     {
-        #region Pre Ouroboros
-
-        if (!TraitLevelChecked(Traits.EnhancedSerpentsLineage) &&
-            NoSTComboWeaves && NoAoEComboWeaves)
+        switch (Gauge.DreadCombo)
         {
-            return AnguineTribute switch
-            {
-                4 => OriginalHook(SteelFangs),
-                3 => OriginalHook(ReavingFangs),
-                2 => OriginalHook(HuntersCoil),
-                1 => OriginalHook(SwiftskinsCoil),
-                var _ => actionId
-            };
+            case (DreadCombo)7:
+                return FirstGeneration;
+            case (DreadCombo)8:
+                return SecondGeneration;
+            case (DreadCombo)9:
+                return ThirdGeneration;
+            case (DreadCombo)10:
+                return FourthGeneration;
+            case 0:
+                return Ouroboros;
         }
-
-        #endregion
-
-        #region With Ouroboros
-
-        if (TraitLevelChecked(Traits.EnhancedSerpentsLineage) &&
-            NoSTComboWeaves && NoAoEComboWeaves)
-        {
-            return AnguineTribute switch
-            {
-                5 => OriginalHook(SteelFangs),
-                4 => OriginalHook(ReavingFangs),
-                3 => OriginalHook(HuntersCoil),
-                2 => OriginalHook(SwiftskinsCoil),
-                1 => OriginalHook(Reawaken),
-                var _ => actionId
-            };
-        }
-
-        #endregion
-
         return actionId;
     }
 
@@ -326,8 +304,10 @@ internal partial class VPR
 
     private static bool CanUseVicewinder =>
         ActionReady(Vicewinder) && InActionRange(Vicewinder) && InCombat() &&
-        !IsComboExpiring(4) && !IsVenomExpiring(4) && !IsHoningExpiring(4) &&
-        !UsedVicewinder && !UsedHuntersCoil && !UsedSwiftskinsCoil && !JustUsed(Vicewinder) &&
+        !IsComboExpiring(6) && !IsVenomExpiring(4) && !IsHoningExpiring(4) &&
+        !UsedVicewinder && !UsedHuntersCoil && !UsedSwiftskinsCoil &&
+        !JustUsed(SerpentsIre, GCD * 4) && !JustUsed(Vicewinder) &&
+        !JustUsed(Ouroboros) && !HasStatusEffect(Buffs.Reawakened) &&
         (IreCD >= GCD * 3 && InBossEncounter() || !InBossEncounter() || !LevelChecked(SerpentsIre));
 
     private static bool CanUseUncoiledFury(bool isAoE = false)
@@ -489,8 +469,6 @@ internal partial class VPR
     private static byte RattlingCoilStacks => Gauge.RattlingCoilStacks;
 
     private static byte SerpentOffering => Gauge.SerpentOffering;
-
-    private static byte AnguineTribute => Gauge.AnguineTribute;
 
     private static DreadCombo DreadCombo => Gauge.DreadCombo;
 

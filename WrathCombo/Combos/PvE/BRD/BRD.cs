@@ -133,7 +133,7 @@ internal partial class BRD : PhysicalRanged
             if (HasStatusEffect(Buffs.RadiantEncoreReady) && RadiantFinaleDuration < 16 && HasStatusEffect(Buffs.RagingStrikes))
                 return OriginalHook(RadiantEncore);
 
-            if (HasStatusEffect(Buffs.HawksEye) && ActionReady(WideVolley))
+            if (HasStatusEffect(Buffs.HawksEye) && ActionReady(OriginalHook(WideVolley)))
                 return NumberOfEnemiesInRange(OriginalHook(WideVolley)) >= 2
                     ? OriginalHook(WideVolley)
                     : OriginalHook(StraightShot);
@@ -252,7 +252,7 @@ internal partial class BRD : PhysicalRanged
                 if (Role.CanHeadGraze(true, WeaveTypes.DelayWeave))
                     return Role.HeadGraze;
 
-                if (ActionReady(Bloodletter) && UsePooledBloodRain())
+                if (ActionReady(OriginalHook(Bloodletter)) && UsePooledBloodRain())
                     return OriginalHook(Bloodletter);
 
                 if (Role.CanSecondWind(40))
@@ -489,7 +489,7 @@ internal partial class BRD : PhysicalRanged
                     return ResonantArrow;
             }
 
-            if (HasStatusEffect(Buffs.HawksEye) && ActionReady(WideVolley))
+            if (HasStatusEffect(Buffs.HawksEye) && ActionReady(OriginalHook(WideVolley)))
                 return NumberOfEnemiesInRange(OriginalHook(WideVolley)) >= 2
                     ? OriginalHook(WideVolley)
                     : OriginalHook(StraightShot);
@@ -637,7 +637,7 @@ internal partial class BRD : PhysicalRanged
                 if (Role.CanHeadGraze(Preset.BRD_Adv_Interrupt, WeaveTypes.DelayWeave))
                     return Role.HeadGraze;
 
-                if (ActionReady(Bloodletter) &&
+                if (ActionReady(OriginalHook(Bloodletter)) &&
                     (IsEnabled(Preset.BRD_Adv_Pooling) && UsePooledBloodRain() || !IsEnabled(Preset.BRD_Adv_Pooling)))
                     return OriginalHook(Bloodletter);
 
@@ -766,7 +766,7 @@ internal partial class BRD : PhysicalRanged
                 if (ActionReady(Sidewinder) && BRD_StraightShotUpgrade_OGCDs_Options[3])
                     return Sidewinder;
 
-                if (ActionReady(Bloodletter) && BRD_StraightShotUpgrade_OGCDs_Options[2] &&
+                if (ActionReady(OriginalHook(Bloodletter)) && BRD_StraightShotUpgrade_OGCDs_Options[2] &&
                     (BloodletterCharges == 3 && TraitLevelChecked(Traits.EnhancedBloodletter) ||
                     BloodletterCharges == 2 && !TraitLevelChecked(Traits.EnhancedBloodletter)))
                     return OriginalHook(Bloodletter);
@@ -779,11 +779,11 @@ internal partial class BRD : PhysicalRanged
                     (PurpleRemaining < 4 || BlueRemaining < 4))
                     return IronJaws;
                 
-                if (ActionReady(Windbite) && DebuffCapCanBlue && 
+                if (ActionReady(OriginalHook(Windbite)) && DebuffCapCanBlue && 
                     (Blue is null || !CanIronJaws && BlueRemaining < 4))
                     return OriginalHook(Windbite);
                 
-                if (ActionReady(VenomousBite) && DebuffCapCanPurple &&
+                if (ActionReady(OriginalHook(VenomousBite)) && DebuffCapCanPurple &&
                     (Purple is null || !CanIronJaws && PurpleRemaining < 4))
                     return OriginalHook(VenomousBite);
             }
@@ -806,11 +806,11 @@ internal partial class BRD : PhysicalRanged
                 (PurpleRemaining < 4 || BlueRemaining < 4))
                 return IronJaws;
             
-            if (ActionReady(Windbite) && DebuffCapCanBlue && 
+            if (ActionReady(OriginalHook(Windbite)) && DebuffCapCanBlue && 
                 (Blue is null || !CanIronJaws && BlueRemaining < 4))
                 return OriginalHook(Windbite);
             
-            if (ActionReady(VenomousBite) && DebuffCapCanPurple &&
+            if (ActionReady(OriginalHook(VenomousBite)) && DebuffCapCanPurple &&
                 (Purple is null || !CanIronJaws && PurpleRemaining < 4))
                 return OriginalHook(VenomousBite);
 
@@ -976,7 +976,7 @@ internal partial class BRD : PhysicalRanged
             if (ActionReady(Sidewinder))
                 return Sidewinder;
 
-            if (ActionReady(Bloodletter))
+            if (ActionReady(OriginalHook(Bloodletter)))
                 return OriginalHook(Bloodletter);
 
             return actionID;
@@ -1002,7 +1002,7 @@ internal partial class BRD : PhysicalRanged
                 if (ActionReady(Sidewinder) && BRD_WideVolleyUpgrade_OGCDs_Options[3])
                     return Sidewinder;
 
-                if (ActionReady(Bloodletter) && BRD_WideVolleyUpgrade_OGCDs_Options[2] &&
+                if (ActionReady(OriginalHook(Bloodletter)) && BRD_WideVolleyUpgrade_OGCDs_Options[2] &&
                     (BloodletterCharges == 3 && TraitLevelChecked(Traits.EnhancedBloodletter) ||
                      BloodletterCharges == 2 && !TraitLevelChecked(Traits.EnhancedBloodletter)))
                     return LevelChecked(RainOfDeath)
@@ -1055,13 +1055,13 @@ internal partial class BRD : PhysicalRanged
             if (actionID is not WanderersMinuet)
                 return actionID;
 
-            if (ActionReady(WanderersMinuet) || gauge.Song == Song.Wanderer && SongTimerInSeconds > 11)
+            if (ActionReady(WanderersMinuet) || gauge.Song == Song.WanderersMinuet && SongTimerInSeconds > 11)
                 return WanderersMinuet;
 
-            if (ActionReady(MagesBallad) || gauge.Song == Song.Mage && SongTimerInSeconds > 2)
+            if (ActionReady(MagesBallad) || gauge.Song == Song.MagesBallad && SongTimerInSeconds > 2)
                 return MagesBallad;
 
-            if (ActionReady(ArmysPaeon) || gauge.Song == Song.Army && SongTimerInSeconds > 2)
+            if (ActionReady(ArmysPaeon) || gauge.Song == Song.ArmysPaeon && SongTimerInSeconds > 2)
                 return ArmysPaeon;
 
             return actionID;

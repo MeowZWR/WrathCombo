@@ -37,9 +37,9 @@ internal partial class BRD
     internal static BRDGauge? gauge = GetJobGauge<BRDGauge>();
     internal static int SongTimerInSeconds => gauge.SongTimer / 1000;
     internal static bool SongNone => gauge.Song == Song.None;
-    internal static bool SongWanderer => gauge.Song == Song.Wanderer;
-    internal static bool SongMage => gauge.Song == Song.Mage;
-    internal static bool SongArmy => gauge.Song == Song.Army;
+    internal static bool SongWanderer => gauge.Song == Song.WanderersMinuet;
+    internal static bool SongMage => gauge.Song == Song.MagesBallad;
+    internal static bool SongArmy => gauge.Song == Song.ArmysPaeon;
     //Dot Management
     internal static IStatus? Purple => GetStatusEffect(Debuffs.CausticBite, CurrentTarget) ?? GetStatusEffect(Debuffs.VenomousBite, CurrentTarget);
     internal static IStatus? Blue => GetStatusEffect(Debuffs.Stormbite, CurrentTarget) ?? GetStatusEffect(Debuffs.Windbite, CurrentTarget);
@@ -69,7 +69,7 @@ internal partial class BRD
 
     // Charge Tracking
     internal static uint RainOfDeathCharges => LevelChecked(RainOfDeath) ? GetRemainingCharges(RainOfDeath) : 0;
-    internal static uint BloodletterCharges => GetRemainingCharges(Bloodletter);
+    internal static uint BloodletterCharges => GetRemainingCharges(OriginalHook(Bloodletter));
     #endregion
 
     #region Functions
@@ -131,12 +131,12 @@ internal partial class BRD
         //Blue dot application and low level refresh
         internal static bool ApplyBlueDot()
         {
-            return ActionReady(Windbite) && DebuffCapCanBlue && (Blue is null || !CanIronJaws && BlueRemaining < computeRefresh());
+            return ActionReady(OriginalHook(Windbite)) && DebuffCapCanBlue && (Blue is null || !CanIronJaws && BlueRemaining < computeRefresh());
         }
         //Purple dot application and low level refresh
         internal static bool ApplyPurpleDot()
         {
-            return ActionReady(VenomousBite) && DebuffCapCanPurple && (Purple is null || !CanIronJaws && PurpleRemaining < computeRefresh());
+            return ActionReady(OriginalHook(VenomousBite)) && DebuffCapCanPurple && (Purple is null || !CanIronJaws && PurpleRemaining < computeRefresh());
         }
         //Raging jaws option dot refresh for snapshot
         internal static bool RagingJawsRefresh()

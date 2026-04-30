@@ -1,5 +1,7 @@
 ﻿using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Game.ClientState.Objects.Types;
+using Dalamud.Game.Gui.Toast;
+using ECommons;
 using ECommons.DalamudServices;
 using ECommons.GameFunctions;
 using ECommons.GameHelpers;
@@ -8,18 +10,37 @@ using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
+using System.Speech.Synthesis;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Localization.Misc;
+using WrathCombo.Services;
 
 namespace WrathCombo.CustomComboNS.Functions;
 
 internal abstract partial class CustomComboFunctions
 {
+    public static SpeechSynthesizer? TTS;
+    static CustomComboFunctions()
+    {
+        try
+        {
+            TTS = new();
+        }
+        catch(Exception e)
+        {
+            e.LogInfo();
+        }
+    }
     private const StringComparison Lower = StringComparison.OrdinalIgnoreCase;
 
     private static readonly StringComparer Lowerer =
         StringComparer.FromComparison(Lower);
 
     private static uint? CurrentCFC => Content.ContentFinderConditionRowId;
+
+    private static List<TTSData> TTSTankbusters = [];
+    private static List<TTSData> TTSGroupwides = [];
+    private static bool CurrentRaidwideHandled = false;
 
     /// <summary>
     /// Determines whether a VFX path matches any list of VFX paths.<br/>
@@ -147,10 +168,10 @@ internal abstract partial class CustomComboFunctions
         if (AoEEffects.Count == 0)
             return false;
 
-        #if DEBUG
+#if DEBUG
         if (EzThrottler.Throttle("DebugSharedDamageEffectVFX1", 5000))
             Svc.Log.Debug($"Found Incoming Shared Damage Effects {AoEEffects.Count}");
-		#endif
+#endif
 
         // Expected Outcome from the LINQ:
         // Multi - hit on party member, Closest in your party
@@ -166,9 +187,9 @@ internal abstract partial class CustomComboFunctions
             bestTarget = AoEEffects[0].TargetID.GetObject();
         else
         {
-            #if DEBUG
+#if DEBUG
             if (Svc.Condition[ConditionFlag.DutyRecorderPlayback]) PlaybackClosest = true; //Trick to allow alliance targets during ARR recording Playback.
-            #endif
+#endif
             bestTarget = AoEEffects //Note this will fail on Player based ARR Recordings. Trust Recordings are fine
                 .Select(vfx => vfx.TargetID.GetObject())
                 .OfType<IBattleChara>()
@@ -183,12 +204,12 @@ internal abstract partial class CustomComboFunctions
         if (bestTarget is null)
             return false;
 
-        #if DEBUG
+#if DEBUG
         if (EzThrottler.Throttle("DebugSharedDamageEffectVFX2", 5000))
         {
             Svc.Log.Debug($"Found Shared Damage Effects. Name:{bestTarget.Name} MH:{MH} Party:{bestTarget.IsInParty()}");
         }
-        #endif
+#endif
 
         //return only party member object (Don't want to illegally dash to Alliance or NPCs)
         isMultiHit = MH;
@@ -222,7 +243,97 @@ internal abstract partial class CustomComboFunctions
             return false;
 
         target = battleChara;
+
         return true;
+    }
+
+    public static void PlayTankbusterAlert()
+    {
+        if (!EzThrottler.Throttle("TankbusterTTS", 100))
+            return;
+
+        QuestToastOptions opts = new() { Position = QuestToastPosition.Centre, DisplayCheckmark = false };
+        foreach (var vfx in VfxManager.TrackedEffects.FilterToTargeted().Where(x => IsTankBusterEffectPath(x) && x.TargetID.GetObject().IsInParty()))
+        {
+            if (!TTSTankbusters.Any(x => x.VFX == vfx))
+                TTSTankbusters.Add(new TTSData() { VFX = vfx });
+        }
+
+        if (TTSTankbusters.Any(x => !x.TTSHandled))
+        {
+            var targets = TTSTankbusters.Where(x => !x.TTSHandled).Select(x => x.VFX.TargetID == Player.Object.GameObjectId ? "You" : x.VFX.TargetID.GetObject()?.Name.ToString()).ToList();
+            if (Service.Configuration.TankbusterTTS)
+                TTS?.SpeakAsync(string.Format(MiscStrings.TankbusterTTS, JoinNaturally(targets)));
+            if (Service.Configuration.TankbusterToast)
+                Svc.Toasts.ShowQuest(string.Format(MiscStrings.TankbusterTTS, JoinNaturally(targets)), opts);
+
+            TTSTankbusters.ForEach(x => x.TTSHandled = true);
+        }
+
+        TTSTankbusters.RemoveAll(x => x.VFX.AgeSeconds >= 10);
+    }
+
+    public static void PlayGroupwideAlert()
+    {
+        if (!EzThrottler.Throttle("RaidwideTTS", 100))
+            return;
+
+        QuestToastOptions opts = new() { Position = QuestToastPosition.Centre, DisplayCheckmark = false };
+        foreach (var vfx in VfxManager.TrackedEffects.Where(v => v.VfxID != 0 && (CheckPath(MHSharedDmgPaths, v.Path)) || CheckPath(SharedDmgPaths, v.Path)))
+        {
+            if (!TTSGroupwides.Any(x => x.VFX == vfx))
+                TTSGroupwides.Add(new TTSData() { VFX = vfx });
+        }
+
+        if (TTSGroupwides.Any(x => !x.TTSHandled))
+        {
+            var multiHit = TTSGroupwides.Any(x => CheckPath(MHSharedDmgPaths, x.VFX.Path));
+            var targets = TTSGroupwides.Where(x => !x.TTSHandled).Select(x => x.VFX.TargetID == Player.Object.GameObjectId ? "You" : x.VFX.TargetID.GetObject()?.Name.ToString()).ToList();
+            if (Service.Configuration.AoEDamageTTS)
+                TTS?.SpeakAsync(string.Format(MiscStrings.StackTTS, (multiHit ? MiscStrings.MultiHit : ""), JoinNaturally(targets)));
+            if (Service.Configuration.AoEDamageToast)
+                Svc.Toasts.ShowQuest(string.Format(MiscStrings.StackTTS, (multiHit ? MiscStrings.MultiHit : ""), JoinNaturally(targets)), opts);
+
+            TTSGroupwides.ForEach(x => x.TTSHandled = true);
+        }
+
+        TTSGroupwides.RemoveAll(x => x.VFX.AgeSeconds >= 10);
+
+        if (RaidwideCasting())
+        {
+            if (!CurrentRaidwideHandled)
+            {
+                if (Service.Configuration.AoEDamageTTS)
+                    TTS?.SpeakAsync(MiscStrings.RaidwideTTS);
+                if (Service.Configuration.AoEDamageToast)
+                    Svc.Toasts.ShowQuest(MiscStrings.RaidwideTTS, opts);
+
+                CurrentRaidwideHandled = true;
+            }
+        }
+        else
+            CurrentRaidwideHandled = false;
+    }   
+
+    public static string JoinNaturally(IList<string?> items)
+    {
+        if (items == null || items.Count == 0)
+            return string.Empty;
+
+        if (items.Count == 1)
+            return items[0]!;
+
+        if (items.Count == 2)
+            return $"{items[0]} and {items[1]}";
+
+        return string.Join(", ", items.Take(items.Count - 1))
+               + " and " + items.Last();
+    }
+
+    private class TTSData
+    {
+        public VfxInfo VFX;
+        public bool TTSHandled;
     }
 
     /// <summary>
@@ -244,5 +355,38 @@ internal abstract partial class CustomComboFunctions
         return VfxManager.TrackedEffects
             .FilterToTarget(targetId)
             .Any(IsTankBusterEffectPath);
+    }
+    
+    /// <summary>
+    /// Checks if the specified character has an active tank buster marker on them.
+    /// </summary>
+    /// <param name="ageSeconds">The number of seconds the oldest tank buster marker has been present.</param>
+    /// <param name="targetObject">The character to check. Defaults to the local player.</param>
+    /// <seealso cref="HasIncomingTankBusterEffect(IGameObject?)"/>
+    /// <returns>true if the target has an active tank buster effect, false otherwise.</returns>
+    public static bool HasIncomingTankBusterEffect(
+        out float ageSeconds, IGameObject? targetObject = null)
+    {
+        // Default age to NaN
+        ageSeconds = float.NaN;
+        // Default to local player if none provided
+        targetObject ??= Player.Object;
+
+        if (targetObject == null)
+            return false;
+
+        ulong targetId = targetObject.GameObjectId;
+
+        var targetEffects = VfxManager.TrackedEffects
+            .FilterToTarget(targetId)
+            .Where(IsTankBusterEffectPath)
+            .ToArray();
+
+        if (targetEffects.Length == 0)
+            return false;
+
+        ageSeconds = targetEffects.Max(e => e.AgeSeconds);
+
+        return true;
     }
 }

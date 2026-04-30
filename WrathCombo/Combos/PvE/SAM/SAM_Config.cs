@@ -2,8 +2,10 @@ using ECommons.ImGuiMethods;
 using System.Numerics;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Localization.JobConfigs;
 using WrathCombo.Window.Functions;
 using static WrathCombo.Window.Functions.UserConfig;
+using static WrathCombo.Window.Text;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class SAM
@@ -20,127 +22,139 @@ internal partial class SAM
                     ImGui.Indent();
                     DrawBossOnlyChoice(SAM_Balance_Content);
                     ImGui.Unindent();
-
                     ImGuiEx.Spacing(new Vector2(0, 10));
 
                     DrawSliderInt(0, 13, SAM_Opener_PrePullDelay,
-                        $"Seconds to delay from first {MeikyoShisui.ActionName()} to next step (hover for details)", 75f.Scale());
+                        FormatAndCache(SAM_Config.SecondsDelayFromFirstStep, MeikyoShisui.ActionName()), 75f.Scale());
 
                     if (ImGui.IsItemHovered())
-                        ImGui.SetTooltip("Delay is enforced by replacing your button with Savage Blade.");
+                        ImGui.SetTooltip(FormatAndCache(SAM_Config.DelaySavageBlade, All.SavageBlade.ActionName()));
 
                     ImGuiEx.Spacing(new Vector2(0, 10));
                     ImGui.NewLine();
 
                     DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
-                        $"Include 2x {Gyoten.ActionName()}", $"Includes both usages of {Gyoten.ActionName()}", 0);
+                        FormatAndCache(SAM_Config.Include2x0, Gyoten.ActionName()),
+                        FormatAndCache(SAM_Config.IncludeBoth0, Gyoten.ActionName()), 0);
 
                     DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
-                        "Skip Both", $"Skips both usages of {Gyoten.ActionName()} in the opener.", 1);
+                        SAM_Config.SkipBoth,
+                        FormatAndCache(SAM_Config.SkipBothUsageOf0, Gyoten.ActionName()), 1);
 
                     DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
-                        "Skip First", $"Skips first usage of {Gyoten.ActionName()} in the opener, keeps the second.", 2);
+                        SAM_Config.SkipFirst,
+                        FormatAndCache(SAM_Config.SkipFirstUseOf0, Gyoten.ActionName()), 2);
 
                     DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
-                        "Skip Second", $"Skips second usage of {Gyoten.ActionName()} in the opener, keeps the first.", 3);
+                        SAM_Config.SkipSecond,
+                        FormatAndCache(SAM_Config.SkipSecondUseOf0, Gyoten.ActionName()), 3);
                     break;
 
                 case Preset.SAM_ST_CDs_UseHiganbana:
                     DrawSliderInt(0, 100, SAM_ST_HiganbanaBossOption,
-                        "Bosses Only. Stop using at Enemy HP %.");
+                        Generics.BossOnlyHpPercent);
 
                     DrawSliderInt(0, 100, SAM_ST_HiganbanaBossAddsOption,
-                        "Boss Encounter Non Bosses. Stop using at Enemy HP %.");
+                        Generics.BossEncounterNonBossHpPercent);
 
                     DrawSliderInt(0, 100, SAM_ST_HiganbanaTrashOption,
-                        "Non boss encounter. Stop using at Enemy HP %.");
+                        Generics.NonBossHpPercent);
 
                     ImGui.Indent();
                     DrawSliderInt(0, 15, SAM_ST_HiganbanaRefresh,
-                        $"Seconds remaining before reapplying {Higanbana.ActionName()}. Set to Zero to disable this check.");
+                        FormatAndCache(Generics.DoTSecondsRemainingZeroDisable, Higanbana.ActionName()));
                     ImGui.Unindent();
                     break;
 
                 case Preset.SAM_ST_CDs_Senei:
                     DrawAdditionalBoolChoice(SAM_ST_CDs_Guren,
-                        "Guren Option", $"Adds {Guren.ActionName()} to the rotation if Senei is not unlocked.");
+                        FormatAndCache(Generics._0Option, Guren.ActionName()),
+                        FormatAndCache(SAM_Config.Add0IfSeneiNotUnlocked, Guren.ActionName(), Senei.ActionName()));
                     break;
 
                 case Preset.SAM_ST_CDs_OgiNamikiri:
                     DrawAdditionalBoolChoice(SAM_ST_CDs_OgiNamikiri_Movement,
-                        "Movement Option", $"Adds {OgiNamikiri.ActionName()} and {KaeshiNamikiri.ActionName()} when you're not moving.");
+                        Generics.MovementOption,
+                        FormatAndCache(SAM_Config.Add0And1WhenNotMoving, OgiNamikiri.ActionName(), KaeshiNamikiri.ActionName()));
                     break;
 
                 case Preset.SAM_ST_Shinten:
                     DrawSliderInt(50, 85, SAM_ST_KenkiOvercapAmount,
-                        "Set the Kenki overcap amount for ST combos.");
+                        SAM_Config.KenkiOvercapAmount);
 
                     DrawSliderInt(0, 100, SAM_ST_ExecuteThreshold,
-                        "HP percent threshold to not save Kenki");
+                        SAM_Config.HPPercentKenki);
                     break;
 
                 case Preset.SAM_ST_CDs_MeikyoShisui:
                     DrawSliderInt(0, 100, SAM_ST_MeikyoExecuteThreshold,
-                        "HP percent threshold to use Meikyo on cooldown.");
+                        FormatAndCache(SAM_Config.HPPercentMeikyo, MeikyoShisui.ActionName()));
                     break;
 
 
                 case Preset.SAM_ST_GekkoCombo:
                     DrawAdditionalBoolChoice(SAM_Gekko_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        SAM_Config.KenkiOvercapProtection,
+                        SAM_Config.KenkiOvercapAmount);
 
                     if (SAM_Gekko_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Gekko_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            SAM_Config.KenkiAmount, sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case Preset.SAM_ST_KashaCombo:
                     DrawAdditionalBoolChoice(SAM_Kasha_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        SAM_Config.KenkiOvercapProtection,
+                        SAM_Config.KenkiOvercapAmount);
 
                     if (SAM_Kasha_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Kasha_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            SAM_Config.KenkiAmount, sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case Preset.SAM_ST_YukikazeCombo:
                     DrawHorizontalRadioButton(SAM_ST_YukikazeCombo_Prio,
-                        "Prio sen generation", "Will prioritise generating all 3 sens before checking buffs.", 0);
+                        SAM_Config.PrioSenGen,
+                        SAM_Config.PrioSenGenDesc, 0);
 
                     DrawHorizontalRadioButton(SAM_ST_YukikazeCombo_Prio,
-                        "Prio buff upkeep", "Will prioritise having both buffs before finishing sens.", 1);
+                        Generics.PrioBuffUpkeep,
+                        SAM_Config.PrioBuffUpkeepDesc, 1);
 
                     DrawAdditionalBoolChoice(SAM_Yukaze_Gekko,
-                        "Add Gekko Combo", "Adds Gekko combo when applicable.");
+                        FormatAndCache(Generics.Add0Combo, Gekko.ActionName()),
+                        FormatAndCache(Generics.Add0ComboWhenApplicable, Gekko.ActionName()));
 
                     DrawAdditionalBoolChoice(SAM_Yukaze_Kasha,
-                        "Add Kasha Combo", "Adds Kasha combo when applicable.");
+                        FormatAndCache(Generics.Add0Combo, Kasha.ActionName()),
+                        FormatAndCache(Generics.Add0ComboWhenApplicable, Kasha.ActionName()));
 
                     DrawAdditionalBoolChoice(SAM_Yukaze_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        SAM_Config.KenkiOvercapProtection,
+                        SAM_Config.KenkiOvercapAmount);
 
                     if (SAM_Yukaze_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Yukaze_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            SAM_Config.KenkiAmount, sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case Preset.SAM_ST_TrueNorth:
                     DrawSliderInt(0, 1, SAM_ST_ManualTN,
-                        "How many charges to keep for manual usage.");
+                        Generics.ChargePool);
                     break;
 
                 case Preset.SAM_ST_Meditate:
                     ImGui.SetCursorPosX(48f.Scale());
                     DrawSliderFloat(0, 3, SAM_ST_MeditateTimeStill,
-                        " Stationary Delay Check (in seconds):", decimals: 1);
+                        Generics.StationaryDelayCheck, decimals: 1);
                     break;
 
                 case Preset.SAM_ST_ComboHeals:
                     DrawSliderInt(0, 100, SAM_STSecondWindHPThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.SecondWind.ActionName()));
 
                     DrawSliderInt(0, 100, SAM_STBloodbathHPThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.Bloodbath.ActionName()));
                     break;
 
                 #endregion
@@ -149,36 +163,39 @@ internal partial class SAM
 
                 case Preset.SAM_AoE_Kyuten:
                     DrawSliderInt(25, 85, SAM_AoE_KenkiOvercapAmount,
-                        "Set the Kenki overcap amount for AOE combos.");
+                        SAM_Config.KenkiOvercapAmount);
                     break;
 
                 case Preset.SAM_AoE_OkaCombo:
                     DrawAdditionalBoolChoice(SAM_Oka_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        SAM_Config.KenkiOvercapProtection,
+                        SAM_Config.KenkiOvercapAmount);
 
                     if (SAM_Oka_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Oka_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            SAM_Config.KenkiAmount, sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case Preset.SAM_AoE_MangetsuCombo:
                     DrawAdditionalBoolChoice(SAM_Mangetsu_Oka,
-                        "Add Oka Combo", "Adds Oka combo when applicable.");
+                        FormatAndCache(Generics.Add0Combo, Oka.ActionName()),
+                        FormatAndCache(Generics.Add0ComboWhenApplicable, Oka.ActionName()));
 
                     DrawAdditionalBoolChoice(SAM_Mangetsu_KenkiOvercap,
-                        "Kenki Overcap Protection", "Spends Kenki when at the set value or above.");
+                        SAM_Config.KenkiOvercapProtection,
+                        SAM_Config.KenkiOvercapAmount);
 
                     if (SAM_Mangetsu_KenkiOvercap)
                         DrawSliderInt(25, 100, SAM_Mangetsu_KenkiOvercapAmount,
-                            "Kenki Amount", sliderIncrement: SliderIncrements.Fives);
+                            SAM_Config.KenkiAmount, sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case Preset.SAM_AoE_ComboHeals:
                     DrawSliderInt(0, 100, SAM_AoESecondWindHPThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.SecondWind.ActionName()));
 
                     DrawSliderInt(0, 100, SAM_AoEBloodbathHPThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.Bloodbath.ActionName()));
                     break;
 
                 #endregion
@@ -187,7 +204,8 @@ internal partial class SAM
 
                 case Preset.SAM_OgiShoha:
                     DrawAdditionalBoolChoice(SAM_OgiShohaZanshin,
-                        "Add Zanshin", "Add Zanshin when you ready.");
+                        FormatAndCache(Generics.Add0, Zanshin.ActionName()),
+                        FormatAndCache(Generics.Add0ComboWhenApplicable, Zanshin.ActionName()));
                     break;
 
                 #endregion

@@ -46,119 +46,116 @@ internal partial class PLD : Tank
                 if (TryUseMits(RotationMode.Simple, ref actionID))
                     return actionID;
             }
-
-            if (HasBattleTarget())
+        
+            // Weavables
+            if (CanWeave())
             {
-                // Weavables
-                if (CanWeave())
+                // Requiescat
+                if (ActionReady(OriginalHook(Requiescat)) && CooldownFightOrFlight > 50 &&
+                    InActionRange(OriginalHook(Requiescat)))
+                    return OriginalHook(Requiescat);
+
+                if (InMeleeRange())
                 {
-                    // Requiescat
-                    if (ActionReady(Requiescat) && CooldownFightOrFlight > 50 &&
-                        InActionRange(OriginalHook(Requiescat)))
-                        return OriginalHook(Requiescat);
-
-                    if (InMeleeRange())
+                    // Fight or Flight
+                    if (CanFightOrFlight)
                     {
-                        // Fight or Flight
-                        if (CanFightOrFlight)
+                        if (!LevelChecked(Requiescat))
                         {
-                            if (!LevelChecked(Requiescat))
+                            if (!LevelChecked(RageOfHalone))
                             {
-                                if (!LevelChecked(RageOfHalone))
-                                {
-                                    // Level 2-25
-                                    if (ComboAction is FastBlade)
-                                        return OriginalHook(FightOrFlight);
-                                }
-
-                                // Level 26-67
-                                else if (ComboAction is RiotBlade)
+                                // Level 2-25
+                                if (ComboAction is FastBlade)
                                     return OriginalHook(FightOrFlight);
                             }
 
-                            // Level 68+
-                            else if (CooldownRequiescat < 0.5f && HasRequiescatMPSimple && !HasWeaved() &&
-                                     (ComboAction is RoyalAuthority || LevelChecked(BladeOfFaith) && RoyalAuthorityCount > 0))
+                            // Level 26-67
+                            else if (ComboAction is RiotBlade)
                                 return OriginalHook(FightOrFlight);
                         }
 
-                        switch (CooldownFightOrFlight)
-                        {
-                            // Circle of Scorn / Spirits Within
-                            case > 15 when ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0:
-                                return CircleOfScorn;
-
-                            case > 15 when ActionReady(SpiritsWithin):
-                                return OriginalHook(SpiritsWithin);
-                        }
+                        // Level 68+
+                        else if (CooldownRequiescat < 0.5f && HasRequiescatMPSimple && !HasWeaved() &&
+                                 (ComboAction is RoyalAuthority || LevelChecked(BladeOfFaith) && RoyalAuthorityCount > 0))
+                            return OriginalHook(FightOrFlight);
                     }
 
-                    // Intervene
-                    if (ActionReady(Intervene) && CooldownFightOrFlight > 40 &&
-                        GetRemainingCharges(Intervene) > 0 && !JustUsed(Intervene) &&
-                        !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(2.5) &&
-                        GetTargetDistance() <= 3)
-                        return Intervene;
+                    switch (CooldownFightOrFlight)
+                    {
+                        // Circle of Scorn / Spirits Within
+                        case > 15 when ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0:
+                            return CircleOfScorn;
 
-                    // Blade of Honor
-                    if (LevelChecked(BladeOfHonor) &&
-                        OriginalHook(Requiescat) == BladeOfHonor)
-                        return OriginalHook(Requiescat);
+                        case > 15 when ActionReady(OriginalHook(SpiritsWithin)):
+                            return OriginalHook(SpiritsWithin);
+                    }
                 }
 
-                // Requiescat Phase
-                switch (HasDivineMagicMP)
-                {
-                    // Confiteor & Blades
-                    case true when HasStatusEffect(Buffs.ConfiteorReady) ||
-                                   LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor:
-                        return OriginalHook(Confiteor);
+                // Intervene
+                if (ActionReady(Intervene) && CooldownFightOrFlight > 40 &&
+                    GetRemainingCharges(Intervene) > 0 && !JustUsed(Intervene) &&
+                    !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(2.5) &&
+                    GetTargetDistance() <= 3)
+                    return Intervene;
 
-                    // Pre-Blades
-                    case true when HasRequiescat:
+                // Blade of Honor
+                if (LevelChecked(BladeOfHonor) &&
+                    OriginalHook(Requiescat) == BladeOfHonor)
+                    return OriginalHook(Requiescat);
+            }
+
+            // Requiescat Phase
+            switch (HasDivineMagicMP)
+            {
+                // Confiteor & Blades
+                case true when HasStatusEffect(Buffs.ConfiteorReady) ||
+                               LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor:
+                    return OriginalHook(Confiteor);
+
+                // Pre-Blades
+                case true when HasRequiescat:
+                    return HolySpirit;
+            }
+
+            // Goring Blade
+            if (HasStatusEffect(Buffs.GoringBladeReady) && InActionRange(GoringBlade))
+                return GoringBlade;
+
+            // Holy Spirit Prioritization
+            if (HasDivineMight && HasDivineMagicMP)
+            {
+                switch (InAtonementFinisher)
+                {
+                    // Delay Sepulchre / Prefer Sepulchre
+                    case true when CooldownFightOrFlight < 3 || DurationFightOrFlight > 3:
+
+                    // Fit in Burst
+                    case false when HasFightOrFlight && DurationFightOrFlight < 3:
                         return HolySpirit;
                 }
+            }
 
-                // Goring Blade
-                if (HasStatusEffect(Buffs.GoringBladeReady) && InActionRange(GoringBlade))
-                    return GoringBlade;
+            // Atonement: During Burst / Before Expiring / Spend Starter / Before Refreshing
+            if (InAtonementPhase && InActionRange(OriginalHook(Atonement)) &&
+                (InBurstWindow || IsAtonementExpiring || InAtonementStarter || ComboAction is RiotBlade))
+                return OriginalHook(Atonement);
 
-                // Holy Spirit Prioritization
-                if (HasDivineMight && HasDivineMagicMP)
-                {
-                    switch (InAtonementFinisher)
-                    {
-                        // Delay Sepulchre / Prefer Sepulchre
-                        case true when CooldownFightOrFlight < 3 || DurationFightOrFlight > 3:
+            // Holy Spirit: During Burst / Before Expiring / Outside Melee / Before Refreshing
+            if (HasDivineMight && HasDivineMagicMP && IsAboveMPReserveST &&
+                (InBurstWindow || IsDivineMightExpiring || !InActionRange(OriginalHook(Atonement)) || ComboAction is RiotBlade))
+                return HolySpirit;
 
-                        // Fit in Burst
-                        case false when HasFightOrFlight && DurationFightOrFlight < 3:
-                            return HolySpirit;
-                    }
-                }
-
-                // Atonement: During Burst / Before Expiring / Spend Starter / Before Refreshing
-                if (InAtonementPhase && InActionRange(OriginalHook(Atonement)) &&
-                    (InBurstWindow || IsAtonementExpiring || InAtonementStarter || ComboAction is RiotBlade))
-                    return OriginalHook(Atonement);
-
-                // Holy Spirit: During Burst / Before Expiring / Outside Melee / Before Refreshing
-                if (HasDivineMight && HasDivineMagicMP && IsAboveMPReserveST &&
-                    (InBurstWindow || IsDivineMightExpiring || !InActionRange(OriginalHook(Atonement)) || ComboAction is RiotBlade))
+            // Out of Range
+            if (!InMeleeRange())
+            {
+                // Holy Spirit (Not Moving)
+                if (HasDivineMagicMP && LevelChecked(HolySpirit) &&
+                    TimeMoving.Ticks == 0)
                     return HolySpirit;
 
-                // Out of Range
-                if (!InMeleeRange())
-                {
-                    // Holy Spirit (Not Moving)
-                    if (HasDivineMagicMP && LevelChecked(HolySpirit) &&
-                        TimeMoving.Ticks == 0)
-                        return HolySpirit;
-
-                    // Shield Lob
-                    if (LevelChecked(ShieldLob))
-                        return ShieldLob;
-                }
+                // Shield Lob
+                if (LevelChecked(ShieldLob))
+                    return ShieldLob;
             }
 
             // Basic Combo
@@ -209,50 +206,47 @@ internal partial class PLD : Tank
                 if (TryUseMits(RotationMode.Simple, ref actionID))
                     return actionID;
             }
-
-            if (HasBattleTarget())
+            
+            // Weavables
+            if (CanWeave())
             {
-                // Weavables
-                if (CanWeave())
+                // Requiescat
+                if (ActionReady(OriginalHook(Requiescat)) && CooldownFightOrFlight > 50 && InActionRange(OriginalHook(Requiescat)))
+                    return OriginalHook(Requiescat);
+
+                if (InMeleeRange())
                 {
-                    // Requiescat
-                    if (ActionReady(Requiescat) && CooldownFightOrFlight > 50 && InActionRange(OriginalHook(Requiescat)))
-                        return OriginalHook(Requiescat);
+                    // Fight or Flight
+                    if (CanFightOrFlight &&
+                        (!LevelChecked(Requiescat) || CooldownRequiescat < 0.5f && HasRequiescatMPSimple && !HasWeaved()))
+                        return OriginalHook(FightOrFlight);
 
-                    if (InMeleeRange())
+                    // Circle of Scorn / Spirits Within
+                    switch (CooldownFightOrFlight)
                     {
-                        // Fight or Flight
-                        if (CanFightOrFlight &&
-                            (!LevelChecked(Requiescat) || CooldownRequiescat < 0.5f && HasRequiescatMPSimple && !HasWeaved()))
-                            return OriginalHook(FightOrFlight);
+                        case > 15 when ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0:
+                            return CircleOfScorn;
 
-                        // Circle of Scorn / Spirits Within
-                        switch (CooldownFightOrFlight)
-                        {
-                            case > 15 when ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0:
-                                return CircleOfScorn;
-
-                            case > 15 when ActionReady(SpiritsWithin):
-                                return OriginalHook(SpiritsWithin);
-                        }
+                        case > 15 when ActionReady(OriginalHook(SpiritsWithin)):
+                            return OriginalHook(SpiritsWithin);
                     }
-
-                    // Intervene
-                    if (ActionReady(Intervene) && CooldownFightOrFlight > 40 &&
-                        GetRemainingCharges(Intervene) > 0 && !JustUsed(Intervene) &&
-                        (PLD_AoE_Intervene_Movement == 1 ||
-                         PLD_AoE_Intervene_Movement == 0 && !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(2.5)) &&
-                        GetTargetDistance() <= 3)
-                        return Intervene;
-
-                    // Blade of Honor
-                    if (LevelChecked(BladeOfHonor) && OriginalHook(Requiescat) == BladeOfHonor)
-                        return OriginalHook(Requiescat);
                 }
-                // Confiteor & Blades
-                if (HasDivineMagicMP && (HasStatusEffect(Buffs.ConfiteorReady) || LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor))
-                    return OriginalHook(Confiteor);
+
+                // Intervene
+                if (ActionReady(Intervene) && CooldownFightOrFlight > 40 &&
+                    GetRemainingCharges(Intervene) > 0 && !JustUsed(Intervene) &&
+                    (PLD_AoE_Intervene_Movement == 1 ||
+                     PLD_AoE_Intervene_Movement == 0 && !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(2.5)) &&
+                    GetTargetDistance() <= 3)
+                    return Intervene;
+
+                // Blade of Honor
+                if (LevelChecked(BladeOfHonor) && OriginalHook(Requiescat) == BladeOfHonor)
+                    return OriginalHook(Requiescat);
             }
+            // Confiteor & Blades
+            if (HasDivineMagicMP && (HasStatusEffect(Buffs.ConfiteorReady) || LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor))
+                return OriginalHook(Confiteor);
 
             // Holy Circle
             if (LevelChecked(HolyCircle) && HasDivineMagicMP &&
@@ -311,135 +305,132 @@ internal partial class PLD : Tank
                 if (TryUseMits(RotationMode.Advanced, ref actionID))
                     return actionID;
             }
-
-            if (HasBattleTarget())
+        
+            // Weavables
+            if (CanWeave())
             {
-                // Weavables
-                if (CanWeave())
+                // Requiescat
+                if (IsEnabled(Preset.PLD_ST_AdvancedMode_Requiescat) &&
+                    ActionReady(OriginalHook(Requiescat)) && CooldownFightOrFlight > 50 && InActionRange(OriginalHook(Requiescat)))
+                    return OriginalHook(Requiescat);
+                if (InMeleeRange())
                 {
-                    // Requiescat
-                    if (IsEnabled(Preset.PLD_ST_AdvancedMode_Requiescat) &&
-                        ActionReady(Requiescat) && CooldownFightOrFlight > 50 && InActionRange(OriginalHook(Requiescat)))
-                        return OriginalHook(Requiescat);
-                    if (InMeleeRange())
+                    // Fight or Flight
+                    if (IsEnabled(Preset.PLD_ST_AdvancedMode_FoF) &&
+                        CanFightOrFlight && GetTargetHPPercent() > HPThresholdFoF)
                     {
-                        // Fight or Flight
-                        if (IsEnabled(Preset.PLD_ST_AdvancedMode_FoF) &&
-                            CanFightOrFlight && GetTargetHPPercent() > HPThresholdFoF)
+                        if (!LevelChecked(Requiescat))
                         {
-                            if (!LevelChecked(Requiescat))
+                            if (!LevelChecked(RageOfHalone))
                             {
-                                if (!LevelChecked(RageOfHalone))
-                                {
-                                    // Level 2-25
-                                    if (ComboAction is FastBlade)
-                                        return OriginalHook(FightOrFlight);
-                                }
-
-                                // Level 26-67
-                                else if (ComboAction is RiotBlade)
+                                // Level 2-25
+                                if (ComboAction is FastBlade)
                                     return OriginalHook(FightOrFlight);
                             }
 
-                            // Level 68+
-                            else if (CooldownRequiescat < 0.5f && HasRequiescatMPAdv && !HasWeaved() &&
-                                     (ComboAction is RoyalAuthority || LevelChecked(BladeOfFaith) && RoyalAuthorityCount > 0))
+                            // Level 26-67
+                            else if (ComboAction is RiotBlade)
                                 return OriginalHook(FightOrFlight);
                         }
 
-                        switch (CooldownFightOrFlight)
-                        {
-                            // Circle of Scorn / Spirits Within
-                            case > 15 when IsEnabled(Preset.PLD_ST_AdvancedMode_CircleOfScorn) &&
-                                           ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0:
-                                return CircleOfScorn;
-
-                            case > 15 when IsEnabled(Preset.PLD_ST_AdvancedMode_SpiritsWithin) &&
-                                           ActionReady(SpiritsWithin):
-                                return OriginalHook(SpiritsWithin);
-                        }
+                        // Level 68+
+                        else if (CooldownRequiescat < 0.5f && HasRequiescatMPAdv && !HasWeaved() &&
+                                 (ComboAction is RoyalAuthority || LevelChecked(BladeOfFaith) && RoyalAuthorityCount > 0))
+                            return OriginalHook(FightOrFlight);
                     }
 
-                    // Intervene
-                    if (IsEnabled(Preset.PLD_ST_AdvancedMode_Intervene) &&
-                        ActionReady(Intervene) && CooldownFightOrFlight > 40 &&
-                        GetRemainingCharges(Intervene) > PLD_ST_Intervene_Charges && !JustUsed(Intervene) &&
-                        (PLD_ST_Intervene_Movement == 1 ||
-                         PLD_ST_Intervene_Movement == 0 && !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(PLD_ST_InterveneTimeStill)) &&
-                        GetTargetDistance() <= PLD_ST_Intervene_Distance)
-                        return Intervene;
+                    switch (CooldownFightOrFlight)
+                    {
+                        // Circle of Scorn / Spirits Within
+                        case > 15 when IsEnabled(Preset.PLD_ST_AdvancedMode_CircleOfScorn) &&
+                                       ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0:
+                            return CircleOfScorn;
 
-                    // Blade of Honor
-                    if (IsEnabled(Preset.PLD_ST_AdvancedMode_BladeOfHonor) &&
-                        LevelChecked(BladeOfHonor) && OriginalHook(Requiescat) == BladeOfHonor)
-                        return OriginalHook(Requiescat);
+                        case > 15 when IsEnabled(Preset.PLD_ST_AdvancedMode_SpiritsWithin) &&
+                                       ActionReady(OriginalHook(SpiritsWithin)):
+                            return OriginalHook(SpiritsWithin);
+                    }
                 }
 
-                // Goring Blade Prioritized
-                if (IsEnabled(Preset.PLD_ST_AdvancedMode_GoringBlade) &&
-                    HasStatusEffect(Buffs.GoringBladeReady) && InMeleeRange() && PLD_ST_AdvancedMode_GoringBladePrioritize == 0)
-                    return GoringBlade;
+                // Intervene
+                if (IsEnabled(Preset.PLD_ST_AdvancedMode_Intervene) &&
+                    ActionReady(Intervene) && CooldownFightOrFlight > 40 &&
+                    GetRemainingCharges(Intervene) > PLD_ST_Intervene_Charges && !JustUsed(Intervene) &&
+                    (PLD_ST_Intervene_Movement == 1 ||
+                     PLD_ST_Intervene_Movement == 0 && !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(PLD_ST_InterveneTimeStill)) &&
+                    GetTargetDistance() <= PLD_ST_Intervene_Distance)
+                    return Intervene;
 
-                // Requiescat Phase
-                switch (HasDivineMagicMP)
+                // Blade of Honor
+                if (IsEnabled(Preset.PLD_ST_AdvancedMode_BladeOfHonor) &&
+                    LevelChecked(BladeOfHonor) && OriginalHook(Requiescat) == BladeOfHonor)
+                    return OriginalHook(Requiescat);
+            }
+
+            // Goring Blade Prioritized
+            if (IsEnabled(Preset.PLD_ST_AdvancedMode_GoringBlade) &&
+                HasStatusEffect(Buffs.GoringBladeReady) && InMeleeRange() && PLD_ST_AdvancedMode_GoringBladePrioritize == 0)
+                return GoringBlade;
+
+            // Requiescat Phase
+            switch (HasDivineMagicMP)
+            {
+                // Confiteor & Blades
+                case true when IsEnabled(Preset.PLD_ST_AdvancedMode_Confiteor) && HasStatusEffect(Buffs.ConfiteorReady) ||
+                               IsEnabled(Preset.PLD_ST_AdvancedMode_Blades) && LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor:
+                    return OriginalHook(Confiteor);
+
+                // Pre-Blades
+                case true when (IsEnabled(Preset.PLD_ST_AdvancedMode_Confiteor) || IsEnabled(Preset.PLD_ST_AdvancedMode_Blades)) && HasRequiescat:
+                    return HolySpirit;
+            }
+
+            // Goring Blade
+            if (IsEnabled(Preset.PLD_ST_AdvancedMode_GoringBlade) &&
+                HasStatusEffect(Buffs.GoringBladeReady) && InMeleeRange())
+                return GoringBlade;
+
+            // Holy Spirit Prioritization
+            if (IsEnabled(Preset.PLD_ST_AdvancedMode_HolySpirit) &&
+                HasDivineMight && HasDivineMagicMP && IsAboveMPReserveST)
+            {
+                switch (InAtonementFinisher)
                 {
-                    // Confiteor & Blades
-                    case true when IsEnabled(Preset.PLD_ST_AdvancedMode_Confiteor) && HasStatusEffect(Buffs.ConfiteorReady) ||
-                                   IsEnabled(Preset.PLD_ST_AdvancedMode_Blades) && LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor:
-                        return OriginalHook(Confiteor);
+                    // Delay Sepulchre / Prefer Sepulchre
+                    case true when (CooldownFightOrFlight < 3 || DurationFightOrFlight > 3):
 
-                    // Pre-Blades
-                    case true when (IsEnabled(Preset.PLD_ST_AdvancedMode_Confiteor) || IsEnabled(Preset.PLD_ST_AdvancedMode_Blades)) && HasRequiescat:
+                    // Fit in Burst
+                    case false when HasFightOrFlight && DurationFightOrFlight < 3:
                         return HolySpirit;
                 }
+            }
 
-                // Goring Blade
-                if (IsEnabled(Preset.PLD_ST_AdvancedMode_GoringBlade) &&
-                    HasStatusEffect(Buffs.GoringBladeReady) && InMeleeRange())
-                    return GoringBlade;
+            // Atonement: During Burst / Before Expiring / Spend Starter / Before Refreshing
+            if (IsEnabled(Preset.PLD_ST_AdvancedMode_Atonement) &&
+                InAtonementPhase && InActionRange(OriginalHook(Atonement)) &&
+                (InBurstWindow || IsAtonementExpiring || InAtonementStarter || ComboAction is RiotBlade))
+                return OriginalHook(Atonement);
 
-                // Holy Spirit Prioritization
-                if (IsEnabled(Preset.PLD_ST_AdvancedMode_HolySpirit) &&
-                    HasDivineMight && HasDivineMagicMP && IsAboveMPReserveST)
-                {
-                    switch (InAtonementFinisher)
-                    {
-                        // Delay Sepulchre / Prefer Sepulchre
-                        case true when (CooldownFightOrFlight < 3 || DurationFightOrFlight > 3):
+            // Holy Spirit: During Burst / Before Expiring / Outside Melee / Before Refreshing
+            if (IsEnabled(Preset.PLD_ST_AdvancedMode_HolySpirit) &&
+                HasDivineMight && HasDivineMagicMP && IsAboveMPReserveST &&
+                (InBurstWindow || IsDivineMightExpiring || !InActionRange(OriginalHook(Atonement)) || ComboAction is RiotBlade))
+                return HolySpirit;
 
-                        // Fit in Burst
-                        case false when HasFightOrFlight && DurationFightOrFlight < 3:
-                            return HolySpirit;
-                    }
-                }
-
-                // Atonement: During Burst / Before Expiring / Spend Starter / Before Refreshing
-                if (IsEnabled(Preset.PLD_ST_AdvancedMode_Atonement) &&
-                    InAtonementPhase && InActionRange(OriginalHook(Atonement)) &&
-                    (InBurstWindow || IsAtonementExpiring || InAtonementStarter || ComboAction is RiotBlade))
-                    return OriginalHook(Atonement);
-
-                // Holy Spirit: During Burst / Before Expiring / Outside Melee / Before Refreshing
-                if (IsEnabled(Preset.PLD_ST_AdvancedMode_HolySpirit) &&
-                    HasDivineMight && HasDivineMagicMP && IsAboveMPReserveST &&
-                    (InBurstWindow || IsDivineMightExpiring || !InActionRange(OriginalHook(Atonement)) || ComboAction is RiotBlade))
+            // Out of Range
+            if (IsEnabled(Preset.PLD_ST_AdvancedMode_ShieldLob) &&
+                !InMeleeRange())
+            {
+                // Holy Spirit (Not Moving)
+                if (LevelChecked(HolySpirit) &&
+                    HasDivineMagicMP && IsAboveMPReserveST &&
+                    TimeMoving.Ticks == 0 &&
+                    PLD_ST_ShieldLob_SubOption == 1)
                     return HolySpirit;
 
-                // Out of Range
-                if (IsEnabled(Preset.PLD_ST_AdvancedMode_ShieldLob) &&
-                    !InMeleeRange())
-                {
-                    // Holy Spirit (Not Moving)
-                    if (LevelChecked(HolySpirit) &&
-                        HasDivineMagicMP && IsAboveMPReserveST &&
-                        TimeMoving.Ticks == 0 &&
-                        PLD_ST_ShieldLob_SubOption == 1)
-                        return HolySpirit;
-
-                    // Shield Lob
-                    if (LevelChecked(ShieldLob))
-                        return ShieldLob;
-                }
+                // Shield Lob
+                if (LevelChecked(ShieldLob))
+                    return ShieldLob;
             }
 
             // Basic Combo
@@ -491,57 +482,54 @@ internal partial class PLD : Tank
                 if (TryUseMits(RotationMode.Advanced, ref actionID))
                     return actionID;
             }
-
-            if (HasBattleTarget())
+            
+            // Weavables
+            if (CanWeave())
             {
-                // Weavables
-                if (CanWeave())
+                // Requiescat
+                if (IsEnabled(Preset.PLD_AoE_AdvancedMode_Requiescat) &&
+                    ActionReady(OriginalHook(Requiescat)) && CooldownFightOrFlight > 50 && InActionRange(OriginalHook(Requiescat)))
+                    return OriginalHook(Requiescat);
+
+                if (InMeleeRange())
                 {
-                    // Requiescat
-                    if (IsEnabled(Preset.PLD_AoE_AdvancedMode_Requiescat) &&
-                        ActionReady(Requiescat) && CooldownFightOrFlight > 50 && InActionRange(OriginalHook(Requiescat)))
-                        return OriginalHook(Requiescat);
+                    // Fight or Flight
+                    if (IsEnabled(Preset.PLD_AoE_AdvancedMode_FoF) &&
+                        CanFightOrFlight && GetTargetHPPercent() >= PLD_AoE_FoF_Trigger &&
+                        (!LevelChecked(Requiescat) || CooldownRequiescat < 0.5f && HasRequiescatMPAdvAoE && !HasWeaved()))
+                        return OriginalHook(FightOrFlight);
 
-                    if (InMeleeRange())
+                    // Circle of Scorn / Spirits Within
+                    switch (CooldownFightOrFlight)
                     {
-                        // Fight or Flight
-                        if (IsEnabled(Preset.PLD_AoE_AdvancedMode_FoF) &&
-                            CanFightOrFlight && GetTargetHPPercent() >= PLD_AoE_FoF_Trigger &&
-                            (!LevelChecked(Requiescat) || CooldownRequiescat < 0.5f && HasRequiescatMPAdvAoE && !HasWeaved()))
-                            return OriginalHook(FightOrFlight);
+                        case > 15 when IsEnabled(Preset.PLD_AoE_AdvancedMode_CircleOfScorn) && ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0:
+                            return CircleOfScorn;
 
-                        // Circle of Scorn / Spirits Within
-                        switch (CooldownFightOrFlight)
-                        {
-                            case > 15 when IsEnabled(Preset.PLD_AoE_AdvancedMode_CircleOfScorn) && ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0:
-                                return CircleOfScorn;
-
-                            case > 15 when IsEnabled(Preset.PLD_AoE_AdvancedMode_SpiritsWithin) && ActionReady(SpiritsWithin):
-                                return OriginalHook(SpiritsWithin);
-                        }
+                        case > 15 when IsEnabled(Preset.PLD_AoE_AdvancedMode_SpiritsWithin) && ActionReady(OriginalHook(SpiritsWithin)):
+                            return OriginalHook(SpiritsWithin);
                     }
-
-                    // Intervene
-                    if (IsEnabled(Preset.PLD_AoE_AdvancedMode_Intervene) &&
-                        ActionReady(Intervene) && CooldownFightOrFlight > 40 &&
-                        GetRemainingCharges(Intervene) > PLD_AoE_Intervene_Charges && !JustUsed(Intervene) &&
-                        (PLD_AoE_Intervene_Movement == 1 ||
-                         PLD_AoE_Intervene_Movement == 0 && !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(PLD_AoE_InterveneTimeStill)) &&
-                        GetTargetDistance() <= PLD_AoE_Intervene_Distance)
-                        return Intervene;
-
-                    // Blade of Honor
-                    if (IsEnabled(Preset.PLD_AoE_AdvancedMode_BladeOfHonor) &&
-                        LevelChecked(BladeOfHonor) && OriginalHook(Requiescat) == BladeOfHonor)
-                        return OriginalHook(Requiescat);
                 }
 
-                // Confiteor & Blades
-                if (HasDivineMagicMP && (IsEnabled(Preset.PLD_AoE_AdvancedMode_Confiteor) && HasStatusEffect(Buffs.ConfiteorReady) ||
-                                         IsEnabled(Preset.PLD_AoE_AdvancedMode_Blades) && LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor))
-                    return OriginalHook(Confiteor);
+                // Intervene
+                if (IsEnabled(Preset.PLD_AoE_AdvancedMode_Intervene) &&
+                    ActionReady(Intervene) && CooldownFightOrFlight > 40 &&
+                    GetRemainingCharges(Intervene) > PLD_AoE_Intervene_Charges && !JustUsed(Intervene) &&
+                    (PLD_AoE_Intervene_Movement == 1 ||
+                     PLD_AoE_Intervene_Movement == 0 && !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(PLD_AoE_InterveneTimeStill)) &&
+                    GetTargetDistance() <= PLD_AoE_Intervene_Distance)
+                    return Intervene;
+
+                // Blade of Honor
+                if (IsEnabled(Preset.PLD_AoE_AdvancedMode_BladeOfHonor) &&
+                    LevelChecked(BladeOfHonor) && OriginalHook(Requiescat) == BladeOfHonor)
+                    return OriginalHook(Requiescat);
             }
 
+            // Confiteor & Blades
+            if (HasDivineMagicMP && (IsEnabled(Preset.PLD_AoE_AdvancedMode_Confiteor) && HasStatusEffect(Buffs.ConfiteorReady) ||
+                                     IsEnabled(Preset.PLD_AoE_AdvancedMode_Blades) && LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor))
+                return OriginalHook(Confiteor);
+            
             // Holy Circle
             if (LevelChecked(HolyCircle) && HasDivineMagicMP &&
                 (IsEnabled(Preset.PLD_AoE_AdvancedMode_HolyCircle) && IsAboveMPReserveAoE && HasDivineMight ||
@@ -616,7 +604,7 @@ internal partial class PLD : Tank
             bool canFightOrFlight = OriginalHook(FightOrFlight) is FightOrFlight && ActionReady(FightOrFlight);
 
             // Fight or Flight
-            if (PLD_Requiescat_SubOption == 2 && (!LevelChecked(Requiescat) || canFightOrFlight && ActionReady(Requiescat)))
+            if (PLD_Requiescat_SubOption == 2 && (!LevelChecked(Requiescat) || canFightOrFlight && ActionReady(OriginalHook(Requiescat))))
                 return OriginalHook(FightOrFlight);
 
             // Confiteor & Blades

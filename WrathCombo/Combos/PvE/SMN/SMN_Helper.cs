@@ -100,6 +100,7 @@ internal partial class SMN
         Ruin2 = 172,
         Ruin3 = 3579,
         Ruin4 = 7426,
+        Physick = 16230,
         Tridisaster = 25826,
 
         // Summoner AoE
@@ -155,9 +156,9 @@ internal partial class SMN
 
     internal static SMNGauge Gauge => GetJobGauge<SMNGauge>();
 
-    internal static bool IsIfritAttuned => Gauge.AttunementType is SummonAttunement.Ifrit;
-    internal static bool IsTitanAttuned => Gauge.AttunementType is SummonAttunement.Titan;
-    internal static bool IsGarudaAttuned => Gauge.AttunementType is SummonAttunement.Garuda;
+    internal static bool IsIfritAttuned => (byte)Gauge.AttunementType is 1;
+    internal static bool IsTitanAttuned => (byte)Gauge.AttunementType is 2;
+    internal static bool IsGarudaAttuned => (byte)Gauge.AttunementType is 3;
     internal static bool CanSummonEgi => Gauge.IsTitanReady || Gauge.IsGarudaReady || Gauge.IsIfritReady;
     internal static bool GemshineReady => Gauge.AttunementCount > 0;
     internal static bool IsAttunedAny => IsIfritAttuned || IsTitanAttuned || IsGarudaAttuned;
@@ -370,7 +371,7 @@ internal partial class SMN
                 return true;
             }
 
-            if (ActionReady(AstralFlow) && DemiNotPheonix)
+            if (ActionReady(OriginalHook(AstralFlow)) && DemiNotPheonix)
             {
                 actionID = OriginalHook(AstralFlow);
                 return true;
@@ -408,12 +409,12 @@ internal partial class SMN
                 //Searing light is active
                 if (!ogcdPoolingEnabled || !LevelChecked(SearingLight) || SearingCD > 30 || HasStatusEffect(Buffs.SearingLight, anyOwner: true))
                 {
-                    if (flags.HasFlag(Combo.ST))
+                    if (flags.HasFlag(Combo.ST) || flags.HasFlag(Combo.AoE) && !LevelChecked(EnergySiphon))
                     {
                         actionID = OriginalHook(EnergyDrain);
                         return true;
                     }
-                    if (flags.HasFlag(Combo.AoE))
+                    if (flags.HasFlag(Combo.AoE) && LevelChecked(EnergySiphon))
                     {
                         actionID = OriginalHook(EnergySiphon);
                         return true;
@@ -434,13 +435,13 @@ internal partial class SMN
                     return true;
                 }
 
-                if (ActionReady(AstralFlow) && DemiNotPheonix)
+                if (ActionReady(OriginalHook(AstralFlow)) && DemiNotPheonix)
                 {
                     actionID = OriginalHook(AstralFlow);
                     return true;
                 }
                 
-                if (rekindleEnabled && ActionReady(AstralFlow) && DemiPheonix)
+                if (rekindleEnabled && ActionReady(OriginalHook(AstralFlow)) && DemiPheonix)
                 {
                     actionID = Rekindle;
                     return true;
@@ -449,19 +450,19 @@ internal partial class SMN
             #endregion
             
             #region Fester and Painflare
-            if (energyDrainEnabled && ActionReady(Fester) && !HasStatusEffect(Buffs.TitansFavor))
+            if (energyDrainEnabled && ActionReady(OriginalHook(Fester)) && !HasStatusEffect(Buffs.TitansFavor))
             {
                 //Fire asap without pooling
                 //Too low level for Searing Light
                 //You have Searing Light
                 if (!ogcdPoolingEnabled || !LevelChecked(SearingLight) || HasStatusEffect(Buffs.SearingLight, anyOwner: true))
                 {
-                    if (flags.HasFlag(Combo.ST))
+                    if (flags.HasFlag(Combo.ST) || flags.HasFlag(Combo.AoE) && !LevelChecked(Painflare))
                     {
                         actionID = OriginalHook(Fester);
                         return true;
                     }
-                    if (flags.HasFlag(Combo.AoE))
+                    if (flags.HasFlag(Combo.AoE) && LevelChecked(Painflare))
                     {
                         actionID = OriginalHook(Painflare);
                         return true;
@@ -630,7 +631,7 @@ internal partial class SMN
         #region Titan Phase
         if (IsTitanAttuned || OriginalHook(AstralFlow) is MountainBuster) //Titan attunement ends before last mountain buster
         {
-            if (egiAstralFlowEnabled && mountainBusterEnabled && ActionReady(AstralFlow) && SummonerWeave)
+            if (egiAstralFlowEnabled && mountainBusterEnabled && ActionReady(OriginalHook(AstralFlow)) && SummonerWeave)
             {
                 actionID = OriginalHook(AstralFlow);
                 return true;

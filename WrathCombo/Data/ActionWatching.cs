@@ -83,7 +83,7 @@ public static class ActionWatching
         SendActionHook ??= Svc.Hook.HookFromSignature<SendActionDelegate>("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 8B E9 41 0F B7 D9", SendActionDetour);
         UseActionHook ??= Svc.Hook.HookFromAddress<UseActionDelegate>(ActionManager.Addresses.UseAction.Value, UseActionDetour);
         OnCastInterrupted += CancelPendingLastActionUpdate;
-        CanQueueAction ??= Svc.Hook.HookFromSignature<CanQueueActionDelegate>("E8 ?? ?? ?? ?? 3C 01 0F 85 ?? ?? ?? ?? 88 45 68", CanQueueActionDetour);
+        CanQueueAction ??= Svc.Hook.HookFromAddress<CanQueueActionDelegate>(ActionManager.Addresses.IsActionOffCooldown.Value, CanQueueActionDetour);
     }
 
     public static void Enable()
@@ -296,6 +296,13 @@ public static class ActionWatching
         if (Service.Configuration.EnabledOutputLog)
             OutputLog();
 
+        if (AutoRotationController.AutorotRaidwiding && AutoRotationController.RaidwideActions.Any(x => x.Action == actionId))
+        {
+            AutoRotationController.BlacklistedRaidwides.Add(actionId);
+            if (actionId != SGE.Eukrasia)
+                AutoRotationController.AutorotRaidwides++;
+        }
+
         UpdatingActions = false;
     }
 
@@ -322,8 +329,8 @@ public static class ActionWatching
                 token = source.Token;
                 UpdatingActions = true;
                 UpdateActionTask = Svc.Framework.RunOnTick(() =>
-                UpdateLastUsedAction(actionId, actionType, targetObjectId, castTime),
-                TimeSpan.FromMilliseconds(castTime), cancellationToken: token);
+                UpdateLastUsedAction(actionId, actionType, targetObjectId, Math.Max(castTime - 480, 0)),
+                TimeSpan.FromMilliseconds(Math.Max(castTime - 480, 0)), cancellationToken: token);
 
                 // Update Helpers
                 NIN.InMudra = NIN.MudraSigns.Contains(actionId);
@@ -428,20 +435,26 @@ public static class ActionWatching
         {
             if (actionType is ActionType.Action)
             {
-                if (mode == ActionManager.UseActionMode.Queue) // This is so we can remove queue suppression
+                var disablingReplacingTemp = mode == ActionManager.UseActionMode.Queue || AutoRotationController.AutorotRaidwiding;
+                if (disablingReplacingTemp) // This is so we can remove queue suppression
                     Service.ActionReplacer.DisableActionReplacingIfRequired(); // It gets re-enabled at the end of sending. 
 
                 var original = actionId; //Save the original action, do not modify
                 var originalTargetId = targetId; //Save the original target, do not modify
                 var changedTargetId = targetId; //This will get modified and used elsewhere
 
-                var modifiedAction = Service.ActionReplacer.LastActionInvokeFor.ContainsKey(actionId) ? Service.ActionReplacer.LastActionInvokeFor[actionId] : actionId;
                 var changed = CheckForChangedTarget(original, ref changedTargetId,
                     out var replacedWith); //Passes the original action to the retargeting framework, outputs a targetId and a replaced action
 
                 // If retargeting kicks in, update target ID
                 if (changed)
-                    targetId = changedTargetId;
+                {
+                    var targObj = changedTargetId.GetObject();
+                    if (targObj == null || !targObj.IsTargetable || (targObj.IsHostile() && targObj.IsDead))
+                        targetId = originalTargetId;
+                    else
+                        targetId = changedTargetId;
+                }
 
                 // Clear any dodgy leftover targets
                 if (!Svc.Objects.Any(x => x.GameObjectId == actionManager->QueuedTargetId.Id))
@@ -452,15 +465,24 @@ public static class ActionWatching
                     targetId = actionManager->QueuedTargetId.Id;
 
                 var areaTargeted = ActionSheet[replacedWith].TargetArea;
+
+                if (areaTargeted && disablingReplacingTemp) //Ground targets don't hit the send method, so it has to be re-enabled here. Could be re-enabled further down the line if it causes output issues.
+                    Service.ActionReplacer.EnableActionReplacingIfRequired();
+
                 var targetObject = targetId.GetObject();
+                if (targetObject is null && targetId != 0xE000_0000)
+                {
+                    Service.ActionReplacer.EnableActionReplacingIfRequired();
+                    return UseActionHook.Original(actionManager, actionType, actionId, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
+                }
 
                 if (changed && !areaTargeted) //Check if the action can be used on the target, and if not revert to original
                     if (!ActionManager.CanUseActionOnTarget(replacedWith,
-                        targetObject.Struct()))
+                            targetObject.Struct()))
                         targetId = originalTargetId;
 
                 // Support Retargeted ground actions
-                if ((changed && areaTargeted) || AutoRotationController.WouldLikeToGroundTarget)
+                if ((areaTargeted && changed) || AutoRotationController.WouldLikeToGroundTarget)
                 {
                     var location = Player.Position;
                     replacedWith = Service.ActionReplacer.LastActionInvokeFor.TryGetValue(actionId, out var replacedGT) ? replacedGT : replacedWith;
@@ -474,8 +496,12 @@ public static class ActionWatching
                              newLoc is not null)
                         location = (Vector3)newLoc;
 
-                    return ActionManager.Instance()->UseActionLocation
+                    var ret = ActionManager.Instance()->UseActionLocation
                         (actionType, replacedWith, location: &location);
+
+                    Service.ActionReplacer.EnableActionReplacingIfRequired();
+
+                    return ret;
                 }
 
                 if (Service.Configuration.OverwriteQueue && actionManager->QueuedActionId != 0 && CanQueueCS(replacedWith))
@@ -491,13 +517,15 @@ public static class ActionWatching
 
                     // Only sets the queued target once if overwrite is not enabled, otherwise will update each button press
                     if (actionManager->QueuedTargetId.Id == 0 || Service.Configuration.OverwriteQueue)
-                    actionManager->QueuedTargetId = changedTargetId;
+                        actionManager->QueuedTargetId = changedTargetId;
                 }
 
                 Svc.Log.Verbose($"[QueuedTargetUpdate] A:{actionManager->QueuedActionId.ActionName()} Q:{Svc.Objects.SearchById(actionManager->QueuedTargetId)?.Name} T:{Svc.Objects.SearchById(targetId)?.Name} M:{mode} W:{willQueue}");
 
                 var hookResult = changed ? UseActionHook.Original(actionManager, actionType, replacedWith, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted) :
                     UseActionHook.Original(actionManager, actionType, replacedWith, originalTargetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
+
+                Service.ActionReplacer.EnableActionReplacingIfRequired();
 
                 // Fallback if the Retargeted ground action couldn't be placed smartly
                 if (changed && areaTargeted)

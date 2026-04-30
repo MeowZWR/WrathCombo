@@ -1,17 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -204,5 +204,13 @@
   <data name="Input_ThrottleDelay" xml:space="preserve"><value>スロットル間隔（ms）</value></data>
   <data name="HelpText_ThrottleDelay" xml:space="preserve"><value>自動ローテーションはパフォーマンスのため、一定ミリ秒ごとにのみ実行するスロットルを内蔵しています。フレームレートに問題がある場合は値を上げてください。ただし高すぎると GCD が噛む副作用があるため、様子を見ながら調整してください。</value></data>
   <data name="Checkbox_Orbwalker" xml:space="preserve"><value>Orbwalker 連携を有効化</value></data>
-  <data name="HelpText_Orbwalker" xml:space="preserve"><value>Orbwalker が詠唱中の移動をロックするため、移動中でも詠唱付きアクションを使用できるようになります。必要に応じて Orbwalker 側の「Buffer Initial Cast」を有効にしてください。Orbwalker 系プラグインの導入と有効化が必要です。</value></data>
+  <data name="HelpText_Orbwalker" xml:space="preserve"><value>Orbwalker が詠唱中の移動をロックするため、移動中でも詠唱アクションを使えるようになります。必要に応じて Orbwalker 側の「Buffer Initial Cast」を有効にしてください。Orbwalker系プラグインの導入と有効化が必要です。</value></data>
+  <data name="Checkbox_HandleRaidwides" xml:space="preserve"><value>検知した全体攻撃に対応</value></data>
+  <data name="HelpText_HandleRaidwides" xml:space="preserve"><value>検知した全体攻撃や全体ダメージの前に、軽減や戻しのためのアクションを使おうとします。セットアップ用の {0} を除き、最大 2 アクションまで使用します。</value></data>
+  <data name="Checkbox_HandleTankbusters" xml:space="preserve">
+    <value>検知したタンク強攻撃に対応</value>
+  </data>
+  <data name="HelpText_HandleTankbusters" xml:space="preserve">
+    <value>検知したタンク強攻撃の前に、対象メンバーへのダメージを軽減するアクションを使おうとします。セットアップ用の {0} を除き、最大1アクションまで使用します。</value>
+  </data>
 </root>

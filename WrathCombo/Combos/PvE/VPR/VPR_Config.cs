@@ -1,7 +1,9 @@
 using Dalamud.Interface.Colors;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Localization.JobConfigs;
 using static WrathCombo.Window.Functions.UserConfig;
+using static WrathCombo.Window.Text;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class VPR
@@ -18,74 +20,77 @@ internal partial class VPR
                     DrawBossOnlyChoice(VPR_Balance_Content);
 
                     DrawAdditionalBoolChoice(VPR_Opener_ExcludeUF,
-                        $"Exclude {UncoiledFury.ActionName()}", "");
+                        FormatAndCache(Generics.Exclude0, UncoiledFury.ActionName()),
+                        "");
                     break;
 
                 case Preset.VPR_ST_SerpentsIre:
                     DrawSliderInt(0, 50, VPR_ST_SerpentsIreHPOption,
-                        "Stop using at Enemy HP %. Set to Zero to disable this check.");
+                        Generics.StopEnemyHpPercent);
 
                     ImGui.Indent();
-
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
-                        "Select what kind of enemies the HP check should be applied to:");
+                        Generics.EnemyTypeCheck);
 
                     DrawHorizontalRadioButton(VPR_ST_SerpentsIreBossOption,
-                        "Non-Bosses", "Only applies the HP check above to non-bosses.", 0);
+                        Generics.NonBosses,
+                        Generics.HPCheckNonBosses, 0);
 
                     DrawHorizontalRadioButton(VPR_ST_SerpentsIreBossOption,
-                        "All Enemies", "Applies the HP check above to all enemies.", 1);
-
+                        Generics.AllEnemies,
+                        Generics.HPCheckAllEnemies, 1);
                     ImGui.Unindent();
                     break;
 
                 case Preset.VPR_ST_Reawaken:
                     DrawSliderInt(0, 100, VPR_ST_ReawakenBossOption,
-                        "Bosses Only. Stop using at Enemy HP %.");
+                        Generics.BossOnlyHpPercent);
 
                     DrawSliderInt(0, 100, VPR_ST_ReawakenBossAddsOption,
-                        "Boss Encounter Non Bosses. Stop using at Enemy HP %.");
+                        Generics.BossEncounterNonBossHpPercent);
 
                     DrawSliderInt(0, 100, VPR_ST_ReawakenTrashOption,
-                        "Non boss encounter. Stop using at Enemy HP %.");
+                        Generics.NonBossHpPercent);
 
                     DrawSliderInt(0, 5, VPR_ST_ReAwakenAlwaysUse,
-                        $"Set a HP% threshold to use {Reawaken.ActionName()} whenever available. (Bosses Only)");
+                        FormatAndCache(VPR_Config.HPPThresholdWheneverAvailableBossesOnly, Reawaken.ActionName()));
                     break;
 
                 case Preset.VPR_ST_UncoiledFury:
                     DrawSliderInt(0, 3, VPR_ST_UncoiledFuryHoldCharges,
-                        $"How many charges of {UncoiledFury.ActionName()} to keep ready? (0 = Use all)");
+                        FormatAndCache(Generics.HowManyChargesToKeepReady, UncoiledFury.ActionName()));
 
                     DrawSliderInt(0, 5, VPR_ST_UncoiledFuryAlwaysUse,
-                        $"Set a HP% Threshold to use all charges of {UncoiledFury.ActionName()}.");
+                        FormatAndCache(Generics.HPPercentThresholdUseAllCharges0, UncoiledFury.ActionName()));
                     break;
 
                 case Preset.VPR_ST_Vicewinder:
                     DrawAdditionalBoolChoice(VPR_TrueNorthVicewinder,
-                        $"{Role.TrueNorth.ActionName()} Option", "Adds True North when available.\n Respects the manual TN charge.");
+                        FormatAndCache(Generics._0Option, Role.TrueNorth.ActionName()),
+                        FormatAndCache(VPR_Config.Add0WhenAvailableRespectManualCharge, Role.TrueNorth.ActionName()));
                     break;
 
                 case Preset.VPR_ST_VicewinderCombo:
                     DrawAdditionalBoolChoice(VPR_VicewinderBuffPrio,
-                        "Buff Prio Option", "Forces HuntersCoil or SwiftskinsCoil if buff needs to be reapplied.");
+                        Generics.PrioBuffUpkeep,
+                        FormatAndCache(VPR_Config.Forces0Or1ForBuffs, HuntersCoil.ActionName(), SwiftskinsCoil.ActionName()));
                     break;
 
                 case Preset.VPR_TrueNorthDynamic:
                     DrawSliderInt(0, 1, VPR_ManualTN,
-                        "How many charges to keep for manual usage.");
+                        Generics.ChargePool);
 
                     DrawAdditionalBoolChoice(VPR_ST_TrueNorthDynamicHoldCharge,
-                        "Hold True North for Vicewinder Option", "Will hold the last charge of True North for use with Vicewinder, even when out of position for normal GCD.\n" +
-                                                                 "If Above Slider is set to 1, it will NOT use the remaining charge for Vicewinder, but for manual use.");
+                        FormatAndCache(Generics.Hold0For1, Role.TrueNorth.ActionName(), Vicewinder.ActionName()),
+                        FormatAndCache(VPR_Config.WillHoldLastChargeOf0For1, Role.TrueNorth.ActionName(), Vicewinder.ActionName()));
                     break;
 
                 case Preset.VPR_ST_ComboHeals:
                     DrawSliderInt(0, 100, VPR_ST_SecondWindHPThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.SecondWind.ActionName()));
 
                     DrawSliderInt(0, 100, VPR_ST_BloodbathHPThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.Bloodbath.ActionName()));
                     break;
 
                 #endregion
@@ -94,50 +99,56 @@ internal partial class VPR
 
                 case Preset.VPR_AoE_SerpentsIre:
                     DrawSliderInt(0, 100, VPR_AoE_SerpentsIreHPThreshold,
-                        "Stop using when target HP% is at or below (Set to 0 to Disable This Check)");
+                        Generics.StopEnemyHpPercent);
                     break;
 
                 case Preset.VPR_AoE_UncoiledFury:
                     DrawSliderInt(0, 3, VPR_AoE_UncoiledFuryHoldCharges,
-                        $"How many charges of {UncoiledFury.ActionName()} to keep ready? (0 = Use all)");
+                        FormatAndCache(Generics.HowManyChargesToKeepReady, UncoiledFury.ActionName()));
 
                     DrawSliderInt(0, 5, VPR_AoE_UncoiledFuryAlwaysUse,
-                        $"Set a HP% Threshold to use all charges of {UncoiledFury.ActionName()}.");
+                        FormatAndCache(Generics.HPPercentThresholdUseAllCharges0, UncoiledFury.ActionName()));
                     break;
 
                 case Preset.VPR_AoE_Reawaken:
                     DrawHorizontalRadioButton(VPR_AoE_ReawakenRangecheck,
-                        "In range", $"Adds range check for {Reawaken.ActionName()}, so it is used only when in range.", 0);
+                        Generics.InRange,
+                        string.Format(VPR_Config.AddRangeCheckFor0, Reawaken.ActionName()), 0);
 
                     DrawHorizontalRadioButton(VPR_AoE_ReawakenRangecheck,
-                        "Disable range check", $"Disables the range check for {Reawaken.ActionName()}, so it will be used even without a target selected.", 1);
+                        Generics.DisableRangeCheck,
+                        string.Format(VPR_Config.DisableRangeCheckFor0, Reawaken.ActionName()), 1);
 
                     DrawSliderInt(0, 100, VPR_AoE_ReawakenHPThreshold,
-                        $"Stop using {Reawaken.ActionName()} at Enemy HP %. Set to Zero to disable this check.");
+                        FormatAndCache(Generics.StopEnemyHpPercent));
                     break;
 
                 case Preset.VPR_AoE_Vicepit:
                     DrawHorizontalRadioButton(VPR_AoE_VicepitRangeCheck,
-                        "In range", $"Adds range check for {Vicepit.ActionName()}, so it is used only when in range.", 0);
+                        Generics.InRange,
+                        string.Format(VPR_Config.AddRangeCheckFor0, Vicepit.ActionName()), 0);
 
                     DrawHorizontalRadioButton(VPR_AoE_VicepitRangeCheck,
-                        "Disable range check", $"Disables the range check for {Vicepit.ActionName()}, so it will be used even without a target selected.", 1);
+                        Generics.DisableRangeCheck,
+                        string.Format(VPR_Config.DisableRangeCheckFor0, Vicepit.ActionName()), 1);
                     break;
 
                 case Preset.VPR_AoE_VicepitCombo:
                     DrawHorizontalRadioButton(VPR_AoE_VicepitComboRangeCheck,
-                        "In range", $"Adds range check for {HuntersDen.ActionName()} and {SwiftskinsDen.ActionName()}, so it is used only when in range.", 0);
+                        Generics.InRange,
+                        string.Format(VPR_Config.AddRangeCheckFor0And1, HuntersDen.ActionName(), SwiftskinsDen.ActionName()), 0);
 
                     DrawHorizontalRadioButton(VPR_AoE_VicepitComboRangeCheck,
-                        "Disable range check", $"Disables the range check for {HuntersDen.ActionName()} and {SwiftskinsDen.ActionName()}, so it will be used even without a target selected.", 1);
+                        Generics.DisableRangeCheck,
+                        string.Format(VPR_Config.DisableRangeCheckFor0And1, HuntersDen.ActionName(), SwiftskinsDen.ActionName()), 1);
                     break;
 
                 case Preset.VPR_AoE_ComboHeals:
                     DrawSliderInt(0, 100, VPR_AoE_SecondWindHPThreshold,
-                        $"{Role.SecondWind.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.SecondWind.ActionName()));
 
                     DrawSliderInt(0, 100, VPR_AoE_BloodbathHPThreshold,
-                        $"{Role.Bloodbath.ActionName()} HP percentage threshold");
+                        FormatAndCache(Generics.HPPercentageThreshold, Role.Bloodbath.ActionName()));
                     break;
 
                 #endregion
@@ -146,15 +157,18 @@ internal partial class VPR
 
                 case Preset.VPR_ReawakenLegacy:
                     DrawRadioButton(VPR_ReawakenLegacyButton,
-                        $"Replaces {Reawaken.ActionName()}", $"Replaces {Reawaken.ActionName()} with Full Generation - Legacy combo.", 0);
+                        FormatAndCache(Generics.Replaces0, Reawaken.ActionName()),
+                        string.Format(VPR_Config.Replace0WithFullCombo, Reawaken.ActionName()), 0);
 
                     DrawRadioButton(VPR_ReawakenLegacyButton,
-                        $"Replaces {ReavingFangs.ActionName()}", $"Replaces {ReavingFangs.ActionName()} with Full Generation - Legacy combo.", 1);
+                        FormatAndCache(Generics.Replaces0, ReavingFangs.ActionName()),
+                        string.Format(VPR_Config.Replace0WithFullCombo, ReavingFangs.ActionName()), 1);
                     break;
 
                 case Preset.VPR_Retarget_Slither:
                     DrawAdditionalBoolChoice(VPR_Slither_FieldMouseover,
-                        "Add Field Mouseover", "Add Field Mouseover targetting");
+                        Generics.FieldMouseover,
+                        Generics.AddFieldMouseoverTargetting);
                     break;
 
                 #endregion

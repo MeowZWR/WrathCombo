@@ -43,16 +43,13 @@ internal partial class GNB : Tank
             #endregion
 
             #region Rotation
-
             //Lightning Shot
-            if (ShouldUseLightningShot(Preset.GNB_ST_Simple, 1))
+            if (ShouldUseLightningShot(Preset.GNB_ST_Simple, 1, 0))
                 return LightningShot;
 
             //MAX PRIORITY - just clip it, it's better than just losing it altogether
-            //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
-            if ((CanContinue || HasStatusEffect(Buffs.ReadyToBlast)) &&
-                RemainingGCD < 0.6f)
-                return OriginalHook(Continuation);
+            //Continuation procs (Hypervelocity, Fated Brand, Jugular Rip, Abdomen Tear, Eye Gouge)
+            ExecuteContinuationProcs(Preset.GNB_ST_Simple, 0, RemainingGCD < 0.6f);
 
             //No Mercy
             if (ShouldUseNoMercy(Preset.GNB_ST_Simple, 0))
@@ -63,10 +60,8 @@ internal partial class GNB : Tank
                 return Bloodfest;
 
             //HIGH PRIORITY - within late weave window, send now
-            //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
-            if ((CanContinue || HasStatusEffect(Buffs.ReadyToBlast)) &&
-                CanDelayedWeave())
-                return OriginalHook(Continuation);
+            //Continuation procs (Hypervelocity, Fated Brand, Jugular Rip, Abdomen Tear, Eye Gouge)
+            ExecuteContinuationProcs(Preset.GNB_ST_Simple, 0, CanDelayedWeave());
 
             //Hypervelocity
             //2.5 - if No Mercy is imminent, then we want to aim for buffing HV after using Burst Strike instead of sending it right away (BS^NM^HV>GF>etc.)
@@ -87,21 +82,13 @@ internal partial class GNB : Tank
 
             //NORMAL PRIORITY - within weave weave window
             //Gnashing Fang procs (Jugular Rip, Abdomen Tear, Eye Gouge)
-            if (CanContinue &&
-                CanWeave())
+            if (CanContinue && CanWeave())
                 return OriginalHook(Continuation);
 
-            //Burst - Lv100 we want to send Reign as soon as we enter No Mercy, else we send Gnashing Fang (since no Reign)
-            if (LevelChecked(ReignOfBeasts))
-            {
-                if (ShouldUseReignOfBeasts(Preset.GNB_ST_Simple))
-                    return ReignOfBeasts;
-            }
-            else
-            {
-                if (ShouldUseGnashingFangBurst(Preset.GNB_ST_Simple))
-                    return GnashingFang;
-            }
+            //Burst - at Lv100 we want to send Reign as soon as we enter No Mercy (unless we're in opener/reopener with max GF charges), else we send Gnashing Fang (since no Reign)
+            var wantGF = GetCooldownRemainingTime(GnashingFang) < 0.5f || !LevelChecked(ReignOfBeasts);
+            if (wantGF ? ShouldUseGnashingFangBurst(Preset.GNB_ST_Simple) : ShouldUseReignOfBeasts(Preset.GNB_ST_Simple))
+                return wantGF ? GnashingFang : ReignOfBeasts;
 
             //Double Down
             if (ShouldUseDoubleDown(Preset.GNB_ST_Simple))
@@ -112,7 +99,7 @@ internal partial class GNB : Tank
                 return SonicBreak;
 
             //Gnashing Fang 2 - filler boogaloo
-            if (ShouldUseGnashingFangFiller(Preset.GNB_ST_Simple))
+            if (ShouldUseGnashingFangFiller(Preset.GNB_ST_Simple, 0))
                 return GnashingFang;
 
             //Noble Blood & Lion Heart
@@ -129,7 +116,6 @@ internal partial class GNB : Tank
 
             //1-2-3
             return STCombo(0);
-
             #endregion
         }
     }
@@ -168,25 +154,21 @@ internal partial class GNB : Tank
             #endregion
 
             #region Rotation
-
             //Openers
             if (IsEnabled(Preset.GNB_ST_Opener) &&
                 Opener().FullOpener(ref actionID))
                 return actionID;
 
             //Lightning Shot
-            if (ShouldUseLightningShot(Preset.GNB_ST_RangedUptime, GNB_ST_HoldLightningShot))
+            if (ShouldUseLightningShot(Preset.GNB_ST_RangedUptime, GNB_ST_HoldLightningShot, GNB_ST_HoldLightningShotInBurst))
                 return LightningShot;
 
             //MAX PRIORITY - just clip it, it's better than just losing it altogether
             //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
-            if ((CanContinue || HasStatusEffect(Buffs.ReadyToBlast)) &&
-                RemainingGCD < 0.6f &&
-                IsEnabled(Preset.GNB_ST_Continuation))
-                return OriginalHook(Continuation);
+            ExecuteContinuationProcs(Preset.GNB_ST_Continuation, 0, RemainingGCD < 0.6f);
 
             //No Mercy
-            if (ShouldUseNoMercy(Preset.GNB_ST_NoMercy, HPThresholNM))
+            if (ShouldUseNoMercy(Preset.GNB_ST_NoMercy, HPThresholdNM))
                 return NoMercy;
 
             //Bloodfest
@@ -195,10 +177,7 @@ internal partial class GNB : Tank
 
             //HIGH PRIORITY - within late weave window, send now
             //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
-            if ((CanContinue || HasStatusEffect(Buffs.ReadyToBlast)) &&
-                CanDelayedWeave() &&
-                IsEnabled(Preset.GNB_ST_Continuation))
-                return OriginalHook(Continuation);
+            ExecuteContinuationProcs(Preset.GNB_ST_Continuation, 0, CanDelayedWeave());
 
             //Hypervelocity
             //2.5 - if No Mercy is imminent, then we want to aim for buffing HV after using Burst Strike instead of sending it right away (BS^NM^HV>GF>etc.)
@@ -225,17 +204,10 @@ internal partial class GNB : Tank
                 CanWeave())
                 return OriginalHook(Continuation);
 
-            //Burst - Lv100 we want to send Reign as soon as we enter No Mercy, else we send Gnashing Fang (since no Reign)
-            if (LevelChecked(ReignOfBeasts))
-            {
-                if (ShouldUseReignOfBeasts(Preset.GNB_ST_Reign))
-                    return ReignOfBeasts;
-            }
-            else
-            {
-                if (ShouldUseGnashingFangBurst(Preset.GNB_ST_GnashingFang))
-                    return GnashingFang;
-            }
+            //Burst - at Lv100 we want to send Reign as soon as we enter No Mercy (unless we're in opener/reopener with max GF charges), else we send Gnashing Fang (since no Reign)
+            var wantGF = GetCooldownRemainingTime(GnashingFang) < 0.5f || !LevelChecked(ReignOfBeasts);
+            if (wantGF ? ShouldUseGnashingFangBurst(Preset.GNB_ST_GnashingFang) : ShouldUseReignOfBeasts(Preset.GNB_ST_Reign))
+                return wantGF ? GnashingFang : ReignOfBeasts;
 
             //Double Down
             if (ShouldUseDoubleDown(Preset.GNB_ST_DoubleDown))
@@ -246,28 +218,20 @@ internal partial class GNB : Tank
                 return SonicBreak;
 
             //Gnashing Fang 2 - filler boogaloo
-            if (ShouldUseGnashingFangFiller(Preset.GNB_ST_GnashingFang))
+            if (ShouldUseGnashingFangFiller(Preset.GNB_ST_GnashingFang, GNB_ST_HoldGFCharge))
                 return GnashingFang;
 
             //Noble Blood & Lion Heart
             if (IsEnabled(Preset.GNB_ST_Reign) &&
+                InActionRange(OriginalHook(ReignOfBeasts)) &&
                 GunStep is 3 or 4)
                 return OriginalHook(ReignOfBeasts);
 
             //Savage Claw & Wicked Talon
-            if (IsEnabled(Preset.GNB_ST_GnashingFang) &&
+            if (IsEnabled(Preset.GNB_ST_GnashingFang) && 
+                InActionRange(OriginalHook(GnashingFang)) &&
                 GunStep is 1 or 2)
                 return OriginalHook(GnashingFang);
-
-            //Savage Claw & Wicked Talon
-            if (IsEnabled(Preset.GNB_ST_GnashingFang) &&
-                GunStep is 1 or 2)
-                return OriginalHook(GnashingFang);
-
-            //Noble Blood & Lion Heart
-            if (IsEnabled(Preset.GNB_ST_Reign) &&
-                GunStep is 3 or 4)
-                return OriginalHook(ReignOfBeasts);
 
             //Burst Strike
             if (ShouldUseBurstStrike(Preset.GNB_ST_BurstStrike, GNB_ST_BurstStrike_Setup))
@@ -275,7 +239,6 @@ internal partial class GNB : Tank
 
             //1-2-3
             return STCombo(GNB_ST_Overcap_Choice);
-
             #endregion
         }
     }
@@ -314,31 +277,37 @@ internal partial class GNB : Tank
 
             if (InCombat())
             {
-                if (CanWeave())
-                {
-                    if (ShouldUseNoMercy(Preset.GNB_AoE_NoMercy, 10))
-                        return NoMercy;
+                //MAX PRIORITY - just clip it, it's better than just losing it altogether
+                ExecuteContinuationProcs(Preset.GNB_AoE_Simple, 1, RemainingGCD < 0.6f, true);
 
-                    if (LevelChecked(FatedBrand) &&
-                        HasStatusEffect(Buffs.ReadyToRaze))
-                        return FatedBrand;
-                }
+                if (ShouldUseNoMercy(Preset.GNB_AoE_Simple, 10))
+                    return NoMercy;
+
+                if (ShouldUseBloodfest(Preset.GNB_AoE_Simple))
+                    return Bloodfest;
+
+                //HIGH PRIORITY - within late weave window, send now
+                ExecuteContinuationProcs(Preset.GNB_AoE_Simple, 1, CanDelayedWeave(), true);
+
                 if (ShouldUseBowShock(Preset.GNB_AoE_Simple))
                     return BowShock;
 
                 if (ShouldUseZone(Preset.GNB_AoE_Simple))
                     return OriginalHook(DangerZone);
 
-                if (ShouldUseBloodfest(Preset.GNB_AoE_Simple))
-                    return Bloodfest;
+                //NORMAL PRIORITY - within base weave window
+                ExecuteContinuationProcs(Preset.GNB_AoE_Simple, 1, CanWeave(), true);
 
-                if (CanSB && HasNM && !HasStatusEffect(Buffs.ReadyToRaze))
-                    return SonicBreak;
+                if (ShouldUseReignOfBeasts(Preset.GNB_AoE_Simple))
+                    return ReignOfBeasts;
 
-                if (CanDD && HasNM)
+                if (ShouldUseDoubleDown(Preset.GNB_AoE_Simple))
                     return DoubleDown;
 
-                if ((CanReign && HasNM) || GunStep is 3 or 4)
+                if (ShouldUseSonicBreak(Preset.GNB_AoE_Simple) && !HasStatusEffect(Buffs.ReadyToRaze))
+                    return SonicBreak;
+
+                if (GunStep is 3 or 4)
                     return OriginalHook(ReignOfBeasts);
 
                 if (ShouldUseFatedCircle(Preset.GNB_AoE_Simple, 0))
@@ -382,42 +351,45 @@ internal partial class GNB : Tank
             #endregion
 
             #region Rotation
-
             var aoe = AOECombo(GNB_AoE_Overcap_Choice, GNB_AoE_FatedCircle_BurstStrike);
             if (InCombat())
             {
-                if (CanWeave())
-                {
-                    if (ShouldUseNoMercy(Preset.GNB_AoE_NoMercy, GNB_AoE_NoMercyStop))
-                        return NoMercy;
+                //MAX PRIORITY - just clip it, it's better than just losing it altogether
+                //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
+                ExecuteContinuationProcs(Preset.GNB_AoE_FatedCircle, 1, RemainingGCD < 0.6f, true);
 
-                    if (LevelChecked(FatedBrand) &&
-                        HasStatusEffect(Buffs.ReadyToRaze))
-                        return FatedBrand;
+                if (ShouldUseNoMercy(Preset.GNB_AoE_NoMercy, GNB_AoE_NoMercyStop))
+                    return NoMercy;
 
-                    if (ShouldUseBowShock(Preset.GNB_AoE_BowShock))
-                        return BowShock;
+                if (ShouldUseBloodfest(Preset.GNB_AoE_Bloodfest))
+                    return Bloodfest;
 
-                    if (ShouldUseZone(Preset.GNB_AoE_Zone))
-                        return OriginalHook(DangerZone);
+                //HIGH PRIORITY - within late weave window, send now
+                //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
+                ExecuteContinuationProcs(Preset.GNB_AoE_FatedCircle, 1, CanDelayedWeave(), true);
 
-                    if (ShouldUseBloodfest(Preset.GNB_AoE_Bloodfest))
-                        return Bloodfest;
-                }
+                if (ShouldUseBowShock(Preset.GNB_AoE_BowShock))
+                    return BowShock;
+
+                if (ShouldUseZone(Preset.GNB_AoE_Zone))
+                    return OriginalHook(DangerZone);
+
+                ExecuteContinuationProcs(Preset.GNB_AoE_FatedCircle, 1, CanWeave(), true);
+
+                if (ShouldUseReignOfBeasts(Preset.GNB_AoE_Reign))
+                    return ReignOfBeasts;
+
+                if (ShouldUseDoubleDown(Preset.GNB_AoE_DoubleDown))
+                    return DoubleDown;
 
                 if (IsEnabled(Preset.GNB_AoE_SonicBreak) && CanSB &&
-                    ((GNB_AoE_SonicBreak_EarlyOrLate == 0 && HasNM) ||
+                    ((GNB_AoE_SonicBreak_EarlyOrLate == 0) ||
                     (GNB_AoE_SonicBreak_EarlyOrLate == 1 && GetStatusEffectRemainingTime(Buffs.ReadyToBreak) <= (GCDLength + 10.000f))) &&
                     !HasStatusEffect(Buffs.ReadyToRaze))
                     return SonicBreak;
 
-                if (IsEnabled(Preset.GNB_AoE_DoubleDown) &&
-                    CanDD &&
-                    HasNM)
-                    return DoubleDown;
-
                 if (IsEnabled(Preset.GNB_AoE_Reign) &&
-                    ((CanReign && HasNM) || GunStep is 3 or 4))
+                    GunStep is 3 or 4)
                     return OriginalHook(ReignOfBeasts);
 
                 if (ShouldUseFatedCircle(Preset.GNB_AoE_FatedCircle, GNB_AoE_FatedCircle_Setup))
@@ -448,10 +420,7 @@ internal partial class GNB : Tank
 
             //MAX PRIORITY - just clip it, it's better than just losing it altogether
             //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
-            if ((CanContinue || HasStatusEffect(Buffs.ReadyToBlast)) &&
-                RemainingGCD < 0.6f &&
-                IsEnabled(Preset.GNB_GF_Continuation))
-                return OriginalHook(Continuation);
+            ExecuteContinuationProcs(Preset.GNB_GF_Continuation, 0, RemainingGCD < 0.6f);
 
             //No Mercy
             if (ShouldUseNoMercy(Preset.GNB_GF_NoMercy, 0))
@@ -463,10 +432,7 @@ internal partial class GNB : Tank
 
             //HIGH PRIORITY - within late weave window, send now
             //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
-            if ((CanContinue || HasStatusEffect(Buffs.ReadyToBlast)) &&
-                CanDelayedWeave() &&
-                IsEnabled(Preset.GNB_GF_Continuation))
-                return OriginalHook(Continuation);
+            ExecuteContinuationProcs(Preset.GNB_GF_Continuation, 0, CanDelayedWeave());
 
             //Hypervelocity
             //2.5 - if No Mercy is imminent, then we want to aim for buffing HV after using Burst Strike instead of sending it right away (BS^NM^HV>GF>etc.)
@@ -493,17 +459,10 @@ internal partial class GNB : Tank
                 CanWeave())
                 return OriginalHook(Continuation);
 
-            //Burst - Lv100 we want to send Reign as soon as we enter No Mercy, else we send Gnashing Fang (since no Reign)
-            if (LevelChecked(ReignOfBeasts))
-            {
-                if (ShouldUseReignOfBeasts(Preset.GNB_GF_Reign))
-                    return ReignOfBeasts;
-            }
-            else
-            {
-                if (ShouldUseGnashingFangBurst(Preset.GNB_GF_Features))
-                    return GnashingFang;
-            }
+            //Burst - at Lv100 we want to send Reign as soon as we enter No Mercy (unless we're in opener/reopener with max GF charges), else we send Gnashing Fang (since no Reign)
+            var wantGF = GetCooldownRemainingTime(GnashingFang) < 0.5f || !LevelChecked(ReignOfBeasts);
+            if (wantGF ? ShouldUseGnashingFangBurst(Preset.GNB_GF_Features) : ShouldUseReignOfBeasts(Preset.GNB_GF_Reign))
+                return wantGF ? GnashingFang : ReignOfBeasts;
 
             //Double Down
             if (ShouldUseDoubleDown(Preset.GNB_GF_DoubleDown))
@@ -514,7 +473,7 @@ internal partial class GNB : Tank
                 return SonicBreak;
 
             //Gnashing Fang 2 - filler boogaloo
-            if (ShouldUseGnashingFangFiller(Preset.GNB_GF_Features))
+            if (ShouldUseGnashingFangFiller(Preset.GNB_GF_Features, 1))
                 return GnashingFang;
 
             //Noble Blood & Lion Heart
@@ -546,35 +505,34 @@ internal partial class GNB : Tank
             if (actionID != BurstStrike)
                 return actionID;
 
-            if (IsEnabled(Preset.GNB_BS_Continuation))
-            {
-                if (IsEnabled(Preset.GNB_BS_Hypervelocity) &&
-                    LevelChecked(Hypervelocity) &&
-                    (JustUsed(BurstStrike, 1) || HasStatusEffect(Buffs.ReadyToBlast)))
-                    return Hypervelocity;
-
-                if (!IsEnabled(Preset.GNB_BS_Hypervelocity) &&
-                    (CanContinue || (LevelChecked(Hypervelocity) && HasStatusEffect(Buffs.ReadyToBlast))))
-                    return OriginalHook(Continuation);
-            }
+            ExecuteContinuationProcs(Preset.GNB_BS_Continuation, GNB_BS_Continuation_Procs, RemainingGCD < 0.6f);
 
             if (ShouldUseBloodfest(Preset.GNB_BS_Bloodfest))
                 return Bloodfest;
 
-            var useDD = IsEnabled(Preset.GNB_BS_DoubleDown) && CanDD;
-            if (useDD && Ammo >= 2)
-                return DoubleDown;
+            ExecuteContinuationProcs(Preset.GNB_BS_Continuation, GNB_BS_Continuation_Procs, CanWeave());
 
-            if (IsEnabled(Preset.GNB_BS_GnashingFang) && (CanGF || GunStep is 1 or 2))
+            var wantGF = GetCooldownRemainingTime(GnashingFang) < 0.5f || !LevelChecked(ReignOfBeasts);
+            if (wantGF ? ShouldUseGnashingFangBurst(Preset.GNB_BS_GnashingFang) : ShouldUseReignOfBeasts(Preset.GNB_BS_Reign))
+                return wantGF ? GnashingFang : ReignOfBeasts;
+            if (ShouldUseDoubleDown(Preset.GNB_BS_DoubleDown))
+                return DoubleDown;
+            if (ShouldUseGnashingFangFiller(Preset.GNB_BS_GnashingFang, 1))
+                return GnashingFang;
+
+            //combos
+            if (IsEnabled(Preset.GNB_BS_Reign) && GunStep is 3 or 4)
+                return OriginalHook(ReignOfBeasts);
+            if (IsEnabled(Preset.GNB_BS_GnashingFang) && GunStep is 1 or 2)
                 return OriginalHook(GnashingFang);
 
-            if (useDD && Ammo >= 2)
-                return DoubleDown;
-
-            if (IsEnabled(Preset.GNB_BS_Reign) && (CanReign || GunStep is 3 or 4))
-                return OriginalHook(ReignOfBeasts);
-
-            return actionID;
+            //failsafe
+            return 
+                IsEnabled(Preset.GNB_BS_DoubleDown) && CanDD
+                    ? DoubleDown
+                : IsEnabled(Preset.GNB_BS_GnashingFang) && CanGF 
+                    ? GnashingFang 
+                    : actionID;
         }
     }
     #endregion
@@ -589,26 +547,47 @@ internal partial class GNB : Tank
             if (actionID != FatedCircle)
                 return actionID;
 
-            if (IsEnabled(Preset.GNB_FC_Continuation) &&
+            //MAX PRIORITY - just clip it, it's better than just losing it altogether
+            //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
+            if (IsEnabled(Preset.GNB_FC_Continuation) && 
                 HasStatusEffect(Buffs.ReadyToRaze) &&
-                LevelChecked(FatedBrand))
+                RemainingGCD < 0.6f)
                 return FatedBrand;
-
-            if (IsEnabled(Preset.GNB_FC_DoubleDown) &&
-                IsEnabled(Preset.GNB_FC_DoubleDown_NM) &&
-                CanDD && HasNM)
-                return DoubleDown;
 
             if (ShouldUseBloodfest(Preset.GNB_FC_Bloodfest))
                 return Bloodfest;
 
-            if (IsEnabled(Preset.GNB_FC_BowShock) && CanUse(BowShock))
+            if (ShouldUseNoMercy(Preset.GNB_AoE_NoMercy, 0))
+                return NoMercy;
+
+            //HIGH PRIORITY - within late weave window, send now
+            //Continuation procs (Hypervelocity, Jugular Rip, Abdomen Tear, Eye Gouge)
+            if (HasStatusEffect(Buffs.ReadyToRaze) &&
+                CanDelayedWeave() &&
+                IsEnabled(Preset.GNB_AoE_FatedCircle))
+                return FatedBrand;
+
+            if (CanUseOGCD(BowShock, Preset.GNB_FC_BowShock))
                 return BowShock;
 
-            if (IsEnabled(Preset.GNB_FC_DoubleDown) && !IsEnabled(Preset.GNB_FC_DoubleDown_NM) && CanDD)
+            //NORMAL PRIORITY - within weave weave window
+            //Gnashing Fang procs (Jugular Rip, Abdomen Tear, Eye Gouge)
+            if (HasStatusEffect(Buffs.ReadyToRaze) &&
+                CanWeave() &&
+                IsEnabled(Preset.GNB_AoE_FatedCircle))
+                return FatedBrand;
+
+            if (ShouldUseReignOfBeasts(Preset.GNB_FC_Reign))
+                return ReignOfBeasts;
+
+            if (ShouldUseDoubleDown(Preset.GNB_FC_DoubleDown) && GNB_FC_DoubleDown_NMOnly == 0)
                 return DoubleDown;
 
-            if (IsEnabled(Preset.GNB_FC_Reign) && (CanReign || GunStep is 3 or 4))
+            if (IsEnabled(Preset.GNB_FC_DoubleDown) && CanDD && GNB_FC_DoubleDown_NMOnly == 1)
+                return DoubleDown;
+
+            if (IsEnabled(Preset.GNB_FC_Reign) &&
+                GunStep is 3 or 4)
                 return OriginalHook(ReignOfBeasts);
 
             return actionID;
@@ -625,22 +604,28 @@ internal partial class GNB : Tank
         {
             if (actionID != NoMercy)
                 return actionID;
-            if (GNB_NM_Features_Weave == 0 && CanWeave() || GNB_NM_Features_Weave == 1)
+
+            ExecuteContinuationProcs(Preset.GNB_NM_Continuation, 0, RemainingGCD < 0.6f, all: true);
+
+            if ((GNB_NM_Features_Weave == 0 && CanWeave()) || GNB_NM_Features_Weave == 1)
             {
-                var useZone = IsEnabled(Preset.GNB_NM_Zone) && CanUse(OriginalHook(DangerZone)) && NMcd is < 57.5f and > 17f;
-                var useBow = IsEnabled(Preset.GNB_NM_BowShock) && CanUse(BowShock) && NMcd is < 57.5f and >= 40;
-                if (IsEnabled(Preset.GNB_NM_Continuation) && CanContinue &&
-                    (HasStatusEffect(Buffs.ReadyToRip) || HasStatusEffect(Buffs.ReadyToTear) || HasStatusEffect(Buffs.ReadyToGouge) || (LevelChecked(Hypervelocity) && HasStatusEffect(Buffs.ReadyToBlast) || (LevelChecked(FatedBrand) && HasStatusEffect(Buffs.ReadyToRaze)))))
-                    return OriginalHook(Continuation);
-                if (IsEnabled(Preset.GNB_NM_Bloodfest) && HasBattleTarget() && CanUse(Bloodfest))
+
+                if (ShouldUseBloodfest(Preset.GNB_NM_Bloodfest))
                     return Bloodfest;
+
                 //with SKS, we want Zone first because it can drift really bad while Bow usually remains static
                 //without SKS, we don't really care since both usually remain static
+                var useZone = CanUseOGCD(OriginalHook(DangerZone), Preset.GNB_NM_Zone) && NMcd is < 57.5f and > 17f;
+                var useBow = CanUseOGCD(BowShock, Preset.GNB_NM_BowShock) && NMcd is < 57.5f and >= 40;
                 if (Slow ? useBow : useZone)
                     return Slow ? BowShock : OriginalHook(DangerZone);
                 if (Slow ? useZone : useBow)
                     return Slow ? OriginalHook(DangerZone) : BowShock;
+
             }
+
+            ExecuteContinuationProcs(Preset.GNB_NM_Continuation, 0, CanWeave(), all: true);
+
             return actionID;
         }
     }
@@ -656,16 +641,19 @@ internal partial class GNB : Tank
         {
             if (actionID != Camouflage)
                 return actionID;
+
             if (IsEnabled(Preset.GNB_Mit_Superbolide_Max) && ActionReady(Superbolide) &&
-                HPP <= GNB_Mit_Superbolide_Health &&
+                PlayerHealthPercentageHp() <= GNB_Mit_Superbolide_Health &&
                 ContentCheck.IsInConfiguredContent(GNB_Mit_Superbolide_Difficulty, GNB_Mit_Superbolide_DifficultyListSet))
                 return Superbolide;
-            foreach (int priority in GNB_Mit_Priorities.OrderBy(x => x))
+
+            foreach (var priority in GNB_Mit_Priorities.OrderBy(x => x))
             {
-                int index = GNB_Mit_Priorities.IndexOf(priority);
+                var index = GNB_Mit_Priorities.IndexOf(priority);
                 if (CheckMitigationConfigMeetsRequirements(index, out uint action))
                     return action;
             }
+
             return actionID;
         }
     }
@@ -679,10 +667,10 @@ internal partial class GNB : Tank
     }
     #endregion
 
-    #region Aurora Protection and Retargetting
-    internal class GNB_AuroraProtection : CustomCombo
+    #region Aurora Features
+    internal class GNB_AuroraFeatures : CustomCombo
     {
-        protected internal override Preset Preset => Preset.GNB_AuroraProtection;
+        protected internal override Preset Preset => Preset.GNB_AuroraFeatures;
 
         protected override uint Invoke(uint actionID)
         {
@@ -690,27 +678,15 @@ internal partial class GNB : Tank
                 return actionID;
 
             var target =
-                //Mouseover retarget option
-                (IsEnabled(Preset.GNB_RetargetAurora_MO)
-                    ? SimpleTarget.UIMouseOverTarget.IfFriendly()
-                    : null) ??
-
-                //Hard target
+                (IsEnabled(Preset.GNB_RetargetAurora_MO) ? SimpleTarget.UIMouseOverTarget.IfFriendly() : null) ??
                 SimpleTarget.HardTarget.IfFriendly() ??
+                (IsEnabled(Preset.GNB_RetargetAurora_TT) && !PlayerHasAggro && InCombat() ? SimpleTarget.TargetsTarget.IfFriendly() : null);
 
-                //Partner Tank
-                (IsEnabled(Preset.GNB_RetargetAurora_TT) && !PlayerHasAggro && InCombat()
-                    ? SimpleTarget.TargetsTarget.IfFriendly()
-                    : null);
-
-            if (target != null && CanApplyStatus(target, Buffs.Aurora))
-            {
-                return !HasStatusEffect(Buffs.Aurora, target, true)
+            return target != null && CanApplyStatus(target, Buffs.Aurora)
+                ? !HasStatusEffect(Buffs.Aurora, target, true)
                     ? actionID.Retarget(target)
-                    : All.SavageBlade;
-            }
-
-            return !HasStatusEffect(Buffs.Aurora, SimpleTarget.Self, true)
+                    : All.SavageBlade
+                : !HasStatusEffect(Buffs.Aurora, SimpleTarget.Self, true)
                 ? actionID
                 : All.SavageBlade;
         }
@@ -718,7 +694,6 @@ internal partial class GNB : Tank
     #endregion
 
     #region Heart of Corundum Retarget
-
     internal class GNB_RetargetHeartofStone : CustomCombo
     {
         protected internal override Preset Preset => Preset.GNB_RetargetHeartofStone;
@@ -734,16 +709,14 @@ internal partial class GNB : Tank
                     ? SimpleTarget.TargetsTarget.IfNotThePlayer().IfInParty()
                     : null);
 
-            if (target is not null && CanApplyStatus(target, Buffs.HeartOfStone))
-                return OriginalHook(actionID).Retarget([HeartOfStone, HeartOfCorundum], target);
-
-            return actionID;
-
+            return target is not null && CanApplyStatus(target, Buffs.HeartOfStone)
+                ? OriginalHook(actionID).Retarget([HeartOfStone, HeartOfCorundum], target)
+                : actionID;
         }
     }
-
     #endregion
-    
+
+    #region Trajectory Retarget
     internal class GNB_RetargetTrajectory: CustomCombo
     {
         protected internal override Preset Preset => Preset.GNB_RetargetTrajectory;
@@ -753,47 +726,40 @@ internal partial class GNB : Tank
             if (actionID is not Trajectory)
                 return actionID;
             
-            IGameObject? target =
-                // Mouseover
-                SimpleTarget.Stack.MouseOver.IfHostile()
-                    .IfWithinRange(Trajectory.ActionRange()) ??
-
-                // Nearest Enemy to Mouseover
-                SimpleTarget.NearestEnemyToTarget(SimpleTarget.Stack.MouseOver,
-                    Trajectory.ActionRange()) ??
-    
+            var target =
+                SimpleTarget.Stack.MouseOver.IfHostile().IfWithinRange(Trajectory.ActionRange()) ?? //Mouseover
+                SimpleTarget.NearestEnemyToTarget(SimpleTarget.Stack.MouseOver, Trajectory.ActionRange()) ?? //Nearest Enemy to Mouseover
                 CurrentTarget.IfHostile().IfWithinRange(Trajectory.ActionRange());
             
-            return target != null
-                ? actionID.Retarget(target)
-                : actionID;
+            return target != null ? actionID.Retarget(target) : actionID;
         }
     }
+    #endregion
 
-    #region Basic Combo
+    #region Basic Combos
     internal class GNB_ST_BasicCombo : CustomCombo
     {
         protected internal override Preset Preset => Preset.GNB_ST_BasicCombo;
 
-        protected override uint Invoke(uint actionID) => actionID != SolidBarrel ? actionID :
-            ComboTimer > 0 && ComboAction is KeenEdge && LevelChecked(BrutalShell) ? BrutalShell :
-            ComboTimer > 0 && ComboAction is BrutalShell && LevelChecked(SolidBarrel) ? SolidBarrel : KeenEdge;
+        protected override uint Invoke(uint actionID) 
+            => actionID != SolidBarrel 
+                ? actionID 
+                : ComboTimer > 0 && ComboAction is KeenEdge && LevelChecked(BrutalShell) 
+                    ? BrutalShell 
+                : ComboTimer > 0 && ComboAction is BrutalShell && LevelChecked(SolidBarrel) 
+                    ? SolidBarrel 
+                : KeenEdge;
     }
-    
     internal class GNB_AoE_BasicCombo : CustomCombo
     {
         protected internal override Preset Preset => Preset.GNB_AoE_BasicCombo;
 
-        protected override uint Invoke(uint actionID)
-        {
-            if (actionID is not DemonSlaughter)
-                return actionID;
-            
-            if (ComboAction is DemonSlice && ComboTimer > 0 && LevelChecked(DemonSlaughter))
-                return DemonSlaughter;
-
-            return DemonSlice;
-        }
+        protected override uint Invoke(uint actionID) 
+            => actionID is not DemonSlaughter
+                ? actionID
+                : ComboAction is DemonSlice && ComboTimer > 0 && LevelChecked(DemonSlaughter) 
+                    ? DemonSlaughter 
+                : DemonSlice;
     }
     #endregion
 }

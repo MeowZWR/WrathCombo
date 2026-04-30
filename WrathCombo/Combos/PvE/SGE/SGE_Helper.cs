@@ -32,7 +32,7 @@ internal partial class SGE
         SimpleTarget.Stack.AllyToHeal;
 
     private static bool HasAddersgall() => Addersgall > 0;
-    
+
     private static bool AdvancedHasAddersgall() => Addersgall > SGE_Heal_HoldAddersgall;
 
     private static bool HasAddersting() =>
@@ -95,7 +95,7 @@ internal partial class SGE
     {
         if (x is null)
             return 0;
-        
+
         if (InBossEncounter())
             return x.IsBoss() ? SGE_ST_DPS_EukrasianDosisBossOption : SGE_ST_DPS_EukrasianDosisBossAddsOption;
 
@@ -300,13 +300,13 @@ internal partial class SGE
 
     #region Movement Prio
 
-    private static (uint Action, Preset Preset, Func<bool> Logic)[]
+    private static (uint Action, Preset Preset, System.Func<bool> Logic)[]
         PrioritizedMovement =>
     [
         //Toxikon
         (OriginalHook(Toxikon), Preset.SGE_ST_DPS_Movement,
             () => SGE_ST_DPS_Movement[0] &&
-                  ActionReady(Toxikon) &&
+                  ActionReady(OriginalHook(Toxikon)) &&
                   HasAddersting()),
         // Dyskrasia
         (OriginalHook(Dyskrasia), Preset.SGE_ST_DPS_Movement,
@@ -453,6 +453,7 @@ internal partial class SGE
         Holos = 24310,
         EukrasianDiagnosis = 24291,
         EukrasianPrognosis = 24292,
+        EukrasianPrognosis2 = 37034,
         Egeiro = 24287,
 
         // DPS
@@ -522,6 +523,8 @@ internal partial class SGE
     internal static class Traits
     {
         internal const ushort
+            Addersgall = 370,
+            Addersting = 373,
             EnhancedKerachole = 375,
             OffensiveMagicMasteryII = 376;
     }

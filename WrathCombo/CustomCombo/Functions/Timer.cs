@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WrathCombo.AutoRotation;
+using WrathCombo.Services;
 namespace WrathCombo.CustomComboNS.Functions;
 
 internal abstract partial class CustomComboFunctions
@@ -75,6 +76,7 @@ internal abstract partial class CustomComboFunctions
                 if (DateTime.Now < castFinishedAt)
                 {
                     OnCastInterrupted?.Invoke(castId);
+                    Service.ActionReplacer.EnableActionReplacingIfRequired();
                 }
             }
 

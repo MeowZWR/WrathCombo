@@ -40,7 +40,7 @@ using Action = Lumina.Excel.Sheets.Action;
 using BattleNPCSubKind = Dalamud.Game.ClientState.Objects.Enums.BattleNpcSubKind;
 using ObjectKind = Dalamud.Game.ClientState.Objects.Enums.ObjectKind;
 using Status = Dalamud.Game.ClientState.Statuses.IStatus;
-
+using BattleNpcSubKindCS = FFXIVClientStructs.FFXIV.Client.Game.Object.BattleNpcSubKind;
 #endregion
 
 namespace WrathCombo.Window.Tabs;
@@ -414,7 +414,7 @@ internal class Debug : ConfigWindow, IDisposable
                     $"content:{Content.ContentName ?? "??"}, territory:{Content.TerritoryName ?? "??"}");
                 CustomStyleText("Content IDs:",
                     $"territory:{Content.TerritoryID}, cfc:{Content.ContentFinderConditionRow?.RowId.ToString() ?? "??"}, map:{Content.MapID}");
-                CustomStyleText("Content Type:", Content.ContentType?.ToString() ?? "??");
+                CustomStyleText("Content Type:", $"{(Content.ContentType.ToString() ?? "??")} {Content.ContentTypeRowId}");
                 CustomStyleText("Intended Use:", Content.TerritoryIntendedUse?.ToString() ?? "??");
                 CustomStyleText("Difficulty:",
                     $"from name:{Content.ContentDifficultyFromName ?? "??"}, determined:{Content.ContentDifficulty?.ToString() ?? "??"}");
@@ -778,12 +778,16 @@ internal class Debug : ConfigWindow, IDisposable
                 if (_debugSpell.Value.UnlockLink.RowId != 0 && Svc.Data.GetExcelSheet<Quest>().TryGetRow(_debugSpell.Value.UnlockLink.RowId, out var unlockQuest))
                     CustomStyleText("Quest:", $"{unlockQuest.Name} ({(UIState.Instance()->IsUnlockLinkUnlockedOrQuestCompleted(_debugSpell.Value.UnlockLink.RowId) ? "Completed" : "Not Completed")})");
 
+                CustomStyleText("Tooltip:", $"{Svc.Data.GetExcelSheet<ActionTransient>().GetRow(_debugSpell.Value.RowId).Description}");
                 CustomStyleText("Base Recast:", $"{_debugSpell.Value.Recast100ms / 10f}s");
                 CustomStyleText("Base Recast Total:", $"{GetCooldown(_debugSpell.Value.RowId).BaseCooldownTotal}");
                 CustomStyleText("Original Hook:", OriginalHook(_debugSpell.Value.RowId).ActionName());
-                CustomStyleText("Cooldown Total:", $"{GetCooldown(_debugSpell.Value.RowId).CooldownTotal}");
-                CustomStyleText("Current Cooldown:", GetCooldown(_debugSpell.Value.RowId).CooldownRemaining);
+                CustomStyleText("Cooldown Total:", $"{GetCooldown(_debugSpell.Value.RowId).CooldownTotal:N2}");
+                CustomStyleText("CS CD:", $"{GetCooldown(_debugSpell.Value.RowId).CurrentRecast:N2}");
+                CustomStyleText("Remaining Cooldown:", $"{GetCooldown(_debugSpell.Value.RowId).CooldownRemaining:N2}");
+                CustomStyleText("Elpased Cooldown:", $"{GetCooldown(_debugSpell.Value.RowId).CooldownElapsed:N2}");
                 CustomStyleText("Current Cast Time:", ActionManager.GetAdjustedCastTime(ActionType.Action, _debugSpell.Value.RowId));
+                CustomStyleText("Current Charges:", $"{GetCooldown(_debugSpell.Value.RowId).RemainingCharges}");
                 CustomStyleText("Max Charges:", $"{_debugSpell.Value.MaxCharges}");
                 CustomStyleText("Charges (Level):", $"{GetCooldown(_debugSpell.Value.RowId).MaxCharges}");
                 CustomStyleText("Range:", $"{GetActionRange(_debugSpell.Value.RowId)}");
@@ -823,6 +827,23 @@ internal class Debug : ConfigWindow, IDisposable
 
                     if (_debugSpell.Value.EffectRange > 0)
                         CustomStyleText("Number of Targets Hit:", $"{NumberOfEnemiesInRange(_debugSpell.Value.RowId, target)}");
+                }
+
+                if (_debugSpell.Value.CastType != 1)
+                {
+                    ImGui.Spacing();
+                    if (ImGui.CollapsingHeader("Enemies in Range"))
+                    {
+                        ImGui.Indent();
+                        foreach (var e in EnemiesInRange(_debugSpell.Value.RowId))
+                        {
+                            if (ImGui.CollapsingHeader($"{e?.Name}###{e?.SafeGameObjectId}"))
+                            {
+                                DrawTargetInfo(e);
+                            }
+                        }
+                        ImGui.Unindent();
+                    }
                 }
 
                 if (ImGui.TreeNode("Data Dump"))
@@ -920,7 +941,7 @@ internal class Debug : ConfigWindow, IDisposable
         {
             CustomStyleText("Countdown Active:", $"{CountdownActive}");
             CustomStyleText("Countdown Remaining:", $"{CountdownRemaining}");
-            CustomStyleText("Raidwide Incoming:", $"{GroupDamageIncoming()}");
+            CustomStyleText("Raidwide Incoming:", $"{GroupDamageIncoming()} {(GroupDamageIncoming(out var multi) ? $"Multi: {multi}" : "")}");
 
             ImGui.Indent();
             if (ImGui.CollapsingHeader("Occult Crescent Job Icons"))
@@ -1292,7 +1313,7 @@ internal class Debug : ConfigWindow, IDisposable
                 .Where(x => x.ObjectKind == ObjectKind.BattleNpc &&
                             x.IsTargetable &&
                             !x.IsDead &&
-                            x.BattleNpcKind is BattleNPCSubKind.Enemy or BattleNPCSubKind.BattleNpcPart);
+                            x.Struct()->BattleNpcSubKind is BattleNpcSubKindCS.Combatant or BattleNpcSubKindCS.BNpcPart);
 
                 foreach (var enemy in enemies)
                 {
@@ -1357,7 +1378,7 @@ internal class Debug : ConfigWindow, IDisposable
 
         // Optional Monofont
         if (useMonofont) ImGui.PushFont(UiBuilder.MonoFont);
-        ImGui.TextUnformatted(secondColumn?.ToString() ?? string.Empty);
+        ImGui.TextWrapped(secondColumn?.ToString() ?? string.Empty);
         if (useMonofont) ImGui.PopFont();
 
         ImGui.PopStyleColor();

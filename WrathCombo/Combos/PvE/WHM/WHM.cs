@@ -139,7 +139,7 @@ internal partial class WHM : Healer
                 SimpleTarget.DottableEnemy(dotAction, dotDebuffID, 30, 3, 4);
 
             if (ActionReady(dotAction) && target != null)
-                return OriginalHook(Aero).Retarget([Holy, Holy3], target);
+                return dotAction.Retarget([Holy, Holy3], target);
 
             #endregion
 
@@ -714,14 +714,15 @@ internal partial class WHM : Healer
             if (actionID != Role.Swiftcast)
                 return actionID;
 
-            var canThinAir = !HasStatusEffect(Buffs.ThinAir) && ActionReady
-                (ThinAir);
+            if (IsOnCooldown(Role.Swiftcast) || HasStatusEffect(Role.Buffs.Swiftcast))
+            {
+                if (IsEnabled(Preset.WHM_ThinAirRaise) && !HasStatusEffect(Buffs.ThinAir) && ActionReady(ThinAir))
+                    return ThinAir;
 
-            if (HasStatusEffect(Role.Buffs.Swiftcast))
-                return IsEnabled(Preset.WHM_ThinAirRaise) && canThinAir ? ThinAir :
-                    IsEnabled(Preset.WHM_Raise_Retarget) ? Raise.Retarget(
-                        Role.Swiftcast,
-                        SimpleTarget.Stack.AllyToRaise) : Raise;
+                return IsEnabled(Preset.WHM_Raise_Retarget)
+                    ? Raise.Retarget(Role.Swiftcast, SimpleTarget.Stack.AllyToRaise)
+                    : Raise;
+            }
 
             return actionID;
         }

@@ -76,7 +76,7 @@ internal partial class RPR
             {
                 //Double enshroud
                 if (LevelChecked(PlentifulHarvest) && HasStatusEffect(Buffs.Enshrouded) &&
-                    (GetCooldownRemainingTime(ArcaneCircle) <= GCD || IsOffCooldown(ArcaneCircle)) &&
+                    GetCooldownRemainingTime(ArcaneCircle) <= GCD && GetStatusEffectRemainingTime(Debuffs.DeathsDesign, CurrentTarget) < 15 &&
                     (JustUsed(VoidReaping, 2f) || JustUsed(CrossReaping, 2f)))
                     return true;
 
@@ -109,7 +109,7 @@ internal partial class RPR
 
         //Ranged Attacks
         if ((simpleMode || IsEnabled(Preset.RPR_ST_RangedFiller)) &&
-            ActionReady(Harpe))
+            ActionReady(OriginalHook(Harpe)))
         {
             //Communio
             if (HasStatusEffect(Buffs.Enshrouded) && Lemure is 1 &&
@@ -118,7 +118,7 @@ internal partial class RPR
 
             if (RPR_ST_EnhancedHarpe && HasStatusEffect(Buffs.EnhancedHarpe) ||
                 (!RPR_ST_EnhancedHarpe || simpleMode) && (!IsMoving() || HasStatusEffect(Buffs.EnhancedHarpe)))
-                return Harpe;
+                return OriginalHook(Harpe);
         }
 
         return actionId;

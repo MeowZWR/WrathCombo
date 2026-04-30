@@ -1,8 +1,6 @@
 using Dalamud.Game.ClientState.Objects.Types;
-using ECommons.DalamudServices;
 using ECommons.GameFunctions;
 using System.Linq;
-using WrathCombo.AutoRotation;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Extensions;
@@ -59,10 +57,10 @@ internal partial class SGE : Healer
                 if (ActionReady(Soteria) && HasStatusEffect(Buffs.Kardia))
                     return Soteria;
             }
-           
-            var dotAction = OriginalHook(Dosis);
-            DosisList.TryGetValue(dotAction, out var debuff);
-            var target = SimpleTarget.DottableEnemy(dotAction, debuff.Debuff, 0, 3, 2);
+
+            uint dotAction = OriginalHook(Dosis);
+            DosisList.TryGetValue(dotAction, out (ushort Debuff, uint Eukrasian) debuff);
+            IGameObject? target = SimpleTarget.DottableEnemy(dotAction, debuff.Debuff, 0, 3, 2);
 
             if (target is not null && CanApplyStatus(target, debuff.Debuff) && !JustUsedOn(dotAction, target) && LevelChecked(Eukrasia))
                 return HasStatusEffect(Buffs.Eukrasia)
@@ -73,7 +71,7 @@ internal partial class SGE : Healer
             {
                 // Phlegma
                 if (InCombat() && InActionRange(OriginalHook(Phlegma)) &&
-                    ActionReady(Phlegma))
+                    ActionReady(OriginalHook(Phlegma)))
                 {
                     //If not enabled or not high enough level, follow slider
                     if (!LevelChecked(Psyche) &&
@@ -91,7 +89,7 @@ internal partial class SGE : Healer
                 if (InCombat() && IsMoving() && HasBattleTarget())
                 {
                     //Toxikon
-                    if (ActionReady(Toxikon) && HasAddersting())
+                    if (ActionReady(OriginalHook(Toxikon)) && HasAddersting())
                         return OriginalHook(Toxikon);
 
                     // Dyskrasia
@@ -159,13 +157,13 @@ internal partial class SGE : Healer
                 return Eukrasia;
 
             //Phlegma
-            if (ActionReady(Phlegma) &&
+            if (ActionReady(OriginalHook(Phlegma)) &&
                 HasBattleTarget() &&
                 InActionRange(OriginalHook(Phlegma)))
                 return OriginalHook(Phlegma);
 
             //Toxikon
-            if (ActionReady(Toxikon) &&
+            if (ActionReady(OriginalHook(Toxikon)) &&
                 HasBattleTarget() && HasAddersting() &&
                 InActionRange(OriginalHook(Toxikon)))
                 return OriginalHook(Toxikon);
@@ -258,35 +256,33 @@ internal partial class SGE : Healer
                     ActionReady(Soteria) && HasStatusEffect(Buffs.Kardia))
                     return Soteria;
             }
-            
+
             if (IsEnabled(Preset.SGE_ST_DPS_EDosis) && PartyInCombat())
             {
-                var dotAction = OriginalHook(Dosis);;
-                DosisList.TryGetValue(dotAction, out var debuff);
-                var target = SimpleTarget.DottableEnemy(dotAction, debuff.Debuff, ComputeHpThreshold, SGE_ST_DPS_EukrasianDosisUptime_Threshold, 2);
-                
+                uint dotAction = OriginalHook(Dosis);
+                ;
+                DosisList.TryGetValue(dotAction, out (ushort Debuff, uint Eukrasian) debuff);
+                IGameObject? target = SimpleTarget.DottableEnemy(dotAction, debuff.Debuff, ComputeHpThreshold, SGE_ST_DPS_EukrasianDosisUptime_Threshold, 2);
+
                 //Single Target Dotting, needed because dottableenemy will not maintain single dot on main target of more than one target exists. 
                 if (NeedsDoT())
                     return HasStatusEffect(Buffs.Eukrasia)
                         ? dotAction
                         : Eukrasia;
-                
+
                 //2 target Dotting System to maintain dots on 2 enemies. Works with the same sliders and one target
                 if (target is not null && CanApplyStatus(target, debuff.Debuff) && !JustUsedOn(dotAction, target) && SGE_ST_DPS_EDosis_TwoTarget && LevelChecked(Eukrasia))
                     return HasStatusEffect(Buffs.Eukrasia)
                         ? dotAction.Retarget(dosisActions, target)
                         : Eukrasia;
-                       
             }
 
             if (HasBattleTarget() && !HasStatusEffect(Buffs.Eukrasia))
             {
-                
-
                 // Phlegma
                 if (IsEnabled(Preset.SGE_ST_DPS_Phlegma) &&
                     InCombat() && InActionRange(OriginalHook(Phlegma)) &&
-                    ActionReady(Phlegma))
+                    ActionReady(OriginalHook(Phlegma)))
                 {
                     //If not enabled or not high enough level, follow slider
                     if ((!SGE_ST_DPS_Phlegma_Burst || !LevelChecked(Psyche)) &&
@@ -392,14 +388,14 @@ internal partial class SGE : Healer
 
             //Phlegma
             if (IsEnabled(Preset.SGE_AoE_DPS_Phlegma) &&
-                ActionReady(Phlegma) &&
+                ActionReady(OriginalHook(Phlegma)) &&
                 HasBattleTarget() &&
                 InActionRange(OriginalHook(Phlegma)))
                 return OriginalHook(Phlegma);
 
             //Toxikon
             if (IsEnabled(Preset.SGE_AoE_DPS_Toxikon) &&
-                ActionReady(Toxikon) &&
+                ActionReady(OriginalHook(Toxikon)) &&
                 HasBattleTarget() && HasAddersting() &&
                 InActionRange(OriginalHook(Toxikon)))
                 return OriginalHook(Toxikon);

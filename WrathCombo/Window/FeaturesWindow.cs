@@ -1,6 +1,7 @@
 #region
 
 using Dalamud.Interface.Utility.Raii;
+using ECommons.DalamudServices;
 using ECommons.ExcelServices;
 using ECommons.ImGuiMethods;
 using System;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Numerics;
 using WrathCombo.Attributes;
 using WrathCombo.Core;
+using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Extensions;
 using WrathCombo.Resources.Localization.UI.Features;
 using WrathCombo.Resources.Localization.UI.Misc;
@@ -67,7 +69,7 @@ internal class FeaturesWindow : ConfigWindow
 
     public static void DrawHeader(Job job, bool pvp = false)
     {
-        var name = !pvp ? $"{OpenJob?.Name()}" : $"{OpenPvPJob?.Name()}";
+        var name = job.Name();
         var icon = Icons.GetJobIcon(job);
 
         using var header = ImRaii.Child((pvp ? "PvP" : "") + "HeadingTab",

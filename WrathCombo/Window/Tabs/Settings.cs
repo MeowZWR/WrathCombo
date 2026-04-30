@@ -50,24 +50,34 @@ internal class Settings : ConfigWindow
 
     #region Loading Settings
 
-    private static readonly List<Setting> SettingsList = typeof(Configuration)
-        .GetFields()
-        .Select(rawSetting =>
+    public static List<Setting> SettingsList
+    {
+        get
         {
-            try
-            {
-                return new Setting(rawSetting.Name);
-            }
-            catch (Exception e)
-            {
-                // Skip raw settings that fail to construct.
-                PluginLog.Verbose(e.Message);
-                return null;
-            }
-        })
-        .Where(setting => setting != null)
-        .Select(s => s!)
-        .ToList();
+            field ??= new();
+            if (field.Count > 0)
+                return field;
+
+            return typeof(Configuration)
+           .GetFields()
+           .Select(rawSetting =>
+           {
+               try
+               {
+                   return new Setting(rawSetting.Name);
+               }
+               catch (Exception e)
+               {
+                   // Skip raw settings that fail to construct.
+                   PluginLog.Verbose(e.Message);
+                   return null;
+               }
+           })
+           .Where(setting => setting != null)
+           .Select(s => s!)
+           .ToList();
+        }
+    }
 
     public static void SanitiseSettings()
     {
@@ -114,7 +124,7 @@ internal class Settings : ConfigWindow
 
             var settings = SettingsList;
             const StringComparison lower =
-                StringComparison.InvariantCultureIgnoreCase;
+                StringComparison.CurrentCultureIgnoreCase;
             if (IsSearching)
                 settings = settings
                     .Where(s =>
@@ -221,7 +231,7 @@ internal class Settings : ConfigWindow
             ImGuiEx.Spacing(new Vector2(0, 20));
 
             ImGuiEx.TextUnderlined(
-                setting.Category.ToString().Replace("_", " "));
+                setting.CategoryName);
 
             _currentCategory = setting.Category;
         }
@@ -281,6 +291,9 @@ internal class Settings : ConfigWindow
         {
             case Attributes.Setting.Type.Toggle:
                 {
+                    if (setting.FieldName == "AprilFools2026" && !IsAprilFools)
+                        return;
+
                     var value = (bool)setting.Value;
 
                     // Update group value if applicable
@@ -290,7 +303,11 @@ internal class Settings : ConfigWindow
 
                     changed = ImGui.Checkbox(label, ref value);
                     if (changed)
+                    {
                         setting.Value = value;
+                        if (setting.FieldName == "ActionChanging")
+                            Service.Configuration.SetActionChanging(value);
+                    }
 
                     break;
                 }

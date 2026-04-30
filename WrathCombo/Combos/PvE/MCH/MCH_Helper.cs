@@ -32,11 +32,8 @@ internal partial class MCH
 
             case true when
                 (ActionReady(Hypercharge) || HasStatusEffect(Buffs.Hypercharged)) &&
-                LevelChecked(AutoCrossbow) &&
-                (LevelChecked(BioBlaster) && GetCooldownRemainingTime(BioBlaster) > 10 ||
-                 !LevelChecked(BioBlaster) || IsNotEnabled(Preset.MCH_AoE_Adv_Tools)) &&
-                (LevelChecked(Flamethrower) && GetCooldownRemainingTime(Flamethrower) > 10 ||
-                 !LevelChecked(Flamethrower) || IsNotEnabled(Preset.MCH_AoE_Adv_FlameThrower)):
+                !IsOverheated && LevelChecked(Heatblast) &&
+                BioBlasterCD && ChainSawCD && FlamethrowerCD:
                 return true;
         }
 
@@ -50,7 +47,7 @@ internal partial class MCH
     private static bool CanQueen()
     {
         if (!HasStatusEffect(Buffs.Wildfire) &&
-            ActionReady(RookAutoturret) &&
+            ActionReady(OriginalHook(RookAutoturret)) &&
             !RobotActive &&
             GetTargetHPPercent() > HPThresholdQueen)
         {
@@ -119,7 +116,7 @@ internal partial class MCH
                 numberOfReadyTools++;
         }
 
-        if (ActionReady(AirAnchor))
+        if (ActionReady(OriginalHook(AirAnchor)))
             numberOfReadyTools++;
 
         return numberOfReadyTools;
@@ -176,22 +173,22 @@ internal partial class MCH
     #region Gauss and Rico
 
     private static bool OvercapGaussRound =>
-        ActionReady(GaussRound) && ((!LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(GaussRound)) is 1 ||
-                                     LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(GaussRound)) is 2) &&
-                                    GetCooldownChargeRemainingTime(OriginalHook(GaussRound)) < 25 ||
-                                    !LevelChecked(Hypercharge) && GetRemainingCharges(OriginalHook(GaussRound)) is 2);
+        ActionReady(OriginalHook(GaussRound)) && ((!LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(GaussRound)) is 1 ||
+                                                   LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(GaussRound)) is 2) &&
+                                                  GetCooldownChargeRemainingTime(OriginalHook(GaussRound)) < 25 ||
+                                                  !LevelChecked(Hypercharge) && GetRemainingCharges(OriginalHook(GaussRound)) is 2);
 
     private static bool OvercapRicochet =>
-        ActionReady(Ricochet) && (!LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(Ricochet)) is 1 ||
-                                  LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(Ricochet)) is 2) &&
+        ActionReady(OriginalHook(Ricochet)) && (!LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(Ricochet)) is 1 ||
+                                                LevelChecked(Traits.ChargedActionMastery) && GetRemainingCharges(OriginalHook(Ricochet)) is 2) &&
         GetCooldownChargeRemainingTime(OriginalHook(Ricochet)) < 25;
 
     private static bool CanGaussRound =>
-        ActionReady(GaussRound) &&
+        ActionReady(OriginalHook(GaussRound)) &&
         GetRemainingCharges(OriginalHook(GaussRound)) >= GetRemainingCharges(OriginalHook(Ricochet));
 
     private static bool CanRicochet =>
-        ActionReady(Ricochet) &&
+        ActionReady(OriginalHook(Ricochet)) &&
         GetRemainingCharges(OriginalHook(Ricochet)) > GetRemainingCharges(OriginalHook(GaussRound));
 
     #endregion
@@ -208,7 +205,7 @@ internal partial class MCH
 
     private static int HPThresholdTools =>
         MCH_ST_ToolsBossOption == 1 ||
-        !TargetIsBoss() ? MCH_ST_ToolsBossOption : 0;
+        !TargetIsBoss() ? MCH_ST_ToolsHPOption : 0;
 
     private static int HPThresholdBarrelStabilizer =>
         MCH_ST_BarrelStabilizerHPBossOption == 1 ||
@@ -223,17 +220,26 @@ internal partial class MCH
     #region Tools
 
     private static bool DrillCD =>
-        !LevelChecked(Drill) ||
+        !ActionReady(Drill) ||
         !TraitLevelChecked(Traits.EnhancedMultiWeapon) && GetCooldownRemainingTime(Drill) >= 9 ||
         TraitLevelChecked(Traits.EnhancedMultiWeapon) && GetRemainingCharges(Drill) < GetMaxCharges(Drill) && GetCooldownChargeRemainingTime(Drill) >= 9;
 
     private static bool AirAnchorCD =>
-        !LevelChecked(OriginalHook(AirAnchor)) ||
-        LevelChecked(OriginalHook(AirAnchor)) && GetCooldownRemainingTime(OriginalHook(AirAnchor)) >= 9;
+        !LevelChecked(OriginalHook(HotShot)) ||
+        LevelChecked(OriginalHook(HotShot)) && GetCooldownRemainingTime(OriginalHook(HotShot)) >= 9;
 
     private static bool ChainSawCD =>
         !LevelChecked(Chainsaw) ||
         LevelChecked(Chainsaw) && GetCooldownRemainingTime(Chainsaw) >= 9;
+
+    private static bool BioBlasterCD =>
+        !ActionReady(BioBlaster) ||
+        !TraitLevelChecked(Traits.EnhancedMultiWeapon) && GetCooldownRemainingTime(BioBlaster) >= 9 ||
+        TraitLevelChecked(Traits.EnhancedMultiWeapon) && GetRemainingCharges(BioBlaster) < GetMaxCharges(BioBlaster) && GetCooldownChargeRemainingTime(BioBlaster) >= 9;
+
+    private static bool FlamethrowerCD =>
+        !ActionReady(Flamethrower) ||
+        LevelChecked(Flamethrower) && GetCooldownRemainingTime(Flamethrower) >= 9;
 
     private static bool CanUseTools(ref uint actionID)
     {
@@ -249,7 +255,7 @@ internal partial class MCH
             return true;
         }
 
-        if (ActionReady(AirAnchor) && LevelChecked(AirAnchor))
+        if (ActionReady(AirAnchor))
         {
             actionID = AirAnchor;
             return true;

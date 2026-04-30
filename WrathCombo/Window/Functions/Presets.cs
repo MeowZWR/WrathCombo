@@ -192,8 +192,14 @@ internal class Presets : ConfigWindow
             }
         }
 
+        bool debugConfig =
+#if DEBUG
+        true;
+#else
+        false;      
+#endif
         // Draw UserOpts
-        if (enabled)
+        if (enabled || debugConfig)
         {
             if (!presetData.IsPvP)
             {
@@ -394,7 +400,7 @@ internal class Presets : ConfigWindow
             ? ImGuiColors.ParsedGreen
             : ImGuiColors.DalamudYellow;
 
-        using var col = new ImRaii.Color();
+        using var col = new ImRaii.ColorDisposable();
         col.Push(ImGuiCol.TextDisabled, color);
 
         using (ImRaii.PushFont(UiBuilder.IconFont))

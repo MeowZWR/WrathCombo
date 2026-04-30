@@ -44,18 +44,13 @@ internal partial class BLM
             : Fire;
 
     private static bool CanFire3 =>
-        LevelChecked(Fire3) &&
-        (LevelChecked(Paradox) && HasStatusEffect(Buffs.Firestarter) &&
-         (AstralFireStacks < 3 ||
-          GetCooldownRemainingTime(Manafont) <= GCD * 3 && ActiveParadox) ||
-         !LevelChecked(Fire4) && TimeSinceFirestarterBuff >= GCD * 3);
+        LevelChecked(Fire3) && HasStatusEffect(Buffs.Firestarter) &&
+        (AstralFireStacks < 3 || !LevelChecked(Fire4) && TimeSinceFirestarterBuff >= GCD * 3);
 
     private static bool CanFireParadox =>
-        ActiveParadox &&
-        !HasStatusEffect(Buffs.Firestarter) &&
-        (LevelChecked(FlareStar) && (JustUsed(Transpose) ||
-                                     AstralFireStacks is 3 && JustUsed(FlareStar) && MP.Cur >= 1600) ||
-         GetCooldownRemainingTime(Manafont) <= GCD * 2 ||
+        ActiveParadox && MP.Cur >= MP.FireParadox &&
+        (!HasStatusEffect(Buffs.Firestarter) && AstralFireStacks < 3 ||
+         JustUsed(FlareStar, GCD * 4) ||
          !LevelChecked(FlareStar) && ActionReady(Despair));
 
     private static bool EndOfFirePhase =>
@@ -117,9 +112,18 @@ internal partial class BLM
     private static (uint Action, Preset Preset, System.Func<bool> Logic)[]
         PrioritizedMovement =>
     [
+        //Despair at lvl 100
+        (Despair, Preset.BLM_ST_Movement,
+            () => BLM_ST_MovementOption[0] &&
+                  ActionReady(Despair) &&
+                  TraitLevelChecked(Traits.EnhancedAstralFire) &&
+                  FirePhase && MP.Cur is >= 800 and < 1500 &&
+                  !HasStatusEffect(Buffs.Triplecast) &&
+                  !HasStatusEffect(Role.Buffs.Swiftcast)),
+
         //Triplecast
         (Triplecast, Preset.BLM_ST_Movement,
-            () => BLM_ST_MovementOption[0] &&
+            () => BLM_ST_MovementOption[1] &&
                   ActionReady(Triplecast) &&
                   !HasStatusEffect(Buffs.Triplecast) &&
                   !HasStatusEffect(Role.Buffs.Swiftcast) &&
@@ -127,30 +131,32 @@ internal partial class BLM
                   !JustUsed(Triplecast)),
 
         // Paradox
-        (OriginalHook(Paradox), Preset.BLM_ST_Movement,
-            () => BLM_ST_MovementOption[1] &&
-                  ActionReady(Paradox) &&
+        (OriginalHook(Fire), Preset.BLM_ST_Movement,
+            () => BLM_ST_MovementOption[2] &&
+                  ActionReady(OriginalHook(Paradox)) &&
                   FirePhase && ActiveParadox &&
+                  MP.Cur >= MP.FireParadox &&
                   !HasStatusEffect(Buffs.Firestarter) &&
                   !HasStatusEffect(Buffs.Triplecast) &&
                   !HasStatusEffect(Role.Buffs.Swiftcast)),
 
         //Swiftcast
         (Role.Swiftcast, Preset.BLM_ST_Movement,
-            () => BLM_ST_MovementOption[2] &&
+            () => BLM_ST_MovementOption[3] &&
                   ActionReady(Role.Swiftcast) &&
                   !HasStatusEffect(Buffs.Triplecast)),
 
         //Xeno
         (Xenoglossy, Preset.BLM_ST_Movement,
-            () => BLM_ST_MovementOption[3] &&
+            () => BLM_ST_MovementOption[4] &&
+                  ActionReady(Xenoglossy) &&
                   HasPolyglotStacks() &&
                   !HasStatusEffect(Buffs.Triplecast) &&
                   !HasStatusEffect(Role.Buffs.Swiftcast)),
 
         // Firestarter
         (Fire3, Preset.BLM_ST_Movement,
-            () => BLM_ST_MovementOption[4] &&
+            () => BLM_ST_MovementOption[5] &&
                   ActionReady(Fire3) &&
                   FirePhase &&
                   HasStatusEffect(Buffs.Firestarter) &&
@@ -159,7 +165,7 @@ internal partial class BLM
 
         //Scathe
         (Scathe, Preset.BLM_ST_Movement,
-            () => BLM_ST_MovementOption[5] &&
+            () => BLM_ST_MovementOption[6] &&
                   ActionReady(Scathe) &&
                   !HasStatusEffect(Buffs.Triplecast) &&
                   !HasStatusEffect(Role.Buffs.Swiftcast))
@@ -340,6 +346,8 @@ internal partial class BLM
         internal static int FireI => GetResourceCost(OriginalHook(Fire));
 
         internal static int FireAoE => GetResourceCost(OriginalHook(Fire2));
+
+        internal static int FireParadox => GetResourceCost(Paradox);
     }
 
     private static readonly FrozenDictionary<uint, ushort> ThunderList = new Dictionary<uint, ushort>
@@ -401,6 +409,12 @@ internal partial class BLM
             LeyLines = 737,
             CircleOfPower = 738,
             Triplecast = 1211,
+            AstralFire = 173, // Do not use, for translation only
+            AstralFire2 = 174, // Do not use, for translation only
+            AstralFire3 = 175, // Do not use, for translation only
+            UmbralIce = 176, // Do not use, for translation only
+            UmbralIce2 = 177, // Do not use, for translation only
+            UmbralIce3 = 178, // Do not use, for translation only
             Thunderhead = 3870;
     }
 

@@ -667,10 +667,15 @@ internal partial class WAR : Tank
             ? 80
             : WAR_Mitigation_Boss_RawIntuition_Health;
         
+        var rawIntuitionDelay = rotationFlags.HasFlag(RotationMode.simple) 
+            ? 0
+            : WAR_Mitigation_Boss_RawIntuitionDelay;
+        
         bool rawIntuitionOnCD = IsEnabled(Preset.WAR_Mitigation_Boss_RawIntuition_OnCD) &&  PlayerHealthPercentageHp() <= RawIntuitionHealthThreshold && IsPlayerTargeted() && RawIntuitionOnCDInMitigationContent;
-        bool RawIntuitionTankbuster = IsEnabled(Preset.WAR_Mitigation_Boss_RawIntuition_TankBuster) && HasIncomingTankBusterEffect() && RawIntuitionTankBusterInMitigationContent;
+        bool rawIntuitionTankbuster = IsEnabled(Preset.WAR_Mitigation_Boss_RawIntuition_TankBuster) && RawIntuitionTankBusterInMitigationContent && 
+                                      HasIncomingTankBusterEffect(out var incomingBusterAge) && incomingBusterAge >= rawIntuitionDelay;
             
-        if (ActionReady(OriginalHook(RawIntuition)) && (rawIntuitionOnCD || RawIntuitionTankbuster))
+        if (ActionReady(OriginalHook(RawIntuition)) && (rawIntuitionOnCD || rawIntuitionTankbuster))
         {
             actionID = OriginalHook(RawIntuition);
             return true;

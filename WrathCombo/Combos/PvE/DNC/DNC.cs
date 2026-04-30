@@ -43,20 +43,20 @@ internal partial class DNC : PhysicalRanged
                 (int)TillanaUsageManner.FavorOverEsprit;
 
             // Thresholds to wait for TS/SS to come off CD
-            var longAlignmentThreshold = 0.6f;
-            var shortAlignmentThreshold = 0.3f;
+            var longAlignment = 0.6f;
+            var shortAlignment = 0.3f;
             if (DNC_ST_ADV_AntiDrift == (int)AntiDrift.TripleWeave ||
                 DNC_ST_ADV_AntiDrift == (int)AntiDrift.Both)
             {
-                longAlignmentThreshold = 0.3f;
-                shortAlignmentThreshold = 0.1f;
+                longAlignment = 0.3f;
+                shortAlignment = 0.1f;
             }
 
             var needToTech =
                 IsEnabled(Preset.DNC_ST_Adv_TS) &&
                 DNC_ST_ADV_TS_IncludeTS == (int)IncludeStep.Yes &&
                 GetCooldownRemainingTime(TechnicalStep) <
-                longAlignmentThreshold && // Up or about to be (some anti-drift)
+                longAlignment && // Up or about to be (some anti-drift)
                 !HasStatusEffect(Buffs.StandardStep) && // After Standard
                 IsOnCooldown(StandardStep) &&
                 GetTargetHPPercent() > targetHpThresholdTechnical && // HP% check
@@ -70,25 +70,28 @@ internal partial class DNC : PhysicalRanged
             if (DNC_ST_ADV_AntiDrift == (int)AntiDrift.Hold ||
                 DNC_ST_ADV_AntiDrift == (int)AntiDrift.Both)
             {
-                longAlignmentThreshold = (float)GCD;
-                shortAlignmentThreshold = (float)GCD;
+                longAlignment = (float)GCD;
+                shortAlignment = (float)GCD;
             }
 
             var needToFinish =
                 IsEnabled(Preset.DNC_ST_Adv_FM) &&
                 HasStatusEffect(Buffs.FinishingMoveReady) &&
                 !HasStatusEffect(Buffs.LastDanceReady) &&
-                ((GetCooldownRemainingTime(StandardStep) < longAlignmentThreshold &&
-                  HasStatusEffect(Buffs.TechnicalFinish)) || // Aggressive anti-drift
-                 (!HasStatusEffect(Buffs.TechnicalFinish) && // Anti-Drift outside of Tech
-                  GetCooldownRemainingTime(StandardStep) <
-                  shortAlignmentThreshold));
+                (
+                    // Aggressive anti-drift
+                    (GetCooldownRemainingTime(StandardStep) < longAlignment &&
+                     HasStatusEffect(Buffs.TechnicalFinish)) ||
+                    // Anti-Drift outside of Tech
+                    (!HasStatusEffect(Buffs.TechnicalFinish) &&
+                     GetCooldownRemainingTime(StandardStep) < shortAlignment)
+                );
 
             var needToStandard =
                 IsEnabled(Preset.DNC_ST_Adv_SS) &&
                 DNC_ST_ADV_SS_IncludeSS == (int)IncludeStep.Yes &&
                 GetCooldownRemainingTime(StandardStep) <
-                longAlignmentThreshold && // Up or about to be (some anti-drift)
+                longAlignment && // Up or about to be (some anti-drift)
                 !HasStatusEffect(Buffs.FinishingMoveReady) &&
                 !HasStatusEffect(Buffs.TechnicalFinish);
 
@@ -317,15 +320,20 @@ internal partial class DNC : PhysicalRanged
                 return TechnicalStep;
 
             // ST Last Dance
-            if (IsEnabled(Preset.DNC_ST_Adv_LD) && // Enabled
-                HasStatusEffect(Buffs.LastDanceReady) && // Ready
-                (HasStatusEffect(Buffs.TechnicalFinish) || // Has Tech
-                 !(IsOnCooldown(TechnicalStep) && // Or can't hold it for tech
-                   GetCooldownRemainingTime(TechnicalStep) < 20 &&
-                   GetStatusEffectRemainingTime(Buffs.LastDanceReady) >
-                   GetCooldownRemainingTime(TechnicalStep) + 4) ||
-                 GetStatusEffectRemainingTime(Buffs.LastDanceReady) <
-                 4)) // Or last second
+            if (IsEnabled(Preset.DNC_ST_Adv_LD) &&
+                HasStatusEffect(Buffs.LastDanceReady) &&
+                (
+                    // Has Tech and not-capped Esprit
+                    (HasStatusEffect(Buffs.TechnicalFinish) &&
+                     Gauge.Esprit < 95) ||
+                    // Can't hold it for Tech
+                    !(IsOnCooldown(TechnicalStep) &&
+                      GetCooldownRemainingTime(TechnicalStep) < 20 &&
+                      GetStatusEffectRemainingTime(Buffs.LastDanceReady) >
+                      GetCooldownRemainingTime(TechnicalStep) + 4) ||
+                    // Last second
+                    GetStatusEffectRemainingTime(Buffs.LastDanceReady) < 4
+                ))
                 return LastDance;
 
             // ST Standard Step (Finishing Move)
@@ -352,15 +360,19 @@ internal partial class DNC : PhysicalRanged
             if (IsEnabled(Preset.DNC_ST_Adv_DawnDance) &&
                 HasStatusEffect(Buffs.DanceOfTheDawnReady) &&
                 ActionReady(DanceOfTheDawn) &&
+                // Tech is up
                 (GetCooldownRemainingTime(TechnicalStep) > 5 ||
-                 IsOffCooldown(TechnicalStep)) && // Tech is up
-                (Gauge.Esprit >=
-                 DNC_ST_Adv_SaberThreshold || // >esprit threshold use
-                 (HasStatusEffect(Buffs
-                      .TechnicalFinish) && // will overcap with Tillana if not used
-                  !tillanaDriftProtectionActive && Gauge.Esprit >= 50) ||
-                 (GetStatusEffectRemainingTime(Buffs.DanceOfTheDawnReady) < 5 &&
-                  Gauge.Esprit >= 50))) // emergency use
+                 IsOffCooldown(TechnicalStep)) &&
+                (
+                    // >Esprit threshold use
+                    Gauge.Esprit >= DNC_ST_Adv_SaberThreshold ||
+                    // Will overcap with Tillana if not used
+                    (HasStatusEffect(Buffs.TechnicalFinish) &&
+                     !tillanaDriftProtectionActive && Gauge.Esprit >= 50) ||
+                    // Emergency use
+                    (GetStatusEffectRemainingTime(Buffs.DanceOfTheDawnReady) < 5 &&
+                     Gauge.Esprit >= 50)
+                ))
                 return OriginalHook(DanceOfTheDawn);
 
             // ST Saber Dance (Emergency Use)
@@ -626,14 +638,19 @@ internal partial class DNC : PhysicalRanged
                 return TechnicalStep;
 
             // ST Last Dance
-            if (HasStatusEffect(Buffs.LastDanceReady) && // Ready
-                (HasStatusEffect(Buffs.TechnicalFinish) || // Has Tech
-                 !(IsOnCooldown(TechnicalStep) && // Or can't hold it for tech
-                   GetCooldownRemainingTime(TechnicalStep) < 20 &&
-                   GetStatusEffectRemainingTime(Buffs.LastDanceReady) >
-                   GetCooldownRemainingTime(TechnicalStep) + 4) ||
-                 GetStatusEffectRemainingTime(Buffs.LastDanceReady) <
-                 4)) // Or last second
+            if (HasStatusEffect(Buffs.LastDanceReady) &&
+                (
+                    // Has Tech and not-capped Esprit
+                    (HasStatusEffect(Buffs.TechnicalFinish) &&
+                     Gauge.Esprit < 95) ||
+                    // Can't hold it for Tech
+                    !(IsOnCooldown(TechnicalStep) &&
+                      GetCooldownRemainingTime(TechnicalStep) < 20 &&
+                      GetStatusEffectRemainingTime(Buffs.LastDanceReady) >
+                      GetCooldownRemainingTime(TechnicalStep) + 4) ||
+                    // Last second
+                    GetStatusEffectRemainingTime(Buffs.LastDanceReady) < 4
+                ))
                 return LastDance;
 
             // ST Standard Step (Finishing Move)
@@ -661,13 +678,16 @@ internal partial class DNC : PhysicalRanged
                 ActionReady(DanceOfTheDawn) &&
                 (GetCooldownRemainingTime(TechnicalStep) > 5 ||
                  IsOffCooldown(TechnicalStep)) && // Tech is up
-                (Gauge.Esprit >=
-                 DNC_ST_Adv_SaberThreshold || // >esprit threshold use
-                 (HasStatusEffect(Buffs
-                      .TechnicalFinish) && // will overcap with Tillana if not used
-                  Gauge.Esprit >= 50) ||
-                 (GetStatusEffectRemainingTime(Buffs.DanceOfTheDawnReady) < 5 &&
-                  Gauge.Esprit >= 50))) // emergency use
+                (
+                    // >Esprit threshold use
+                    Gauge.Esprit >= 50 ||
+                    // Will overcap with Tillana if not used
+                    (HasStatusEffect(Buffs.TechnicalFinish) &&
+                     Gauge.Esprit >= 50) ||
+                    // Emergency use
+                    (GetStatusEffectRemainingTime(Buffs.DanceOfTheDawnReady) < 5 &&
+                     Gauge.Esprit >= 50)
+                ))
                 return OriginalHook(DanceOfTheDawn);
 
             // ST Saber Dance

@@ -239,6 +239,10 @@ public partial class Leasing
             return null;
         }
 
+        // Don't create a new lease if the plugin is already in the registration list
+        if (Registrations.FindFirst(x => x.Value.PluginName == internalPluginName, out var existingLease))
+            return existingLease.Key;
+
         // Make sure the lease ID is unique
         // (unnecessary, but could save a big headache)
         Lease lease;

@@ -21,7 +21,7 @@ internal static partial class Variant
             if (!EZ.Throttle("variantTerritory", TS.FromSeconds(4)))
                 return field;
 
-            field = Svc.ClientState.TerritoryType;
+            field = (ushort)Svc.ClientState.TerritoryType;
             return field;
         }
     }

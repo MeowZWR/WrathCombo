@@ -63,6 +63,8 @@ public sealed partial class WrathCombo : IDalamudPlugin
     internal ActionRetargeting ActionRetargeting = null!;
     internal MovementHook MoveHook;
 
+    internal static bool IsAprilFools => DateTime.UtcNow.Day == 1 && DateTime.UtcNow.Month == 4;
+
     private readonly TextPayload starterMotd = new("[Wrath Message of the Day] ");
     private static Job? jobID;
     private static bool EnteringInstancedContent
@@ -300,7 +302,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         }
     }
 
-    private void ClientState_TerritoryChanged(ushort obj)
+    private void ClientState_TerritoryChanged(uint obj)
     {
         UpdateCaches(false, true, false);
 
@@ -316,7 +318,6 @@ public sealed partial class WrathCombo : IDalamudPlugin
         {
             #region Checks that don't require the Player to be loaded
 
-            Service.Configuration.SetActionChanging();
             Configuration.ProcessSaveQueue();
 
             //Hacky workaround to ensure it's always running
@@ -380,6 +381,12 @@ public sealed partial class WrathCombo : IDalamudPlugin
             }
             else
                 OpenerDtr.Text = "";
+
+            if (Service.Configuration.TankbusterTTS || Service.Configuration.TankbusterToast)
+                CustomComboFunctions.PlayTankbusterAlert();
+
+            if (Service.Configuration.AoEDamageTTS || Service.Configuration.AoEDamageToast)
+                CustomComboFunctions.PlayGroupwideAlert();
         }
         catch (Exception ex)
         {

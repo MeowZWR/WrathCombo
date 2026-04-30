@@ -1,4 +1,5 @@
 ﻿using ECommons.DalamudServices;
+using System.Linq;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 
 namespace WrathCombo.Combos.PvE
@@ -60,7 +61,7 @@ namespace WrathCombo.Combos.PvE
 
         private static bool CheckSpiritDart(Preset preset) =>
             IsEnabled(preset) && ActionReady(SpiritDart) &&
-            HasBattleTarget() && GetStatusEffectRemainingTime(Debuffs.SustainedDamage, CurrentTarget) <= 3;
+            HasBattleTarget() && EnemiesInRange(SpiritDart).Any(x => GetStatusEffectRemainingTime(Debuffs.SustainedDamage, x) <= 3);
 
         private static bool CheckCure(Preset preset, int healthpercent) =>
             IsEnabled(preset) && ActionReady(Cure) &&

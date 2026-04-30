@@ -1,6 +1,5 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Types;
 using WrathCombo.CustomComboNS;
-using WrathCombo.Extensions;
 using static WrathCombo.Combos.PvE.PCT.Config;
 namespace WrathCombo.Combos.PvE;
 
@@ -182,20 +181,23 @@ internal partial class PCT : Caster
         protected internal override Preset Preset => Preset.CombinedAetherhues;
         protected override uint Invoke(uint actionID)
         {
-            if (actionID is not (FireInRed or FireIIinRed))
+            if (actionID is not (BlizzardinCyan or BlizzardIIinCyan))
                 return actionID;
 
             int choice = CombinedAetherhueChoices;
 
-            if (actionID == FireInRed && choice is 0 or 1)
+            if (actionID == BlizzardinCyan && choice is 0 or 1)
             {
-                if (HasStatusEffect(Buffs.SubtractivePalette))
-                    return OriginalHook(BlizzardinCyan);
+                return HasStatusEffect(Buffs.SubtractivePalette)
+                    ? OriginalHook(BlizzardinCyan)
+                    : OriginalHook(FireInRed);
+                
             }
-            if (actionID == FireIIinRed && choice is 0 or 2)
+            if (actionID == BlizzardIIinCyan && choice is 0 or 2)
             {
-                if (HasStatusEffect(Buffs.SubtractivePalette))
-                    return OriginalHook(BlizzardIIinCyan);
+                return HasStatusEffect(Buffs.SubtractivePalette)
+                    ? OriginalHook(BlizzardIIinCyan)
+                    : OriginalHook(FireIIinRed);
             }
             return actionID;
         }

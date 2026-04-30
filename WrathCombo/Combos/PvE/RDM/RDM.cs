@@ -1,6 +1,7 @@
 using ECommons.GameFunctions;
 using System;
 using System.Linq;
+using Dalamud.Game.ClientState.Objects.Types;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Extensions;
@@ -471,6 +472,38 @@ internal partial class RDM : Caster
     #endregion
 
     #region Standalone Features
+    
+    internal class RDM_RetargetVercure : CustomCombo
+    {
+        protected internal override Preset Preset => Preset.RDM_RetargetVercure;
+
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID != Vercure)
+                return actionID;
+
+            int healthThreshold = RDM_RetargetVercure_Health;
+
+            IGameObject? target =
+                //Mouseover retarget option
+                (IsEnabled(Preset.RDM_RetargetVercure_MO)
+                    ? SimpleTarget.UIMouseOverTarget.IfAlive()
+                    : null) ??
+
+                //Hard target
+                SimpleTarget.HardTarget.IfFriendly().IfAlive() ??
+
+                //Lowest HP option
+                (IsEnabled(Preset.RDM_RetargetVercure_LowHP)
+                 && PlayerHealthPercentageHp() >= healthThreshold
+                    ? SimpleTarget.LowestHPPAllyIfMissingHP.IfAlive()
+                    : null);
+
+            return target != null
+                ? actionID.Retarget(target)
+                : actionID;
+        }
+    }
 
     internal class RDM_Verraise : CustomCombo
     {
@@ -761,10 +794,10 @@ internal partial class RDM : Caster
             {
                 if (Role.CanAddle() && CanNotMagickBarrier ||
                     GetCooldownRemainingTime(Role.Addle) < GetCooldownRemainingTime(MagickBarrier))
-                    return HasStatusEffect(Debuffs.Addle, CurrentTarget, anyOwner: true) ? All.SavageBlade : Role.Addle;
+                    return GetStatusEffectRemainingTime(Debuffs.Addle, CurrentTarget, anyOwner: true) > RDM_AddleDuration ? All.SavageBlade : Role.Addle;
             }
 
-            if (ActionReady(MagickBarrier) && HasStatusEffect(Buffs.MagickBarrier, anyOwner: true))
+            if (ActionReady(MagickBarrier) && GetStatusEffectRemainingTime(Buffs.MagickBarrier, anyOwner: true) > RDM_MagickProtectionDuration)
                 return All.SavageBlade;
 
             if (IsEnabled(Preset.RDM_MagickBarrierAddle) && GetCooldownRemainingTime(Role.Addle) < GetCooldownRemainingTime(MagickBarrier))

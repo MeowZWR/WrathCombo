@@ -153,6 +153,114 @@ namespace WrathCombo.Resources.Localization.UI.Settings {
         /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
+        internal static string AoEDamageToast_defaultValue {
+            get {
+                return ResourceManager.GetString("AoEDamageToast_defaultValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show a message on-screen whenever a stack/group damage cast is detected, including who it is targeting if applicable..
+        /// </summary>
+        internal static string AoEDamageToast_helpMark {
+            get {
+                return ResourceManager.GetString("AoEDamageToast_helpMark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Toast on Group Damage.
+        /// </summary>
+        internal static string AoEDamageToast_Name {
+            get {
+                return ResourceManager.GetString("AoEDamageToast_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preference.
+        /// </summary>
+        internal static string AoEDamageToast_recommendedValue {
+            get {
+                return ResourceManager.GetString("AoEDamageToast_recommendedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        internal static string AoEDamageTTS_defaultValue {
+            get {
+                return ResourceManager.GetString("AoEDamageTTS_defaultValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will play a text-to-speech sound clip whenever a stack/group damage cast is detected, including who it is targeting if applicable..
+        /// </summary>
+        internal static string AoEDamageTTS_helpMark {
+            get {
+                return ResourceManager.GetString("AoEDamageTTS_helpMark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play TTS on Group Damage.
+        /// </summary>
+        internal static string AoEDamageTTS_Name {
+            get {
+                return ResourceManager.GetString("AoEDamageTTS_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preference.
+        /// </summary>
+        internal static string AoEDamageTTS_recommendedValue {
+            get {
+                return ResourceManager.GetString("AoEDamageTTS_recommendedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On, cause it&apos;s that type of day y&apos;know.
+        /// </summary>
+        internal static string AprilFools2026_defaultValue {
+            get {
+                return ResourceManager.GetString("AprilFools2026_defaultValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For when you can&apos;t get enough MNK in your plugin..
+        /// </summary>
+        internal static string AprilFools2026_helpMark {
+            get {
+                return ResourceManager.GetString("AprilFools2026_helpMark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to April Fools 2026 Feature.
+        /// </summary>
+        internal static string AprilFools2026_Name {
+            get {
+                return ResourceManager.GetString("AprilFools2026_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off, unless your name starts with Beep.
+        /// </summary>
+        internal static string AprilFools2026_recommendedValue {
+            get {
+                return ResourceManager.GetString("AprilFools2026_recommendedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
         internal static string BlockSpellOnMove_defaultValue {
             get {
                 return ResourceManager.GetString("BlockSpellOnMove_defaultValue", resourceCulture);
@@ -419,6 +527,15 @@ namespace WrathCombo.Resources.Localization.UI.Settings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main UI Options.
+        /// </summary>
+        internal static string MainUIOptions_Category {
+            get {
+                return ResourceManager.GetString("MainUIOptions_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 2.
         /// </summary>
         internal static string MaximumWeavesPerWindow_defaultValue {
@@ -448,7 +565,7 @@ namespace WrathCombo.Resources.Localization.UI.Settings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 46056.
+        ///   Looks up a localized string similar to 2-3.
         /// </summary>
         internal static string MaximumWeavesPerWindow_recommendedValue {
             get {
@@ -1008,6 +1125,15 @@ namespace WrathCombo.Resources.Localization.UI.Settings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rotation Behaviour Options.
+        /// </summary>
+        internal static string RotationBehaviourOptions_Category {
+            get {
+                return ResourceManager.GetString("RotationBehaviourOptions_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         internal static string ShortDTRText_defaultValue {
@@ -1238,6 +1364,78 @@ namespace WrathCombo.Resources.Localization.UI.Settings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        internal static string TankbusterToast_defaultValue {
+            get {
+                return ResourceManager.GetString("TankbusterToast_defaultValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show a message on-screen whenever a tankbuster is detected, including who it is targeting..
+        /// </summary>
+        internal static string TankbusterToast_helpMark {
+            get {
+                return ResourceManager.GetString("TankbusterToast_helpMark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Toast on Tankbuster.
+        /// </summary>
+        internal static string TankbusterToast_Name {
+            get {
+                return ResourceManager.GetString("TankbusterToast_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preference.
+        /// </summary>
+        internal static string TankbusterToast_recommendedValue {
+            get {
+                return ResourceManager.GetString("TankbusterToast_recommendedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        internal static string TankbusterTTS_defaultValue {
+            get {
+                return ResourceManager.GetString("TankbusterTTS_defaultValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will play a text-to-speech sound clip whenever a tankbuster is detected, including who it is targeting..
+        /// </summary>
+        internal static string TankbusterTTS_helpMark {
+            get {
+                return ResourceManager.GetString("TankbusterTTS_helpMark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play TTS on Tankbuster.
+        /// </summary>
+        internal static string TankbusterTTS_Name {
+            get {
+                return ResourceManager.GetString("TankbusterTTS_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preference.
+        /// </summary>
+        internal static string TankbusterTTS_recommendedValue {
+            get {
+                return ResourceManager.GetString("TankbusterTTS_recommendedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #808080FF.
         /// </summary>
         internal static string TargetHighlightColor_defaultValue {
@@ -1270,6 +1468,15 @@ namespace WrathCombo.Resources.Localization.UI.Settings {
         internal static string TargetHighlightColor_recommendedValue {
             get {
                 return ResourceManager.GetString("TargetHighlightColor_recommendedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Targeting Options.
+        /// </summary>
+        internal static string TargetingOptions_Category {
+            get {
+                return ResourceManager.GetString("TargetingOptions_Category", resourceCulture);
             }
         }
         
@@ -1320,6 +1527,15 @@ namespace WrathCombo.Resources.Localization.UI.Settings {
         internal static string Throttle_unitLabel {
             get {
                 return ResourceManager.GetString("Throttle_unitLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Troubleshooting Options.
+        /// </summary>
+        internal static string TroubleshootingOptions_Category {
+            get {
+                return ResourceManager.GetString("TroubleshootingOptions_Category", resourceCulture);
             }
         }
         

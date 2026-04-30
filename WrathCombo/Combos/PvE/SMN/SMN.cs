@@ -1,5 +1,6 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
 using System.Linq;
+using Dalamud.Game.ClientState.Objects.Types;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Extensions;
@@ -263,6 +264,25 @@ internal partial class SMN : Caster
                 return SearingFlash;
 
             return HasStatusEffect(Buffs.SearingLight, anyOwner: true) ? 11 : actionID;
+        }
+    }
+    internal class SMN_Rekindle : CustomCombo
+    {
+        protected internal override Preset Preset => Preset.SMN_Rekindle;
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID != AstralFlow)
+                return actionID;
+            
+            IGameObject? target =
+                SimpleTarget.HardTarget.IfFriendly().IfInParty() ??
+                SimpleTarget.TargetsTarget.IfInParty() ??
+                SimpleTarget.AnyTank.IfInParty() ??
+                SimpleTarget.LowestHPPAlly.IfMissingHP().IfInParty();
+
+            return OriginalHook(AstralFlow) == Rekindle 
+                ? Rekindle.Retarget(AstralFlow,target) 
+                : actionID;
         }
     }
     internal class SMN_RuinMobility : CustomCombo
