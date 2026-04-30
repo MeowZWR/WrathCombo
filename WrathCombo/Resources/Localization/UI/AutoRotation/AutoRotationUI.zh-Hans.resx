@@ -303,7 +303,7 @@
     <value>仅复活治疗与可复活职业</value>
   </data>
   <data name="HelpText_AutoRezDPSJobsHealersOnly" xml:space="preserve">
-    <value>当你使用 {0} 或 {1} 时，仅会尝试复活治疗职业与可复活职业。</value>
+    <value>当你使用 {0} 或 {1} 时，仅会尝试复活治疗职业与可复活职业</value>
   </data>
   <data name="Checkbox_AutoCleanse" xml:space="preserve">
     <value>自动{0}</value>
@@ -352,5 +352,17 @@
   </data>
   <data name="HelpText_Orbwalker" xml:space="preserve">
     <value>启用后，自动循环可在移动中使用读条技能，因为 Orbwalker 会在读条期间锁定移动。若尚未启用，你可能还需要在 Orbwalker 中打开“Buffer Initial Cast”设置。需已安装并启用 Orbwalker 插件。</value>
+  </data>
+  <data name="HelpText_HandleRaidwides" xml:space="preserve">
+    <value>在检测到全屏 AOE 或团队伤害前，尝试使用技能进行减伤或抬血。最多执行 2 个技能（不包括用于前置准备的 {0}）</value>
+  </data>
+  <data name="Checkbox_HandleRaidwides" xml:space="preserve">
+    <value>处理检测到的全屏AOE</value>
+  </data>
+  <data name="Checkbox_HandleTankbusters" xml:space="preserve">
+    <value>处理检测到的死刑</value>
+  </data>
+  <data name="HelpText_HandleTankbusters" xml:space="preserve">
+    <value>在检测到死刑前，尝试使用技能以减轻目标成员受到的伤害。最多执行 1 个技能（不包括用于前置准备的 {0}）</value>
   </data>
 </root>

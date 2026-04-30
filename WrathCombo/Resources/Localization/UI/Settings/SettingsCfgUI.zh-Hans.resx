@@ -141,11 +141,11 @@
     <value>关</value>
   </data>
   <data name="AddOutOfPartyNPCsToRetargeting_helpMark" xml:space="preserve">
-    <value>将不在你队伍中的 NPC 也加入治疗技能重定向逻辑。
+    <value>将不在你队伍中的 NPC 也加入治疗技能的重定向逻辑。
 
 适合希望治疗队外 NPC（如任务 NPC）的治疗职业玩家。
 这些 NPC 通常无法与基于职能的自定义治疗队列条目良好配合
-（即使 NPC 看起来像坦克，也不一定会被归类为坦克）。</value>
+（即使 NPC 看起来像坦克，也不一定会被归类为坦克）</value>
   </data>
   <data name="AddOutOfPartyNPCsToRetargeting_Name" xml:space="preserve">
     <value>将队外 NPC 加入重定向</value>
@@ -245,7 +245,7 @@
     <value>低于 40（高于此值会开始频繁错过短读条打断）</value>
   </data>
   <data name="InterruptDelay_unitLabel" xml:space="preserve">
-    <value>施法进度%</value>
+    <value>% 施法进度</value>
   </data>
   <data name="MaximumWeavesPerWindow_defaultValue" xml:space="preserve">
     <value>2</value>
@@ -517,7 +517,7 @@
     <value>关</value>
   </data>
   <data name="SuppressAutorotCommand_helpMark" xml:space="preserve">
-    <value>隐藏 /wrath auto 命令的聊天反馈。</value>
+    <value>隐藏 /wrath auto 命令的聊天反馈</value>
   </data>
   <data name="SuppressAutorotCommand_Name" xml:space="preserve">
     <value>隐藏自动循环命令反馈</value>
@@ -664,6 +664,78 @@
     <value>将 UI 鼠标悬停加入默认治疗队列</value>
   </data>
   <data name="UseUIMouseoverOverridesInDefaultHealStack_recommendedValue" xml:space="preserve">
+    <value>按偏好</value>
+  </data>
+  <data name="AoEDamageToast_defaultValue" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="MainUIOptions_Category" xml:space="preserve">
+    <value>主用户界面选项</value>
+  </data>
+  <data name="RotationBehaviourOptions_Category" xml:space="preserve">
+    <value>循环行为选项</value>
+  </data>
+  <data name="TargetingOptions_Category" xml:space="preserve">
+    <value>目标选择选项</value>
+  </data>
+  <data name="TroubleshootingOptions_Category" xml:space="preserve">
+    <value>故障排除选项</value>
+  </data>
+  <data name="AprilFools2026_Name" xml:space="preserve">
+    <value>2026 年愚人节专题</value>
+  </data>
+  <data name="AprilFools2026_helpMark" xml:space="preserve">
+    <value>当你在插件中无法获得足够的 MNK 时。</value>
+  </data>
+  <data name="AprilFools2026_recommendedValue" xml:space="preserve">
+    <value>关闭，除非您的名字以 Beep 开头</value>
+  </data>
+  <data name="AprilFools2026_defaultValue" xml:space="preserve">
+    <value>继续，因为这是你知道的那种日子</value>
+  </data>
+  <data name="TankbusterTTS_Name" xml:space="preserve">
+    <value>受检测到死刑时播放 TTS</value>
+  </data>
+  <data name="TankbusterTTS_helpMark" xml:space="preserve">
+    <value>将会在检测到死刑时播放语音提醒，内容中包含死刑目标。</value>
+  </data>
+  <data name="TankbusterTTS_recommendedValue" xml:space="preserve">
+    <value>按偏好</value>
+  </data>
+  <data name="TankbusterTTS_defaultValue" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="AoEDamageTTS_Name" xml:space="preserve">
+    <value>在检测到到全屏攻击时播放 TTS</value>
+  </data>
+  <data name="AoEDamageTTS_helpMark" xml:space="preserve">
+    <value>每当检测到分摊伤害/群体伤害施放时，就会进行语音提醒，内容包含目标名称（如果适用）。</value>
+  </data>
+  <data name="AoEDamageTTS_recommendedValue" xml:space="preserve">
+    <value>按偏好</value>
+  </data>
+  <data name="AoEDamageTTS_defaultValue" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="TankbusterToast_Name" xml:space="preserve">
+    <value>在检测到死刑时显示弹出消息</value>
+  </data>
+  <data name="TankbusterToast_helpMark" xml:space="preserve">
+    <value>每当检测到死刑时，就会在屏幕上显示一条消息，包括它的目标名称。</value>
+  </data>
+  <data name="TankbusterToast_recommendedValue" xml:space="preserve">
+    <value>按偏好</value>
+  </data>
+  <data name="TankbusterToast_defaultValue" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="AoEDamageToast_Name" xml:space="preserve">
+    <value>在检测到群体伤害时显示弹出消息</value>
+  </data>
+  <data name="AoEDamageToast_helpMark" xml:space="preserve">
+    <value>每当检测到分摊伤害/群体伤害时，都会在屏幕上显示一条消息，包括目标名称（如果适用）。</value>
+  </data>
+  <data name="AoEDamageToast_recommendedValue" xml:space="preserve">
     <value>按偏好</value>
   </data>
 </root>
