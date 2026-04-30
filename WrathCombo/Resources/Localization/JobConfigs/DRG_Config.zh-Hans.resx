@@ -117,58 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HelpText_Retargetting1" xml:space="preserve">
-    <value>启用后，此功能将涉及技能重定向。</value>
+  <data name="AddChaosCombo" xml:space="preserve">
+    <value>添加樱花连击</value>
   </data>
-  <data name="HelpText_Retargetting2" xml:space="preserve">
-    <value>此功能影响的技能将自动
-按你配置的优先级重定向到对应目标。</value>
+  <data name="AddChaosComboWhenApplicable" xml:space="preserve">
+    <value>条件满足时添加樱花连击。</value>
   </data>
-  <data name="HelpText_Retargetting3" xml:space="preserve">
-    <value>若使用 Redirect、Reaction 等插件并配置了
-相同技能，可能会产生冲突并导致问题。</value>
+  <data name="AddMirageDiveUnderLOTD" xml:space="preserve">
+    <value>当处于 {1} 时，将 {0} 添加到循环中。  
+在 2.50 GCD 下效果最佳。</value>
   </data>
-  <data name="Info_searchHintText" xml:space="preserve">
-    <value>分类名称、设置名称、内部名称等</value>
-  </data>
-  <data name="Label_searchLabelText" xml:space="preserve">
-    <value>搜索：</value>
-  </data>
-  <data name="Button_CreateDebug" xml:space="preserve">
-    <value>创建调试文件</value>
-  </data>
-  <data name="HelpText_CreateDebug" xml:space="preserve">
-    <value>将在你的桌面生成一个调试文件。
-可提供给开发者以协助排查问题。
-等同于使用以下命令：/wrath debug</value>
-  </data>
-  <data name="Header_SettingsAbout" xml:space="preserve">
-    <value>此页签用于自定义 Wrath Combo 的全局设置。</value>
-  </data>
-  <data name="Text_RecommendedValue" xml:space="preserve">
-    <value>推荐值：</value>
-  </data>
-  <data name="Text_DefaultValue" xml:space="preserve">
-    <value>默认值：</value>
-  </data>
-  <data name="Label_HealStack" xml:space="preserve">
-    <value>当前治疗队列：</value>
-  </data>
-  <data name="HelpText_HealStack" xml:space="preserve">
-    <value>这是 Wrath 尝试选择治疗目标的顺序。
-若关闭“重定向治疗技能”选项，该目标仅用于血量阈值判定，以触发不同治疗技能显示在循环中。
-这意味着如果你自己的重定向方案（Redirect、Reaction 等）与此不一致，Wrath 可能会陷入给错误目标治疗的循环！
-若启用“重定向治疗技能”选项，该目标也会成为治疗技能的实际施放目标（即便该技能本身不会先检查该目标 HP，例如连击中的替换技能）。</value>
-  </data>
-  <data name="Warning_HealStack" xml:space="preserve">
-    <value>请务必确保你的重定向方案与此治疗队列一致，这由你自行负责！
-否则 Wrath 可能会陷入循环：检查到 X 玩家需要治疗，但实际却治疗了 Y 玩家！</value>
-  </data>
-  <data name="Label_RaiseStack" xml:space="preserve">
-    <value>当前复活队列：</value>
-  </data>
-  <data name="HelpText_RaiseStack" xml:space="preserve">
-    <value>若启用了任一复活功能的重定向，
-这是 Wrath 尝试选择复活目标的顺序。</value>
+  <data name="BurstMirageDuringLoTD" xml:space="preserve">
+    <value>在 {1} 期间爆发 {0}</value>
   </data>
 </root>

@@ -117,58 +117,86 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HelpText_Retargetting1" xml:space="preserve">
-    <value>启用后，此功能将涉及技能重定向。</value>
+  <data name="Add0or1or2or3DependingonStackAndLevel" xml:space="preserve">
+    <value>根据层数和等级，在 {3} 中添加 {0} / {1} / {2}</value>
   </data>
-  <data name="HelpText_Retargetting2" xml:space="preserve">
-    <value>此功能影响的技能将自动
-按你配置的优先级重定向到对应目标。</value>
+  <data name="Add0Or1WhenIn2" xml:space="preserve">
+    <value>当处于 {2} 且层数小于 3 时，添加 {0} / {1}</value>
   </data>
-  <data name="HelpText_Retargetting3" xml:space="preserve">
-    <value>若使用 Redirect、Reaction 等插件并配置了
-相同技能，可能会产生冲突并导致问题。</value>
+  <data name="Add0WhenBelow2400MP" xml:space="preserve">
+    <value>当处于 {1} 且MP低于2400时，添加{0}。</value>
   </data>
-  <data name="Info_searchHintText" xml:space="preserve">
-    <value>分类名称、设置名称、内部名称等</value>
+  <data name="Add0WhenIn1AndAbove800MP" xml:space="preserve">
+    <value>当处于 {1} 且MP超过800时，添加{0}。</value>
   </data>
-  <data name="Label_searchLabelText" xml:space="preserve">
-    <value>搜索：</value>
+  <data name="AddFlarestarinAF" xml:space="preserve">
+    <value>准备好时，在 {1} 中添加 {0}</value>
   </data>
-  <data name="Button_CreateDebug" xml:space="preserve">
-    <value>创建调试文件</value>
+  <data name="DoNotUseUnderLeylines" xml:space="preserve">
+    <value>在 {0} 效果期间不使用。此为推荐设置。</value>
   </data>
-  <data name="HelpText_CreateDebug" xml:space="preserve">
-    <value>将在你的桌面生成一个调试文件。
-可提供给开发者以协助排查问题。
-等同于使用以下命令：/wrath debug</value>
+  <data name="DontChangeFireInUmbralIce" xml:space="preserve">
+    <value>在 {2} 中保留 {0}  
+如果上方已选择，则使用 {0} / {1}</value>
   </data>
-  <data name="Header_SettingsAbout" xml:space="preserve">
-    <value>此页签用于自定义 Wrath Combo 的全局设置。</value>
+  <data name="NotUnderLeylines" xml:space="preserve">
+    <value>未处于 {0}</value>
   </data>
-  <data name="Text_RecommendedValue" xml:space="preserve">
-    <value>推荐值：</value>
+  <data name="ReplaceBlizzard3WithBlizzardWhenInUI3" xml:space="preserve">
+    <value>在 {2} 状态下，将 {0} 替换为 {1}。</value>
   </data>
-  <data name="Text_DefaultValue" xml:space="preserve">
-    <value>默认值：</value>
+  <data name="ReplaceBlizzardWithBlizzard3WhenNotInUI3" xml:space="preserve">
+    <value>替换 {0} 为 {1}，当不在 {2} 状态时。</value>
   </data>
-  <data name="Label_HealStack" xml:space="preserve">
-    <value>当前治疗队列：</value>
+  <data name="ReplaceFire3WithFireWhenInAF3" xml:space="preserve">
+    <value>在 {2} 状态下，将 {0} 替换为 {1}。</value>
   </data>
-  <data name="HelpText_HealStack" xml:space="preserve">
-    <value>这是 Wrath 尝试选择治疗目标的顺序。
-若关闭“重定向治疗技能”选项，该目标仅用于血量阈值判定，以触发不同治疗技能显示在循环中。
-这意味着如果你自己的重定向方案（Redirect、Reaction 等）与此不一致，Wrath 可能会陷入给错误目标治疗的循环！
-若启用“重定向治疗技能”选项，该目标也会成为治疗技能的实际施放目标（即便该技能本身不会先检查该目标 HP，例如连击中的替换技能）。</value>
+  <data name="ReplaceFireWithFire3WhenNotInAF3OrCombat" xml:space="preserve">
+    <value>当不在 {2} 中或不在战斗中时，将 {0} 替换为 {1}。</value>
   </data>
-  <data name="Warning_HealStack" xml:space="preserve">
-    <value>请务必确保你的重定向方案与此治疗队列一致，这由你自行负责！
-否则 Wrath 可能会陷入循环：检查到 X 玩家需要治疗，但实际却治疗了 Y 玩家！</value>
+  <data name="ShowXenoglossyWhenAmplifierIsOnCooldown" xml:space="preserve">
+    <value>使得 {0} 在 {1} 冷却时也显示。</value>
   </data>
-  <data name="Label_RaiseStack" xml:space="preserve">
-    <value>当前复活队列：</value>
+  <data name="ShowXenoglossyWhenAmplifierOnCD" xml:space="preserve">
+    <value>当 {1} 处于冷却中时显示 {0}</value>
   </data>
-  <data name="HelpText_RaiseStack" xml:space="preserve">
-    <value>若启用了任一复活功能的重定向，
-这是 Wrath 尝试选择复活目标的顺序。</value>
+  <data name="UseDespairWhenBelow1500MP" xml:space="preserve">
+    <value>当 MP 低于 1500 且为瞬发时，使用 {0}（仅限 100 级）。</value>
+  </data>
+  <data name="UseFire3WhenYouHaveFirestarterProc" xml:space="preserve">
+    <value>当拥有 {1} 触发效果时，使用 {0}。</value>
+  </data>
+  <data name="UseParadoxWhenInAF3" xml:space="preserve">
+    <value>在 {1} 时使用 {0}。</value>
+  </data>
+  <data name="UseSwiftcastWhenNoTriplecast" xml:space="preserve">
+    <value>当没有 {1} 时，使用 {0}。</value>
+  </data>
+  <data name="UseTriplecastWhenNoSwiftcast" xml:space="preserve">
+    <value>当 {1} 未激活时，使用 {0}。</value>
+  </data>
+  <data name="RequireHPandGroupwide" xml:space="preserve">
+    <value>需要同时检测 HP 和即将到来的群体伤害</value>
+  </data>
+  <data name="ManawardHPThresholdAndGroupwideDesc" xml:space="preserve">
+    <value>仅在 HP 低于滑块阈值且即将受到群体伤害时使用 {0}</value>
+  </data>
+  <data name="OnlySolo" xml:space="preserve">
+    <value>仅在单人模式下需要 HP 阈值</value>
+  </data>
+  <data name="OnlySoloDesc" xml:space="preserve">
+    <value>当单人时（不包括陆行鸟），仅需满足 HP 阈值。在队伍中时，则需同时满足HP阈值和检测到全队受到伤害。</value>
+  </data>
+  <data name="OnlyTriggerGroupwide" xml:space="preserve">
+    <value>仅在群体伤害来临时触发</value>
+  </data>
+  <data name="OnlyTriggerHP" xml:space="preserve">
+    <value>仅在 HP 阈值触发</value>
+  </data>
+  <data name="OnlyTriggerHPDesc" xml:space="preserve">
+    <value>仅当 HP 低于滑块阈值时使用{0}，并且不会等待检测到任何群体伤害（主要适用于单人游戏）。</value>
+  </data>
+  <data name="OnlyTriggerGroupwideDesc" xml:space="preserve">
+    <value>仅在检测到群体伤害时使用 {0}</value>
   </data>
 </root>
