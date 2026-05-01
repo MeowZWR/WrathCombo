@@ -8,6 +8,7 @@ using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using static WrathCombo.Combos.PvE.SMN.Config;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
+using AetherFlags = Dalamud.Game.ClientState.JobGauge.Enums.AetherFlags;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class SMN

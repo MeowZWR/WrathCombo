@@ -169,7 +169,8 @@ internal class StatusCache
             }.ToFrozenSet();
 
         internal static readonly FrozenSet<uint> Misc = new uint[] {
-            1735 // The Orbonne Monastary - Heavenly Shield
+            1735, // The Orbonne Monastary - Heavenly Shield
+            5191  // The Clyteum - Motion Tracker
         }.ToFrozenSet();
 
     }
