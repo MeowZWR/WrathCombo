@@ -119,8 +119,6 @@ internal class ConfigWindow : Dalamud.Interface.Windowing.Window
     {
         RespectCloseHotkey = true;
 
-        SizeCondition = ImGuiCond.FirstUseEver;
-        Size = new Vector2(800, 650).Scale();
         SetMinSize();
 
         Svc.PluginInterface.UiBuilder.DefaultFontHandle.ImFontChanged += SetMinSize;
@@ -129,7 +127,7 @@ internal class ConfigWindow : Dalamud.Interface.Windowing.Window
     private void SetMinSize(IFontHandle? fontHandle = null, ILockedImFont? lockedFont = null) =>
         SizeConstraints = new WindowSizeConstraints
         {
-            MinimumSize = new Vector2(700, 100).Scale(),
+            MinimumSize = new Vector2(700, 100),
         };
 
     public override void Draw()
