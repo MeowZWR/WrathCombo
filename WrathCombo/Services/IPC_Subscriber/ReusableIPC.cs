@@ -1,6 +1,5 @@
 ﻿#region
 
-using Dalamud.Plugin;
 using ECommons;
 using ECommons.EzIpcManager;
 using ECommons.Reflection;
@@ -12,7 +11,7 @@ namespace WrathCombo.Services.IPC_Subscriber;
 
 public abstract class ReusableIPC : IDisposable
 {
-    private IDalamudPlugin? _plugin;
+    private object? _plugin;
     public EzIPCDisposalToken[] DisposalTokens;
     public string PluginName;
     protected bool ReflectionNotIPC;
@@ -41,7 +40,7 @@ public abstract class ReusableIPC : IDisposable
         DalamudReflector.TryGetDalamudPlugin(
             PluginName, out _plugin, ignoreCache: true);
 
-    protected IDalamudPlugin Plugin
+    protected object Plugin
     {
         get
         {
