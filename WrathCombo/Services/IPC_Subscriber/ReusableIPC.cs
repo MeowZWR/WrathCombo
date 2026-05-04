@@ -45,7 +45,7 @@ public abstract class ReusableIPC : IDisposable
         get
         {
             if (PluginIsLoaded)
-                return (IDalamudPlugin)_plugin!;
+                return _plugin!;
             throw new InvalidOperationException(
                 "Plugin is not loaded or does not exist. " +
                 "(This should be used after a `PluginIsLoaded` check)");
