@@ -3124,15 +3124,7 @@ public enum Preset
 
     [ParentCombo(GNB_ST_Advanced)]
     [JobInfo(Job.GNB)]
-    GNB_ST_Zone = 7009,
-
-    [ParentCombo(GNB_ST_Advanced)]
-    [JobInfo(Job.GNB)]
-    GNB_ST_BurstStrike = 7015,
-
-    [ParentCombo(GNB_ST_Advanced)]
-    [JobInfo(Job.GNB)]
-    GNB_ST_SonicBreak = 7012,
+    GNB_ST_Bloodfest = 7011,
 
     [ParentCombo(GNB_ST_Advanced)]
     [JobInfo(Job.GNB)]
@@ -3140,7 +3132,19 @@ public enum Preset
 
     [ParentCombo(GNB_ST_Advanced)]
     [JobInfo(Job.GNB)]
-    GNB_ST_BowShock = 7010,
+    GNB_ST_DoubleDown = 7017,
+
+    [ParentCombo(GNB_ST_Advanced)]
+    [JobInfo(Job.GNB)]
+    GNB_ST_SonicBreak = 7012,
+
+    [ParentCombo(GNB_ST_Advanced)]
+    [JobInfo(Job.GNB)]
+    GNB_ST_Reign = 7014,
+
+    [ParentCombo(GNB_ST_Advanced)]
+    [JobInfo(Job.GNB)]
+    GNB_ST_BurstStrike = 7015,
 
     [ParentCombo(GNB_ST_Advanced)]
     [JobInfo(Job.GNB)]
@@ -3148,15 +3152,11 @@ public enum Preset
 
     [ParentCombo(GNB_ST_Advanced)]
     [JobInfo(Job.GNB)]
-    GNB_ST_Bloodfest = 7011,
+    GNB_ST_Zone = 7009,
 
     [ParentCombo(GNB_ST_Advanced)]
     [JobInfo(Job.GNB)]
-    GNB_ST_DoubleDown = 7017,
-
-    [ParentCombo(GNB_ST_Advanced)]
-    [JobInfo(Job.GNB)]
-    GNB_ST_Reign = 7014,
+    GNB_ST_BowShock = 7010,
 
     [ParentCombo(GNB_ST_Advanced)]
     [JobInfo(Job.GNB)]
@@ -3169,7 +3169,6 @@ public enum Preset
     [ParentCombo(GNB_ST_Advanced)]
     [JobInfo(Job.GNB)]
     GNB_ST_Stun = 7086,
-
     #endregion
 
     #region Advanced AoE
@@ -3187,6 +3186,30 @@ public enum Preset
 
     [ParentCombo(GNB_AoE_Advanced)]
     [JobInfo(Job.GNB)]
+    GNB_AoE_Bloodfest = 7204,
+
+    [ParentCombo(GNB_AoE_Advanced)]
+    [JobInfo(Job.GNB)]
+    GNB_AoE_Reign = 7207,
+
+    [ParentCombo(GNB_AoE_Advanced)]
+    [JobInfo(Job.GNB)]
+    GNB_AoE_DoubleDown = 7206,
+
+    [ParentCombo(GNB_AoE_Advanced)]
+    [JobInfo(Job.GNB)]
+    GNB_AoE_SonicBreak = 7205,
+
+    [ParentCombo(GNB_AoE_Advanced)]
+    [JobInfo(Job.GNB)]
+    GNB_AoE_FatedCircle = 7208,
+
+    [ParentCombo(GNB_AoE_Advanced)]
+    [JobInfo(Job.GNB)]
+    GNB_AoE_FatedBrand = 7209,
+
+    [ParentCombo(GNB_AoE_Advanced)]
+    [JobInfo(Job.GNB)]
     GNB_AoE_Zone = 7202,
 
     [ParentCombo(GNB_AoE_Advanced)]
@@ -3195,118 +3218,97 @@ public enum Preset
 
     [ParentCombo(GNB_AoE_Advanced)]
     [JobInfo(Job.GNB)]
-    GNB_AoE_Bloodfest = 7204,
-
-    [ParentCombo(GNB_AoE_Advanced)]
-    [JobInfo(Job.GNB)]
-    GNB_AoE_SonicBreak = 7205,
-
-    [ParentCombo(GNB_AoE_Advanced)]
-    [JobInfo(Job.GNB)]
-    GNB_AoE_DoubleDown = 7206,
-
-    [ParentCombo(GNB_AoE_Advanced)]
-    [JobInfo(Job.GNB)]
-    GNB_AoE_Reign = 7207,
-
-    [ParentCombo(GNB_AoE_Advanced)]
-    [JobInfo(Job.GNB)]
-    GNB_AoE_FatedCircle = 7208,
-
-    [ParentCombo(GNB_AoE_Advanced)]
-    [JobInfo(Job.GNB)]
     GNB_AoE_Interrupt = 7222,
 
     [ParentCombo(GNB_AoE_Advanced)]
     [JobInfo(Job.GNB)]
     GNB_AoE_Stun = 7223,
-
     #endregion
 
     #region Advanced Mitigation
     //7700s LastUsed 7713
     [JobInfo(Job.GNB)]
-    GNB_Mitigation = 7700,
+    GNB_Mit_Advanced = 7700,
 
-    [ParentCombo(GNB_Mitigation)]
+    [ParentCombo(GNB_Mit_Advanced)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss = 7701,
+    GNB_Mit_Advanced_NonBoss = 7701,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_Rampart = 7702,
+    GNB_Mit_Advanced_NonBoss_Rampart = 7702,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_Nebula = 7703,
+    GNB_Mit_Advanced_NonBoss_Nebula = 7703,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_Camouflage = 7704,
+    GNB_Mit_Advanced_NonBoss_Camouflage = 7704,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_Aurora = 7705,
+    GNB_Mit_Advanced_NonBoss_Aurora = 7705,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_Superbolide = 7706,
+    GNB_Mit_Advanced_NonBoss_Superbolide = 7706,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_SuperBolideEmergency = 7721,
+    GNB_Mit_Advanced_NonBoss_SuperBolideEmergency = 7721,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_ArmsLength = 7707,
+    GNB_Mit_Advanced_NonBoss_ArmsLength = 7707,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_Reprisal = 7708,
+    GNB_Mit_Advanced_NonBoss_Reprisal = 7708,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_HeartOfLight = 7709,
+    GNB_Mit_Advanced_NonBoss_HeartOfLight = 7709,
 
-    [ParentCombo(GNB_Mitigation_NonBoss)]
+    [ParentCombo(GNB_Mit_Advanced_NonBoss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_NonBoss_HeartOfStone = 7710,
+    GNB_Mit_Advanced_NonBoss_HeartOfStone = 7710,
 
-    [ParentCombo(GNB_Mitigation)]
+    [ParentCombo(GNB_Mit_Advanced)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss = 7711,
+    GNB_Mit_Advanced_Boss = 7711,
 
-    [ParentCombo(GNB_Mitigation_Boss)]
+    [ParentCombo(GNB_Mit_Advanced_Boss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss_Aurora = 7712,
+    GNB_Mit_Advanced_Boss_Aurora = 7712,
 
-    [ParentCombo(GNB_Mitigation_Boss)]
+    [ParentCombo(GNB_Mit_Advanced_Boss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss_HeartOfStone_OnCD = 7716,
+    GNB_Mit_Advanced_Boss_HeartOfStone_OnCD = 7716,
 
-    [ParentCombo(GNB_Mitigation_Boss)]
+    [ParentCombo(GNB_Mit_Advanced_Boss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss_HeartOfStone_TankBuster = 7717,
+    GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster = 7717,
 
-    [ParentCombo(GNB_Mitigation_Boss)]
+    [ParentCombo(GNB_Mit_Advanced_Boss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss_Rampart = 7719,
+    GNB_Mit_Advanced_Boss_Rampart = 7719,
 
-    [ParentCombo(GNB_Mitigation_Boss)]
+    [ParentCombo(GNB_Mit_Advanced_Boss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss_Nebula = 7718,
+    GNB_Mit_Advanced_Boss_Nebula = 7718,
 
-    [ParentCombo(GNB_Mitigation_Boss)]
+    [ParentCombo(GNB_Mit_Advanced_Boss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss_Camouflage = 7720,
+    GNB_Mit_Advanced_Boss_Camouflage = 7720,
 
-    [ParentCombo(GNB_Mitigation_Boss)]
+    [ParentCombo(GNB_Mit_Advanced_Boss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss_Reprisal = 7713,
+    GNB_Mit_Advanced_Boss_Reprisal = 7713,
 
-    [ParentCombo(GNB_Mitigation_Boss)]
+    [ParentCombo(GNB_Mit_Advanced_Boss)]
     [JobInfo(Job.GNB)]
-    GNB_Mitigation_Boss_HeartOfLight = 7714,
+    GNB_Mit_Advanced_Boss_HeartOfLight = 7714,
     #endregion
 
     #region One-Button Mitigation
@@ -3317,61 +3319,47 @@ public enum Preset
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_Superbolide_Max = 7075,
+    GNB_Mit_OneButton_Superbolide_Max = 7075,
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_Corundum = 7076,
+    GNB_Mit_OneButton_Corundum = 7076,
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_Aurora = 7077,
+    GNB_Mit_OneButton_Aurora = 7077,
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_Camouflage = 7078,
+    GNB_Mit_OneButton_Camouflage = 7078,
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_Reprisal = 7079,
+    GNB_Mit_OneButton_Reprisal = 7079,
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_HeartOfLight = 7080,
+    GNB_Mit_OneButton_HeartOfLight = 7080,
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_Rampart = 7081,
+    GNB_Mit_OneButton_Rampart = 7081,
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_ArmsLength = 7082,
+    GNB_Mit_OneButton_ArmsLength = 7082,
 
     [ParentCombo(GNB_Mit_OneButton)]
     [JobInfo(Job.GNB)]
-    GNB_Mit_Nebula = 7083,
+    GNB_Mit_OneButton_Nebula = 7083,
 
     [ReplaceSkill(GNB.HeartOfLight)]
     [JobInfo(Job.GNB)]
     [MitigationCombo]
-    GNB_Mit_Party = 7085,
+    GNB_Mit_OneButton_Party = 7085,
     #endregion
 
     #region Misc
-
-    #region Basic combo
-
-    [ReplaceSkill(GNB.SolidBarrel)]
-    [JobInfo(Job.GNB)]
-    [BasicCombo]
-    GNB_ST_BasicCombo = 7100,
-
-    [ReplaceSkill(GNB.DemonSlaughter)]
-    [JobInfo(Job.GNB)]
-    [BasicCombo]
-    GNB_AoE_BasicCombo = 7101,
-
-    #endregion
 
     #region Gnashing Fang
     [ReplaceSkill(GNB.GnashingFang)]
@@ -3438,7 +3426,6 @@ public enum Preset
     #endregion
 
     #region Burst Strike
-
     [ReplaceSkill(GNB.BurstStrike)]
     [JobInfo(Job.GNB)]
     GNB_BS_Features = 7400,
@@ -3462,11 +3449,9 @@ public enum Preset
     [ParentCombo(GNB_BS_Features)]
     [JobInfo(Job.GNB)]
     GNB_BS_Reign = 7404,
-
     #endregion
 
     #region Fated Circle
-
     [ReplaceSkill(GNB.FatedCircle)]
     [JobInfo(Job.GNB)]
     GNB_FC_Features = 7600,
@@ -3481,55 +3466,72 @@ public enum Preset
 
     [ParentCombo(GNB_FC_Features)]
     [JobInfo(Job.GNB)]
-    GNB_FC_BowShock = 7605,
-
-    [ParentCombo(GNB_FC_Features)]
-    [JobInfo(Job.GNB)]
     GNB_FC_DoubleDown = 7603,
 
     [ParentCombo(GNB_FC_Features)]
     [JobInfo(Job.GNB)]
     GNB_FC_Reign = 7604,
 
+    [ParentCombo(GNB_FC_Features)]
+    [JobInfo(Job.GNB)]
+    GNB_FC_BowShock = 7605,
     #endregion
 
-    #region Aurora Protection
+    #region Basic Combos
+    [ReplaceSkill(GNB.SolidBarrel)]
+    [JobInfo(Job.GNB)]
+    [BasicCombo]
+    GNB_ST_BasicCombo = 7100,
+
+    [ReplaceSkill(GNB.DemonSlaughter)]
+    [JobInfo(Job.GNB)]
+    [BasicCombo]
+    GNB_AoE_BasicCombo = 7101,
+    #endregion
+
+    #region Aurora Features
     [ReplaceSkill(GNB.Aurora)]
     [JobInfo(Job.GNB)]
-    GNB_AuroraFeatures = 7023,
+    GNB_Aurora_Features = 7023,
 
-    [ParentCombo(GNB_AuroraFeatures)]
+    [ParentCombo(GNB_Aurora_Features)]
+    [JobInfo(Job.GNB)]
+    GNB_Aurora_Features_Lockout = 7092,
+
+    [ParentCombo(GNB_Aurora_Features)]
     [JobInfo(Job.GNB)]
     [Retargeted(GNB.Aurora)]
-    GNB_RetargetAurora_MO = 7087,
+    GNB_Aurora_Features_RetargetMO = 7087,
 
-    [ParentCombo(GNB_AuroraFeatures)]
+    [ParentCombo(GNB_Aurora_Features)]
     [JobInfo(Job.GNB)]
     [Retargeted(GNB.Aurora)]
-    GNB_RetargetAurora_TT = 7088,
-
+    GNB_Aurora_Features_RetargetTT = 7088,
     #endregion
 
-    #region Heart Of Stone Retarget
-    [ReplaceSkill(GNB.HeartOfCorundum, GNB.HeartOfStone)]
+    #region Heart of Stone Features
+    [ReplaceSkill(GNB.HeartOfStone, GNB.HeartOfCorundum)]
     [JobInfo(Job.GNB)]
-    [Retargeted(GNB.HeartOfCorundum, GNB.HeartOfStone)]
-    GNB_RetargetHeartofStone = 7089,
+    GNB_HoC_Features = 7093,
 
-    [ParentCombo(GNB_RetargetHeartofStone)]
+    [ParentCombo(GNB_HoC_Features)]
     [JobInfo(Job.GNB)]
-    [Retargeted(GNB.HeartOfCorundum, GNB.HeartOfStone)]
-    GNB_RetargetHeartofStone_TT = 7090,
+    [Retargeted(GNB.HeartOfStone, GNB.HeartOfCorundum)]
+    GNB_HoC_Features_RetargetMO = 7089,
+
+    [ParentCombo(GNB_HoC_Features)]
+    [JobInfo(Job.GNB)]
+    [Retargeted(GNB.HeartOfStone, GNB.HeartOfCorundum)]
+    GNB_HoC_Features_RetargetTT = 7090,
     #endregion
 
     [ReplaceSkill(GNB.Trajectory)]
     [JobInfo(Job.GNB)]
     [Retargeted(GNB.Trajectory)]
     GNB_RetargetTrajectory = 7091,
-
     #endregion
 
-    // Last Value = 7091
+    // Last Value = 7093
     #endregion
 
     #region MACHINIST

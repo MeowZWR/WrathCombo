@@ -9880,7 +9880,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         
         /// <summary>
         ///   Looks up a localized string similar to Replaces Demon Slice with a full one-button AoE rotation.
-        ///These features are ideal if you want to customize the rotation..
+        ///These features are ideal for users who want to fully customize their rotation..
         /// </summary>
         internal static string GNB_AoE_Advanced_Desc {
             get {
@@ -9898,7 +9898,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace Demon Slaughter with its combo chain..
+        ///   Looks up a localized string similar to Replaces Demon Slaughter with its basic combo chain..
         /// </summary>
         internal static string GNB_AoE_BasicCombo_Desc {
             get {
@@ -9907,7 +9907,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AoE Basic Combo.
+        ///   Looks up a localized string similar to Basic Combo - AoE.
         /// </summary>
         internal static string GNB_AoE_BasicCombo_Name {
             get {
@@ -9934,7 +9934,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Bow Shock oninto the AoE rotation when appropriate..
+        ///   Looks up a localized string similar to Adds Bow Shock into the AoE rotation when appropriate..
         /// </summary>
         internal static string GNB_AoE_BowShock_Desc {
             get {
@@ -9970,6 +9970,24 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adds Fated Brand into the AoE rotation when available..
+        /// </summary>
+        internal static string GNB_AoE_FatedBrand_Desc {
+            get {
+                return ResourceManager.GetString("GNB_AoE_FatedBrand_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fated Brand Option.
+        /// </summary>
+        internal static string GNB_AoE_FatedBrand_Name {
+            get {
+                return ResourceManager.GetString("GNB_AoE_FatedBrand_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adds Fated Circle into the AoE rotation when appropriate..
         /// </summary>
         internal static string GNB_AoE_FatedCircle_Desc {
@@ -9988,7 +10006,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Interject to the rotation when your target&apos;s cast is interruptible..
+        ///   Looks up a localized string similar to Adds Interject into the AoE rotation when your target&apos;s cast is interruptible..
         /// </summary>
         internal static string GNB_AoE_Interrupt_Desc {
             get {
@@ -10024,7 +10042,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Reign/Noble/LionHeart into the AoE rotation when appropriate..
+        ///   Looks up a localized string similar to Adds Reign of Beasts &amp; its combo chain into the AoE rotation when appropriate..
         /// </summary>
         internal static string GNB_AoE_Reign_Desc {
             get {
@@ -10033,7 +10051,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reign Combo Option.
+        ///   Looks up a localized string similar to Reign of Beasts Option.
         /// </summary>
         internal static string GNB_AoE_Reign_Name {
             get {
@@ -10043,7 +10061,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         
         /// <summary>
         ///   Looks up a localized string similar to Replaces Demon Slice with a full one-button AoE rotation.
-        ///This is the ideal option for newcomers to the job..
+        ///This feature is ideal for any fresh newcomers to the job..
         /// </summary>
         internal static string GNB_AoE_Simple_Desc {
             get {
@@ -10079,7 +10097,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Low Blow to the rotation when your target is casting, interruptible or not..
+        ///   Looks up a localized string similar to Adds Low Blow into the AoE rotation when your target is casting, regardless if interruptible..
         /// </summary>
         internal static string GNB_AoE_Stun_Desc {
             get {
@@ -10088,7 +10106,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interrupt with Stun Option.
+        ///   Looks up a localized string similar to Low Blow Option.
         /// </summary>
         internal static string GNB_AoE_Stun_Name {
             get {
@@ -10115,20 +10133,74 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locks out Aurora if Aurora&apos;s effect is on the target by replacing it with Savage Blade..
+        ///   Looks up a localized string similar to Collection of Aurora related features..
         /// </summary>
-        internal static string GNB_AuroraFeatures_Desc {
+        internal static string GNB_Aurora_Features_Desc {
             get {
-                return ResourceManager.GetString("GNB_AuroraFeatures_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Aurora_Features_Desc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aurora Protection Feature.
+        ///   Looks up a localized string similar to Blocks Aurora if your current target already has the status active..
         /// </summary>
-        internal static string GNB_AuroraFeatures_Name {
+        internal static string GNB_Aurora_Features_Lockout_Desc {
             get {
-                return ResourceManager.GetString("GNB_AuroraFeatures_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Aurora_Features_Lockout_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite Prevention.
+        /// </summary>
+        internal static string GNB_Aurora_Features_Lockout_Name {
+            get {
+                return ResourceManager.GetString("GNB_Aurora_Features_Lockout_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aurora Features.
+        /// </summary>
+        internal static string GNB_Aurora_Features_Name {
+            get {
+                return ResourceManager.GetString("GNB_Aurora_Features_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retargets Aurora to your Mouseover target if they do not have the status active..
+        /// </summary>
+        internal static string GNB_Aurora_Features_RetargetMO_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Aurora_Features_RetargetMO_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouseover Option.
+        /// </summary>
+        internal static string GNB_Aurora_Features_RetargetMO_Name {
+            get {
+                return ResourceManager.GetString("GNB_Aurora_Features_RetargetMO_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retargets Aurora to the Target&apos;s Target if they do not have the status active and you do not have aggro..
+        /// </summary>
+        internal static string GNB_Aurora_Features_RetargetTT_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Aurora_Features_RetargetTT_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target&apos;s Target Option.
+        /// </summary>
+        internal static string GNB_Aurora_Features_RetargetTT_Name {
+            get {
+                return ResourceManager.GetString("GNB_Aurora_Features_RetargetTT_Name", resourceCulture);
             }
         }
         
@@ -10151,7 +10223,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds all Single-Target Continuation procs to Burst Strike when available..
+        ///   Looks up a localized string similar to Adds respective Continuation procs to Burst Strike when available..
         /// </summary>
         internal static string GNB_BS_Continuation_Desc {
             get {
@@ -10205,7 +10277,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Gnashing Fang &amp; its combo to Burst Strike when available..
+        ///   Looks up a localized string similar to Adds Gnashing Fang &amp; its combo chain to Burst Strike when available..
         /// </summary>
         internal static string GNB_BS_GnashingFang_Desc {
             get {
@@ -10223,25 +10295,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds only Hypervelocity to Burst Strike when available..
-        /// </summary>
-        internal static string GNB_BS_Hypervelocity_Desc {
-            get {
-                return ResourceManager.GetString("GNB_BS_Hypervelocity_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only Hypervelocity Option.
-        /// </summary>
-        internal static string GNB_BS_Hypervelocity_Name {
-            get {
-                return ResourceManager.GetString("GNB_BS_Hypervelocity_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Reign/Noble/Lionheart to Burst Strike when available..
+        ///   Looks up a localized string similar to Adds Reign of Beasts &amp; its combo chain to Burst Strike when available..
         /// </summary>
         internal static string GNB_BS_Reign_Desc {
             get {
@@ -10250,7 +10304,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reign Combo Option.
+        ///   Looks up a localized string similar to Reign of Beasts Option.
         /// </summary>
         internal static string GNB_BS_Reign_Name {
             get {
@@ -10295,7 +10349,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Fated Brand to Fated Circle..
+        ///   Looks up a localized string similar to Adds respective Continuation procs to Fated Circle when available..
         /// </summary>
         internal static string GNB_FC_Continuation_Desc {
             get {
@@ -10304,7 +10358,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fated Brand Option.
+        ///   Looks up a localized string similar to Continuation Option.
         /// </summary>
         internal static string GNB_FC_Continuation_Name {
             get {
@@ -10367,7 +10421,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Reign/Noble/LionHeart to Fated Circle when appropriate..
+        ///   Looks up a localized string similar to Adds Reign of Beasts &amp; its combo chain to Fated Circle when available..
         /// </summary>
         internal static string GNB_FC_Reign_Desc {
             get {
@@ -10376,7 +10430,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reign Option.
+        ///   Looks up a localized string similar to Reign of Beasts Option.
         /// </summary>
         internal static string GNB_FC_Reign_Name {
             get {
@@ -10421,7 +10475,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Burst Strike on Gnashing Fang under No Mercy when appropriate..
+        ///   Looks up a localized string similar to Adds Burst Strike to Gnashing Fang under No Mercy when appropriate..
         /// </summary>
         internal static string GNB_GF_BurstStrike_Desc {
             get {
@@ -10439,7 +10493,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Continuation to Gnashing Fang when available..
+        ///   Looks up a localized string similar to Adds all single-target Continuation procs to Gnashing Fang when available..
         /// </summary>
         internal static string GNB_GF_Continuation_Desc {
             get {
@@ -10512,7 +10566,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Reign combo on Gnashing Fang under No Mercy when appropriate..
+        ///   Looks up a localized string similar to Adds Reign of Beasts &amp; its combo chain to Gnashing Fang when available..
         /// </summary>
         internal static string GNB_GF_Reign_Desc {
             get {
@@ -10521,7 +10575,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reign Combo Option.
+        ///   Looks up a localized string similar to Reign of Beasts Option.
         /// </summary>
         internal static string GNB_GF_Reign_Name {
             get {
@@ -10530,7 +10584,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Sonic Break on Gnashing Fang under No Mercy when appropriate..
+        ///   Looks up a localized string similar to Adds Sonic Break to Gnashing Fang under No Mercy when appropriate..
         /// </summary>
         internal static string GNB_GF_SonicBreak_Desc {
             get {
@@ -10548,7 +10602,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Danger / Blasting Zone to Gnashing Fang when available..
+        ///   Looks up a localized string similar to Adds Danger/Blasting Zone to Gnashing Fang when available..
         /// </summary>
         internal static string GNB_GF_Zone_Desc {
             get {
@@ -10566,111 +10620,519 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Arms Length to the one-button mitigation..
+        ///   Looks up a localized string similar to Collection of Heart of Stone/Corundum related features..
         /// </summary>
-        internal static string GNB_Mit_ArmsLength_Desc {
+        internal static string GNB_HoC_Features_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mit_ArmsLength_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_HoC_Features_Desc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arms Length Option.
+        ///   Looks up a localized string similar to Heart of Stone/Corundum Features.
         /// </summary>
-        internal static string GNB_Mit_ArmsLength_Name {
+        internal static string GNB_HoC_Features_Name {
             get {
-                return ResourceManager.GetString("GNB_Mit_ArmsLength_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_HoC_Features_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Aurora to the one-button mitigation..
+        ///   Looks up a localized string similar to Retargets Heart of Stone/Corundum to your mouseover target or hard target outside of rotations..
         /// </summary>
-        internal static string GNB_Mit_Aurora_Desc {
+        internal static string GNB_HoC_Features_RetargetMO_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mit_Aurora_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_HoC_Features_RetargetMO_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouseover Option.
+        /// </summary>
+        internal static string GNB_HoC_Features_RetargetMO_Name {
+            get {
+                return ResourceManager.GetString("GNB_HoC_Features_RetargetMO_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retargets Heart of Stone/Corundum to the Target&apos;s Target if you do not have aggro.
+        ///	- NOTE: This can still be overridden with Mouseover..
+        /// </summary>
+        internal static string GNB_HoC_Features_RetargetTT_Desc {
+            get {
+                return ResourceManager.GetString("GNB_HoC_Features_RetargetTT_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target&apos;s Target Option.
+        /// </summary>
+        internal static string GNB_HoC_Features_RetargetTT_Name {
+            get {
+                return ResourceManager.GetString("GNB_HoC_Features_RetargetTT_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Aurora when below threshold..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_Aurora_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Aurora_Desc", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Aurora Option.
         /// </summary>
-        internal static string GNB_Mit_Aurora_Name {
+        internal static string GNB_Mit_Advanced_Boss_Aurora_Name {
             get {
-                return ResourceManager.GetString("GNB_Mit_Aurora_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Aurora_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Camouflage to the one-button mitigation.
-        ///NOTE: even if disabled, will still try to use Camouflage as the lowest priority..
+        ///   Looks up a localized string similar to Adds Camouflage when tankbuster is detected. 
+        ///- NOTE: This feature will not overlap unless below set threshold or aligned with Rampart..
         /// </summary>
-        internal static string GNB_Mit_Camouflage_Desc {
+        internal static string GNB_Mit_Advanced_Boss_Camouflage_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mit_Camouflage_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Camouflage_Desc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Camouflage First Option.
+        ///   Looks up a localized string similar to Camouflage Tankbuster Option.
         /// </summary>
-        internal static string GNB_Mit_Camouflage_Name {
+        internal static string GNB_Mit_Advanced_Boss_Camouflage_Name {
             get {
-                return ResourceManager.GetString("GNB_Mit_Camouflage_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Camouflage_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Heart of Stone / Corundum to the one-button mitigation..
+        ///   Looks up a localized string similar to Adds Mitigation into the rotations when in a boss encounter. 
+        ///- NOTE: Will not overlap separate options unless stated..
         /// </summary>
-        internal static string GNB_Mit_Corundum_Desc {
+        internal static string GNB_Mit_Advanced_Boss_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mit_Corundum_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Desc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heart of Corundum Option.
+        ///   Looks up a localized string similar to Adds Heart Of Light when raidwide casting is detected..
         /// </summary>
-        internal static string GNB_Mit_Corundum_Name {
+        internal static string GNB_Mit_Advanced_Boss_HeartOfLight_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mit_Corundum_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_HeartOfLight_Desc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Heart Of Light to the one-button mitigation..
+        ///   Looks up a localized string similar to Raidwide Heart Of Light Option.
         /// </summary>
-        internal static string GNB_Mit_HeartOfLight_Desc {
+        internal static string GNB_Mit_Advanced_Boss_HeartOfLight_Name {
             get {
-                return ResourceManager.GetString("GNB_Mit_HeartOfLight_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_HeartOfLight_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heart Of Light Option.
+        ///   Looks up a localized string similar to Adds Heart Of Stone/Corundrum when below threshold..
         /// </summary>
-        internal static string GNB_Mit_HeartOfLight_Name {
+        internal static string GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mit_HeartOfLight_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Desc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Nebula to the one-button mitigation..
+        ///   Looks up a localized string similar to Heart Of Stone/Corundrum on Cooldown Option.
         /// </summary>
-        internal static string GNB_Mit_Nebula_Desc {
+        internal static string GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Name {
             get {
-                return ResourceManager.GetString("GNB_Mit_Nebula_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Heart Of Stone/Corundrum when tankbuster is detected..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heart Of Stone/Corundrum Tankbuster Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boss Encounter Mitigation.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Nebula/Great Nebula when tankbuster is detected.
+        ///- NOTE: This feature will not overlap with Rampart..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_Nebula_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Nebula_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nebula/Great Nebula Tankbuster Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_Nebula_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Nebula_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Rampart when tankbuster is detected.
+        ///- NOTE: This feature will not overlap with Nebula..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_Rampart_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Rampart_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rampart Tankbuster Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_Rampart_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Rampart_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Reprisal when raidwide casting is detected..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_Reprisal_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Reprisal_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raidwide Reprisal Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Boss_Reprisal_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Boss_Reprisal_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds mitigations into the rotations automatically.
+        ///- Advanced Modes follow the configurable values set below.
+        ///- Simple Modes follow recommended values that cannot be changed..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Mitigation Feature.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Arm&apos;s Length when 5 or more targets..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_ArmsLength_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_ArmsLength_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arm&apos;s Length Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_ArmsLength_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_ArmsLength_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Aurora when 3 or more targets. 
+        ///- NOTE: This feature will overlap with other mitigations..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Aurora_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Aurora_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aurora Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Aurora_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Aurora_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Camouflage when 3 or more targets..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Camouflage_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Camouflage_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camouflage Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Camouflage_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Camouflage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds mitigations into the rotations automatically when not in a boss encounter.
+        ///- NOTE: This feature will not overlap separate options unless stated &amp; will not use in the first 15 seconds of a pull unless you are not moving..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Heart of Light when 5 or more targets. 
+        ///- NOTE: This feature will overlap with others..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_HeartOfLight_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_HeartOfLight_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heart of Light Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_HeartOfLight_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_HeartOfLight_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Heart of Stone/Corundrum when available. 
+        ///- NOTE: This feature will overlap with others..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_HeartOfStone_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_HeartOfStone_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heart of Stone/Corundrum Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_HeartOfStone_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_HeartOfStone_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non Boss Encounter Mitigation.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Nebula/Great Nebula when 3 or more targets..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Nebula_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Nebula_Desc", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nebula Option.
         /// </summary>
-        internal static string GNB_Mit_Nebula_Name {
+        internal static string GNB_Mit_Advanced_NonBoss_Nebula_Name {
             get {
-                return ResourceManager.GetString("GNB_Mit_Nebula_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Nebula_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Rampart when 3 or more targets..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Rampart_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Rampart_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rampart Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Rampart_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Rampart_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Reprisal when 5 or more targets..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Reprisal_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Reprisal_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reprisal Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Reprisal_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Reprisal_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Superbolide when 5 or more targets as part of the mitigation rotation. (Recommended).
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Superbolide_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Superbolide_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Superbolide Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_Superbolide_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_Superbolide_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Superbolide when in emergency health situation. 
+        ///- NOTE: Superbolide will likely be on cooldown if using the recommended feature above..
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Superbolide Emergency Option.
+        /// </summary>
+        internal static string GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Arms Length to the one-button mitigation..
+        /// </summary>
+        internal static string GNB_Mit_OneButton_ArmsLength_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_ArmsLength_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arms Length Option.
+        /// </summary>
+        internal static string GNB_Mit_OneButton_ArmsLength_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_ArmsLength_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Aurora to the one-button mitigation..
+        /// </summary>
+        internal static string GNB_Mit_OneButton_Aurora_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_Aurora_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aurora Option.
+        /// </summary>
+        internal static string GNB_Mit_OneButton_Aurora_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_Aurora_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Camouflage to the one-button mitigation.
+        ///- NOTE: Even if disabled, this feature will still try to use Camouflage as the lowest priority..
+        /// </summary>
+        internal static string GNB_Mit_OneButton_Camouflage_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_Camouflage_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camouflage First Option.
+        /// </summary>
+        internal static string GNB_Mit_OneButton_Camouflage_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_Camouflage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Heart of Stone/Corundum to the one-button mitigation..
+        /// </summary>
+        internal static string GNB_Mit_OneButton_Corundum_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_Corundum_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heart of Corundum Option.
+        /// </summary>
+        internal static string GNB_Mit_OneButton_Corundum_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_Corundum_Name", resourceCulture);
             }
         }
         
@@ -10684,6 +11146,24 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adds Heart Of Light to the one-button mitigation..
+        /// </summary>
+        internal static string GNB_Mit_OneButton_HeartOfLight_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_HeartOfLight_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heart Of Light Option.
+        /// </summary>
+        internal static string GNB_Mit_OneButton_HeartOfLight_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_HeartOfLight_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to One-Button Mitigation Feature.
         /// </summary>
         internal static string GNB_Mit_OneButton_Name {
@@ -10693,457 +11173,93 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replaces Heart of Light with Reprisal when ready..
+        ///   Looks up a localized string similar to Adds Nebula to the one-button mitigation..
         /// </summary>
-        internal static string GNB_Mit_Party_Desc {
+        internal static string GNB_Mit_OneButton_Nebula_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mit_Party_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to One-Button Party Mitigation Feature.
-        /// </summary>
-        internal static string GNB_Mit_Party_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mit_Party_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Rampart to the one-button mitigation..
-        /// </summary>
-        internal static string GNB_Mit_Rampart_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mit_Rampart_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rampart Option.
-        /// </summary>
-        internal static string GNB_Mit_Rampart_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mit_Rampart_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Reprisal to the one-button mitigation.
-        ///NOTE: Will not use unless there is a target within range to prevent waste.
-        /// </summary>
-        internal static string GNB_Mit_Reprisal_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mit_Reprisal_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reprisal Option.
-        /// </summary>
-        internal static string GNB_Mit_Reprisal_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mit_Reprisal_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gives max priority to Superbolide when the Health percentage threshold is met..
-        /// </summary>
-        internal static string GNB_Mit_Superbolide_Max_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mit_Superbolide_Max_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Superbolide Emergency Option.
-        /// </summary>
-        internal static string GNB_Mit_Superbolide_Max_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mit_Superbolide_Max_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Aurora when below threshold..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Aurora_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Aurora_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aurora Option.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Aurora_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Aurora_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Camouflage when tankbuster is detected. Will not overlap unless below set threshold or aligned with rampart..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Camouflage_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Camouflage_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Camouflage Tankbuster Option.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Camouflage_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Camouflage_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Mitigation to the combos when in a boss encounter. Will not overlap separate options unless stated..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Heart Of Light when raidwide casting is detected..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_HeartOfLight_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_HeartOfLight_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Raidwide Heart Of Light Option.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_HeartOfLight_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_HeartOfLight_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Heart Of Stone/Corundrum on CD when below threshold..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_HeartOfStone_OnCD_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_HeartOfStone_OnCD_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Heart Of Stone/Corundrum on Cooldown Option.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_HeartOfStone_OnCD_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_HeartOfStone_OnCD_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Heart Of Stone/Corundrum when tankbuster is detected..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_HeartOfStone_TankBuster_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_HeartOfStone_TankBuster_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Heart Of Stone/Corundrum Tankbuster Option.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_HeartOfStone_TankBuster_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_HeartOfStone_TankBuster_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Boss Encounter Mitigation.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Nebula/Great Nebula when tankbuster is detected. Will not overlap with Rampart..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Nebula_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Nebula_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nebula/Great Nebula Tankbuster Option.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Nebula_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Nebula_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Rampart when tankbuster is detected. Will not overlap with Nebula/Great Nebula..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Rampart_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Rampart_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rampart Tankbuster Option.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Rampart_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Rampart_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Reprisal when raidwide casting is detected..
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Reprisal_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Reprisal_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Raidwide Reprisal Option.
-        /// </summary>
-        internal static string GNB_Mitigation_Boss_Reprisal_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Boss_Reprisal_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Options for Advanced Combos&apos; In-Combo Mitigation.
-        ///Enable Mitigation in each Advanced Combo to use these options.
-        ///(Simple Mode does not use these Options, instead Recommended Values in place of them).
-        /// </summary>
-        internal static string GNB_Mitigation_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Advanced Mitigation Options.
-        /// </summary>
-        internal static string GNB_Mitigation_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Arm&apos;s Length when 5 or more targets..
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_ArmsLength_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_ArmsLength_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arm&apos;s Length Option.
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_ArmsLength_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_ArmsLength_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Aurora when 3 or more targets. Will overlap with other mits..
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Aurora_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Aurora_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aurora Option.
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Aurora_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Aurora_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Camouflage when 3 or more targets..
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Camouflage_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Camouflage_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Camouflage Option.
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Camouflage_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Camouflage_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated.
-        ///Will not use mitigation in the first 15 seconds of a pull unless you are not moving..
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Heart of Light when 5 or more targets. Will overlap with others..
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_HeartOfLight_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_HeartOfLight_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Heart of Light Option.
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_HeartOfLight_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_HeartOfLight_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Heart of Stone/Corundrum when available. Will overlap with others..
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_HeartOfStone_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_HeartOfStone_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Heart of Stone/Corundrum Option.
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_HeartOfStone_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_HeartOfStone_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Non Boss Encounter Mitigation.
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Nebula/Great Nebula when 3 or more targets..
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Nebula_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Nebula_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_OneButton_Nebula_Desc", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nebula Option.
         /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Nebula_Name {
+        internal static string GNB_Mit_OneButton_Nebula_Name {
             get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Nebula_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_OneButton_Nebula_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Rampart when 3 or more targets..
+        ///   Looks up a localized string similar to Replaces Heart of Light with Reprisal when ready..
         /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Rampart_Desc {
+        internal static string GNB_Mit_OneButton_Party_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Rampart_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_OneButton_Party_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One-Button Party Mitigation Feature.
+        /// </summary>
+        internal static string GNB_Mit_OneButton_Party_Name {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_Party_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Rampart to the one-button mitigation..
+        /// </summary>
+        internal static string GNB_Mit_OneButton_Rampart_Desc {
+            get {
+                return ResourceManager.GetString("GNB_Mit_OneButton_Rampart_Desc", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rampart Option.
         /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Rampart_Name {
+        internal static string GNB_Mit_OneButton_Rampart_Name {
             get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Rampart_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_OneButton_Rampart_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Reprisal when 5 or more targets..
+        ///   Looks up a localized string similar to Adds Reprisal to the one-button mitigation.
+        ///- NOTE: This feature will not activate unless there is a target within range to prevent waste..
         /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Reprisal_Desc {
+        internal static string GNB_Mit_OneButton_Reprisal_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Reprisal_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_OneButton_Reprisal_Desc", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reprisal Option.
         /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Reprisal_Name {
+        internal static string GNB_Mit_OneButton_Reprisal_Name {
             get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Reprisal_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_OneButton_Reprisal_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Superbolide when 5 or more targets as part of the mitigation rotation. (Recommended).
+        ///   Looks up a localized string similar to Gives max priority to Superbolide when the Health percentage threshold is met..
         /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Superbolide_Desc {
+        internal static string GNB_Mit_OneButton_Superbolide_Max_Desc {
             get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Superbolide_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Superbolide Option.
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_Superbolide_Name {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_Superbolide_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adds Superbolide when in emergency health situation. 
-        ///Will likely be on coodown if using above setting as reccomended..
-        /// </summary>
-        internal static string GNB_Mitigation_NonBoss_SuperBolideEmergency_Desc {
-            get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_SuperBolideEmergency_Desc", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_OneButton_Superbolide_Max_Desc", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Superbolide Emergency Option.
         /// </summary>
-        internal static string GNB_Mitigation_NonBoss_SuperBolideEmergency_Name {
+        internal static string GNB_Mit_OneButton_Superbolide_Max_Name {
             get {
-                return ResourceManager.GetString("GNB_Mitigation_NonBoss_SuperBolideEmergency_Name", resourceCulture);
+                return ResourceManager.GetString("GNB_Mit_OneButton_Superbolide_Max_Name", resourceCulture);
             }
         }
         
@@ -11184,7 +11300,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds all Continuation procs to No Mercy appropriately..
+        ///   Looks up a localized string similar to Adds all Continuation procs to No Mercy when available..
         /// </summary>
         internal static string GNB_NM_Continuation_Desc {
             get {
@@ -11220,7 +11336,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Danger / Blasting Zone to No Mercy..
+        ///   Looks up a localized string similar to Adds Danger/Blasting Zone to No Mercy..
         /// </summary>
         internal static string GNB_NM_Zone_Desc {
             get {
@@ -11238,79 +11354,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Retargets Aurora to your mouseover target if they do not have the HoT.
-        /// </summary>
-        internal static string GNB_RetargetAurora_MO_Desc {
-            get {
-                return ResourceManager.GetString("GNB_RetargetAurora_MO_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aurora Mouseover Option.
-        /// </summary>
-        internal static string GNB_RetargetAurora_MO_Name {
-            get {
-                return ResourceManager.GetString("GNB_RetargetAurora_MO_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Retargets Aurora to the Target&apos;s Target if they do not have the HoT and you do not have Aggro.
-        /// </summary>
-        internal static string GNB_RetargetAurora_TT_Desc {
-            get {
-                return ResourceManager.GetString("GNB_RetargetAurora_TT_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aurora Target&apos;s Target Option.
-        /// </summary>
-        internal static string GNB_RetargetAurora_TT_Name {
-            get {
-                return ResourceManager.GetString("GNB_RetargetAurora_TT_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Will retarget Heart of Stone/Corundum to your mouseover target or hard target outside of other combos.
-        /// </summary>
-        internal static string GNB_RetargetHeartofStone_Desc {
-            get {
-                return ResourceManager.GetString("GNB_RetargetHeartofStone_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Heart Of Stone Feature.
-        /// </summary>
-        internal static string GNB_RetargetHeartofStone_Name {
-            get {
-                return ResourceManager.GetString("GNB_RetargetHeartofStone_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Retargets Heart of Stone/Corundum to the Target&apos;s Target you do not have Aggro, can still be overridden with mouseover..
-        /// </summary>
-        internal static string GNB_RetargetHeartofStone_TT_Desc {
-            get {
-                return ResourceManager.GetString("GNB_RetargetHeartofStone_TT_Desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Heart of Stone Target&apos;s Target Option.
-        /// </summary>
-        internal static string GNB_RetargetHeartofStone_TT_Name {
-            get {
-                return ResourceManager.GetString("GNB_RetargetHeartofStone_TT_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Will retarget Trajectory to your field or UI mouseover target (If Hostile) or the nearest hostile target to your mouseover target (If friendly)..
+        ///   Looks up a localized string similar to Retargets Trajectory to your Field or UI Mouseover target (if Hostile) or the nearest hostile target to your Mouseover target (if Friendly)..
         /// </summary>
         internal static string GNB_RetargetTrajectory_Desc {
             get {
@@ -11319,7 +11363,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mouseover Trajectory Option.
+        ///   Looks up a localized string similar to Trajectory Mouseover Option.
         /// </summary>
         internal static string GNB_RetargetTrajectory_Name {
             get {
@@ -11328,8 +11372,8 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replaces Keen Edge with a full one-button single target rotation.
-        ///These features are ideal if you want to customize the rotation..
+        ///   Looks up a localized string similar to Replaces Keen Edge with a full one-button Single Target rotation.
+        ///These features are ideal for users who want to fully customize their rotation..
         /// </summary>
         internal static string GNB_ST_Advanced_Desc {
             get {
@@ -11347,7 +11391,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace Solid Barrel with its combo chain..
+        ///   Looks up a localized string similar to Replaces Solid Barrel with its basic combo chain..
         /// </summary>
         internal static string GNB_ST_BasicCombo_Desc {
             get {
@@ -11356,7 +11400,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ST Basic Combo.
+        ///   Looks up a localized string similar to Basic Combo - Single Target.
         /// </summary>
         internal static string GNB_ST_BasicCombo_Name {
             get {
@@ -11419,7 +11463,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Continuation &amp; Hypervelocity into the rotation when appropriate..
+        ///   Looks up a localized string similar to Adds all single-target Continuation procs into the rotation when available..
         /// </summary>
         internal static string GNB_ST_Continuation_Desc {
             get {
@@ -11473,7 +11517,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Interject to the rotation when your target&apos;s cast is interruptible..
+        ///   Looks up a localized string similar to Adds Interject into the rotation when your target&apos;s cast is interruptible..
         /// </summary>
         internal static string GNB_ST_Interrupt_Desc {
             get {
@@ -11527,7 +11571,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Lightning Shot to the main combo when you are out of range..
+        ///   Looks up a localized string similar to Adds Lightning Shot into the rotation when out of melee range..
         /// </summary>
         internal static string GNB_ST_RangedUptime_Desc {
             get {
@@ -11545,7 +11589,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Reign/Noble/Lionheart into the rotation when appropriate..
+        ///   Looks up a localized string similar to Adds Reign of Beasts &amp; its combo chain into the rotation when appropriate..
         /// </summary>
         internal static string GNB_ST_Reign_Desc {
             get {
@@ -11554,7 +11598,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reign Combo Option.
+        ///   Looks up a localized string similar to Reign of Beasts Option.
         /// </summary>
         internal static string GNB_ST_Reign_Name {
             get {
@@ -11564,7 +11608,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         
         /// <summary>
         ///   Looks up a localized string similar to Replaces Keen Edge with a full one-button single target rotation.
-        ///This is the ideal option for newcomers to the job..
+        ///This feature is ideal for any fresh newcomers to the job..
         /// </summary>
         internal static string GNB_ST_Simple_Desc {
             get {
@@ -11600,8 +11644,8 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Low Blow to the rotation when your target is casting.
-        ///Not advised outside of overworld content, as it can waste a lot of Low Blows on un-stun-able enemies, etc. Will try to not use it in boss fights..
+        ///   Looks up a localized string similar to Adds Low Blow into the rotation when your target is casting.
+        ///- NOTE: This feature is not advised outside of overworld content, as it can waste a significant amount of Low Blows on un-stun-able enemies plus other niche cases. Will also try to not use in boss fights..
         /// </summary>
         internal static string GNB_ST_Stun_Desc {
             get {
@@ -11610,7 +11654,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interrupt with Stun Option.
+        ///   Looks up a localized string similar to Low Blow Option.
         /// </summary>
         internal static string GNB_ST_Stun_Name {
             get {
@@ -11619,7 +11663,7 @@ namespace WrathCombo.Resources.Localization.Presets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds Danger / Blasting Zone into the rotation when available..
+        ///   Looks up a localized string similar to Adds Danger/Blasting Zone into the rotation when available..
         /// </summary>
         internal static string GNB_ST_Zone_Desc {
             get {

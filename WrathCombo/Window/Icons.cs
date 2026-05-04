@@ -66,7 +66,7 @@ internal static class Icons
     {
         uint iconID = job switch
         {
-            Job.ADV => 62146,
+            Job.ADV => 62147,
             Job.MIN or Job.BTN or Job.FSH => 82096,
             _ => (uint)ExcelJobHelper.GetIcon(job)
         };

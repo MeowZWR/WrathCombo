@@ -265,7 +265,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         if (Svc.Data.GetExcelSheet<LogMessage>().TryGetFirst(x => x.Text == txt, out var row))
         {
             if (row.RowId == 2288) //Aetherial Interference
-                AutoRotationController.PausedForError = true;
+                AutoRotationController.Paused = true;
         }
     }
 

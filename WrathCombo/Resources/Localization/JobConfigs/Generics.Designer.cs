@@ -774,6 +774,15 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player HP% to be less than or equal to:.
+        /// </summary>
+        internal static string PlayerHPLessOrEqual {
+            get {
+                return ResourceManager.GetString("PlayerHPLessOrEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Player HP% to use {0} at or below.  Set to 100 to disable this check.
         /// </summary>
         internal static string PlayerHPToUseAction {
@@ -882,7 +891,7 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Stationary Delay Check (in seconds):.
+        ///   Looks up a localized string similar to Stationary Delay Check (in seconds):.
         /// </summary>
         internal static string StationaryDelayCheck {
             get {
@@ -1137,6 +1146,15 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
         internal static string UsesStandardOpener {
             get {
                 return ResourceManager.GetString("UsesStandardOpener", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Use when Distance from target is greater than or equal to:.
+        /// </summary>
+        internal static string UseWhenDistanceFromTargetIsGreaterThanOrEqualTo {
+            get {
+                return ResourceManager.GetString("UseWhenDistanceFromTargetIsGreaterThanOrEqualTo", resourceCulture);
             }
         }
         

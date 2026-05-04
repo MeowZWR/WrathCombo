@@ -301,7 +301,7 @@
   </data>
   <data name="MinimumGauge" xml:space="preserve">
     <value>Minimum Gauge Required to use {0} </value>
-  </data>  
+  </data>
   <data name="MovementOption" xml:space="preserve">
     <value>Movement Option</value>
   </data>
@@ -379,7 +379,7 @@
     <value>Start using when below party average HP %. Set to 100 to disable this check</value>
   </data>
   <data name="StationaryDelayCheck" xml:space="preserve">
-    <value> Stationary Delay Check (in seconds):</value>
+    <value>Stationary Delay Check (in seconds):</value>
   </data>
   <data name="StationaryOnly" xml:space="preserve">
     <value>Stationary Only</value>
@@ -498,5 +498,11 @@ NOTE: This could possibly get you killed</value>
   </data>
   <data name="Action_Opener" xml:space="preserve">
     <value>{0} Opener</value>
+  </data>
+  <data name="PlayerHPLessOrEqual" xml:space="preserve">
+    <value>Player HP% to be less than or equal to:</value>
+  </data>
+  <data name="UseWhenDistanceFromTargetIsGreaterThanOrEqualTo" xml:space="preserve">
+    <value> Use when Distance from target is greater than or equal to:</value>
   </data>
 </root>

@@ -11,7 +11,12 @@ internal partial class RDM
     internal static class Config
     {
         #region Options
-        public static UserBool RDM_ST_ThunderAero_Pull = new("RDM_ST_ThunderAero_Pull", true);
+        public static UserBool RDM_ST_ThunderAero_Pull = new("RDM_ST_ThunderAero_Pull", true),
+            RDM_VerAero_Dynamic = new("RDM_VerAero_Dynamic", true),
+            RDM_VerThunder_Dynamic = new("RDM_VerThunder_Dynamic", true),
+            RDM_VerAero2_Dynamic = new("RDM_VerAero2_Dynamic", true),
+            RDM_VerThunder2_Dynamic = new("RDM_VerThunder2_Dynamic", true);
+
 
         public static UserInt
             RDM_ST_Lucid_Threshold = new("RDM_LucidDreaming_Threshold", 6500),
@@ -70,22 +75,22 @@ internal partial class RDM
                     DrawBossOnlyChoice(RDM_BalanceOpener_Content);
                     ImGui.NewLine();
                     DrawRadioButton(RDM_Opener_Selection, Generics.StandardOpener,
-                        "Opener Failure Timeout (in Settings Tab) Must be set to 5+ seconds for opener to function due to long initial spell cast.", 0, descriptionAsTooltip: true);
-                    DrawRadioButton(RDM_Opener_Selection, "GapClosing Adjusted Standard Opener",
-                        "Opener Failure Timeout (in Settings Tab) Must be set to 5+ seconds for opener to function due to long initial spell cast.", 1, descriptionAsTooltip: true);
+                        RDM_Config.RDMOpenerWarning, 0, descriptionAsTooltip: true);
+                    DrawRadioButton(RDM_Opener_Selection, RDM_Config.RDMGapCloserOpener,
+                        RDM_Config.RDMOpenerWarning, 1, descriptionAsTooltip: true);
                     break;
 
                 case Preset.RDM_ST_ThunderAero:
-                    DrawAdditionalBoolChoice(RDM_ST_ThunderAero_Pull, "Pull with Thunder/Aero", "Starts with Thunder/Aero if out of combat.");
+                    DrawAdditionalBoolChoice(RDM_ST_ThunderAero_Pull, FormatAndCache(RDM_Config.PullWith0_1, Verthunder.ActionName(), Veraero.ActionName()), FormatAndCache(RDM_Config.StartsWith0_1, Verthunder.ActionName(), Veraero.ActionName()));
                     break;
 
                 case Preset.RDM_ST_VerCure:
-                    DrawSliderInt(1, 100, RDM_ST_VerCureThreshold, "HP% to be at or under", 200);
+                    DrawSliderInt(1, 100, RDM_ST_VerCureThreshold, Generics.PlayerHPLessOrEqual, 200);
                     break;
 
                 case Preset.RDM_ST_Embolden:
                     DrawSliderInt(0, 100, RDM_ST_Embolden_Threshold,
-                        "Stop using Embolden on targets below this HP % (0% = always use, 100% = never use).");
+                        FormatAndCache(Generics.StopUsing0WhenBelowTargetHPPercentage, Embolden.ActionName()));
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
                     DrawHorizontalRadioButton(RDM_ST_Embolden_SubOption,
@@ -97,7 +102,7 @@ internal partial class RDM
 
                 case Preset.RDM_ST_Manafication:
                     DrawSliderInt(0, 100, RDM_ST_Manafication_Threshold,
-                        "Stop using Manafication on targets below this HP % (0% = always use, 100% = never use).");
+                        FormatAndCache(Generics.StopUsing0WhenBelowTargetHPPercentage, Manafication.ActionName()));
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
                     DrawHorizontalRadioButton(RDM_ST_Manafication_SubOption,
@@ -111,8 +116,8 @@ internal partial class RDM
                     if (CustomComboFunctions.IsNotEnabled(Preset.RDM_ST_MeleeCombo_IncludeRiposte))
                     {
                         ImGui.Indent();
-                        ImGui.TextColored(ImGuiColors.DalamudRed, "WARNING: RIPOSTE IS NOT ENABLED.");
-                        ImGui.TextColored(ImGuiColors.DalamudRed, "AUTO ROTATION WILL NOT START THE MELEE COMBO AUTOMATICALLY");
+                        ImGui.TextColored(ImGuiColors.DalamudRed, FormatAndCache(RDM_Config.AutoRotationWarning1, Riposte.ActionName()).ToUpper());
+                        ImGui.TextColored(ImGuiColors.DalamudRed, RDM_Config.AutoRotationWarning2);
                         ImGui.Unindent();
                     }
                     break;
@@ -122,17 +127,17 @@ internal partial class RDM
                         Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
 
                     DrawSliderInt(0, 5, RDM_ST_Corpsacorps_Time,
-                        " How long you need to be stationary to use. Zero to disable");
+                        Generics.StationaryDelayCheck);
                     break;
 
                 case Preset.RDM_ST_MeleeCombo_GapCloser:
                     DrawSliderInt(0, 5, RDM_ST_GapCloseCorpsacorps_Time,
-                        " How long you need to be stationary to use. Zero to disable");
+                        Generics.StationaryDelayCheck);
                     break;
 
                 case Preset.RDM_ST_MeleeCombo_IncludeReprise:
                     DrawSliderInt(4, 25, RDM_ST_MeleeCombo_IncludeReprise_Distance,
-                        "Use when Distance from target is greater than or equal to:");
+                        Generics.UseWhenDistanceFromTargetIsGreaterThanOrEqualTo);
                     break;
 
                 #endregion
@@ -142,17 +147,17 @@ internal partial class RDM
                     DrawSliderInt(0, 25, RDM_AoE_Corpsacorps_Distance,
                         Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
                     DrawSliderInt(0, 5, RDM_AoE_Corpsacorps_Time,
-                        " How long you need to be stationary to use. Zero to disable");
+                         Generics.StationaryDelayCheck);
                     break;
 
                 case Preset.RDM_AoE_MeleeCombo_GapCloser:
                     DrawSliderInt(0, 5, RDM_AoE_GapCloseCorpsacorps_Time,
-                        " How long you need to be stationary to use. Zero to disable");
+                         Generics.StationaryDelayCheck);
                     break;
 
                 case Preset.RDM_AoE_Embolden:
                     DrawSliderInt(0, 100, RDM_AoE_Embolden_Threshold,
-                        $"Stop using Embolden on targets below this HP % (0% = always use, 100% = never use).");
+                        FormatAndCache(Generics.StopUsing0WhenBelowTargetHPPercentage, Embolden.ActionName()));
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
                     DrawHorizontalRadioButton(RDM_AoE_Embolden_SubOption,
@@ -164,7 +169,7 @@ internal partial class RDM
 
                 case Preset.RDM_AoE_Manafication:
                     DrawSliderInt(0, 100, RDM_AoE_Manafication_Threshold,
-                        $"Stop using Manafication on targets below this HP % (0% = always use, 100% = never use).");
+                       FormatAndCache(Generics.StopUsing0WhenBelowTargetHPPercentage, Manafication.ActionName()));
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
                     DrawHorizontalRadioButton(RDM_AoE_Manafication_SubOption,
@@ -175,15 +180,15 @@ internal partial class RDM
                     break;
 
                 case Preset.RDM_AoE_VerCure:
-                    DrawSliderInt(1, 100, RDM_AoE_VerCureThreshold, "HP% to be at or under", 200);
+                    DrawSliderInt(1, 100, RDM_AoE_VerCureThreshold, Generics.PlayerHPLessOrEqual, 200);
                     break;
 
                 case Preset.RDM_ST_Lucid:
-                    DrawSliderInt(0, 10000, RDM_ST_Lucid_Threshold, $"Add {Role.LucidDreaming.ActionName()} when below this MP", sliderIncrement: Hundreds);
+                    DrawSliderInt(0, 10000, RDM_ST_Lucid_Threshold, Generics.LucidMP, sliderIncrement: Hundreds);
                     break;
 
                 case Preset.RDM_AoE_Lucid:
-                    DrawSliderInt(0, 10000, RDM_AoE_Lucid_Threshold, $"Add {Role.LucidDreaming.ActionName()} when below this MP", sliderIncrement: Hundreds);
+                    DrawSliderInt(0, 10000, RDM_AoE_Lucid_Threshold, Generics.LucidMP, sliderIncrement: Hundreds);
                     break;
 
                 case Preset.RDM_ST_Acceleration:
@@ -201,42 +206,42 @@ internal partial class RDM
                     break;
                 
                 case Preset.RDM_Riposte_Weaves:
-                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, Fleche.ActionName(), "Adds to the OGCD button", 6, 0);
-                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, ContreSixte.ActionName(), "Adds to the OGCD button", 6, 1);
-                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, ViceOfThorns.ActionName(), "Adds to the OGCD button", 6, 2);
-                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, Prefulgence.ActionName(), "Adds to the OGCD button", 6, 3);
-                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, Engagement.ActionName(), "Adds to the OGCD button", 6, 4);
-                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, Corpsacorps.ActionName(), "Adds to the OGCD button", 6, 5);
+                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, Fleche.ActionName(), "", 6, 0);
+                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, ContreSixte.ActionName(), "", 6, 1);
+                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, ViceOfThorns.ActionName(), "", 6, 2);
+                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, Prefulgence.ActionName(), "", 6, 3);
+                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, Engagement.ActionName(), "", 6, 4);
+                    DrawHorizontalMultiChoice(RDM_Riposte_Weaves_Options, Corpsacorps.ActionName(), "", 6, 5);
 
                     if (RDM_Riposte_Weaves_Options[4])
                     {
-                        DrawSliderInt(0, 1, RDM_Riposte_Weaves_Options_EngagementCharges, "How many charges of Engagement to keep for manual use");
+                        DrawSliderInt(0, 1, RDM_Riposte_Weaves_Options_EngagementCharges, Generics.ChargePool);
                     }
 
                     if (RDM_Riposte_Weaves_Options[5])
                     {
-                        DrawSliderInt(0, 1, RDM_Riposte_Weaves_Options_CorpsCharges, "How many charges of Corps to keep for manual use");
-                        DrawSliderInt(0, 25, RDM_Riposte_Weaves_Options_Corpsacorps_Distance, "Use Corps when distance is less than or equal to:");
+                        DrawSliderInt(0, 1, RDM_Riposte_Weaves_Options_CorpsCharges, Generics.ChargePool);
+                        DrawSliderInt(0, 25, RDM_Riposte_Weaves_Options_Corpsacorps_Distance, Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
                     }
                     break;
 
                 case Preset.RDM_Moulinet_Weaves:
-                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, Fleche.ActionName(), "Adds to the OGCD button", 6, 0);
-                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, ContreSixte.ActionName(), "Adds to the OGCD button", 6, 1);
-                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, ViceOfThorns.ActionName(), "Adds to the OGCD button", 6, 2);
-                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, Prefulgence.ActionName(), "Adds to the OGCD button", 6, 3);
-                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, Engagement.ActionName(), "Adds to the OGCD button", 6, 4);
-                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, Corpsacorps.ActionName(), "Adds to the OGCD button", 6, 5);
+                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, Fleche.ActionName(), "", 6, 0);
+                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, ContreSixte.ActionName(), "", 6, 1);
+                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, ViceOfThorns.ActionName(), "", 6, 2);
+                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, Prefulgence.ActionName(), "", 6, 3);
+                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, Engagement.ActionName(), "", 6, 4);
+                    DrawHorizontalMultiChoice(RDM_Moulinet_Weaves_Options, Corpsacorps.ActionName(), "", 6, 5);
 
                     if (RDM_Moulinet_Weaves_Options[4])
                     {
-                        DrawSliderInt(0, 1, RDM_Moulinet_Weaves_Options_EngagementCharges, "How many charges of Engagement to keep for manual use");
+                        DrawSliderInt(0, 1, RDM_Moulinet_Weaves_Options_EngagementCharges, Generics.ChargePool);
                     }
 
                     if (RDM_Moulinet_Weaves_Options[5])
                     {
-                        DrawSliderInt(0, 1, RDM_Moulinet_Weaves_Options_CorpsCharges, "How many charges of Corps to keep for manual use");
-                        DrawSliderInt(0, 25, RDM_Moulinet_Weaves_Options_Corpsacorps_Distance, "Use Corps when distance is less than or equal to:");
+                        DrawSliderInt(0, 1, RDM_Moulinet_Weaves_Options_CorpsCharges, Generics.ChargePool);
+                        DrawSliderInt(0, 25, RDM_Moulinet_Weaves_Options_Corpsacorps_Distance, Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
                     }
                     break;
 
@@ -251,48 +256,56 @@ internal partial class RDM
                     break;
 
                 case Preset.RDM_OGCDs:
-                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, ContreSixte.ActionName(), "Adds to the OGCD button", 5, 0);
-                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, ViceOfThorns.ActionName(), "Adds to the OGCD button", 5, 1);
-                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, Prefulgence.ActionName(), "Adds to the OGCD button", 5, 2);
-                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, Engagement.ActionName(), "Adds to the OGCD button", 5, 3);
-                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, Corpsacorps.ActionName(), "Adds to the OGCD button", 5, 4);
+                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, ContreSixte.ActionName(), "", 5, 0);
+                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, ViceOfThorns.ActionName(), "", 5, 1);
+                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, Prefulgence.ActionName(), "", 5, 2);
+                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, Engagement.ActionName(), "", 5, 3);
+                    DrawHorizontalMultiChoice(RDM_OGCDs_Options, Corpsacorps.ActionName(), "", 5, 4);
 
                     if (RDM_OGCDs_Options[3])
                     {
-                        DrawSliderInt(0, 1, RDM_OGCDs_Options_EngagementCharges, "How many charges of Engagement to keep for manual use");
+                        DrawSliderInt(0, 1, RDM_OGCDs_Options_EngagementCharges, Generics.ChargePool);
                     }
 
                     if (RDM_OGCDs_Options[4])
                     {
-                        DrawSliderInt(0, 1, RDM_OGCDs_Options_CorpsCharges, "How many charges of Corps to keep for manual use");
-                        DrawSliderInt(0, 25, RDM_OGCDs_Options_Corpsacorps_Distance, "Use Corps when distance is less than or equal to:");
+                        DrawSliderInt(0, 1, RDM_OGCDs_Options_CorpsCharges, Generics.ChargePool);
+                        DrawSliderInt(0, 25, RDM_OGCDs_Options_Corpsacorps_Distance, Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
                     }
                     break;
 
                 case Preset.RDM_VerAero:
-                    DrawHorizontalMultiChoice(RDM_VerAero_Options, "Holy Flare Combo", "Adds smart Holy/Flare", 4, 0);
-                    DrawHorizontalMultiChoice(RDM_VerAero_Options, Verstone.ActionName(), "Adds VerStone", 4, 1);
-                    DrawHorizontalMultiChoice(RDM_VerAero_Options, "Scorch Combo", "Adds Scorch/Resolution Finishers", 4, 2);
-                    DrawHorizontalMultiChoice(RDM_VerAero_Options, Jolt.ActionName(), "Adds Jolt", 4, 3);
+                    DrawHorizontalMultiChoice(RDM_VerAero_Options, Verholy.ActionName(), FormatAndCache(Generics.Add0, Verholy.ActionName()), 4, 0);
+                    DrawHorizontalMultiChoice(RDM_VerAero_Options, Verstone.ActionName(), FormatAndCache(Generics.Add0, Verstone.ActionName()), 4, 1);
+                    DrawHorizontalMultiChoice(RDM_VerAero_Options, $"{Scorch.ActionName()}/{Resolution.ActionName()}", FormatAndCache(RDM_Config.Add0_1Finishers, Scorch.ActionName(), Resolution.ActionName()), 4, 2);
+                    DrawHorizontalMultiChoice(RDM_VerAero_Options, Jolt.ActionName(), FormatAndCache(Generics.Add0, Jolt.ActionName()), 4, 3);
+                    if (RDM_VerAero_Options[0])
+                        DrawAdditionalBoolChoice(RDM_VerAero_Dynamic, FormatAndCache(RDM_Config.DynamicallySwitchTo0, Verflare.ActionName()), FormatAndCache(RDM_Config.SwitchToBlack, Verflare.ActionName()));
                     break;
 
                 case Preset.RDM_VerThunder:
-                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, "Holy Flare Combo", "Adds smart Holy/Flare", 4, 0);
-                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, Verfire.ActionName(), "Adds VerFire", 4, 1);
-                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, "Scorch Combo", "Adds Scorch/Resolution Finishers", 4, 2);
-                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, Jolt.ActionName(), "Adds Jolt", 4, 3);
+                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, Verflare.ActionName(), FormatAndCache(Generics.Add0, Verflare.ActionName()), 4, 0);
+                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, Verfire.ActionName(), FormatAndCache(Generics.Add0, Verfire.ActionName()), 4, 1);
+                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, $"{Scorch.ActionName()}/{Resolution.ActionName()}", FormatAndCache(RDM_Config.Add0_1Finishers, Scorch.ActionName(), Resolution.ActionName()), 4, 2);
+                    DrawHorizontalMultiChoice(RDM_VerThunder_Options, Jolt.ActionName(), FormatAndCache(Generics.Add0, Jolt.ActionName()), 4, 3);
+                    if (RDM_VerThunder_Options[0])
+                        DrawAdditionalBoolChoice(RDM_VerThunder_Dynamic, FormatAndCache(RDM_Config.DynamicallySwitchTo0, Verholy.ActionName()), FormatAndCache(RDM_Config.SwitchToWhite, Verholy.ActionName()));
                     break;
 
                 case Preset.RDM_VerAero2:
-                    DrawHorizontalMultiChoice(RDM_VerAero2_Options, "Holy Flare Combo", "Adds smart Holy/Flare", 3, 0);
-                    DrawHorizontalMultiChoice(RDM_VerAero2_Options, "Scorch Combo", "Adds Scorch/Resolution Finishers", 3, 1);
-                    DrawHorizontalMultiChoice(RDM_VerAero2_Options, Impact.ActionName(), "Adds Impact", 3, 2);
+                    DrawHorizontalMultiChoice(RDM_VerAero2_Options, Verholy.ActionName(), FormatAndCache(Generics.Add0, Verholy.ActionName()), 3, 0);
+                    DrawHorizontalMultiChoice(RDM_VerAero2_Options, $"{Scorch.ActionName()}/{Resolution.ActionName()}", FormatAndCache(RDM_Config.Add0_1Finishers, Scorch.ActionName(), Resolution.ActionName()), 3, 1);
+                    DrawHorizontalMultiChoice(RDM_VerAero2_Options, Impact.ActionName(), FormatAndCache(Generics.Add0, Impact.ActionName()), 3, 2);
+                    if (RDM_VerAero2_Options[0])
+                        DrawAdditionalBoolChoice(RDM_VerAero2_Dynamic, FormatAndCache(RDM_Config.DynamicallySwitchTo0, Verflare.ActionName()), FormatAndCache(RDM_Config.SwitchToBlack, Verflare.ActionName()));
                     break;
 
                 case Preset.RDM_VerThunder2:
-                    DrawHorizontalMultiChoice(RDM_VerThunder2_Options, "Holy Flare Combo", "Adds smart Holy/Flare", 3, 0);
-                    DrawHorizontalMultiChoice(RDM_VerThunder2_Options, "Scorch Combo", "Adds Scorch/Resolution Finishers", 3, 1);
-                    DrawHorizontalMultiChoice(RDM_VerThunder2_Options, Impact.ActionName(), "Adds Impact", 3, 2);
+                    DrawHorizontalMultiChoice(RDM_VerThunder2_Options, Verflare.ActionName(), FormatAndCache(Generics.Add0, Verflare.ActionName()), 3, 0);
+                    DrawHorizontalMultiChoice(RDM_VerThunder2_Options, $"{Scorch.ActionName()}/{Resolution.ActionName()}", FormatAndCache(RDM_Config.Add0_1Finishers, Scorch.ActionName(), Resolution.ActionName()), 3, 1);
+                    DrawHorizontalMultiChoice(RDM_VerThunder2_Options, Impact.ActionName(), FormatAndCache(Generics.Add0, Impact.ActionName()), 3, 2);
+                    if (RDM_VerThunder2_Options[0])
+                        DrawAdditionalBoolChoice(RDM_VerThunder2_Dynamic, FormatAndCache(RDM_Config.DynamicallySwitchTo0, Verholy.ActionName()), FormatAndCache(RDM_Config.SwitchToWhite, Verholy.ActionName()));
                     break;
                     #endregion
             }

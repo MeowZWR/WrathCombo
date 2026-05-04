@@ -3864,134 +3864,134 @@ Lv.70以下では可能な限りフェザーを使用します。</value>
   <data name="GNB_AoE_Stun_Desc" xml:space="preserve">
     <value>割り込み可能かどうかにかかわらず、対象が詠唱しているときにローテーションにロウブロウを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Name" xml:space="preserve">
     <value>高度な軽減オプション</value>
   </data>
-  <data name="GNB_Mitigation_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Desc" xml:space="preserve">
     <value>高度なコンボのコンボ内軽減のオプション。
 これらのオプションを使用するには、各アドバンスト コンボで軽減策を有効にします。
 (シンプル モードではこれらのオプションは使用されず、代わりに推奨値が使用されます)</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Name" xml:space="preserve">
     <value>非ボスエンカウントの軽減</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Desc" xml:space="preserve">
     <value>ボス戦以外のコンボに軽減を追加します。記載がない限り、個別のオプションが重複することはありません。
 移動していない限り、プルの最初の 15 秒間は軽減を使用しません。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Rampart_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Rampart_Name" xml:space="preserve">
     <value>ランパートオプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Rampart_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Rampart_Desc" xml:space="preserve">
     <value>ターゲットが3体以上の場合、ランパートを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Nebula_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Nebula_Name" xml:space="preserve">
     <value>ネビュラオプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Nebula_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Nebula_Desc" xml:space="preserve">
     <value>対象が3体以上の場合、ネビュラ／グレートネビュラを追加。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Camouflage_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Camouflage_Name" xml:space="preserve">
     <value>カモフラージュオプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Camouflage_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Camouflage_Desc" xml:space="preserve">
     <value>ターゲットが3体以上の場合にカモフラージュを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Aurora_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Aurora_Name" xml:space="preserve">
     <value>オーロラオプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Aurora_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Aurora_Desc" xml:space="preserve">
     <value>対象が3体以上の場合、オーロラを追加。他のミットと重複します。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Superbolide_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Superbolide_Name" xml:space="preserve">
     <value>ボーライドオプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Superbolide_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Superbolide_Desc" xml:space="preserve">
     <value>軽減ローテーションの一部としてターゲットが 5 つ以上の場合に ボーライドを追加します。 （推奨）</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_SuperBolideEmergency_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Name" xml:space="preserve">
     <value>ボーライド 緊急オプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_SuperBolideEmergency_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Desc" xml:space="preserve">
     <value>HPが危険域の場合にスーパーボライドを追加します。
 上記の設定を推奨どおりに使用すると、クーダウンになる可能性があります。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_ArmsLength_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_ArmsLength_Name" xml:space="preserve">
     <value>アームズレングスオプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_ArmsLength_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_ArmsLength_Desc" xml:space="preserve">
     <value>ターゲットが5体以上の場合、アームズレングスが追加されます。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Reprisal_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Reprisal_Name" xml:space="preserve">
     <value>リプライザルオプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Reprisal_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Reprisal_Desc" xml:space="preserve">
     <value>ターゲットが5体以上の場合、リプライザルを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfLight_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfLight_Name" xml:space="preserve">
     <value>ハート・オブ・ライトオプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfLight_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfLight_Desc" xml:space="preserve">
     <value>対象が5体以上の場合、ハート・オブ・ライトを追加。他と重なってしまいます。</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfStone_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfStone_Name" xml:space="preserve">
     <value>ハート・オブ・ストーン／ハート・オブ・コランダム オプション</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfStone_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfStone_Desc" xml:space="preserve">
     <value>利用可能な場合は、ハート・オブ・ストーン／コランダムを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Name" xml:space="preserve">
     <value>ボス戦での軽減</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Desc" xml:space="preserve">
     <value>ボス戦時にコンボに軽減を追加します。記載がない限り、個別のオプションが重複することはありません。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Aurora_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Aurora_Name" xml:space="preserve">
     <value>オーロラオプション</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Aurora_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Aurora_Desc" xml:space="preserve">
     <value>閾値を下回るとオーロラを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_OnCD_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Name" xml:space="preserve">
     <value>ハート・オブ・ストーン／ハート・オブ・コランダム リキャストオプション</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_OnCD_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Desc" xml:space="preserve">
     <value>閾値を下回ると、リキャストごとにハート・オブ・ストーン／コランダムを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_TankBuster_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Name" xml:space="preserve">
     <value>ハート・オブ・ストーン／ハート・オブ・コランダム タンク強攻撃オプション</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_TankBuster_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Desc" xml:space="preserve">
     <value>タンク強攻撃判定時にハート・オブ・ストーン／コランダムを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Rampart_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Rampart_Name" xml:space="preserve">
     <value>ランパート タンク強攻撃 オプション</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Rampart_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Rampart_Desc" xml:space="preserve">
     <value>タンク強攻撃判定時にランパートを追加。ネビュラ／グレートネビュラとは重なりません。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Nebula_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Nebula_Name" xml:space="preserve">
     <value>ネビュラ／グレートネビュラ タンク強攻撃オプション</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Nebula_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Nebula_Desc" xml:space="preserve">
     <value>タンク強攻撃判定時にネビュラ／グレートネビュラを追加。ランパートとは重複しません。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Camouflage_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Camouflage_Name" xml:space="preserve">
     <value>カモフラージュ タンク強攻撃オプション</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Camouflage_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Camouflage_Desc" xml:space="preserve">
     <value>タンク強攻撃検知時にカモフラージュを追加します。設定した閾値を下回る場合、またはランパートと重複しない場合のみ使用します。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Reprisal_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Reprisal_Name" xml:space="preserve">
     <value>全体攻撃リプライザルオプション</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Reprisal_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Reprisal_Desc" xml:space="preserve">
     <value>全体攻撃の詠唱が検出された場合にリプライザルを追加します。</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfLight_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfLight_Name" xml:space="preserve">
     <value>ハート・オブ・ライト 全体攻撃 オプション</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfLight_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfLight_Desc" xml:space="preserve">
     <value>全体攻撃の詠唱が検出された場合、ハート・オブ・ライトを追加します。</value>
   </data>
   <data name="GNB_Mit_OneButton_Name" xml:space="preserve">
@@ -4000,66 +4000,66 @@ Lv.70以下では可能な限りフェザーを使用します。</value>
   <data name="GNB_Mit_OneButton_Desc" xml:space="preserve">
     <value>カモフラージュをオールインワンの軽減ボタンに置き換えます。</value>
   </data>
-  <data name="GNB_Mit_Superbolide_Max_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Superbolide_Max_Name" xml:space="preserve">
     <value>ボーライド 緊急オプション</value>
   </data>
-  <data name="GNB_Mit_Superbolide_Max_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Superbolide_Max_Desc" xml:space="preserve">
     <value>HP割合の閾値が満たされた場合、ボーライドに最大の優先度が与えられます。</value>
   </data>
-  <data name="GNB_Mit_Corundum_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Corundum_Name" xml:space="preserve">
     <value>ハート・オブ・コランダムオプション</value>
   </data>
-  <data name="GNB_Mit_Corundum_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Corundum_Desc" xml:space="preserve">
     <value>ワンボタン軽減にハート・オブ・ストーン／コランダムを追加します。</value>
   </data>
-  <data name="GNB_Mit_Aurora_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Aurora_Name" xml:space="preserve">
     <value>オーロラオプション</value>
   </data>
-  <data name="GNB_Mit_Aurora_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Aurora_Desc" xml:space="preserve">
     <value>ワンボタン軽減に オーロラを追加します。</value>
   </data>
-  <data name="GNB_Mit_Camouflage_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Camouflage_Name" xml:space="preserve">
     <value>カモフラージュ優先オプション</value>
   </data>
-  <data name="GNB_Mit_Camouflage_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Camouflage_Desc" xml:space="preserve">
     <value>ワンボタン軽減にカモフラージュを追加します。
 注: 無効にしても、カモフラージュを最低の優先度で使用しようとします。</value>
   </data>
-  <data name="GNB_Mit_Reprisal_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Reprisal_Name" xml:space="preserve">
     <value>リプライザルオプション</value>
   </data>
-  <data name="GNB_Mit_Reprisal_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Reprisal_Desc" xml:space="preserve">
     <value>ワンボタン軽減にリプライザルを追加します。
 注: 無駄を防ぐため、範囲内にターゲットがない場合は使用しません。</value>
   </data>
-  <data name="GNB_Mit_HeartOfLight_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_HeartOfLight_Name" xml:space="preserve">
     <value>ハート・オブ・ライトオプション</value>
   </data>
-  <data name="GNB_Mit_HeartOfLight_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_HeartOfLight_Desc" xml:space="preserve">
     <value>ワンボタン軽減にハート・オブ・ライトを追加します。</value>
   </data>
-  <data name="GNB_Mit_Rampart_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Rampart_Name" xml:space="preserve">
     <value>ランパートオプション</value>
   </data>
-  <data name="GNB_Mit_Rampart_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Rampart_Desc" xml:space="preserve">
     <value>ワンボタン軽減にランパートを追加します。</value>
   </data>
-  <data name="GNB_Mit_ArmsLength_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_ArmsLength_Name" xml:space="preserve">
     <value>アームズレングスオプション</value>
   </data>
-  <data name="GNB_Mit_ArmsLength_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_ArmsLength_Desc" xml:space="preserve">
     <value>ワンボタン軽減にアームズレングスを追加します。</value>
   </data>
-  <data name="GNB_Mit_Nebula_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Nebula_Name" xml:space="preserve">
     <value>ネビュラオプション</value>
   </data>
-  <data name="GNB_Mit_Nebula_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Nebula_Desc" xml:space="preserve">
     <value>ワンボタン軽減に ネビュラを追加します。</value>
   </data>
-  <data name="GNB_Mit_Party_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Party_Name" xml:space="preserve">
     <value>ワンボタンパーティ軽減機能</value>
   </data>
-  <data name="GNB_Mit_Party_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Party_Desc" xml:space="preserve">
     <value>準備ができたら、ハート・オブ・ライトをリプライザルに置き換えます。</value>
   </data>
   <data name="GNB_ST_BasicCombo_Name" xml:space="preserve">
@@ -4249,34 +4249,34 @@ Lv.70以下では可能な限りフェザーを使用します。</value>
   <data name="GNB_FC_Reign_Desc" xml:space="preserve">
     <value>必要に応じてレイン・オブ・ビースト／ノーブルブラッド／ライオンハートをフェイテッドサークルに追加します。</value>
   </data>
-  <data name="GNB_AuroraFeatures_Name" xml:space="preserve">
+  <data name="GNB_Aurora_Features_Name" xml:space="preserve">
     <value>オーロラ保護機能</value>
   </data>
-  <data name="GNB_AuroraFeatures_Desc" xml:space="preserve">
+  <data name="GNB_Aurora_Features_Desc" xml:space="preserve">
     <value>オーロラの効果がターゲットにある場合、サベッジブレードに置き換えることでオーロラをロックアウトします。</value>
   </data>
-  <data name="GNB_RetargetAurora_MO_Name" xml:space="preserve">
+  <data name="GNB_Aurora_Features_RetargetMO_Name" xml:space="preserve">
     <value>オーロラ マウスオーバー オプション</value>
   </data>
-  <data name="GNB_RetargetAurora_MO_Desc" xml:space="preserve">
+  <data name="GNB_Aurora_Features_RetargetMO_Desc" xml:space="preserve">
     <value>継続回復効果がない場合、オーロラをマウスオーバー対象にリターゲットします。</value>
   </data>
-  <data name="GNB_RetargetAurora_TT_Name" xml:space="preserve">
+  <data name="GNB_Aurora_Features_RetargetTT_Name" xml:space="preserve">
     <value>オーロラ ターゲットのターゲットオプション</value>
   </data>
-  <data name="GNB_RetargetAurora_TT_Desc" xml:space="preserve">
+  <data name="GNB_Aurora_Features_RetargetTT_Desc" xml:space="preserve">
     <value>継続回復効果がなく、かつ自身が敵視を持っていない場合、オーロラをターゲットのターゲットにリターゲットします。</value>
   </data>
-  <data name="GNB_RetargetHeartofStone_Name" xml:space="preserve">
+  <data name="GNB_HoC_Features_RetargetMO_Name" xml:space="preserve">
     <value>ハート・オブ・ストーン機能</value>
   </data>
-  <data name="GNB_RetargetHeartofStone_Desc" xml:space="preserve">
+  <data name="GNB_HoC_Features_RetargetMO_Desc" xml:space="preserve">
     <value>ハート・オブ・ストーン／コランダムをマウスオーバー対象、または他コンボ外側のハードターゲットへリターゲットします。</value>
   </data>
-  <data name="GNB_RetargetHeartofStone_TT_Name" xml:space="preserve">
+  <data name="GNB_HoC_Features_RetargetTT_Name" xml:space="preserve">
     <value>ハート・オブ・ストーン ターゲットのターゲット オプション</value>
   </data>
-  <data name="GNB_RetargetHeartofStone_TT_Desc" xml:space="preserve">
+  <data name="GNB_HoC_Features_RetargetTT_Desc" xml:space="preserve">
     <value>アグロを持っていないターゲットにハート・オブ・ストーン／ハート・オブ・コランダムをリターゲットしますが、マウスオーバーでオーバーライドできます。</value>
   </data>
   <data name="GNB_RetargetTrajectory_Name" xml:space="preserve">

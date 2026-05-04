@@ -3,11 +3,13 @@
 using Dalamud.Game.ClientState.Objects.Types;
 using ECommons;
 using ECommons.DalamudServices;
+using ECommons.DalamudServices.Legacy;
 using ECommons.ExcelServices;
 using ECommons.GameFunctions;
 using ECommons.GameHelpers;
 using ECommons.Throttlers;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using Lumina.Excel.Sheets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +47,8 @@ internal unsafe class AutoRotationController
     const float QueryRange = 30f;
 
     public static bool WouldLikeToGroundTarget;
-    public static bool PausedForError;
+    public static bool Paused;
+    public static int UnpauseSeconds;
 
     public static IGameObject? AutorotHealTarget;
     public static bool AutorotRaidwiding;
@@ -55,17 +58,56 @@ internal unsafe class AutoRotationController
     public AutoRotationController()
     {
         OnPartyCombatChanged += ResetError;
+        Svc.Chat.ChatMessage += ScanForWarnings;
+        OnStatusChanged += StatusChanged;
+    }
+
+    private void StatusChanged(uint statusId, bool onPlayer)
+    {
+        Svc.Log.Verbose($"[AutoRotStatusCheck] {((ushort)statusId).StatusName()} {(onPlayer ? "Gained" : "Lost")}");
+        if (statusId == 5191 && !onPlayer)
+            Paused = false;
+    }
+
+    private void ScanForWarnings(Dalamud.Game.Chat.IHandleableChatMessage message)
+    {
+        if (message.LogKind != Dalamud.Game.Text.XivChatType.SystemMessage)
+            return;
+
+        bool pauseWarningFound = false;
+        bool raidwideWarningFound = false;
+        var logMessages = Svc.Data.Excel.GetSheet<LogMessage>();
+        switch (Content.TerritoryID)
+        {
+            case 1345:
+                if (message.Message.TextValue == logMessages.GetRow(11531).Text)
+                {
+                    pauseWarningFound = true;
+                    UnpauseSeconds = 20;
+                    Svc.Targets.Target = null; //Stop auto-attacks
+                }
+            break;
+            default:
+                break;
+        }
+
+        if (pauseWarningFound)
+        {
+            Paused = true;
+            Svc.Framework.RunOnTick(() => Paused = false, TimeSpan.FromSeconds(UnpauseSeconds));
+        }
     }
 
     public void Dispose()
     {
         OnPartyCombatChanged -= ResetError;
+        Svc.Chat.ChatMessage -= ScanForWarnings;
     }
 
     private void ResetError(bool state)
     {
         if (!state)
-            PausedForError = false;
+            Paused = false;
     }
 
     static Func<WrathPartyMember, bool> RezQuery => x =>
@@ -115,7 +157,7 @@ internal unsafe class AutoRotationController
                || !EzThrottler.Throttle("Autorot", cfg.Throttler)
                || (cfg.DPSSettings.UnTargetAndDisableForPenalty && PlayerHasActionPenalty())
                || (ActionManager.Instance()->QueuedActionId > 0)
-               || PausedForError;
+               || Paused;
     }
 
     internal static void Run()

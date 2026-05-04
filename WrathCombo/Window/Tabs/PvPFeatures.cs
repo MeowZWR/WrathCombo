@@ -59,7 +59,7 @@ internal class PvPFeatures : FeaturesWindow
                         ImGuiEx.TextWrapped(ImGuiColors.DalamudRed, $"{FontAwesomeIcon.ExclamationTriangle.ToIconString()}");
                         ImGui.PopFont();
                         ImGui.SameLine();
-                        ImGuiEx.TextWrapped(ImGuiColors.DalamudRed, FeaturesUI.Info_pvpAutoRotationWarning);
+                        ImGuiEx.TextWrapped(ImGuiColors.DalamudRed, FeaturesUI.Info_pvpActionReplacingWarning);
                         ImGui.SameLine();
                         ImGui.PushFont(UiBuilder.IconFont);
                         ImGuiEx.TextWrapped(ImGuiColors.DalamudRed, $"{FontAwesomeIcon.ExclamationTriangle.ToIconString()}");

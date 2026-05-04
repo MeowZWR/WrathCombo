@@ -66,56 +66,56 @@ internal partial class MNK
                 ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) &&
                 !HasStatusEffect(Buffs.FormlessFist) && IsOriginal(MasterfulBlitz) &&
                 HasBattleTarget() && !JustUsed(PerfectBalance):
-                {
-                    // Odd window
-                    if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
-                        !JustUsed(PerfectBalance, 20 + GCD * 5) && !HasStatusEffect(Buffs.Brotherhood) &&
-                        (GetCooldownRemainingTime(RiddleOfFire) <= GCD * 3 || HasStatusEffect(Buffs.RiddleOfFire)))
-                        return true;
+            {
+                // Odd window
+                if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                    !JustUsed(PerfectBalance, 20 + GCD * 5) && !HasStatusEffect(Buffs.Brotherhood) &&
+                    (GetCooldownRemainingTime(RiddleOfFire) <= GCD * 3 || HasStatusEffect(Buffs.RiddleOfFire)))
+                    return true;
 
-                    // Even window first use
-                    if ((JustUsed(OriginalHook(Bootshine), GCD * 3) || JustUsed(DragonKick, GCD * 3)) &&
-                        GetCooldownRemainingTime(Brotherhood) <= GCD * 3 && GetCooldownRemainingTime(RiddleOfFire) <= GCD * 3)
-                        return true;
+                // Even window first use
+                if ((JustUsed(OriginalHook(Bootshine), GCD * 3) || JustUsed(DragonKick, GCD * 3)) &&
+                    GetCooldownRemainingTime(Brotherhood) <= GCD * 3 && GetCooldownRemainingTime(RiddleOfFire) <= GCD * 3)
+                    return true;
 
-                    // Even window second use
-                    if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
-                        HasStatusEffect(Buffs.Brotherhood) && HasStatusEffect(Buffs.RiddleOfFire) &&
-                        (!HasStatusEffect(Buffs.FiresRumination) || IsNotEnabled(Preset.MNK_STUseFiresReply)))
-                        return true;
+                // Even window second use
+                if ((JustUsed(OriginalHook(Bootshine), GCD) || JustUsed(DragonKick, GCD)) &&
+                    HasStatusEffect(Buffs.Brotherhood) && HasStatusEffect(Buffs.RiddleOfFire) &&
+                    (!HasStatusEffect(Buffs.FiresRumination) || IsNotEnabled(Preset.MNK_STUseFiresReply)))
+                    return true;
 
-                    // Low level
-                    if ((JustUsed(OriginalHook(Bootshine), GCD * 3) || JustUsed(DragonKick, GCD * 3)) &&
-                        (HasStatusEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
-                         !LevelChecked(RiddleOfFire)))
-                        return true;
-                    break;
-                }
+                // Low level
+                if ((JustUsed(OriginalHook(Bootshine), GCD * 3) || JustUsed(DragonKick, GCD * 3)) &&
+                    (HasStatusEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
+                     !LevelChecked(RiddleOfFire)))
+                    return true;
+                break;
+            }
 
             case true when
                 ActionReady(PerfectBalance) && !HasStatusEffect(Buffs.PerfectBalance) && !JustUsed(PerfectBalance) &&
                 !HasStatusEffect(Buffs.FormlessFist) && targetCheck && IsOriginal(MasterfulBlitz) &&
                 GetTargetHPPercent() >= MNK_AoE_PerfectBalanceHPThreshold:
-                {
-                    //Initial/Failsafe
-                    if (GetRemainingCharges(PerfectBalance) == GetMaxCharges(PerfectBalance))
-                        return true;
+            {
+                //Initial/Failsafe
+                if (GetRemainingCharges(PerfectBalance) == GetMaxCharges(PerfectBalance))
+                    return true;
 
-                    // Odd window
-                    if (HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.Brotherhood))
-                        return true;
+                // Odd window
+                if (HasStatusEffect(Buffs.RiddleOfFire) && !HasStatusEffect(Buffs.Brotherhood))
+                    return true;
 
-                    // Even window
-                    if ((GetCooldownRemainingTime(Brotherhood) <= GCD * 2 || HasStatusEffect(Buffs.Brotherhood)) &&
-                        (GetCooldownRemainingTime(RiddleOfFire) <= GCD * 2 || HasStatusEffect(Buffs.RiddleOfFire)))
-                        return true;
+                // Even window
+                if ((GetCooldownRemainingTime(Brotherhood) <= GCD * 2 || HasStatusEffect(Buffs.Brotherhood)) &&
+                    (GetCooldownRemainingTime(RiddleOfFire) <= GCD * 2 || HasStatusEffect(Buffs.RiddleOfFire)))
+                    return true;
 
-                    // Low level
-                    if (HasStatusEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
-                        !LevelChecked(RiddleOfFire))
-                        return true;
-                    break;
-                }
+                // Low level
+                if (HasStatusEffect(Buffs.RiddleOfFire) && !LevelChecked(Brotherhood) ||
+                    !LevelChecked(RiddleOfFire))
+                    return true;
+                break;
+            }
         }
 
         return false;
@@ -130,10 +130,60 @@ internal partial class MNK
         switch (onAoE)
         {
             case false when HasStatusEffect(Buffs.PerfectBalance):
-                {
-                    #region Open Lunar
+            {
+                   
+                #region Open Lunar
 
-                    if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
+                if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
+                {
+                    switch (OpoOpoStacks)
+                    {
+                        case 0:
+                            actionID = DragonKick;
+                            return true;
+
+                        case > 0:
+                            actionID = OriginalHook(Bootshine);
+                            return true;
+                    }
+                }
+
+                   
+                #endregion
+
+                #region Open Solar
+
+                if (!SolarNadi && LunarNadi)
+                {
+                    if (Gauge.BeastChakra[0] is BeastChakra.None)
+                    {
+                        switch (CoeurlStacks)
+                        {
+                            case 0:
+                                actionID = Demolish;
+                                return true;
+
+                            case > 0:
+                                actionID = OriginalHook(SnapPunch);
+                                return true;
+                        }
+                    }
+
+                    if (Gauge.BeastChakra[1] is BeastChakra.None)
+                    {
+                        switch (RaptorStacks)
+                        {
+                            case 0:
+                                actionID = TwinSnakes;
+                                return true;
+
+                            case > 0:
+                                actionID = OriginalHook(TrueStrike);
+                                return true;
+                        }
+                    }
+
+                    if (Gauge.BeastChakra[2] is BeastChakra.None)
                     {
                         switch (OpoOpoStacks)
                         {
@@ -146,109 +196,61 @@ internal partial class MNK
                                 return true;
                         }
                     }
-
-                    #endregion
-
-                    #region Open Solar
-
-                    if (!SolarNadi && LunarNadi)
-                    {
-                        if (Gauge.BeastChakra[0] is BeastChakra.None)
-                        {
-                            switch (CoeurlStacks)
-                            {
-                                case 0:
-                                    actionID = Demolish;
-                                    return true;
-
-                                case > 0:
-                                    actionID = OriginalHook(SnapPunch);
-                                    return true;
-                            }
-                        }
-
-                        if (Gauge.BeastChakra[1] is BeastChakra.None)
-                        {
-                            switch (RaptorStacks)
-                            {
-                                case 0:
-                                    actionID = TwinSnakes;
-                                    return true;
-
-                                case > 0:
-                                    actionID = OriginalHook(TrueStrike);
-                                    return true;
-                            }
-                        }
-
-                        if (Gauge.BeastChakra[2] is BeastChakra.None)
-                        {
-                            switch (OpoOpoStacks)
-                            {
-                                case 0:
-                                    actionID = DragonKick;
-                                    return true;
-
-                                case > 0:
-                                    actionID = OriginalHook(Bootshine);
-                                    return true;
-                            }
-                        }
-                    }
-
-                    #endregion
-
-                    break;
                 }
+
+                    #endregion
+
+                break;
+            }
 
             case true when HasStatusEffect(Buffs.PerfectBalance):
+            {
+                #region Open Lunar
+
+                if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
                 {
-                    #region Open Lunar
-
-                    if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
+                    if (LevelChecked(ShadowOfTheDestroyer))
                     {
-                        if (LevelChecked(ShadowOfTheDestroyer))
-                        {
-                            actionID = ShadowOfTheDestroyer;
-                            return true;
-                        }
-
-                        if (!LevelChecked(ShadowOfTheDestroyer))
-                        {
-                            actionID = Rockbreaker;
-                            return true;
-                        }
+                        actionID = ShadowOfTheDestroyer;
+                        return true;
                     }
 
-                    #endregion
-
-                    #region Open Solar
-
-                    if (!SolarNadi && LunarNadi)
+                    if (!LevelChecked(ShadowOfTheDestroyer))
                     {
-                        if (Gauge.BeastChakra[0] is BeastChakra.None)
-                        {
-                            actionID = OriginalHook(ArmOfTheDestroyer);
-                            return true;
-                        }
-
-                        if (Gauge.BeastChakra[1] is BeastChakra.None)
-                        {
-                            actionID = FourPointFury;
-                            return true;
-                        }
-
-                        if (Gauge.BeastChakra[2] is BeastChakra.None)
-                        {
-                            actionID = Rockbreaker;
-                            return true;
-                        }
+                        actionID = Rockbreaker;
+                        return true;
                     }
-
-                    #endregion
-
-                    break;
                 }
+
+                #endregion
+
+                #region Open Solar
+
+                if (!SolarNadi && LunarNadi)
+                {
+                    if (Gauge.BeastChakra[0] is BeastChakra.None)
+                    {
+                        actionID = OriginalHook(ArmOfTheDestroyer);
+                        return true;
+                    }
+
+                    if (Gauge.BeastChakra[1] is BeastChakra.None)
+                    {
+                        actionID = FourPointFury;
+                        return true;
+                    }
+
+                    if (Gauge.BeastChakra[2] is BeastChakra.None)
+                    {
+                        actionID = Rockbreaker;
+                        return true;
+                    }
+                }
+
+                #endregion
+
+                break;
+            }
         }
 
         return false;
@@ -301,21 +303,21 @@ internal partial class MNK
                 LevelChecked(MasterfulBlitz) &&
                 !HasStatusEffect(Buffs.PerfectBalance) &&
                 InMasterfulRange() && !IsOriginal(MasterfulBlitz):
-                {
-                    //Failsafe to use AFTER buffs are gone
-                    if (BlitzTimer <= GCD * 3)
-                        return true;
+            {
+                //Failsafe to use AFTER buffs are gone
+                if (BlitzTimer <= GCD * 3)
+                    return true;
 
-                    //Use when buff is active
-                    if (LevelChecked(RiddleOfFire) && HasStatusEffect(Buffs.RiddleOfFire))
-                        return true;
+                //Use when buff is active
+                if (LevelChecked(RiddleOfFire) && HasStatusEffect(Buffs.RiddleOfFire))
+                    return true;
 
-                    //Use whenever since no buff
-                    if (!LevelChecked(RiddleOfFire))
-                        return true;
+                //Use whenever since no buff
+                if (!LevelChecked(RiddleOfFire))
+                    return true;
 
-                    break;
-                }
+                break;
+            }
 
             case true when
                 LevelChecked(MasterfulBlitz) &&
@@ -767,11 +769,9 @@ internal partial class MNK
     }
 
     #endregion
-
 }
 
 internal static class MNKExtensions
 {
     public const Nadi None = 0;
-
 }

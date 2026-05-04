@@ -17,6 +17,8 @@ internal abstract partial class CustomComboFunctions
     private static DateTime partyCombat = DateTime.Now;
     private static DateTime? castFinishedAt;
     private static uint castId;
+    private static HashSet<uint> onPlayerStatuses = [];
+
     public static bool PartyInCombatCheck
     {
         get => field;
@@ -37,6 +39,9 @@ internal abstract partial class CustomComboFunctions
     public delegate void OnPartyCombatChangedDelegate(bool state);
     public static event OnPartyCombatChangedDelegate? OnPartyCombatChanged;
 
+    public delegate void OnStatusChangedDelegate(uint statusId, bool onPlayer);
+    public static event OnStatusChangedDelegate? OnStatusChanged;
+
     public static Dictionary<ulong, long> Deadtionary { get; set; } = new();
 
     /// <summary> Tells the elapsed time since the combat started. </summary>
@@ -55,6 +60,35 @@ internal abstract partial class CustomComboFunctions
         Svc.Framework.Update += UpdatePartyTimer;
         Svc.Framework.Update += UpdateDeadtionary;
         Svc.Framework.Update += CheckInterruptedCasts;
+        Svc.Framework.Update += CheckStatuses;
+    }
+
+    private static void CheckStatuses(IFramework framework)
+    {
+        if (!Player.Available) return;
+        foreach (var status in LocalPlayer.StatusList)
+        {
+            if (status.StatusId == 0)
+                continue;
+
+            if (!onPlayerStatuses.Contains(status.StatusId))
+                OnStatusChanged.Invoke(status.StatusId, true);
+
+            onPlayerStatuses.Add(status.StatusId);
+        }
+
+        if (onPlayerStatuses.Count == 0)
+            return;
+
+        var clonedList = onPlayerStatuses.ToList();
+        foreach (var status in clonedList)
+        {
+            if (!LocalPlayer.StatusList.Any(x => x.StatusId == status))
+            {
+                OnStatusChanged.Invoke(status, false);
+                onPlayerStatuses.Remove(status);
+            }
+        }
     }
 
     private static void CheckInterruptedCasts(IFramework framework)
@@ -124,6 +158,7 @@ internal abstract partial class CustomComboFunctions
         Svc.Framework.Update -= UpdatePartyTimer;
         Svc.Framework.Update -= UpdateDeadtionary;
         Svc.Framework.Update -= CheckInterruptedCasts;
+        Svc.Framework.Update -= CheckStatuses;
     }
 
     internal static void OnCombat(ConditionFlag flag, bool value)
@@ -133,7 +168,7 @@ internal abstract partial class CustomComboFunctions
             if (value)
             {
                 combatStart = DateTime.Now;
-                AutoRotationController.PausedForError = false;
+                AutoRotationController.Paused = false;
             }
         }
     }

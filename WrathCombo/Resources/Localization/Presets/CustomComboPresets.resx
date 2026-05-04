@@ -3523,16 +3523,16 @@ Not advised outside of overworld content, as it can waste a lot of Low Blows on 
   </data>
   <data name="GNB_AoE_Advanced_Desc" xml:space="preserve">
     <value>Replaces Demon Slice with a full one-button AoE rotation.
-These features are ideal if you want to customize the rotation.</value>
+These features are ideal for users who want to fully customize their rotation.</value>
   </data>
   <data name="GNB_AoE_Advanced_Name" xml:space="preserve">
     <value>Advanced Mode - AoE</value>
   </data>
   <data name="GNB_AoE_BasicCombo_Desc" xml:space="preserve">
-    <value>Replace Demon Slaughter with its combo chain.</value>
+    <value>Replaces Demon Slaughter with its basic combo chain.</value>
   </data>
   <data name="GNB_AoE_BasicCombo_Name" xml:space="preserve">
-    <value>AoE Basic Combo</value>
+    <value>Basic Combo - AoE</value>
   </data>
   <data name="GNB_AoE_Bloodfest_Desc" xml:space="preserve">
     <value>Adds Bloodfest into the AoE rotation when appropriate.</value>
@@ -3541,10 +3541,16 @@ These features are ideal if you want to customize the rotation.</value>
     <value>Bloodfest Option</value>
   </data>
   <data name="GNB_AoE_BowShock_Desc" xml:space="preserve">
-    <value>Adds Bow Shock oninto the AoE rotation when appropriate.</value>
+    <value>Adds Bow Shock into the AoE rotation when appropriate.</value>
   </data>
   <data name="GNB_AoE_BowShock_Name" xml:space="preserve">
     <value>Bow Shock Option</value>
+  </data>
+  <data name="GNB_AoE_FatedBrand_Desc" xml:space="preserve">
+    <value>Adds Fated Brand into the AoE rotation when available.</value>
+  </data>
+  <data name="GNB_AoE_FatedBrand_Name" xml:space="preserve">
+    <value>Fated Brand Option</value>
   </data>
   <data name="GNB_AoE_DoubleDown_Desc" xml:space="preserve">
     <value>Adds Double Down into the AoE rotation when appropriate.</value>
@@ -3559,7 +3565,7 @@ These features are ideal if you want to customize the rotation.</value>
     <value>Fated Circle Option</value>
   </data>
   <data name="GNB_AoE_Interrupt_Desc" xml:space="preserve">
-    <value>Adds Interject to the rotation when your target's cast is interruptible.</value>
+    <value>Adds Interject into the AoE rotation when your target's cast is interruptible.</value>
   </data>
   <data name="GNB_AoE_Interrupt_Name" xml:space="preserve">
     <value>Interrupt Option</value>
@@ -3571,14 +3577,14 @@ These features are ideal if you want to customize the rotation.</value>
     <value>No Mercy Option</value>
   </data>
   <data name="GNB_AoE_Reign_Desc" xml:space="preserve">
-    <value>Adds Reign/Noble/LionHeart into the AoE rotation when appropriate.</value>
+    <value>Adds Reign of Beasts &amp; its combo chain into the AoE rotation when appropriate.</value>
   </data>
   <data name="GNB_AoE_Reign_Name" xml:space="preserve">
-    <value>Reign Combo Option</value>
+    <value>Reign of Beasts Option</value>
   </data>
   <data name="GNB_AoE_Simple_Desc" xml:space="preserve">
     <value>Replaces Demon Slice with a full one-button AoE rotation.
-This is the ideal option for newcomers to the job.</value>
+This feature is ideal for any fresh newcomers to the job.</value>
   </data>
   <data name="GNB_AoE_Simple_Name" xml:space="preserve">
     <value>Simple Mode - AoE</value>
@@ -3590,10 +3596,10 @@ This is the ideal option for newcomers to the job.</value>
     <value>Sonic Break Option</value>
   </data>
   <data name="GNB_AoE_Stun_Desc" xml:space="preserve">
-    <value>Adds Low Blow to the rotation when your target is casting, interruptible or not.</value>
+    <value>Adds Low Blow into the AoE rotation when your target is casting, regardless if interruptible.</value>
   </data>
   <data name="GNB_AoE_Stun_Name" xml:space="preserve">
-    <value>Interrupt with Stun Option</value>
+    <value>Low Blow Option</value>
   </data>
   <data name="GNB_AoE_Zone_Desc" xml:space="preserve">
     <value>Adds Danger/Blasting Zone into the AoE rotation when appropriate.</value>
@@ -3601,11 +3607,29 @@ This is the ideal option for newcomers to the job.</value>
   <data name="GNB_AoE_Zone_Name" xml:space="preserve">
     <value>Danger/Blasting Zone Option</value>
   </data>
-  <data name="GNB_AuroraFeatures_Desc" xml:space="preserve">
-    <value>Locks out Aurora if Aurora's effect is on the target by replacing it with Savage Blade.</value>
+  <data name="GNB_Aurora_Features_Desc" xml:space="preserve">
+    <value>Collection of Aurora related features.</value>
   </data>
-  <data name="GNB_AuroraFeatures_Name" xml:space="preserve">
-    <value>Aurora Protection Feature</value>
+  <data name="GNB_Aurora_Features_Name" xml:space="preserve">
+    <value>Aurora Features</value>
+  </data>
+  <data name="GNB_Aurora_Features_Lockout_Desc" xml:space="preserve">
+    <value>Blocks Aurora if your current target already has the status active.</value>
+  </data>
+  <data name="GNB_Aurora_Features_Lockout_Name" xml:space="preserve">
+    <value>Overwrite Prevention</value>
+  </data>
+  <data name="GNB_Aurora_Features_RetargetMO_Desc" xml:space="preserve">
+    <value>Retargets Aurora to your Mouseover target if they do not have the status active.</value>
+  </data>
+  <data name="GNB_Aurora_Features_RetargetMO_Name" xml:space="preserve">
+    <value>Mouseover Option</value>
+  </data>
+  <data name="GNB_Aurora_Features_RetargetTT_Desc" xml:space="preserve">
+    <value>Retargets Aurora to the Target's Target if they do not have the status active and you do not have aggro.</value>
+  </data>
+  <data name="GNB_Aurora_Features_RetargetTT_Name" xml:space="preserve">
+    <value>Target's Target Option</value>
   </data>
   <data name="GNB_BS_Bloodfest_Desc" xml:space="preserve">
     <value>Adds Bloodfest to Burst Strike when approrpiate.</value>
@@ -3614,7 +3638,7 @@ This is the ideal option for newcomers to the job.</value>
     <value>Bloodfest Option</value>
   </data>
   <data name="GNB_BS_Continuation_Desc" xml:space="preserve">
-    <value>Adds all Single-Target Continuation procs to Burst Strike when available.</value>
+    <value>Adds respective Continuation procs to Burst Strike when available.</value>
   </data>
   <data name="GNB_BS_Continuation_Name" xml:space="preserve">
     <value>Continuation Option</value>
@@ -3632,22 +3656,16 @@ This is the ideal option for newcomers to the job.</value>
     <value>Burst Strike Features</value>
   </data>
   <data name="GNB_BS_GnashingFang_Desc" xml:space="preserve">
-    <value>Adds Gnashing Fang &amp; its combo to Burst Strike when available.</value>
+    <value>Adds Gnashing Fang &amp; its combo chain to Burst Strike when available.</value>
   </data>
   <data name="GNB_BS_GnashingFang_Name" xml:space="preserve">
     <value>Gnashing Fang Option</value>
   </data>
-  <data name="GNB_BS_Hypervelocity_Desc" xml:space="preserve">
-    <value>Adds only Hypervelocity to Burst Strike when available.</value>
-  </data>
-  <data name="GNB_BS_Hypervelocity_Name" xml:space="preserve">
-    <value>Only Hypervelocity Option</value>
-  </data>
   <data name="GNB_BS_Reign_Desc" xml:space="preserve">
-    <value>Adds Reign/Noble/Lionheart to Burst Strike when available.</value>
+    <value>Adds Reign of Beasts &amp; its combo chain to Burst Strike when available.</value>
   </data>
   <data name="GNB_BS_Reign_Name" xml:space="preserve">
-    <value>Reign Combo Option</value>
+    <value>Reign of Beasts Option</value>
   </data>
   <data name="GNB_FC_Bloodfest_Desc" xml:space="preserve">
     <value>Adds Bloodfest to Fated Circle when appropriate.</value>
@@ -3662,10 +3680,10 @@ This is the ideal option for newcomers to the job.</value>
     <value>Bow Shock Option</value>
   </data>
   <data name="GNB_FC_Continuation_Desc" xml:space="preserve">
-    <value>Adds Fated Brand to Fated Circle.</value>
+    <value>Adds respective Continuation procs to Fated Circle when available.</value>
   </data>
   <data name="GNB_FC_Continuation_Name" xml:space="preserve">
-    <value>Fated Brand Option</value>
+    <value>Continuation Option</value>
   </data>
   <data name="GNB_FC_DoubleDown_Desc" xml:space="preserve">
     <value>Adds Double Down to Fated Circle when appropriate.</value>
@@ -3686,10 +3704,10 @@ This is the ideal option for newcomers to the job.</value>
     <value>Fated Circle Features</value>
   </data>
   <data name="GNB_FC_Reign_Desc" xml:space="preserve">
-    <value>Adds Reign/Noble/LionHeart to Fated Circle when appropriate.</value>
+    <value>Adds Reign of Beasts &amp; its combo chain to Fated Circle when available.</value>
   </data>
   <data name="GNB_FC_Reign_Name" xml:space="preserve">
-    <value>Reign Option</value>
+    <value>Reign of Beasts Option</value>
   </data>
   <data name="GNB_GF_Bloodfest_Desc" xml:space="preserve">
     <value>Adds Bloodfest to Gnashing Fang when available.</value>
@@ -3704,13 +3722,13 @@ This is the ideal option for newcomers to the job.</value>
     <value>Bow Shock Option</value>
   </data>
   <data name="GNB_GF_BurstStrike_Desc" xml:space="preserve">
-    <value>Adds Burst Strike on Gnashing Fang under No Mercy when appropriate.</value>
+    <value>Adds Burst Strike to Gnashing Fang under No Mercy when appropriate.</value>
   </data>
   <data name="GNB_GF_BurstStrike_Name" xml:space="preserve">
     <value>Burst Strike Option</value>
   </data>
   <data name="GNB_GF_Continuation_Desc" xml:space="preserve">
-    <value>Adds Continuation to Gnashing Fang when available.</value>
+    <value>Adds all single-target Continuation procs to Gnashing Fang when available.</value>
   </data>
   <data name="GNB_GF_Continuation_Name" xml:space="preserve">
     <value>Continuation Option</value>
@@ -3735,188 +3753,214 @@ This is the ideal option for newcomers to the job.</value>
     <value>No Mercy Option</value>
   </data>
   <data name="GNB_GF_Reign_Desc" xml:space="preserve">
-    <value>Adds Reign combo on Gnashing Fang under No Mercy when appropriate.</value>
+    <value>Adds Reign of Beasts &amp; its combo chain to Gnashing Fang when available.</value>
   </data>
   <data name="GNB_GF_Reign_Name" xml:space="preserve">
-    <value>Reign Combo Option</value>
+    <value>Reign of Beasts Option</value>
   </data>
   <data name="GNB_GF_SonicBreak_Desc" xml:space="preserve">
-    <value>Adds Sonic Break on Gnashing Fang under No Mercy when appropriate.</value>
+    <value>Adds Sonic Break to Gnashing Fang under No Mercy when appropriate.</value>
   </data>
   <data name="GNB_GF_SonicBreak_Name" xml:space="preserve">
     <value>Sonic Break Option</value>
   </data>
   <data name="GNB_GF_Zone_Desc" xml:space="preserve">
-    <value>Adds Danger / Blasting Zone to Gnashing Fang when available.</value>
+    <value>Adds Danger/Blasting Zone to Gnashing Fang when available.</value>
   </data>
   <data name="GNB_GF_Zone_Name" xml:space="preserve">
     <value>Zone Option</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Aurora_Desc" xml:space="preserve">
+  <data name="GNB_HoC_Features_Desc" xml:space="preserve">
+    <value>Collection of Heart of Stone/Corundum related features.</value>
+  </data>
+  <data name="GNB_HoC_Features_Name" xml:space="preserve">
+    <value>Heart of Stone/Corundum Features</value>
+  </data>
+  <data name="GNB_HoC_Features_RetargetMO_Desc" xml:space="preserve">
+    <value>Retargets Heart of Stone/Corundum to your mouseover target or hard target outside of rotations.</value>
+  </data>
+  <data name="GNB_HoC_Features_RetargetMO_Name" xml:space="preserve">
+    <value>Mouseover Option</value>
+  </data>
+  <data name="GNB_HoC_Features_RetargetTT_Desc" xml:space="preserve">
+    <value>Retargets Heart of Stone/Corundum to the Target's Target if you do not have aggro.
+	- NOTE: This can still be overridden with Mouseover.</value>
+  </data>
+  <data name="GNB_HoC_Features_RetargetTT_Name" xml:space="preserve">
+    <value>Target's Target Option</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Aurora_Desc" xml:space="preserve">
     <value>Adds Aurora when below threshold.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Aurora_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Aurora_Name" xml:space="preserve">
     <value>Aurora Option</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Camouflage_Desc" xml:space="preserve">
-    <value>Adds Camouflage when tankbuster is detected. Will not overlap unless below set threshold or aligned with rampart.</value>
+  <data name="GNB_Mit_Advanced_Boss_Camouflage_Desc" xml:space="preserve">
+    <value>Adds Camouflage when tankbuster is detected. 
+- NOTE: This feature will not overlap unless below set threshold or aligned with Rampart.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Camouflage_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Camouflage_Name" xml:space="preserve">
     <value>Camouflage Tankbuster Option</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Desc" xml:space="preserve">
-    <value>Adds Mitigation to the combos when in a boss encounter. Will not overlap separate options unless stated.</value>
+  <data name="GNB_Mit_Advanced_Boss_Desc" xml:space="preserve">
+    <value>Adds Mitigation into the rotations when in a boss encounter. 
+- NOTE: Will not overlap separate options unless stated.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfLight_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfLight_Desc" xml:space="preserve">
     <value>Adds Heart Of Light when raidwide casting is detected.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfLight_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfLight_Name" xml:space="preserve">
     <value>Raidwide Heart Of Light Option</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_OnCD_Desc" xml:space="preserve">
-    <value>Adds Heart Of Stone/Corundrum on CD when below threshold.</value>
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Desc" xml:space="preserve">
+    <value>Adds Heart Of Stone/Corundrum when below threshold.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_OnCD_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Name" xml:space="preserve">
     <value>Heart Of Stone/Corundrum on Cooldown Option</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_TankBuster_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Desc" xml:space="preserve">
     <value>Adds Heart Of Stone/Corundrum when tankbuster is detected.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_TankBuster_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Name" xml:space="preserve">
     <value>Heart Of Stone/Corundrum Tankbuster Option</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Name" xml:space="preserve">
     <value>Boss Encounter Mitigation</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Nebula_Desc" xml:space="preserve">
-    <value>Adds Nebula/Great Nebula when tankbuster is detected. Will not overlap with Rampart.</value>
+  <data name="GNB_Mit_Advanced_Boss_Nebula_Desc" xml:space="preserve">
+    <value>Adds Nebula/Great Nebula when tankbuster is detected.
+- NOTE: This feature will not overlap with Rampart.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Nebula_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Nebula_Name" xml:space="preserve">
     <value>Nebula/Great Nebula Tankbuster Option</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Rampart_Desc" xml:space="preserve">
-    <value>Adds Rampart when tankbuster is detected. Will not overlap with Nebula/Great Nebula.</value>
+  <data name="GNB_Mit_Advanced_Boss_Rampart_Desc" xml:space="preserve">
+    <value>Adds Rampart when tankbuster is detected.
+- NOTE: This feature will not overlap with Nebula.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Rampart_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Rampart_Name" xml:space="preserve">
     <value>Rampart Tankbuster Option</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Reprisal_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Reprisal_Desc" xml:space="preserve">
     <value>Adds Reprisal when raidwide casting is detected.</value>
   </data>
-  <data name="GNB_Mitigation_Boss_Reprisal_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_Boss_Reprisal_Name" xml:space="preserve">
     <value>Raidwide Reprisal Option</value>
   </data>
-  <data name="GNB_Mitigation_Desc" xml:space="preserve">
-    <value>Options for Advanced Combos' In-Combo Mitigation.
-Enable Mitigation in each Advanced Combo to use these options.
-(Simple Mode does not use these Options, instead Recommended Values in place of them)</value>
+  <data name="GNB_Mit_Advanced_Desc" xml:space="preserve">
+    <value>Adds mitigations into the rotations automatically.
+- Advanced Modes follow the configurable values set below.
+- Simple Modes follow recommended values that cannot be changed.</value>
   </data>
-  <data name="GNB_Mitigation_Name" xml:space="preserve">
-    <value>Advanced Mitigation Options</value>
+  <data name="GNB_Mit_Advanced_Name" xml:space="preserve">
+    <value>Advanced Mitigation Feature</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_ArmsLength_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_ArmsLength_Desc" xml:space="preserve">
     <value>Adds Arm's Length when 5 or more targets.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_ArmsLength_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_ArmsLength_Name" xml:space="preserve">
     <value>Arm's Length Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Aurora_Desc" xml:space="preserve">
-    <value>Adds Aurora when 3 or more targets. Will overlap with other mits.</value>
+  <data name="GNB_Mit_Advanced_NonBoss_Aurora_Desc" xml:space="preserve">
+    <value>Adds Aurora when 3 or more targets. 
+- NOTE: This feature will overlap with other mitigations.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Aurora_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Aurora_Name" xml:space="preserve">
     <value>Aurora Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Camouflage_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Camouflage_Desc" xml:space="preserve">
     <value>Adds Camouflage when 3 or more targets.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Camouflage_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Camouflage_Name" xml:space="preserve">
     <value>Camouflage Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Desc" xml:space="preserve">
-    <value>Adds Mitigation to the combos when not in a boss encounter. Will not overlap separate options unless stated.
-Will not use mitigation in the first 15 seconds of a pull unless you are not moving.</value>
+  <data name="GNB_Mit_Advanced_NonBoss_Desc" xml:space="preserve">
+    <value>Adds mitigations into the rotations automatically when not in a boss encounter.
+- NOTE: This feature will not overlap separate options unless stated &amp; will not use in the first 15 seconds of a pull unless you are not moving.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfLight_Desc" xml:space="preserve">
-    <value>Adds Heart of Light when 5 or more targets. Will overlap with others.</value>
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfLight_Desc" xml:space="preserve">
+    <value>Adds Heart of Light when 5 or more targets. 
+- NOTE: This feature will overlap with others.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfLight_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfLight_Name" xml:space="preserve">
     <value>Heart of Light Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfStone_Desc" xml:space="preserve">
-    <value>Adds Heart of Stone/Corundrum when available. Will overlap with others.</value>
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfStone_Desc" xml:space="preserve">
+    <value>Adds Heart of Stone/Corundrum when available. 
+- NOTE: This feature will overlap with others.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfStone_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfStone_Name" xml:space="preserve">
     <value>Heart of Stone/Corundrum Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Name" xml:space="preserve">
     <value>Non Boss Encounter Mitigation</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Nebula_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Nebula_Desc" xml:space="preserve">
     <value>Adds Nebula/Great Nebula when 3 or more targets.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Nebula_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Nebula_Name" xml:space="preserve">
     <value>Nebula Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Rampart_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Rampart_Desc" xml:space="preserve">
     <value>Adds Rampart when 3 or more targets.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Rampart_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Rampart_Name" xml:space="preserve">
     <value>Rampart Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Reprisal_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Reprisal_Desc" xml:space="preserve">
     <value>Adds Reprisal when 5 or more targets.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Reprisal_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Reprisal_Name" xml:space="preserve">
     <value>Reprisal Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_SuperBolideEmergency_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Desc" xml:space="preserve">
     <value>Adds Superbolide when in emergency health situation. 
-Will likely be on coodown if using above setting as reccomended.</value>
+- NOTE: Superbolide will likely be on cooldown if using the recommended feature above.</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_SuperBolideEmergency_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Name" xml:space="preserve">
     <value>Superbolide Emergency Option</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Superbolide_Desc" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Superbolide_Desc" xml:space="preserve">
     <value>Adds Superbolide when 5 or more targets as part of the mitigation rotation. (Recommended)</value>
   </data>
-  <data name="GNB_Mitigation_NonBoss_Superbolide_Name" xml:space="preserve">
+  <data name="GNB_Mit_Advanced_NonBoss_Superbolide_Name" xml:space="preserve">
     <value>Superbolide Option</value>
   </data>
-  <data name="GNB_Mit_ArmsLength_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_ArmsLength_Desc" xml:space="preserve">
     <value>Adds Arms Length to the one-button mitigation.</value>
   </data>
-  <data name="GNB_Mit_ArmsLength_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_ArmsLength_Name" xml:space="preserve">
     <value>Arms Length Option</value>
   </data>
-  <data name="GNB_Mit_Aurora_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Aurora_Desc" xml:space="preserve">
     <value>Adds Aurora to the one-button mitigation.</value>
   </data>
-  <data name="GNB_Mit_Aurora_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Aurora_Name" xml:space="preserve">
     <value>Aurora Option</value>
   </data>
-  <data name="GNB_Mit_Camouflage_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Camouflage_Desc" xml:space="preserve">
     <value>Adds Camouflage to the one-button mitigation.
-NOTE: even if disabled, will still try to use Camouflage as the lowest priority.</value>
+- NOTE: Even if disabled, this feature will still try to use Camouflage as the lowest priority.</value>
   </data>
-  <data name="GNB_Mit_Camouflage_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Camouflage_Name" xml:space="preserve">
     <value>Camouflage First Option</value>
   </data>
-  <data name="GNB_Mit_Corundum_Desc" xml:space="preserve">
-    <value>Adds Heart of Stone / Corundum to the one-button mitigation.</value>
+  <data name="GNB_Mit_OneButton_Corundum_Desc" xml:space="preserve">
+    <value>Adds Heart of Stone/Corundum to the one-button mitigation.</value>
   </data>
-  <data name="GNB_Mit_Corundum_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Corundum_Name" xml:space="preserve">
     <value>Heart of Corundum Option</value>
   </data>
-  <data name="GNB_Mit_HeartOfLight_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_HeartOfLight_Desc" xml:space="preserve">
     <value>Adds Heart Of Light to the one-button mitigation.</value>
   </data>
-  <data name="GNB_Mit_HeartOfLight_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_HeartOfLight_Name" xml:space="preserve">
     <value>Heart Of Light Option</value>
   </data>
-  <data name="GNB_Mit_Nebula_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Nebula_Desc" xml:space="preserve">
     <value>Adds Nebula to the one-button mitigation.</value>
   </data>
-  <data name="GNB_Mit_Nebula_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Nebula_Name" xml:space="preserve">
     <value>Nebula Option</value>
   </data>
   <data name="GNB_Mit_OneButton_Desc" xml:space="preserve">
@@ -3925,29 +3969,29 @@ NOTE: even if disabled, will still try to use Camouflage as the lowest priority.
   <data name="GNB_Mit_OneButton_Name" xml:space="preserve">
     <value>One-Button Mitigation Feature</value>
   </data>
-  <data name="GNB_Mit_Party_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Party_Desc" xml:space="preserve">
     <value>Replaces Heart of Light with Reprisal when ready.</value>
   </data>
-  <data name="GNB_Mit_Party_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Party_Name" xml:space="preserve">
     <value>One-Button Party Mitigation Feature</value>
   </data>
-  <data name="GNB_Mit_Rampart_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Rampart_Desc" xml:space="preserve">
     <value>Adds Rampart to the one-button mitigation.</value>
   </data>
-  <data name="GNB_Mit_Rampart_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Rampart_Name" xml:space="preserve">
     <value>Rampart Option</value>
   </data>
-  <data name="GNB_Mit_Reprisal_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Reprisal_Desc" xml:space="preserve">
     <value>Adds Reprisal to the one-button mitigation.
-NOTE: Will not use unless there is a target within range to prevent waste</value>
+- NOTE: This feature will not activate unless there is a target within range to prevent waste.</value>
   </data>
-  <data name="GNB_Mit_Reprisal_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Reprisal_Name" xml:space="preserve">
     <value>Reprisal Option</value>
   </data>
-  <data name="GNB_Mit_Superbolide_Max_Desc" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Superbolide_Max_Desc" xml:space="preserve">
     <value>Gives max priority to Superbolide when the Health percentage threshold is met.</value>
   </data>
-  <data name="GNB_Mit_Superbolide_Max_Name" xml:space="preserve">
+  <data name="GNB_Mit_OneButton_Superbolide_Max_Name" xml:space="preserve">
     <value>Superbolide Emergency Option</value>
   </data>
   <data name="GNB_NM_Bloodfest_Desc" xml:space="preserve">
@@ -3963,7 +4007,7 @@ NOTE: Will not use unless there is a target within range to prevent waste</value
     <value>Bow Shock Option</value>
   </data>
   <data name="GNB_NM_Continuation_Desc" xml:space="preserve">
-    <value>Adds all Continuation procs to No Mercy appropriately.</value>
+    <value>Adds all Continuation procs to No Mercy when available.</value>
   </data>
   <data name="GNB_NM_Continuation_Name" xml:space="preserve">
     <value>Continuation Option</value>
@@ -3975,53 +4019,29 @@ NOTE: Will not use unless there is a target within range to prevent waste</value
     <value>No Mercy Features</value>
   </data>
   <data name="GNB_NM_Zone_Desc" xml:space="preserve">
-    <value>Adds Danger / Blasting Zone to No Mercy.</value>
+    <value>Adds Danger/Blasting Zone to No Mercy.</value>
   </data>
   <data name="GNB_NM_Zone_Name" xml:space="preserve">
     <value>Zone Option</value>
   </data>
-  <data name="GNB_RetargetAurora_MO_Desc" xml:space="preserve">
-    <value>Retargets Aurora to your mouseover target if they do not have the HoT</value>
-  </data>
-  <data name="GNB_RetargetAurora_MO_Name" xml:space="preserve">
-    <value>Aurora Mouseover Option</value>
-  </data>
-  <data name="GNB_RetargetAurora_TT_Desc" xml:space="preserve">
-    <value>Retargets Aurora to the Target's Target if they do not have the HoT and you do not have Aggro</value>
-  </data>
-  <data name="GNB_RetargetAurora_TT_Name" xml:space="preserve">
-    <value>Aurora Target's Target Option</value>
-  </data>
-  <data name="GNB_RetargetHeartofStone_Desc" xml:space="preserve">
-    <value>Will retarget Heart of Stone/Corundum to your mouseover target or hard target outside of other combos</value>
-  </data>
-  <data name="GNB_RetargetHeartofStone_Name" xml:space="preserve">
-    <value>Heart Of Stone Feature</value>
-  </data>
-  <data name="GNB_RetargetHeartofStone_TT_Desc" xml:space="preserve">
-    <value>Retargets Heart of Stone/Corundum to the Target's Target you do not have Aggro, can still be overridden with mouseover.</value>
-  </data>
-  <data name="GNB_RetargetHeartofStone_TT_Name" xml:space="preserve">
-    <value>Heart of Stone Target's Target Option</value>
-  </data>
   <data name="GNB_RetargetTrajectory_Desc" xml:space="preserve">
-    <value>Will retarget Trajectory to your field or UI mouseover target (If Hostile) or the nearest hostile target to your mouseover target (If friendly).</value>
+    <value>Retargets Trajectory to your Field or UI Mouseover target (if Hostile) or the nearest hostile target to your Mouseover target (if Friendly).</value>
   </data>
   <data name="GNB_RetargetTrajectory_Name" xml:space="preserve">
-    <value>Mouseover Trajectory Option</value>
+    <value>Trajectory Mouseover Option</value>
   </data>
   <data name="GNB_ST_Advanced_Desc" xml:space="preserve">
-    <value>Replaces Keen Edge with a full one-button single target rotation.
-These features are ideal if you want to customize the rotation.</value>
+    <value>Replaces Keen Edge with a full one-button Single Target rotation.
+These features are ideal for users who want to fully customize their rotation.</value>
   </data>
   <data name="GNB_ST_Advanced_Name" xml:space="preserve">
     <value>Advanced Mode - Single Target</value>
   </data>
   <data name="GNB_ST_BasicCombo_Desc" xml:space="preserve">
-    <value>Replace Solid Barrel with its combo chain.</value>
+    <value>Replaces Solid Barrel with its basic combo chain.</value>
   </data>
   <data name="GNB_ST_BasicCombo_Name" xml:space="preserve">
-    <value>ST Basic Combo</value>
+    <value>Basic Combo - Single Target</value>
   </data>
   <data name="GNB_ST_Bloodfest_Desc" xml:space="preserve">
     <value>Adds Bloodfest into the rotation when appropriate.</value>
@@ -4042,7 +4062,7 @@ These features are ideal if you want to customize the rotation.</value>
     <value>Burst Strike Option</value>
   </data>
   <data name="GNB_ST_Continuation_Desc" xml:space="preserve">
-    <value>Adds Continuation &amp; Hypervelocity into the rotation when appropriate.</value>
+    <value>Adds all single-target Continuation procs into the rotation when available.</value>
   </data>
   <data name="GNB_ST_Continuation_Name" xml:space="preserve">
     <value>Continuation Option</value>
@@ -4060,7 +4080,7 @@ These features are ideal if you want to customize the rotation.</value>
     <value>Gnashing Fang Option</value>
   </data>
   <data name="GNB_ST_Interrupt_Desc" xml:space="preserve">
-    <value>Adds Interject to the rotation when your target's cast is interruptible.</value>
+    <value>Adds Interject into the rotation when your target's cast is interruptible.</value>
   </data>
   <data name="GNB_ST_Interrupt_Name" xml:space="preserve">
     <value>Interrupt Option</value>
@@ -4078,20 +4098,20 @@ These features are ideal if you want to customize the rotation.</value>
     <value>Balance Openers</value>
   </data>
   <data name="GNB_ST_RangedUptime_Desc" xml:space="preserve">
-    <value>Adds Lightning Shot to the main combo when you are out of range.</value>
+    <value>Adds Lightning Shot into the rotation when out of melee range.</value>
   </data>
   <data name="GNB_ST_RangedUptime_Name" xml:space="preserve">
     <value>Lightning Shot Uptime Option</value>
   </data>
   <data name="GNB_ST_Reign_Desc" xml:space="preserve">
-    <value>Adds Reign/Noble/Lionheart into the rotation when appropriate.</value>
+    <value>Adds Reign of Beasts &amp; its combo chain into the rotation when appropriate.</value>
   </data>
   <data name="GNB_ST_Reign_Name" xml:space="preserve">
-    <value>Reign Combo Option</value>
+    <value>Reign of Beasts Option</value>
   </data>
   <data name="GNB_ST_Simple_Desc" xml:space="preserve">
     <value>Replaces Keen Edge with a full one-button single target rotation.
-This is the ideal option for newcomers to the job.</value>
+This feature is ideal for any fresh newcomers to the job.</value>
   </data>
   <data name="GNB_ST_Simple_Name" xml:space="preserve">
     <value>Simple Mode - Single Target</value>
@@ -4103,14 +4123,14 @@ This is the ideal option for newcomers to the job.</value>
     <value>Sonic Break Option</value>
   </data>
   <data name="GNB_ST_Stun_Desc" xml:space="preserve">
-    <value>Adds Low Blow to the rotation when your target is casting.
-Not advised outside of overworld content, as it can waste a lot of Low Blows on un-stun-able enemies, etc. Will try to not use it in boss fights.</value>
+    <value>Adds Low Blow into the rotation when your target is casting.
+- NOTE: This feature is not advised outside of overworld content, as it can waste a significant amount of Low Blows on un-stun-able enemies plus other niche cases. Will also try to not use in boss fights.</value>
   </data>
   <data name="GNB_ST_Stun_Name" xml:space="preserve">
-    <value>Interrupt with Stun Option</value>
+    <value>Low Blow Option</value>
   </data>
   <data name="GNB_ST_Zone_Desc" xml:space="preserve">
-    <value>Adds Danger / Blasting Zone into the rotation when available.</value>
+    <value>Adds Danger/Blasting Zone into the rotation when available.</value>
   </data>
   <data name="GNB_ST_Zone_Name" xml:space="preserve">
     <value>Zone Option</value>
