@@ -493,6 +493,7 @@ internal partial class WAR : Tank
     {
         #region Variables
         var numberOfEnemies = NumberOfEnemiesInRange(Role.Reprisal);
+        var pre56Mitigation = !LevelChecked(RawIntuition) && numberOfEnemies >= 3;
         
         var mitigationRunning = HasStatusEffect(Role.Buffs.ArmsLength) ||
                                 HasStatusEffect(Role.Buffs.Rampart) || 
@@ -575,7 +576,7 @@ internal partial class WAR : Tank
         if (mitigationRunning || numberOfEnemies <= 2) return false; //Bail if already Mitted or too few enemies
         
         #region Mitigation 5+
-        if (numberOfEnemies >= 5)
+        if (numberOfEnemies >= 5 || pre56Mitigation)
         {
             if (ActionReady(OriginalHook(Vengeance)) && IsEnabled(Preset.WAR_Mitigation_NonBoss_Vengeance))
             {

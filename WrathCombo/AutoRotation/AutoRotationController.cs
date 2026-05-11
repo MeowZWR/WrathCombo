@@ -65,8 +65,6 @@ internal unsafe class AutoRotationController
     private void StatusChanged(uint statusId, bool onPlayer)
     {
         Svc.Log.Verbose($"[AutoRotStatusCheck] {((ushort)statusId).StatusName()} {(onPlayer ? "Gained" : "Lost")}");
-        if (statusId == 5191 && !onPlayer)
-            Paused = false;
     }
 
     private void ScanForWarnings(Dalamud.Game.Chat.IHandleableChatMessage message)
@@ -79,14 +77,6 @@ internal unsafe class AutoRotationController
         var logMessages = Svc.Data.Excel.GetSheet<LogMessage>();
         switch (Content.TerritoryID)
         {
-            case 1345:
-                if (message.Message.TextValue == logMessages.GetRow(11531).Text)
-                {
-                    pauseWarningFound = true;
-                    UnpauseSeconds = 20;
-                    Svc.Targets.Target = null; //Stop auto-attacks
-                }
-            break;
             default:
                 break;
         }

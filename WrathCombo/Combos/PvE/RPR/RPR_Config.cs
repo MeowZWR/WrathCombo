@@ -109,6 +109,11 @@ internal partial class RPR
                     DrawSliderInt(0, 10, RPR_SoDRefreshRangeBasicCombo,
                         FormatAndCache(RPR_Config.SecondsBeforeRefreshing0, ShadowOfDeath.ActionName()));
                     break;
+                
+                case Preset.RPR_AoE_BasicCombo_WoD:
+                    DrawSliderInt(0, 10, RPR_WoDRefreshRangeBasicCombo,
+                        FormatAndCache(RPR_Config.SecondsBeforeRefreshing0, ShadowOfDeath.ActionName()));
+                    break;
 
                 case Preset.RPR_Soulsow:
                     DrawHorizontalMultiChoice(RPR_SoulsowOptions,
@@ -158,7 +163,8 @@ internal partial class RPR
             RPR_AoEBloodbathHPThreshold = new("RPR_AoEBloodbathThreshold", 30),
 
             //Misc
-            RPR_SoDRefreshRangeBasicCombo = new("RPR_SoDRefreshRangeBasicCombo", 6);
+            RPR_SoDRefreshRangeBasicCombo = new("RPR_SoDRefreshRangeBasicCombo", 6), 
+            RPR_WoDRefreshRangeBasicCombo = new("RPR_WoDRefreshRangeBasicCombo", 6);
 
         public static UserBool
             RPR_ST_TrueNorthDynamicHoldCharge = new("RPR_ST_TrueNorthDynamicHoldCharge"),

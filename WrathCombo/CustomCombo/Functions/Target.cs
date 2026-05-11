@@ -1,6 +1,7 @@
 ﻿using Dalamud.Game.ClientState.Objects.Types;
 using ECommons.DalamudServices;
 using ECommons.GameFunctions;
+using ECommons.Throttlers;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using FFXIVClientStructs.FFXIV.Common.Component.BGCollision;
@@ -8,14 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using ECommons.Throttlers;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Core;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
 using ObjectKind = Dalamud.Game.ClientState.Objects.Enums.ObjectKind;
-using FFXIVClientStructs.FFXIV.Client.Game.Object;
 namespace WrathCombo.CustomComboNS.Functions;
 
 internal abstract partial class CustomComboFunctions
@@ -43,7 +42,7 @@ internal abstract partial class CustomComboFunctions
 
     /// <summary> Checks if an object is dead. Defaults to CurrentTarget unless specified. </summary>
     internal static bool TargetIsDead(IGameObject? optionalTarget = null) => (optionalTarget ?? CurrentTarget) is IBattleChara chara && chara.IsDead;
-    
+
     /// Enemies that are definitely not bosses and should not be considered as such.
     private static readonly uint[] EnemiesThatShouldNotBeConsideredBosses =
     [
@@ -60,7 +59,7 @@ internal abstract partial class CustomComboFunctions
 
         if (EnemiesThatShouldNotBeConsideredBosses.Contains(chara.BaseId))
             return false;
-        
+
         return chara.NameId == 541 || ActionWatching.BossesBaseIds.Contains(chara.BaseId);
     }
 
@@ -373,10 +372,10 @@ internal abstract partial class CustomComboFunctions
         if (!ActionWatching.ActionSheet.TryGetValue(aoeSpell, out var sheetSpell))
             return Enumerable.Empty<IGameObject>();
 
-        if (sheetSpell.CanTargetHostile &&
-            ((target ??= CurrentTarget) is null ||
-             GetTargetDistance(target) > GetActionRange(sheetSpell.RowId)))
-            return Enumerable.Empty<IGameObject>();
+        if (sheetSpell.CanTargetHostile && sheetSpell.CastType == 1)
+        {
+            return Svc.Objects.Where(x => x.IsHostile() && GetTargetDistance(x) <= GetActionRange(aoeSpell) && (!checkIgnoredList || !Service.Configuration.IgnoredNPCs.ContainsKey(x.BaseId)));
+        }
 
         return sheetSpell.CastType switch
         {
@@ -445,7 +444,7 @@ internal abstract partial class CustomComboFunctions
         var objID = obj.SafeGameObjectId;
         if (LocalPlayer is not { } player || obj is null || objID is null)
             return false;
-        
+
         if (TryGetLineOfSightFromCache(objID, out var cachedResult))
             return cachedResult;
 
@@ -597,10 +596,10 @@ internal abstract partial class CustomComboFunctions
     {
         if (obj is null) return false;
 
-        var        targetPos = obj.Position;
-        var        down      = new Vector3(0, -1, 0);
+        var targetPos = obj.Position;
+        var down = new Vector3(0, -1, 0);
         RaycastHit hit;
-        var        flags = stackalloc int[] { 0x4000, 0, 0x4000, 0 };
+        var flags = stackalloc int[] { 0x4000, 0, 0x4000, 0 };
 
         return Framework.Instance()->BGCollisionModule->RaycastMaterialFilter(&hit, &targetPos, &down, 5, 1, flags);
     }
@@ -612,9 +611,9 @@ internal abstract partial class CustomComboFunctions
     private static unsafe bool IsOverGround
         (Vector3 pointToCheck, out Vector3 groundPoint)
     {
-        var        down = new Vector3(0, -1, 0);
+        var down = new Vector3(0, -1, 0);
         RaycastHit hit;
-        var        flags = stackalloc int[] { 0x4000, 0, 0x4000, 0 };
+        var flags = stackalloc int[] { 0x4000, 0, 0x4000, 0 };
 
         var result = Framework.Instance()->BGCollisionModule->RaycastMaterialFilter(&hit, &pointToCheck, &down, 5, 1, flags);
         groundPoint = hit.Point;

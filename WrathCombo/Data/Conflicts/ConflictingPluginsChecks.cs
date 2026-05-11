@@ -52,15 +52,23 @@ public static class ConflictingPluginsChecks
         PluginLog.Verbose(
             "[ConflictingPlugins] Periodic check for conflicting plugins");
 
-        BossMod.CheckForConflict();
-        BossModReborn.CheckForConflict();
-        Redirect.CheckForConflict();
-        ReAction.CheckForConflict();
-        ReActionEx.CheckForConflict();
-        MOAction.CheckForConflict();
-        Wrath.CheckForConflict();
-        XIV.CheckForConflict();
-        Dalamud.CheckForConflict();
+        try
+        {
+            BossMod.CheckForConflict();
+            BossModReborn.CheckForConflict();
+            Redirect.CheckForConflict();
+            ReAction.CheckForConflict();
+            ReActionEx.CheckForConflict();
+            MOAction.CheckForConflict();
+            Wrath.CheckForConflict();
+            XIV.CheckForConflict();
+            Dalamud.CheckForConflict();
+        }
+        catch
+        {
+            PluginLog.Warning(
+                "[ConflictingPlugins] Periodic check failed (async plugin?)");
+        }
 
         Svc.Framework.RunOnTick(RunChecks!, TS.FromSeconds(4.11));
     };
@@ -80,7 +88,7 @@ public static class ConflictingPluginsChecks
         // ReSharper disable once RedundantAssignment
         var ts = TS.FromMinutes(1); // 1m initial delay after plugin launch
 #if DEBUG
-        ts = TS.FromSeconds(10); // 10s for debug mode
+        ts = TS.FromSeconds(30); // 10s for debug mode
 #endif
 
         Svc.Framework.RunOnTick(RunChecks, ts);
@@ -331,27 +339,11 @@ public static class ConflictingPluginsChecks
             if (!ThrottlePassed(forceRefresh: forceRefresh))
                 return;
 
-            ConflictingActions = [];
+            ConflictingActions = [(0, "")];
             var conflictedThisCheck = false;
             var wrathRetargeted = PresetStorage.AllRetargetedActions.ToHashSet();
             // ReSharper disable once InlineOutVariableDeclaration
             string stackName;
-
-            #region Auto Targeting Enabled
-
-            if (IPC.IsAutoTargetingEnabled() &&
-                AutoRotationController.cfg.DPSRotationMode != DPSRotationMode.Manual)
-            {
-                PluginLog.Verbose(
-                    $"[ConflictingPlugins] [{Name}] Auto Targeting is Enabled");
-                ConflictingActions = [(1, "")];
-                MarkConflict();
-                conflictedThisCheck = true;
-            }
-            else
-                ConflictingActions = [(0, "")];
-
-            #endregion
 
             #region All Actions Retargeted
 

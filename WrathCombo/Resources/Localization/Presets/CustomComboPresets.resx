@@ -7637,6 +7637,18 @@ These features are ideal if you want to customize the rotation.</value>
   <data name="RPR_ST_BasicCombo_SoD_Name" xml:space="preserve">
     <value>Shadow Of Death Option</value>
   </data>
+    <data name="RPR_AoE_BasicCombo_Desc" xml:space="preserve">
+    <value>Replace Nightmare Scythe with its combo chain.</value>
+  </data>
+    <data name="RPR_AoE_BasicCombo_Name" xml:space="preserve">
+    <value>Basic AoE Combo</value>
+  </data>
+    <data name="RPR_AoE_BasicCombo_WoD_Desc" xml:space="preserve">
+    <value>Adds Whorl of Death to the rotation.</value>
+  </data>
+    <data name="RPR_AoE_BasicCombo_WoD_Name" xml:space="preserve">
+    <value>Whorl of Death Option</value>
+  </data>
   <data name="RPR_ST_Bloodstalk_Desc" xml:space="preserve">
     <value>Adds Bloodstalk to the rotation.</value>
   </data>

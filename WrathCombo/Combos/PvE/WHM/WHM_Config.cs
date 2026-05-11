@@ -333,11 +333,13 @@ internal partial class WHM
                 #region Mitigation Features
 
                 case Preset.WHM_Mit_ST:
-                    DrawHorizontalMultiChoice(Generics.NonBosses,
-                        Generics.NonBosses, Generics.NonBosses, 2, 0);
+                    DrawHorizontalMultiChoice(WHM_AquaveilOptions,
+                        FormatAndCache(Generics.Add0, DivineBenison.ActionName()), 
+                        FormatAndCache(Generics.Add0, DivineBenison.ActionName()), 2, 0);
                     ImGui.NewLine();
-                    DrawHorizontalMultiChoice(Generics.NonBosses,
-                        Generics.NonBosses, Generics.NonBosses, 2, 1);
+                    DrawHorizontalMultiChoice(WHM_AquaveilOptions,
+                        FormatAndCache(Generics.Add0, Tetragrammaton.ActionName()), 
+                        FormatAndCache(Generics.Add0, Tetragrammaton.ActionName()), 2, 1);
                     if (WHM_AquaveilOptions[1])
                     {
                         ImGui.Indent();
@@ -355,20 +357,20 @@ internal partial class WHM
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudGrey, "Options to try to Retarget Asylum to before Self:");
                     ImGui.Unindent();
-                    DrawHorizontalMultiChoice(Generics.NonBosses,
-                        Generics.EnemyHardTarget, Generics.NonBosses, 3, 0);
-                    DrawHorizontalMultiChoice(Generics.NonBosses,
-                        Generics.AllyHardTarget, Generics.NonBosses, 3, 1);
+                    DrawHorizontalMultiChoice(WHM_AsylumOptions,
+                        Generics.EnemyHardTarget,Generics.EnemyHardTarget, 3, 0);
+                    DrawHorizontalMultiChoice(WHM_AsylumOptions,
+                        Generics.AllyHardTarget,Generics.AllyHardTarget, 3, 1);
                     break;
 
                 case Preset.WHM_Re_LiturgyOfTheBell:
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudGrey, "Options to try to Retarget Liturgy of the Bell to before Self:");
                     ImGui.Unindent();
-                    DrawHorizontalMultiChoice(Generics.NonBosses,
-                        Generics.EnemyHardTarget, Generics.NonBosses, 2, 0);
-                    DrawHorizontalMultiChoice(Generics.NonBosses,
-                        Generics.AllyHardTarget, Generics.NonBosses, 2, 1);
+                    DrawHorizontalMultiChoice(WHM_LiturgyOfTheBellOptions,
+                        Generics.EnemyHardTarget,Generics.EnemyHardTarget, 2, 0);
+                    DrawHorizontalMultiChoice(WHM_LiturgyOfTheBellOptions,
+                        Generics.AllyHardTarget,Generics.AllyHardTarget,  2, 1);
                     break;
 
 

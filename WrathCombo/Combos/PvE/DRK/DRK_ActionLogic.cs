@@ -390,6 +390,7 @@ internal partial class DRK
             if (JustUsedMitigation) return false;
 
             var numberOfEnemies = NumberOfEnemiesInRange(Role.Reprisal);
+            var pre70Mitigation = !LevelChecked(BlackestNight) && numberOfEnemies >= 3;
 
             #region TBN
 
@@ -405,7 +406,7 @@ internal partial class DRK
 
             if (IsEnabled(Preset.DRK_Mitigation_NonBoss_DarkMissionary) &&
                 ActionReady(DarkMissionary) &&
-                numberOfEnemies > 4 &&
+                (numberOfEnemies >= 5 || pre70Mitigation) &&
                 !JustUsed(OriginalHook(ShadowWall), 15f))
                 return (action = DarkMissionary) != 0;
 
@@ -432,7 +433,7 @@ internal partial class DRK
 
             #region Mitigation 5+
 
-            if (numberOfEnemies >= 5)
+            if (numberOfEnemies >= 5 || pre70Mitigation)
             {
                 if (IsEnabled(Preset.DRK_Mitigation_NonBoss_ShadowWall) &&
                     ActionReady(OriginalHook(ShadowWall)))

@@ -5125,6 +5125,15 @@ public enum Preset
     [ParentCombo(RPR_ST_BasicCombo)]
     [JobInfo(Job.RPR)]
     RPR_ST_BasicCombo_SoD = 12023,
+    
+    [ReplaceSkill(RPR.NightmareScythe)]
+    [JobInfo(Job.RPR)]
+    [BasicCombo]
+    RPR_AoE_BasicCombo = 12313,
+
+    [ParentCombo(RPR_AoE_BasicCombo)]
+    [JobInfo(Job.RPR)]
+    RPR_AoE_BasicCombo_WoD = 12314,
 
     #endregion
 
@@ -5154,7 +5163,7 @@ public enum Preset
     [JobInfo(Job.RPR)]
     RPR_TrueNorthGluttony = 12310,
 
-    // Last value = 12204
+    // Last value = 12314
 
     #endregion
 

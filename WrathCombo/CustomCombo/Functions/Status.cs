@@ -1,16 +1,17 @@
-﻿using System;
-using Dalamud.Game.ClientState.Objects.Types;
+﻿using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.ClientState.Statuses;
 using ECommons.DalamudServices;
 using ECommons.ExcelServices;
 using ECommons.GameFunctions;
 using ECommons.GameHelpers;
+using ECommons.MathHelpers;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using FFXIVClientStructs.FFXIV.Client.Game.UI;
+using System;
 using System.Linq;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
-using Lumina.Excel.Sheets;
 
 namespace WrathCombo.CustomComboNS.Functions;
 
@@ -173,7 +174,7 @@ internal abstract partial class CustomComboFunctions
     /// Checks to see if the player has a status that should stop all actions and unselect targets
     /// Acceleration bombs and Pyretics
     /// </summary>
-    public static bool PlayerHasActionPenalty()
+    public static unsafe bool PlayerHasActionPenalty()
     {
         bool hasActionPenalty =
             //Player.IsInDuty &&  <-?
@@ -190,10 +191,62 @@ internal abstract partial class CustomComboFunctions
 
             ) == true;
 
+        if (!hasActionPenalty)
+        {
+            // The Clyteum
+            if (Content.TerritoryID is 1345)
+            {
+                // The Eye of the Scorpion
+                // This finds the helper
+                var MotionScannerHelper = Svc.Objects.FirstOrDefault(x =>
+                  x.BaseId == 0x4C2D &&
+                  x.Address != 0 &&
+                  (int)(x.Struct()->RenderFlags) == 0 // There can be two of these objects, only one appears to be active.
+                );
+                if (MotionScannerHelper is IGameObject scanner)
+                {
+                    var facingdirection = MathHelper.GetCardinalDirection(MathHelper.RadToDeg(scanner.Rotation));
+
+                    // Scans seem to be West<->East, but added North<->South just incase
+                    float signedDistance = facingdirection switch
+                    {
+                        CardinalDirection.East => (Player.Position.X - scanner.Position.X),        // +X
+                        CardinalDirection.West => (scanner.Position.X - Player.Position.X),        // -X
+                        CardinalDirection.North => (Player.Position.Z - scanner.Position.Z),        // +Z
+                        CardinalDirection.South => (scanner.Position.Z - Player.Position.Z),        // -Z
+                        _ => (Player.Position.X - scanner.Position.X) // East, just to have a default
+                    };
+
+                    // Positive Distance = Incoming
+                    // Negative Distance = Moving Away
+                    // Distance will go from positive, to 0 when it fully overtakes the player,
+                    // then negative as it moves away, with the status dropping off at around -8y,
+                    // but added a buffer just in case.
+
+                    // Too far away
+                    if (signedDistance > 12f)
+                        hasActionPenalty = false;
+
+                    // 12y to -8y (about to be overtaken by the field to almost about to clear)
+                    else if (signedDistance > -8f)
+                        hasActionPenalty = true;
+
+                    // -8y to -12y, waiting for status to clear, should happen close to -8y but added a buffer just in case
+                    else if (signedDistance > -12f)
+                        hasActionPenalty = HasStatusEffect(5191, anyOwner: true);
+
+                    // -12y and beyond should be decently away from the player
+                    else
+                        hasActionPenalty = false;
+                }
+            }
+        }
+
         if (hasActionPenalty)
         {
             Svc.Targets.Target = null;
             OverrideTarget = null;
+            UIState.Instance()->Hotbar.CancelCast();
         }
 
         return hasActionPenalty;
@@ -339,7 +392,7 @@ internal abstract partial class CustomComboFunctions
                 }
 
                 return false;
-            
+
             case 1241: // Cloud of Darkness Chaotic - Sphere of Naught
                 // Cloud of Darkness = 17950
                 // Stygian Shadow = 17951
@@ -350,7 +403,7 @@ internal abstract partial class CustomComboFunctions
                 if (targetID is 17951 or 17952 && HasStatusEffect(4177, null, true)) return true; // If on tiles
 
                 return false;
-            
+
             case 1248: // Jeuno 1 Ark Angels
                 // ArkAngel HM = 1804
                 // ArkAngel MR = 18051 (A)
@@ -411,7 +464,7 @@ internal abstract partial class CustomComboFunctions
                     if (HasStatusEffect(4545)) return targetID != 18579; // Delta
                 }
                 return false;
-            
+
             case 1323: //M10S
                 // 19287 Red Hot
                 // 19288 Deep Blue

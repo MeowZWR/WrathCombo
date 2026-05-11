@@ -1,10 +1,13 @@
 #region
 
 using Dalamud.Game.ClientState.Objects.Types;
+using ECommons;
 using ECommons.DalamudServices;
+using ECommons.ExcelServices;
 using ECommons.GameFunctions;
 using ECommons.GameHelpers;
 using ECommons.Logging;
+using ECommons.Reflection;
 using Lumina.Excel.Sheets;
 using Newtonsoft.Json;
 using System;
@@ -14,7 +17,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using ECommons.Reflection;
 using WrathCombo.AutoRotation;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Combos.PvP;
@@ -24,13 +26,12 @@ using WrathCombo.Data;
 using WrathCombo.Data.Conflicts;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
+using WrathCombo.Services.IPC_Subscriber;
 using WrathCombo.Window.Functions;
-using ECommons;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
+using SysConfig = Dalamud.Game.Config.SystemConfigOption;
 using UIConfig = Dalamud.Game.Config.UiConfigOption;
 using UIControl = Dalamud.Game.Config.UiControlOption;
-using SysConfig = Dalamud.Game.Config.SystemConfigOption;
-using WrathCombo.Services.IPC_Subscriber;
 
 #endregion
 
@@ -69,20 +70,22 @@ public static class DebugFile
     internal static List<string> DebugLog = [];
 
     internal static void LoggingConfigChanges
-        (object? _, Configuration.ConfigChangeEventArgs argument) {
+        (object? _, Configuration.ConfigChangeEventArgs argument)
+    {
         var displayValue = argument.NewValue switch
         {
             Array arr => string.Join(", ", arr.Cast<object?>()),
-            _         => argument.NewValue.ToString(),
+            _ => argument.NewValue.ToString(),
         };
-        
+
         DebugLog.Add($"{DateTime.Now} | [{argument.Source}] " +
                      $"Changed {argument.Type} `{argument.Key}` to " +
                      $"'{displayValue}'");
     }
 
     /// Get the path to the debug file.
-    public static string GetDebugFilePath() {
+    public static string GetDebugFilePath()
+    {
         var separator = DesktopPath?.Contains('\\') == true ? "\\" : "/";
         return $"{DesktopPath}{separator}WrathDebug.txt";
     }
@@ -122,7 +125,7 @@ public static class DebugFile
         {
             AddLine("START DEBUG LOG");
             AddLine();
-            
+
             AddLine($"Log at: {DateTimeOffset.Now:yyyy-MM-ddTHH:mm:sszzz}     " +
                     $"(everything in user's timezone)");
             AddLine();
@@ -133,6 +136,8 @@ public static class DebugFile
 
             AddPlayerInfo();
             AddTargetInfo();
+
+            AddJobQuests();
 
             AddContentInfo();
 
@@ -240,7 +245,7 @@ public static class DebugFile
         AddLine($"MP: {(float)player.CurrentMp / player.MaxMp * 100:F0}%");
         AddLine();
         AddLine($"VFX on Player: {(gotVFX ? vfxList.Count.ToString() : "None")}");
-        
+
         if (gotVFX)
             foreach (var vfx in vfxList)
                 AddLine($"- `{vfx.Path}` ({vfx.AgeSeconds:F1}s old)");
@@ -251,6 +256,29 @@ public static class DebugFile
             AddLine($"Ping: {PingPluginIPC.LastPing}, Average: {PingPluginIPC.AveragePing}");
 
         AddLine("END PLAYER INFO");
+
+        AddLine();
+    }
+
+    private static void AddJobQuests()
+    {
+        var player = Player.Object;
+        var job = (Job)player.ClassJob.RowId;
+        var actions = Svc.Data.GetExcelSheet<Lumina.Excel.Sheets.Action>().Where(x => x.IsPlayerAction && x.UnlockLink.RowId != 0 && x.ClassJobCategory.Value.IsJobInCategory(job)).OrderBy(x => x.ClassJobLevel).ToList();
+        AddLine("JOB QUESTS");
+        try
+        {
+            foreach (var a in actions)
+            {
+                if (a.ClassJobLevel <= player.Level)
+                AddLine($"Lv.{a.ClassJobLevel} {a.Name} - {Svc.Data.GetExcelSheet<Quest>().GetRow(a.UnlockLink.RowId).Name} ({a.UnlockLink.RowId}) - {IsActionUnlocked(a.RowId)}");
+            }
+        }
+        catch(Exception ex)
+        {
+            ex.Log();
+        }
+        AddLine("END JOB QUESTS");
 
         AddLine();
     }
@@ -319,7 +347,7 @@ public static class DebugFile
 
         AddLine();
     }
-    
+
     private static void AddContentInfo()
     {
         AddLine("START CONTENT INFO");
@@ -328,7 +356,7 @@ public static class DebugFile
                 $"territory:{Content.TerritoryName ?? "??"}");
         AddLine($"Content IDs: " +
                 $"territory:{Content.TerritoryID}, " +
-                $"cfc:{Content.ContentFinderConditionRow?.RowId.ToString() ?? 
+                $"cfc:{Content.ContentFinderConditionRow?.RowId.ToString() ??
                 "??"}, " +
                 $"map: {Content.MapID}");
         AddLine($"Content Type: {Content.ContentType.ToString() ?? "??"}");
@@ -362,25 +390,25 @@ public static class DebugFile
                 ["Rotation Behavior"] = new Dictionary<object, object>
                 {
                     // Key in Settings           Alias for Setting
-                    ["BlockSpellOnMove"]       = "Block Spell on Move",
-                    ["ActionChanging"]         = "Action Replacing",
-                    ["SuppressQueuedActions"]  = "Queued Action Suppression",
-                    ["Throttle"]               = "Throttle (ms)",
-                    ["MovementLeeway"]         = "Movement Delay (s)",
-                    ["OpenerTimeout"]          = "Opener Timeout (s)",
-                    ["MeleeOffset"]            = "Melee Offset (y)",
-                    ["InterruptDelay"]         = "Interrupt/Stun Delay (%)",
-                    ["MaximumWeavesPerWindow"] = "Maximum Weaves Per Window",
+                    ["BlockSpellOnMove"]        = "Block Spell on Move",
+                    ["ActionChanging"]          = "Action Replacing",
+                    ["SuppressQueuedActions"]   = "Queued Action Suppression",
+                    ["Throttle"]                = "Throttle (ms)",
+                    ["MovementLeeway"]          = "Movement Delay (s)",
+                    ["OpenerTimeout"]           = "Opener Timeout (s)",
+                    ["MeleeOffset"]             = "Melee Offset (y)",
+                    ["InterruptDelay"]          = "Interrupt/Stun Delay (%)",
+                    ["MaximumWeavesPerWindow"]  = "Maximum Weaves Per Window",
                 },
                 ["Targeting"] = new Dictionary<object, object>
                 {
-                    ["RetargetHealingActionsToStack"] = "Retarget Healing Actions",
-                    ["CustomHealStack"]               = "Heal Stack",
-                    ["RaiseStack"]                    = "Raise Stack",
+                    ["RetargetHealingActionsToStack"]   = "Retarget Healing Actions",
+                    ["CustomHealStack"]                 = "Heal Stack",
+                    ["RaiseStack"]                      = "Raise Stack",
                 },
                 ["XIV"] = new Dictionary<object, object>
                 {
-                    [UIControl.AutoFaceTargetOnAction] = "Auto Face Target",
+                    [UIControl.AutoFaceTargetOnAction]      = "Auto Face Target",
                     [UIConfig.GroundTargetActionExcuteType] = "2x-Press Ground Actions",
                 },
             };
@@ -407,23 +435,23 @@ public static class DebugFile
                             switch (property)
                             {
                                 case UIControl opt:
-                                {
-                                    if (Svc.GameConfig.TryGet(opt, out bool gameVal))
-                                        value = gameVal;
-                                    break;
-                                }
+                                    {
+                                        if (Svc.GameConfig.TryGet(opt, out bool gameVal))
+                                            value = gameVal;
+                                        break;
+                                    }
                                 case UIConfig opt:
-                                {
-                                    if (Svc.GameConfig.TryGet(opt, out bool gameVal))
-                                        value = gameVal;
-                                    break;
-                                }
+                                    {
+                                        if (Svc.GameConfig.TryGet(opt, out bool gameVal))
+                                            value = gameVal;
+                                        break;
+                                    }
                                 case SysConfig opt:
-                                {
-                                    if (Svc.GameConfig.TryGet(opt, out bool gameVal))
-                                        value = gameVal;
-                                    break;
-                                }
+                                    {
+                                        if (Svc.GameConfig.TryGet(opt, out bool gameVal))
+                                            value = gameVal;
+                                        break;
+                                    }
                             }
                         }
                         catch
@@ -761,7 +789,7 @@ public static class DebugFile
     /// Get the debug code by itself.
     public static string GetDebugCode()
     {
-        var json  = JsonConvert.SerializeObject(
+        var json = JsonConvert.SerializeObject(
             Service.Configuration, Formatting.None);
         var bytes = Encoding.UTF8.GetBytes(json);
 
@@ -777,7 +805,7 @@ public static class DebugFile
             }
 
             output.Position = 0;
-            compressed      = output.ToArray();
+            compressed = output.ToArray();
         }
         catch
         {
@@ -885,7 +913,7 @@ public static class DebugFile
                 System.Text.RegularExpressions.RegexOptions.Compiled);
 
             var stop = false;
-            for (long i = stream.Length; i > 0; )
+            for (long i = stream.Length; i > 0;)
             {
                 var readSize = (int)Math.Min(bufferSize, i);
                 i -= readSize;
@@ -984,7 +1012,7 @@ public static class DebugFile
             AddLine();
             return;
         }
-        
+
         AddLine("START DALAMUD LOG HISTORY (most recent first)");
         AddLine(string.Join("\n", logs));
         AddLine("END DALAMUD LOG HISTORY");

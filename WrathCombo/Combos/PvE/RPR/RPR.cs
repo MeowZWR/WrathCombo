@@ -606,6 +606,30 @@ internal partial class RPR : Melee
             return Slice;
         }
     }
+    
+    internal class RPR_AoE_BasicCombo : CustomCombo
+    {
+        protected internal override Preset Preset => Preset.RPR_AoE_BasicCombo;
+
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID is not NightmareScythe)
+                return actionID;
+
+            if (IsEnabled(Preset.RPR_AoE_BasicCombo_WoD) &&
+                ActionReady(WhorlOfDeath) &&
+                GetStatusEffectRemainingTime(Debuffs.DeathsDesign, CurrentTarget) < RPR_WoDRefreshRangeBasicCombo)
+                return WhorlOfDeath;
+
+            if (ComboTimer > 0)
+            {
+                if (ComboAction is SpinningScythe && LevelChecked(NightmareScythe))
+                    return NightmareScythe;
+            }
+
+            return SpinningScythe;
+        }
+    }
 
     internal class RPR_GluttonyBloodSwathe : CustomCombo
     {

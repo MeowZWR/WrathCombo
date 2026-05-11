@@ -530,11 +530,6 @@ public static class ConflictingPlugins
         if (ConflictingPluginsChecks.ReAction.Conflicted)
         {
             var reFeedback = ConflictingPluginsChecks.ReAction.ConflictingActions;
-            if (reFeedback[0].Action is 1)
-                conflicts = conflicts.Append(new Conflict(
-                        "ReAction", ConflictType.Settings,
-                        "Other Settings > Enable Auto Target"))
-                    .ToArray();
             if (reFeedback[1].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReAction", ConflictType.Settings,

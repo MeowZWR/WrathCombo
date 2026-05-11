@@ -37,10 +37,9 @@ using WrathCombo.Services.IPC_Subscriber;
 using WrathCombo.Window.Functions;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
 using Action = Lumina.Excel.Sheets.Action;
-using BattleNPCSubKind = Dalamud.Game.ClientState.Objects.Enums.BattleNpcSubKind;
+using BattleNpcSubKindCS = FFXIVClientStructs.FFXIV.Client.Game.Object.BattleNpcSubKind;
 using ObjectKind = Dalamud.Game.ClientState.Objects.Enums.ObjectKind;
 using Status = Dalamud.Game.ClientState.Statuses.IStatus;
-using BattleNpcSubKindCS = FFXIVClientStructs.FFXIV.Client.Game.Object.BattleNpcSubKind;
 #endregion
 
 namespace WrathCombo.Window.Tabs;
@@ -829,22 +828,21 @@ internal class Debug : ConfigWindow, IDisposable
                         CustomStyleText("Number of Targets Hit:", $"{NumberOfEnemiesInRange(_debugSpell.Value.RowId, target)}");
                 }
 
-                if (_debugSpell.Value.CastType != 1)
+
+                ImGui.Spacing();
+                if (ImGui.CollapsingHeader("Enemies in Range"))
                 {
-                    ImGui.Spacing();
-                    if (ImGui.CollapsingHeader("Enemies in Range"))
+                    ImGui.Indent();
+                    foreach (var e in EnemiesInRange(_debugSpell.Value.RowId))
                     {
-                        ImGui.Indent();
-                        foreach (var e in EnemiesInRange(_debugSpell.Value.RowId))
+                        if (ImGui.CollapsingHeader($"{e?.Name}###{e?.SafeGameObjectId}"))
                         {
-                            if (ImGui.CollapsingHeader($"{e?.Name}###{e?.SafeGameObjectId}"))
-                            {
-                                DrawTargetInfo(e);
-                            }
+                            DrawTargetInfo(e);
                         }
-                        ImGui.Unindent();
                     }
+                    ImGui.Unindent();
                 }
+
 
                 if (ImGui.TreeNode("Data Dump"))
                 {

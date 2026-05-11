@@ -131,7 +131,6 @@ internal partial class MNK
         {
             case false when HasStatusEffect(Buffs.PerfectBalance):
             {
-                   
                 #region Open Lunar
 
                 if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
@@ -148,7 +147,6 @@ internal partial class MNK
                     }
                 }
 
-                   
                 #endregion
 
                 #region Open Solar
@@ -353,7 +351,7 @@ internal partial class MNK
         {
             case false when
                 LevelChecked(SteeledMeditation) &&
-                (!InCombat() || !InMeleeRange()) &&
+                (!InCombat() || NumberOfEnemiesInRange(Bootshine) < 1) &&
                 Chakra < 5 &&
                 IsOriginal(MasterfulBlitz) &&
                 !HasStatusEffect(Buffs.RiddleOfFire) &&
@@ -362,7 +360,7 @@ internal partial class MNK
 
             case true when
                 LevelChecked(InspiritedMeditation) &&
-                (!InCombat() || !InMeleeRange()) &&
+                (!InCombat() || NumberOfEnemiesInRange(ArmOfTheDestroyer) < 3) &&
                 Chakra < 5 &&
                 IsOriginal(MasterfulBlitz) &&
                 !HasStatusEffect(Buffs.RiddleOfFire) &&

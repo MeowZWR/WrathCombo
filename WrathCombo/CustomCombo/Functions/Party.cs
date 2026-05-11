@@ -51,7 +51,7 @@ internal abstract partial class CustomComboFunctions
                     {
                         foreach (var p in InfoProxyPartyMember.Instance()->CharDataSpan)
                         {
-                            var contentId = chara.Character()->ContentId;
+                            var contentId = chara.EntityId;
                             if (p.ContentId == contentId)
                                 existingMember.NPCClassJob = p.Job;
                         }
@@ -68,9 +68,9 @@ internal abstract partial class CustomComboFunctions
                     {
                         foreach (var p in InfoProxyPartyMember.Instance()->CharDataSpan)
                         {
-                            var contentId = chara.Character()->ContentId;
+                            var contentId = chara.EntityId;
                             if (p.ContentId == contentId)
-                                existingMember.NPCClassJob = p.Job;
+                                wmember.NPCClassJob = p.Job;
                         }
                     }
                     _partyList.Add(wmember);
