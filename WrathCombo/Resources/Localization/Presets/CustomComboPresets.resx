@@ -295,6 +295,12 @@ Only recommended during some specific enrages.</value>
   <data name="ASTPvP_Burst_Name" xml:space="preserve">
     <value>Burst Mode</value>
   </data>
+  <data name="ASTPvP_Burst_Oracle_Desc" xml:space="preserve">
+    <value>Adds Oracle (LimitBreak Followup) to Burst Mode.</value>
+  </data>
+  <data name="ASTPvP_Burst_Oracle_Name" xml:space="preserve">
+    <value>Oracle Option</value>
+  </data>
   <data name="ASTPvP_Burst_PlayCard_Desc" xml:space="preserve">
     <value>Adds Playing Cards to Burst Mode.</value>
   </data>
@@ -6229,13 +6235,6 @@ Requires Occult Potions in inventory.</value>
   <data name="PLD_AoE_AdvancedMode_BladeOfHonor_Name" xml:space="preserve">
     <value>Blade of Honor Option</value>
   </data>
-  <data name="PLD_AoE_AdvancedMode_Blades_Desc" xml:space="preserve">
-    <value>Adds Blade of Faith/Truth/Valor to Advanced Mode.
-- At lower levels, uses Holy Circle instead.</value>
-  </data>
-  <data name="PLD_AoE_AdvancedMode_Blades_Name" xml:space="preserve">
-    <value>Blade Chain Option</value>
-  </data>
   <data name="PLD_AoE_AdvancedMode_CircleOfScorn_Desc" xml:space="preserve">
     <value>Adds Circle of Scorn to Advanced Mode.
 - Uses only when in range of the target.
@@ -6245,11 +6244,11 @@ Requires Occult Potions in inventory.</value>
     <value>Circle of Scorn Option</value>
   </data>
   <data name="PLD_AoE_AdvancedMode_Confiteor_Desc" xml:space="preserve">
-    <value>Adds Confiteor to Advanced Mode.
+    <value>Adds Confiteor and it's Combo to Advanced Mode.
 - At lower levels, uses Holy Circle instead.</value>
   </data>
   <data name="PLD_AoE_AdvancedMode_Confiteor_Name" xml:space="preserve">
-    <value>Confiteor Option</value>
+    <value>Confiteor Combo Option</value>
   </data>
   <data name="PLD_AoE_AdvancedMode_Desc" xml:space="preserve">
     <value>Replaces Total Eclipse with a full one-button AoE rotation.
@@ -6263,6 +6262,13 @@ These features are ideal if you want to customize the rotation.</value>
   <data name="PLD_AoE_AdvancedMode_FoF_Name" xml:space="preserve">
     <value>Fight or Flight Option</value>
   </data>
+    <data name="PLD_AoE_AdvancedMode_GoringBlade_Desc" xml:space="preserve">
+    <value>Adds Goring Blade to Advanced Mode.
+- Uses when less than 4 targets.</value>
+  </data>
+    <data name="PLD_AoE_AdvancedMode_GoringBlade_Name" xml:space="preserve">
+    <value>Goring Blade Option</value>
+  </data>    
   <data name="PLD_AoE_AdvancedMode_HolyCircle_Desc" xml:space="preserve">
     <value>Adds Holy Circle to Advanced Mode.
 - Uses only when under Divine Might.</value>
@@ -6295,8 +6301,15 @@ These features are ideal if you want to customize the rotation.</value>
 - Uses after Fight or Flight.</value>
   </data>
   <data name="PLD_AoE_AdvancedMode_Requiescat_Name" xml:space="preserve">
-    <value>Requiescat Option</value>
+    <value>Requiescat Option</value>      
   </data>
+    <data name="PLD_AoE_AdvancedMode_ShieldLob_Desc" xml:space="preserve">
+    <value>Adds Shield Lob to Advanced Mode.
+- Will only Use when out of melee range.</value>
+  </data>
+    <data name="PLD_AoE_AdvancedMode_ShieldLob_Name" xml:space="preserve">
+    <value>Shield Lob Option</value>
+  </data>    
   <data name="PLD_AoE_AdvancedMode_SpiritsWithin_Desc" xml:space="preserve">
     <value>Adds Spirits Within to Advanced Mode.
 - Prefers to use during Fight or Flight.</value>
@@ -6642,14 +6655,7 @@ NOTE: Will not use unless there is a target within range to prevent waste</value
   </data>
   <data name="PLD_ST_AdvancedMode_BladeOfHonor_Name" xml:space="preserve">
     <value>Blade of Honor Option</value>
-  </data>
-  <data name="PLD_ST_AdvancedMode_Blades_Desc" xml:space="preserve">
-    <value>Adds Blade of Faith/Truth/Valor to Advanced Mode.
-- At lower levels, uses Holy Spirit instead.</value>
-  </data>
-  <data name="PLD_ST_AdvancedMode_Blades_Name" xml:space="preserve">
-    <value>Blade Chain Option</value>
-  </data>
+  </data>  
   <data name="PLD_ST_AdvancedMode_CircleOfScorn_Desc" xml:space="preserve">
     <value>Adds Circle of Scorn to Advanced Mode.
 - Uses only when in range of the target.
@@ -6659,11 +6665,11 @@ NOTE: Will not use unless there is a target within range to prevent waste</value
     <value>Circle of Scorn Option</value>
   </data>
   <data name="PLD_ST_AdvancedMode_Confiteor_Desc" xml:space="preserve">
-    <value>Adds Confiteor to Advanced Mode.
+    <value>Adds Confiteor and its Combo to Advanced Mode.
 - At lower levels, uses Holy Spirit instead.</value>
   </data>
   <data name="PLD_ST_AdvancedMode_Confiteor_Name" xml:space="preserve">
-    <value>Confiteor Option</value>
+    <value>Confiteor Combo Option</value>
   </data>
   <data name="PLD_ST_AdvancedMode_Desc" xml:space="preserve">
     <value>Replaces Fast Blade with a full one-button single target rotation.
@@ -8490,6 +8496,12 @@ This is the ideal option for newcomers to the job.</value>
   </data>
   <data name="SCH_DeploymentTactics_Recitation_Name" xml:space="preserve">
     <value>Recitation Option</value>
+  </data>
+  <data name="SCH_Dissipation_Desc" xml:space="preserve">
+    <value>Replaces Dissipation with Aetherflow when Aetherflow is available.</value>
+  </data>
+  <data name="SCH_Dissipation_Name" xml:space="preserve">
+    <value>Dissipation Option</value>
   </data>
   <data name="SCH_FairyReminder_Desc" xml:space="preserve">
     <value>Change all fairy actions into Summon Eos when the Fairy is not summoned.</value>
@@ -11380,5 +11392,13 @@ This is the ideal option for newcomers to the job.</value>
   </data>
   <data name="SMN_Rekindle_Desc" xml:space="preserve">
     <value>Retargets Rekindle to Target's Target > Tank in need > A party member in need > Self</value>
+  </data>
+  <data name="Phantom_RestrictToBuff_Name" xml:space="preserve">
+      <value>Restrict Damaging Phantom Abilities to Buff Windows</value>
+  </data>
+  <data name="Phantom_RestrictToBuff_Desc" xml:space="preserve">
+      <value>Will restrict damaging Phantom Abilities to when you or your party have damage buffs (including minor ones on yourself, like Paladin's Fight or Flight).
+
+NOT RECOMMENDED!</value>
   </data>
 </root>

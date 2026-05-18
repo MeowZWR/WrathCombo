@@ -32,8 +32,7 @@ internal partial class MCH
 
             case true when
                 (ActionReady(Hypercharge) || HasStatusEffect(Buffs.Hypercharged)) &&
-                !IsOverheated && LevelChecked(Heatblast) &&
-                BioBlasterCD && ChainSawCD && FlamethrowerCD:
+                !IsOverheated && LevelChecked(Heatblast):
                 return true;
         }
 
@@ -127,7 +126,7 @@ internal partial class MCH
         uint remainingCharges = GetRemainingCharges(Reassemble);
 
         if (HasStatusEffect(Buffs.Reassembled) || !HasBattleTarget() ||
-            !InActionRange(Drill) || JustUsed(Reassemble))
+            !InActionRange(Drill) || JustUsed(Reassemble, 2f))
             return false;
 
         if (remainingCharges == 0)
@@ -145,13 +144,16 @@ internal partial class MCH
             switch (remainingCharges)
             {
                 case 2 when enoughToolsForBurst:
-                case 1 when enoughToolsForBurst && JustUsed(Reassemble, 8):
+                case 1 when enoughToolsForBurst && JustUsed(Reassemble, 10):
                     return true;
             }
         }
 
         if (MCH_ST_Adv_ReassembleChoice == 1)
         {
+            if (ActionReady(Excavator) && HasStatusEffect(Buffs.ExcavatorReady))
+                return true;
+
             if (ActionReady(Chainsaw) && !HasStatusEffect(Buffs.ExcavatorReady))
                 return true;
 
@@ -231,15 +233,6 @@ internal partial class MCH
     private static bool ChainSawCD =>
         !LevelChecked(Chainsaw) ||
         LevelChecked(Chainsaw) && GetCooldownRemainingTime(Chainsaw) >= 9;
-
-    private static bool BioBlasterCD =>
-        !ActionReady(BioBlaster) ||
-        !TraitLevelChecked(Traits.EnhancedMultiWeapon) && GetCooldownRemainingTime(BioBlaster) >= 9 ||
-        TraitLevelChecked(Traits.EnhancedMultiWeapon) && GetRemainingCharges(BioBlaster) < GetMaxCharges(BioBlaster) && GetCooldownChargeRemainingTime(BioBlaster) >= 9;
-
-    private static bool FlamethrowerCD =>
-        !ActionReady(Flamethrower) ||
-        LevelChecked(Flamethrower) && GetCooldownRemainingTime(Flamethrower) >= 9;
 
     private static bool CanUseTools(ref uint actionID)
     {

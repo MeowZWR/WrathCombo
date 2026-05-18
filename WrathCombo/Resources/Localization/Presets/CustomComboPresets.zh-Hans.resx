@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -1672,7 +1672,7 @@
     <value>简单输出模式 - 单目标</value>
   </data>
   <data name="BLM_ST_SimpleMode_Desc" xml:space="preserve">
-    <value>将“火炎”替换为完整的一键单目标循环。
+    <value>将“冰结”替换为完整的一键单目标循环。
 这是最适合黑魔法师新手使用的选项。</value>
   </data>
   <data name="BLM_AoE_SimpleMode_Name" xml:space="preserve">
@@ -1686,7 +1686,7 @@
     <value>进阶输出模式 - 单目标</value>
   </data>
   <data name="BLM_ST_AdvancedMode_Desc" xml:space="preserve">
-    <value>将“火炎”替换为完整的一键单目标循环。
+    <value>将“冰结”替换为完整的一键单目标循环。
 如果你想自定义循环，这些功能会更合适。</value>
   </data>
   <data name="BLM_ST_Opener_Name" xml:space="preserve">
@@ -1860,7 +1860,7 @@
     <value>将“火炎”或“爆炎”替换为下方选项中的技能。</value>
   </data>
   <data name="BLM_F1toF4_Name" xml:space="preserve">
-    <value>火炎 -> 炽炎功能</value>
+    <value>火炎 -&gt; 炽炎功能</value>
   </data>
   <data name="BLM_F1toF4_Desc" xml:space="preserve">
     <value>当可用时，将“火炎”替换为“炽炎”。</value>
@@ -1884,13 +1884,13 @@
     <value>将“冰结”或“冰封”替换为下方选项中的技能。</value>
   </data>
   <data name="BLM_B1toB4_Name" xml:space="preserve">
-    <value>冰结 -> 冰澈功能</value>
+    <value>冰结 -&gt; 冰澈功能</value>
   </data>
   <data name="BLM_B1toB4_Desc" xml:space="preserve">
     <value>当可用时，将“冰结”替换为“冰澈”。</value>
   </data>
   <data name="BLM_Blizzard4toDespair_Name" xml:space="preserve">
-    <value>冰澈 -> 绝望</value>
+    <value>冰澈 -&gt; 绝望</value>
   </data>
   <data name="BLM_Blizzard4toDespair_Desc" xml:space="preserve">
     <value>处于星极火时，将“冰澈”替换为“绝望”。</value>
@@ -1903,25 +1903,25 @@
 等级同步降级时，将“玄冰”替换为“冰冻”。</value>
   </data>
   <data name="BLM_FlareParadox_Name" xml:space="preserve">
-    <value>耀星 -> 火炎悖论</value>
+    <value>耀星 -&gt; 火炎悖论</value>
   </data>
   <data name="BLM_FlareParadox_Desc" xml:space="preserve">
     <value>当耀星层数未满时，将“耀星”替换为“火炎悖论”。</value>
   </data>
   <data name="BLM_AmplifierXeno_Name" xml:space="preserve">
-    <value>详述 -> 异言</value>
+    <value>详述 -&gt; 异言</value>
   </data>
   <data name="BLM_AmplifierXeno_Desc" xml:space="preserve">
     <value>当通晓层数已满时，将“详述”替换为“异言”。</value>
   </data>
   <data name="BLM_XenoThunder_Name" xml:space="preserve">
-    <value>异言 -> 闪雷</value>
+    <value>异言 -&gt; 闪雷</value>
   </data>
   <data name="BLM_XenoThunder_Desc" xml:space="preserve">
     <value>当“闪雷”剩余时间小于等于 3 秒时，将“异言”替换为“闪雷”。</value>
   </data>
   <data name="BLM_FoulThunder_Name" xml:space="preserve">
-    <value>秽浊 -> 震雷</value>
+    <value>秽浊 -&gt; 震雷</value>
   </data>
   <data name="BLM_FoulThunder_Desc" xml:space="preserve">
     <value>当“震雷”剩余时间小于等于 3 秒时，将“秽浊”替换为“震雷”。</value>
@@ -2068,13 +2068,13 @@
     <value>将“苦闷之歌”替换为“怒发冲冠”，以强化“苦闷之歌”。</value>
   </data>
   <data name="BLU_LightHeadedCombo_Name" xml:space="preserve">
-    <value>生成外设 -> 芥末爆弹</value>
+    <value>生成外设 -&gt; 芥末爆弹</value>
   </data>
   <data name="BLU_LightHeadedCombo_Desc" xml:space="preserve">
     <value>当目标处于“头晕”效果时，将“生成外设”替换为“芥末爆弹”。</value>
   </data>
   <data name="BLU_PerpetualRayStunCombo_Name" xml:space="preserve">
-    <value>永恒射线 -> 锋利菜刀</value>
+    <value>永恒射线 -&gt; 锋利菜刀</value>
   </data>
   <data name="BLU_PerpetualRayStunCombo_Desc" xml:space="preserve">
     <value>当目标被眩晕且处于近战范围时，将“永恒射线”替换为“锋利菜刀”。</value>

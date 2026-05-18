@@ -1,3 +1,4 @@
+using Dalamud.Game.ClientState.JobGauge.Enums;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using static WrathCombo.Combos.PvE.MNK.Config;
@@ -382,23 +383,100 @@ internal partial class MNK : Melee
             if (actionID is not (SnapPunch or PouncingCoeurl))
                 return actionID;
 
-            if (!LevelChecked(TrueStrike))
-                return Bootshine;
+            if (MNK_BasicCombo_Chakra &&
+                Chakra >= 5 && LevelChecked(SteeledMeditation) && CanWeave() &&
+                InActionRange(OriginalHook(SteeledMeditation)))
+                return OriginalHook(SteelPeak);
 
-            if (HasStatusEffect(Buffs.OpoOpoForm) || HasStatusEffect(Buffs.FormlessFist))
-                return OpoOpoStacks is 0 && LevelChecked(DragonKick)
-                    ? DragonKick
-                    : OriginalHook(Bootshine);
+            if (HasStatusEffect(Buffs.PerfectBalance))
+            {
+                #region Open Lunar
 
-            if (HasStatusEffect(Buffs.RaptorForm))
-                return RaptorStacks is 0 && LevelChecked(TwinSnakes)
-                    ? TwinSnakes
-                    : OriginalHook(TrueStrike);
+                if (!LunarNadi || BothNadisOpen || !SolarNadi && !LunarNadi)
+                {
+                    switch (OpoOpoStacks)
+                    {
+                        case 0:
+                            return DragonKick;
 
-            if (HasStatusEffect(Buffs.CoeurlForm))
-                return CoeurlStacks is 0 && LevelChecked(Demolish)
-                    ? Demolish
-                    : OriginalHook(SnapPunch);
+
+                        case > 0:
+                            return OriginalHook(Bootshine);
+                    }
+                }
+
+                #endregion
+
+                #region Open Solar
+
+                if (!SolarNadi && LunarNadi)
+                {
+                    if (Gauge.BeastChakra[0] is BeastChakra.None)
+                    {
+                        switch (CoeurlStacks)
+                        {
+                            case 0:
+                                return Demolish;
+
+                            case > 0:
+                                return OriginalHook(SnapPunch);
+                        }
+                    }
+
+                    if (Gauge.BeastChakra[1] is BeastChakra.None)
+                    {
+                        switch (RaptorStacks)
+                        {
+                            case 0:
+                                return TwinSnakes;
+
+                            case > 0:
+                                return OriginalHook(TrueStrike);
+                        }
+                    }
+
+                    if (Gauge.BeastChakra[2] is BeastChakra.None)
+                    {
+                        switch (OpoOpoStacks)
+                        {
+                            case 0:
+                                return DragonKick;
+
+                            case > 0:
+                                return OriginalHook(Bootshine);
+                        }
+                    }
+                }
+
+                    #endregion
+            }
+
+            if (!HasStatusEffect(Buffs.PerfectBalance))
+            {
+                if (MNK_BasicCombo_MasterfulBlitz &&
+                    LevelChecked(MasterfulBlitz) &&
+                    !HasStatusEffect(Buffs.PerfectBalance) &&
+                    !IsOriginal(MasterfulBlitz))
+                    return OriginalHook(MasterfulBlitz);
+
+                if (!LevelChecked(TrueStrike))
+                    return Bootshine;
+
+                if (HasStatusEffect(Buffs.OpoOpoForm) || HasStatusEffect(Buffs.FormlessFist))
+                    return OpoOpoStacks is 0 && LevelChecked(DragonKick)
+                        ? DragonKick
+                        : OriginalHook(Bootshine);
+
+                if (HasStatusEffect(Buffs.RaptorForm))
+                    return RaptorStacks is 0 && LevelChecked(TwinSnakes)
+                        ? TwinSnakes
+                        : OriginalHook(TrueStrike);
+
+                if (HasStatusEffect(Buffs.CoeurlForm))
+                    return CoeurlStacks is 0 && LevelChecked(Demolish)
+                        ? Demolish
+                        : OriginalHook(SnapPunch);
+            }
 
             return OriginalHook(Bootshine);
         }

@@ -606,7 +606,7 @@ internal partial class RPR : Melee
             return Slice;
         }
     }
-    
+
     internal class RPR_AoE_BasicCombo : CustomCombo
     {
         protected internal override Preset Preset => Preset.RPR_AoE_BasicCombo;

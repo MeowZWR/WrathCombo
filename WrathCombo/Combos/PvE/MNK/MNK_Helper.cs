@@ -360,7 +360,7 @@ internal partial class MNK
 
             case true when
                 LevelChecked(InspiritedMeditation) &&
-                (!InCombat() || NumberOfEnemiesInRange(ArmOfTheDestroyer) < 3) &&
+                (!InCombat() || NumberOfEnemiesInRange(ArmOfTheDestroyer) < 1) &&
                 Chakra < 5 &&
                 IsOriginal(MasterfulBlitz) &&
                 !HasStatusEffect(Buffs.RiddleOfFire) &&

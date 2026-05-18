@@ -132,6 +132,11 @@
   <data name="Early0Opener" xml:space="preserve">
     <value>Early {0} opener</value>
   </data>
+  <data name="NotRecommended" xml:space="preserve">
+    <value>NOT RECOMMENDED!
+Only useful in Deep Dungeons to single pull.
+Will only work up until lvl 92.</value>
+  </data>
   <data name="Save0ForEvenWindows" xml:space="preserve">
     <value>Saves {0} for 2 minute windows
 THIS WILL CAUSE IT TO OVERCAP!</value>
@@ -140,7 +145,8 @@ THIS WILL CAUSE IT TO OVERCAP!</value>
     <value>Save for 2 minute windows</value>
   </data>
   <data name="StopUsingToolsBelowHpPercentage" xml:space="preserve">
-    <value>Stop Using Tools When Target HP% is at or Below (Set to 0 to Disable This Check)</value>
+    <value>Stop Using Tools When Target HP% is at or Below
+(Set to 0 to Disable This Check)</value>
   </data>
   <data name="Use0EveryMinute" xml:space="preserve">
     <value>Uses {0} every minute/whenever your highest level tool is off cooldown.</value>

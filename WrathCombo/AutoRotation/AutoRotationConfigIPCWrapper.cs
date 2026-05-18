@@ -152,6 +152,7 @@ public class DPSSettingsIPCWrapper(DPSSettings settings)
         }
     }
 
+
     public bool DPSAlwaysHardTarget
     {
         get
@@ -161,6 +162,18 @@ public class DPSSettingsIPCWrapper(DPSSettings settings)
             return checkControlled is not null
                 ? checkControlled.Value.state == 1
                 : settings.DPSAlwaysHardTarget;
+        }
+    }
+
+    public bool UnTargetAndDisableForPenalty
+    {
+        get
+        {
+            var checkControlled =
+                P.UIHelper.AutoRotationConfigControlled("UnTargetAndDisableForPenalty");
+            return checkControlled is not null
+                ? checkControlled.Value.state == 1
+                : settings.UnTargetAndDisableForPenalty;
         }
     }
 
@@ -183,8 +196,6 @@ public class DPSSettingsIPCWrapper(DPSSettings settings)
     public float MaxDistance => settings.MaxDistance;
 
     public bool AoEIgnoreManual => settings.AoEIgnoreManual;
-    
-    public bool UnTargetAndDisableForPenalty => settings.UnTargetAndDisableForPenalty;
 
     #endregion
 }
@@ -202,7 +213,7 @@ public class HealerSettingsIPCWrapper(HealerSettings settings)
     public int SingleTargetExcogHPP =>
         P.UIHelper.AutoRotationConfigControlled("SingleTargetExcogHPP")?.state
         ?? settings.SingleTargetExcogHPP;
-    
+
     public int SingleTargetRegenHPP =>
         P.UIHelper.AutoRotationConfigControlled("SingleTargetRegenHPP")?.state
         ?? settings.SingleTargetRegenHPP;
@@ -302,7 +313,7 @@ public class HealerSettingsIPCWrapper(HealerSettings settings)
     public bool KardiaTanksOnly => settings.KardiaTanksOnly;
 
     public bool PreEmptiveHoT => settings.PreEmptiveHoT;
-    
+
     public bool AutoRezDPSJobsHealersOnly => settings.AutoRezDPSJobsHealersOnly;
 
     public bool HandleRaidwides => settings.HandleRaidwides;

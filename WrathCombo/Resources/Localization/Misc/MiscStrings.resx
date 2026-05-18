@@ -110,4 +110,7 @@
 	<data name="MultiHit" xml:space="preserve">
 		<value>Multi-hit </value>
 	</data>
+    <data name="BuffOnlyList" xml:space="preserve">
+        <value />
+    </data>
 </root>

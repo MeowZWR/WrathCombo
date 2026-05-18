@@ -76,7 +76,7 @@ internal partial class RPR
             {
                 //Double enshroud
                 if (LevelChecked(PlentifulHarvest) && HasStatusEffect(Buffs.Enshrouded) &&
-                    GetCooldownRemainingTime(ArcaneCircle) <= GCD && GetStatusEffectRemainingTime(Debuffs.DeathsDesign, CurrentTarget) < 15 &&
+                    GetCooldownRemainingTime(ArcaneCircle) <= GCD && GetStatusEffectRemainingTime(Debuffs.DeathsDesign, CurrentTarget) < 32 &&
                     (JustUsed(VoidReaping, 2f) || JustUsed(CrossReaping, 2f)))
                     return true;
 
@@ -263,7 +263,9 @@ internal partial class RPR
         public override bool HasCooldowns() =>
             GetRemainingCharges(SoulSlice) is 2 &&
             IsOffCooldown(ArcaneCircle) &&
-            IsOffCooldown(Gluttony);
+            IsOffCooldown(Gluttony) &&
+            Void is 0 &&
+            Soul is 0;
     }
 
     internal class RPRStandardOpenerLvl90 : WrathOpener
@@ -314,7 +316,9 @@ internal partial class RPR
         public override bool HasCooldowns() =>
             GetRemainingCharges(SoulSlice) is 2 &&
             IsOffCooldown(ArcaneCircle) &&
-            IsOffCooldown(Gluttony);
+            IsOffCooldown(Gluttony) &&
+            Void is 0 &&
+            Soul is 0;
     }
 
     #endregion

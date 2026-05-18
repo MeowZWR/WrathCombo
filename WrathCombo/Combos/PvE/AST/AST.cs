@@ -243,10 +243,10 @@ internal partial class AST : Healer
             #endregion
             
             #region OGCDs
-            if (IsEnabled(Preset.AST_DPS_LightSpeed) && ActionReady(Lightspeed) && InCombat() &&
-                GetTargetHPPercent() > AST_ST_DPS_LightSpeedOption &&
-                IsMoving() && !HasStatusEffect(Buffs.Lightspeed) &&
-                (IsNotEnabled(Preset.AST_DPS_LightSpeedHold) || LightspeedChargeCD < DivinationCD || !LevelChecked(Divination)))
+            if (IsEnabled(Preset.AST_DPS_LightSpeed) && ActionReady(Lightspeed) && 
+                InCombat() && IsMoving() && !HasStatusEffect(Buffs.Lightspeed) &&
+                GetTargetHPPercent() > AST_ST_DPS_LightSpeedOption && //Hp Check
+                (IsNotEnabled(Preset.AST_DPS_LightSpeedHold) || GetRemainingCharges(Lightspeed) >= 2)) //Hold for 2 charges
                 return Lightspeed;
 
             if (InCombat() && CanWeave())
@@ -380,11 +380,10 @@ internal partial class AST : Healer
             #endregion
 
             #region OGCDs
-            if (IsEnabled(Preset.AST_AOE_LightSpeed) && ActionReady(Lightspeed) &&
-                IsMoving() && InCombat() &&
+            if (IsEnabled(Preset.AST_AOE_LightSpeed) && ActionReady(Lightspeed) && 
+                IsMoving() && InCombat() && !HasStatusEffect(Buffs.Lightspeed) &&
                 GetTargetHPPercent() > AST_AOE_LightSpeedOption && 
-                !HasStatusEffect(Buffs.Lightspeed) &&
-                (IsNotEnabled(Preset.AST_AOE_LightSpeedHold) || LightspeedChargeCD < DivinationCD || !LevelChecked(Divination)))
+                (IsNotEnabled(Preset.AST_AOE_LightSpeedHold) || GetRemainingCharges(Lightspeed) >= 2))
                 return Lightspeed;
             
             if (InCombat() && CanWeave())

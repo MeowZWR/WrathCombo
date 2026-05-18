@@ -175,7 +175,9 @@ internal partial class RDM : Caster
             if (HasManaStacks)
                 return UseHolyFlare(actionID);
 
-            if (ActionReady(Moulinet) && HasBattleTarget() && InActionRange(OriginalHook(Moulinet)) &&
+            if (ActionReady(OriginalHook(Moulinet)) && 
+                !HasDualcast && !HasAccelerate && !HasSwiftcast &&
+                HasBattleTarget() && InActionRange(OriginalHook(Moulinet)) &&
                 (CanMagickedSwordplay || HasEnoughManaToStart || ComboAction is EnchantedMoulinet or Moulinet or EnchantedMoulinetDeux && HasEnoughManaForCombo))
                 return OriginalHook(Moulinet);
 
@@ -436,7 +438,8 @@ internal partial class RDM : Caster
 
             if (IsEnabled(Preset.RDM_AoE_MeleeCombo))
             {
-                if (ActionReady(Moulinet) &&
+                if (ActionReady(OriginalHook(Moulinet)) &&
+                    !HasDualcast && !HasAccelerate && !HasSwiftcast &&
                     (IsNotEnabled(Preset.RDM_AoE_MeleeCombo_Target) && !HasBattleTarget() || HasBattleTarget() && InActionRange(OriginalHook(Moulinet)) &&
                     (CanMagickedSwordplay || HasEnoughManaToStart || ComboAction is EnchantedMoulinet or Moulinet or EnchantedMoulinetDeux && HasEnoughManaForCombo)))
                     return OriginalHook(Moulinet);

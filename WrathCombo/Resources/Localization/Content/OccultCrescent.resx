@@ -141,4 +141,16 @@
   <data name="VeryCostly" xml:space="preserve">
     <value>This is a VERY costly Feature!</value>
   </data>
+  <data name="BuffOnlyNotRecommended" xml:space="preserve">
+      <value>Many jobs do not have self buffs that are up regularly, many burst phases cannot accommodate extra Phantom Abilities, and many Phantom Abilities are up more often than this on would be on many jobs!</value>
+  </data>
+  <data name="Costly" xml:space="preserve">
+      <value>This is a costly Feature!</value>
+  </data>
+  <data name="BuffOnlyDont" xml:space="preserve">
+      <value>If you are NOT one of the jobs that regularly damage buffs themselves, or do not party up in OC, then this will SKIP using Phantom Abilities until burst time is detected (which might be never on a buff-less job)!</value>
+  </data>
+  <data name="BuffOnlyList" xml:space="preserve">
+      <value>DRK, PLD, WAR, AST, MNK, DRG, NIN, BRD, are the only jobs this is likely to be a good option for</value>
+  </data>
 </root>

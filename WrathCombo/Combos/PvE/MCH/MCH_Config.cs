@@ -124,17 +124,26 @@ internal partial class MCH
                         Generics.AllEnemies,
                         Generics.HPCheckAllEnemies, 1);
 
-
                     ImGui.Unindent();
                     break;
 
                 case Preset.MCH_ST_Adv_GaussRicochet:
-                    DrawSliderInt(0, 2, MCH_ST_GaussRicoPool,
-                        Generics.ChargePool);
+                    DrawHorizontalRadioButton(MCH_ST_GaussOnlyOrBoth,
+                        FormatAndCache(Generics.Use0And1, GaussRound.ActionName(), Ricochet.ActionName()),
+                        FormatAndCache(Generics.Use0And1, GaussRound.ActionName(), Ricochet.ActionName()), 0);
+
+                    DrawHorizontalRadioButton(MCH_ST_GaussOnlyOrBoth,
+                        FormatAndCache(Generics.OnlyUse0, GaussRound.ActionName()),
+                        FormatAndCache(MCH_Config.NotRecommended), 1);
+
+                    if (MCH_ST_GaussOnlyOrBoth == 0)
+                    {
+                        DrawSliderInt(0, 2, MCH_ST_GaussRicoManualUse,
+                            Generics.ChargePool);
+                    }
                     break;
 
                 case Preset.MCH_ST_Adv_Reassemble:
-
                     DrawHorizontalRadioButton(MCH_ST_Adv_ReassembleChoice,
                         MCH_Config.SaveForEvenWindows,
                         FormatAndCache(MCH_Config.Save0ForEvenWindows, Reassemble.ActionName()), 0);
@@ -167,7 +176,6 @@ internal partial class MCH
                     break;
 
                 case Preset.MCH_ST_Adv_Tools:
-
                     DrawSliderInt(0, 50, MCH_ST_ToolsHPOption,
                         Generics.StopEnemyHpPercent);
 
@@ -228,7 +236,6 @@ internal partial class MCH
                     break;
 
                 case Preset.MCH_AoE_Adv_FlameThrower:
-
                     DrawHorizontalRadioButton(MCH_AoE_FlamethrowerMovement,
                         Generics.StationaryOnly,
                         FormatAndCache(Generics.UseActionOnlyWhileStationary, Flamethrower.ActionName()), 0);
@@ -317,7 +324,8 @@ internal partial class MCH
             MCH_ST_QueenBossOption = new("MCH_ST_QueenBossOption"),
             MCH_ST_TurretUsage = new("MCH_ST_TurretUsage", 100),
             MCH_ST_ReassemblePool = new("MCH_ST_ReassemblePool"),
-            MCH_ST_GaussRicoPool = new("MCH_ST_GaussRicoPool"),
+            MCH_ST_GaussRicoManualUse = new("MCH_ST_GaussRicoPool"),
+            MCH_ST_GaussOnlyOrBoth = new("MCH_ST_GaussRicoUseBoth"),
             MCH_ST_SecondWindHPThreshold = new("MCH_ST_SecondWindThreshold", 40),
 
             //AoE

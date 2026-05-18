@@ -284,6 +284,11 @@ internal partial class SCH
                 #endregion
 
                 #region Standalones
+                case Preset.SCH_Dissipation:
+                    DrawAdditionalBoolChoice(SCH_Dissipation_WastePrevention, Generics.WastePrevention, 
+                        FormatAndCache(Generics.SavageBladeWaste, Dissipation.ActionName(), All.SavageBlade.ActionName()));
+                    break;
+                    
                 case Preset.SCH_Aetherflow:
                     DrawRadioButton(SCH_Aetherflow_Display, "Show Aetherflow On Energy Drain Only", "", 0);
                     DrawRadioButton(SCH_Aetherflow_Display, "Show Aetherflow On All Aetherflow Skills", "", 1);
@@ -445,6 +450,7 @@ internal partial class SCH
         #region Standalones
 
         internal static UserBool
+            SCH_Dissipation_WastePrevention = new("SCH_Dissipation_WastePrevention"),
             SCH_Aetherflow_Recite_Indom = new("SCH_Aetherflow_Recite_Indom"),
             SCH_Aetherflow_Recite_Excog = new("SCH_Aetherflow_Recite_Excog");
         internal static UserInt

@@ -20,7 +20,6 @@ internal partial class PLD
             switch (preset)
             {
                 #region Combo Mitigations
-
                 case Preset.PLD_ST_SimpleMode:
                     DrawHorizontalRadioButton(PLD_ST_MitOptions, Generics.IncludeSimpleMitigations, Generics.EnablesTheUseOfMitigations, 0);
                     DrawHorizontalRadioButton(PLD_ST_MitOptions, Generics.ExcludeSimpleMitigations, Generics.DisablesTheUseOfMitigations, 1);
@@ -78,16 +77,15 @@ internal partial class PLD
                 case Preset.PLD_Mitigation_Boss_Sentinel:
                     DrawDifficultyMultiChoice(PLD_Mitigation_Boss_Sentinel_Difficulty, PLD_Boss_Mit_DifficultyListSet,
                         Generics.SelectWhatKindOfContentThisOptionAppliesTo);
-                    DrawAdditionalBoolChoice(PLD_Mitigation_Boss_Sentinel_First, "Use Sentinel First", "Uses Sentinel before Rampart");
+                    DrawAdditionalBoolChoice(PLD_Mitigation_Boss_Sentinel_First, FormatAndCache(Generics.Use0Before1, Sentinel.ActionName(), Role.Rampart.ActionName()),"");
                     break;
 
                 case Preset.PLD_Mitigation_Boss_Bulwark:
                     DrawDifficultyMultiChoice(PLD_Mitigation_Boss_Bulwark_Difficulty, PLD_Boss_Mit_DifficultyListSet,
                         Generics.SelectWhatKindOfContentThisOptionAppliesTo);
-                    DrawSliderFloat(1, 100, PLD_Mitigation_Boss_Bulwark_Threshold, "Will use Bulwark as extra tankbuster mitigation if under this HP%", decimals: 0);
-                    DrawAdditionalBoolChoice(PLD_Mitigation_Boss_Bulwark_Align, "Align Bulwark", "Tries to align Bulwark with Rampart for tankbusters.");
+                    DrawSliderFloat(1, 100, PLD_Mitigation_Boss_Bulwark_Threshold, FormatAndCache(Generics.PlayerHPToUseExtraMitigation, Bulwark.ActionName()), decimals: 0);
+                    DrawAdditionalBoolChoice(PLD_Mitigation_Boss_Bulwark_Align, FormatAndCache(Generics.Align0With1, Bulwark.ActionName(), Role.Rampart.ActionName()), "");
                     break;
-
                 #endregion
 
                 #region ST
@@ -95,256 +93,191 @@ internal partial class PLD
                 case Preset.PLD_ST_AdvancedMode_BalanceOpener:
                     DrawBossOnlyChoice(PLD_Balance_Content);
                     ImGui.NewLine();
-                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_BalanceOpener_Intervene, "Use Gap Closers", "Does not skip Intervene in the Opener.", 0);
-                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_BalanceOpener_Intervene, "Skip Gap Closers", "Skips Intervene in the Opener.", 1);
+                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_BalanceOpener_Intervene, FormatAndCache(Generics.Use0, Intervene.ActionName()), 
+                        FormatAndCache(Generics.GapcloserUse, Intervene.ActionName()), 0);
+                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_BalanceOpener_Intervene, FormatAndCache(Generics.DontUse0, Intervene.ActionName()), 
+                        FormatAndCache(Generics.GapcloseSkip, Intervene.ActionName()), 1);
                     break;
 
                 case Preset.PLD_ST_AdvancedMode_GoringBlade:
-                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_GoringBladePrioritize, "Prioritize Goring Blade", "Prioritizes Goring Blade before Confiteor Combo is if Melee Range.", 0);
-                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_GoringBladePrioritize, "Prioritize Confiteor Combo", "Will Goring Blade after Confiteor Combo.", 1);
+                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_GoringBladePrioritize, FormatAndCache(Generics.Prioritize, Confiteor.ActionName()), 
+                        FormatAndCache(Generics.Use0Before1, Confiteor.ActionName(), GoringBlade.ActionName()), 0);
+                    DrawHorizontalRadioButton(PLD_ST_AdvancedMode_GoringBladePrioritize, FormatAndCache(Generics.Prioritize, GoringBlade.ActionName()), 
+                        FormatAndCache(Generics.Use0Before1, GoringBlade.ActionName(), Confiteor.ActionName()), 1);
                     break;
-
-                // Fight or Flight
-                case Preset.PLD_ST_AdvancedMode_FoF:
-                    DrawSliderInt(0, 50, PLD_ST_FoF_HPOption,
-                        Generics.StopEnemyHpPercent);
-
+                
+                case Preset.PLD_ST_AdvancedMode_FoF: DrawSliderInt(0, 50, PLD_ST_FoF_HPOption, Generics.StopEnemyHpPercent);
                     ImGui.Indent();
-
                     ImGui.TextColored(ImGuiColors.DalamudYellow,
                         Generics.EnemyTypeCheck);
-
-                    DrawHorizontalRadioButton(PLD_ST_FoF_BossOption,
-                        Generics.NonBosses, Generics.HPCheckNonBosses, 0);
-
-                    DrawHorizontalRadioButton(PLD_ST_FoF_BossOption,
-                        Generics.AllEnemies, Generics.HPCheckAllEnemies, 1);
+                    DrawHorizontalRadioButton(PLD_ST_FoF_BossOption, Generics.NonBosses, Generics.HPCheckNonBosses, 0);
+                    DrawHorizontalRadioButton(PLD_ST_FoF_BossOption, Generics.AllEnemies, Generics.HPCheckAllEnemies, 1);
                     ImGui.Unindent();
                     break;
 
-
-                // Intervene
                 case Preset.PLD_ST_AdvancedMode_Intervene:
-                    DrawHorizontalRadioButton(PLD_ST_Intervene_Movement,
-                        Generics.StationaryOnly, FormatAndCache(Generics.UseActionOnlyWhileStationary, Intervene.ActionName()), 0);
-
-                    DrawHorizontalRadioButton(PLD_ST_Intervene_Movement,
-                        Generics.AnyMovement, FormatAndCache(Generics.Uses0RegardlessOfAnyMovementConditions, Intervene.ActionName()), 1);
+                    DrawHorizontalRadioButton(PLD_ST_Intervene_Movement, Generics.StationaryOnly, 
+                        FormatAndCache(Generics.UseActionOnlyWhileStationary, Intervene.ActionName()), 0);
+                    DrawHorizontalRadioButton(PLD_ST_Intervene_Movement, Generics.AnyMovement, 
+                        FormatAndCache(Generics.Uses0RegardlessOfAnyMovementConditions, Intervene.ActionName()), 1);
 
                     ImGui.Spacing();
                     if (PLD_ST_Intervene_Movement == 0)
                     {
-                        DrawSliderFloat(0, 3, PLD_ST_InterveneTimeStill,
-                            Generics.StationaryDelayCheck, decimals: 1);
+                        DrawSliderFloat(0, 3, PLD_ST_InterveneTimeStill, Generics.StationaryDelayCheck, decimals: 1);
                     }
-
-                    DrawSliderInt(0, 2, PLD_ST_Intervene_Charges,
-                        Generics.HowManyChargesToKeepReady);
-
-                    DrawSliderInt(1, 20, PLD_ST_Intervene_Distance,
-                        Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
+                    
+                    DrawSliderInt(0, 2, PLD_ST_Intervene_Charges, Generics.HowManyChargesToKeepReady);
+                    DrawSliderInt(1, 20, PLD_ST_Intervene_Distance, Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
                     break;
-
-                // Shield Lob
+                
                 case Preset.PLD_ST_AdvancedMode_ShieldLob:
-                    DrawHorizontalRadioButton(PLD_ST_ShieldLob_SubOption, "Shield Lob Only",
-                        "", 0);
-
-                    DrawHorizontalRadioButton(PLD_ST_ShieldLob_SubOption, "Add Holy Spirit",
-                        "Attempts to hardcast Holy Spirit when not moving.\n- Requires sufficient MP to cast.", 1);
-
+                    DrawHorizontalRadioButton(PLD_ST_ShieldLob_SubOption, FormatAndCache(Generics.DontUse0, HolySpirit.ActionName()), "", 0);
+                    DrawHorizontalRadioButton(PLD_ST_ShieldLob_SubOption, FormatAndCache(Generics.Add0, HolySpirit.ActionName()), 
+                        FormatAndCache(Generics.OnlyUse0WhenNotMoving, HolySpirit.ActionName()), 1);
                     break;
 
-                // MP Reservation
                 case Preset.PLD_ST_AdvancedMode_MP_Reserve:
-                    DrawSliderInt(1000, 5000, PLD_ST_MP_Reserve, "Minimum MP", sliderIncrement: 100);
-
+                    DrawSliderInt(1000, 5000, PLD_ST_MP_Reserve, FormatAndCache(Generics.MPGreaterOrEqual), sliderIncrement: 100);
                     break;
-
                 #endregion
 
                 #region AoE
 
                 case Preset.PLD_AoE_AdvancedMode_FoF:
-                    DrawSliderInt(0, 50, PLD_AoE_FoF_Trigger, "Target HP%", 200);
+                    DrawSliderInt(0, 50, PLD_ST_FoF_HPOption, Generics.StopEnemyHpPercent, 200);
+                    ImGui.Indent();
+                    ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
+                    DrawHorizontalRadioButton(PLD_AoE_FoF_BossOption, Generics.NonBosses, Generics.HPCheckNonBosses, 0);
+                    DrawHorizontalRadioButton(PLD_AoE_FoF_BossOption, Generics.AllEnemies, Generics.HPCheckAllEnemies, 1);
+                    ImGui.Unindent();
+                    break;
+                
+                case Preset.PLD_AoE_AdvancedMode_GoringBlade:
+                    DrawHorizontalRadioButton(PLD_AoE_AdvancedMode_GoringBladePrioritize, FormatAndCache(Generics.Prioritize, Confiteor.ActionName()), 
+                        FormatAndCache(Generics.Use0Before1, Confiteor.ActionName(), GoringBlade.ActionName()), 0);
+                    DrawHorizontalRadioButton(PLD_AoE_AdvancedMode_GoringBladePrioritize, FormatAndCache(Generics.Prioritize, GoringBlade.ActionName()), 
+                        FormatAndCache(Generics.Use0Before1, GoringBlade.ActionName(), Confiteor.ActionName()), 1);
                     break;
 
                 case Preset.PLD_AoE_AdvancedMode_Intervene:
-                    DrawHorizontalRadioButton(PLD_AoE_Intervene_Movement,
-                        Generics.StationaryOnly, FormatAndCache(Generics.UseActionOnlyWhileStationary, Intervene.ActionName()), 0);
-
-                    DrawHorizontalRadioButton(PLD_AoE_Intervene_Movement,
-                        Generics.AnyMovement, FormatAndCache(Generics.Uses0RegardlessOfAnyMovementConditions, Intervene.ActionName()), 1);
+                    DrawHorizontalRadioButton(PLD_AoE_Intervene_Movement, Generics.StationaryOnly, 
+                        FormatAndCache(Generics.UseActionOnlyWhileStationary, Intervene.ActionName()), 0);
+                    DrawHorizontalRadioButton(PLD_AoE_Intervene_Movement, Generics.AnyMovement, 
+                        FormatAndCache(Generics.Uses0RegardlessOfAnyMovementConditions, Intervene.ActionName()), 1);
 
                     ImGui.Spacing();
                     if (PLD_AoE_Intervene_Movement == 0)
                     {
-                        DrawSliderFloat(0, 3, PLD_AoE_InterveneTimeStill,
-                            Generics.StationaryDelayCheck, decimals: 1);
+                        DrawSliderFloat(0, 3, PLD_AoE_InterveneTimeStill, Generics.StationaryDelayCheck, decimals: 1);
                     }
-
-                    DrawSliderInt(0, 2, PLD_AoE_Intervene_Charges,
-                        Generics.HowManyChargesToKeepReady);
-
-                    DrawSliderInt(1, 20, PLD_AoE_Intervene_Distance,
-                        Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
+                    DrawSliderInt(0, 2, PLD_AoE_Intervene_Charges, Generics.HowManyChargesToKeepReady);
+                    DrawSliderInt(1, 20, PLD_AoE_Intervene_Distance, Generics.UseWhenDistanceFromTargetIsLessThanOrEqualTo);
                     break;
 
                 case Preset.PLD_AoE_AdvancedMode_MP_Reserve:
-                    DrawSliderInt(1000, 5000, PLD_AoE_MP_Reserve, "Minimum MP", sliderIncrement: 100);
-
+                    DrawSliderInt(1000, 5000, PLD_AoE_MP_Reserve, FormatAndCache(Generics.MPGreaterOrEqual), sliderIncrement: 100);
                     break;
-
+                
+                case Preset.PLD_AoE_AdvancedMode_ShieldLob:
+                    DrawHorizontalRadioButton(PLD_AoE_ShieldLob_SubOption, FormatAndCache(Generics.DontUse0, HolySpirit.ActionName()), "", 0);
+                    DrawHorizontalRadioButton(PLD_AoE_ShieldLob_SubOption, FormatAndCache(Generics.Add0, HolySpirit.ActionName()), 
+                        FormatAndCache(Generics.OnlyUse0WhenNotMoving, HolySpirit.ActionName()), 1);
+                    break;
                 #endregion
 
                 #region Standalones
 
-                // Requiescat Spender Feature
                 case Preset.PLD_Requiescat_Options:
-                    DrawHorizontalRadioButton(PLD_Requiescat_SubOption, "Normal Behavior",
-                        "", 0);
-
-                    DrawHorizontalRadioButton(PLD_Requiescat_SubOption, "Add Fight or Flight",
-                        "Adds Fight or Flight to the normal logic.\n- Requires Resquiescat to be ready.", 1);
-
+                    DrawHorizontalRadioButton(PLD_Requiescat_SubOption, FormatAndCache(Generics.DontUse0, FightOrFlight.ActionName()), "", 0);
+                    DrawHorizontalRadioButton(PLD_Requiescat_SubOption, FormatAndCache(Generics.Add0, FightOrFlight.ActionName()),
+                        FormatAndCache(Generics.Add0When1IsReady, FightOrFlight.ActionName(), Requiescat.ActionName()), 1);
+                    if (PLD_Requiescat_SubOption == 1)
+                    {
+                        DrawAdditionalBoolChoice(PLD_Requiescat_SubOption_GoringBlade, FormatAndCache(Generics.Use0, GoringBlade.ActionName()), "");
+                    }
                     break;
-
-                // Spirits Within / Circle of Scorn Feature
+              
                 case Preset.PLD_SpiritsWithin:
-                    DrawHorizontalRadioButton(PLD_SpiritsWithin_SubOption, "Normal Behavior",
-                        "", 0);
-
-                    DrawHorizontalRadioButton(PLD_SpiritsWithin_SubOption, "Add Drift Prevention",
-                        "Prevents Spirits Within and Circle of Scorn from drifting.\n- Actions must be used within 5 seconds of each other.", 1);
-
+                    DrawAdditionalBoolChoice(PLD_SpiritsWithin_SubOption, FormatAndCache(Generics.Align0With1, CircleOfScorn.ActionName(), SpiritsWithin.ActionName()), "");
                     break;
 
-                // Retarget Clemency Feature
-                case Preset.PLD_RetargetClemency_LowHP:
-                    DrawSliderInt(1, 100, PLD_RetargetClemency_Health, "Player HP%", 200);
+                
+                case Preset.PLD_RetargetClemency_LowHP: DrawSliderInt(1, 100, PLD_RetargetClemency_Health, Generics.PlayerHPLessOrEqual, 200);
                     break;
 
-                // Retarget Cover Feature
-                case Preset.PLD_RetargetCover_LowHP:
-                    DrawSliderInt(1, 100, PLD_RetargetCover_Health, "Ally HP%", 200);
+                case Preset.PLD_RetargetCover_LowHP: DrawSliderInt(1, 100, PLD_RetargetCover_Health, Generics.AllyHPLessOrEqual , 200);
+                    break;
+                
+                case Preset.PLD_RetargetSheltron_TT:
+                    ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey, Generics.PLDSheltronWarning);
                     break;
 
                 case Preset.PLD_ST_BasicCombo:
-                    DrawAdditionalBoolChoice(PLD_HolySpirit_Standalone, "Add Holy Spirit overwrite protection.", "Will use Holy Spirit before overwriting the buff.");
+                    DrawAdditionalBoolChoice(PLD_HolySpirit_Standalone, FormatAndCache(Generics.Use0, HolySpirit.ActionName()), "");
                     break;
 
                 case Preset.PLD_AoE_BasicCombo:
-                    DrawAdditionalBoolChoice(PLD_HolyCircle_Standalone, "Add Holy Circle overwrite protection.", "Will use Holy Circle before overwriting the buff.");
+                    DrawAdditionalBoolChoice(PLD_HolyCircle_Standalone, FormatAndCache(Generics.Use0, HolyCircle.ActionName()), "");
                     break;
-
-                case Preset.PLD_RetargetSheltron_TT:
-                    ImGui.Indent();
-                    ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                        "Note: If you are Off-Tanking, and want to use Sheltron on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.\n" +
-                        "You could also mouseover yourself in the party to use Sheltron in this case.\n" +
-                        "If you don't, intervention would replace the combo, and it would go to the main tank.\n" +
-                        "If you don't use those Features for your personal mitigation, you may not want to enable this.");
-                    ImGui.Unindent();
-                    break;
+                
                 case Preset.PLD_RetargetShieldBash:
-                    DrawAdditionalBoolChoice(PLD_RetargetStunLockout, "Lockout Action", "If no stunnable targets are found, lock the action with Savage Blade");
+                    DrawAdditionalBoolChoice(PLD_RetargetStunLockout, FormatAndCache(Generics.LockoutAction, ShieldBash.ActionName()), 
+                        FormatAndCache(Generics.BlockStun, ShieldBash.ActionName()));
                     if (PLD_RetargetStunLockout)
-                        DrawSliderInt(1, 3, PLD_RetargetShieldBash_Strength, "Lockout when stun has been applied this many times");
+                    {
+                         DrawSliderInt(1, 3, PLD_RetargetShieldBash_Strength, Generics.LockoutActionStunCount);
+                    }
                     break;
-
                 #endregion
 
                 #region One-Button Mitigation
 
-                case Preset.PLD_Mit_HallowedGround_Max:
-                    DrawDifficultyMultiChoice(
-                        PLD_Mit_HallowedGround_Max_Difficulty,
-                        PLD_Mit_HallowedGround_Max_DifficultyListSet,
-                        "Select what difficulties Hallowed Ground should be used in:"
-                    );
-
-                    DrawSliderInt(1, 100, PLD_Mit_HallowedGround_Max_Health,
-                        Generics.StopFriendlyHpPercent100,
-                        200, SliderIncrements.Fives);
+                case Preset.PLD_Mit_HallowedGround_Max: DrawDifficultyMultiChoice(PLD_Mit_HallowedGround_Max_Difficulty, 
+                        PLD_Mit_HallowedGround_Max_DifficultyListSet, Generics.SelectWhatKindOfContentThisOptionAppliesTo);
+                    DrawSliderInt(1, 100, PLD_Mit_HallowedGround_Max_Health, Generics.StopFriendlyHpPercent100, 200, SliderIncrements.Fives);
                     break;
 
-                case Preset.PLD_Mit_Sheltron:
-                    DrawPriorityInput(PLD_Mit_Priorities,
-                        NumberMitigationOptions, 0,
-                        "Sheltron Priority:");
+                case Preset.PLD_Mit_Sheltron: DrawPriorityInput(PLD_Mit_Priorities, NumberMitigationOptions, 0, Generics.Priority);
                     break;
 
-                case Preset.PLD_Mit_Reprisal:
-                    DrawPriorityInput(PLD_Mit_Priorities,
-                        NumberMitigationOptions, 1,
-                        "Reprisal Priority:");
+                case Preset.PLD_Mit_Reprisal: DrawPriorityInput(PLD_Mit_Priorities, NumberMitigationOptions, 1, Generics.Priority);
                     break;
 
                 case Preset.PLD_Mit_DivineVeil:
                     ImGui.Indent();
-                    DrawHorizontalRadioButton(
-                        PLD_Mit_DivineVeil_PartyRequirement,
-                        "Require party",
-                        "Will not use Divine Veil unless there are 2 or more party members.",
-                        (int)PartyRequirement.Yes);
-
-                    DrawHorizontalRadioButton(
-                        PLD_Mit_DivineVeil_PartyRequirement,
-                        "Use Always",
-                        "Will not require a party for Divine Veil.",
-                        (int)PartyRequirement.No);
+                    DrawHorizontalRadioButton(PLD_Mit_DivineVeil_PartyRequirement, Generics.RequireParty, "", (int)PartyRequirement.Yes);
+                    DrawHorizontalRadioButton(PLD_Mit_DivineVeil_PartyRequirement, Generics.UseAlways, "", (int)PartyRequirement.No);
                     ImGui.Unindent();
-
-                    DrawPriorityInput(PLD_Mit_Priorities,
-                        NumberMitigationOptions, 2,
-                        "Divine Veil Priority:");
+                    DrawPriorityInput(PLD_Mit_Priorities, NumberMitigationOptions, 2, Generics.Priority);
                     break;
 
                 case Preset.PLD_Mit_Rampart:
-                    DrawPriorityInput(PLD_Mit_Priorities,
-                        NumberMitigationOptions, 3,
-                        "Rampart Priority:");
+                    DrawPriorityInput(PLD_Mit_Priorities, NumberMitigationOptions, 3, Generics.Priority);
                     break;
 
                 case Preset.PLD_Mit_Bulwark:
-                    DrawPriorityInput(PLD_Mit_Priorities,
-                        NumberMitigationOptions, 4,
-                        "Bulwark Priority:");
+                    DrawPriorityInput(PLD_Mit_Priorities, NumberMitigationOptions, 4, Generics.Priority);
                     break;
 
                 case Preset.PLD_Mit_ArmsLength:
                     ImGui.Indent();
-                    DrawHorizontalRadioButton(PLD_Mit_ArmsLength_Boss,
-                        Generics.AllEnemies, "Will use Arm's Length regardless of the type of enemy.", (int)BossAvoidance.Off, 125f);
-
-                    DrawHorizontalRadioButton(PLD_Mit_ArmsLength_Boss,
-                        "Avoid Bosses", "Will try not to use Arm's Length when in a boss fight.", (int)BossAvoidance.On, 125f);
+                    DrawHorizontalRadioButton(PLD_Mit_ArmsLength_Boss, Generics.AllEnemies,"", (int)BossAvoidance.Off, 125f);
+                    DrawHorizontalRadioButton(PLD_Mit_ArmsLength_Boss, Generics.NotInBossEncounters, "", (int)BossAvoidance.On, 125f);
                     ImGui.Unindent();
-
-                    DrawSliderInt(0, 5, PLD_Mit_ArmsLength_EnemyCount,
-                        "How many enemies should be nearby? (0 = No Requirement)");
-
-                    DrawPriorityInput(PLD_Mit_Priorities,
-                        NumberMitigationOptions, 5,
-                        "Arm's Length Priority:");
+                    DrawSliderInt(0, 5, PLD_Mit_ArmsLength_EnemyCount, Generics.MinimumNumberOfEnemies);
+                    DrawPriorityInput(PLD_Mit_Priorities, NumberMitigationOptions, 5, Generics.Priority);
                     break;
 
                 case Preset.PLD_Mit_Sentinel:
-                    DrawPriorityInput(PLD_Mit_Priorities,
-                        NumberMitigationOptions, 6,
-                        "Sentinel Priority:");
+                    DrawPriorityInput(PLD_Mit_Priorities, NumberMitigationOptions, 6, Generics.Priority);
                     break;
 
                 case Preset.PLD_Mit_Clemency:
-                    DrawSliderInt(1, 100, PLD_Mit_Clemency_Health,
-                        Generics.StopFriendlyHpPercent100,
-                        sliderIncrement: SliderIncrements.Ones);
+                    DrawSliderInt(1, 100, PLD_Mit_Clemency_Health, Generics.StopFriendlyHpPercent100, sliderIncrement: SliderIncrements.Ones);
 
-                    DrawPriorityInput(PLD_Mit_Priorities,
-                        NumberMitigationOptions, 7,
-                        "Clemency Priority:");
+                    DrawPriorityInput(PLD_Mit_Priorities, NumberMitigationOptions, 7, Generics.Priority);
                     break;
-
                     #endregion
             }
         }
@@ -378,15 +311,17 @@ internal partial class PLD
             PLD_ST_AdvancedMode_GoringBladePrioritize = new("PLD_ST_AdvancedMode_GoringBladePrioritize"),
 
             //AoE
-            PLD_AoE_FoF_Trigger = new("PLD_AoE_FoF_Trigger", 25),
+            PLD_AoE_FoF_HPOption = new("PLD_AoE_FoF_HPOption", 25),
+            PLD_AoE_FoF_BossOption = new("PLD_AoE_FoF_BossOption"),
+            PLD_AoE_AdvancedMode_GoringBladePrioritize = new("PLD_AoE_AdvancedMode_GoringBladePrioritize"),
             PLD_AoE_Intervene_Charges = new("PLD_AoE_Intervene_Charges"),
             PLD_AoE_Intervene_Movement = new("PLD_AoE_Intervene_Movement"),
             PLD_AoE_Intervene_Distance = new("PLD_AoE_Intervene_Distance", 3),
+            PLD_AoE_ShieldLob_SubOption = new("PLD_AoE_ShieldLob_SubOption"),
             PLD_AoE_MP_Reserve = new("PLD_AoE_MP_Reserve", 1000),
 
             //Standalone
             PLD_Requiescat_SubOption = new("PLD_Requiescat_SubOption"),
-            PLD_SpiritsWithin_SubOption = new("PLD_SpiritsWithin_SubOption", 1),
 
             //Retarget
             PLD_RetargetClemency_Health = new("PLD_RetargetClemency_Health", 30),
@@ -411,7 +346,9 @@ internal partial class PLD
             PLD_Mitigation_Boss_Bulwark_Align = new("PLD_Mitigation_Boss_Bulwark_Align"),
             PLD_Mitigation_Boss_Sentinel_First = new("PLD_Mitigation_Boss_Sentinel_First"),
             PLD_HolySpirit_Standalone = new("PLD_HolySpirit_Standalone"),
-            PLD_HolyCircle_Standalone = new("PLD_HolyCircle_Standalone");
+            PLD_HolyCircle_Standalone = new("PLD_HolyCircle_Standalone"),
+            PLD_SpiritsWithin_SubOption = new("PLD_SpiritsWithin_SubOption"),
+            PLD_Requiescat_SubOption_GoringBlade = new("PLD_Requiescat_SubOption_GoringBlade");
 
         public static UserIntArray
             PLD_Mit_Priorities = new("PLD_Mit_Priorities");

@@ -423,31 +423,28 @@ internal partial class VPR
             UncoiledTwinblood, //26
             HindstingStrike, //27
             DeathRattle, //28
-            Vicewinder,
-            UncoiledFury, //30
-            UncoiledTwinfang, //31
-            UncoiledTwinblood, //32
-            HuntersCoil, //33
-            TwinfangBite, //34
-            TwinbloodBite, //35
-            SwiftskinsCoil, //36
-            TwinbloodBite, //37
-            TwinfangBite //38
+            Vicewinder, //29
+            HuntersCoil, //30
+            TwinfangBite, //31
+            TwinbloodBite, //32
+            SwiftskinsCoil, //33
+            TwinbloodBite, //34
+            TwinfangBite //35
         ];
 
         public override List<(int[], uint, Func<bool>)> SubstitutionSteps { get; set; } =
         [
-            ([33], SwiftskinsCoil, OnTargetsRear),
-            ([34], TwinbloodBite, () => HasStatusEffect(Buffs.SwiftskinsVenom)),
-            ([35], TwinfangBite, () => HasStatusEffect(Buffs.HuntersVenom)),
-            ([36], HuntersCoil, () => UsedSwiftskinsCoil),
-            ([37], TwinfangBite, () => HasStatusEffect(Buffs.HuntersVenom)),
-            ([38], TwinbloodBite, () => HasStatusEffect(Buffs.SwiftskinsVenom))
+            ([30], SwiftskinsCoil, OnTargetsRear),
+            ([31], TwinbloodBite, () => HasStatusEffect(Buffs.SwiftskinsVenom)),
+            ([32], TwinfangBite, () => HasStatusEffect(Buffs.HuntersVenom)),
+            ([33], HuntersCoil, () => UsedSwiftskinsCoil),
+            ([34], TwinfangBite, () => HasStatusEffect(Buffs.HuntersVenom)),
+            ([35], TwinbloodBite, () => HasStatusEffect(Buffs.SwiftskinsVenom))
         ];
 
         public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
         [
-            ([21, 22, 23, 24, 25, 26, 30, 31, 32], () => VPR_Opener_ExcludeUF || !HasCharges(RattlingCoil)),
+            ([21, 22, 23, 24, 25, 26], () => VPR_Opener_ExcludeUF || !HasCharges(RattlingCoil)),
             ([27], () => ComboAction is not SwiftskinsSting),
             ([28], () => !DeathRattleWeave && !JustUsed(HindstingStrike))
         ];

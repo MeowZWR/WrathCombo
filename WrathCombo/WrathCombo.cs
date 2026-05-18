@@ -378,9 +378,10 @@ public sealed partial class WrathCombo : IDalamudPlugin
             {
                 var status = new TextPayload(WrathOpener.OpenerStatus());
                 OpenerDtr.Text = new SeString(status);
+                OpenerDtr.Shown = true;
             }
             else
-                OpenerDtr.Text = "";
+                OpenerDtr.Shown = false;
 
             if (Service.Configuration.TankbusterTTS || Service.Configuration.TankbusterToast)
                 CustomComboFunctions.PlayTankbusterAlert();

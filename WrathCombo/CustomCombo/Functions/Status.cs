@@ -271,7 +271,7 @@ internal abstract partial class CustomComboFunctions
 
         // Returning False in each case because there should be no other General Invincibility Check needed
         // for specified areas
-        switch (Svc.ClientState.TerritoryType)
+        switch (Content.TerritoryID)
         {
             case 174: // Labyrinth of the Ancients
                 // Thanatos, Spooky Ghosts Only
@@ -469,6 +469,11 @@ internal abstract partial class CustomComboFunctions
                 // 19287 Red Hot
                 // 19288 Deep Blue
                 return targetID is 19287 or 19288 && GetTargetCurrentHP(target) <= 1;
+
+            case 1368: // Windurst The Third Walk
+                // Alexander Battle
+                // 19805 Gordius System's Perfect Defense
+                return targetID is 19805 && HasStatusEffect(5377, tar, true);
 
             default:
                 // General invincibility check

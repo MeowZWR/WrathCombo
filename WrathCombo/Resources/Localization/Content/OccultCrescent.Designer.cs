@@ -87,6 +87,42 @@ namespace WrathCombo.Resources.Localization.Content {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you are NOT one of the jobs that regularly damage buffs themselves, or do not party up in OC, then this will SKIP using Phantom Abilities until burst time is detected (which might be never on a buff-less job)!.
+        /// </summary>
+        internal static string BuffOnlyDont {
+            get {
+                return ResourceManager.GetString("BuffOnlyDont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DRK, PLD, WAR, AST, MNK, DRG, NIN, BRD, are the only jobs this is likely to be a good option for.
+        /// </summary>
+        internal static string BuffOnlyList {
+            get {
+                return ResourceManager.GetString("BuffOnlyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Many jobs do not have self buffs that are up regularly, many burst phases cannot accommodate extra Phantom Abilities, and many Phantom Abilities are up more often than this on would be on many jobs!.
+        /// </summary>
+        internal static string BuffOnlyNotRecommended {
+            get {
+                return ResourceManager.GetString("BuffOnlyNotRecommended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is a costly Feature!.
+        /// </summary>
+        internal static string Costly {
+            get {
+                return ResourceManager.GetString("Costly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not advisable in most situations!.
         /// </summary>
         internal static string NotAdvised {

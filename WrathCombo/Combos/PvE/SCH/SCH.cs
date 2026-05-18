@@ -643,6 +643,28 @@ internal partial class SCH : Healer
         }
     }
     #endregion
+    
+    #region Dissapation to Aetherflow
+    internal class SCH_Dissipation : CustomCombo
+    {
+        protected internal override Preset Preset => Preset.SCH_Dissipation;
+
+        protected override uint Invoke(uint actionID)
+        {
+            if (actionID is not Dissipation)
+                return actionID;
+
+            if (SCH_Dissipation_WastePrevention && HasAetherflow)
+                return All.SavageBlade;
+
+            return IsOffCooldown(Aetherflow) || 
+                   !LevelChecked(Dissipation) || 
+                   GetCooldownRemainingTime(Aetherflow) < GetCooldownRemainingTime(Dissipation)
+                ? Aetherflow
+                : actionID;
+        }
+    }
+    #endregion
 
     #region Aetherflow Reminder
     internal class SCH_Aetherflow : CustomCombo

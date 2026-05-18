@@ -96,6 +96,17 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NOT RECOMMENDED!
+        ///Only useful in Deep Dungeons to single pull.
+        ///Will only work up until lvl 92..
+        /// </summary>
+        internal static string NotRecommended {
+            get {
+                return ResourceManager.GetString("NotRecommended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saves {0} for 2 minute windows
         ///THIS WILL CAUSE IT TO OVERCAP!.
         /// </summary>
@@ -115,7 +126,8 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop Using Tools When Target HP% is at or Below (Set to 0 to Disable This Check).
+        ///   Looks up a localized string similar to Stop Using Tools When Target HP% is at or Below
+        ///(Set to 0 to Disable This Check).
         /// </summary>
         internal static string StopUsingToolsBelowHpPercentage {
             get {

@@ -13,78 +13,14 @@ namespace WrathCombo.Combos.PvE;
 internal partial class PLD
 {
     #region Variables
-
+    
     private static PLDGauge Gauge => GetJobGauge<PLDGauge>();
-
-    private static float DurationFightOrFlight =>
-        GetStatusEffectRemainingTime(Buffs.FightOrFlight);
-
-    private static float CooldownFightOrFlight =>
-        GetCooldownRemainingTime(FightOrFlight);
-
-    private static float CooldownRequiescat =>
-        GetCooldownRemainingTime(Requiescat);
-
-    private static bool CanFightOrFlight =>
-        OriginalHook(FightOrFlight) is FightOrFlight && ActionReady(FightOrFlight);
-
-    private static bool HasRequiescat =>
-        HasStatusEffect(Buffs.Requiescat);
 
     private static bool HasDivineMight =>
         HasStatusEffect(Buffs.DivineMight);
 
-    private static bool HasFightOrFlight =>
-        HasStatusEffect(Buffs.FightOrFlight);
-
     private static bool HasDivineMagicMP =>
         LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit);
-
-    private static bool HasRequiescatMPSimple =>
-        LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) * 3.6;
-
-    private static bool HasRequiescatMPAdv =>
-        IsNotEnabled(Preset.PLD_ST_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) * 3.6 ||
-        IsEnabled(Preset.PLD_ST_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) * 3.6 + PLD_ST_MP_Reserve;
-
-    private static bool HasRequiescatMPAdvAoE =>
-        IsNotEnabled(Preset.PLD_AoE_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) * 3.6 ||
-        IsEnabled(Preset.PLD_AoE_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) * 3.6 + PLD_AoE_MP_Reserve;
-
-    private static bool InBurstWindow =>
-        JustUsed(FightOrFlight, 30f);
-
-    private static bool InAtonementStarter =>
-        HasStatusEffect(Buffs.AtonementReady);
-
-    private static bool InAtonementFinisher =>
-        HasStatusEffect(Buffs.SepulchreReady);
-
-    private static bool InAtonementPhase =>
-        HasStatusEffect(Buffs.AtonementReady) || HasStatusEffect(Buffs.SupplicationReady) || HasStatusEffect(Buffs.SepulchreReady);
-
-    private static bool IsDivineMightExpiring =>
-        GetStatusEffectRemainingTime(Buffs.DivineMight) < 6;
-
-    private static bool IsAtonementExpiring =>
-        HasStatusEffect(Buffs.AtonementReady) && GetStatusEffectRemainingTime(Buffs.AtonementReady) < 6 ||
-        HasStatusEffect(Buffs.SupplicationReady) && GetStatusEffectRemainingTime(Buffs.SupplicationReady) < 6 ||
-        HasStatusEffect(Buffs.SepulchreReady) && GetStatusEffectRemainingTime(Buffs.SepulchreReady) < 6;
-
-    private static bool IsAboveMPReserveAoE =>
-        IsNotEnabled(Preset.PLD_AoE_AdvancedMode_MP_Reserve) ||
-        IsEnabled(Preset.PLD_AoE_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) + PLD_AoE_MP_Reserve;
-
-    private static bool IsAboveMPReserveST =>
-        IsNotEnabled(Preset.PLD_ST_AdvancedMode_MP_Reserve) ||
-        IsEnabled(Preset.PLD_ST_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) + PLD_ST_MP_Reserve;
-
-    private static int HPThresholdFoF =>
-        PLD_ST_FoF_BossOption == 1 ||
-        !TargetIsBoss() ? PLD_ST_FoF_HPOption : 0;
-
-    private static int RoyalAuthorityCount =>
-        ActionWatching.CombatActions.Count(x => x == OriginalHook(RageOfHalone));
 
     #endregion
 
@@ -473,6 +409,345 @@ internal partial class PLD
         }
     }
 
+    #endregion
+    
+    #region Rotation
+    
+    #region Flag Stuff
+    [Flags]
+    private enum Combo
+    {
+        // Target-type for combo
+        ST = 1 << 0, // 1
+        AoE = 1 << 1, // 2
+
+        // Complexity of combo
+        Adv = 1 << 2, // 4
+        Simple = 1 << 3, // 8
+        Basic = 1 << 4, // 16
+    }
+    
+    /// <summary>
+    ///     Checks whether a given preset is enabled, and the flags match it.
+    /// </summary>
+    private static bool IsSTEnabled(Combo flags, Preset preset) =>
+        flags.HasFlag(Combo.ST) && IsEnabled(preset);
+
+    /// <summary>
+    ///     Checks whether a given preset is enabled, and the flags match it.
+    /// </summary>
+    private static bool IsAoEEnabled(Combo flags, Preset preset) =>
+        flags.HasFlag(Combo.AoE) && IsEnabled(preset);
+    #endregion
+    
+    #region OGCD Attacks
+    private static bool TryOGCDAttacks(Combo flags, ref uint actionID)
+    {
+        #region Enables
+        bool interruptEnabled =
+             flags.HasFlag(Combo.Simple) ||
+             IsSTEnabled(flags, Preset.PLD_ST_Interrupt) ||
+             IsAoEEnabled(flags, Preset.PLD_AoE_Interrupt);
+        
+        bool lowBlowEnabled = 
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_LowBlow) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_LowBlow);
+        
+        bool requiescatEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_Requiescat) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_Requiescat);
+        
+        bool fightOrFlightEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_FoF) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_FoF);
+        
+        bool circleOfScornEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_CircleOfScorn) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_CircleOfScorn);
+        
+        bool spiritsWithinEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_SpiritsWithin) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_SpiritsWithin);
+        
+        bool bladeOfHonorEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_BladeOfHonor) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_BladeOfHonor);
+        
+        bool interveneEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_Intervene) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_Intervene);
+        #endregion
+        
+        #region Configs
+        int fightOrFlightThresholdST = PLD_ST_FoF_BossOption == 1 || !TargetIsBoss() ? PLD_ST_FoF_HPOption : 0; //Boss Check
+        int fightOrFlightThresholdAoE = PLD_AoE_FoF_BossOption == 1 || !TargetIsBoss() ? PLD_AoE_FoF_HPOption : 0; //Boss Check
+        int fightOrFlightStopThreshold = 
+            flags.HasFlag(Combo.Simple) ? 0 : 
+            flags.HasFlag(Combo.ST) ? fightOrFlightThresholdST : fightOrFlightThresholdAoE;
+        
+        bool hasRequiescatMPSimple = LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) * 3.6;
+        
+        bool hasRequiescatMpST =
+            IsNotEnabled(Preset.PLD_ST_AdvancedMode_MP_Reserve) && hasRequiescatMPSimple ||
+            IsEnabled(Preset.PLD_ST_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) * 3.6 + PLD_ST_MP_Reserve;
+
+        bool hasRequiescatMpAoE =
+            IsNotEnabled(Preset.PLD_AoE_AdvancedMode_MP_Reserve) && hasRequiescatMPSimple ||
+            IsEnabled(Preset.PLD_AoE_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) * 3.6 + PLD_AoE_MP_Reserve;
+        
+        bool hasRequiescatMp = 
+            flags.HasFlag(Combo.Simple) ? hasRequiescatMPSimple : 
+            flags.HasFlag(Combo.ST) ? hasRequiescatMpST : hasRequiescatMpAoE;
+        
+        int interveneChargeThreshold = 
+            flags.HasFlag(Combo.Simple) ? 0 : 
+            flags.HasFlag(Combo.ST) ? PLD_ST_Intervene_Charges : PLD_AoE_Intervene_Charges;
+        
+        float interveneDistanceThreshold = 
+            flags.HasFlag(Combo.Simple) ? 3 : 
+            flags.HasFlag(Combo.ST) ? PLD_ST_Intervene_Distance : PLD_AoE_Intervene_Distance;
+        
+        int interveneMovement = 
+            flags.HasFlag(Combo.Simple) ? 0 : 
+            flags.HasFlag(Combo.ST) ? PLD_ST_Intervene_Movement : PLD_AoE_Intervene_Movement;
+        
+        float interveneTimeStoodStill = 
+            flags.HasFlag(Combo.Simple) ? 2 : 
+            flags.HasFlag(Combo.ST) ? PLD_ST_InterveneTimeStill : PLD_AoE_InterveneTimeStill;
+        #endregion
+        
+        if (InCombat() && HasBattleTarget() && CanWeave())
+        {
+            if (interruptEnabled && Role.CanInterject())
+            {
+                actionID = Role.Interject;
+                return true;
+            }
+
+            if (lowBlowEnabled && Role.CanLowBlow() && CanStunToInterruptEnemy())
+            {
+                actionID = Role.LowBlow;
+                return true;
+            }
+            
+            if (fightOrFlightEnabled && !HasWeaved() && CombatEngageDuration().TotalSeconds >= 8 && //Time to hold buffing for non opener pulls.
+                OriginalHook(FightOrFlight) is FightOrFlight && ActionReady(FightOrFlight) && //To make sure it doesnt try to weave gcd Goring Blade
+                (!LevelChecked(Requiescat) || hasRequiescatMp) && //Must Have Enough Mana to combo
+                (InMeleeRange() || LevelChecked(Imperator) && InActionRange(Imperator) && IsOffCooldown(Imperator)) && // in melee or ready to start ranged combo with imperator
+                GetTargetHPPercent() >= fightOrFlightStopThreshold) //Health Threshold Check, boss check built into config
+            {
+                actionID = FightOrFlight;
+                return true;
+            }
+            
+            if ((requiescatEnabled && ActionReady(OriginalHook(Requiescat)) && GetCooldownRemainingTime(FightOrFlight) > 50 && InActionRange(OriginalHook(Requiescat))) || //Requiescat Logic, in action range because Imperator gets 25y range
+                (bladeOfHonorEnabled && LevelChecked(BladeOfHonor) && OriginalHook(Requiescat) == BladeOfHonor)) //Blade of Honor Logic since it shares the button
+            {
+                actionID = OriginalHook(Requiescat);
+                return true;
+            }
+                
+            if (interveneEnabled && ActionReady(Intervene) && !JustUsed(Intervene, 2f) && 
+                (!fightOrFlightEnabled || GetCooldownRemainingTime(FightOrFlight) > 40) && //Buff Window Check
+                GetRemainingCharges(Intervene) > interveneChargeThreshold && //Charge Check
+                GetTargetDistance() <= interveneDistanceThreshold && //Distance Check
+                (interveneMovement == 1 || //Time Standing Still Check
+                 interveneMovement == 0 && !IsMoving() && TimeStoodStill > TimeSpan.FromSeconds(interveneTimeStoodStill))) 
+            {
+                actionID = Intervene;
+                return true;
+            }
+
+            if (circleOfScornEnabled && ActionReady(CircleOfScorn) && NumberOfEnemiesInRange(CircleOfScorn) > 0 && //Enemy Check as it requires no target to fire
+                (!fightOrFlightEnabled || GetCooldownRemainingTime(FightOrFlight) > 15))
+            {
+                actionID = CircleOfScorn;
+                return true;
+            }
+            
+            if (spiritsWithinEnabled && ActionReady(OriginalHook(SpiritsWithin)) && 
+                (!fightOrFlightEnabled || GetCooldownRemainingTime(FightOrFlight) > 15))
+            {
+                actionID = OriginalHook(SpiritsWithin);
+                return true;
+            }
+        }
+        return false;
+    }
+    #endregion
+    
+    #region GCD Attacks
+    private static bool TryGCDAttacks(Combo flags, ref uint actionID)
+    {
+        #region Enables
+        bool goringBladeEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_GoringBlade) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_GoringBlade);
+        
+        bool confiteorComboEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_Confiteor) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_Confiteor);
+        
+        bool holySpellEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_HolySpirit) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_HolyCircle);
+        
+        bool atonementEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_Atonement);
+        
+        bool rangedUptimeEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_AdvancedMode_ShieldLob) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_AdvancedMode_ShieldLob);
+        
+        bool interuptStunEnabled =
+            flags.HasFlag(Combo.Simple) ||
+            IsSTEnabled(flags, Preset.PLD_ST_ShieldBash) ||
+            IsAoEEnabled(flags, Preset.PLD_AoE_ShieldBash);
+        #endregion
+        
+        #region Configs
+        bool isAboveMPReserveAoE =
+            IsNotEnabled(Preset.PLD_AoE_AdvancedMode_MP_Reserve) ||
+            IsEnabled(Preset.PLD_AoE_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) + PLD_AoE_MP_Reserve;
+
+        bool isAboveMPReserveST =
+            IsNotEnabled(Preset.PLD_ST_AdvancedMode_MP_Reserve) ||
+            IsEnabled(Preset.PLD_ST_AdvancedMode_MP_Reserve) && LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) + PLD_ST_MP_Reserve;
+        
+        bool isAboveMPReserve = 
+            flags.HasFlag(Combo.Simple) ? LocalPlayer.CurrentMp >= GetResourceCost(HolySpirit) : 
+            flags.HasFlag(Combo.ST) ? isAboveMPReserveST : isAboveMPReserveAoE;
+        
+        int goringBladePriority =
+            flags.HasFlag(Combo.Simple) ? 0 : 
+            flags.HasFlag(Combo.ST) ? PLD_ST_AdvancedMode_GoringBladePrioritize : PLD_AoE_AdvancedMode_GoringBladePrioritize;
+        
+        int holySpiritUptime =
+            flags.HasFlag(Combo.Simple) ? 1 : 
+            flags.HasFlag(Combo.ST) ? PLD_ST_ShieldLob_SubOption : PLD_AoE_ShieldLob_SubOption;
+        
+        
+        
+        #endregion
+        
+        #region Variables
+        bool rangedUptimeRangeCheck = !InMeleeRange() && flags.HasFlag(Combo.ST) || 
+                                      !InActionRange(TotalEclipse) && flags.HasFlag(Combo.AoE);
+        
+        bool inAtonementPhase = HasStatusEffect(Buffs.AtonementReady) || 
+                                HasStatusEffect(Buffs.SupplicationReady) ||
+                                HasStatusEffect(Buffs.SepulchreReady);
+        
+        bool isAtonementExpiring = HasStatusEffect(Buffs.AtonementReady) && GetStatusEffectRemainingTime(Buffs.AtonementReady) < 6 ||
+                                   HasStatusEffect(Buffs.SupplicationReady) && GetStatusEffectRemainingTime(Buffs.SupplicationReady) < 6 ||
+                                   HasStatusEffect(Buffs.SepulchreReady) && GetStatusEffectRemainingTime(Buffs.SepulchreReady) < 6;
+        #endregion
+        
+        if (goringBladeEnabled &&  HasStatusEffect(Buffs.GoringBladeReady) && 
+            InMeleeRange() && HasBattleTarget() &&
+            (goringBladePriority == 1 || !HasStatusEffect(Buffs.Requiescat)) && //Option to allow it to go first if in melee range in case you need to move out after
+            (flags.HasFlag(Combo.ST) || NumberOfEnemiesInRange(TotalEclipse) <= 3)) //Aoe limit on number of targets as dps loss at 4+
+        {
+            actionID = GoringBlade;
+            return true;
+        }
+        
+        if (confiteorComboEnabled && HasStatusEffect(Buffs.Requiescat) && HasDivineMagicMP && //Does not have a battle target check as un-targeting and fast blade retargeting breaks Cofefe combo. DO NOT ADD.
+            (HasStatusEffect(Buffs.ConfiteorReady) || //Confiteor
+             LevelChecked(BladeOfFaith) && OriginalHook(Confiteor) != Confiteor)) //Its combo
+        {
+            actionID = OriginalHook(Confiteor);
+            return true;
+        }
+        
+        
+            
+        if (holySpellEnabled && HasDivineMagicMP && isAboveMPReserve && HasBattleTarget() &&
+            (HasStatusEffect(Buffs.Requiescat) || //Use if you have req stacks. Should only happen if You are under level for Cofefe Combo
+             HasDivineMight && !InMeleeRange() || //Out of melee Use this before shield lob
+             HasDivineMight && HasStatusEffect(Buffs.FightOrFlight) || // Burn in buff window
+             HasDivineMight && ComboAction is RiotBlade && flags.HasFlag(Combo.ST)|| //Use if about to refresh Divine Might ST (Not combined with below for a reason)
+             HasDivineMight && ComboAction is TotalEclipse && flags.HasFlag(Combo.AoE)|| //Use if about to refresh Divine Might AOE
+             HasDivineMight && GetStatusEffectRemainingTime(Buffs.DivineMight) < 6)) //Use if expiring
+        {
+            if (flags.HasFlag(Combo.ST) && ActionReady(HolySpirit))
+            {
+                actionID = HolySpirit;
+                return true;
+            }
+            if (flags.HasFlag(Combo.AoE) && ActionReady(HolyCircle))
+            {
+                actionID = HolyCircle;
+                return true;
+            }
+        }
+
+        if (rangedUptimeEnabled && LevelChecked(ShieldLob) && HasBattleTarget() && rangedUptimeRangeCheck)
+        {
+            //Holy Spirit Ranged Uptime Options
+            if (ActionReady(HolySpirit) && holySpiritUptime == 1 && !IsMoving())
+            {
+                actionID = HolySpirit;
+                return true;
+            }
+
+            // Otherwise Captain America
+            {
+                actionID = ShieldLob;
+                return true;
+            }
+        }
+        
+        if (atonementEnabled && inAtonementPhase && flags.HasFlag(Combo.ST) && HasBattleTarget() &&
+            (HasStatusEffect(Buffs.FightOrFlight) || //Will burn them in Buff window
+             ComboAction is RiotBlade || //Will hold them until you are about to get more
+             HasStatusEffect(Buffs.AtonementReady) || //Will use atonement Asap to Get the supplication ready
+             isAtonementExpiring)) //Burn it if it is expiring soon
+        {
+            actionID = OriginalHook(Atonement);
+            return true;
+        }
+
+        if (interuptStunEnabled && ActionReady(ShieldBash) && //Shield Bash interrupt
+            InMeleeRange() && HasBattleTarget() &&
+            !JustUsedOn(ShieldBash, CurrentTarget, 10) && CanStunToInterruptEnemy())
+        {
+            actionID = ShieldBash;
+            return true;
+        } 
+        
+        return false;
+    }
+    #endregion
+    
+    #region Basic Combos
+    internal static uint STCombo
+        => ComboTimer > 0 
+            ? LevelChecked(RiotBlade) && ComboAction == FastBlade
+                ? RiotBlade
+                : LevelChecked(RageOfHalone) && ComboAction == RiotBlade 
+                    ? OriginalHook(RageOfHalone)
+                    : FastBlade
+            : FastBlade;
+    
+    internal static uint AoECombo 
+        => ComboTimer > 0 && LevelChecked(Prominence) && ComboAction == TotalEclipse 
+            ? Prominence 
+            : TotalEclipse;
+    #endregion
+    
     #endregion
 
     #region Openers

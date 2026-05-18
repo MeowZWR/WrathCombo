@@ -146,7 +146,9 @@ internal class AutoRotationTab : ConfigWindow
             if (cfg.DPSSettings.OnlyAttackInCombat && changed)
                 cfg.DPSSettings.PreferNonCombat = false;
 
-            changed |= ImGui.Checkbox(AutoRotationUI.Checkbox_UnTargetAndDisableForPenalty, ref cfg.DPSSettings.UnTargetAndDisableForPenalty);
+            changed |= P.UIHelper.ShowIPCControlledCheckboxIfNeeded(
+                AutoRotationUI.Checkbox_UnTargetAndDisableForPenalty, ref cfg.DPSSettings.UnTargetAndDisableForPenalty,
+                "UnTargetAndDisableForPenalty");
 
             ImGuiComponents.HelpMarker(AutoRotationUI.HelpText_UnTargetAndDisableForPenalty);
 

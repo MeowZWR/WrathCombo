@@ -58,21 +58,21 @@ internal partial class MCH : PhysicalRanged
 
                 if (!IsOverheated)
                 {
+                    // Reassemble
+                    if (CanReassemble())
+                        return Reassemble;
+                    
                     // BarrelStabilizer
                     if (ActionReady(BarrelStabilizer) &&
                         TargetIsBoss() &&
                         GetCooldownRemainingTime(Wildfire) <= 20 &&
                         !HasStatusEffect(Buffs.FullMetalMachinist))
                         return BarrelStabilizer;
-
+                    
                     // Queen
                     if (CanQueen())
                         return OriginalHook(RookAutoturret);
-
-                    // Reassemble
-                    if (CanReassemble())
-                        return Reassemble;
-
+                    
                     // Gauss Round and Ricochet outside HC
                     if (JustUsed(OriginalHook(AirAnchor), 2f) ||
                         JustUsed(Chainsaw, 2f) ||
@@ -276,7 +276,8 @@ internal partial class MCH : PhysicalRanged
             // All weaves
             if (CanWeave())
             {
-                if (IsEnabled(Preset.MCH_ST_Adv_GaussRicochet))
+                if (IsEnabled(Preset.MCH_ST_Adv_GaussRicochet) &&
+                    MCH_ST_GaussOnlyOrBoth == 0)
                 {
                     if (OvercapGaussRound)
                         return OriginalHook(GaussRound);
@@ -308,13 +309,20 @@ internal partial class MCH : PhysicalRanged
                 if (IsEnabled(Preset.MCH_ST_Adv_GaussRicochet) &&
                     JustUsed(OriginalHook(Heatblast), 1f) && !HasWeaved())
                 {
-                    if (GetRemainingCharges(OriginalHook(GaussRound)) > MCH_ST_GaussRicoPool &&
-                        (CanGaussRound || !LevelChecked(Ricochet)))
-                        return OriginalHook(GaussRound);
+                    if (MCH_ST_GaussOnlyOrBoth == 0)
+                    {
+                        if (GetRemainingCharges(OriginalHook(GaussRound)) > MCH_ST_GaussRicoManualUse &&
+                            (CanGaussRound || !LevelChecked(Ricochet)))
+                            return OriginalHook(GaussRound);
 
-                    if (GetRemainingCharges(OriginalHook(Ricochet)) > MCH_ST_GaussRicoPool &&
-                        CanRicochet)
-                        return OriginalHook(Ricochet);
+                        if (GetRemainingCharges(OriginalHook(Ricochet)) > MCH_ST_GaussRicoManualUse &&
+                            CanRicochet)
+                            return OriginalHook(Ricochet);
+                    }
+
+                    if (MCH_ST_GaussOnlyOrBoth == 1 &&
+                        HasCharges(GaussRound) && !LevelChecked(DoubleCheck))
+                        return GaussRound;
                 }
 
                 if (!IsOverheated)
@@ -342,18 +350,25 @@ internal partial class MCH : PhysicalRanged
 
                     // Gauss Round and Ricochet outside HC
                     if (IsEnabled(Preset.MCH_ST_Adv_GaussRicochet) &&
-                        (JustUsed(OriginalHook(AirAnchor), 2f) ||
-                         JustUsed(Chainsaw, 2f) ||
-                         JustUsed(Drill, 2f) ||
+                        (JustUsed(Drill, 2f) ||
+                         JustUsed(OriginalHook(AirAnchor), 2f) ||
+                         JustUsed(Chainsaw, 2f)||
                          JustUsed(Excavator, 2f)))
                     {
-                        if (GetRemainingCharges(OriginalHook(GaussRound)) > MCH_ST_GaussRicoPool &&
-                            CanGaussRound && (!JustUsed(OriginalHook(GaussRound), 2f) || !LevelChecked(Ricochet)))
-                            return OriginalHook(GaussRound);
+                        if (MCH_ST_GaussOnlyOrBoth == 0)
+                        {
+                            if (GetRemainingCharges(OriginalHook(GaussRound)) > MCH_ST_GaussRicoManualUse &&
+                                CanGaussRound && (!JustUsed(OriginalHook(GaussRound), 2f) || !LevelChecked(Ricochet)))
+                                return OriginalHook(GaussRound);
 
-                        if (GetRemainingCharges(OriginalHook(Ricochet)) > MCH_ST_GaussRicoPool &&
-                            CanRicochet && !JustUsed(OriginalHook(Ricochet), 2f))
-                            return OriginalHook(Ricochet);
+                            if (GetRemainingCharges(OriginalHook(Ricochet)) > MCH_ST_GaussRicoManualUse &&
+                                CanRicochet && !JustUsed(OriginalHook(Ricochet), 2f))
+                                return OriginalHook(Ricochet);
+                        }
+
+                        if (MCH_ST_GaussOnlyOrBoth == 1 &&
+                            HasCharges(GaussRound) && !LevelChecked(DoubleCheck))
+                            return GaussRound;
                     }
 
                     if (IsEnabled(Preset.MCH_ST_Dismantle) &&
