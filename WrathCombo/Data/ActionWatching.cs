@@ -370,33 +370,23 @@ public static class ActionWatching
 
     private static unsafe bool CanQueueActionDetour(ActionManager* actionManager, uint actionType, uint actionID)
     {
-        if (!Service.Configuration.QueueAdjust || actionType is not 1)
-            return CanQueueAction.Original(actionManager, actionType, actionID);
-
-        float threshold = Service.Configuration.QueueAdjustThreshold;
+        float threshold = Service.Configuration.QueueAdjust ? Service.Configuration.QueueAdjustThreshold : 0.5f;
 
         return GetRemainingActionRecast(actionManager, actionType, actionID) is { } remaining && remaining <= threshold;
 
         unsafe float? GetRemainingActionRecast(ActionManager* actionManager, uint actionType, uint actionID)
         {
-            var group = actionManager->GetRecastGroup((int)actionType, actionID);
-            var recastGroupDetail = actionManager->GetRecastGroupDetail(group);
-            if (recastGroupDetail == null) return null; // Main cooldown value
+            var recastGroupDetail = actionManager->GetRecastGroupDetail(actionManager->GetRecastGroup((int)actionType, actionID));
+            if (recastGroupDetail == null) return null;
 
             var additionalRecastGroupDetail = actionManager->GetRecastGroupDetail(actionManager->GetAdditionalRecastGroup((ActionType)actionType, actionID));
-            var additionalRecastRemaining = additionalRecastGroupDetail != null && additionalRecastGroupDetail->IsActive; //"GCD" value
+            var additionalRecastRemaining = additionalRecastGroupDetail != null && additionalRecastGroupDetail->IsActive ? additionalRecastGroupDetail->Total - additionalRecastGroupDetail->Elapsed : 0;
 
-            if (!additionalRecastRemaining && !recastGroupDetail->IsActive) //Neither recast group is active, nothing on CD
-                return 0;
+            if (!recastGroupDetail->IsActive) return additionalRecastRemaining;
 
-            if (group != 57 && !recastGroupDetail->IsActive) //Group 57 = GCDs and follows the games tight queue window. All other groups can be queued in weave windows.
-                return 0;
-
-            // This part handles traditional GCDs and abilities coming off CD
-            var charges = actionType == 1 ? GetMaxCharges(actionID) : 1;
-            var recastRemaining = Math.Max(0, GetCooldown(actionID).CooldownTotal / charges - GetCooldown(actionID).CooldownElapsed);
-
-            return recastRemaining;
+            var charges = actionType == 1 ? ActionManager.GetMaxCharges(actionID, Player.MaxLevel) : 1;
+            var recastRemaining = recastGroupDetail->Total / charges - recastGroupDetail->Elapsed;
+            return recastRemaining > additionalRecastRemaining ? recastRemaining : additionalRecastRemaining;
         }
     }
 
