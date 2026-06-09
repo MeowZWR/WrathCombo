@@ -522,8 +522,9 @@ public static class ActionWatching
 
                 Svc.Log.Verbose($"[QueuedTargetUpdate] A:{actionManager->QueuedActionId.ActionName()} Q:{Svc.Objects.SearchById(actionManager->QueuedTargetId)?.Name} T:{Svc.Objects.SearchById(targetId)?.Name} M:{mode} W:{willQueue}");
 
-                var hookResult = changed ? UseActionHook.Original(actionManager, actionType, replacedWith, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted) :
-                    UseActionHook.Original(actionManager, actionType, replacedWith, originalTargetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
+                Svc.Log.Verbose($"[FinalUse] Target changed is {changed}. Using {replacedWith.ActionName()} on {(changed ? targetId.GetObject()?.Name : originalTargetId.GetObject()?.Name)}");
+                var hookResult = changed ? UseActionHook.Original(actionManager, actionType, actionId, targetId, extraParam, mode, comboRouteId, outOptAreaTargeted) :
+                    UseActionHook.Original(actionManager, actionType, actionId, originalTargetId, extraParam, mode, comboRouteId, outOptAreaTargeted);
 
                 Service.ActionReplacer.EnableActionReplacingIfRequired();
 

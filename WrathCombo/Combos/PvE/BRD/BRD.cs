@@ -867,7 +867,7 @@ internal partial class BRD : PhysicalRanged
             else
             {
                 var lowestPurple = SimpleTarget.TargetWithDoTLowestRemainingTimer(purpleDotAction, purpleDotDebuffID);
-                var lowestBlue = SimpleTarget.TargetWithDoTLowestRemainingTimer(purpleDotAction, purpleDotDebuffID);
+                var lowestBlue = SimpleTarget.TargetWithDoTLowestRemainingTimer(blueDotAction, blueDotDebuffID);
                 var lowestPurpleRemaining = GetStatusEffectRemainingTime(purpleDotDebuffID, lowestPurple);
                 var lowestBlueRemaining = GetStatusEffectRemainingTime(blueDotDebuffID, lowestBlue);
 
