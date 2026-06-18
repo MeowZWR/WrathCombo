@@ -146,7 +146,6 @@ internal unsafe class AutoRotationController
                || IsOccupied()
                || Player.Mounted
                || !EzThrottler.Throttle("Autorot", cfg.Throttler)
-               || (cfg.DPSSettings.UnTargetAndDisableForPenalty && PlayerHasActionPenalty())
                || (ActionManager.Instance()->QueuedActionId > 0)
                || Paused;
     }
@@ -178,6 +177,10 @@ internal unsafe class AutoRotationController
 
         // Only run in combat if required
         if (cfg.InCombatOnly && NotInCombat && !CombatBypass)
+            return;
+
+        // Check for Pyretic / Reasons to stop
+        if (cfg.DPSSettings.UnTargetAndDisableForPenalty && PlayerHasActionPenalty())
             return;
 
         // Healer logic
@@ -1180,7 +1183,7 @@ internal unsafe class AutoRotationController
                             GetTargetDistance(x.BattleChara) <= QueryRange &&
                             !TargetHasImmortality(x.BattleChara) &&
                             !x.BattleChara.StatusList.Any(x => StatusCache.DoNotHealStatuses.Contains(x.StatusId)) &&
-                            GetTargetHPPercent(x.BattleChara) <=
+                            GetTargetHPPercent(x.BattleChara, cfg.HealerSettings.IncludeShields) <=
                             (TargetHasExcog(x.BattleChara) ? cfg.HealerSettings.SingleTargetExcogHPP :
                                 TargetHasRegen(x.BattleChara) ? cfg.HealerSettings.SingleTargetRegenHPP :
                                 cfg.HealerSettings.SingleTargetHPP) &&
@@ -1203,7 +1206,7 @@ internal unsafe class AutoRotationController
                                 (outAct == 0
                                     ? GetTargetDistance(x.BattleChara) <= 20f
                                     : InActionRange(outAct, x.BattleChara)) &&
-                                GetTargetHPPercent(x.BattleChara) <= cfg.HealerSettings.AoETargetHPP);
+                                GetTargetHPPercent(x.BattleChara, cfg.HealerSettings.IncludeShields) <= cfg.HealerSettings.AoETargetHPP);
                 memberCount = members.Count();
             }
             catch { memberCount = 0; }
