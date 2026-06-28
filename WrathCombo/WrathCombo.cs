@@ -30,6 +30,7 @@ using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
 using WrathCombo.Data.Conflicts;
 using WrathCombo.Extensions;
+using WrathCombo.Native;
 using WrathCombo.Resources.Localization.UI.MainWindow;
 using WrathCombo.Services;
 using WrathCombo.Services.ActionRequestIPC;
@@ -56,7 +57,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         AutomaticDecompression = DecompressionMethods.All,
         ConnectCallback = new HappyEyeballsCallback().ConnectCallback,
     };
-    private readonly HttpClient httpClient = new(httpHandler) { Timeout = TimeSpan.FromSeconds(5) };
+    internal readonly HttpClient HTTPClient = new(httpHandler) { Timeout = TimeSpan.FromSeconds(5) };
     private readonly IDtrBarEntry DtrBarEntry;
     public readonly IDtrBarEntry OpenerDtr;
     internal Provider IPC;
@@ -64,6 +65,8 @@ public sealed partial class WrathCombo : IDalamudPlugin
     internal UIHelper UIHelper = null!;
     internal ActionRetargeting ActionRetargeting = null!;
     internal MovementHook MoveHook;
+    internal CustomActionSetup CustomActions;
+    //private readonly CustomActionListAddon _listAddon;
 
     internal static bool IsAprilFools => DateTime.UtcNow.Day == 1 && DateTime.UtcNow.Month == 4;
 
@@ -177,7 +180,6 @@ public sealed partial class WrathCombo : IDalamudPlugin
         pluginInterface.Create<Service>();
         ECommonsMain.Init(pluginInterface, this, Module.All);
         PunishLibMain.Init(pluginInterface, "Wrath Combo");
-
         ActionRequestIPCProvider.Initialize();
 
         TM = new();
@@ -186,7 +188,9 @@ public sealed partial class WrathCombo : IDalamudPlugin
         Service.Address = new AddressResolver();
         Service.Address.Setup(Svc.SigScanner);
         MoveHook = new();
+        CustomActions = new();
         PresetStorage.RemoveRedundantPresets();
+        OpCodeConfigHelper.UpdateOpCodes();
 
         Service.ComboCache = new CustomComboCache();
         Service.ActionReplacer = new ActionReplacer();
@@ -398,6 +402,8 @@ public sealed partial class WrathCombo : IDalamudPlugin
 
             if (Service.Configuration.AoEDamageTTS || Service.Configuration.AoEDamageToast)
                 CustomComboFunctions.PlayGroupwideAlert();
+
+            SimpleTargetState.ManageStateList();
         }
         catch (Exception ex)
         {
@@ -436,7 +442,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
             var basicMessage = $"Welcome to WrathCombo v{GetType().Assembly
                 .GetName().Version}!";
             using var motd =
-                httpClient.GetAsync("https://raw.githubusercontent.com/PunishXIV/WrathCombo/main/res/motd.txt").Result;
+                HTTPClient.GetAsync("https://raw.githubusercontent.com/PunishXIV/WrathCombo/main/res/motd.txt").Result;
             motd.EnsureSuccessStatusCode();
             var data = motd.Content.ReadAsStringAsync().Result;
             List<Payload> payloads =
@@ -495,6 +501,7 @@ public sealed partial class WrathCombo : IDalamudPlugin
         CustomComboFunctions.TimerDispose();
         IPC.Dispose();
         MoveHook.Dispose();
+        CustomActions.Dispose();
 
         ConflictingPluginsChecks.Dispose();
         AllStaticIPCSubscriptions.Dispose();

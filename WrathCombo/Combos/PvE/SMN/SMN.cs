@@ -1,9 +1,10 @@
 using Dalamud.Game.ClientState.JobGauge.Types;
-using System.Linq;
 using Dalamud.Game.ClientState.Objects.Types;
+using System.Linq;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Extensions;
+using WrathCombo.Native;
 using static WrathCombo.Combos.PvE.SMN.Config;
 namespace WrathCombo.Combos.PvE;
 
@@ -15,8 +16,7 @@ internal partial class SMN : Caster
         protected internal override Preset Preset => Preset.SMN_ST_Simple_Combo;
         protected override uint Invoke(uint actionID)
         {
-            if (actionID is not (Ruin or Ruin2 or Ruin3))
-                return actionID;
+            if (!CustomActionHelper.OneButtonRotationChecker(actionID, CustomActionType.SingleTargetDPS, Ruin, Ruin2, Ruin3)) return actionID;
 
             if (NeedToSummon)
                 return SummonCarbuncle;
@@ -31,13 +31,7 @@ internal partial class SMN : Caster
             #endregion
 
             if (TryOGCDSpells(comboFlags, ref actionID))
-                return actionID == Rekindle && IsEnabled(Preset.SMN_ST_Advanced_Combo_DemiSummons_Rekindle)
-                    ? OriginalHook(AstralFlow).Retarget([Ruin, Ruin2, Ruin3], 
-                        SimpleTarget.TargetsTarget.IfInParty() ??
-                        SimpleTarget.AnyTank.IfMissingHP() ??
-                        SimpleTarget.LowestHPPAlly.IfMissingHP() ??
-                        SimpleTarget.Self)
-                    : actionID;
+                return actionID;
             
             if (TryMitigation(comboFlags, ref actionID))
                 return actionID;
@@ -60,7 +54,7 @@ internal partial class SMN : Caster
             }
             #endregion
 
-            return actionID;
+            return OriginalHook(Ruin);
         }
     }
     internal class SMN_Simple_Combo_AoE : CustomCombo
@@ -68,8 +62,7 @@ internal partial class SMN : Caster
         protected internal override Preset Preset => Preset.SMN_AoE_Simple_Combo;
         protected override uint Invoke(uint actionID)
         {
-            if (actionID is not (Outburst or Tridisaster))
-                return actionID;
+            if (!CustomActionHelper.OneButtonRotationChecker(actionID, CustomActionType.AoEDPS, Outburst, Tridisaster)) return actionID;
 
             if (NeedToSummon && ActionReady(SummonCarbuncle))
                 return SummonCarbuncle;
@@ -84,13 +77,7 @@ internal partial class SMN : Caster
             #endregion
 
             if (TryOGCDSpells(comboFlags, ref actionID))
-                return actionID == Rekindle && IsEnabled(Preset.SMN_ST_Advanced_Combo_DemiSummons_Rekindle)
-                    ? OriginalHook(AstralFlow).Retarget([Outburst, Tridisaster], 
-                        SimpleTarget.TargetsTarget.IfInParty() ??
-                        SimpleTarget.AnyTank.IfMissingHP() ??
-                        SimpleTarget.LowestHPPAlly.IfMissingHP() ??
-                        SimpleTarget.Self)
-                    : actionID;
+                return actionID;
             
             if (TryMitigation(comboFlags, ref actionID))
                 return actionID;
@@ -112,7 +99,7 @@ internal partial class SMN : Caster
             }
             #endregion
 
-            return actionID;
+            return OriginalHook(Outburst);
         }
     }
     #endregion
@@ -123,19 +110,16 @@ internal partial class SMN : Caster
         protected internal override Preset Preset => Preset.SMN_ST_Advanced_Combo;
         protected override uint Invoke(uint actionID)
         {
+            const Combo comboFlags = Combo.ST | Combo.Adv;
+            
             bool allRuins = SMN_ST_Advanced_Combo_AltMode == 0;
-            bool actionFound = allRuins && AllRuinsList.Contains(actionID) ||
-                               !allRuins && NotRuin3List.Contains(actionID);
-            if (!actionFound)
-                return actionID;
+            
+            var replacedActions = allRuins ? AllRuinsList.ToArray() : NotRuin3List.ToArray();
+
+            if (!CustomActionHelper.OneButtonRotationChecker(actionID, CustomActionType.SingleTargetDPS, replacedActions.ToArray())) return actionID;
 
             if (NeedToSummon)
                 return SummonCarbuncle;
-
-            #region Variables
-            const Combo comboFlags = Combo.ST | Combo.Adv;
-            var replacedActions = allRuins ? AllRuinsList.ToArray() : NotRuin3List.ToArray();
-            #endregion
 
             #region Opener
             if (IsEnabled(Preset.SMN_ST_Advanced_Combo_Balance_Opener) &&
@@ -149,13 +133,7 @@ internal partial class SMN : Caster
             #endregion
             
             if (TryOGCDSpells(comboFlags, ref actionID))
-                return actionID == Rekindle && IsEnabled(Preset.SMN_ST_Advanced_Combo_DemiSummons_Rekindle)
-                    ? OriginalHook(AstralFlow).Retarget(replacedActions, 
-                         SimpleTarget.TargetsTarget.IfInParty() ??
-                         SimpleTarget.AnyTank.IfMissingHP() ??
-                         SimpleTarget.LowestHPPAlly.IfMissingHP() ??
-                         SimpleTarget.Self)
-                    : actionID;
+                return actionID;
             
             if (TryMitigation(comboFlags, ref actionID))
                 return actionID;
@@ -177,7 +155,7 @@ internal partial class SMN : Caster
             }
             #endregion
             
-            return actionID;
+            return OriginalHook(Ruin);
         }
     }
 
@@ -186,8 +164,7 @@ internal partial class SMN : Caster
         protected internal override Preset Preset => Preset.SMN_AoE_Advanced_Combo;
         protected override uint Invoke(uint actionID)
         {
-            if (actionID is not (Outburst or Tridisaster))
-                return actionID;
+            if (!CustomActionHelper.OneButtonRotationChecker(actionID, CustomActionType.AoEDPS, Outburst, Tridisaster)) return actionID;
 
             if (NeedToSummon)
                 return SummonCarbuncle;
@@ -202,13 +179,7 @@ internal partial class SMN : Caster
             #endregion
 
             if (TryOGCDSpells(comboFlags, ref actionID))
-                return actionID == Rekindle && IsEnabled(Preset.SMN_ST_Advanced_Combo_DemiSummons_Rekindle)
-                    ? OriginalHook(AstralFlow).Retarget([Outburst, Tridisaster], 
-                        SimpleTarget.TargetsTarget.IfInParty() ??
-                        SimpleTarget.AnyTank.IfMissingHP() ??
-                        SimpleTarget.LowestHPPAlly.IfMissingHP() ??
-                        SimpleTarget.Self)
-                    : actionID;
+                return actionID;
             
             if (TryMitigation(comboFlags, ref actionID))
                 return actionID;
@@ -230,7 +201,7 @@ internal partial class SMN : Caster
             }
             #endregion
 
-            return actionID;
+            return OriginalHook(Outburst);
         }
     }
     #endregion
@@ -378,20 +349,14 @@ internal partial class SMN : Caster
                 actionID is not (SummonPhoenix or SummonSolarBahamut))
                 return actionID;
 
-            if (IsOffCooldown(EnkindleBahamut) && OriginalHook(Ruin) is AstralImpulse)
+            if (ActionReady(OriginalHook(EnkindleBahamut)))
                 return OriginalHook(EnkindleBahamut);
 
-            if (IsOffCooldown(EnkindlePhoenix) && OriginalHook(Ruin) is FountainOfFire)
-                return OriginalHook(EnkindlePhoenix);
-
-            if (IsOffCooldown(EnkindleSolarBahamut) && OriginalHook(Ruin) is UmbralImpulse)
-                return OriginalHook(EnkindleBahamut);
-
-            if ((OriginalHook(AstralFlow) is Deathflare && IsOffCooldown(Deathflare)) || (OriginalHook(AstralFlow) is Rekindle && IsOffCooldown(Rekindle)))
+            if (ActionReady(OriginalHook(AstralFlow)))
                 return OriginalHook(AstralFlow);
-
-            if (OriginalHook(AstralFlow) is Sunflare && IsOffCooldown(Sunflare))
-                return OriginalHook(Sunflare);
+            
+            if (ActionReady(OriginalHook(LuxSolaris)))
+                return OriginalHook(LuxSolaris); 
 
             return actionID;
         }

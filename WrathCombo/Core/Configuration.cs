@@ -19,6 +19,9 @@ using Setting = WrathCombo.Attributes.Setting;
 using Space = WrathCombo.Attributes.SettingUI_Space;
 using Or = WrathCombo.Attributes.SettingUI_Or;
 using Retarget = WrathCombo.Attributes.SettingUI_RetargetIcon;
+using WrathCombo.Native;
+using System.Reflection.Emit;
+using static WrathCombo.Data.ActionWatching;
 
 #endregion
 
@@ -282,6 +285,10 @@ public partial class Configuration : IPluginConfiguration
         maxInt: 3)]
     public int MaximumWeavesPerWindow = 2;
 
+    [SettingCategory(Rotation_Behavior_Options)]
+    [Setting(type: Setting.Type.Toggle)]
+    public bool UseExperimentalHP = false;
+
     #endregion
 
     #region Target Settings
@@ -427,6 +434,8 @@ public partial class Configuration : IPluginConfiguration
 
     #endregion
 
+    public CustomActionSettings CustomActionSettings { get; set; } = new();
+
     #region Job-specific
 
     /// <summary> Gets active Blue Mage (BLU) spells. </summary>
@@ -477,6 +486,10 @@ public partial class Configuration : IPluginConfiguration
     #endregion
 
     public HashSet<(ushort Status, uint BaseId)> StatusBlacklist = [];
+
+    public OpCodeConfig OpCodes = new();
+
+    public List<FFXIVOPCodes> OpCodesBackup = [];
 
     #endregion
 }

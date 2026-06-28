@@ -5,7 +5,7 @@
     <PropertyGroup>
         <Authors>Team Wrath</Authors>
         <Company>-</Company>
-        <Version>1.0.4.9</Version>
+        <Version>1.0.4.11</Version>
         <!-- This is the version that will be used when pushing to the repo.-->
         <Description>XIVCombo for very lazy players</Description>
         <Copyright>Copyleft attick 2021 thanks attick UwU</Copyright>
@@ -30,6 +30,11 @@
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
+    <ItemGroup>
+      <Compile Remove="Native\Icons\**" />
+      <EmbeddedResource Remove="Native\Icons\**" />
+      <None Remove="Native\Icons\**" />
+    </ItemGroup>
     <!-- Styling Rules -->
     <ItemGroup>
         <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -426,6 +431,18 @@
 
     <!-- Release Manifest -->
     <ItemGroup>
+        <None Update="Resources\AoEDPS.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Resources\AoEHeals.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Resources\SingleTargetDPS.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Resources\SingleTargetHeals.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="WrathCombo.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
