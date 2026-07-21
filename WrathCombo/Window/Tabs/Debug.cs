@@ -6,17 +6,17 @@ using Dalamud.Interface.Colors;
 using Dalamud.Interface.Components;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Utility;
+using ECommons;
 using ECommons.DalamudServices;
 using ECommons.ExcelServices;
 using ECommons.GameFunctions;
 using ECommons.GameHelpers;
-using ECommons.Hooks.ActionEffectTypes;
 using ECommons.ImGuiMethods;
 using ECommons.Logging;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using FFXIVClientStructs.FFXIV.Client.Game.Group;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
-using FFXIVClientStructs.FFXIV.Common.Lua;
 using Lumina.Excel.Sheets;
 using Newtonsoft.Json;
 using System;
@@ -27,11 +27,11 @@ using System.Numerics;
 using System.Text;
 using WrathCombo.API.Enum;
 using WrathCombo.AutoRotation;
-using WrathCombo.Combos;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
 using WrathCombo.Data;
+using WrathCombo.Data.BattleData;
 using WrathCombo.Extensions;
 using WrathCombo.Services;
 using WrathCombo.Services.ActionRequestIPC;
@@ -240,99 +240,14 @@ internal class Debug : ConfigWindow, IDisposable
 
         if (ImGui.CollapsingHeader("Player Statuses"))
         {
-            foreach (Status? status in player.StatusList)
-            {
-                // Set Status
-                string statusId = status.StatusId.ToString();
-                string statusName = StatusCache.GetStatusName(status.StatusId) ?? string.Empty;
-
-                // Set Source Name
-                string sourceName = status.SourceId != player.GameObjectId
-                    ? status.SourceObject?.Name?.ToString() ?? string.Empty
-                    : string.Empty;
-
-                // Set Duration
-                float buffDuration = GetStatusEffectRemainingTime((ushort)status.StatusId, anyOwner: true);
-                string formattedDuration = $"{SymbolDuration} {(buffDuration >= 60f
-                    ? $"{(int)(buffDuration / 60f)}m"
-                    : $"{buffDuration:F1}s")}";
-
-                // Set Parameter
-                string formattedParam = status.Param > 0
-                    ? $"{SymbolParameter} {status.Param}"
-                    : string.Empty;
-
-                // Build First Column
-                string firstColumn = (string.IsNullOrEmpty(statusName), string.IsNullOrEmpty(sourceName)) switch
-                {
-                    (false, false) => $"{sourceName} → {statusName}:", // Both Exist
-                    (false, true) => $"{statusName}:",                // Only 'statusName'
-                    (true, false) => $"{sourceName} → {UnknownName}", // Only 'sourceName'
-                    (true, true) => UnknownName                      // Neither
-                };
-
-                // Build Second Column
-                var secondColumn = new StringBuilder();
-                secondColumn.Append(statusId.PadRight(WidthStatusId));
-                secondColumn.Append(formattedDuration.PadRight(WidthStatusDuration));
-                secondColumn.Append(formattedParam);
-
-                // Print
-                CustomStyleText(firstColumn, secondColumn, useMonofont: true);
-            }
-
+            DrawStatuses(player);
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
         }
 
         if (ImGui.CollapsingHeader("Target Statuses"))
         {
-            if (target is IBattleChara chara)
-            {
-                foreach (Status? status in chara.StatusList)
-                {
-                    // Set Status
-                    string statusId = status.StatusId.ToString();
-                    string sourceName = status.SourceObject?.Name?.ToString() ?? string.Empty;
-                    string statusName = StatusCache.GetStatusName(status.StatusId) ?? string.Empty;
-
-                    // Set Duration
-                    float debuffDuration = GetStatusEffectRemainingTime((ushort)status.StatusId, chara, true);
-                    string formattedDuration = $"{SymbolDuration} {(debuffDuration >= 60f
-                        ? $"{(int)(debuffDuration / 60f)}m"
-                        : $"{debuffDuration:F1}s")}";
-
-                    // Set Parameter
-                    string formattedParam = status.Param > 0
-                        ? $"{SymbolParameter} {status.Param}"
-                        : string.Empty;
-
-                    // Build First Column
-                    string firstColumn = (string.IsNullOrEmpty(statusName), string.IsNullOrEmpty(sourceName)) switch
-                    {
-                        (false, false) => $"{sourceName} → {statusName}:", // Both Exist
-                        (false, true) => $"{statusName}:",                // Only 'statusName'
-                        (true, false) => $"{sourceName} → {UnknownName}", // Only 'sourceName'
-                        (true, true) => UnknownName                      // Neither
-                    };
-
-                    // Build Second Column
-                    var secondColumn = new StringBuilder();
-                    secondColumn.Append(statusId.PadRight(WidthStatusId));
-                    secondColumn.Append(formattedDuration.PadRight(WidthStatusDuration));
-                    secondColumn.Append(formattedParam);
-
-                    // Print
-                    CustomStyleText(firstColumn, secondColumn, useMonofont: true);
-                }
-
-                if (ImGui.CollapsingHeader("ICD Tracker"))
-                {
-                    foreach (var t in ICDTracker.Trackers.Where(x => x.GameObjectId == chara.GameObjectId))
-                    {
-                        CustomStyleText($"{((ushort)t.StatusID).StatusName()}", $"{t.TimeUntilExpired():mm\\:ss}");
-                    }
-                }
-            }
+            DrawStatuses(target);
+            ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
         }
 
         #endregion
@@ -364,7 +279,7 @@ internal class Debug : ConfigWindow, IDisposable
 
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
 
-            CustomStyleText("Job Gauge Data", string.Empty);
+            CustomStyleText("Job Specific Data", string.Empty);
             ImGui.Separator();
             switch (Player.Job)
             {
@@ -396,6 +311,12 @@ internal class Debug : ConfigWindow, IDisposable
                     Util.ShowStruct(&JobGaugeManager.Instance()->Scholar);
                     break;
                 case Job.NIN:
+                    CustomStyleText($"First Mudra:", $"{NIN.FirstMudra}");
+                    CustomStyleText($"Second Mudra:", $"{NIN.SecondMudra}");
+                    CustomStyleText($"Third Mudra:", $"{NIN.ThirdMudra}");
+                    CustomStyleText($"JutsuFromFlag:", $"{NIN.JutsuFromFlags.ActionName()}");
+                    CustomStyleText($"LastUsedMudra:", $"{NIN.LastMudra.ActionName()}");
+                    CustomStyleText($"UnusedJutsus:", $"{string.Join(", ", NIN.UnusedJutsus.Select(x => x.ActionName()))}");
                     Util.ShowStruct(&JobGaugeManager.Instance()->Ninja);
                     break;
                 case Job.MCH:
@@ -432,8 +353,6 @@ internal class Debug : ConfigWindow, IDisposable
                     Util.ShowStruct(&JobGaugeManager.Instance()->Pictomancer);
                     break;
             }
-
-            Util.ShowObject(player.Struct()->CastInfo);
 
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
 
@@ -502,13 +421,29 @@ internal class Debug : ConfigWindow, IDisposable
             CustomStyleText("Alliance Group:", GetAllianceGroup());
 
             ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
+
+            // Dumps the data of everyone in the current group manager (reacts dynamically to replays).
+            foreach (var p in GroupManager.Instance()->GetGroupWithCheck(true)->PartyMembers)
+            {
+                if (p.ContentId == 0)
+                    continue;
+
+                if (Svc.Objects.TryGetFirst(x => x.EntityId == p.EntityId, out var pt))
+                {
+                    if (ImGui.TreeNode($"{p.NameString}###GroupManager{p.EntityId}"))
+                    {
+                        DrawTargetInfo(pt);
+                        ImGui.TreePop();
+                    }
+                }
+            }
         }
 
         if (ImGui.CollapsingHeader("Member Data"))
         {
             foreach (var member in GetPartyMembers())
             {
-                if (ImGui.TreeNode($"{member?.BattleChara?.Name}###{member.GameObjectId}"))
+                if (ImGui.TreeNode($"{member?.BattleChara?.Name}###MemberData{member.GameObjectId}"))
                 {
                     CustomStyleText("Health:", $"{GetTargetCurrentHP(member.BattleChara):N0} / {member.BattleChara.MaxHp:N0} ({GetTargetHPPercent(member.BattleChara)}%)");
                     CustomStyleText("Regen Tick:", $"{member.BattleChara.MaxHp / 100}");
@@ -1043,7 +978,7 @@ internal class Debug : ConfigWindow, IDisposable
                 foreach (var t in AutoRotationController.HealerTargeting.HealTargets())
                 {
                     if (ImGui.CollapsingHeader($"{t.Name}###{t.SafeGameObjectId}"))
-                    DrawTargetInfo(t);
+                        DrawTargetInfo(t);
                 }
                 ImGui.Unindent();
             }
@@ -1092,6 +1027,14 @@ internal class Debug : ConfigWindow, IDisposable
             ImGui.Unindent();
         }
 
+        if (ImGui.CollapsingHeader("Battle Data"))
+        {
+            CustomStyleText($"Battle Data Loaded", $"{BattleData.BattleDataLoaded}");
+            CustomStyleText($"Pausing Actions:", $"{BattleData.PauseActions()}");
+            CustomStyleText($"Tankbusters:", $"{BattleData.TankbusterAIDs.Count}");
+            CustomStyleText($"Raidwides:", $"{BattleData.RaidwideAIDs.Count}");
+            CustomStyleText($"Ignored Raidwides:", $"{BattleData.IgnoreRaidwideAIDs.Count}");
+        }
 
         #endregion
 
@@ -1322,14 +1265,14 @@ internal class Debug : ConfigWindow, IDisposable
             CustomStyleText("Name:", target?.Name);
             CustomStyleText("Nameplate:", target?.GetNameplateKind().ToString());
             CustomStyleText("Rank:", $"{battleNPCRow?.Rank.ToString() ?? "null"} (found sheet: {(foundSheet is true ? "yes" : "no")})");
-            CustomStyleText("Health:", $"{GetTargetCurrentHP(forceUsePending: false):N0} / {GetTargetMaxHP():N0} ({MathF.Round(GetTargetHPPercent(forceUsePending: false), 2)}%)");
-            CustomStyleText("Health (with pending):", $"{GetTargetCurrentHP(forceUsePending: true):N0} / {GetTargetMaxHP():N0} ({MathF.Round(GetTargetHPPercent(forceUsePending: true), 2)}%)");
-            CustomStyleText("Distance:", $"{MathF.Round(GetTargetDistance(), 2)}y");
+            CustomStyleText("Health:", $"{GetTargetCurrentHP(target, forceUsePending: false):N0} / {GetTargetMaxHP(target):N0} ({MathF.Round(GetTargetHPPercent(target, forceUsePending: false), 2)}%)");
+            CustomStyleText("Health (with pending):", $"{GetTargetCurrentHP(target, forceUsePending: true):N0} / {GetTargetMaxHP(target):N0} ({MathF.Round(GetTargetHPPercent(target, forceUsePending: true), 2)}%)");
+            CustomStyleText("Distance:", $"{MathF.Round(GetTargetDistance(target), 2)}y");
             CustomStyleText("Hitbox Radius:", target?.HitboxRadius);
             CustomStyleText("In Melee Range:", InMeleeRange());
-            CustomStyleText("Height Difference:", $"{MathF.Round(GetTargetHeightDifference(), 2)}y");
-            CustomStyleText("Relative Position:", AngleToTarget().ToString());
-            CustomStyleText("Requires Positionals:", TargetNeedsPositionals());
+            CustomStyleText("Height Difference:", $"{MathF.Round(GetTargetHeightDifference(target), 2)}y");
+            CustomStyleText("Relative Position:", AngleToTarget(target).ToString());
+            CustomStyleText("Requires Positionals:", TargetNeedsPositionals(target));
             CustomStyleText("Is Invincible:", TargetIsInvincible(target!));
             CustomStyleText("Is Hostile:", target?.IsHostile());
             CustomStyleText("Is Friendly:", target?.IsFriendly());
@@ -1441,9 +1384,16 @@ internal class Debug : ConfigWindow, IDisposable
                 ImGui.TreePop();
             }
 
-            ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
+            if (ImGui.TreeNode("Statuses"))
+            {
+                DrawStatuses(target);
+                ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
+                ImGui.TreePop();
+            }
 
             DrawVFXTree(target);
+
+            ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
         }
     }
 
@@ -1497,6 +1447,54 @@ internal class Debug : ConfigWindow, IDisposable
 
         ImGui.PopStyleColor();
         ImGui.Columns(1);
+    }
+
+    private static void DrawStatuses(IGameObject? target)
+    {
+        if (target is IBattleChara tar)
+        {
+            foreach (Status? status in tar.SafeStatusList)
+            {
+                // Set Status
+                string statusId = status.StatusId.ToString();
+                string statusName = StatusCache.GetStatusName(status.StatusId) ?? string.Empty;
+
+                // Set Source Name
+                string sourceName = status.SourceId != tar.GameObjectId
+                    ? status.SourceObject?.Name?.ToString() ?? string.Empty
+                    : string.Empty;
+
+                // Set Duration
+                float statusDuration = GetStatusEffectRemainingTime((ushort)status.StatusId, anyOwner: true);
+                string formattedDuration = $"{SymbolDuration} {(statusDuration >= 60f
+                    ? $"{(int)(statusDuration / 60f)}m"
+                    : $"{statusDuration:F1}s")}";
+
+                // Set Parameter
+                string formattedParam = status.Param > 0
+                    ? $"{SymbolParameter} {status.Param}"
+                    : string.Empty;
+
+                // Build First Column
+                string firstColumn = (string.IsNullOrEmpty(statusName), string.IsNullOrEmpty(sourceName)) switch
+                {
+                    (false, false) => $"{sourceName} → {statusName}:", // Both Exist
+                    (false, true) => $"{statusName}:",                // Only 'statusName'
+                    (true, false) => $"{sourceName} → {UnknownName}", // Only 'sourceName'
+                    (true, true) => UnknownName                      // Neither
+                };
+
+                // Build Second Column
+                var secondColumn = new StringBuilder();
+                secondColumn.Append(statusId.PadRight(WidthStatusId));
+                secondColumn.Append(formattedDuration.PadRight(WidthStatusDuration));
+                secondColumn.Append(formattedParam);
+
+                // Print
+                CustomStyleText(firstColumn, secondColumn, useMonofont: true);
+            }
+        }
+        ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
     }
 
     private static void DisableDebugConfig()

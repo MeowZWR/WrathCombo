@@ -9,7 +9,6 @@ using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 using FFXIVClientStructs.FFXIV.Component.GUI;
-using InteropGenerator.Runtime;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,6 +55,7 @@ public sealed unsafe class CustomAction : IDisposable
         row->Cast100ms = cast100ms;
         row->Recast100ms = recast100ms;
         row->CooldownGroup = cooldownGroup;
+        row->AdditionalRecastGroup = 0;
         row->MaxCharges = maxCharges;
         row->ClassJobCategory = 1;
         row->ClassJob = -1;
@@ -165,14 +165,19 @@ public sealed unsafe class CustomActionManager : IDisposable
         _updateTooltipHook.Dispose();
         _updateNameHook.Dispose();
 
-        foreach (CustomAction action in _actions.Values)
+        Svc.Framework.RunOnTick(() =>
         {
-            action.Dispose();
-        }
+            foreach (CustomAction action in _actions.Values)
+            {
+                action.Dispose();
+            }
 
-        _actions.Clear();
-        _iconTextures.Clear();
-        _pendingInjects.Clear();
+            _actions.Clear();
+            _iconTextures.Clear();
+            _pendingInjects.Clear();
+
+            Svc.Log.Debug($"Cleared custom actions");
+        }, TimeSpan.FromTicks(100));
     }
 
     public void Register(CustomAction action)
@@ -205,9 +210,16 @@ public sealed unsafe class CustomActionManager : IDisposable
 
     private CustomActionRow* GetActionRowDetour(uint rowId)
     {
-        if (_actions.TryGetValue(rowId, out CustomAction? action))
+        try
         {
-            return (CustomActionRow*)action.ActionRowPtr;
+            if (_actions.TryGetValue(rowId, out CustomAction? action))
+            {
+                return (CustomActionRow*)action.ActionRowPtr;
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.Log();
         }
 
         return _getActionRowHook.Original(rowId);
@@ -240,54 +252,64 @@ public sealed unsafe class CustomActionManager : IDisposable
 
     private void OnFrameworkUpdate(IFramework fw)
     {
-        for (int i = _pendingInjects.Count - 1; i >= 0; i--)
+        try
         {
-            IconInjectEntry e = _pendingInjects[i];
-            AtkComponentIcon* icon = (AtkComponentIcon*)e.ComponentPtr;
-
-            int framesLeft = e.FramesLeft - 1;
-            if (((uint)icon->Flags & 0x400u) != 0 && framesLeft > 0)
+            for (int i = _pendingInjects.Count - 1; i >= 0; i--)
             {
-                _pendingInjects[i] = e with { FramesLeft = framesLeft };
-                continue;
-            }
+                IconInjectEntry e = _pendingInjects[i];
+                AtkComponentIcon* icon = (AtkComponentIcon*)e.ComponentPtr;
 
-            IDalamudTextureWrap? wrap = e.Tex.GetWrapOrDefault();
-            if (wrap == null)
-            {
-                _pendingInjects[i] = e with { FramesLeft = framesLeft };
-                continue;
-            }
+                if (icon == null)
+                    continue;
 
-            AtkImageNode* imgNode = icon->IconImage;
-            if (imgNode == null)
-            {
+                int framesLeft = e.FramesLeft - 1;
+                if (((uint)icon->Flags & 0x400u) != 0 && framesLeft > 0)
+                {
+                    _pendingInjects[i] = e with { FramesLeft = framesLeft };
+                    continue;
+                }
+
+                IDalamudTextureWrap? wrap = e.Tex.GetWrapOrDefault();
+                if (wrap == null)
+                {
+                    _pendingInjects[i] = e with { FramesLeft = framesLeft };
+                    continue;
+                }
+
+                AtkImageNode* imgNode = icon->IconImage;
+                if (imgNode == null)
+                {
+                    _pendingInjects.RemoveAt(i);
+                    continue;
+                }
+
+                AtkUldPartsList* partsList = imgNode->PartsList;
+                if (partsList == null || partsList->PartCount == 0)
+                {
+                    _pendingInjects.RemoveAt(i);
+                    continue;
+                }
+
+                AtkUldPart* part = partsList->Parts;
+                if (part == null)
+                {
+                    _pendingInjects.RemoveAt(i);
+                    continue;
+                }
+
+                (*part).LoadTexture(wrap);
+
+                _loadIconHook.Original(icon, icon->IconId);
                 _pendingInjects.RemoveAt(i);
-                continue;
             }
-
-            AtkUldPartsList* partsList = imgNode->PartsList;
-            if (partsList == null || partsList->PartCount == 0)
-            {
-                _pendingInjects.RemoveAt(i);
-                continue;
-            }
-
-            AtkUldPart* part = partsList->Parts;
-            if (part == null)
-            {
-                _pendingInjects.RemoveAt(i);
-                continue;
-            }
-
-            (*part).LoadTexture(wrap);
-
-            _loadIconHook.Original(icon, icon->IconId);
-            _pendingInjects.RemoveAt(i);
+        }
+        catch (Exception ex)
+        {
+            ex.Log("Error with icon injection");
         }
     }
 
-    [StructLayout(LayoutKind.Explicit, Size = 0x40)]
+    [StructLayout(LayoutKind.Explicit, Size = 0x3F)]
     internal struct CustomActionRow
     {
         [FieldOffset(0x00)] public uint NameOffset;
@@ -300,6 +322,7 @@ public sealed unsafe class CustomActionManager : IDisposable
         [FieldOffset(0x29)] public byte EffectRange;
         [FieldOffset(0x2B)] public byte PrimaryCostType;
         [FieldOffset(0x2E)] public byte CooldownGroup;
+        [FieldOffset(0x2F)] public byte AdditionalRecastGroup;
         [FieldOffset(0x30)] public byte MaxCharges;
         [FieldOffset(0x33)] public byte ClassJobCategory;
         [FieldOffset(0x37)] public sbyte ClassJob;
