@@ -4,6 +4,7 @@ using ECommons.GameHelpers;
 using System;
 using System.Collections.Generic;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using WrathCombo.Combos.PvE.ALL;
 using WrathCombo.CustomComboNS;
 using WrathCombo.CustomComboNS.Functions;
 using static WrathCombo.Combos.PvE.RDM.Config;
@@ -276,6 +277,7 @@ internal partial class RDM
             Veraero3,
             Verthunder3,
             Role.Swiftcast,
+            Items.UseItem(Items.GetStrongestPotionRow(Items.PotionType.Int)),
             Verthunder3,
             Fleche, // 5
             Acceleration,
@@ -325,6 +327,7 @@ internal partial class RDM
         ];
 
         internal override UserData? ContentCheckConfig => RDM_BalanceOpener_Content;
+        internal override bool IncludePot => RDM_Opener_Potion;
         public override Preset Preset => Preset.RDM_Balance_Opener;
         public override bool HasCooldowns()
         {
@@ -344,6 +347,7 @@ internal partial class RDM
             Veraero3,
             Verthunder3,
             Role.Swiftcast,
+            Items.UseItem(Items.GetStrongestPotionRow(Items.PotionType.Int)),
             Verthunder3,
             Fleche, // 5
             Acceleration,
@@ -393,6 +397,7 @@ internal partial class RDM
         ];
 
         internal override UserData? ContentCheckConfig => RDM_BalanceOpener_Content;
+        internal override bool IncludePot => RDM_Opener_Potion;
         public override Preset Preset => Preset.RDM_Balance_Opener;
         public override bool HasCooldowns()
         {
@@ -413,6 +418,7 @@ internal partial class RDM
             Veraero3,
             Veraero3,
             Embolden,
+            Items.UseItem(Items.GetStrongestPotionRow(Items.PotionType.Int)),
             GrandImpact, //5
             Fleche, 
             Manafication,
@@ -446,7 +452,7 @@ internal partial class RDM
             ([2], Jolt3, () => PartyInCombat() && !Player.Object.IsCasting)
         ];
         
-        public override List<(int[] Steps, Func<int> HoldDelay)> PrepullDelays
+        public override List<(int[] Steps, Func<float> HoldDelay)> PrepullDelays
         {
             get;
             set;
@@ -461,6 +467,7 @@ internal partial class RDM
         ];
 
         internal override UserData? ContentCheckConfig => RDM_BalanceOpener_Content;
+        internal override bool IncludePot => RDM_Opener_Potion;
         public override Preset Preset => Preset.RDM_Balance_Opener;
         public override bool HasCooldowns()
         {
@@ -479,9 +486,6 @@ internal partial class RDM
             if (InCombat())
                 return false;
 
-            if (!CountdownActive)
-                return false;
-            
             if (CountdownRemaining > 25)
                 return false;
             

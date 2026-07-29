@@ -28,8 +28,10 @@ using System.Text;
 using WrathCombo.API.Enum;
 using WrathCombo.AutoRotation;
 using WrathCombo.Combos.PvE;
+using WrathCombo.Combos.PvE.ALL;
 using WrathCombo.Core;
 using WrathCombo.CustomComboNS;
+using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
 using WrathCombo.Data.BattleData;
 using WrathCombo.Extensions;
@@ -193,6 +195,7 @@ internal class Debug : ConfigWindow, IDisposable
                 if (config != null)
                 {
                     DebugConfig = true;
+                    _wrathLease = null;
                     _previousConfig = Service.Configuration;
                     Service.Configuration = config;
                     P.IPC = Provider.Init();
@@ -311,6 +314,7 @@ internal class Debug : ConfigWindow, IDisposable
                     Util.ShowStruct(&JobGaugeManager.Instance()->Scholar);
                     break;
                 case Job.NIN:
+                    CustomStyleText($"In Mudra:", $"{NIN.InMudra}");
                     CustomStyleText($"First Mudra:", $"{NIN.FirstMudra}");
                     CustomStyleText($"Second Mudra:", $"{NIN.SecondMudra}");
                     CustomStyleText($"Third Mudra:", $"{NIN.ThirdMudra}");
@@ -320,6 +324,9 @@ internal class Debug : ConfigWindow, IDisposable
                     Util.ShowStruct(&JobGaugeManager.Instance()->Ninja);
                     break;
                 case Job.MCH:
+                    CustomStyleText($"Max Reassemble Recharges:", $"{GetMaxCharges(MCH.Reassemble)}");
+                    CustomStyleText($"Use Both Charges:", $"{MCH.UseBothCharges}");
+                    CustomStyleText($"Should Reassemble:", $"{MCH.ShouldReassemble()}");
                     Util.ShowStruct(&JobGaugeManager.Instance()->Machinist);
                     break;
                 case Job.DRK:
@@ -526,6 +533,7 @@ internal class Debug : ConfigWindow, IDisposable
             CustomStyleText("Last Weaponskill:", GetActionName(ActionWatching.LastWeaponskill));
             CustomStyleText("Last Spell:", GetActionName(ActionWatching.LastSpell));
             CustomStyleText("Last Ability:", GetActionName(ActionWatching.LastAbility));
+            CustomStyleText("Weave Actions:", string.Join(", ", ActionWatching.WeaveActions.Select(x => x.ActionName())));
             CustomStyleText("Combo Timer:", $"{ComboTimer:F1}");
             CustomStyleText("Combo Action:",
                 ComboAction == 0
@@ -1036,6 +1044,22 @@ internal class Debug : ConfigWindow, IDisposable
             CustomStyleText($"Ignored Raidwides:", $"{BattleData.IgnoreRaidwideAIDs.Count}");
         }
 
+        if (ImGui.CollapsingHeader("Items"))
+        {
+            foreach (var pot in Items.AllPots)
+            {
+                CustomStyleText($"{pot.Name} ({pot.RowId})", Svc.Texture.GetFromGameIcon(new() { IconId = pot.Icon }).GetWrapOrEmpty().Handle);
+            }
+        }
+
+        if (ImGui.CollapsingHeader("Custom Actions"))
+        {
+            foreach (var act in P.CustomActions.Manager.Actions)
+            {
+                CustomStyleText($"{act.Name}", $"{act.Id}");
+            }
+        }
+
         #endregion
 
         ImGuiEx.Spacing(new Vector2(0f, SpacingSmall));
@@ -1442,17 +1466,23 @@ internal class Debug : ConfigWindow, IDisposable
 
         // Optional Monofont
         if (useMonofont) ImGui.PushFont(UiBuilder.MonoFont);
-        ImGui.TextWrapped(secondColumn?.ToString() ?? string.Empty);
+        if (secondColumn is ImTextureID tex)
+            ImGui.Image(tex, new Vector2(28f.Scale()));
+        else
+            ImGui.TextWrapped(secondColumn?.ToString() ?? string.Empty);
         if (useMonofont) ImGui.PopFont();
 
         ImGui.PopStyleColor();
         ImGui.Columns(1);
     }
 
-    private static void DrawStatuses(IGameObject? target)
+    private unsafe static void DrawStatuses(IGameObject? target)
     {
         if (target is IBattleChara tar)
         {
+            CustomStyleText($"Count:", $"{target.SafeStatusList?.Count(x => x.StatusId != 0)}");
+            CustomStyleText($"NumValid:", $"{tar.Struct()->StatusManager.NumValidStatuses}");
+            CustomStyleText($"StatusCapped:", $"{CustomComboFunctions.TargetIsStatusCapped(tar)}");
             foreach (Status? status in tar.SafeStatusList)
             {
                 // Set Status
@@ -1501,6 +1531,7 @@ internal class Debug : ConfigWindow, IDisposable
     {
         _debugConfig = string.Empty;
         DebugConfig = false;
+        _wrathLease = null;
         Service.Configuration =
             _previousConfig ??
             Svc.PluginInterface.GetPluginConfig() as Configuration ??

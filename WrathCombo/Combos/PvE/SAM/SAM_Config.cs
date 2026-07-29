@@ -19,35 +19,28 @@ internal partial class SAM
                 #region ST
 
                 case Preset.SAM_ST_Opener:
-                    ImGui.Indent();
                     DrawBossOnlyChoice(SAM_Balance_Content);
-                    ImGui.Unindent();
-                    ImGuiEx.Spacing(new Vector2(0, 10));
+                    DrawOpenerPotionChoice(SAM_Opener_Potion);
 
-                    DrawSliderInt(0, 13, SAM_Opener_PrePullDelay,
-                        FormatAndCache(SAM_Config.SecondsDelayFromFirstStep, MeikyoShisui.ActionName()), 75f.Scale());
-
+                    ImGui.TextWrapped(SAM_Config.SecondsDelayFromFirstStep);
                     if (ImGui.IsItemHovered())
                         ImGui.SetTooltip(FormatAndCache(SAM_Config.DelaySavageBlade, All.SavageBlade.ActionName()));
 
                     ImGuiEx.Spacing(new Vector2(0, 10));
-                    ImGui.NewLine();
-
-                    DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
+                    ImGuiEx.TextUnderlined($"{Gyoten.ActionName()} Settings");
+                    ImGui.Spacing();
+                    DrawRadioButton(SAM_Opener_IncludeGyoten,
                         FormatAndCache(SAM_Config.Include2x0, Gyoten.ActionName()),
-                        FormatAndCache(SAM_Config.IncludeBoth0, Gyoten.ActionName()), 0);
-
-                    DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
+                        FormatAndCache(SAM_Config.IncludeBoth0, Gyoten.ActionName()), 0, descriptionAsTooltip: true);
+                    DrawRadioButton(SAM_Opener_IncludeGyoten,
                         SAM_Config.SkipBoth,
-                        FormatAndCache(SAM_Config.SkipBothUsageOf0, Gyoten.ActionName()), 1);
-
-                    DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
+                        FormatAndCache(SAM_Config.SkipBothUsageOf0, Gyoten.ActionName()), 1, descriptionAsTooltip: true);
+                    DrawRadioButton(SAM_Opener_IncludeGyoten,
                         SAM_Config.SkipFirst,
-                        FormatAndCache(SAM_Config.SkipFirstUseOf0, Gyoten.ActionName()), 2);
-
-                    DrawHorizontalRadioButton(SAM_Opener_IncludeGyoten,
+                        FormatAndCache(SAM_Config.SkipFirstUseOf0, Gyoten.ActionName()), 2, descriptionAsTooltip: true);
+                    DrawRadioButton(SAM_Opener_IncludeGyoten,
                         SAM_Config.SkipSecond,
-                        FormatAndCache(SAM_Config.SkipSecondUseOf0, Gyoten.ActionName()), 3);
+                        FormatAndCache(SAM_Config.SkipSecondUseOf0, Gyoten.ActionName()), 3, descriptionAsTooltip: true);
                     break;
 
                 case Preset.SAM_ST_CDs_UseHiganbana:
@@ -90,7 +83,6 @@ internal partial class SAM
                     DrawSliderInt(0, 100, SAM_ST_MeikyoExecuteThreshold,
                         FormatAndCache(SAM_Config.HPPercentMeikyo, MeikyoShisui.ActionName()));
                     break;
-
 
                 case Preset.SAM_ST_GekkoCombo:
                     DrawAdditionalBoolChoice(SAM_Gekko_KenkiOvercap,
@@ -218,7 +210,6 @@ internal partial class SAM
 
             //ST
             SAM_Balance_Content = new("SAM_Balance_Content", 1),
-            SAM_Opener_PrePullDelay = new("SAM_Opener_PrePullDelay", 13),
             SAM_Opener_IncludeGyoten = new("SAM_Opener_IncludeGyoten"),
             SAM_ST_HiganbanaBossHPOption = new("SAM_ST_HiganbanaBossHPOption"),
             SAM_ST_HiganbanaBossAddsHPOption = new("SAM_ST_HiganbanaBossAddsHPOption", 25),
@@ -245,6 +236,7 @@ internal partial class SAM
             SAM_Mangetsu_KenkiOvercapAmount = new("SAM_Mangetsu_KenkiOvercapAmount", 50);
 
         public static UserBool
+            SAM_Opener_Potion = new("SAM_Opener_Potion"),
             SAM_Gekko_KenkiOvercap = new("SAM_Gekko_KenkiOvercap"),
             SAM_Kasha_KenkiOvercap = new("SAM_Kasha_KenkiOvercap"),
             SAM_Yukaze_KenkiOvercap = new("SAM_Yukaze_KenkiOvercap"),
