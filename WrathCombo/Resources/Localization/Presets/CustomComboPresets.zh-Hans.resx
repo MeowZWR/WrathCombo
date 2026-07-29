@@ -11314,4 +11314,400 @@
   <data name="WAR_NascentFlash_TT_Desc" xml:space="preserve">
     <value>若你当前目标的目标不是你或不在你的小队中，会将“原初的勇猛”重定向给该目标。</value>
   </data>
+  <data name="ASTPvP_Burst_Oracle_Desc" xml:space="preserve">
+    <value>添加神谕（极限技后续）到爆发模式</value>
+  </data>
+  <data name="ASTPvP_Burst_Oracle_Name" xml:space="preserve">
+    <value>神谕</value>
+  </data>
+  <data name="DRK_AoE_CD_BringerBurst_Desc" xml:space="preserve">
+    <value>预留“暗影使者”用于偶数分钟爆发窗口（在“掠影的蔑视”后）。</value>
+  </data>
+  <data name="DRK_AoE_CD_BringerBurst_Name" xml:space="preserve">
+    <value>暗影使者爆发预留</value>
+  </data>
+  <data name="DRK_AoE_CD_Darkness_Desc" xml:space="preserve">
+    <value>在持续时间后半段将“腐秽黑暗”加入循环。</value>
+  </data>
+  <data name="DRK_AoE_CD_Darkness_Name" xml:space="preserve">
+    <value>腐秽黑暗</value>
+  </data>
+  <data name="GNB_AoE_FatedBrand_Desc" xml:space="preserve">
+    <value>在可用时，将命运之印加入 AOE 循环中。</value>
+  </data>
+  <data name="GNB_AoE_FatedBrand_Name" xml:space="preserve">
+    <value>命运之印</value>
+  </data>
+  <data name="GNB_Aurora_Features_Desc" xml:space="preserve">
+    <value>极光相关功能集合</value>
+  </data>
+  <data name="GNB_Aurora_Features_Lockout_Desc" xml:space="preserve">
+    <value>如果当前目标已经激活该状态，则阻止极光。</value>
+  </data>
+  <data name="GNB_Aurora_Features_Lockout_Name" xml:space="preserve">
+    <value>防止覆盖</value>
+  </data>
+  <data name="GNB_Aurora_Features_Name" xml:space="preserve">
+    <value>极光功能</value>
+  </data>
+  <data name="GNB_Aurora_Features_RetargetMO_Desc" xml:space="preserve">
+    <value>如果鼠标悬停目标没有该状态，则将极光重定向至该目标。</value>
+  </data>
+  <data name="GNB_Aurora_Features_RetargetMO_Name" xml:space="preserve">
+    <value>鼠标悬停选项</value>
+  </data>
+  <data name="GNB_Aurora_Features_RetargetTT_Desc" xml:space="preserve">
+    <value>如果目标没有激活该持续恢复状态且你没有仇恨，则将极光重定向到目标的目标。</value>
+  </data>
+  <data name="GNB_Aurora_Features_RetargetTT_Name" xml:space="preserve">
+    <value>目标的目标选项</value>
+  </data>
+  <data name="GNB_HoC_Features_Desc" xml:space="preserve">
+    <value>石之心/刚玉之心相关功能的集合</value>
+  </data>
+  <data name="GNB_HoC_Features_Name" xml:space="preserve">
+    <value>石之心/刚玉之心特性</value>
+  </data>
+  <data name="GNB_HoC_Features_RetargetMO_Desc" xml:space="preserve">
+    <value>将石之心/刚玉重定向到鼠标悬停目标或循环外的硬目标。</value>
+  </data>
+  <data name="GNB_HoC_Features_RetargetMO_Name" xml:space="preserve">
+    <value>鼠标悬停选项</value>
+  </data>
+  <data name="GNB_HoC_Features_RetargetTT_Desc" xml:space="preserve">
+    <value>如果没有仇恨，将石之心/刚玉之心重定向至目标的目标。注意：此行为仍可通过鼠标悬停覆盖。</value>
+  </data>
+  <data name="GNB_HoC_Features_RetargetTT_Name" xml:space="preserve">
+    <value>目标的目标选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Aurora_Desc" xml:space="preserve">
+    <value>当低于阈值时，添加极光。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Aurora_Name" xml:space="preserve">
+    <value>极光选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Camouflage_Desc" xml:space="preserve">
+    <value>检测到死刑时添加伪装。注意：除非低于设定阈值或与铁壁对齐，否则此功能不会重叠。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Camouflage_Name" xml:space="preserve">
+    <value>伪装死刑选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Desc" xml:space="preserve">
+    <value>在 Boss 战中将减伤加入连击。
+- 注意：除非另有说明，不同选项不会重叠使用。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_HeartOfLight_Desc" xml:space="preserve">
+    <value>当检测到全体攻击读条时，添加光之心。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_HeartOfLight_Name" xml:space="preserve">
+    <value>光之心 全屏AOE 选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Desc" xml:space="preserve">
+    <value>低于阈值时，每次冷却添加石之心/刚玉之心。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_OnCD_Name" xml:space="preserve">
+    <value>石之心/刚玉之心 冷却时使用选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Desc" xml:space="preserve">
+    <value>在检测到死刑时添加石之心/刚玉之心。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_HeartOfStone_TankBuster_Name" xml:space="preserve">
+    <value>石之心/刚玉之心 死刑选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Name" xml:space="preserve">
+    <value>Boss 战减伤</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Nebula_Desc" xml:space="preserve">
+    <value>检测到死刑时，使用星云/大星云。注意：此功能不会与铁壁重叠。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Nebula_Name" xml:space="preserve">
+    <value>星云/大星云 死刑选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Rampart_Desc" xml:space="preserve">
+    <value>当检测到死刑时添加铁壁。注意：此功能不会与星云重叠。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Rampart_Name" xml:space="preserve">
+    <value>铁壁应对死刑</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Reprisal_Desc" xml:space="preserve">
+    <value>检测到全屏 AoE 读条时，加入“雪仇”。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Boss_Reprisal_Name" xml:space="preserve">
+    <value>全屏 AoE 雪仇</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Desc" xml:space="preserve">
+    <value>自动将减伤加入连击。
+- 高级模式遵循下方可配置的值。
+- 简单模式遵循无法更改的推荐值。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_Name" xml:space="preserve">
+    <value>高级减伤功能</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_ArmsLength_Desc" xml:space="preserve">
+    <value>目标数达到 5 个及以上时加入“亲疏自行”。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_ArmsLength_Name" xml:space="preserve">
+    <value>亲疏自行</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Aurora_Desc" xml:space="preserve">
+    <value>当目标数量为3个或以上时，添加极光。注意：此功能会与其他减伤效果重叠。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Aurora_Name" xml:space="preserve">
+    <value>极光选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Camouflage_Desc" xml:space="preserve">
+    <value>当目标数为3个或以上时，添加伪装。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Camouflage_Name" xml:space="preserve">
+    <value>伪装选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Desc" xml:space="preserve">
+    <value>在非首领战时，自动将减伤技能加入循环。  
+- 注意：除非另有说明，此功能不会重叠使用独立的选项，并且除非你不移动，否则不会在开怪后的前15秒内使用。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfLight_Desc" xml:space="preserve">
+    <value>当目标为 5 个或以上时，添加光之心。注意：此功能会与其他功能重叠。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfLight_Name" xml:space="preserve">
+    <value>光之心选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfStone_Desc" xml:space="preserve">
+    <value>可用时添加“石之心”或“刚玉之心”。  
+- 注意：此功能会与其他功能重叠。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_HeartOfStone_Name" xml:space="preserve">
+    <value>石之心/刚玉之心选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Name" xml:space="preserve">
+    <value>非 Boss 战减伤</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Nebula_Desc" xml:space="preserve">
+    <value>当3个或以上目标时，添加星云/大星云。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Nebula_Name" xml:space="preserve">
+    <value>星云选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Rampart_Desc" xml:space="preserve">
+    <value>目标数达到 3 个及以上时加入“铁壁”。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Rampart_Name" xml:space="preserve">
+    <value>铁壁</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Reprisal_Desc" xml:space="preserve">
+    <value>目标数达到 5 个或以上时加入“雪仇”。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Reprisal_Name" xml:space="preserve">
+    <value>雪仇</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Desc" xml:space="preserve">
+    <value>当陷入紧急生命情况时，添加超火流星。
+- 注意：若使用上述推荐设置，超火流星很可能处于冷却中。</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_SuperBolideEmergency_Name" xml:space="preserve">
+    <value>超火流星 紧急选项</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Superbolide_Desc" xml:space="preserve">
+    <value>当目标数为 5 个或更多时，将超火流星加入减伤循环。（推荐）</value>
+  </data>
+  <data name="GNB_Mit_Advanced_NonBoss_Superbolide_Name" xml:space="preserve">
+    <value>超火流星选项</value>
+  </data>
+  <data name="GNB_Mit_OneButton_ArmsLength_Desc" xml:space="preserve">
+    <value>将亲疏自行添加到一键减伤中。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_ArmsLength_Name" xml:space="preserve">
+    <value>亲疏自行选项</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Aurora_Desc" xml:space="preserve">
+    <value>将极光添加到一键减伤。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Aurora_Name" xml:space="preserve">
+    <value>极光</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Camouflage_Desc" xml:space="preserve">
+    <value>将伪装添加至一键减伤。
+- 注意：即使禁用，此功能仍会尝试以最低优先级使用伪装。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Camouflage_Name" xml:space="preserve">
+    <value>伪装优先选项</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Corundum_Desc" xml:space="preserve">
+    <value>将石之心/刚玉之心加入一键减伤。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Corundum_Name" xml:space="preserve">
+    <value>刚玉之心</value>
+  </data>
+  <data name="GNB_Mit_OneButton_HeartOfLight_Desc" xml:space="preserve">
+    <value>将光之心添加到一键减伤中。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_HeartOfLight_Name" xml:space="preserve">
+    <value>光之心选项</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Nebula_Desc" xml:space="preserve">
+    <value>将星云添加到一键减伤中。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Nebula_Name" xml:space="preserve">
+    <value>星云选项</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Party_Desc" xml:space="preserve">
+    <value>准备就绪时，将光之心替换为雪仇。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Party_Name" xml:space="preserve">
+    <value>一键团队减伤功能</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Rampart_Desc" xml:space="preserve">
+    <value>在一键减伤中加入“铁壁”。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Rampart_Name" xml:space="preserve">
+    <value>铁壁</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Reprisal_Desc" xml:space="preserve">
+    <value>将「雪仇」添加至一键减伤中。  
+- 注：为避免浪费，仅当范围内存在目标时才会激活此功能。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Reprisal_Name" xml:space="preserve">
+    <value>雪仇</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Superbolide_Max_Desc" xml:space="preserve">
+    <value>当生命值百分比阈值满足时，将超火流星设为最高优先级。</value>
+  </data>
+  <data name="GNB_Mit_OneButton_Superbolide_Max_Name" xml:space="preserve">
+    <value>超火流星紧急选项</value>
+  </data>
+  <data name="MCH_AoE_Adv_HyperchargeToolHold" xml:space="preserve">
+    <value>s, 等待直到工具技能冷却时间至少达到此值再使用超荷</value>
+  </data>
+  <data name="MCH_ST_Adv_QueenInHypercharge_Desc" xml:space="preserve">
+    <value>允许在超荷状态下使用后式自走人偶。</value>
+  </data>
+  <data name="MCH_ST_Adv_QueenInHypercharge_Name" xml:space="preserve">
+    <value>超荷中使用后式自走人偶</value>
+  </data>
+  <data name="MCH_ST_Adv_Tools_AllowClainsawPostWildfire_Desc" xml:space="preserve">
+    <value>启用时，如果回转飞锯、野火和超荷就绪，将先使用野火+超荷，再使用回转飞锯。</value>
+  </data>
+  <data name="MCH_ST_Adv_Tools_AllowClainsawPostWildfire_Name" xml:space="preserve">
+    <value>允许在野火后使用回转飞锯</value>
+  </data>
+  <data name="MCH_ST_Adv_Tools_AllowExcavatorPostWildfire_Desc" xml:space="preserve">
+    <value>启用时，如果掘地飞轮、野火和超荷准备就绪，将先使用野火+超荷，之后再使用掘地飞轮。</value>
+  </data>
+  <data name="MCH_ST_Adv_Tools_AllowExcavatorPostWildfire_Name" xml:space="preserve">
+    <value>允许在野火之后使用掘地飞轮</value>
+  </data>
+  <data name="MCH_ST_Adv_WildfireHyperchargeCutoffThreshold" xml:space="preserve">
+    <value>s，当工具冷却时间小于此值时，将野火延迟到工具之后</value>
+  </data>
+  <data name="MNKPvP_Burst_FiresReply_Desc" xml:space="preserve">
+    <value>将乾坤斗气弹添加到爆发模式。</value>
+  </data>
+  <data name="MNKPvP_Burst_FiresReply_Name" xml:space="preserve">
+    <value>乾坤斗气弹选项</value>
+  </data>
+  <data name="PCT_ST_AdvancedMode_Tempera_Desc" xml:space="preserve">
+    <value>检测到全屏攻击施法时，添加坦培拉涂层。如果范围内有超过 75% 的队员，则用油性坦培拉涂层将其扩散。</value>
+  </data>
+  <data name="PCT_ST_AdvancedMode_Tempera_Name" xml:space="preserve">
+    <value>坦培拉全屏 AoE</value>
+  </data>
+  <data name="Phantom_RestrictToBuff_Desc" xml:space="preserve">
+    <value>会将破坏性幻影技能限制在你或你的小队拥有伤害增益时（包括自身的较小增益，如圣骑士的战逃反应）。不推荐！</value>
+  </data>
+  <data name="Phantom_RestrictToBuff_Name" xml:space="preserve">
+    <value>限制伤害性幻影技能至增益窗口期间</value>
+  </data>
+  <data name="PLD_AoE_AdvancedMode_GoringBlade_Desc" xml:space="preserve">
+    <value>将沥血剑添加到高级模式。
+- 当目标少于 4 个时使用。</value>
+  </data>
+  <data name="PLD_AoE_AdvancedMode_GoringBlade_Name" xml:space="preserve">
+    <value>沥血剑</value>
+  </data>
+  <data name="PLD_AoE_AdvancedMode_ShieldLob_Desc" xml:space="preserve">
+    <value>将投盾添加到高级模式。
+- 仅在超出近战范围时使用。</value>
+  </data>
+  <data name="PLD_AoE_AdvancedMode_ShieldLob_Name" xml:space="preserve">
+    <value>投盾</value>
+  </data>
+  <data name="RDM_RetargetVercure_Desc" xml:space="preserve">
+    <value>将根据以下子选项重定向赤治疗。</value>
+  </data>
+  <data name="RDM_RetargetVercure_LowHP_Desc" xml:space="preserve">
+    <value>在你自身血量低于设定阈值前，将治疗血量最低的队员</value>
+  </data>
+  <data name="RDM_RetargetVercure_LowHP_Name" xml:space="preserve">
+    <value>低HP赤治疗选项</value>
+  </data>
+  <data name="RDM_RetargetVercure_MO_Desc" xml:space="preserve">
+    <value>将 UI 鼠标指向加入优先级，且高于低血量选项。</value>
+  </data>
+  <data name="RDM_RetargetVercure_MO_Name" xml:space="preserve">
+    <value>鼠标悬停赤治疗选项</value>
+  </data>
+  <data name="RDM_RetargetVercure_Name" xml:space="preserve">
+    <value>重定向赤治疗功能</value>
+  </data>
+  <data name="RPR_AoE_BasicCombo_Desc" xml:space="preserve">
+    <value>将噩梦钐割替换为其连击链。</value>
+  </data>
+  <data name="RPR_AoE_BasicCombo_Name" xml:space="preserve">
+    <value>基础范围连击</value>
+  </data>
+  <data name="RPR_AoE_BasicCombo_WoD_Desc" xml:space="preserve">
+    <value>将“死亡之涡”加入循环。</value>
+  </data>
+  <data name="RPR_AoE_BasicCombo_WoD_Name" xml:space="preserve">
+    <value>死亡之涡</value>
+  </data>
+  <data name="RPR_BloodStalkEnshroudCombo_Name" xml:space="preserve">
+    <value>隐匿挥割/束缚挥割连击（无暴食）</value>
+  </data>
+  <data name="RPR_BloodStalkEnshroudCombo_Desc" xml:space="preserve">
+    <value>在“隐匿挥割”和“束缚挥割”上加入绞决/缢杀与夜游魂衣连击，而不将其替换为“暴食”。与“隐匿挥割/束缚挥割”上的“暴食”冲突。</value>
+  </data>
+  <data name="RPR_BloodStalkEnshroudCombo_BloodSwatheCombo_Name" xml:space="preserve">
+    <value>隐匿挥割/束缚挥割触发绞决缢杀/断首功能</value>
+  </data>
+  <data name="RPR_BloodStalkEnshroudCombo_BloodSwatheCombo_Desc" xml:space="preserve">
+    <value>在“隐匿挥割”上加入“（处刑）绞决/缢杀”。
+在“束缚挥割”上加入“（处刑）断首”。</value>
+  </data>
+  <data name="RPR_BloodStalkEnshroudCombo_Enshroud_Name" xml:space="preserve">
+    <value>夜游魂衣连击</value>
+  </data>
+  <data name="RPR_BloodStalkEnshroudCombo_Enshroud_Desc" xml:space="preserve">
+    <value>在“隐匿挥割”和“束缚挥割”上加入夜游魂衣连击（虚无/交错收割、团契、夜游魂切割、祭牲、完人）。</value>
+  </data>
+  <data name="SAM_AoE_CDs_Ikishoten_Desc" xml:space="preserve">
+    <value>当剑气为 50 或以下时，添加意气冲天。
+将在剩余 10 秒时消耗剑气以允许使用意气冲天。</value>
+  </data>
+  <data name="SAM_AoE_CDs_Ikishoten_Name" xml:space="preserve">
+    <value>意气冲天</value>
+  </data>
+  <data name="SAM_AoE_StunInterrupt_Desc" xml:space="preserve">
+    <value>当非 Boss 目标读条时，加入“扫腿”。</value>
+  </data>
+  <data name="SAM_AoE_StunInterrupt_Name" xml:space="preserve">
+    <value>扫腿</value>
+  </data>
+  <data name="SAM_ST_StunInterrupt_Desc" xml:space="preserve">
+    <value>当非 Boss 目标读条时，加入“扫腿”。</value>
+  </data>
+  <data name="SAM_ST_StunInterrupt_Name" xml:space="preserve">
+    <value>扫腿</value>
+  </data>
+  <data name="SCH_Dissipation_Desc" xml:space="preserve">
+    <value>当以太超流可用时，用以太超流替换转化。</value>
+  </data>
+  <data name="SCH_Dissipation_Name" xml:space="preserve">
+    <value>转化</value>
+  </data>
+  <data name="SMN_Rekindle_Desc" xml:space="preserve">
+    <value>重定向再生之炎到目标的目标 &gt; 需要治疗的坦克 &gt; 需要治疗的队员 &gt; 自身</value>
+  </data>
+  <data name="SMN_Rekindle_Name" xml:space="preserve">
+    <value>重燃重定向</value>
+  </data>
 </root>

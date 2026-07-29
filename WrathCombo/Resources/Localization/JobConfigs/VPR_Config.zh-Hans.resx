@@ -118,31 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add0WhenAvailableRespectManualCharge" xml:space="preserve">
-    <value>可用时添加 {0}。保留手动 {0} 充能。</value>
+    <value>可用时添加“{0}”。保留手动“{0}”充能。</value>
   </data>
   <data name="AddRangeCheckFor0" xml:space="preserve">
-    <value>为 {0} 添加射程判定，使其仅在射程内时使用。</value>
+    <value>为“{0}”添加射程判定，使其仅在射程内时使用。</value>
   </data>
   <data name="AddRangeCheckFor0And1" xml:space="preserve">
-    <value>为 {0} 和 {1} 添加射程检查，使其仅在范围内时使用。</value>
+    <value>为“{0}”和“{1}”添加射程检查，使其仅在范围内时使用。</value>
   </data>
   <data name="DisableRangeCheckFor0" xml:space="preserve">
-    <value>禁用 {0} 的范围检查，因此即使未选中目标也会使用。</value>
+    <value>禁用“{0}”的范围检查，因此即使未选中目标也会使用。</value>
   </data>
   <data name="DisableRangeCheckFor0And1" xml:space="preserve">
-    <value>禁用 {0} 和 {1} 的射程判定，因此即使未选择目标也会使用它们。</value>
+    <value>禁用“{0}”和“{1}”的射程判定，因此即使未选择目标也会使用它们。</value>
   </data>
   <data name="Forces0Or1ForBuffs" xml:space="preserve">
-    <value>如果 buff 需要重新应用，则强制使用 {0} 或 {1}。</value>
+    <value>如果 buff 需要重新应用，则强制使用“{0}”或“{1}”。</value>
   </data>
   <data name="HPPThresholdWheneverAvailableBossesOnly" xml:space="preserve">
-    <value>设置一个 HP% 阈值，以便在可用时使用 {0}。（仅首领战）</value>
+    <value>设置一个 HP% 阈值，以便在可用时使用“{0}”。（仅首领战）</value>
   </data>
   <data name="WillHoldLastChargeOf0For1" xml:space="preserve">
-    <value>即使在通常GCD无法满足方向指定时，也会保留 {0} 的最后一层充能用于配合 {1}。
-如果上方滑块设置为1，则不会将剩余充能用于 {1} ，而是留作手动使用。</value>
+    <value>即使在通常GCD无法满足方向指定时，也会保留“{0}”的最后一层充能用于配合“{1}”。
+如果上方滑块设置为1，则不会将剩余充能用于“{1}”，而是留作手动使用。</value>
   </data>
   <data name="Replace0WithFullCombo" xml:space="preserve">
-    <value>将 {0} 替换为完整的祖灵之牙 - 祖灵之蛇连击。</value>
+    <value>将“{0}”替换为完整的祖灵之牙 - 祖灵之蛇连击。</value>
+  </data>
+  <data name="EarlyBuffOpener" xml:space="preserve">
+    <value>早期增益起手循环</value>
+  </data>
+  <data name="UseEarlyBuffOpener" xml:space="preserve">
+    <value>使用早期增益起手循环。</value>
   </data>
 </root>

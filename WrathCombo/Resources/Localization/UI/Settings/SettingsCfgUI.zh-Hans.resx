@@ -738,4 +738,25 @@
   <data name="AoEDamageToast_recommendedValue" xml:space="preserve">
     <value>按偏好</value>
   </data>
+  <data name="UseExperimentalHP_Name" xml:space="preserve">
+    <value>实验性血量检查功能</value>
+  </data>
+  <data name="UseExperimentalHP_helpMark" xml:space="preserve">
+    <value>这是一种评估当前HP值的新方法，通过预先获取的数值在游戏内正确显示之前就内部更新生命值。
+
+因此，你可能会看到事情比预期的更早发生，因为伤害和治疗数值在游戏内显示之前就已经生成。例如，一旦你进入滑步施法窗口，该法术的数值就已经确定了。
+
+实际上，这最推荐给使用自动循环的治疗职业使用，以减少重复施放治疗。对于 DPS 职业，这会在致命一击发出时立即通过自动循环切换目标，而不是等待目标被正式确认为死亡。
+
+目前用于功能和自动循环中的HP百分比检查评估。</value>
+  </data>
+  <data name="UseExperimentalHP_recommendedValue" xml:space="preserve">
+    <value>按偏好</value>
+  </data>
+  <data name="UseExperimentalHP_defaultValue" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="UseExperimentalHP_warningMark" xml:space="preserve">
+    <value>高度实验性，可能出现不良行为。请保持警惕并报告此情况。</value>
+  </data>
 </root>

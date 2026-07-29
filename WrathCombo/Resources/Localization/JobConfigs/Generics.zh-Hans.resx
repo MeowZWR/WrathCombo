@@ -118,37 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="_0Option" xml:space="preserve">
-    <value>{0} 选项</value>
+    <value>“{0}”选项</value>
   </data>
   <data name="Action_Priority" xml:space="preserve">
-    <value>{0} 优先级:</value>
+    <value>“{0}”优先级:</value>
   </data>
   <data name="Action_Threshold" xml:space="preserve">
-    <value>{0} 阈值</value>
+    <value>“{0}”阈值</value>
   </data>
   <data name="Add0" xml:space="preserve">
-    <value>添加 {0}</value>
+    <value>添加“{0}”</value>
   </data>
   <data name="Add0Combo" xml:space="preserve">
-    <value>添加 {0} 连击</value>
+    <value>添加“{0}”连击</value>
   </data>
   <data name="Add0ComboWhenApplicable" xml:space="preserve">
-    <value>当适用时添加 {0} 连击。</value>
+    <value>当适用时添加“{0}”连击。</value>
   </data>
   <data name="Add0Or1" xml:space="preserve">
-    <value>添加 {0} / {1}。</value>
+    <value>添加“{0}” / “{1}”。</value>
   </data>
   <data name="Add0ToTheRotation" xml:space="preserve">
-    <value>将 {0} 添加到循环中。</value>
+    <value>将“{0}”添加到循环中。</value>
   </data>
   <data name="Add0WhenAverageHpPercentofPartyIsAtOrBelow" xml:space="preserve">
-    <value>当队伍平均HP%低于或等于指定值时，添加 {0}</value>
+    <value>当队伍平均HP%低于或等于指定值时，添加“{0}”</value>
   </data>
   <data name="AddFieldMouseoverTargetting" xml:space="preserve">
     <value>添加野外鼠标悬停目标选择</value>
   </data>
   <data name="Adds0To1" xml:space="preserve">
-    <value>将 {0} 添加到 {1}。</value>
+    <value>将“{0}”添加到“{1}”。</value>
   </data>
   <data name="AllContent" xml:space="preserve">
     <value>全部内容</value>
@@ -172,11 +172,11 @@
     <value>移动时</value>
   </data>
   <data name="ApplyOnlyTo0" xml:space="preserve">
-    <value>仅对 {0} 应用选项。</value>
+    <value>仅对“{0}”应用选项。</value>
   </data>
   <data name="ApplyToAll0" xml:space="preserve">
     <value>将选项应用于所有这些：
-{0}</value>
+“{0}”</value>
   </data>
   <data name="BossEncounterNonBossHpPercent" xml:space="preserve">
     <value>首领战中的非首领敌人。在敌人 HP% 低于此值时停止使用。</value>
@@ -194,13 +194,13 @@
     <value>爆发选项</value>
   </data>
   <data name="Change0Or1" xml:space="preserve">
-    <value>更改 {0} / {1}</value>
+    <value>更改“{0}” / “{1}”</value>
   </data>
   <data name="ChargePool" xml:space="preserve">
     <value>手动使用保留的充能次数。设置为0以禁用此检查。</value>
   </data>
   <data name="DelayMit" xml:space="preserve">
-    <value>检测到死刑后，延迟多长时间使用 {0}。设为 0 以禁用此检查。</value>
+    <value>检测到死刑后，延迟多长时间使用“{0}”。设为 0 以禁用此检查。</value>
   </data>
   <data name="DisableRangeCheck" xml:space="preserve">
     <value>禁用距离检查</value>
@@ -209,7 +209,7 @@
     <value>禁用减伤技能的使用</value>
   </data>
   <data name="DontUse0" xml:space="preserve">
-    <value>不要使用 {0}</value>
+    <value>不要使用“{0}”</value>
   </data>
   <data name="DoTSecondsRemainingZeroDisable" xml:space="preserve">
     <value>重新施加 DoT 前的剩余秒数。设置为 0 以禁用此检查。</value>
@@ -224,7 +224,7 @@
     <value>选择 HP 检查应应用于哪种类型的敌人：</value>
   </data>
   <data name="Exclude0" xml:space="preserve">
-    <value>排除 {0}</value>
+    <value>排除“{0}”</value>
   </data>
   <data name="ExcludeAdvancedMitigations" xml:space="preserve">
     <value>排除高级减伤</value>
@@ -239,7 +239,7 @@
     <value>焦点目标</value>
   </data>
   <data name="Hold0For1" xml:space="preserve">
-    <value>为 {1} 保留 {0}</value>
+    <value>为“{1}”保留“{0}”</value>
   </data>
   <data name="HowManyChargesForMovement" xml:space="preserve">
     <value>为移动保留的充能次数</value>
@@ -261,16 +261,16 @@
     <value>仅对非首领敌人应用上述 HP 检查。</value>
   </data>
   <data name="HPPercentageFor0NotBeApplied" xml:space="preserve">
-    <value>设置一个 HP% 阈值，用于指定何时 {0} 不会自动施加到敌人上。</value>
+    <value>设置一个 HP% 阈值，用于指定何时“{0}”不会自动施加到敌人上。</value>
   </data>
   <data name="HPPercentageThreshold" xml:space="preserve">
-    <value>{0} 的 HP% 阈值</value>
+    <value>“{0}”的 HP% 阈值</value>
   </data>
   <data name="HPPercentThresholdUseAllCharges0" xml:space="preserve">
-    <value>使用 {0} 所有充能的 HP% 阈值。</value>
+    <value>使用“{0}”所有充能的 HP% 阈值。</value>
   </data>
   <data name="Include0" xml:space="preserve">
-    <value>包含 {0}</value>
+    <value>包含“{0}”</value>
   </data>
   <data name="IncludeAdvancedMitigations" xml:space="preserve">
     <value>包含高级减伤</value>
@@ -288,7 +288,7 @@
     <value>在射程内</value>
   </data>
   <data name="Job0ShieldCheck" xml:space="preserve">
-    <value>{0} 护盾检查</value>
+    <value>“{0}”护盾检查</value>
   </data>
   <data name="Job0ShieldCheckDesc" xml:space="preserve">
     <value>启用后不覆盖已有的 {0} 的护盾。</value>
@@ -300,7 +300,7 @@
     <value>多目标DOT的最大目标数</value>
   </data>
   <data name="MinimumGauge" xml:space="preserve">
-    <value>使用 {0} 所需的最低量表</value>
+    <value>使用“{0}”所需的最低量表</value>
   </data>
   <data name="MovementOption" xml:space="preserve">
     <value>移动选项</value>
@@ -330,10 +330,10 @@
     <value>在 {0} 时</value>
   </data>
   <data name="OnlyUseWhenTargetIsBoss" xml:space="preserve">
-    <value>仅在目标敌人是首领时使用 {0}</value>
+    <value>仅在目标敌人是首领时使用“{0}”</value>
   </data>
   <data name="OnlyUseWith0" xml:space="preserve">
-    <value>仅与 {0} 一同使用</value>
+    <value>仅与“{0}”一同使用</value>
   </data>
   <data name="OnlyWeave" xml:space="preserve">
     <value>仅插入</value>
@@ -342,7 +342,7 @@
     <value>玩家 HP% 大于或等于：</value>
   </data>
   <data name="PlayerHPToUseAction" xml:space="preserve">
-    <value>当玩家 HP% 低于或等于此值时使用 {0}。设为 100 可禁用此检查。</value>
+    <value>当玩家 HP% 低于或等于此值时使用“{0}”。设为 100 可禁用此检查。</value>
   </data>
   <data name="PrioBuffUpkeep" xml:space="preserve">
     <value>优先维持增益</value>
@@ -351,13 +351,13 @@
     <value>优先级：</value>
   </data>
   <data name="Replace0With1Or2" xml:space="preserve">
-    <value>将 {0} 替换为 {1} / {2}。</value>
+    <value>将“{0}”替换为“{1}” / “{2}”。</value>
   </data>
   <data name="Replaces0" xml:space="preserve">
-    <value>替换 {0}</value>
+    <value>替换“{0}”</value>
   </data>
   <data name="Save0ChargesForBurst" xml:space="preserve">
-    <value>为爆发保留 {0} 层充能</value>
+    <value>为爆发保留“{0}”层充能</value>
   </data>
   <data name="SelectWhatKindOfContentThisOptionAppliesTo" xml:space="preserve">
     <value>选择此选项适用的内容类型：</value>
@@ -399,10 +399,10 @@
     <value>重新施加前剩余秒数（0 = 不提前重新施加）</value>
   </data>
   <data name="StopUsing0WhenBelowTargetHPPercentage" xml:space="preserve">
-    <value>当目标 HP% 低于或等于 {0} 时停止使用（设为 0 以禁用此检查）</value>
+    <value>当目标 HP% 低于或等于“{0}”时停止使用（设为 0 以禁用此检查）</value>
   </data>
   <data name="StopUsingWhenBelowSetPercentage" xml:space="preserve">
-    <value>当低于设定 HP% 停止使用</value>
+    <value>当低于设定 HP% 时停止使用</value>
   </data>
   <data name="StopUsingWhenBelowTargetHPPercent" xml:space="preserve">
     <value>当目标 HP% 低于或等于此值时停止使用（设为 0 以禁用此检查）</value>
@@ -411,17 +411,17 @@
     <value>仅坦克</value>
   </data>
   <data name="TargetHPUse0AtOrBelow" xml:space="preserve">
-    <value>目标 HP% 低于或等于此值时使用 {0}。设为 100 以禁用此检查。</value>
+    <value>目标 HP% 低于或等于此值时使用“{0}”。设为 100 以禁用此检查。</value>
   </data>
   <data name="TimeRemainingOn0" xml:space="preserve">
-    <value>允许 {0} 剩余时间在以内  
+    <value>允许“{0}”剩余时间在以内  
 （0 = 目标身上不能有瓦解状态）</value>
   </data>
   <data name="TimeRemainingOnOthers" xml:space="preserve">
-    <value>他人身上 {0} 的剩余时间以允许使用（0 = 目标身上没有 {0} 效果时）</value>
+    <value>他人身上“{0}”的剩余时间以允许使用（0 = 目标身上没有“{0}”效果时）</value>
   </data>
   <data name="TimeRemainingOnOthers3" xml:space="preserve">
-    <value>允许的其他目标上的 {0} / {1} / {2} 剩余时间 (0 = 目标上不得有 {0} / {1} / {2})</value>
+    <value>允许的其他目标上的“{0}” / “{1}” / “{2}”剩余时间 (0 = 目标上不得有“{0}” / “{1}” / “{2}”)</value>
   </data>
   <data name="TwoTargetDotting" xml:space="preserve">
     <value>双目标持续伤害</value>
@@ -430,31 +430,31 @@
     <value>如果可能，将对两个目标维持持续伤害技能。</value>
   </data>
   <data name="Use0" xml:space="preserve">
-    <value>使用 {0}</value>
+    <value>使用“{0}”</value>
   </data>
   <data name="Use0In1" xml:space="preserve">
-    <value>在 {1} 中使用 {0}</value>
+    <value>在“{1}”中使用“{0}”</value>
   </data>
   <data name="Use0Or1" xml:space="preserve">
-    <value>使用 {0} / {1}</value>
+    <value>使用“{0}” / “{1}”</value>
   </data>
   <data name="Use0RegardlessOfContent" xml:space="preserve">
-    <value>无论内容如何，都使用 {0}。</value>
+    <value>无论内容如何，都使用“{0}”。</value>
   </data>
   <data name="Use0When1ChargesAreAvailable" xml:space="preserve">
-    <value>当 {1} 层充能可用时使用 {0}。</value>
+    <value>当“{1}”层充能可用时使用“{0}”。</value>
   </data>
   <data name="Use0WhenInRangeOfEnemy" xml:space="preserve">
-    <value>当在选定敌人目标的射程内时，使用 {0}。</value>
+    <value>当在选定敌人目标的射程内时，使用“{0}”。</value>
   </data>
   <data name="UseActionOnlyWhileStationary" xml:space="preserve">
-    <value>仅在静止时使用 {0}</value>
+    <value>仅在静止时使用“{0}”</value>
   </data>
   <data name="UseAlways" xml:space="preserve">
     <value>始终使用</value>
   </data>
   <data name="Uses0RegardlessOfAnyMovementConditions" xml:space="preserve">
-    <value>无视任何移动条件使用 {0} 。注意：这可能会导致你死亡。</value>
+    <value>无视任何移动条件使用“{0}”。注意：这可能会导致你死亡。</value>
   </data>
   <data name="UsesStandardOpener" xml:space="preserve">
     <value>使用标准起手循环</value>
@@ -463,10 +463,10 @@
     <value>当与目标的距离小于或等于时使用：</value>
   </data>
   <data name="Use_0_Opener" xml:space="preserve">
-    <value>使用 {0} 起手循环</value>
+    <value>使用“{0}”起手循环</value>
   </data>
   <data name="WillAdd_0_ToThePriorityStack" xml:space="preserve">
-    <value>将 {0} 添加到优先级堆栈</value>
+    <value>将“{0}”添加到优先级堆栈</value>
   </data>
   <data name="WillNotUseInBossEncounters" xml:space="preserve">
     <value>不会在首领战中使用。</value>
@@ -478,10 +478,10 @@
     <value>仅会在插入能力技时使用此技能。</value>
   </data>
   <data name="OnlyUse0WhenInMeleeRange" xml:space="preserve">
-    <value>仅在近战范围内使用 {0}。</value>
+    <value>仅在近战范围内使用“{0}”。</value>
   </data>
   <data name="OnlyUse0WhenNotMoving" xml:space="preserve">
-    <value>仅在未移动时使用 {0}。</value>
+    <value>仅在未移动时使用“{0}”。</value>
   </data>
   <data name="OnlyWithCountdown" xml:space="preserve">
     <value>仅在倒数时使用</value>
@@ -490,6 +490,100 @@
     <value>仅在倒计激活时使用起手循环。</value>
   </data>
   <data name="Action_Opener" xml:space="preserve">
-    <value>{0} 起手循环</value>
+    <value>“{0}”起手循环</value>
+  </data>
+  <data name="Add0Or1WhenApplicable" xml:space="preserve">
+    <value>在适用时添加“{0}” / “{1}”</value>
+  </data>
+  <data name="Add0When1IsReady" xml:space="preserve">
+    <value>当“{1}”就绪时添加“{0}”</value>
+  </data>
+  <data name="Add0WhenApplicable" xml:space="preserve">
+    <value>适用时添加“{0}”</value>
+  </data>
+  <data name="Align0With1" xml:space="preserve">
+    <value>将“{0}”与“{1}”对齐。</value>
+  </data>
+  <data name="Align0WithManual1" xml:space="preserve">
+    <value>保持“{0}”与手动使用“{1}”对齐。</value>
+  </data>
+  <data name="AllyHPLessOrEqual" xml:space="preserve">
+    <value>队友 HP% 小于等于：</value>
+  </data>
+  <data name="BlockStun" xml:space="preserve">
+    <value>找不到可眩晕目标时，将“{0}”替换为“狂怒剑”。</value>
+  </data>
+  <data name="GapcloserUse" xml:space="preserve">
+    <value>在起手循环中使用“{0}”</value>
+  </data>
+  <data name="GapcloseSkip" xml:space="preserve">
+    <value>在起手循环中跳过“{0}”</value>
+  </data>
+  <data name="HaveBattleTarget" xml:space="preserve">
+    <value>需要一个战斗目标。</value>
+  </data>
+  <data name="LockoutAction" xml:space="preserve">
+    <value>锁定“{0}”。</value>
+  </data>
+  <data name="LockoutActionStunCount" xml:space="preserve">
+    <value>当眩晕施加次数达到该值时锁定</value>
+  </data>
+  <data name="MinimumNumberOfEnemies" xml:space="preserve">
+    <value>范围内最少目标数才可使用</value>
+  </data>
+  <data name="MPGreaterOrEqual" xml:space="preserve">
+    <value>玩家 MP 大于或等于：</value>
+  </data>
+  <data name="NoRequireTarget" xml:space="preserve">
+    <value>无论是否有目标，都会启动起手循环。</value>
+  </data>
+  <data name="NoTarget" xml:space="preserve">
+    <value>不需要战斗目标</value>
+  </data>
+  <data name="OnlyBoss" xml:space="preserve">
+    <value>仅Boss</value>
+  </data>
+  <data name="OnlyUse0" xml:space="preserve">
+    <value>仅使用“{0}”</value>
+  </data>
+  <data name="PlayerHPLessOrEqual" xml:space="preserve">
+    <value>玩家血量百分比小于或等于：</value>
+  </data>
+  <data name="PlayerHPToUseExtraMitigation" xml:space="preserve">
+    <value>玩家 HP% 以使用“{0}”作为额外的死刑减伤。设置为 100 以禁用此检查</value>
+  </data>
+  <data name="PLDSheltronWarning" xml:space="preserve">
+    <value>如果你是副坦克，并且想对自己使用盾阵：
+        - 预期你会通过一键减伤功能或循环中的减伤选项来实现。
+        - 你也可以在队伍中鼠标悬停在自己身上以使用盾阵。
+        - 如果不这样做，干预会替换连击，并会施放在主坦克身上。
+        - 如果你不使用这些功能来进行个人减伤，你可能不希望启用此选项。</value>
+  </data>
+  <data name="Prioritize" xml:space="preserve">
+    <value>优先“{0}”</value>
+  </data>
+  <data name="RequireParty" xml:space="preserve">
+    <value>需要队伍才能使用</value>
+  </data>
+  <data name="RequireTarget" xml:space="preserve">
+    <value>需要战斗目标才能开始起手循环。</value>
+  </data>
+  <data name="SavageBladeWaste" xml:space="preserve">
+    <value>将“{0}”替换为“{1}”以禁用并防止浪费使用。</value>
+  </data>
+  <data name="Use0And1" xml:space="preserve">
+    <value>使用“{0}”和“{1}”。</value>
+  </data>
+  <data name="Use0Before1" xml:space="preserve">
+    <value>在“{1}”之前使用“{0}”</value>
+  </data>
+  <data name="Use0RegardlessOfTarget" xml:space="preserve">
+    <value>无视目标使用“{0}”。</value>
+  </data>
+  <data name="UseWhenDistanceFromTargetIsGreaterThanOrEqualTo" xml:space="preserve">
+    <value>当与目标的距离大于或等于时使用：</value>
+  </data>
+  <data name="WastePrevention" xml:space="preserve">
+    <value>防止浪费选项</value>
   </data>
 </root>

@@ -136,6 +136,18 @@
     <value>如果使用，滑块值应设置得相当低！</value>
   </data>
   <data name="VeryCostly" xml:space="preserve">
-    <value>这是一个非常昂贵的功能！</value>
+    <value>这是一个非常消耗性能的选项！</value>
+  </data>
+  <data name="BuffOnlyNotRecommended" xml:space="preserve">
+    <value>许多职业没有常驻的自身增益，许多爆发窗口无法容纳额外的幻影技能，而且许多幻影技能的冷却时间比此功能在许多职业上要短得多！</value>
+xiao'h  </data>
+  <data name="Costly" xml:space="preserve">
+    <value>这是一个消耗性能的选项！</value>
+  </data>
+  <data name="BuffOnlyDont" xml:space="preserve">
+    <value>如果你不是那些经常给自己施加伤害增益的职业之一，或者不在新月岛中组队，那么这将跳过使用幻影技能，直到检测到爆发期（对于无增益的职业来说可能永远不会触发）！</value>
+  </data>
+  <data name="BuffOnlyList" xml:space="preserve">
+    <value>DRK、PLD、WAR、AST、MNK、DRG、NIN、BRD 是唯一可能适合此选项的职业</value>
   </data>
 </root>

@@ -139,4 +139,10 @@
     <value>即使无法满足 {2}/{3} 的位置要求，也会保留 {0} 的最后一次充能，以便与 {1} 配合使用。  
 如果以上滑块设置为 1，则不会将剩余充能用于 {1}，而是保留用于手动使用。</value>
   </data>
+  <data name="FirstGcdBuffsOpener" xml:space="preserve">
+    <value>早期增益起手循环</value>
+  </data>
+  <data name="UseFirstGcdBuffsOpener" xml:space="preserve">
+    <value>使用早期增益起手循环。</value>
+  </data>
 </root>

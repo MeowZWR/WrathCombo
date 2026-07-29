@@ -150,4 +150,7 @@
   <data name="UseQueenOutsideOfBoss" xml:space="preserve">
     <value>非首领战，在此电池阈值下使用 {0}。</value>
   </data>
+  <data name="NotRecommended" xml:space="preserve">
+    <value>不推荐！仅在深层迷宫中用于单拉时有用。仅适用于 92 级之前。</value>
+  </data>
 </root>

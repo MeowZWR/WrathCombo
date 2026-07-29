@@ -117,25 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DoubleLunarOpener" xml:space="preserve">
-    <value>双阴</value>
+  <data name="Add0/1Finishers" xml:space="preserve">
+    <value>添加“{0}”/“{1}”终结技</value>
   </data>
-  <data name="DoubleLunarOpenerDesc" xml:space="preserve">
-    <value>使用双阴起手循环</value>
+  <data name="RDMFirstGCDOpener" xml:space="preserve">
+    <value>早期增益起手循环</value>
   </data>
-  <data name="Repalce0With1When2IsOnCooldown" xml:space="preserve">
-    <value>当 {2} 处于冷却中时，将 {0} 替换为 {1}。</value>
+  <data name="RDMFirstGCDOpenerWarning" xml:space="preserve">
+    <value>必须使用倒计时。在下方设置你计划按下“{0}”的时间。“{1}”将被锁定，直到倒计时剩余6秒。</value>
   </data>
-  <data name="SolarLunarOpener" xml:space="preserve">
-    <value>阴阳</value>
+  <data name="RDMFirstGCDOpenerWarningTimer" xml:space="preserve">
+    <value>开始起手循环的倒计时时间</value>
   </data>
-  <data name="SolarLunarOpenerDesc" xml:space="preserve">
-    <value>使用阳/阴起手循环。</value>
+  <data name="RDMOpenerTimeoutWarning" xml:space="preserve">
+    <value>起手循环失败超时（在设置选项卡中）必须设置为5秒以上，以便起手循环能正常工作，因为初始施法时间较长。</value>
   </data>
-  <data name="BrotherhoodFirstOpener" xml:space="preserve">
-    <value>义结金兰优先</value>
+  <data name="RDMOpenerWarning" xml:space="preserve">
+    <value>起手循环失败超时（在设置选项卡中）必须设置为5秒以上，以便起手循环因初始技能施法时间较长而生效。</value>
   </data>
-  <data name="BrotherhoodFirstOpenerDesc" xml:space="preserve">
-    <value>双阴起手，义结金兰优先；红莲极意穿插在第一个双龙脚之后，震脚移动到第二个双龙脚之后。</value>
+  <data name="RDMGapCloserOpener" xml:space="preserve">
+    <value>突进调整标准起手循环</value>
+  </data>
+  <data name="PullWith0/1" xml:space="preserve">
+    <value>用“{0}”/“{1}”开怪</value>
+  </data>
+  <data name="StartsWith0/1" xml:space="preserve">
+    <value>脱战时以“{0}”/“{1}”开始。</value>
+  </data>
+  <data name="AutoRotationWarning2" xml:space="preserve">
+    <value>自动循环不会自动开始近战连击</value>
+  </data>
+  <data name="AutoRotationWarning1" xml:space="preserve">
+    <value>警告：“{0}”未启用。</value>
+  </data>
+  <data name="DynamicallySwitchTo0" xml:space="preserve">
+    <value>动态切换到“{0}”</value>
+  </data>
+  <data name="SwitchToBlack" xml:space="preserve">
+    <value>黑魔元较低时切换到“{0}”</value>
+  </data>
+  <data name="SwitchToWhite" xml:space="preserve">
+    <value>白魔元较低时切换到“{0}”</value>
   </data>
 </root>

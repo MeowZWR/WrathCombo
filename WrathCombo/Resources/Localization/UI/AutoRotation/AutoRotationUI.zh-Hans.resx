@@ -353,4 +353,22 @@
   <data name="HelpText_Orbwalker" xml:space="preserve">
     <value>启用后，自动循环可在移动中使用读条技能，因为 Orbwalker 会在读条期间锁定移动。若尚未启用，你可能还需要在 Orbwalker 中打开“Buffer Initial Cast”设置。需已安装并启用 Orbwalker 插件。</value>
   </data>
+  <data name="Checkbox_HandleRaidwides" xml:space="preserve">
+    <value>处理检测到的全屏攻击</value>
+  </data>
+  <data name="HelpText_HandleRaidwides" xml:space="preserve">
+    <value>将尝试在检测到的全体攻击或群体伤害前使用技能，以减轻伤害或使队友血线回满。最多 3 个技能（不包括用于设置的 {0}）</value>
+  </data>
+  <data name="Checkbox_HandleTankbusters" xml:space="preserve">
+    <value>应对检测到的死刑</value>
+  </data>
+  <data name="HelpText_HandleTankbusters" xml:space="preserve">
+    <value>将尝试在检测到的死刑前使用技能，以减轻目标成员受到的伤害。最多 1 个技能（不包括用于设置的 {0}）</value>
+  </data>
+  <data name="Include_Shields" xml:space="preserve">
+    <value>包含护盾</value>
+  </data>
+  <data name="Include_Shields_Helptext" xml:space="preserve">
+    <value>在所有 HP 检查中包含护盾百分比。</value>
+  </data>
 </root>
