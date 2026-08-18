@@ -145,7 +145,7 @@ public abstract class WrathOpener
         get;
         set
         {
-            if (value != All.SavageBlade)
+            if (value != All.Cease)
                 field = value;
         }
     }
@@ -209,11 +209,14 @@ public abstract class WrathOpener
                 if (prevStepSkipping)
                     prevStepSkipping = p.Condition();
 
-                bool delay = PrepullDelays.FindFirst(x => x.Steps.Any(y => y == DelayedStep && y == OpenerStep), out var hold);
-                if ((!delay && !prevStepSkipping && ActionWatching.TimeSinceLastAction.TotalSeconds >= Service.Configuration.OpenerTimeout) || (delay && (DateTime.Now - DelayedAt).TotalSeconds > DelayedSecs + Service.Configuration.OpenerTimeout))
+                if (!prevStepSkipping)
                 {
-                    CurrentState = OpenerState.FailedOpener;
-                    return false;
+                    bool delay = PrepullDelays.FindFirst(x => x.Steps.Any(y => y == DelayedStep && y == OpenerStep), out var hold);
+                    if ((!delay && ActionWatching.TimeSinceLastAction.TotalSeconds >= Service.Configuration.OpenerTimeout) || (delay && (DateTime.Now - DelayedAt).TotalSeconds > DelayedSecs + Service.Configuration.OpenerTimeout))
+                    {
+                        CurrentState = OpenerState.FailedOpener;
+                        return false;
+                    }
                 }
             }
 
@@ -245,7 +248,7 @@ public abstract class WrathOpener
 
                 if (skipped)
                 {
-                    actionID = All.SavageBlade;
+                    actionID = All.Cease;
                     return true;
                 }
 
@@ -254,7 +257,7 @@ public abstract class WrathOpener
                 float startValue = (VeryDelayedWeaveSteps.Any(x => x == OpenerStep)) ? 1f : 1.25f;
                 if ((DelayedWeaveSteps.Any(x => x == OpenerStep) || VeryDelayedWeaveSteps.Any(x => x == OpenerStep)) && !CanDelayedWeave(startValue, 0) && RemainingGCD > 0)
                 {
-                    actionID = All.SavageBlade;
+                    actionID = All.Cease;
                     return true;
                 }
 
@@ -281,7 +284,7 @@ public abstract class WrathOpener
                     if ((DateTime.Now - DelayedAt).TotalSeconds < DelayedSecs && !PartyInCombat())
                     {
                         ActionWatching.TimeLastActionUsed = DateTime.Now; //Hacky workaround for TN jobs
-                        actionID = All.SavageBlade;
+                        actionID = All.Cease;
                         return true;
                     }
                 }

@@ -305,7 +305,7 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Block {0} when with Savage Blade when no stunnable targets are found..
+        ///   Looks up a localized string similar to Block {0} when no stunnable targets are found..
         /// </summary>
         internal static string BlockStun {
             get {
@@ -375,6 +375,16 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
         internal static string ChargePool {
             get {
                 return ResourceManager.GetString("ChargePool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How many {0} to retain for manual use.
+        ///Set to 0 to disable this check..
+        /// </summary>
+        internal static string ChargePool0 {
+            get {
+                return ResourceManager.GetString("ChargePool0", resourceCulture);
             }
         }
         

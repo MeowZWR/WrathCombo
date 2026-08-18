@@ -23,7 +23,7 @@ internal partial class NIN : Melee
                 return JutsuFromFlags;
 
             if (BlockDueToLag)
-                return All.SavageBlade;
+                return All.Cease;
 
             if (STTenChiJin(ref actionID))
                 return actionID;
@@ -32,7 +32,7 @@ internal partial class NIN : Melee
                 return actionID;
 
             #region Special Content
-            if (ContentSpecificActions.TryGet(out var contentAction) && !MudraPhase)
+            if (ContentSpecificActions.TryGet(ref actionID, out uint contentAction) && !MudraPhase)
                 return contentAction;
             #endregion
 
@@ -141,7 +141,7 @@ internal partial class NIN : Melee
                 return JutsuFromFlags;
 
             if (BlockDueToLag)
-                return All.SavageBlade;
+                return All.Cease;
 
             if (AoETenChiJin(ref actionID, false))
                 return actionID;
@@ -150,7 +150,7 @@ internal partial class NIN : Melee
                 return actionID;
 
             #region Special Content
-            if (ContentSpecificActions.TryGet(out var contentAction) && !MudraPhase)
+            if (ContentSpecificActions.TryGet(ref actionID, out uint contentAction) && !MudraPhase)
                 return contentAction;
             #endregion
 
@@ -259,7 +259,7 @@ internal partial class NIN : Melee
                 return JutsuFromFlags;
 
             if (BlockDueToLag)
-                return All.SavageBlade;
+                return All.Cease;
 
             if (NIN_ST_AdvancedMode_TenChiJin_Auto &&
                 STTenChiJin(ref actionID))
@@ -269,7 +269,7 @@ internal partial class NIN : Melee
                 return actionID;
 
             #region Special Content
-            if (ContentSpecificActions.TryGet(out var contentAction) && !MudraPhase)
+            if (ContentSpecificActions.TryGet(ref actionID, out uint contentAction) && !MudraPhase)
                 return contentAction;
             #endregion
 
@@ -409,7 +409,7 @@ internal partial class NIN : Melee
                 return JutsuFromFlags;
 
             if (BlockDueToLag)
-                return All.SavageBlade;
+                return All.Cease;
 
             if (NIN_AoE_AdvancedMode_TenChiJin_Auto && AoETenChiJin(ref actionID, true))
                 return actionID;
@@ -418,7 +418,7 @@ internal partial class NIN : Melee
                 return actionID;
 
             #region Special Content
-            if (ContentSpecificActions.TryGet(out var contentAction) && !MudraPhase)
+            if (ContentSpecificActions.TryGet(ref actionID, out uint contentAction) && !MudraPhase)
                 return contentAction;
             #endregion
 
@@ -551,7 +551,7 @@ internal partial class NIN : Melee
                 case RoleActions.Physical.SecondWind when NIN_MudraProtection_Options[4] && MudraPhase:
 
                 case RoleActions.Melee.LegSweep when NIN_MudraProtection_Options[5] && MudraPhase:
-                    return All.SavageBlade;
+                    return All.Cease;
             }
 
             return actionID;

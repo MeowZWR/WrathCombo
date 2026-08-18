@@ -20,6 +20,9 @@ namespace WrathCombo.Combos;
 /// <summary> Combo presets. </summary>
 public enum Preset
 {
+    [JobInfo(Job.ADV)]
+    AlwaysOn = 1 ,
+
     #region PvE Combos
 
     #region GLOBAL FEATURES
@@ -570,6 +573,7 @@ public enum Preset
     [OccultCrescent]
     [ParentCombo(Phantom_Knight)]
     [JobInfo(Job.ADV)]
+    [PossiblyRetargeted(41591)] // OccultCrescent.Pledge
     Phantom_Knight_Pledge = 110007,
 
     [OccultCrescent(OccultCrescent.JobIDs.Monk)]
@@ -738,6 +742,7 @@ public enum Preset
     [OccultCrescent]
     [ParentCombo(Phantom_Chemist)]
     [JobInfo(Job.ADV)]
+    [Retargeted(41634)] // OccultCrescent.Revive
     Phantom_Chemist_Revive = 110036,
 
     [OccultCrescent]
@@ -798,25 +803,25 @@ public enum Preset
     [JobInfo(Job.ADV)]
     Phantom_Oracle_Starfall = 110048,
 
-    //[OccultCrescent]
-    //[ParentCombo(Phantom_Oracle)]
-    //[CustomComboInfo("Recuperation", "Adds Recuperation into the rotation.", Job.ADV)]
-    //Phantom_Oracle_Recuperation = 110049,
+    [OccultCrescent]
+    [ParentCombo(Phantom_Oracle)]
+    [JobInfo(Job.ADV)]
+    Phantom_Oracle_Recuperation = 110049,
 
-    //[OccultCrescent]
-    //[ParentCombo(Phantom_Oracle)]
-    //[CustomComboInfo("Phantom Doom", "Adds Phantom Doom into the rotation.", Job.ADV)]
-    //Phantom_Oracle_PhantomDoom = 110050,
+    [OccultCrescent]
+    [ParentCombo(Phantom_Oracle)]
+    [JobInfo(Job.ADV)]
+    Phantom_Oracle_PhantomDoom = 110050,
 
-    //[OccultCrescent]
-    //[ParentCombo(Phantom_Oracle)]
-    //[CustomComboInfo("Phantom Rejuvenation", "Adds Phantom Rejuvenation into the rotation.", Job.ADV)]
-    //Phantom_Oracle_PhantomRejuvenation = 110051,
+    [OccultCrescent]
+    [ParentCombo(Phantom_Oracle)]
+    [JobInfo(Job.ADV)]
+    Phantom_Oracle_PhantomRejuvenation = 110051,
 
-    //[OccultCrescent]
-    //[ParentCombo(Phantom_Oracle)]
-    //[CustomComboInfo("Invulnerability", "Adds Invulnerability into the rotation.", Job.ADV)]
-    //Phantom_Oracle_Invulnerability = 110052,
+    [OccultCrescent]
+    [ParentCombo(Phantom_Oracle)]
+    [JobInfo(Job.ADV)]
+    Phantom_Oracle_Invulnerability = 110052,
 
     [OccultCrescent(OccultCrescent.JobIDs.Cannoneer)]
     [JobInfo(Job.ADV)]
@@ -920,6 +925,11 @@ public enum Preset
     [JobInfo(Job.ADV)]
     Phantom_Dancer_Mesmerize = 110079,
 
+    [OccultCrescent]
+    [ParentCombo(Phantom_Dancer)]
+    [JobInfo(Job.ADV)]
+    Phantom_Dancer_SteadfastStance = 110090,
+
     [OccultCrescent(OccultCrescent.JobIDs.MysticKnight)]
     [JobInfo(Job.ADV)]
     Phantom_MysticKnight = 110080,
@@ -968,7 +978,241 @@ public enum Preset
     [JobInfo(Job.ADV)]
     Phantom_Gladiator_BladeBlitz = 110089,
 
-    //Last Value = 110089
+    [OccultCrescent(OccultCrescent.JobIDs.Ninja)]
+    [JobInfo(Job.ADV)]
+    Phantom_Ninja = 110091,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Ninja)]
+    [JobInfo(Job.ADV)]
+    Phantom_Ninja_FumaShuriken = 110092,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Ninja)]
+    [JobInfo(Job.ADV)]
+    Phantom_Ninja_Smoke = 110093,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Ninja)]
+    [JobInfo(Job.ADV)]
+    Phantom_Ninja_LightningScroll = 110094,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Ninja)]
+    [JobInfo(Job.ADV)]
+    Phantom_Ninja_FlameScroll = 110095,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Ninja)]
+    [JobInfo(Job.ADV)]
+    Phantom_Ninja_Image = 110096,
+
+    [OccultCrescent(OccultCrescent.JobIDs.WhiteMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_WhiteMage = 110097,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_WhiteMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_WhiteMage_OccultCureII = 110098,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_WhiteMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_WhiteMage_OccultCureIII = 110099,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_WhiteMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_WhiteMage_OccultBlink = 110100,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_WhiteMage)]
+    [JobInfo(Job.ADV)]
+    [Retargeted(49070)] // OccultCrescent.OccultRaise
+    Phantom_WhiteMage_OccultRaise = 110101,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_WhiteMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_WhiteMage_OccultHoly = 110102,
+
+    [OccultCrescent(OccultCrescent.JobIDs.BlackMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlackMage = 110103,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlackMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlackMage_OccultFireIII = 110104,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlackMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlackMage_OccultBlizzardIII = 110105,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlackMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlackMage_OccultThunderIII = 110106,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlackMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlackMage_OccultToad = 110107,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlackMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlackMage_OccultFlare = 110108,
+
+    [OccultCrescent(OccultCrescent.JobIDs.Dragoon)]
+    [JobInfo(Job.ADV)]
+    Phantom_Dragoon = 110109,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Dragoon)]
+    [JobInfo(Job.ADV)]
+    Phantom_Dragoon_OccultJump = 110110,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Dragoon)]
+    [JobInfo(Job.ADV)]
+    Phantom_Dragoon_Lance = 110112,
+
+    [OccultCrescent(OccultCrescent.JobIDs.Summoner)]
+    [JobInfo(Job.ADV)]
+    Phantom_Summoner = 110113,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Summoner)]
+    [JobInfo(Job.ADV)]
+    Phantom_Summoner_Hellfire = 110114,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Summoner)]
+    [JobInfo(Job.ADV)]
+    Phantom_Summoner_JudgmentBolt = 110115,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Summoner)]
+    [JobInfo(Job.ADV)]
+    Phantom_Summoner_EarthenWall = 110116,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Summoner)]
+    [JobInfo(Job.ADV)]
+    Phantom_Summoner_Thunderstorm = 110117,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Summoner)]
+    [JobInfo(Job.ADV)]
+    Phantom_Summoner_Megaflare = 110118,
+
+    [OccultCrescent(OccultCrescent.JobIDs.BlueMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlueMage = 110119,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlueMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlueMage_OccultAero = 110120,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlueMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlueMage_OccultMissile = 110121,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlueMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlueMage_OccultAquaBreath = 110122,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlueMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlueMage_OccultMightyGuard = 110123,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlueMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlueMage_OccultAeroII = 110124,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlueMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlueMage_OccultWhiteWind = 110125,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_BlueMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_BlueMage_OccultAeroIII = 110126,
+
+    [OccultCrescent(OccultCrescent.JobIDs.RedMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_RedMage = 110127,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_RedMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_RedMage_OccultFireII = 110128,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_RedMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_RedMage_OccultCureII = 110129,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_RedMage_OccultCureII)]
+    [Retargeted]
+    [JobInfo(Job.ADV)]
+    Phantom_RedMage_OccultCureII_Retarget = 110139,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_RedMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_RedMage_OccultLibra = 110130,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_RedMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_RedMage_OccultBlizzardII = 110131,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_RedMage)]
+    [JobInfo(Job.ADV)]
+    Phantom_RedMage_OccultThunderII = 110132,
+
+    [OccultCrescent(OccultCrescent.JobIDs.Necromancer)]
+    [JobInfo(Job.ADV)]
+    Phantom_Necromancer = 110133,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Necromancer)]
+    [JobInfo(Job.ADV)]
+    Phantom_Necromancer_DrainTouch = 110134,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Necromancer)]
+    [JobInfo(Job.ADV)]
+    Phantom_Necromancer_DeepFreeze = 110135,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Necromancer)]
+    [JobInfo(Job.ADV)]
+    Phantom_Necromancer_HellWind = 110136,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Necromancer)]
+    [JobInfo(Job.ADV)]
+    Phantom_Necromancer_ChaosDrive = 110137,
+
+    [OccultCrescent]
+    [ParentCombo(Phantom_Necromancer)]
+    [JobInfo(Job.ADV)]
+    Phantom_Necromancer_Doomsday = 110138,
+
+    //Last Value = 110139
     #endregion
 
     // Jobs
@@ -3582,6 +3826,10 @@ public enum Preset
     [JobInfo(Job.MCH)]
     MCH_ST_Adv_Opener = 8101,
 
+    [ParentCombo(MCH_ST_Adv_Opener)]
+    [JobInfo(Job.MCH)]
+    MCH_ST_Opener_BlockEarly = 8123,
+
     #region BS
 
     [ParentCombo(MCH_ST_AdvancedMode)]
@@ -3806,7 +4054,7 @@ public enum Preset
     [JobInfo(Job.MCH)]
     MCH_GaussRoundRicochet = 8003,
 
-    // Last value ST = 8122
+    // Last value ST = 8123
     // Last value AoE = 8315
     // Last value Misc = 8058
 
@@ -5617,34 +5865,34 @@ public enum Preset
 
     [AutoAction(false, false)]
     [ReplaceSkill(SGE.Dosis, SGE.Dosis2, SGE.Dosis3)]
-    [ConflictingCombos(SGE_ST_DPS)]
+    [ConflictingCombos(SGE_ST_Advanced_DPS)]
     [JobInfo(Job.SGE)]
     [SimpleCombo]
     SGE_ST_Simple_DPS = 14084,
 
     [AutoAction(true, false)]
     [ReplaceSkill(SGE.Dyskrasia, SGE.Dyskrasia2)]
-    [ConflictingCombos(SGE_AoE_DPS)]
+    [ConflictingCombos(SGE_AoE_Advanced_DPS)]
     [JobInfo(Job.SGE)]
     [SimpleCombo]
     SGE_AoE_Simple_DPS = 14085,
 
     [AutoAction(false, true)]
     [ReplaceSkill(SGE.Diagnosis)]
-    [ConflictingCombos(SGE_ST_Heal, SGE_Retarget_Diagnosis)]
+    [ConflictingCombos(SGE_ST_Advanced_Heal, SGE_Retarget_Diagnosis)]
     [JobInfo(Job.SGE)]
     [SimpleCombo]
     [PossiblyRetargeted]
-    SGE_Simple_ST_Heal = 14087,
+    SGE_ST_Simple_Heal = 14087,
 
 
     [AutoAction(true, true)]
     [ReplaceSkill(SGE.Prognosis)]
-    [ConflictingCombos(SGE_AoE_Heal)]
+    [ConflictingCombos(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [SimpleCombo]
     [PossiblyRetargeted]
-    SGE_Simple_AoE_Heal = 14086,
+    SGE_AoE_Simple_Heal = 14086,
 
     #endregion
 
@@ -5655,49 +5903,49 @@ public enum Preset
     [ConflictingCombos(SGE_ST_Simple_DPS)]
     [JobInfo(Job.SGE)]
     [AdvancedCombo]
-    SGE_ST_DPS = 14001,
+    SGE_ST_Advanced_DPS = 14001,
 
-    [ParentCombo(SGE_ST_DPS)]
+    [ParentCombo(SGE_ST_Advanced_DPS)]
     [JobInfo(Job.SGE)]
-    SGE_ST_DPS_Opener = 14055,
+    SGE_ST_Adv_DPS_Opener = 14055,
 
-    [ParentCombo(SGE_ST_DPS)]
-    [JobInfo(Job.SGE)]
-    SGE_ST_DPS_EDosis = 14003,
-
-    [ParentCombo(SGE_ST_DPS)]
-    [JobInfo(Job.SGE)]
-    [PossiblyRetargeted(SGE.Druochole)]
-    SGE_ST_DPS_AddersgallProtect = 14054,
-
-    [ParentCombo(SGE_ST_DPS)]
-    [JobInfo(Job.SGE)]
-    SGE_ST_DPS_Rhizo = 14007,
-
-    [ParentCombo(SGE_ST_DPS)]
-    [JobInfo(Job.SGE)]
-    SGE_ST_DPS_Phlegma = 14005,
-
-    [ParentCombo(SGE_ST_DPS)]
-    [JobInfo(Job.SGE)]
-    SGE_ST_DPS_Psyche = 14008,
-
-    [ParentCombo(SGE_ST_DPS)]
-    [JobInfo(Job.SGE)]
-    SGE_ST_DPS_Movement = 14004,
-
-    [ParentCombo(SGE_ST_DPS)]
+    [ParentCombo(SGE_ST_Advanced_DPS)]
     [JobInfo(Job.SGE)]
     [Retargeted(SGE.Kardia)]
-    SGE_ST_DPS_Kardia = 14006,
+    SGE_ST_Adv_DPS_Kardia = 14006,
 
-    [ParentCombo(SGE_ST_DPS)]
+    [ParentCombo(SGE_ST_Advanced_DPS)]
     [JobInfo(Job.SGE)]
-    SGE_ST_DPS_Soteria = 14056,
+    SGE_ST_Adv_DPS_EDosis = 14003,
 
-    [ParentCombo(SGE_ST_DPS)]
+    [ParentCombo(SGE_ST_Advanced_DPS)]
     [JobInfo(Job.SGE)]
-    SGE_ST_DPS_Lucid = 14002,
+    SGE_ST_Adv_DPS_Phlegma = 14005,
+
+    [ParentCombo(SGE_ST_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    SGE_ST_Adv_DPS_Movement = 14004,
+
+    [ParentCombo(SGE_ST_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    [PossiblyRetargeted(SGE.Druochole)]
+    SGE_ST_Adv_DPS_AddersgallProtect = 14054,
+
+    [ParentCombo(SGE_ST_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    SGE_ST_Adv_DPS_Psyche = 14008,
+
+    [ParentCombo(SGE_ST_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    SGE_ST_Adv_DPS_Soteria = 14056,
+
+    [ParentCombo(SGE_ST_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    SGE_ST_Adv_DPS_Lucid = 14002,
+
+    [ParentCombo(SGE_ST_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    SGE_ST_Adv_DPS_Rhizo = 14007,
 
     #endregion
 
@@ -5708,44 +5956,44 @@ public enum Preset
     [ConflictingCombos(SGE_AoE_Simple_DPS)]
     [JobInfo(Job.SGE)]
     [AdvancedCombo]
-    SGE_AoE_DPS = 14009,
+    SGE_AoE_Advanced_DPS = 14009,
 
-    [ParentCombo(SGE_AoE_DPS)]
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_DPS_EDyskrasia = 14052,
+    SGE_AoE_Adv_DPS_EDyskrasia = 14052,
 
-    [ParentCombo(SGE_AoE_DPS)]
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    SGE_AoE_Adv_DPS_Phlegma = 14010,
+
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    SGE_AoE_Adv_DPS_Toxikon = 14011,
+
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
+    [JobInfo(Job.SGE)]
+    SGE_AoE_Adv_DPS_Pneuma = 14059,
+
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted]
-    SGE_AoE_DPS_AddersgallProtect = 14053,
+    SGE_AoE_Adv_DPS_AddersgallProtect = 14053,
 
-    [ParentCombo(SGE_AoE_DPS)]
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_DPS_Rhizo = 14013,
+    SGE_AoE_Adv_DPS_Psyche = 14051,
 
-    [ParentCombo(SGE_AoE_DPS)]
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_DPS_Phlegma = 14010,
+    SGE_AoE_Adv_DPS_Soteria = 14057,
 
-    [ParentCombo(SGE_AoE_DPS)]
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_DPS_Psyche = 14051,
+    SGE_AoE_Adv_DPS_Lucid = 14012,
 
-    [ParentCombo(SGE_AoE_DPS)]
+    [ParentCombo(SGE_AoE_Advanced_DPS)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_DPS_Toxikon = 14011,
-
-    [ParentCombo(SGE_AoE_DPS)]
-    [JobInfo(Job.SGE)]
-    SGE_AoE_DPS_Pneuma = 14059,
-
-    [ParentCombo(SGE_AoE_DPS)]
-    [JobInfo(Job.SGE)]
-    SGE_AoE_DPS_Soteria = 14057,
-
-    [ParentCombo(SGE_AoE_DPS)]
-    [JobInfo(Job.SGE)]
-    SGE_AoE_DPS_Lucid = 14012,
+    SGE_AoE_Adv_DPS_Rhizo = 14013,
 
     #endregion
 
@@ -5753,86 +6001,86 @@ public enum Preset
 
     [AutoAction(false, true)]
     [ReplaceSkill(SGE.Diagnosis)]
-    [ConflictingCombos(SGE_Simple_ST_Heal, SGE_Retarget_Diagnosis)]
+    [ConflictingCombos(SGE_ST_Simple_Heal, SGE_Retarget_Diagnosis)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Diagnosis)]
     [HealingCombo]
-    SGE_ST_Heal = 14014,
+    SGE_ST_Advanced_Heal = 14014,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_ST_Heal_Lucid = 14063,
+    SGE_ST_Adv_Heal_Lucid = 14063,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_ST_Heal_Rhizomata = 14023,
+    SGE_ST_Adv_Heal_Rhizomata = 14023,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [Retargeted(SGE.Kardia)]
-    SGE_ST_Heal_Kardia = 14016,
+    SGE_ST_Adv_Heal_Kardia = 14016,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(RoleActions.Healer.Esuna)]
-    SGE_ST_Heal_Esuna = 14015,
+    SGE_ST_Adv_Heal_Esuna = 14015,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Eukrasia)]
-    SGE_ST_Heal_EDiagnosis = 14017,
+    SGE_ST_Adv_Heal_EDiagnosis = 14017,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Druochole)]
-    SGE_ST_Heal_Druochole = 14025,
+    SGE_ST_Adv_Heal_Druochole = 14025,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Taurochole)]
-    SGE_ST_Heal_Taurochole = 14021,
+    SGE_ST_Adv_Heal_Taurochole = 14021,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Haima)]
-    SGE_ST_Heal_Haima = 14022,
+    SGE_ST_Adv_Heal_Haima = 14022,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_ST_Heal_Soteria = 14018,
+    SGE_ST_Adv_Heal_Soteria = 14018,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_ST_Heal_Zoe = 14019,
+    SGE_ST_Adv_Heal_Zoe = 14019,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Krasis)]
-    SGE_ST_Heal_Krasis = 14024,
+    SGE_ST_Adv_Heal_Krasis = 14024,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_ST_Heal_Pepsis = 14020,
+    SGE_ST_Adv_Heal_Pepsis = 14020,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Physis)]
-    SGE_ST_Heal_Physis = 14065,
+    SGE_ST_Adv_Heal_Physis = 14065,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Kerachole)]
-    SGE_ST_Heal_Kerachole = 14066,
+    SGE_ST_Adv_Heal_Kerachole = 14066,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Holos)]
-    SGE_ST_Heal_Holos = 14067,
+    SGE_ST_Adv_Heal_Holos = 14067,
 
-    [ParentCombo(SGE_ST_Heal)]
+    [ParentCombo(SGE_ST_Advanced_Heal)]
     [JobInfo(Job.SGE)]
     [PossiblyRetargeted(SGE.Panhaima)]
-    SGE_ST_Heal_Panhaima = 14068,
+    SGE_ST_Adv_Heal_Panhaima = 14068,
 
     #endregion
 
@@ -5840,54 +6088,54 @@ public enum Preset
 
     [AutoAction(true, true)]
     [ReplaceSkill(SGE.Prognosis)]
-    [ConflictingCombos(SGE_Simple_AoE_Heal)]
+    [ConflictingCombos(SGE_AoE_Simple_Heal)]
     [JobInfo(Job.SGE)]
     [HealingCombo]
-    SGE_AoE_Heal = 14026,
+    SGE_AoE_Advanced_Heal = 14026,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Lucid = 14064,
+    SGE_AoE_Adv_Heal_Lucid = 14064,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Rhizomata = 14036,
+    SGE_AoE_Adv_Heal_Rhizomata = 14036,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_EPrognosis = 14028,
+    SGE_AoE_Adv_Heal_EPrognosis = 14028,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Ixochole = 14033,
+    SGE_AoE_Adv_Heal_Ixochole = 14033,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Kerachole = 14035,
+    SGE_AoE_Adv_Heal_Kerachole = 14035,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Holos = 14030,
+    SGE_AoE_Adv_Heal_Holos = 14030,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Physis = 14027,
+    SGE_AoE_Adv_Heal_Physis = 14027,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Panhaima = 14031,
+    SGE_AoE_Adv_Heal_Panhaima = 14031,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Zoe = 14058,
+    SGE_AoE_Adv_Heal_Zoe = 14058,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Philosophia = 14050,
+    SGE_AoE_Adv_Heal_Philosophia = 14050,
 
-    [ParentCombo(SGE_AoE_Heal)]
+    [ParentCombo(SGE_AoE_Advanced_Heal)]
     [JobInfo(Job.SGE)]
-    SGE_AoE_Heal_Pepsis = 14032,
+    SGE_AoE_Adv_Heal_Pepsis = 14032,
 
     #endregion
 
@@ -5967,7 +6215,7 @@ public enum Preset
     [ParentCombo(SGE_Retarget)]
     [JobInfo(Job.SGE)]
     [Retargeted(SGE.Diagnosis)]
-    [ConflictingCombos(SGE_Simple_ST_Heal, SGE_ST_Heal)]
+    [ConflictingCombos(SGE_ST_Simple_Heal, SGE_ST_Advanced_Heal)]
     SGE_Retarget_Diagnosis = 14079,
 
     [ParentCombo(SGE_Retarget)]
@@ -6061,115 +6309,115 @@ public enum Preset
 
     [ParentCombo(SAM_ST_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_ST_Opener = 15006,
-
-    [ParentCombo(SAM_ST_AdvancedMode)]
-    [JobInfo(Job.SAM)]
-    SAM_ST_Yukikaze = 15004,
-
-    [ParentCombo(SAM_ST_AdvancedMode)]
-    [JobInfo(Job.SAM)]
-    SAM_ST_Kasha = 15005,
-
-    [ParentCombo(SAM_ST_AdvancedMode)]
-    [JobInfo(Job.SAM)]
-    SAM_ST_Gekko = 15022,
-
-    #region cooldowns on Main Combo
-
-    [ParentCombo(SAM_ST_AdvancedMode)]
-    [JobInfo(Job.SAM)]
-    SAM_ST_CDs = 15011,
-
-    [ParentCombo(SAM_ST_CDs)]
-    [JobInfo(Job.SAM)]
-    SAM_ST_CDs_MeikyoShisui = 15018,
-
-    [ParentCombo(SAM_ST_CDs)]
-    [JobInfo(Job.SAM)]
-    SAM_ST_CDs_Ikishoten = 15012,
-
-    #endregion
+    SAM_ST_Adv_Opener = 15006,
 
     #region Damage skills
 
     [ParentCombo(SAM_ST_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_ST_Damage = 15023,
+    SAM_ST_Adv_Damage = 15023,
 
-    [ParentCombo(SAM_ST_Damage)]
+    [ParentCombo(SAM_ST_Adv_Damage)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_Iaijutsu = 15013,
+    SAM_ST_Adv_Iaijutsu = 15013,
 
-    [ParentCombo(SAM_ST_CDs_Iaijutsu)]
+    [ParentCombo(SAM_ST_Adv_Iaijutsu)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_UseHiganbana = 15024,
+    SAM_ST_Adv_Higanbana = 15024,
 
-    [ParentCombo(SAM_ST_CDs_Iaijutsu)]
+    [ParentCombo(SAM_ST_Adv_Iaijutsu)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_UseTenkaGoken = 15025,
+    SAM_ST_Adv_TenkaGoken = 15025,
 
-    [ParentCombo(SAM_ST_CDs_Iaijutsu)]
+    [ParentCombo(SAM_ST_Adv_Iaijutsu)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_UseMidare = 15026,
+    SAM_ST_Adv_Midare = 15026,
 
-    [ParentCombo(SAM_ST_CDs_Iaijutsu)]
+    [ParentCombo(SAM_ST_Adv_Iaijutsu)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_UseTsubame = 15027,
+    SAM_ST_Adv_Tsubame = 15027,
 
-    [ParentCombo(SAM_ST_CDs_Iaijutsu)]
+    [ParentCombo(SAM_ST_Adv_Iaijutsu)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_Iaijutsu_Movement = 15014,
+    SAM_ST_Adv_Iaijutsu_Movement = 15014,
 
-    [ParentCombo(SAM_ST_Damage)]
+    [ParentCombo(SAM_ST_Adv_Damage)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_Senei = 15020,
+    SAM_ST_Adv_OgiNamikiri = 15015,
 
-    [ParentCombo(SAM_ST_Damage)]
+    [ParentCombo(SAM_ST_Adv_Damage)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_OgiNamikiri = 15015,
+    SAM_ST_Adv_Senei = 15020,
 
-    [ParentCombo(SAM_ST_Damage)]
+    [ParentCombo(SAM_ST_Adv_Damage)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_Zanshin = 15017,
+    SAM_ST_Adv_Zanshin = 15017,
 
-    [ParentCombo(SAM_ST_Damage)]
+    [ParentCombo(SAM_ST_Adv_Damage)]
     [JobInfo(Job.SAM)]
-    SAM_ST_CDs_Shoha = 15019,
+    SAM_ST_Adv_Shoha = 15019,
 
-    [ParentCombo(SAM_ST_Damage)]
+    [ParentCombo(SAM_ST_Adv_Damage)]
     [JobInfo(Job.SAM)]
-    SAM_ST_Shinten = 15008,
+    SAM_ST_Adv_Shinten = 15008,
 
-    [ParentCombo(SAM_ST_Damage)]
+    [ParentCombo(SAM_ST_Adv_Damage)]
     [JobInfo(Job.SAM)]
-    SAM_ST_RangedUptime = 15097,
+    SAM_ST_Adv_RangedUptime = 15097,
+
+    #endregion
+
+    #region cooldowns on Main Combo
+
+    [ParentCombo(SAM_ST_AdvancedMode)]
+    [JobInfo(Job.SAM)]
+    SAM_ST_Adv_CDs = 15011,
+
+    [ParentCombo(SAM_ST_Adv_CDs)]
+    [JobInfo(Job.SAM)]
+    SAM_ST_Adv_Meikyo = 15018,
+
+    [ParentCombo(SAM_ST_Adv_CDs)]
+    [JobInfo(Job.SAM)]
+    SAM_ST_Adv_Ikishoten = 15012,
 
     #endregion
 
     [ParentCombo(SAM_ST_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_ST_TrueNorth = 15099,
+    SAM_ST_Adv_Yukikaze = 15004,
 
     [ParentCombo(SAM_ST_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_ST_StunInterrupt = 15096,
+    SAM_ST_Adv_Kasha = 15005,
 
     [ParentCombo(SAM_ST_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_ST_ComboHeals = 15098,
+    SAM_ST_Adv_Gekko = 15022,
 
     [ParentCombo(SAM_ST_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_ST_Feint = 15095,
+    SAM_ST_Adv_TrueNorth = 15099,
 
     [ParentCombo(SAM_ST_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_ST_ThirdEye = 15094,
+    SAM_ST_Adv_StunInterrupt = 15096,
 
     [ParentCombo(SAM_ST_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_ST_Meditate = 15093,
+    SAM_ST_Adv_ComboHeals = 15098,
+
+    [ParentCombo(SAM_ST_AdvancedMode)]
+    [JobInfo(Job.SAM)]
+    SAM_ST_Adv_Feint = 15095,
+
+    [ParentCombo(SAM_ST_AdvancedMode)]
+    [JobInfo(Job.SAM)]
+    SAM_ST_Adv_ThirdEye = 15094,
+
+    [ParentCombo(SAM_ST_AdvancedMode)]
+    [JobInfo(Job.SAM)]
+    SAM_ST_Adv_Meditate = 15093,
 
     #endregion
 
@@ -6182,69 +6430,65 @@ public enum Preset
     [AdvancedCombo]
     SAM_AoE_AdvancedMode = 15103,
 
-    [ParentCombo(SAM_AoE_AdvancedMode)]
-    [JobInfo(Job.SAM)]
-    SAM_AoE_Oka = 15104,
+    #region Damage Skills
 
     [ParentCombo(SAM_AoE_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_AoE_Hagakure = 15113,
+    SAM_AoE_Adv_Damage = 15116,
+
+    [ParentCombo(SAM_AoE_Adv_Damage)]
+    [JobInfo(Job.SAM)]
+    SAM_AoE_Adv_TenkaGoken = 15107,
+
+    [ParentCombo(SAM_AoE_Adv_Damage)]
+    [JobInfo(Job.SAM)]
+    SAM_AoE_Adv_OgiNamikiri = 15109,
+
+    [ParentCombo(SAM_AoE_Adv_Damage)]
+    [JobInfo(Job.SAM)]
+    SAM_AoE_Adv_Guren = 15112,
+
+    [ParentCombo(SAM_AoE_Adv_Damage)]
+    [JobInfo(Job.SAM)]
+    SAM_AoE_Adv_Zanshin = 15110,
+
+    [ParentCombo(SAM_AoE_Adv_Damage)]
+    [JobInfo(Job.SAM)]
+    SAM_AoE_Adv_Shoha = 15111,
+
+    [ParentCombo(SAM_AoE_Adv_Damage)]
+    [JobInfo(Job.SAM)]
+    SAM_AoE_Adv_Kyuten = 15105,
+
+    #endregion
 
     #region Cooldowns on Main Combo
 
     [ParentCombo(SAM_AoE_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_AoE_CDs = 15115,
+    SAM_AoE_Adv_CDs = 15115,
 
-    [ParentCombo(SAM_AoE_CDs)]
+    [ParentCombo(SAM_AoE_Adv_CDs)]
     [JobInfo(Job.SAM)]
-    SAM_AoE_MeikyoShisui = 15114,
+    SAM_AoE_Adv_Meikyo = 15114,
 
-    [ParentCombo(SAM_AoE_CDs)]
+    [ParentCombo(SAM_AoE_Adv_CDs)]
     [JobInfo(Job.SAM)]
-    SAM_AoE_CDs_Ikishoten = 15108,
-
-    #endregion
-
-    #region Damage Skills
-
-    [ParentCombo(SAM_AoE_AdvancedMode)]
-    [JobInfo(Job.SAM)]
-    SAM_AoE_Damage = 15116,
-
-    [ParentCombo(SAM_AoE_Damage)]
-    [JobInfo(Job.SAM)]
-    SAM_AoE_TenkaGoken = 15107,
-
-    [ParentCombo(SAM_AoE_Damage)]
-    [JobInfo(Job.SAM)]
-    SAM_AoE_Guren = 15112,
-
-    [ParentCombo(SAM_AoE_Damage)]
-    [JobInfo(Job.SAM)]
-    SAM_AoE_OgiNamikiri = 15109,
-
-    [ParentCombo(SAM_AoE_Damage)]
-    [JobInfo(Job.SAM)]
-    SAM_AoE_Zanshin = 15110,
-
-    [ParentCombo(SAM_AoE_Damage)]
-    [JobInfo(Job.SAM)]
-    SAM_AoE_Shoha = 15111,
+    SAM_AoE_Adv_Ikishoten = 15108,
 
     #endregion
 
     [ParentCombo(SAM_AoE_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_AoE_Kyuten = 15105,
+    SAM_AoE_Adv_Oka = 15104,
 
     [ParentCombo(SAM_AoE_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_AoE_StunInterrupt = 15196,
+    SAM_AoE_Adv_StunInterrupt = 15196,
 
     [ParentCombo(SAM_AoE_AdvancedMode)]
     [JobInfo(Job.SAM)]
-    SAM_AoE_ComboHeals = 15199,
+    SAM_AoE_Adv_ComboHeals = 15199,
 
     #endregion
 

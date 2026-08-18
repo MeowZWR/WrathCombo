@@ -21,7 +21,7 @@ internal partial class MNK : Melee
             if (CanFormshift())
                 return FormShift;
 
-            if (ContentSpecificActions.TryGet(out uint contentAction))
+            if (ContentSpecificActions.TryGet(ref actionID, out uint contentAction))
                 return contentAction;
 
             // OGCDs
@@ -91,7 +91,7 @@ internal partial class MNK : Melee
             if (CanFormshift())
                 return FormShift;
 
-            if (ContentSpecificActions.TryGet(out uint contentAction))
+            if (ContentSpecificActions.TryGet(ref actionID, out uint contentAction))
                 return contentAction;
 
             // OGCD's
@@ -166,7 +166,7 @@ internal partial class MNK : Melee
                 CanFormshift())
                 return FormShift;
 
-            if (ContentSpecificActions.TryGet(out uint contentAction))
+            if (ContentSpecificActions.TryGet(ref actionID, out uint contentAction))
                 return contentAction;
 
             // OGCDs
@@ -275,7 +275,7 @@ internal partial class MNK : Melee
                 CanFormshift())
                 return FormShift;
 
-            if (ContentSpecificActions.TryGet(out uint contentAction))
+            if (ContentSpecificActions.TryGet(ref actionID, out uint contentAction))
                 return contentAction;
 
             // OGCD's
@@ -480,7 +480,7 @@ internal partial class MNK : Melee
 
             return HasStatusEffect(Buffs.PerfectBalance) &&
                    LevelChecked(PerfectBalance)
-                ? All.SavageBlade
+                ? All.Cease
                 : actionID;
         }
     }
