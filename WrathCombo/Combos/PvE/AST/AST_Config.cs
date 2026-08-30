@@ -39,6 +39,8 @@ internal partial class AST
             AST_ST_SimpleHeals_SoloLady = new("AST_ST_SimpleHeals_SoloLady", 55),
             AST_ST_SimpleHeals_EmergencyED_Threshold = new("AST_ST_SimpleHeals_EmergencyED_Threshold", 30),
             AST_ST_Heals_NeutralSect_Threshold = new("AST_ST_Heals_NeutralSect_Threshold", 50),
+            AST_ST_Heals_LucidDreaming = new("AST_ST_Heals_LucidDreaming", 6500),
+            AST_AoE_Heals_LucidDreaming = new("AST_AoE_Heals_LucidDreaming", 6500),
             AST_AoE_SimpleHeals_AltMode = new("AST_AoE_SimpleHeals_AltMode", 1),
             AST_AoE_SimpleHeals_LazyLady = new("AST_AoE_SimpleHeals_LazyLady", 70),
             AST_AoE_SimpleHeals_Horoscope = new("AST_AoE_SimpleHeals_Horoscope", 80),
@@ -338,6 +340,9 @@ internal partial class AST
                     DrawPriorityInput(AST_ST_SimpleHeals_Priority, 13, 12, Text.FormatAndCache(Generics.Action_Priority, NeutralSect.ActionName()));
                     break;
 
+                case Preset.AST_ST_Heals_Lucid:
+                    DrawSliderInt(4000, 9500, AST_ST_Heals_LucidDreaming, Generics.LucidMP, 150, Hundreds);
+                    break;
 
                 #endregion
 
@@ -399,6 +404,10 @@ internal partial class AST
                     DrawSliderInt(0, 100, AST_AoE_SimpleHeals_CollectiveUnconscious, Generics.StartUsingWhenBelowPartyAverageHPSetTo100ToDisableThisCheck);
                     DrawAdditionalBoolChoice(AST_AoE_SimpleHeals_WeaveCollectiveUnconscious, Generics.OnlyWeave, Generics.WillOnlyWeaveThisAction);
                     DrawPriorityInput(AST_AoE_SimpleHeals_Priority, 9, 8, Text.FormatAndCache(Generics.Action_Priority, CollectiveUnconscious.ActionName()));
+                    break;
+
+                case Preset.AST_AoE_Heals_Lucid:
+                    DrawSliderInt(4000, 9500, AST_AoE_Heals_LucidDreaming, Generics.LucidMP, 150, Hundreds);
                     break;
 
                 #endregion

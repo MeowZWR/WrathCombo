@@ -1432,6 +1432,12 @@
   <data name="AST_ST_Heals_Exaltation_Desc" xml:space="preserve">
     <value>エクザルテーションを追加します。</value>
   </data>
+  <data name="AST_ST_Heals_Lucid_Name" xml:space="preserve">
+    <value>ルーシッドドリーム差し込みオプション</value>
+  </data>
+  <data name="AST_ST_Heals_Lucid_Desc" xml:space="preserve">
+    <value>MPがスライダー値を下回るとルーシッドドリームを追加します</value>
+  </data>
   <data name="AST_ST_Heals_Spire_Name" xml:space="preserve">
     <value>ビエルゴの塔オプション</value>
   </data>
@@ -1509,6 +1515,12 @@
   </data>
   <data name="AST_AoE_Heals_LazyLady_Desc" xml:space="preserve">
     <value>カードを引いたとき、クラウンレディを追加します。</value>
+  </data>
+  <data name="AST_AoE_Heals_Lucid_Name" xml:space="preserve">
+    <value>ルーシッドドリーム差し込みオプション</value>
+  </data>
+  <data name="AST_AoE_Heals_Lucid_Desc" xml:space="preserve">
+    <value>MPがスライダー値を下回るとルーシッドドリームを追加します</value>
   </data>
   <data name="AST_AoE_Heals_Horoscope_Name" xml:space="preserve">
     <value>ホロスコープオプション</value>

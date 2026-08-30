@@ -869,7 +869,7 @@ public partial class WrathCombo
     /// </param>
     private void HandleBurstControl(string[] argument)
     {
-        if (!PresetStorage.AllPresets.Any(p => p.Value.JobInfo?.Job == Player.Job && p.Value.ComboType == ComboType.Advanced && PresetStorage.IsEnabled(p.Key)))
+        if (!PresetStorage.AllPresets.Any(p => p.Value.JobInfo?.Job == Player.Job && p.Value.ComboType == ComboType.AdvancedDPS && PresetStorage.IsEnabled(p.Key)))
         {
             DuoLog.Error("This feature is for Advanced Mode Combos.");
             return;

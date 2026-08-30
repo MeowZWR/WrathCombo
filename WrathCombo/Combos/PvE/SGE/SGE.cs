@@ -49,15 +49,15 @@ internal partial class SGE : Healer
                     return Soteria;
             }
 
-            if (UseEDosis(ref actionID, simpleMode: true, [actionID]))
+            if (UseEDosis(ref actionID, true, [actionID]))
                 return actionID;
 
             if (HasBattleTarget() && !HasStatusEffect(Buffs.Eukrasia) && InCombat())
             {
-                if (UsePhlegma(burst: true, chargePool: 1, psycheEnabled: true))
+                if (UsePhlegma(true, 1, true))
                     return OriginalHook(Phlegma);
 
-                if (UseMovement(ref actionID, simpleMode: true))
+                if (UseMovement(ref actionID, true))
                     return actionID;
             }
 
@@ -96,7 +96,7 @@ internal partial class SGE : Healer
             }
 
             if (UseEDyskrasia())
-                return Eukrasia;
+                return HasStatusEffect(Buffs.Eukrasia) ? OriginalHook(Dyskrasia) : Eukrasia;
 
             if (UseAoEPhlegma(psycheEnabled: true))
                 return OriginalHook(Phlegma);
@@ -169,20 +169,20 @@ internal partial class SGE : Healer
             }
 
             if (IsEnabled(Preset.SGE_ST_Adv_DPS_EDosis) &&
-                UseEDosis(ref actionID, simpleMode: false, dosisActions))
+                UseEDosis(ref actionID, false, dosisActions))
                 return actionID;
 
             if (HasBattleTarget() && !HasStatusEffect(Buffs.Eukrasia) && InCombat())
             {
                 if (IsEnabled(Preset.SGE_ST_Adv_DPS_Phlegma) &&
                     UsePhlegma(
-                        burst: SGE_ST_Adv_DPS_Phlegma_Burst,
-                        chargePool: SGE_ST_Adv_DPS_Phlegma,
-                        psycheEnabled: IsEnabled(Preset.SGE_ST_Adv_DPS_Psyche)))
+                        SGE_ST_Adv_DPS_Phlegma_Burst,
+                        SGE_ST_Adv_DPS_Phlegma,
+                        IsEnabled(Preset.SGE_ST_Adv_DPS_Psyche)))
                     return OriginalHook(Phlegma);
 
                 if (IsEnabled(Preset.SGE_ST_Adv_DPS_Movement) &&
-                    UseMovement(ref actionID, simpleMode: false))
+                    UseMovement(ref actionID, false))
                     return actionID;
             }
 
@@ -214,7 +214,7 @@ internal partial class SGE : Healer
                 bool psycheEnabled = IsEnabled(Preset.SGE_AoE_Adv_DPS_Psyche);
                 bool phlegmaEnabled = IsEnabled(Preset.SGE_AoE_Adv_DPS_Phlegma);
                 if (psycheEnabled &&
-                    UsePsyche(PhlegmaBurstPair(phlegmaEnabled, psycheEnabled, burst: true)))
+                    UsePsyche(PhlegmaBurstPair(phlegmaEnabled, psycheEnabled, true)))
                     return Psyche;
 
                 if (IsEnabled(Preset.SGE_AoE_Adv_DPS_Lucid) &&
@@ -230,7 +230,7 @@ internal partial class SGE : Healer
             }
 
             if (IsEnabled(Preset.SGE_AoE_Adv_DPS_EDyskrasia) && UseEDyskrasia())
-                return Eukrasia;
+                return HasStatusEffect(Buffs.Eukrasia) ? OriginalHook(Dyskrasia) : Eukrasia;
 
             if (IsEnabled(Preset.SGE_AoE_Adv_DPS_Phlegma) &&
                 UseAoEPhlegma(IsEnabled(Preset.SGE_AoE_Adv_DPS_Psyche)))
@@ -260,15 +260,18 @@ internal partial class SGE : Healer
             if (!CustomActionHelper.OneButtonRotationChecker(actionID, CustomActionType.SingleTargetHeals, Diagnosis))
                 return actionID;
 
-            IGameObject? healTarget = SimpleTarget.Stack.OneButtonHealLogic;
+            var healTarget = SimpleTarget.Stack.OneButtonHealLogic;
 
             bool cleansableTarget =
                 HealRetargeting.RetargetSettingOn && SimpleTarget.Stack.AllyToEsuna is not null ||
                 HasCleansableDebuff(healTarget);
 
-            if (LevelChecked(Kardia) &&
+            if (ActionLearned(Kardia) &&
                 !HasStatusEffect(Buffs.Kardia))
                 return Kardia.Retarget(actionID, SimpleTarget.AnyLivingTank);
+
+            if (UseEukrasianDiagnosis(healTarget, true, ref actionID))
+                return actionID;
 
             if (ActionReady(Role.Esuna) &&
                 GetTargetHPPercent(healTarget) >= 40 &&
@@ -297,7 +300,7 @@ internal partial class SGE : Healer
                 !InBossEncounter())
                 return Kerachole;
 
-            if ((healTarget.IsInParty() && healTarget.Role is CombatRole.Tank) || !IsInParty())
+            if (healTarget.IsInParty() && healTarget.Role is CombatRole.Tank || !IsInParty())
             {
                 if (ActionReady(Krasis))
                     return Krasis.RetargetIfEnabled(actionID);
@@ -324,11 +327,6 @@ internal partial class SGE : Healer
             if (ActionReady(Pepsis) &&
                 HasStatusEffect(Buffs.EukrasianDiagnosis, healTarget))
                 return Pepsis;
-
-            if (ActionReady(Eukrasia) && !HasStatusEffect(Buffs.EukrasianDiagnosis, healTarget))
-                return HasStatusEffect(Buffs.Eukrasia)
-                    ? EukrasianDiagnosis
-                    : Eukrasia;
 
             return Diagnosis.RetargetIfEnabled(actionID);
         }
@@ -405,13 +403,22 @@ internal partial class SGE : Healer
             if (!CustomActionHelper.OneButtonRotationChecker(actionID, CustomActionType.SingleTargetHeals, Diagnosis))
                 return actionID;
 
-            IGameObject? healTarget = SimpleTarget.Stack.OneButtonHealLogic;
+            var healTarget = SimpleTarget.Stack.OneButtonHealLogic;
 
             bool cleansableTarget =
                 HealRetargeting.RetargetSettingOn && SimpleTarget.Stack.AllyToEsuna is not null ||
                 HasCleansableDebuff(healTarget);
 
+            if (IsEnabled(Preset.SGE_ST_Adv_Heal_Kardia) &&
+                ActionLearned(Kardia) &&
+                !HasStatusEffect(Buffs.Kardia) &&
+                !HasStatusEffect(Buffs.Kardion, healTarget))
+                return Kardia.Retarget(actionID, Target);
+
             if (UseRaidwide(ref actionID))
+                return actionID;
+
+            if (UseEukrasianDiagnosis(healTarget, false, ref actionID))
                 return actionID;
 
             if (IsEnabled(Preset.SGE_ST_Adv_Heal_Esuna) &&
@@ -419,15 +426,6 @@ internal partial class SGE : Healer
                 GetTargetHPPercent(healTarget, SGE_ST_Adv_Heal_IncludeShields) >= SGE_ST_Adv_Heal_Esuna &&
                 cleansableTarget)
                 return Role.Esuna.RetargetIfEnabled(actionID);
-
-            if (HasStatusEffect(Buffs.Eukrasia))
-                return EukrasianDiagnosis.RetargetIfEnabled(actionID);
-
-            if (IsEnabled(Preset.SGE_ST_Adv_Heal_Kardia) &&
-                LevelChecked(Kardia) &&
-                !HasStatusEffect(Buffs.Kardia) &&
-                !HasStatusEffect(Buffs.Kardion, healTarget))
-                return Kardia.Retarget(actionID, Target);
 
             if (CanWeave())
             {
@@ -440,9 +438,12 @@ internal partial class SGE : Healer
                     return Rhizomata;
             }
 
-            for (int i = 0; i < SGE_ST_Heals_Priority.Count; i++)
+            for(var i = 0; i < SGE_ST_Heals_Priority.Count; i++)
             {
                 int index = SGE_ST_Heals_Priority.IndexOf(i + 1);
+                if (index == 7)
+                    continue;
+
                 if (!TrySTHealOption(index, healTarget, out uint spell, out int config))
                     continue;
 
@@ -483,7 +484,7 @@ internal partial class SGE : Healer
             }
 
             float averagePartyHP = GetPartyAvgHPPercent();
-            for (int i = 0; i < SGE_AoE_Heals_Priority.Count; i++)
+            for(var i = 0; i < SGE_AoE_Heals_Priority.Count; i++)
             {
                 int index = SGE_AoE_Heals_Priority.IndexOf(i + 1);
                 if (!TryAoEHealOption(index, out uint spell, out int config))
@@ -613,7 +614,7 @@ internal partial class SGE : Healer
             if (actionID is not Taurochole)
                 return actionID;
 
-            if (!LevelChecked(Taurochole) || IsOnCooldown(Taurochole))
+            if (!ActionLearned(Taurochole) || IsOnCooldown(Taurochole))
                 return IsEnabled(Preset.SGE_Retarget_Druochole)
                     ? Druochole.Retarget(Taurochole, HealStack)
                     : Druochole;

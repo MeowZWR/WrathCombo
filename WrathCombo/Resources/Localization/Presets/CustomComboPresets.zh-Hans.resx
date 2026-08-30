@@ -1432,6 +1432,12 @@
   <data name="AST_ST_Heals_Exaltation_Desc" xml:space="preserve">
     <value>加入“擢升”。</value>
   </data>
+  <data name="AST_ST_Heals_Lucid_Name" xml:space="preserve">
+    <value>醒梦穿插</value>
+  </data>
+  <data name="AST_ST_Heals_Lucid_Desc" xml:space="preserve">
+    <value>当 MP 低于滑条设定值时加入醒梦。</value>
+  </data>
   <data name="AST_ST_Heals_Spire_Name" xml:space="preserve">
     <value>建筑神之塔</value>
   </data>
@@ -1509,6 +1515,12 @@
   </data>
   <data name="AST_AoE_Heals_LazyLady_Desc" xml:space="preserve">
     <value>如果已抽到卡牌，则加入“王冠之贵妇”。</value>
+  </data>
+  <data name="AST_AoE_Heals_Lucid_Name" xml:space="preserve">
+    <value>醒梦穿插</value>
+  </data>
+  <data name="AST_AoE_Heals_Lucid_Desc" xml:space="preserve">
+    <value>当 MP 低于滑条设定值时加入醒梦。</value>
   </data>
   <data name="AST_AoE_Heals_Horoscope_Name" xml:space="preserve">
     <value>天宫图</value>

@@ -477,9 +477,9 @@ public class Search(Leasing leasing)
                             g2 => g2.GroupBy(x =>
                                     x.Value.Data.ComboType switch
                                     {
-                                        ComboType.Advanced =>
+                                        ComboType.AdvancedDPS or ComboType.AdvancedHealing =>
                                             ComboSimplicityLevelKeys.Advanced,
-                                        ComboType.Simple =>
+                                        ComboType.SimpleDPS or ComboType.SimpleHealing =>
                                             ComboSimplicityLevelKeys.Simple,
                                         _ => ComboSimplicityLevelKeys.Other,
                                     }

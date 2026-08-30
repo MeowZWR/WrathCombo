@@ -1430,6 +1430,12 @@
   <data name="AST_ST_Heals_Exaltation_Desc" xml:space="preserve">
     <value>성위 격상을 사용합니다.</value>
   </data>
+  <data name="AST_ST_Heals_Lucid_Name" xml:space="preserve">
+    <value>자각몽 끼워넣기 옵션</value>
+  </data>
+  <data name="AST_ST_Heals_Lucid_Desc" xml:space="preserve">
+    <value>MP가 슬라이더 설정치보다 낮아지면 자각몽 시전</value>
+  </data>
   <data name="AST_ST_Heals_Spire_Name" xml:space="preserve">
     <value>비레고의 탑 옵션</value>
   </data>
@@ -1507,6 +1513,12 @@
   </data>
   <data name="AST_AoE_Heals_LazyLady_Desc" xml:space="preserve">
     <value>여왕의 날개를 뽑은 경우 추가로 사용합니다.</value>
+  </data>
+  <data name="AST_AoE_Heals_Lucid_Name" xml:space="preserve">
+    <value>자각몽 끼워넣기 옵션</value>
+  </data>
+  <data name="AST_AoE_Heals_Lucid_Desc" xml:space="preserve">
+    <value>MP가 슬라이더 설정치보다 낮아지면 자각몽 시전</value>
   </data>
   <data name="AST_AoE_Heals_Horoscope_Name" xml:space="preserve">
     <value>별점운 옵션</value>

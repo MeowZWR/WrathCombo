@@ -70,8 +70,13 @@ internal static class PresetStorage
         public uint[] RetargetedActions =>
             GetRetargetedActions(Preset, RetargetedAttribute, PossiblyRetargeted, Parent);
         public bool IsBozja { get; }
+        public bool IsBlueDPS { get; }
+        public bool IsBlueTank { get; }
+        public bool IsBlueHealer { get; }
+        public bool IsBlueRole => IsBlueDPS || IsBlueTank || IsBlueHealer;
         public bool IsOccultCrescent => OccultCrescentJob != null;
         public OccultCrescentAttribute? OccultCrescentJob;
+        public bool IsDeepDungeon { get; }
         public string? HoverText { get; }
         public ReplaceSkillAttribute? ReplaceSkill;
         public JobInfoAttribute? JobInfo;
@@ -89,10 +94,14 @@ internal static class PresetStorage
             Conflicts = preset.GetAttribute<ConflictingCombosAttribute>()?.ConflictingPresets ?? [];
             Parent = preset.GetAttribute<ParentComboAttribute>()?.ParentPreset;
             BlueInactive = preset.GetAttribute<BlueInactiveAttribute>();
+            IsDeepDungeon = preset.GetAttribute<DeepDungeonAttribute>() != null;
             IsVariant = preset.GetAttribute<VariantAttribute>() != null;
             PossiblyRetargeted = preset.GetAttribute<PossiblyRetargetedAttribute>();
             RetargetedAttribute = preset.GetAttribute<RetargetedAttribute>();
             IsBozja = preset.GetAttribute<BozjaAttribute>() != null;
+            IsBlueDPS = preset.GetAttribute<BlueDPSAttribute>() != null;
+            IsBlueTank = preset.GetAttribute<BlueTankAttribute>() != null;
+            IsBlueHealer = preset.GetAttribute<BlueHealerAttribute>() != null;
             OccultCrescentJob = preset.GetAttribute<OccultCrescentAttribute>();
             HoverText = preset.GetAttribute<HoverInfoAttribute>()?.HoverText;
             ReplaceSkill = preset.GetAttribute<ReplaceSkillAttribute>();
@@ -107,16 +116,16 @@ internal static class PresetStorage
                 if (AutoAction.IsHeal)
                 {
                     if (AutoAction.IsAoE)
-                        TargetType = ComboTargetTypeKeys.HealMT;
+                        TargetType = ComboTargetTypeKeys.AoEHeals;
                     else
-                        TargetType = ComboTargetTypeKeys.HealST;
+                        TargetType = ComboTargetTypeKeys.SingleTargetHeals;
                 }
                 else
                 {
                     if (AutoAction.IsAoE)
-                        TargetType = ComboTargetTypeKeys.MultiTarget;
+                        TargetType = ComboTargetTypeKeys.AoEDPS;
                     else
-                        TargetType = ComboTargetTypeKeys.SingleTarget;
+                        TargetType = ComboTargetTypeKeys.SingleTargetDPS;
                 }
             }
             else
@@ -568,22 +577,25 @@ internal static class PresetStorage
 
     internal static ComboType GetComboType(Preset preset)
     {
-        var simple = preset.GetAttribute<SimpleCombo>();
-        var advanced = preset.GetAttribute<AdvancedCombo>();
+        var simpleDps = preset.GetAttribute<SimpleDPSCombo>();
+        var advancedDps = preset.GetAttribute<AdvancedDPSCombo>();
         var basic = preset.GetAttribute<BasicCombo>();
-        var healing = preset.GetAttribute<HealingCombo>();
+        var simplehealing = preset.GetAttribute<SimpleHealingCombo>();
+        var advancedhealing = preset.GetAttribute<AdvancedHealingCombo>();
         var mitigation = preset.GetAttribute<MitigationCombo>();
         var parent = (object?)preset.GetAttribute<ParentComboAttribute>();
 
-        if (simple != null)
-            return ComboType.Simple;
-        if (advanced != null)
-            return ComboType.Advanced;
+        if (simpleDps != null)
+            return ComboType.SimpleDPS;
+        if (advancedDps != null)
+            return ComboType.AdvancedDPS;
         if (basic != null)
             return ComboType.Basic;
 
-        if (healing != null)
-            return ComboType.Healing;
+        if (simplehealing != null)
+            return ComboType.SimpleHealing;
+        if (advancedhealing != null)
+            return ComboType.AdvancedHealing;
         if (mitigation != null)
             return ComboType.Mitigation;
 

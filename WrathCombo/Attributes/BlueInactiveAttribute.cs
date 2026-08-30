@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WrathCombo.Services;
 
 namespace WrathCombo.Attributes;
@@ -22,7 +23,7 @@ public class BlueInactiveAttribute : Attribute
     {
         NoneSet = true;
         Actions.Clear();
-        foreach (var action in MasterActions)
+        foreach (var action in MasterActions.OrderBy(a => a))
         {
             if (Service.Configuration.ActiveBLUSpells.Contains(action))
             {
@@ -37,3 +38,12 @@ public class BlueInactiveAttribute : Attribute
     internal List<uint> MasterActions { get; set; } = [];
     internal bool NoneSet { get; set; } = false;
 }
+
+[AttributeUsage(AttributeTargets.Field)]
+internal class BlueDPSAttribute : Attribute;
+
+[AttributeUsage(AttributeTargets.Field)]
+internal class BlueTankAttribute : Attribute;
+
+[AttributeUsage(AttributeTargets.Field)]
+internal class BlueHealerAttribute : Attribute;
