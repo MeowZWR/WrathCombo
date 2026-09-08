@@ -1315,8 +1315,8 @@ internal unsafe class AutoRotationController
         {
             return JobID switch
             {
-                Job.AST => target.HasStatus(AST.Buffs.AspectedBenefic),
-                Job.WHM => target.HasStatus(WHM.Buffs.Regen),
+                Job.AST => target.HasStatus(AST.Buffs.AspectedBenefic, false),
+                Job.WHM => target.HasStatus(WHM.Buffs.Regen, false),
                 _ => false,
             };
         }
