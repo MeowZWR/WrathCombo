@@ -27,11 +27,11 @@ internal partial class BLU
         if (!ActionReady(spell) || JustUsed(spell))
             return false;
 
-        if (Target is null || !CanApplyStatus(Target, debuff))
+        if (Target is null || !Target.CanApplyStatus(debuff))
             return false;
 
-        return !HasStatusEffect(debuff, Target) ||
-               GetStatusEffectRemainingTime(debuff, Target) <= BLU_DoTTime;
+        return !Target.HasStatus(debuff, true) ||
+               Target.Status(debuff, true).RemainingTimeOrZero() <= BLU_DoTTime;
     }
 
     private static bool UseDoT(ref uint actionID, bool tank)
@@ -45,7 +45,8 @@ internal partial class BLU
 
         if (soT && WantDoT(SongOfTorment, Debuffs.SongOfTorment))
         {
-            if (ActionReady(Bristle) && !HasStatusEffect(Buffs.Bristle) && !JustUsed(Bristle))
+            if (IsSpellActive(Bristle) && ActionReady(Bristle) &&
+                !LocalPlayer.HasStatus(Buffs.Bristle) && !JustUsed(Bristle))
             {
                 actionID = Bristle;
                 return true;
@@ -74,67 +75,109 @@ internal partial class BLU
         return false;
     }
 
+    private static bool UseConvictionMarcato(ref uint actionID)
+    {
+        if (!ActionReady(ConvictionMarcato) ||
+            !LocalPlayer.HasStatus(Buffs.WingedRedemption))
+            return false;
+
+        actionID = ConvictionMarcato;
+        return true;
+    }
+
+    private static bool HoldPrimalsForMoonFluteBurst()
+    {
+        if (LocalPlayer.HasStatus(Buffs.MoonFlute))
+            return false;
+
+        if (!IsEnabled(Preset.BLU_ST_DPS_Opener) &&
+            IsNotEnabled(Preset.BLU_NewMoonFluteOpener))
+            return false;
+
+        if (!IsSpellActive(Nightbloom) || IsOffCooldown(Nightbloom))
+            return false;
+
+        return GetCooldownRemainingTime(Nightbloom) <= 30;
+    }
+
+    private static bool CanUsePooledPrimal(float holdIfNightbloomBelow)
+    {
+        if (IsNotEnabled(Preset.BLU_PrimalCombo_Pool))
+            return true;
+
+        return GetCooldownRemainingTime(Nightbloom) > holdIfNightbloomBelow ||
+               IsOffCooldown(Nightbloom);
+    }
+
+    private static bool WantFeatherRainPrimal(int index) =>
+        BLU_PrimalCombo_Spells.Count > index && BLU_PrimalCombo_Spells[index];
+
     private static bool UsePrimalCDs(ref uint actionID, uint retargetFrom, Preset option)
     {
-        if (HasStatusEffect(Buffs.PhantomFlurry))
+        if (LocalPlayer.HasStatus(Buffs.PhantomFlurry))
         {
             actionID = OriginalHook(PhantomFlurry);
             return true;
         }
 
-        if (GetStatusEffect(Buffs.WingedReprobation)?.Param > 1 &&
+        if (LocalPlayer.Status(Buffs.WingedReprobation)?.Param > 1 &&
             ActionReady(WingedReprobation))
         {
             actionID = OriginalHook(WingedReprobation);
             return true;
         }
 
+        if (UseConvictionMarcato(ref actionID))
+            return true;
+
         if (!IsEnabled(option))
             return false;
 
-        if (ActionReady(FeatherRain))
+        bool holding = HoldPrimalsForMoonFluteBurst();
+
+        if (!holding && ActionReady(FeatherRain))
         {
             actionID = FeatherRain.Retarget(retargetFrom, Target);
             return true;
         }
 
-        if (ActionReady(Eruption))
+        if (!holding && ActionReady(Eruption))
         {
             actionID = Eruption;
             return true;
         }
 
-        if (ActionReady(ShockStrike))
+        if (!holding && ActionReady(ShockStrike))
         {
             actionID = ShockStrike;
             return true;
         }
 
-        if (ActionReady(RoseOfDestruction))
+        if (!holding && ActionReady(RoseOfDestruction))
         {
             actionID = RoseOfDestruction;
             return true;
         }
 
-        if (ActionReady(GlassDance))
+        if (!holding && ActionReady(GlassDance))
         {
             actionID = GlassDance;
             return true;
         }
 
-        if (ActionReady(JKick))
+        if (!BLU_ManualJKick && !holding && ActionReady(JKick))
         {
             actionID = JKick;
             return true;
         }
 
-        if (ActionReady(Nightbloom))
+        if (!holding && ActionReady(Nightbloom))
         {
             actionID = Nightbloom;
             return true;
         }
 
-        if (ActionReady(MatraMagic) && HasStatusEffect(Buffs.DPSMimicry))
+        if (!holding && ActionReady(MatraMagic) && LocalPlayer.HasStatus(Buffs.DPSMimicry))
         {
             actionID = MatraMagic;
             return true;
@@ -142,7 +185,7 @@ internal partial class BLU
 
         if (GetRemainingCharges(Surpanakha) == 4)
             _surpanakhaReady = true;
-        if (_surpanakhaReady && ActionReady(Surpanakha))
+        if (!holding && _surpanakhaReady && ActionReady(Surpanakha))
         {
             actionID = Surpanakha;
             return true;
@@ -150,19 +193,19 @@ internal partial class BLU
         if (GetRemainingCharges(Surpanakha) == 0)
             _surpanakhaReady = false;
 
-        if (ActionReady(WingedReprobation))
+        if (!holding && ActionReady(WingedReprobation))
         {
             actionID = OriginalHook(WingedReprobation);
             return true;
         }
 
-        if (ActionReady(SeaShanty))
+        if (!holding && ActionReady(SeaShanty))
         {
             actionID = SeaShanty;
             return true;
         }
 
-        if (ActionReady(PhantomFlurry))
+        if (!holding && ActionReady(PhantomFlurry))
         {
             actionID = PhantomFlurry;
             return true;
@@ -250,11 +293,11 @@ internal partial class BLU
             !HasCondition(ConditionFlag.BoundByDuty) ||
             GetPartyMembers().Count != 0 ||
             !ActionReady(BasicInstinct) ||
-            HasStatusEffect(Buffs.BasicInstinct))
+            LocalPlayer.HasStatus(Buffs.BasicInstinct))
             return false;
 
         if (ActionReady(MightyGuard) &&
-            !HasStatusEffect(Buffs.MightyGuard) &&
+            !LocalPlayer.HasStatus(Buffs.MightyGuard) &&
             !JustUsed(MightyGuard))
         {
             actionID = MightyGuard;
@@ -272,7 +315,7 @@ internal partial class BLU
 
         if (IsEnabled(gate) &&
             ActionReady(ChelonianGate) &&
-            !HasStatusEffect(Buffs.ChelonianGate) &&
+            !LocalPlayer.HasStatus(Buffs.ChelonianGate) &&
             !JustUsed(ChelonianGate))
         {
             actionID = ChelonianGate;
@@ -299,7 +342,7 @@ internal partial class BLU
         if (LocalPlayer!.Status(Buffs.PhantomFlurry).RemainingTimeOrZero() > 0)
             return All.Cease;
 
-        if (HasStatusEffect(Buffs.WaningNocturne))
+        if (LocalPlayer.HasStatus(Buffs.WaningNocturne))
             return actionID;
 
         if (UseSoloInstinct(ref actionID, instinct))
@@ -356,23 +399,23 @@ internal partial class BLU
         var lucid = onAoE ? Preset.BLU_AoE_Tank_Lucid : Preset.BLU_ST_Tank_Lucid;
         var badBreath = onAoE ? Preset.BLU_AoE_Tank_BadBreath : Preset.BLU_ST_Tank_BadBreath;
 
-        if (HasStatusEffect(Buffs.WaningNocturne))
+        if (LocalPlayer.HasStatus(Buffs.WaningNocturne))
             return actionID;
 
         if (IsEnabled(mighty) &&
             ActionReady(MightyGuard) &&
-            !HasStatusEffect(Buffs.MightyGuard) &&
+            !LocalPlayer.HasStatus(Buffs.MightyGuard) &&
             !JustUsed(MightyGuard))
             return MightyGuard;
 
         if (UseSoloInstinct(ref actionID, instinct))
             return actionID;
 
-        if (HasStatusEffect(Buffs.AuspiciousTrance) ||
+        if (LocalPlayer.HasStatus(Buffs.AuspiciousTrance) ||
             OriginalHook(ChelonianGate) == DivineCataract)
             return DivineCataract;
 
-        if (HasStatusEffect(Buffs.ChelonianGate))
+        if (LocalPlayer.HasStatus(Buffs.ChelonianGate))
             return All.Cease;
 
         if (UseTankMit(ref actionID, gate, dragon))
@@ -403,14 +446,14 @@ internal partial class BLU
             IsEnabled(Preset.BLU_ST_Tank_Offguard) &&
             ActionReady(Offguard) &&
             Target is not null &&
-            !HasStatusEffect(Debuffs.Offguard, Target, true))
+            !Target.HasStatus(Debuffs.Offguard, true))
             return Offguard;
 
         if (IsEnabled(badBreath) &&
             ActionReady(BadBreath) &&
             HasTankMimicry &&
             Target is not null &&
-            !HasStatusEffect(Debuffs.Malodorous, Target, true))
+            !Target.HasStatus(Debuffs.Malodorous, true))
             return BadBreath;
 
         if (!onAoE && UseDoT(ref actionID, true))
@@ -461,7 +504,7 @@ internal partial class BLU
         var healTarget = SimpleTarget.Stack.AllyToHeal;
         if (IsEnabled(Preset.BLU_ST_Heal_Exuviation) &&
             ActionReady(Exuviation) &&
-            HasCleansableDebuff(healTarget))
+            healTarget.HasCleansableDebuff)
             return Exuviation.RetargetIfEnabled(actionID);
 
         if (IsEnabled(snack) && ActionReady(AngelsSnack))
@@ -473,13 +516,13 @@ internal partial class BLU
     }
 
     internal static bool HasTankMimicry =>
-        HasStatusEffect(Buffs.TankMimicry);
+        LocalPlayer.HasStatus(Buffs.TankMimicry);
 
     internal static bool HasHealerMimicry =>
-        HasStatusEffect(Buffs.HealerMimicry);
+        LocalPlayer.HasStatus(Buffs.HealerMimicry);
 
     internal static bool HasDPSMimicry =>
-        HasStatusEffect(Buffs.DPSMimicry);
+        LocalPlayer.HasStatus(Buffs.DPSMimicry);
 
     #region Openers
 
@@ -513,14 +556,13 @@ internal partial class BLU
 
         public override List<(int[] Steps, Func<float> HoldDelay)> PrepullDelays { get; set; } =
         [
-            ([1], () => CountdownRemaining - 5),
-            ([2], () => CountdownRemaining - 3),
-            ([3], () => CountdownRemaining)
+            ([2], () => !BLU_Opener_PrepullBlock ? 0 : Math.Max(0, CountdownRemaining - 5)),
+            ([3], () => !BLU_Opener_PrepullBlock ? 0 : Math.Max(0, CountdownRemaining - 3)),
+            ([4], () => !BLU_Opener_PrepullBlock ? 0 : Math.Max(0, CountdownRemaining))
         ];
 
         public override bool HasCooldowns() =>
             ActionReady(MoonFlute) &&
-            (!IsSpellActive(JKick) || ActionReady(JKick)) &&
             (!IsSpellActive(Nightbloom) || ActionReady(Nightbloom)) &&
             (!IsSpellActive(PhantomFlurry) || ActionReady(PhantomFlurry)) &&
             (!IsSpellActive(Surpanakha) || GetRemainingCharges(Surpanakha) == 4);
@@ -530,104 +572,108 @@ internal partial class BLU
     {
         public override List<Func<uint>> OpenerActions { get; set; } =
         [
-            () => Whistle, //1
-            () => Tingle, //2
-            () => RoseOfDestruction, //3
-            () => MoonFlute, //4 
-            () => JKick, //5
-            () => TripleTrident, //6
-            () => Nightbloom, //7
-            () => WingedReprobation, //8
-            () => FeatherRain.Retarget(SonicBoom, CurrentTarget), //9
-            () => SeaShanty, //10
-            () => WingedReprobation, //11
-            () => ShockStrike, //12
-            () => BeingMortal, //13
-            () => Bristle, //14
-            () => Role.Swiftcast, //15
-            () => Surpanakha, //16
-            () => Surpanakha, //17
-            () => Surpanakha, //18
-            () => Surpanakha, //19
-            () => MatraMagic, //20
-            () => PhantomFlurry //21
+            () => All.Cease, // 1
+            () => Whistle, // 2
+            () => Tingle, // 3
+            () => RoseOfDestruction, // 4
+            () => MoonFlute, // 5
+            () => JKick, // 6
+            () => TripleTrident, // 7
+            () => Nightbloom, // 8
+            () => WingedReprobation, // 9
+            () => FeatherRain.Retarget(SonicBoom, CurrentTarget), // 10
+            () => SeaShanty, // 11
+            () => WingedReprobation, // 12
+            () => ShockStrike, // 13
+            () => BeingMortal, // 14
+            () => Bristle, // 15
+            () => Role.Swiftcast, // 16
+            () => Surpanakha, // 17
+            () => Surpanakha, // 18
+            () => Surpanakha, // 19
+            () => Surpanakha, // 20
+            () => MatraMagic, // 21
+            () => PhantomFlurry // 22
         ];
 
         public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
         [
-            ([1], () => !IsSpellActive(Whistle) || HasStatusEffect(Buffs.Whistle)),
-            ([2], () => !IsSpellActive(Tingle) || HasStatusEffect(Buffs.Tingle, Target, true)),
-            ([3], () => !IsSpellActive(RoseOfDestruction)),
-            ([5], () => !IsSpellActive(JKick)),
-            ([6], () => !IsSpellActive(TripleTrident) || !ActionReady(TripleTrident)),
-            ([7], () => !IsSpellActive(Nightbloom)),
-            ([8], () => !IsSpellActive(WingedReprobation)),
-            ([9], () => !IsSpellActive(FeatherRain)),
-            ([10], () => !IsSpellActive(SeaShanty)),
-            ([11], () => !IsSpellActive(WingedReprobation)),
-            ([12], () => !IsSpellActive(ShockStrike)),
-            ([13], () => !IsSpellActive(BeingMortal)),
-            ([14], () => !IsSpellActive(Bristle) || HasStatusEffect(Buffs.Bristle)),
-            ([15], () => !ActionReady(Role.Swiftcast)),
-            ([16, 17, 18, 19], () => !IsSpellActive(Surpanakha)),
-            ([20], () => !IsSpellActive(MatraMagic) || !HasStatusEffect(Buffs.DPSMimicry)),
-            ([21], () => !IsSpellActive(PhantomFlurry))
+            ([1], () => CountdownActive || InCombat() || !BLU_Opener_PrepullBlock),
+            ([2], () => !IsSpellActive(Whistle) || LocalPlayer.HasStatus(Buffs.Whistle)),
+            ([3], () => !IsSpellActive(Tingle) || LocalPlayer.HasStatus(Buffs.Tingle)),
+            ([4], () => !IsSpellActive(RoseOfDestruction)),
+            ([6], () => !IsSpellActive(JKick) || BLU_ManualJKick || !ActionReady(JKick)),
+            ([7], () => !IsSpellActive(TripleTrident) || !ActionReady(TripleTrident)),
+            ([8], () => !IsSpellActive(Nightbloom)),
+            ([9], () => !IsSpellActive(WingedReprobation)),
+            ([10], () => !IsSpellActive(FeatherRain)),
+            ([11], () => !IsSpellActive(SeaShanty)),
+            ([12], () => !IsSpellActive(WingedReprobation)),
+            ([13], () => !IsSpellActive(ShockStrike)),
+            ([14], () => !IsSpellActive(BeingMortal)),
+            ([15], () => !IsSpellActive(Bristle) || LocalPlayer.HasStatus(Buffs.Bristle)),
+            ([16], () => !ActionReady(Role.Swiftcast)),
+            ([17, 18, 19, 20], () => !IsSpellActive(Surpanakha)),
+            ([21], () => !IsSpellActive(MatraMagic) || !LocalPlayer.HasStatus(Buffs.DPSMimicry)),
+            ([22], () => !IsSpellActive(PhantomFlurry))
         ];
 
-        public override List<int> AllowUpgradeSteps { get; set; } = [8, 11];
+        public override List<int> AllowUpgradeSteps { get; set; } = [9, 12];
     }
 
     internal class BLUMoonFluteDoTOpener : BLUOpenerBase
     {
+        internal static uint BreathOfMagicOrMortalFlame =>
+            !IsSpellActive(BreathOfMagic) || Target.HasStatus(Debuffs.BreathOfMagic, true)
+                ? MortalFlame
+                : BreathOfMagic;
+
         public override List<Func<uint>> OpenerActions { get; set; } =
         [
-            () => Whistle, // 1
-            () => Tingle, // 2
-            () => RoseOfDestruction, // 3
-            () => MoonFlute, // 4
-            () => JKick, // 5
-            () => TripleTrident, // 6
-            () => Nightbloom, // 7
-            () => Bristle, // 8
-            () => FeatherRain.Retarget(SonicBoom, CurrentTarget), // 9
-            () => SeaShanty, // 10
-            () => BreathOfMagic, // 11
-            () => ShockStrike, // 12
-            () => Bristle, // 13
-            () => Role.Swiftcast, // 14
-            () => Surpanakha, // 15
+            () => All.Cease, // 1
+            () => Whistle, // 2
+            () => Tingle, // 3
+            () => RoseOfDestruction, // 4
+            () => MoonFlute, // 5
+            () => JKick, // 6
+            () => TripleTrident, // 7
+            () => Nightbloom, // 8
+            () => Bristle, // 9
+            () => FeatherRain.Retarget(SonicBoom, CurrentTarget), // 10
+            () => SeaShanty, // 11
+            () => BreathOfMagicOrMortalFlame, // 12
+            () => ShockStrike, // 13
+            () => Bristle, // 14
+            () => Role.Swiftcast, // 15
             () => Surpanakha, // 16
             () => Surpanakha, // 17
             () => Surpanakha, // 18
-            () => MatraMagic, // 19
-            () => BeingMortal, // 20
-            () => PhantomFlurry // 21
-        ];
-
-        public override List<(int[] Steps, uint NewAction, Func<bool> Condition)> SubstitutionSteps { get; set; } =
-        [
-            ([11], MortalFlame, () => !IsSpellActive(BreathOfMagic) || HasStatusEffect(Debuffs.BreathOfMagic, Target, true))
+            () => Surpanakha, // 19
+            () => MatraMagic, // 20
+            () => BeingMortal, // 21
+            () => PhantomFlurry // 22
         ];
 
         public override List<(int[] Steps, Func<bool> Condition)> SkipSteps { get; set; } =
         [
-            ([1], () => !IsSpellActive(Whistle) || HasStatusEffect(Buffs.Whistle)),
-            ([2], () => !IsSpellActive(Tingle) || HasStatusEffect(Buffs.Tingle, Target, true)),
-            ([3], () => !IsSpellActive(RoseOfDestruction)),
-            ([5], () => !IsSpellActive(JKick)),
-            ([6], () => !IsSpellActive(TripleTrident) || !ActionReady(TripleTrident)),
-            ([7], () => !IsSpellActive(Nightbloom)),
-            ([8], () => !IsSpellActive(Bristle) || HasStatusEffect(Buffs.Bristle)),
-            ([9], () => !IsSpellActive(FeatherRain)),
-            ([10], () => !IsSpellActive(SeaShanty)),
-            ([11], () => !IsSpellActive(BreathOfMagic) && !IsSpellActive(MortalFlame)),
-            ([12], () => !IsSpellActive(ShockStrike)),
-            ([13], () => !IsSpellActive(Bristle) || HasStatusEffect(Buffs.Bristle)),
-            ([14], () => !ActionReady(Role.Swiftcast)),
-            ([15, 16, 17, 18], () => !IsSpellActive(Surpanakha)),
-            ([19], () => !IsSpellActive(MatraMagic) || !HasStatusEffect(Buffs.DPSMimicry)),
-            ([20], () => !IsSpellActive(BeingMortal)),
-            ([21], () => !IsSpellActive(PhantomFlurry))
+            ([1], () => CountdownActive || InCombat() || !BLU_Opener_PrepullBlock),
+            ([2], () => !IsSpellActive(Whistle) || LocalPlayer.HasStatus(Buffs.Whistle)),
+            ([3], () => !IsSpellActive(Tingle) || LocalPlayer.HasStatus(Buffs.Tingle)),
+            ([4], () => !IsSpellActive(RoseOfDestruction)),
+            ([6], () => !IsSpellActive(JKick) || BLU_ManualJKick || !ActionReady(JKick)),
+            ([7], () => !IsSpellActive(TripleTrident) || !ActionReady(TripleTrident)),
+            ([8], () => !IsSpellActive(Nightbloom)),
+            ([9], () => !IsSpellActive(Bristle) || LocalPlayer.HasStatus(Buffs.Bristle)),
+            ([10], () => !IsSpellActive(FeatherRain)),
+            ([11], () => !IsSpellActive(SeaShanty)),
+            ([12], () => !IsSpellActive(BreathOfMagic) && !IsSpellActive(MortalFlame)),
+            ([13], () => !IsSpellActive(ShockStrike)),
+            ([14], () => !IsSpellActive(Bristle) || LocalPlayer.HasStatus(Buffs.Bristle)),
+            ([15], () => !ActionReady(Role.Swiftcast)),
+            ([16, 17, 18, 19], () => !IsSpellActive(Surpanakha)),
+            ([20], () => !IsSpellActive(MatraMagic) || !LocalPlayer.HasStatus(Buffs.DPSMimicry)),
+            ([21], () => !IsSpellActive(BeingMortal)),
+            ([22], () => !IsSpellActive(PhantomFlurry))
         ];
     }
 
@@ -781,7 +827,8 @@ internal partial class BLU
             BasicInstinct = 2498,
             ChelonianGate = 2496,
             AuspiciousTrance = 2497,
-            WingedReprobation = 3640;
+            WingedReprobation = 3640,
+            WingedRedemption = 3641;
     }
 
     public static class Debuffs
