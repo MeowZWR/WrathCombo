@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -170,5 +170,11 @@ If it does not then Wrath can get stuck in a loop where X player is checked and 
   <data name="HelpText_RaiseStack" xml:space="preserve">
     <value>This is the order in which Wrath will try to select a raise target,
 if Retargeting of any Raise Feature is enabled.</value>
+  </data>
+  <data name="HelpText_StackPriority" xml:space="preserve">
+    <value>The priority goes from top to bottom.
+Scroll down to see all of your items.
+Click the Up and Down buttons to move items in the list.
+Click the X button to remove an item from the list.</value>
   </data>
 </root>

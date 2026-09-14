@@ -17,7 +17,6 @@ using Newtonsoft.Json.Linq;
 using PunishLib;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -207,13 +206,8 @@ public sealed partial class WrathCombo : IDalamudPlugin
         // Subscribe to language changes to update localized text if needed (Client != Selected UI)
         Svc.PluginInterface.LanguageChanged += Text.OnLanguageChanged;
 
-        // Ensure startup culture matches Dalamud UI language
-        var dalamudCulture = Svc.PluginInterface.UiLanguage.ToCulture();
-
-        if (!Equals(CultureInfo.CurrentUICulture, dalamudCulture))
-        {
-            Text.OnLanguageChanged(Svc.PluginInterface.UiLanguage);
-        }
+        // Always apply Dalamud UI language so Excel lookups (ActionName, etc.) match the UI
+        Text.OnLanguageChanged(Svc.PluginInterface.UiLanguage);
 
         ConfigWindow = new ConfigWindow();
         Settings.SanitiseSettings();

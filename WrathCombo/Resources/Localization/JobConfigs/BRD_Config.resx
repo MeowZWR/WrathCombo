@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
 		Microsoft ResX Schema
@@ -98,4 +98,107 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="Adjusted248Opener" xml:space="preserve">
+    <value>2.48 Adjusted Standard Opener</value>
+  </data>
+  <data name="Standard249Comfy" xml:space="preserve">
+    <value>2.49 Standard Comfy</value>
+  </data>
+  <data name="RenewTimeForDots" xml:space="preserve">
+    <value>Renew time for dots (In seconds).</value>
+  </data>
+  <data name="IronJawsOption" xml:space="preserve">
+    <value>Iron Jaws Option</value>
+  </data>
+  <data name="IronJawsOptionDesc" xml:space="preserve">
+    <value>Enable the refreshing of dots with Ironjaws</value>
+  </data>
+  <data name="DotApplicationOption" xml:space="preserve">
+    <value>Dot Application Option</value>
+  </data>
+  <data name="DotApplicationOptionDesc" xml:space="preserve">
+    <value>Enable the application of dots outside of the opener</value>
+  </data>
+  <data name="RagingJawsOption" xml:space="preserve">
+    <value>Raging Jaws Option</value>
+  </data>
+  <data name="RagingJawsOptionDesc" xml:space="preserve">
+    <value>Enable the snapshotting of DoTs, within the remaining time of Raging Strikes</value>
+  </data>
+  <data name="MultiDotOption" xml:space="preserve">
+    <value>MultiDot Option</value>
+  </data>
+  <data name="MultiDotOptionDesc" xml:space="preserve">
+    <value>Will maintain dots on up to 3 targets.</value>
+  </data>
+  <data name="RagingJawsRenewTime" xml:space="preserve">
+    <value>Raging Jaws: Renew time (In seconds). 
+Recommended 5, increase little by little if refresh is outside of radiant window</value>
+  </data>
+  <data name="StopBuffsBelowHp" xml:space="preserve">
+    <value>Stop using Buffs on targets below this HP % (0% = always use, 100% = never use).</value>
+  </data>
+  <data name="StopBuffsBelowHpAoE" xml:space="preserve">
+    <value>Stop using Buffs on targets below this HP % (0 = always use, 100 = never use).</value>
+  </data>
+  <data name="RagingStrikesOption" xml:space="preserve">
+    <value>Raging Strikes Option</value>
+  </data>
+  <data name="AddsRagingStrikes" xml:space="preserve">
+    <value>Adds Raging Strikes</value>
+  </data>
+  <data name="BattlevoiceOption" xml:space="preserve">
+    <value>Battlevoice Option</value>
+  </data>
+  <data name="AddsBattleVoice" xml:space="preserve">
+    <value>Adds Battle Voice</value>
+  </data>
+  <data name="BarrageOption" xml:space="preserve">
+    <value>Barrage Option</value>
+  </data>
+  <data name="AddsBarrage" xml:space="preserve">
+    <value>Adds Barrage</value>
+  </data>
+  <data name="RadiantFinaleOption" xml:space="preserve">
+    <value>Radiant Finale Option</value>
+  </data>
+  <data name="AddsRadiantFinale" xml:space="preserve">
+    <value>Adds Radiant Finale</value>
+  </data>
+  <data name="SecondWindHpThreshold" xml:space="preserve">
+    <value>HP percent threshold to use Second Wind below.</value>
+  </data>
+  <data name="PartyCleanseOption" xml:space="preserve">
+    <value>Party Cleanse Option</value>
+  </data>
+  <data name="PartyCleanseOptionDesc" xml:space="preserve">
+    <value>Uses Wardens Paeon when someone in the party has a cleansable debuff using the Retargeting Function following party list.</value>
+  </data>
+  <data name="AddsEmpyrealArrow" xml:space="preserve">
+    <value>Adds Empyreal Arrow</value>
+  </data>
+  <data name="AddsPitchPerfect" xml:space="preserve">
+    <value>Adds Pitch Perfect</value>
+  </data>
+  <data name="AddsBloodletterMaxCharges" xml:space="preserve">
+    <value>Adds Bloodletter when at max charges</value>
+  </data>
+  <data name="AddsSidewinder" xml:space="preserve">
+    <value>Adds Sidewinder</value>
+  </data>
+  <data name="AddsRainOfDeath" xml:space="preserve">
+    <value>Adds Rain of Death when at max charges, or bloodletter below level.</value>
+  </data>
+  <data name="IronJawsAlternate" xml:space="preserve">
+    <value>Iron Jaws Alternate</value>
+  </data>
+  <data name="IronJawsAlternateDesc" xml:space="preserve">
+    <value>Iron Jaws will only show up when debuffs are about to expire.</value>
+  </data>
+  <data name="ApexOption" xml:space="preserve">
+    <value>Apex Option</value>
+  </data>
+  <data name="ApexOptionDesc" xml:space="preserve">
+    <value>Adds Apex and Blast Arrow to Iron Jaws when available.</value>
+  </data>
 </root>

@@ -140,7 +140,7 @@
   </data>
   <data name="BuffOnlyNotRecommended" xml:space="preserve">
     <value>许多职业没有常驻的自身增益，许多爆发窗口无法容纳额外的幻影技能，而且许多幻影技能的冷却时间比此功能在许多职业上要短得多！</value>
-xiao'h  </data>
+  </data>
   <data name="Costly" xml:space="preserve">
     <value>这是一个消耗性能的选项！</value>
   </data>
@@ -149,5 +149,140 @@ xiao'h  </data>
   </data>
   <data name="BuffOnlyList" xml:space="preserve">
     <value>DRK、PLD、WAR、AST、MNK、DRG、NIN、BRD 是唯一可能适合此选项的职业</value>
+  </data>
+  <data name="KeepPrayUp" xml:space="preserve">
+    <value>保持祈祷</value>
+  </data>
+  <data name="KeepPrayUpDesc" xml:space="preserve">
+    <value>不仅在低于 HP 阈值时使用祈祷，增益缺失时也会使用。</value>
+  </data>
+  <data name="PledgeSelfOnlyDesc" xml:space="preserve">
+    <value>关闭后，优先选择低于阈值且 HP 最低的队员。</value>
+  </data>
+  <data name="MaxTargetDistancePhantomKick" xml:space="preserve">
+    <value>使用幻影回旋踢的最大目标距离（米）</value>
+  </data>
+  <data name="BlessingHpThreshold" xml:space="preserve">
+    <value>自身或队伍平均 HP% 低于或等于此值时使用祝福</value>
+  </data>
+  <data name="JudgmentHealHpThreshold" xml:space="preserve">
+    <value>自身或队伍平均 HP% 低于或等于此值时优先将制裁作为治疗使用</value>
+  </data>
+  <data name="SaveForStarfall" xml:space="preserve">
+    <value>留给坠星</value>
+  </data>
+  <data name="SaveForStarfallDesc" xml:space="preserve">
+    <value>当存在坠星预兆时，在坠星之前使用无敌。</value>
+  </data>
+  <data name="InCombat" xml:space="preserve">
+    <value>战斗中</value>
+  </data>
+  <data name="InCombatDesc" xml:space="preserve">
+    <value>在战斗中使用滞空。</value>
+  </data>
+  <data name="OutOfCombat" xml:space="preserve">
+    <value>非战斗</value>
+  </data>
+  <data name="OutOfCombatDesc" xml:space="preserve">
+    <value>在非战斗时使用滞空。</value>
+  </data>
+  <data name="OnlyAsAoEMit" xml:space="preserve">
+    <value>仅作为范围减伤</value>
+  </data>
+  <data name="OnlyAsAoEMitDesc" xml:space="preserve">
+    <value>仅在范围内有 2 个及以上目标，或即将受到全屏伤害时使用蛙变。</value>
+  </data>
+  <data name="RefreshOccultLibra" xml:space="preserve">
+    <value>当天秤剩余时间低于或等于此秒数时刷新。</value>
+  </data>
+  <data name="BlazingSpellbladeRefreshNote" xml:space="preserve">
+    <value>炽热魔剑也会在剩余 30 秒时刷新，以免其他魔剑占用其冷却。</value>
+  </data>
+  <data name="StatusRefreshSlider" xml:space="preserve">
+    <value>当此增益或减益剩余时间低于或等于此秒数时刷新。设为 0 则等到完全消失。</value>
+  </data>
+  <data name="PotionSelfOnlyDesc" xml:space="preserve">
+    <value>关闭后，队伍中 HP 最低的队员低于阈值时也会触发。</value>
+  </data>
+  <data name="EtherSelfOnlyDesc" xml:space="preserve">
+    <value>关闭后，任意队员 MP 低于阈值时也会触发。</value>
+  </data>
+  <data name="RetargetOutOfParty" xml:space="preserve">
+    <value>重定向到队外玩家</value>
+  </data>
+  <data name="RetargetOutOfPartyDesc" xml:space="preserve">
+    <value>队伍外玩家 HP% 低于此值时也会重定向。</value>
+  </data>
+  <data name="DrainTouchUsage" xml:space="preserve">
+    <value>吸血触摸用法：</value>
+  </data>
+  <data name="DrainTouchDps" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="DrainTouchDpsDesc" xml:space="preserve">
+    <value>用于输出（遵循“限制到爆发增益”）。</value>
+  </data>
+  <data name="DrainTouchHeal" xml:space="preserve">
+    <value>治疗</value>
+  </data>
+  <data name="DrainTouchHealDesc" xml:space="preserve">
+    <value>仅在自身 HP 低于或等于治疗阈值时使用。</value>
+  </data>
+  <data name="DrainTouchEmergency" xml:space="preserve">
+    <value>紧急</value>
+  </data>
+  <data name="DrainTouchEmergencyDesc" xml:space="preserve">
+    <value>仅在自身 HP 低于或等于紧急阈值时使用。</value>
+  </data>
+  <data name="NecroSpellsDuringDrain" xml:space="preserve">
+    <value>吸血触摸期间的死灵法师技能：</value>
+  </data>
+  <data name="OnlyWhenInactive" xml:space="preserve">
+    <value>仅在未激活时</value>
+  </data>
+  <data name="OnlyWhenInactiveDesc" xml:space="preserve">
+    <value>仅在吸血触摸未激活时咏唱深度冻结 / 地狱之风 / 混沌驱动 / 末日。</value>
+  </data>
+  <data name="OnlyWhenActive" xml:space="preserve">
+    <value>仅在激活时</value>
+  </data>
+  <data name="OnlyWhenActiveDesc" xml:space="preserve">
+    <value>仅在吸血触摸增益期间咏唱这些技能。</value>
+  </data>
+  <data name="Either" xml:space="preserve">
+    <value>均可</value>
+  </data>
+  <data name="EitherDesc" xml:space="preserve">
+    <value>使用技能时忽略吸血触摸增益。</value>
+  </data>
+  <data name="OnlyAt4FinishingFervor" xml:space="preserve">
+    <value>仅在 4 层终结热血时</value>
+  </data>
+  <data name="OnlyAt4FinishingFervorDesc" xml:space="preserve">
+    <value>将防御留给终结热血层数满时使用。</value>
+  </data>
+  <data name="WhenBothBlindParalysis" xml:space="preserve">
+    <value>当失明与麻痹均可施加时：</value>
+  </data>
+  <data name="PreferDarkCannon" xml:space="preserve">
+    <value>优先暗黑加农</value>
+  </data>
+  <data name="Blind" xml:space="preserve">
+    <value>失明</value>
+  </data>
+  <data name="PreferShockCannon" xml:space="preserve">
+    <value>优先冲击加农</value>
+  </data>
+  <data name="Paralysis" xml:space="preserve">
+    <value>麻痹</value>
+  </data>
+  <data name="WhenNeitherCanApply" xml:space="preserve">
+    <value>当两者都无法施加时（免疫 / 已达上限）：</value>
+  </data>
+  <data name="UseDarkCannon" xml:space="preserve">
+    <value>使用暗黑加农</value>
+  </data>
+  <data name="UseShockCannon" xml:space="preserve">
+    <value>使用冲击加农</value>
   </data>
 </root>

@@ -8,9 +8,11 @@ using System.Numerics;
 using WrathCombo.CustomComboNS.Functions;
 using WrathCombo.Data;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Localization.JobConfigs;
 using WrathCombo.Services;
 using WrathCombo.Window.Functions;
 using static WrathCombo.Window.Functions.UserConfig;
+using static WrathCombo.Window.Text;
 
 // ReSharper disable SwitchStatementMissingSomeEnumCasesNoDefault
 // ReSharper disable InconsistentNaming
@@ -32,7 +34,7 @@ internal partial class DNC
         private static void DrawAntiDriftOptions()
         {
             ImGuiEx.Spacing(new Vector2(40, 12));
-            ImGui.Text("Anti-Drift Options:     (hover each for more info)");
+            ImGui.Text(DNC_Config.AntiDriftOptions);
 
             #region Show a colored display of the user's current detected GCD
 
@@ -43,38 +45,31 @@ internal partial class DNC
                 _ => ImGuiColors.DalamudRed,
             };
             ImGui.SameLine();
-            ImGui.Text("GCD: ");
+            ImGui.Text(DNC_Config.GCDLabel);
             ImGui.SameLine();
             ImGui.TextColored(color, $"{GCD:0.00}");
             ImGui.NewLine();
             #endregion
 
             var t = ImGui.GetCursorPos();
-            const string texTrip = "Forced Triple Weave";
+            var texTrip = DNC_Config.ForcedTripleWeave;
             DrawRadioButton(
                 DNC_ST_ADV_AntiDrift, texTrip,
-                "Forces a triple weave of Flourish and Fan Dance 3 + 4 during non-opener burst windows." +
-                "\nFixes SS/FM drift where you use a gcd when SS/FM is on a 0.5sec CD." +
-                "\nRecommended anti-drift option.",
+                DNC_Config.ForcedTripleWeaveDesc,
                 outputValue: (int)AntiDrift.TripleWeave, descriptionAsTooltip: true);
             var h = ImGui.GetCursorPos();
-            const string texHold = "Hold before Standard Step";
+            var texHold = DNC_Config.HoldBeforeStandardStep;
             DrawRadioButton(
                 DNC_ST_ADV_AntiDrift, texHold,
-                "Will hold GCDs for Standard Step if it is going to come off cooldown before your next GCD." +
-                "\nThis WILL give you down-time." +
-                "\nONLY recommended if you have extra skill speed, but can be used as an anti-drift option.",
+                DNC_Config.HoldBeforeStandardStepDesc,
                 outputValue: (int)AntiDrift.Hold, descriptionAsTooltip: true);
             DrawRadioButton(
-                DNC_ST_ADV_AntiDrift, "Both",
-                "Will use both options from above." +
-                "\nThis WILL give you down-time." +
-                "\nNOT recommended, but can be the answer if neither of the above options work for you.",
+                DNC_ST_ADV_AntiDrift, DNC_Config.Both,
+                DNC_Config.BothDesc,
                 outputValue: (int)AntiDrift.Both, descriptionAsTooltip: true);
             DrawRadioButton(
-                DNC_ST_ADV_AntiDrift, "None",
-                "Will not use any anti-drift options." +
-                "\nThis WILL cause drift. NOT recommended.",
+                DNC_ST_ADV_AntiDrift, DNC_Config.None,
+                DNC_Config.NoneDesc,
                 outputValue: (int)AntiDrift.None, descriptionAsTooltip: true);
 
             #region Show recommended setting, based on GCD
@@ -83,7 +78,7 @@ internal partial class DNC
             var pos = ImGui.GetCursorPos();
 
             // Determine which recommendation text to show
-            const string rec = "(Recommended)";
+            var rec = DNC_Config.Recommended;
             var recTriple = GCDValue is GCDRange.Perfect ? rec : "";
             var recHold = GCDValue is not GCDRange.Perfect ? rec : "";
 
@@ -106,8 +101,7 @@ internal partial class DNC
 
         private static void DrawPartnerInfo()
         {
-            ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                "This will check through your party members, and select the most desirable Partner, based on The Balance's priority list as well as stuff like Rez Sickness and Damage Downs.");
+            ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey, DNC_Config.PartnerInfo);
         }
 
         internal static void Draw(Preset preset)
@@ -118,16 +112,11 @@ internal partial class DNC
                     ImGui.Indent(35f.Scale());
 
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
-                    ImGui.TextWrapped(
-                        "NO SUPPORT is provided for setting up this feature!");
+                    ImGui.TextWrapped(DNC_Config.NoSupport);
                     ImGui.PopStyleColor();
 
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
-                    ImGui.TextWrapped(
-                        "\nYou can change the respective actions by inputting action IDs below for each dance step." +
-                        "\nThe defaults are Cascade, Flourish, Fan Dance, and Fan Dance II." +
-                        "\nIf set to 0, they will reset to these actions." +
-                        "\n(You can get Action IDs with Garland Tools by searching for the action and clicking the cog.)");
+                    ImGui.TextWrapped("\n" + DNC_Config.CustomDanceHelp);
                     ImGui.PopStyleColor();
 
                     int[] actions = Service.Configuration.DancerDanceCompatActionIDs
@@ -136,29 +125,28 @@ internal partial class DNC
                     bool inputChanged = false;
                     ImGuiEx.SetNextItemWidthScaled(50);
                     inputChanged |= ImGui.InputInt(
-                        "(Red) Emboite replacement Action ID",
+                        DNC_Config.EmboiteReplacement,
                         ref actions[0], 0);
                     ImGuiEx.SetNextItemWidthScaled(50);
                     inputChanged |= ImGui.InputInt(
-                        "(Blue) Entrechat replacement Action ID",
+                        DNC_Config.EntrechatReplacement,
                         ref actions[1], 0);
                     ImGuiEx.SetNextItemWidthScaled(50);
                     inputChanged |= ImGui.InputInt(
-                        "(Green) Jete replacement Action ID",
+                        DNC_Config.JeteReplacement,
                         ref actions[2], 0);
                     ImGuiEx.SetNextItemWidthScaled(50);
                     inputChanged |= ImGui.InputInt(
-                        "(Yellow) Pirouette replacement Action ID",
+                        DNC_Config.PirouetteReplacement,
                         ref actions[3], 0);
 
                     ImGuiEx.Spacing(new Vector2(0, 12));
 
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
-                    ImGui.TextWrapped(
-                        "This WILL let you set up a conflict!");
+                    ImGui.TextWrapped(DNC_Config.WillLetConflict);
                     ImGui.PopStyleColor();
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
-                    ImGui.TextWrapped("Double check the actions you are setting do not conflict with other combos you are using, or enable the feature below!");
+                    ImGui.TextWrapped(DNC_Config.DoubleCheckConflicts);
                     ImGui.PopStyleColor();
 
                     if (inputChanged)
@@ -176,34 +164,34 @@ internal partial class DNC
                 #region Advanced Single Target UI
 
                 case Preset.DNC_ST_BalanceOpener:
-                    DrawBossOnlyChoice(DNC_ST_OpenerDifficulty, "Select what kind of content to use this opener in:");
+                    DrawBossOnlyChoice(DNC_ST_OpenerDifficulty, DNC_Config.SelectOpenerContent);
                     DrawOpenerPotionChoice(DNC_Opener_Potion);
 
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(DNC_ST_OpenerSelection,
-                        "Standard: 15s Countdown",
-                        "Requires at least a 15s cooldown\nand that you start Standard Step at 15s.",
+                        DNC_Config.Standard15s,
+                        DNC_Config.Standard15sDesc,
                         (int)Openers.FifteenSecond, descriptionAsTooltip: true);
                     DrawRadioButton(DNC_ST_OpenerSelection,
-                        "Standard: 7s Countdown",
-                        "Requires at least a 7s cooldown\nand that you start Standard Step at 7s.\nPerforms worse than 15s.",
+                        DNC_Config.Standard7s,
+                        DNC_Config.Standard7sDesc,
                         (int)Openers.SevenSecond, descriptionAsTooltip: true);
                     DrawRadioButton(DNC_ST_OpenerSelection,
-                        "Technical: 30s Countdown",
-                        "Requires a 30s cooldown\nand that you start Standard Step at 30s.\nNot generally recommended.\nWill align buffs worse than Standard 15s.\nNot recommended if Standard Step would pull.",
+                        DNC_Config.Technical30s,
+                        DNC_Config.Technical30sDesc,
                         (int)Openers.ThirtySecondTech, descriptionAsTooltip: true);
                     DrawRadioButton(DNC_ST_OpenerSelection,
-                        "Technical: 7s Countdown",
-                        "Requires at least a 7s cooldown.\nDoes NOT contain Standard Step.\nNot generally recommended.",
+                        DNC_Config.Technical7s,
+                        DNC_Config.Technical7sDesc,
                         (int)Openers.SevenPlusSecondTech, descriptionAsTooltip: true);
                     DrawRadioButton(DNC_ST_OpenerSelection,
-                        "Technical: 7s Countdown (Alternative)",
-                        "Requires at least a 7s cooldown.\nDoes NOT contain Standard Step.\nNot generally recommended.",
+                        DNC_Config.Technical7sAlt,
+                        DNC_Config.Technical7sDesc,
                         (int)Openers.SevenSecondTech, descriptionAsTooltip: true);
 
                     DrawAdditionalBoolChoice(DNC_ST_OpenerOption_Peloton,
-                        $"Include {Peloton.ActionName()}", "");
+                        FormatAndCache(Generics.Include0, Peloton.ActionName()), "");
 
                     DrawOpenerPrepullBlockChoice(DNC_Opener_PrepullBlock);
 
@@ -211,8 +199,8 @@ internal partial class DNC
 
                 case Preset.DNC_ST_Adv_PartnerAuto:
                     DrawAdditionalBoolChoice(DNC_Partner_FocusOverride,
-                        "Prioritize your Focus Target##DPFocusOver0",
-                        "If you have a focus target that is within range, it will be prioritized over The Balance's suggested Dance Partner.",
+                        $"{DNC_Config.PrioritizeFocusTarget}##DPFocusOver0",
+                        DNC_Config.PrioritizeFocusTargetDescShort,
                         indentDescription: true);
 
                     break;
@@ -223,37 +211,35 @@ internal partial class DNC
                     ImGui.Unindent(29f.Scale());
 
                     DrawAdditionalBoolChoice(DNC_Partner_FocusOverride,
-                        "Prioritize your Focus Target##DPFocusOver1",
-                        "If you have a focus target that is within range, alive, and has no rez sickness or damage down, it will be prioritized over The Balance's suggested Dance Partner.",
+                        $"{DNC_Config.PrioritizeFocusTarget}##DPFocusOver1",
+                        DNC_Config.PrioritizeFocusTargetDescFull,
                         indentDescription: true);
 
                     break;
 
                 case Preset.DNC_ST_EspritOvercap:
                     DrawSliderInt(50, 100, DNCEspritThreshold_ST,
-                        "Esprit",
+                        DNC_Config.Esprit,
                         itemWidth: 150f, sliderIncrement: SliderIncrements.Fives);
 
                     break;
 
                 case Preset.DNC_ST_Adv_SS:
                     DrawSliderInt(0, 15, DNC_ST_Adv_SSBurstPercent,
-                        "Target HP% to stop using Standard Step below",
+                        DNC_Config.TargetHPStopStandardStep,
                         itemWidth: 75f, sliderIncrement: SliderIncrements.Fives);
 
                     ImGuiEx.Spacing(new Vector2(30, 0));
                     DrawHorizontalRadioButton(
                         DNC_ST_ADV_SS_IncludeSS,
-                        "Include Standard Step",
-                        "Will include Standard Step itself," +
-                        "\ndance steps, and Finish into the rotation.",
+                        DNC_Config.IncludeStandardStep,
+                        DNC_Config.IncludeStandardStepDesc,
                         outputValue: (int)IncludeStep.Yes,
                         itemWidth: 125f);
                     DrawHorizontalRadioButton(
                         DNC_ST_ADV_SS_IncludeSS,
-                        "Exclude Standard Step",
-                        "Will ONLY include the dance steps, and Finish;" +
-                        "\nYOU will need to manually press Standard Step.",
+                        DNC_Config.ExcludeStandardStep,
+                        DNC_Config.ExcludeStandardStepDesc,
                         outputValue: (int)IncludeStep.No,
                         itemWidth: 125f);
 
@@ -263,22 +249,20 @@ internal partial class DNC
 
                 case Preset.DNC_ST_Adv_TS:
                     DrawSliderInt(0, 15, DNC_ST_Adv_TSBurstPercent,
-                        "Target HP% to stop using Technical Step below",
+                        DNC_Config.TargetHPStopTechnicalStep,
                         itemWidth: 75f, sliderIncrement: SliderIncrements.Fives);
 
                     ImGuiEx.Spacing(new Vector2(30, 0));
                     DrawHorizontalRadioButton(
                         DNC_ST_ADV_TS_IncludeTS,
-                        "Include Technical Step",
-                        "Will include Technical Step itself," +
-                        "\ndance steps, and Finish into the rotation.",
+                        DNC_Config.IncludeTechnicalStep,
+                        DNC_Config.IncludeTechnicalStepDesc,
                         outputValue: (int)IncludeStep.Yes,
                         itemWidth: 125f);
                     DrawHorizontalRadioButton(
                         DNC_ST_ADV_TS_IncludeTS,
-                        "Exclude Technical Step",
-                        "Will ONLY include the dance Steps, and Finish;" +
-                        "\nYOU will need to manually press Technical Step.",
+                        DNC_Config.ExcludeTechnicalStep,
+                        DNC_Config.ExcludeTechnicalStepDesc,
                         outputValue: (int)IncludeStep.No,
                         itemWidth: 125f);
 
@@ -288,7 +272,7 @@ internal partial class DNC
 
                 case Preset.DNC_ST_Adv_Feathers:
                     DrawSliderInt(0, 5, DNC_ST_Adv_FeatherBurstPercent,
-                        "Target HP% to dump all pooled feathers below",
+                        DNC_Config.DumpFeathersHP,
                         itemWidth: 75f);
 
                     break;
@@ -297,26 +281,20 @@ internal partial class DNC
                     ImGui.Indent();
                     DrawHorizontalRadioButton(
                         DNC_ST_ADV_TillanaUse,
-                        "Use Tillana Normally",
-                        "Will use Tillana as recommended by The Balance." +
-                        "\nCan allow Tillana to drift out of burst windows.",
+                        DNC_Config.UseTillanaNormally,
+                        DNC_Config.UseTillanaNormallyDesc,
                         outputValue: (int)TillanaUsageManner.Normally,
                         itemWidth: 125f);
                     DrawHorizontalRadioButton(
                         DNC_ST_ADV_TillanaUse,
-                        "Use Normally, but Prevent Drops",
-                        "Will use Tillana as recommended by The Balance," +
-                        "\nbut will also use it if about to expire." +
-                        "\nNot really recommended.",
+                        DNC_Config.UseNormallyPreventDrops,
+                        DNC_Config.UseNormallyPreventDropsDesc,
                         outputValue: (int)TillanaUsageManner.NormallyPreventDrops,
                         itemWidth: 125f);
                     DrawHorizontalRadioButton(
                         DNC_ST_ADV_TillanaUse,
-                        "Favor Tillana over Esprit",
-                        "Will perform Tillana over Saber or Dance of the Dawn, even if above 50 Esprit." +
-                        "\nCan prevent Tillana from drifting out of burst windows." +
-                        "\nShould be used with Saber Dance's Esprit slider being >50." +
-                        "\nNOT recommended. Only for Esprit-Micro-Managers.",
+                        DNC_Config.FavorTillanaOverEsprit,
+                        DNC_Config.FavorTillanaOverEspritDesc,
                         outputValue: (int)TillanaUsageManner.FavorOverEsprit,
                         itemWidth: 125f);
                     ImGui.Unindent();
@@ -326,7 +304,7 @@ internal partial class DNC
                 case Preset.DNC_ST_Adv_SaberDance:
                     DrawSliderInt(50, 100,
                         DNC_ST_Adv_SaberThreshold,
-                        "Esprit",
+                        DNC_Config.Esprit,
                         itemWidth: 150f, sliderIncrement: SliderIncrements.Fives);
 
                     break;
@@ -334,11 +312,11 @@ internal partial class DNC
                 case Preset.DNC_ST_Adv_PanicHeals:
                     DrawSliderInt(0, 80,
                         DNC_ST_Adv_PanicHealWaltzPercent,
-                        "Curing Waltz HP%",
+                        DNC_Config.CuringWaltzHP,
                         itemWidth: 200f, sliderIncrement: SliderIncrements.Fives);
 
                     DrawSliderInt(0, 80, DNC_ST_Adv_PanicHealWindPercent,
-                        "Second Wind HP%",
+                        DNC_Config.SecondWindHP,
                         itemWidth: 200f, sliderIncrement: SliderIncrements.Fives);
 
                     break;
@@ -349,29 +327,27 @@ internal partial class DNC
 
                 case Preset.DNC_AoE_EspritOvercap:
                     DrawSliderInt(50, 100, DNCEspritThreshold_AoE,
-                        "Esprit",
+                        DNC_Config.Esprit,
                         itemWidth: 150f, sliderIncrement: SliderIncrements.Fives);
 
                     break;
 
                 case Preset.DNC_AoE_Adv_SS:
                     DrawSliderInt(0, 60, DNC_AoE_Adv_SSBurstPercent,
-                        "Target HP% to stop using Standard Step below",
+                        DNC_Config.TargetHPStopStandardStep,
                         itemWidth: 75f, sliderIncrement: SliderIncrements.Fives);
 
                     ImGuiEx.Spacing(new Vector2(30, 0));
                     DrawHorizontalRadioButton(
                         DNC_AoE_Adv_SS_IncludeSS,
-                        "Include Standard Step",
-                        "Will include Standard Step itself," +
-                        "\ndance steps, and Finish into the rotation.",
+                        DNC_Config.IncludeStandardStep,
+                        DNC_Config.IncludeStandardStepDesc,
                         outputValue: (int)IncludeStep.Yes,
                         itemWidth: 125f);
                     DrawHorizontalRadioButton(
                         DNC_AoE_Adv_SS_IncludeSS,
-                        "Exclude Standard Step",
-                        "Will ONLY include the dance steps, and Finish;" +
-                        "\nYOU will need to manually press Standard Step.",
+                        DNC_Config.ExcludeStandardStep,
+                        DNC_Config.ExcludeStandardStepDesc,
                         outputValue: (int)IncludeStep.No,
                         itemWidth: 125f);
 
@@ -379,22 +355,20 @@ internal partial class DNC
 
                 case Preset.DNC_AoE_Adv_TS:
                     DrawSliderInt(0, 60, DNC_AoE_Adv_TSBurstPercent,
-                        "Target HP% to stop using Technical Step below",
+                        DNC_Config.TargetHPStopTechnicalStep,
                         itemWidth: 75f, sliderIncrement: SliderIncrements.Fives);
 
                     ImGuiEx.Spacing(new Vector2(30, 0));
                     DrawHorizontalRadioButton(
                         DNC_AoE_Adv_TS_IncludeTS,
-                        "Include Technical Step",
-                        "Will include Technical Step itself," +
-                        "\ndance steps, and Finish into the rotation.",
+                        DNC_Config.IncludeTechnicalStep,
+                        DNC_Config.IncludeTechnicalStepDesc,
                         outputValue: (int)IncludeStep.Yes,
                         itemWidth: 125f);
                     DrawHorizontalRadioButton(
                         DNC_AoE_Adv_TS_IncludeTS,
-                        "Exclude Technical Step",
-                        "Will ONLY include the dance steps, and Finish;" +
-                        "\nYOU will need to manually press Technical Step.",
+                        DNC_Config.ExcludeTechnicalStep,
+                        DNC_Config.ExcludeTechnicalStepDesc,
                         outputValue: (int)IncludeStep.No,
                         itemWidth: 125f);
 
@@ -402,7 +376,7 @@ internal partial class DNC
 
                 case Preset.DNC_AoE_Adv_SaberDance:
                     DrawSliderInt(50, 100, DNC_AoE_Adv_SaberThreshold,
-                        "Esprit",
+                        DNC_Config.Esprit,
                         itemWidth: 150f, sliderIncrement: SliderIncrements.Fives);
 
                     break;
@@ -410,12 +384,12 @@ internal partial class DNC
                 case Preset.DNC_AoE_Adv_PanicHeals:
                     DrawSliderInt(0, 80,
                         DNC_AoE_Adv_PanicHealWaltzPercent,
-                        "Curing Waltz HP%",
+                        DNC_Config.CuringWaltzHP,
                         itemWidth: 200f, sliderIncrement: SliderIncrements.Fives);
 
                     DrawSliderInt(0, 80,
                         DNC_AoE_Adv_PanicHealWindPercent,
-                        "Second Wind HP%",
+                        DNC_Config.SecondWindHP,
                         itemWidth: 200f, sliderIncrement: SliderIncrements.Fives);
 
                     break;
@@ -429,31 +403,26 @@ internal partial class DNC
                     ImGuiEx.Spacing(new Vector2(0, 12));
 
                     DrawAdditionalBoolChoice(DNC_Partner_FocusOverride,
-                        "Prioritize your Focus Target##DPFocusOver2",
-                        "If you have a focus target that is within range, alive, and has no rez sickness or damage down, it will be prioritized over The Balance's suggested Dance Partner.",
+                        $"{DNC_Config.PrioritizeFocusTarget}##DPFocusOver2",
+                        DNC_Config.PrioritizeFocusTargetDescFull,
                         indentDescription: true);
 
                     ImGuiEx.Spacing(new Vector2(29, 12));
-                    ImGui.Text("Action to Show when Partner is Optimal Options:     (hover each for more info)");
+                    ImGui.Text(DNC_Config.PartnerOptimalOptions);
                     ImGui.NewLine();
                     DrawRadioButton(
-                        DNC_Partner_ActionToShow, "Let Game Decide",
-                        "Will not change the action shown in the hotbar from what FFXIV puts there.\n" +
-                        "When you have a Dance Partner, it will show Ending, as usual.\n\n" +
-                        "This is the default behavior.",
+                        DNC_Partner_ActionToShow, DNC_Config.LetGameDecide,
+                        DNC_Config.LetGameDecideDesc,
                         outputValue: (int)PartnerShowAction.Default,
                         descriptionAsTooltip: true);
                     DrawRadioButton(
-                        DNC_Partner_ActionToShow, "Closed Position",
-                        "When your current partner is optimal Closed Position will be shown.\n" +
-                        "This will block you from using Closed Position or Ending\n(unless you hard target a friendly other than your partner)",
+                        DNC_Partner_ActionToShow, DNC_Config.ClosedPosition,
+                        DNC_Config.ClosedPositionDesc,
                         outputValue: (int)PartnerShowAction.ClosedPosition,
                         descriptionAsTooltip: true);
                     DrawRadioButton(
-                        DNC_Partner_ActionToShow, "Block Input",
-                        "When your current partner is optimal, the input will be blocked.\n" +
-                        "This will block you from using Closed Position or Ending.\n\n" +
-                        "This is the recommended option, to keep you from mistakenly switching partners.",
+                        DNC_Partner_ActionToShow, DNC_Config.BlockInput,
+                        DNC_Config.BlockInputDesc,
                         outputValue: (int)PartnerShowAction.SavageBlade,
                         descriptionAsTooltip: true);
 

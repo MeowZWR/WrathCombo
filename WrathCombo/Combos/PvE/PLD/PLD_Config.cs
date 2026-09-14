@@ -96,13 +96,13 @@ internal partial class PLD
                 case Preset.PLD_ST_AdvancedMode_BalanceOpener:
                     DrawBossOnlyChoice(PLD_Balance_Content);
                     DrawOpenerPotionChoice(PLD_Opener_Potion);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(PLD_SelectedOpener, Generics.StandardOpener, "", 0, descriptionAsTooltip: true);
-                    DrawRadioButton(PLD_SelectedOpener, "Early Buff Opener",
-                        "Moves the buff window forward about 1 GCD.", 1, descriptionAsTooltip: true);
+                    DrawRadioButton(PLD_SelectedOpener, Generics.EarlyBuffOpener,
+                        Generics.EarlyBuffOpenerDesc, 1, descriptionAsTooltip: true);
 
-                    ImGuiEx.TextUnderlined($"{Intervene.ActionName()} Settings");
+                    ImGuiEx.TextUnderlined(FormatAndCache(Generics.ActionSettings, Intervene.ActionName()));
                     ImGui.Spacing();
                     DrawRadioButton(PLD_ST_AdvancedMode_BalanceOpener_Intervene,
                         FormatAndCache(Generics.Use0, Intervene.ActionName()),
@@ -228,10 +228,8 @@ internal partial class PLD
 
                 #region Standalones
                 case Preset.PLD_ShieldLob_Feature:
-                    DrawAdditionalBoolChoice(PLD_ShieldLob_Feature_HolySpirit, "Smart Holy Spirit", 
-                        "Replaces Shield Lob with Holy Spirit when available. " +
-                        "\nMust be under the effect of Divine Might or not moving." +
-                        "\nRetargeting features will also apply to Holy Spirit.");
+                    DrawAdditionalBoolChoice(PLD_ShieldLob_Feature_HolySpirit, PLD_Config.SmartHolySpirit,
+                        PLD_Config.SmartHolySpiritDesc);
                     DrawAdditionalBoolChoice(PLD_ShieldLob_Feature_FieldMO, Generics.Mouseover, FormatAndCache(Generics.MouseoverRetargetHostile, ShieldLob.ActionName()));
                     
                     DrawAdditionalBoolChoice(PLD_ShieldLob_Feature_RangeBasedTargeting, Generics.RangeBasedTargeting, Generics.RangeBasedTargetingDesc);

@@ -27,6 +27,8 @@ public static class ConflictingPlugins
     /// </summary>
     private static Conflicts? _cachedConflicts;
 
+    public static void ClearCache() => _cachedConflicts = null;
+
     /// <summary>
     ///     Gets all current conflicts.
     /// </summary>
@@ -391,8 +393,9 @@ public static class ConflictingPlugins
             var conflictMessage = actions
                 .Where((x, i) => x.Action is not (0 or 1 or 2) || i > 4)
                 .Aggregate("",
-                    (current, x) => current + $"{x.Action.ActionName()} " +
-                                    $"    (stack: {x.stackName}),");
+                    (current, x) => current + string.Format(
+                        MainWindowUI.Conflict_Targeting_Stack,
+                        x.Action.ActionName(), x.stackName) + ",");
             conflictMessage = conflictMessage[..^1]; // remove last comma
 
             conflicts = conflicts.Append(new Conflict(
@@ -412,8 +415,9 @@ public static class ConflictingPlugins
             var conflictMessage = actions
                 .Where((x, i) => x.Action is not (0 or 1 or 2) || i > 4)
                 .Aggregate("",
-                    (current, x) => current + $"{x.Action.ActionName()} " +
-                                    $"    (stack: {x.stackName}),");
+                    (current, x) => current + string.Format(
+                        MainWindowUI.Conflict_Targeting_Stack,
+                        x.Action.ActionName(), x.stackName) + ",");
             conflictMessage = conflictMessage[..^1]; // remove last comma
 
             conflicts = conflicts.Append(new Conflict(
@@ -463,7 +467,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Settings,
-                    "Autorotation Preset is enabled WITH targeting [remove 'Automatic Targeting' from preset or use a non-default preset]"))
+                    MainWindowUI.Conflict_BossMod_AutorotationTargeting))
                 .ToArray();
         }
 
@@ -471,7 +475,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Settings,
-                    "AI is enabled without disabling auto-target [check 'Disable auto-target']"))
+                    MainWindowUI.Conflict_BossMod_AiAutoTarget))
                 .ToArray();
         }
 
@@ -479,7 +483,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Settings,
-                    "Manual Queueing is Enabled [uncheck 'Use custom queueing']"))
+                    MainWindowUI.Conflict_BossMod_ManualQueueing))
                 .ToArray();
         }
 
@@ -487,7 +491,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Settings,
-                    "Autorotation Preset is enabled WITH job rotations [remove rotations from preset or use a non-default preset]"))
+                    MainWindowUI.Conflict_BossMod_AutorotationRotations))
                 .ToArray();
         }
 
@@ -499,7 +503,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossModReborn", ConflictType.Settings,
-                    "AI is enabled WITH targeting [check 'Manual targeting']"))
+                    MainWindowUI.Conflict_BMR_AiTargeting))
                 .ToArray();
         }
 
@@ -507,7 +511,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Settings,
-                    "AI is enabled without disabling auto-target [check 'Manual Targeting']"))
+                    MainWindowUI.Conflict_BMR_AiAutoTarget))
                 .ToArray();
         }
 
@@ -515,7 +519,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossModReborn", ConflictType.Settings,
-                    "Smart Ability Targeting is Enabled [uncheck 'Use Smart Ability Targeting']"))
+                    MainWindowUI.Conflict_BMR_SmartAbilityTargeting))
                 .ToArray();
         }
 
@@ -523,7 +527,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossModReborn", ConflictType.Settings,
-                    "Manual Queueing is Enabled [uncheck 'Use custom queueing']"))
+                    MainWindowUI.Conflict_BossMod_ManualQueueing))
                 .ToArray();
         }
 
@@ -531,7 +535,7 @@ public static class ConflictingPlugins
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossModReborn", ConflictType.Settings,
-                    "Autorotation Preset is enabled WITH job rotations [remove rotations from preset or use a non-default preset]"))
+                    MainWindowUI.Conflict_BossMod_AutorotationRotations))
                 .ToArray();
         }
         #endregion
@@ -543,23 +547,23 @@ public static class ConflictingPlugins
             if (ConflictingPluginsChecks.Redirect.ConflictingActions[0] is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "Redirect", ConflictType.Settings,
-                        "Options > Treat all ground-targeted actions as mouseovers"))
+                        MainWindowUI.Conflict_Redirect_GroundMouseover))
                     .ToArray();
             if (ConflictingPluginsChecks.Redirect.ConflictingActions[1] is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "Redirect", ConflictType.Settings,
-                        "Options > Treat all friendly actions as mouseovers"))
+                        MainWindowUI.Conflict_Redirect_FriendlyMouseover))
                     .ToArray();
             if (ConflictingPluginsChecks.Redirect.ConflictingActions[2] is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "Redirect", ConflictType.Settings,
-                        "Options > Treat all hostile actions as mouseovers"))
+                        MainWindowUI.Conflict_Redirect_HostileMouseover))
                     .ToArray();
         }
         if (ConflictingPluginsChecks.Redirect.BunnyConflict)
             conflicts = conflicts.Append(new Conflict(
                     "Redirect", ConflictType.Settings,
-                    "Whole Plugin - Could be causing Bunnies [Reload or Disable Redirect]"))
+                    MainWindowUI.Conflict_Redirect_Bunnies))
                 .ToArray();
 
         #endregion
@@ -572,20 +576,17 @@ public static class ConflictingPlugins
             if (reFeedback[1].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReAction", ConflictType.Settings,
-                        "Stacks > " + reFeedback[1].stackName + " > " +
-                        "'All Actions' is retargeted"))
+                        string.Format(MainWindowUI.Conflict_ReAction_AllActions, reFeedback[1].stackName)))
                     .ToArray();
             if (reFeedback[2].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReAction", ConflictType.Settings,
-                        "Stacks > " + reFeedback[2].stackName + " > " +
-                        "'All Harmful Actions' is retargeted"))
+                        string.Format(MainWindowUI.Conflict_ReAction_HarmfulActions, reFeedback[2].stackName)))
                     .ToArray();
             if (reFeedback[3].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReAction", ConflictType.Settings,
-                        "Stacks > " + reFeedback[3].stackName + " > " +
-                        "'All Beneficial Actions' is retargeted"))
+                        string.Format(MainWindowUI.Conflict_ReAction_BeneficialActions, reFeedback[3].stackName)))
                     .ToArray();
         }
 
@@ -599,25 +600,22 @@ public static class ConflictingPlugins
             if (reFeedback[0].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReActionEx", ConflictType.Settings,
-                        "Other Settings > Enable Auto Target"))
+                        MainWindowUI.Conflict_ReActionEx_AutoTarget))
                     .ToArray();
             if (reFeedback[1].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReActionEx", ConflictType.Settings,
-                        "Stacks > " + reFeedback[1].stackName + " > " +
-                        "'All Actions' is retargeted"))
+                        string.Format(MainWindowUI.Conflict_ReAction_AllActions, reFeedback[1].stackName)))
                     .ToArray();
             if (reFeedback[2].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReActionEx", ConflictType.Settings,
-                        "Stacks > " + reFeedback[2].stackName + " > " +
-                        "'All Harmful Actions' is retargeted"))
+                        string.Format(MainWindowUI.Conflict_ReAction_HarmfulActions, reFeedback[2].stackName)))
                     .ToArray();
             if (reFeedback[3].Action is 1)
                 conflicts = conflicts.Append(new Conflict(
                         "ReActionEx", ConflictType.Settings,
-                        "Stacks > " + reFeedback[3].stackName + " > " +
-                        "'All Beneficial Actions' is retargeted"))
+                        string.Format(MainWindowUI.Conflict_ReAction_BeneficialActions, reFeedback[3].stackName)))
                     .ToArray();
         }
 
@@ -650,20 +648,13 @@ public static class ConflictingPlugins
             if (ConflictingPluginsChecks.XIV.AutoFaceTargetConflicted)
                 conflicts = conflicts.Append(new Conflict(
                         "XIV", ConflictType.GameSetting,
-                        "Character Configuration > Control Settings > Target > " +
-                        "Target Settings > Automatically face target when using action." +
-                        "    " +
-                        "You will have to manually face the target, " +
-                        "outside of Auto Rotation, for actions to execute."))
+                        MainWindowUI.Conflict_Game_AutoFace))
                     .ToArray();
 
             if (ConflictingPluginsChecks.XIV.GroundTargetingPlacementConflicted)
                 conflicts = conflicts.Append(new Conflict(
                         "XIV", ConflictType.GameSetting,
-                        "Character Configuration > Control Settings > Target > " +
-                        "Ground Targeting Settings > Press action twice to execute." +
-                        "    " +
-                        "Ground Actions cannot be Retargeted without additional click."))
+                        MainWindowUI.Conflict_Game_GroundDoublePress))
                     .ToArray();
         }
 
@@ -693,20 +684,13 @@ public static class ConflictingPlugins
             if (ConflictingPluginsChecks.Wrath.ActionReplacingOffNoAutos)
                 conflicts = conflicts.Append(new Conflict(
                         "Wrath", ConflictType.WrathSetting,
-                        "Action Replacing OFF" +
-                        "    " +
-                        "Your current job has no Combos enabled in Auto-Mode; " +
-                        "Wrath cannot work in this state."))
+                        MainWindowUI.Conflict_Wrath_ReplacingOffNoAutos))
                     .ToArray();
 
             if (ConflictingPluginsChecks.Wrath.ActionReplacingOffInPvP)
                 conflicts = conflicts.Append(new Conflict(
                         "Wrath", ConflictType.WrathSetting,
-                        "Action Replacing OFF" +
-                        "    " +
-                        "Your current job has PvP Combos on, " +
-                        "and you're in a PVP zone; " +
-                        "Wrath cannot work in this state."))
+                        MainWindowUI.Conflict_Wrath_ReplacingOffPvP))
                     .ToArray();
 
 #if !DEBUG
@@ -732,7 +716,7 @@ public static class ConflictingPlugins
             {
                 conflicts = conflicts.Append(new Conflict(
                     "Dalamud", ConflictType.Dalamud,
-                    $"Opener DTR Disabled\n\nYou have the Opener DTR hidden in Dalamud settings, this will not show."))
+                    MainWindowUI.Conflict_Dalamud_OpenerDTR))
                     .ToArray();
             }
         }
@@ -800,13 +784,13 @@ public static class ConflictingPlugins
         if (ConflictingPluginsChecks.BossMod.Conflicted)
             conflicts = conflicts.Append(new Conflict(
                     "BossMod", ConflictType.Combo,
-                    "Autorotation module is queueing actions"))
+                    MainWindowUI.Conflict_Combo_AutorotationQueueing))
                 .ToArray();
         if (ConflictingPluginsChecks.BossModReborn.Conflicted)
         {
             conflicts = conflicts.Append(new Conflict(
                     "BossModReborn", ConflictType.Combo,
-                    "Autorotation module is queueing actions"))
+                    MainWindowUI.Conflict_Combo_AutorotationQueueing))
                 .ToArray();
         }
 

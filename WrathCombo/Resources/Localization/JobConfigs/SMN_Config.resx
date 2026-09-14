@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
 		Microsoft ResX Schema
@@ -98,4 +98,73 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="SafeModeNoGapclose" xml:space="preserve">
+    <value>Safe Mode (Will not gap close)</value>
+  </data>
+  <data name="SafeModeNoGapcloseDesc" xml:space="preserve">
+    <value>Will only use Crimson Cyclone when in Melee Range</value>
+  </data>
+  <data name="StandardRotation" xml:space="preserve">
+    <value>Standard Rotation</value>
+  </data>
+  <data name="StandardRotationDesc" xml:space="preserve">
+    <value>Will gap close with Crimson Cyclone.</value>
+  </data>
+  <data name="OnRuin123" xml:space="preserve">
+    <value>On Ruin 1, 2, and 3</value>
+  </data>
+  <data name="OnRuin12Only" xml:space="preserve">
+    <value>On Ruin 1 and 2 Only</value>
+  </data>
+  <data name="OnRuin12OnlyDesc" xml:space="preserve">
+    <value>Alternative DPS Mode. Leaves Ruin 3 alone for pure DPS.</value>
+  </data>
+  <data name="SwiftcastSettings" xml:space="preserve">
+    <value>Swiftcast Settings</value>
+  </data>
+  <data name="UseSwiftcast" xml:space="preserve">
+    <value>Use Swiftcast</value>
+  </data>
+  <data name="UseSwiftcastDesc" xml:space="preserve">
+    <value>Will use Swiftcast in opener to try and snapshot in pots for lower gcds</value>
+  </data>
+  <data name="SkipSwiftcast" xml:space="preserve">
+    <value>Skip Swiftcast</value>
+  </data>
+  <data name="SkipSwiftcastDesc" xml:space="preserve">
+    <value>Will not use swiftcast in opener for higher gcds</value>
+  </data>
+  <data name="Garuda" xml:space="preserve">
+    <value>Garuda</value>
+  </data>
+  <data name="SwiftcastsSlipstream" xml:space="preserve">
+    <value>Swiftcasts Slipstream</value>
+  </data>
+  <data name="Ifrit" xml:space="preserve">
+    <value>Ifrit</value>
+  </data>
+  <data name="SwiftcastsRubyRuin" xml:space="preserve">
+    <value>Swiftcasts Ruby Ruin/Ruby Rite</value>
+  </data>
+  <data name="FlexibleSpsOption" xml:space="preserve">
+    <value>Flexible (SpS) Option</value>
+  </data>
+  <data name="FlexibleSpsOptionDesc" xml:space="preserve">
+    <value>Swiftcasts the first available Egi when Swiftcast is ready.</value>
+  </data>
+  <data name="AddMountainBuster" xml:space="preserve">
+    <value>Add Mountain Buster</value>
+  </data>
+  <data name="AddCrimsonCyclone" xml:space="preserve">
+    <value>Add Crimson Cyclone</value>
+  </data>
+  <data name="AddCrimsonStrike" xml:space="preserve">
+    <value>Add Crimson Strike</value>
+  </data>
+  <data name="AddSlipstream" xml:space="preserve">
+    <value>Add Slipstream</value>
+  </data>
+  <data name="MaxRangeCrimsonCyclone" xml:space="preserve">
+    <value> Maximum range to use Crimson Cyclone.</value>
+  </data>
 </root>

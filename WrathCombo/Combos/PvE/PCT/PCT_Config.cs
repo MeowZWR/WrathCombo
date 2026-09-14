@@ -5,6 +5,7 @@ using WrathCombo.Extensions;
 using WrathCombo.Resources.Localization.JobConfigs;
 using WrathCombo.Window.Functions;
 using static WrathCombo.Window.Functions.UserConfig;
+using static WrathCombo.Window.Text;
 namespace WrathCombo.Combos.PvE;
 
 internal partial class PCT
@@ -55,31 +56,31 @@ internal partial class PCT
             {
                 #region Single Target
                 case Preset.PCT_ST_AdvancedMode:
-                    DrawSliderInt(0, 10, PCT_ST_AdvancedMode_BurnBoss, "Stop pooling charges and burn bosses below this HP % (0% = Don't Burn).");
+                    DrawSliderInt(0, 10, PCT_ST_AdvancedMode_BurnBoss, PCT_Config.BurnBossHp);
                     break;
 
                 case Preset.PCT_ST_Advanced_Openers:
                     DrawBossOnlyChoice(PCT_Balance_Content);
                     DrawOpenerPotionChoice(PCT_Opener_Potion);
                     DrawOpenerPrepullBlockChoice(PCT_Opener_PrepullBlock);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
-                    DrawRadioButton(PCT_Opener_Choice, $"2nd GCD {StarryMuse.ActionName()}",
-                        "Opener Failure Timeout (in Settings Tab) Must be set to 5+ seconds for opener to function due to long initial spell cast.", 0, descriptionAsTooltip: true);
-                    DrawRadioButton(PCT_Opener_Choice, $"3rd GCD {StarryMuse.ActionName()}",
-                        "Opener Failure Timeout (in Settings Tab) Must be set to 5+ seconds for opener to function due to long initial spell cast.", 1, descriptionAsTooltip: true);
+                    DrawRadioButton(PCT_Opener_Choice, FormatAndCache(PCT_Config.SecondGcdStarryMuse, StarryMuse.ActionName()),
+                        PCT_Config.OpenerTimeoutNote, 0, descriptionAsTooltip: true);
+                    DrawRadioButton(PCT_Opener_Choice, FormatAndCache(PCT_Config.ThirdGcdStarryMuse, StarryMuse.ActionName()),
+                        PCT_Config.OpenerTimeoutNote, 1, descriptionAsTooltip: true);
                     break;
 
                 case Preset.PCT_ST_AdvancedMode_LucidDreaming:
                     DrawSliderInt(0, 10000, PCT_ST_AdvancedMode_LucidOption,
-                        "Add Lucid Dreaming when below this MP", sliderIncrement: SliderIncrements.Hundreds);
+                        PCT_Config.AddLucidBelowMp, sliderIncrement: SliderIncrements.Hundreds);
                     break;
 
                 case Preset.PCT_ST_AdvancedMode_ScenicMuse:
-                    DrawAdditionalBoolChoice(PCT_ST_AdvancedMode_ScenicMuse_MovementOption, "Dont Use if Moving", "Will only use if not moving.");
+                    DrawAdditionalBoolChoice(PCT_ST_AdvancedMode_ScenicMuse_MovementOption, PCT_Config.DontUseIfMoving, PCT_Config.DontUseIfMovingDesc);
 
                     DrawSliderInt(0, 100, PCT_ST_AdvancedMode_ScenicMuse_Threshold,
-                        "Stop using Scenic Muse on targets below this HP % (0% = always use, 100% = never use).");
+                        PCT_Config.StopScenicMuseBelowHp);
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
                     DrawHorizontalRadioButton(PCT_ST_AdvancedMode_ScenicMuse_SubOption,
@@ -90,10 +91,10 @@ internal partial class PCT
                     break;
 
                 case Preset.PCT_AoE_AdvancedMode_ScenicMuse:
-                    DrawAdditionalBoolChoice(PCT_AoE_AdvancedMode_ScenicMuse_MovementOption, "Dont Use if Moving", "Will only use if not moving.");
+                    DrawAdditionalBoolChoice(PCT_AoE_AdvancedMode_ScenicMuse_MovementOption, PCT_Config.DontUseIfMoving, PCT_Config.DontUseIfMovingDesc);
 
                     DrawSliderInt(0, 100, PCT_AoE_AdvancedMode_ScenicMuse_Threshold,
-                        "Stop using Scenic Muse on targets below this HP % (0% = always use, 100% = never use).");
+                        PCT_Config.StopScenicMuseBelowHp);
                     ImGui.Indent();
                     ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
                     DrawHorizontalRadioButton(PCT_AoE_AdvancedMode_ScenicMuse_SubOption,
@@ -104,19 +105,19 @@ internal partial class PCT
                     break;
 
                 case Preset.PCT_ST_AdvancedMode_HammerStampCombo:
-                    DrawSliderFloat(15, 30, PCT_ST_AdvancedMode_HammerStampCombo_Timing, "Time Remaining on Hammer Time (seconds) to use combo. 30 = Use Immediately.", decimals: 0);
+                    DrawSliderFloat(15, 30, PCT_ST_AdvancedMode_HammerStampCombo_Timing, PCT_Config.HammerTimeRemaining, decimals: 0);
                     break;
 
                 case Preset.PCT_ST_AdvancedMode_LandscapeMotif:
-                    DrawSliderInt(0, 10, PCT_ST_LandscapeStop, "Health % to stop Drawing Motif");
+                    DrawSliderInt(0, 10, PCT_ST_LandscapeStop, PCT_Config.HealthStopDrawingMotif);
                     break;
 
                 case Preset.PCT_ST_AdvancedMode_CreatureMotif:
-                    DrawSliderInt(0, 10, PCT_ST_CreatureStop, "Health % to stop Drawing Motif");
+                    DrawSliderInt(0, 10, PCT_ST_CreatureStop, PCT_Config.HealthStopDrawingMotif);
                     break;
 
                 case Preset.PCT_ST_AdvancedMode_WeaponMotif:
-                    DrawSliderInt(0, 10, PCT_ST_WeaponStop, "Health % to stop Drawing Motif");
+                    DrawSliderInt(0, 10, PCT_ST_WeaponStop, PCT_Config.HealthStopDrawingMotif);
                     break;
 
                 case Preset.PCT_ST_AdvancedMode_HolyinWhite:
@@ -129,7 +130,7 @@ internal partial class PCT
                 #region AoE
 
                 case Preset.PCT_AoE_AdvancedMode:
-                    DrawSliderInt(0, 10, PCT_AoE_AdvancedMode_BurnBoss, "Stop pooling charges and burn bosses below this HP % (0% = Don't Burn).");
+                    DrawSliderInt(0, 10, PCT_AoE_AdvancedMode_BurnBoss, PCT_Config.BurnBossHp);
                     break;
 
                 case Preset.PCT_AoE_AdvancedMode_HolyinWhite:
@@ -139,47 +140,47 @@ internal partial class PCT
 
                 case Preset.PCT_AoE_AdvancedMode_LucidDreaming:
                     DrawSliderInt(0, 10000, PCT_AoE_AdvancedMode_LucidOption,
-                        "Add Lucid Dreaming when below this MP", sliderIncrement: SliderIncrements.Hundreds);
+                        PCT_Config.AddLucidBelowMp, sliderIncrement: SliderIncrements.Hundreds);
                     break;
 
                 case Preset.PCT_AoE_AdvancedMode_HammerStampCombo:
-                    DrawSliderFloat(15, 30, PCT_AoE_AdvancedMode_HammerStampCombo_Timing, "Time Remaining on Hammer Time (seconds) to use combo. 30 = Use Immediately.", decimals: 0);
+                    DrawSliderFloat(15, 30, PCT_AoE_AdvancedMode_HammerStampCombo_Timing, PCT_Config.HammerTimeRemaining, decimals: 0);
                     break;
 
                 case Preset.PCT_AoE_AdvancedMode_LandscapeMotif:
-                    DrawSliderInt(0, 10, PCT_AoE_LandscapeStop, "Health % to stop Drawing Motif");
+                    DrawSliderInt(0, 10, PCT_AoE_LandscapeStop, PCT_Config.HealthStopDrawingMotif);
                     break;
 
                 case Preset.PCT_AoE_AdvancedMode_CreatureMotif:
-                    DrawSliderInt(0, 10, PCT_AoE_CreatureStop, "Health % to stop Drawing Motif");
+                    DrawSliderInt(0, 10, PCT_AoE_CreatureStop, PCT_Config.HealthStopDrawingMotif);
                     break;
 
                 case Preset.PCT_AoE_AdvancedMode_WeaponMotif:
-                    DrawSliderInt(0, 10, PCT_AoE_WeaponStop, "Health % to stop Drawing Motif");
+                    DrawSliderInt(0, 10, PCT_AoE_WeaponStop, PCT_Config.HealthStopDrawingMotif);
                     break;
 
                 #endregion
 
                 #region Standalone
                 case Preset.CombinedAetherhues:
-                    DrawRadioButton(CombinedAetherhueChoices, "Both Single Target & AoE",
-                        $"Replaces both {BlizzardinCyan.ActionName()} & {BlizzardIIinCyan.ActionName()}", 0);
-                    DrawRadioButton(CombinedAetherhueChoices, "Single Target Only",
-                        $"Replace only {BlizzardinCyan.ActionName()}", 1);
-                    DrawRadioButton(CombinedAetherhueChoices, "AoE Only",
-                        $"Replace only {BlizzardIIinCyan.ActionName()}", 2);
+                    DrawRadioButton(CombinedAetherhueChoices, PCT_Config.BothSingleTargetAoe,
+                        FormatAndCache(PCT_Config.ReplacesBoth0And1, BlizzardinCyan.ActionName(), BlizzardIIinCyan.ActionName()), 0);
+                    DrawRadioButton(CombinedAetherhueChoices, PCT_Config.SingleTargetOnly,
+                        FormatAndCache(PCT_Config.ReplaceOnly0, BlizzardinCyan.ActionName()), 1);
+                    DrawRadioButton(CombinedAetherhueChoices, PCT_Config.AoeOnly,
+                        FormatAndCache(PCT_Config.ReplaceOnly0, BlizzardIIinCyan.ActionName()), 2);
                     break;
 
                 case Preset.CombinedMotifs:
-                    DrawAdditionalBoolChoice(CombinedMotifsMog, $"{MogoftheAges.ActionName()} Feature",
-                        $"Add {MogoftheAges.ActionName()} when fully drawn and off cooldown.");
+                    DrawAdditionalBoolChoice(CombinedMotifsMog, FormatAndCache(PCT_Config.MogFeature, MogoftheAges.ActionName()),
+                        FormatAndCache(PCT_Config.AddWhenFullyDrawnOffCd, MogoftheAges.ActionName()));
                     DrawAdditionalBoolChoice(CombinedMotifsMadeen,
-                        $"{RetributionoftheMadeen.ActionName()} Feature",
-                        $"Add {RetributionoftheMadeen.ActionName()} when fully drawn and off cooldown.");
-                    DrawAdditionalBoolChoice(CombinedMotifsWeapon, $"{HammerStamp.ActionName()} Feature",
-                        $"Add {HammerStamp.ActionName()} when under the effect of {Buffs.HammerTime.StatusName()}.");
-                    DrawAdditionalBoolChoice(CombinedMotifsLandscape, $"{StarPrism.ActionName()} Feature",
-                        $"Add {StarPrism.ActionName()} when under the effect of {Buffs.Starstruck.StatusName()}.");
+                        FormatAndCache(PCT_Config.MogFeature, RetributionoftheMadeen.ActionName()),
+                        FormatAndCache(PCT_Config.AddWhenFullyDrawnOffCd, RetributionoftheMadeen.ActionName()));
+                    DrawAdditionalBoolChoice(CombinedMotifsWeapon, FormatAndCache(PCT_Config.MogFeature, HammerStamp.ActionName()),
+                        FormatAndCache(PCT_Config.AddWhenUnderEffect, HammerStamp.ActionName(), Buffs.HammerTime.StatusName()));
+                    DrawAdditionalBoolChoice(CombinedMotifsLandscape, FormatAndCache(PCT_Config.MogFeature, StarPrism.ActionName()),
+                        FormatAndCache(PCT_Config.AddWhenUnderEffect, StarPrism.ActionName(), Buffs.Starstruck.StatusName()));
                     break;
 
                 #endregion

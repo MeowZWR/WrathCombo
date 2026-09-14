@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -3889,203 +3889,11 @@
   <data name="GNB_AoE_Stun_Desc" xml:space="preserve">
     <value>当目标正在读条时（无论是否可打断），将“下踢”加入循环。</value>
   </data>
-  <data name="GNB_Mitigation_Name" xml:space="preserve">
-    <value>进阶减伤选项</value>
-  </data>
-  <data name="GNB_Mitigation_Desc" xml:space="preserve">
-    <value>用于进阶连击中的“连击内减伤”选项。
-需先在各进阶连击中启用减伤，才能使用这些选项。
-（简单模式不使用这些选项，而是使用推荐值）</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Name" xml:space="preserve">
-    <value>非 Boss 战减伤</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Desc" xml:space="preserve">
-    <value>在非 Boss 战中将减伤加入连击。除非特别说明，不同选项不会重叠使用。
-拉怪前 15 秒内默认不使用减伤（若你已停下不动则除外）。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Rampart_Name" xml:space="preserve">
-    <value>铁壁</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Rampart_Desc" xml:space="preserve">
-    <value>目标数达到 3 个及以上时加入“铁壁”。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Nebula_Name" xml:space="preserve">
-    <value>星云</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Nebula_Desc" xml:space="preserve">
-    <value>目标数达到 3 个及以上时加入“星云/大星云”。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Camouflage_Name" xml:space="preserve">
-    <value>伪装</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Camouflage_Desc" xml:space="preserve">
-    <value>目标数达到 3 个及以上时加入“伪装”。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Aurora_Name" xml:space="preserve">
-    <value>极光</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Aurora_Desc" xml:space="preserve">
-    <value>目标数达到 3 个及以上时加入“极光”。会与其他减伤重叠。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Superbolide_Name" xml:space="preserve">
-    <value>超火流星</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Superbolide_Desc" xml:space="preserve">
-    <value>目标数达到 5 个及以上时，将“超火流星”作为减伤循环的一部分加入。（推荐）</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_SuperBolideEmergency_Name" xml:space="preserve">
-    <value>超火流星紧急使用</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_SuperBolideEmergency_Desc" xml:space="preserve">
-    <value>在生命值紧急时加入“超火流星”。
-若按上方推荐设置使用，该技能大概率会处于冷却中。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_ArmsLength_Name" xml:space="preserve">
-    <value>亲疏自行</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_ArmsLength_Desc" xml:space="preserve">
-    <value>目标数达到 5 个及以上时加入“亲疏自行”。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Reprisal_Name" xml:space="preserve">
-    <value>雪仇</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_Reprisal_Desc" xml:space="preserve">
-    <value>目标数达到 5 个及以上时加入“雪仇”。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfLight_Name" xml:space="preserve">
-    <value>光之心</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfLight_Desc" xml:space="preserve">
-    <value>目标数达到 5 个及以上时加入“光之心”。会与其他减伤重叠。</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfStone_Name" xml:space="preserve">
-    <value>石之心/刚玉之心</value>
-  </data>
-  <data name="GNB_Mitigation_NonBoss_HeartOfStone_Desc" xml:space="preserve">
-    <value>可用时加入“石之心/刚玉之心”。会与其他减伤重叠。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Name" xml:space="preserve">
-    <value>Boss 战减伤</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Desc" xml:space="preserve">
-    <value>在 Boss 战中将减伤加入连击。除非特别说明，不同选项不会重叠使用。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Aurora_Name" xml:space="preserve">
-    <value>极光</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Aurora_Desc" xml:space="preserve">
-    <value>当生命低于阈值时加入“极光”。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_OnCD_Name" xml:space="preserve">
-    <value>石之心/刚玉之心冷却即用</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_OnCD_Desc" xml:space="preserve">
-    <value>当生命低于阈值时，将“石之心/刚玉之心”按冷却加入。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_TankBuster_Name" xml:space="preserve">
-    <value>石之心/刚玉之心坦克死刑</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_HeartOfStone_TankBuster_Desc" xml:space="preserve">
-    <value>检测到坦克死刑时，加入“石之心/刚玉之心”。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Rampart_Name" xml:space="preserve">
-    <value>铁壁坦克死刑</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Rampart_Desc" xml:space="preserve">
-    <value>检测到坦克死刑时，加入“铁壁”。不会与“星云/大星云”重叠。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Nebula_Name" xml:space="preserve">
-    <value>星云/大星云坦克死刑</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Nebula_Desc" xml:space="preserve">
-    <value>检测到坦克死刑时，加入“星云/大星云”。不会与“铁壁”重叠。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Camouflage_Name" xml:space="preserve">
-    <value>伪装坦克死刑</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Camouflage_Desc" xml:space="preserve">
-    <value>检测到坦克死刑时，加入“伪装”。除非低于设定阈值或与“铁壁”对齐，否则不重叠。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Reprisal_Name" xml:space="preserve">
-    <value>全屏 AoE 雪仇</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_Reprisal_Desc" xml:space="preserve">
-    <value>检测到全屏 AoE 读条时，加入“雪仇”。</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_HeartOfLight_Name" xml:space="preserve">
-    <value>全屏 AoE 光之心</value>
-  </data>
-  <data name="GNB_Mitigation_Boss_HeartOfLight_Desc" xml:space="preserve">
-    <value>检测到全屏 AoE 读条时，加入“光之心”。</value>
-  </data>
   <data name="GNB_Mit_OneButton_Name" xml:space="preserve">
     <value>一键减伤功能</value>
   </data>
   <data name="GNB_Mit_OneButton_Desc" xml:space="preserve">
     <value>将“伪装”替换为一体化减伤按钮。</value>
-  </data>
-  <data name="GNB_Mit_Superbolide_Max_Name" xml:space="preserve">
-    <value>超火流星紧急使用</value>
-  </data>
-  <data name="GNB_Mit_Superbolide_Max_Desc" xml:space="preserve">
-    <value>当生命百分比达到阈值时，将“超火流星”设为最高优先级。</value>
-  </data>
-  <data name="GNB_Mit_Corundum_Name" xml:space="preserve">
-    <value>刚玉之心</value>
-  </data>
-  <data name="GNB_Mit_Corundum_Desc" xml:space="preserve">
-    <value>将“石之心 / 刚玉之心”加入一键减伤。</value>
-  </data>
-  <data name="GNB_Mit_Aurora_Name" xml:space="preserve">
-    <value>极光</value>
-  </data>
-  <data name="GNB_Mit_Aurora_Desc" xml:space="preserve">
-    <value>将“极光”加入一键减伤。</value>
-  </data>
-  <data name="GNB_Mit_Camouflage_Name" xml:space="preserve">
-    <value>伪装优先</value>
-  </data>
-  <data name="GNB_Mit_Camouflage_Desc" xml:space="preserve">
-    <value>将“伪装”加入一键减伤。
-注意：即便禁用，也会尝试以最低优先级使用“伪装”。</value>
-  </data>
-  <data name="GNB_Mit_Reprisal_Name" xml:space="preserve">
-    <value>雪仇</value>
-  </data>
-  <data name="GNB_Mit_Reprisal_Desc" xml:space="preserve">
-    <value>将“雪仇”加入一键减伤。
-注意：为防止浪费，仅在范围内有目标时才会使用。</value>
-  </data>
-  <data name="GNB_Mit_HeartOfLight_Name" xml:space="preserve">
-    <value>光之心</value>
-  </data>
-  <data name="GNB_Mit_HeartOfLight_Desc" xml:space="preserve">
-    <value>将“光之心”加入一键减伤。</value>
-  </data>
-  <data name="GNB_Mit_Rampart_Name" xml:space="preserve">
-    <value>铁壁</value>
-  </data>
-  <data name="GNB_Mit_Rampart_Desc" xml:space="preserve">
-    <value>将“铁壁”加入一键减伤。</value>
-  </data>
-  <data name="GNB_Mit_ArmsLength_Name" xml:space="preserve">
-    <value>亲疏自行</value>
-  </data>
-  <data name="GNB_Mit_ArmsLength_Desc" xml:space="preserve">
-    <value>将“亲疏自行”加入一键减伤。</value>
-  </data>
-  <data name="GNB_Mit_Nebula_Name" xml:space="preserve">
-    <value>星云</value>
-  </data>
-  <data name="GNB_Mit_Nebula_Desc" xml:space="preserve">
-    <value>将“星云”加入一键减伤。</value>
-  </data>
-  <data name="GNB_Mit_Party_Name" xml:space="preserve">
-    <value>一键团队减伤功能</value>
-  </data>
-  <data name="GNB_Mit_Party_Desc" xml:space="preserve">
-    <value>当“雪仇”可用时，将“光之心”替换为“雪仇”。</value>
   </data>
   <data name="GNB_ST_BasicCombo_Name" xml:space="preserve">
     <value>单目标基础连击</value>
@@ -4202,12 +4010,6 @@
   <data name="GNB_BS_Continuation_Desc" xml:space="preserve">
     <value>可用时将全部单目标“续剑”触发加入“爆发击”。</value>
   </data>
-  <data name="GNB_BS_Hypervelocity_Name" xml:space="preserve">
-    <value>仅超高速</value>
-  </data>
-  <data name="GNB_BS_Hypervelocity_Desc" xml:space="preserve">
-    <value>可用时仅将“超高速”加入“爆发击”。</value>
-  </data>
   <data name="GNB_BS_Bloodfest_Name" xml:space="preserve">
     <value>血壤</value>
   </data>
@@ -4273,36 +4075,6 @@
   </data>
   <data name="GNB_FC_Reign_Desc" xml:space="preserve">
     <value>在适当时机将“崛起之心/支配之心/终结之心”加入“命运之环”。</value>
-  </data>
-  <data name="GNB_AuroraProtection_Name" xml:space="preserve">
-    <value>极光保护功能</value>
-  </data>
-  <data name="GNB_AuroraProtection_Desc" xml:space="preserve">
-    <value>若目标已持有“极光”效果，则将“极光”替换为“狂怒剑”以锁定使用。</value>
-  </data>
-  <data name="GNB_RetargetAurora_MO_Name" xml:space="preserve">
-    <value>极光鼠标悬停</value>
-  </data>
-  <data name="GNB_RetargetAurora_MO_Desc" xml:space="preserve">
-    <value>若鼠标悬停目标未持有 HoT，则将“极光”重定向到该目标。</value>
-  </data>
-  <data name="GNB_RetargetAurora_TT_Name" xml:space="preserve">
-    <value>极光目标的目标</value>
-  </data>
-  <data name="GNB_RetargetAurora_TT_Desc" xml:space="preserve">
-    <value>若“目标的目标”未持有 HoT 且你没有仇恨，则将“极光”重定向到该目标。</value>
-  </data>
-  <data name="GNB_RetargetHeartofStone_Name" xml:space="preserve">
-    <value>石之心功能</value>
-  </data>
-  <data name="GNB_RetargetHeartofStone_Desc" xml:space="preserve">
-    <value>在不受其他连击功能影响时，会将“石之心/刚玉之心”重定向到鼠标悬停目标或硬目标。</value>
-  </data>
-  <data name="GNB_RetargetHeartofStone_TT_Name" xml:space="preserve">
-    <value>石之心目标的目标</value>
-  </data>
-  <data name="GNB_RetargetHeartofStone_TT_Desc" xml:space="preserve">
-    <value>当你没有仇恨时，将“石之心/刚玉之心”重定向到“目标的目标”；仍可由鼠标悬停覆盖。</value>
   </data>
   <data name="GNB_RetargetTrajectory_Name" xml:space="preserve">
     <value>弹道鼠标悬停</value>
@@ -5369,13 +5141,6 @@
   <data name="PCT_ST_AdvancedMode_Addle_Desc" xml:space="preserve">
     <value>检测到全屏 AoE 读条时，加入“昏乱”。</value>
   </data>
-  <data name="PCT_ST_AdvancedMode_Tempura_Name" xml:space="preserve">
-    <value>坦培拉全屏 AoE</value>
-  </data>
-  <data name="PCT_ST_AdvancedMode_Tempura_Desc" xml:space="preserve">
-    <value>检测到全屏 AoE 读条时，加入“坦培拉涂层”。
-若范围内队员足够（超过 75%），则通过“油性坦培拉涂层”扩散。</value>
-  </data>
   <data name="PCT_AoE_AdvancedMode_Name" xml:space="preserve">
     <value>进阶输出模式 - 多目标</value>
   </data>
@@ -5671,13 +5436,6 @@
     <value>在进阶模式中加入“悔罪”。
 - 低等级时改用“圣灵”。</value>
   </data>
-  <data name="PLD_ST_AdvancedMode_Blades_Name" xml:space="preserve">
-    <value>圣剑连段</value>
-  </data>
-  <data name="PLD_ST_AdvancedMode_Blades_Desc" xml:space="preserve">
-    <value>在进阶模式中加入“信念之剑/真理之剑/英勇之剑”。
-- 低等级时改用“圣灵”。</value>
-  </data>
   <data name="PLD_ST_AdvancedMode_BladeOfHonor_Name" xml:space="preserve">
     <value>荣耀之剑</value>
   </data>
@@ -5769,13 +5527,6 @@
   </data>
   <data name="PLD_AoE_AdvancedMode_Confiteor_Desc" xml:space="preserve">
     <value>在进阶模式中加入“悔罪”。
-- 低等级时改用“圣环”。</value>
-  </data>
-  <data name="PLD_AoE_AdvancedMode_Blades_Name" xml:space="preserve">
-    <value>圣剑连段</value>
-  </data>
-  <data name="PLD_AoE_AdvancedMode_Blades_Desc" xml:space="preserve">
-    <value>在进阶模式中加入“信念之剑/真理之剑/英勇之剑”。
 - 低等级时改用“圣环”。</value>
   </data>
   <data name="PLD_AoE_AdvancedMode_BladeOfHonor_Name" xml:space="preserve">
@@ -7582,12 +7333,6 @@
   </data>
   <data name="SAM_AoE_Adv_Oka_Desc" xml:space="preserve">
     <value>将“樱花”连击加入循环。</value>
-  </data>
-  <data name="SAM_AoE_Hagakure_Name" xml:space="preserve">
-    <value>叶隐</value>
-  </data>
-  <data name="SAM_AoE_Hagakure_Desc" xml:space="preserve">
-    <value>当集齐三闪时，将“叶隐”加入循环。</value>
   </data>
   <data name="SAM_AoE_Adv_CDs_Name" xml:space="preserve">
     <value>主连击冷却技能</value>
@@ -10480,12 +10225,6 @@
   <data name="MNKPvP_Burst_RiddleOfEarth_Desc" xml:space="preserve">
     <value>战斗中为爆发模式加入“金刚极意”和“金刚周天”。</value>
   </data>
-  <data name="MNKPvP_Burst_FlintsReply_Name" xml:space="preserve">
-    <value>斗气弹</value>
-  </data>
-  <data name="MNKPvP_Burst_FlintsReply_Desc" xml:space="preserve">
-    <value>为爆发模式加入“斗气弹”。</value>
-  </data>
   <data name="MNKPvP_Burst_RisingPhoenix_Name" xml:space="preserve">
     <value>凤凰舞</value>
   </data>
@@ -11663,25 +11402,6 @@
   <data name="RPR_BloodStalkEnshroudCombo_Enshroud_Desc" xml:space="preserve">
     <value>在“隐匿挥割”和“束缚挥割”上加入夜游魂衣连击（虚无/交错收割、团契、夜游魂切割、祭牲、完人）。</value>
   </data>
-  <data name="SAM_AoE_CDs_Ikishoten_Desc" xml:space="preserve">
-    <value>当剑气为 50 或以下时，添加意气冲天。
-将在剩余 10 秒时消耗剑气以允许使用意气冲天。</value>
-  </data>
-  <data name="SAM_AoE_CDs_Ikishoten_Name" xml:space="preserve">
-    <value>意气冲天</value>
-  </data>
-  <data name="SAM_AoE_StunInterrupt_Desc" xml:space="preserve">
-    <value>当非 Boss 目标读条时，加入“扫腿”。</value>
-  </data>
-  <data name="SAM_AoE_StunInterrupt_Name" xml:space="preserve">
-    <value>扫腿</value>
-  </data>
-  <data name="SAM_ST_StunInterrupt_Desc" xml:space="preserve">
-    <value>当非 Boss 目标读条时，加入“扫腿”。</value>
-  </data>
-  <data name="SAM_ST_StunInterrupt_Name" xml:space="preserve">
-    <value>扫腿</value>
-  </data>
   <data name="SCH_Dissipation_Desc" xml:space="preserve">
     <value>当以太超流可用时，用以太超流替换转化。</value>
   </data>
@@ -11693,5 +11413,768 @@
   </data>
   <data name="SMN_Rekindle_Name" xml:space="preserve">
     <value>重燃重定向</value>
+  </data>
+  <data name="BLU_AoE_DPS_BasicInstinct_Desc" xml:space="preserve">
+    <value>单人副本时添加“斗争本能”。</value>
+  </data>
+  <data name="BLU_AoE_DPS_BasicInstinct_Name" xml:space="preserve">
+    <value>斗争本能</value>
+  </data>
+  <data name="BLU_AoE_DPS_Desc" xml:space="preserve">
+    <value>将“电发生”替换为一键 AoE 循环。
+在治疗职业模仿下，队伍不需要治疗时也会使用。</value>
+  </data>
+  <data name="BLU_AoE_DPS_FlyingSardine_Desc" xml:space="preserve">
+    <value>添加“投掷沙丁鱼”。</value>
+  </data>
+  <data name="BLU_AoE_DPS_FlyingSardine_Name" xml:space="preserve">
+    <value>投掷沙丁鱼</value>
+  </data>
+  <data name="BLU_AoE_DPS_HydroPull_Desc" xml:space="preserve">
+    <value>添加“水力吸引”。</value>
+  </data>
+  <data name="BLU_AoE_DPS_HydroPull_Name" xml:space="preserve">
+    <value>水力吸引</value>
+  </data>
+  <data name="BLU_AoE_DPS_Name" xml:space="preserve">
+    <value>输出模式 - AoE</value>
+  </data>
+  <data name="BLU_AoE_DPS_Primals_Desc" xml:space="preserve">
+    <value>冷却完成时添加已装备的蛮神技能。</value>
+  </data>
+  <data name="BLU_AoE_DPS_Primals_Name" xml:space="preserve">
+    <value>蛮神</value>
+  </data>
+  <data name="BLU_AoE_Heal_AngelsSnack_Desc" xml:space="preserve">
+    <value>添加“天使的点心”。</value>
+  </data>
+  <data name="BLU_AoE_Heal_AngelsSnack_Name" xml:space="preserve">
+    <value>天使的点心</value>
+  </data>
+  <data name="BLU_AoE_Heal_Desc" xml:space="preserve">
+    <value>将“白风”替换为一键 AoE 治疗功能。
+可与输出模式搭配，队伍血量健康时转而输出。</value>
+  </data>
+  <data name="BLU_AoE_Heal_Gobskin_Desc" xml:space="preserve">
+    <value>添加“哥布林皮肤”。</value>
+  </data>
+  <data name="BLU_AoE_Heal_Gobskin_Name" xml:space="preserve">
+    <value>哥布林皮肤</value>
+  </data>
+  <data name="BLU_AoE_Heal_Lucid_Desc" xml:space="preserve">
+    <value>添加“醒梦”。</value>
+  </data>
+  <data name="BLU_AoE_Heal_Lucid_Name" xml:space="preserve">
+    <value>醒梦</value>
+  </data>
+  <data name="BLU_AoE_Heal_Name" xml:space="preserve">
+    <value>治疗模式 - AoE</value>
+  </data>
+  <data name="BLU_AoE_Heal_Stotram_Desc" xml:space="preserve">
+    <value>添加“赞歌”。</value>
+  </data>
+  <data name="BLU_AoE_Heal_Stotram_Name" xml:space="preserve">
+    <value>赞歌</value>
+  </data>
+  <data name="BLU_AoE_Tank_BadBreath_Desc" xml:space="preserve">
+    <value>添加“臭气”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_BadBreath_Name" xml:space="preserve">
+    <value>臭气</value>
+  </data>
+  <data name="BLU_AoE_Tank_BasicInstinct_Desc" xml:space="preserve">
+    <value>单人副本时添加“斗争本能”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_BasicInstinct_Name" xml:space="preserve">
+    <value>斗争本能</value>
+  </data>
+  <data name="BLU_AoE_Tank_ChelonianGate_Desc" xml:space="preserve">
+    <value>添加“玄龟壳”，用于死刑与全屏AOE。</value>
+  </data>
+  <data name="BLU_AoE_Tank_ChelonianGate_Name" xml:space="preserve">
+    <value>玄龟壳</value>
+  </data>
+  <data name="BLU_AoE_Tank_Desc" xml:space="preserve">
+    <value>将“回转踢”替换为一键 AoE 坦克循环。</value>
+  </data>
+  <data name="BLU_AoE_Tank_Devour_Desc" xml:space="preserve">
+    <value>添加“捕食”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_Devour_Name" xml:space="preserve">
+    <value>捕食</value>
+  </data>
+  <data name="BLU_AoE_Tank_DragonForce_Desc" xml:space="preserve">
+    <value>添加“龙之力”，用于死刑与全屏AOE。</value>
+  </data>
+  <data name="BLU_AoE_Tank_DragonForce_Name" xml:space="preserve">
+    <value>龙之力</value>
+  </data>
+  <data name="BLU_AoE_Tank_FlyingSardine_Desc" xml:space="preserve">
+    <value>添加“投掷沙丁鱼”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_FlyingSardine_Name" xml:space="preserve">
+    <value>投掷沙丁鱼</value>
+  </data>
+  <data name="BLU_AoE_Tank_FrogLegs_Desc" xml:space="preserve">
+    <value>添加“蛙腿”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_FrogLegs_Name" xml:space="preserve">
+    <value>蛙腿</value>
+  </data>
+  <data name="BLU_AoE_Tank_HydroPull_Desc" xml:space="preserve">
+    <value>添加“水力吸引”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_HydroPull_Name" xml:space="preserve">
+    <value>水力吸引</value>
+  </data>
+  <data name="BLU_AoE_Tank_Lucid_Desc" xml:space="preserve">
+    <value>添加“醒梦”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_Lucid_Name" xml:space="preserve">
+    <value>醒梦</value>
+  </data>
+  <data name="BLU_AoE_Tank_MightyGuard_Desc" xml:space="preserve">
+    <value>添加“强力守护”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_MightyGuard_Name" xml:space="preserve">
+    <value>强力守护</value>
+  </data>
+  <data name="BLU_AoE_Tank_Name" xml:space="preserve">
+    <value>坦克模式 - AoE</value>
+  </data>
+  <data name="BLU_AoE_Tank_Primals_Desc" xml:space="preserve">
+    <value>冷却完成时添加已装备的蛮神技能。</value>
+  </data>
+  <data name="BLU_AoE_Tank_Primals_Name" xml:space="preserve">
+    <value>蛮神</value>
+  </data>
+  <data name="BLU_AoE_Tank_StickyTongue_Desc" xml:space="preserve">
+    <value>添加“滑舌”。</value>
+  </data>
+  <data name="BLU_AoE_Tank_StickyTongue_Name" xml:space="preserve">
+    <value>滑舌</value>
+  </data>
+  <data name="BLU_ST_DPS_BasicInstinct_Desc" xml:space="preserve">
+    <value>单人副本时添加“斗争本能”。</value>
+  </data>
+  <data name="BLU_ST_DPS_BasicInstinct_Name" xml:space="preserve">
+    <value>斗争本能</value>
+  </data>
+  <data name="BLU_ST_DPS_Breath_Desc" xml:space="preserve">
+    <value>将“魔法吐息”加入输出模式。</value>
+  </data>
+  <data name="BLU_ST_DPS_Breath_Name" xml:space="preserve">
+    <value>魔法吐息</value>
+  </data>
+  <data name="BLU_ST_DPS_Desc" xml:space="preserve">
+    <value>将“音爆”替换为一键单体循环。
+在治疗职业模仿下，队伍不需要治疗时也会使用。</value>
+  </data>
+  <data name="BLU_ST_DPS_Flame_Desc" xml:space="preserve">
+    <value>将“致命火焰”加入输出模式。</value>
+  </data>
+  <data name="BLU_ST_DPS_Flame_Name" xml:space="preserve">
+    <value>致命火焰</value>
+  </data>
+  <data name="BLU_ST_DPS_FlyingSardine_Desc" xml:space="preserve">
+    <value>添加“投掷沙丁鱼”。</value>
+  </data>
+  <data name="BLU_ST_DPS_FlyingSardine_Name" xml:space="preserve">
+    <value>投掷沙丁鱼</value>
+  </data>
+  <data name="BLU_ST_DPS_Name" xml:space="preserve">
+    <value>输出模式 - 单目标</value>
+  </data>
+  <data name="BLU_ST_DPS_Opener_Desc" xml:space="preserve">
+    <value>加入月之笛起手，每两分钟重复一次。
+倒数：-5 秒口笛，-3 秒哔哩哔哩，开场斗灵弹。
+爆发间隙保持“月下彼岸花”或带“怒发冲冠”的“苦闷之歌”。
+“飞翎雨”会重定向到当前目标。</value>
+  </data>
+  <data name="BLU_ST_DPS_Opener_Name" xml:space="preserve">
+    <value>月之笛起手</value>
+  </data>
+  <data name="BLU_ST_DPS_Primals_Desc" xml:space="preserve">
+    <value>冷却完成时添加已装备的蛮神技能。</value>
+  </data>
+  <data name="BLU_ST_DPS_Primals_Name" xml:space="preserve">
+    <value>蛮神</value>
+  </data>
+  <data name="BLU_ST_DPS_SharpenedKnife_Desc" xml:space="preserve">
+    <value>添加“锋利菜刀”。</value>
+  </data>
+  <data name="BLU_ST_DPS_SharpenedKnife_Name" xml:space="preserve">
+    <value>锋利菜刀</value>
+  </data>
+  <data name="BLU_ST_DPS_SongOfTorment_Desc" xml:space="preserve">
+    <value>添加“苦闷之歌”。</value>
+  </data>
+  <data name="BLU_ST_DPS_SongOfTorment_Name" xml:space="preserve">
+    <value>苦闷之歌</value>
+  </data>
+  <data name="BLU_ST_DPS_TripleTrident_Desc" xml:space="preserve">
+    <value>添加“渔叉三段”。</value>
+  </data>
+  <data name="BLU_ST_DPS_TripleTrident_Name" xml:space="preserve">
+    <value>渔叉三段</value>
+  </data>
+  <data name="BLU_ST_Heal_AngelsSnack_Desc" xml:space="preserve">
+    <value>添加“天使的点心”。</value>
+  </data>
+  <data name="BLU_ST_Heal_AngelsSnack_Name" xml:space="preserve">
+    <value>天使的点心</value>
+  </data>
+  <data name="BLU_ST_Heal_Desc" xml:space="preserve">
+    <value>将“绒绒治疗”替换为一键单体治疗功能。
+可与输出模式搭配，队伍血量健康时转而输出。</value>
+  </data>
+  <data name="BLU_ST_Heal_Exuviation_Desc" xml:space="preserve">
+    <value>添加“蜕皮”。</value>
+  </data>
+  <data name="BLU_ST_Heal_Exuviation_Name" xml:space="preserve">
+    <value>蜕皮</value>
+  </data>
+  <data name="BLU_ST_Heal_Lucid_Desc" xml:space="preserve">
+    <value>添加“醒梦”。</value>
+  </data>
+  <data name="BLU_ST_Heal_Lucid_Name" xml:space="preserve">
+    <value>醒梦</value>
+  </data>
+  <data name="BLU_ST_Heal_Name" xml:space="preserve">
+    <value>治疗模式 - 单目标</value>
+  </data>
+  <data name="BLU_ST_Tank_BadBreath_Desc" xml:space="preserve">
+    <value>添加“臭气”。</value>
+  </data>
+  <data name="BLU_ST_Tank_BadBreath_Name" xml:space="preserve">
+    <value>臭气</value>
+  </data>
+  <data name="BLU_ST_Tank_BasicInstinct_Desc" xml:space="preserve">
+    <value>单人副本时添加“斗争本能”。</value>
+  </data>
+  <data name="BLU_ST_Tank_BasicInstinct_Name" xml:space="preserve">
+    <value>斗争本能</value>
+  </data>
+  <data name="BLU_ST_Tank_ChelonianGate_Desc" xml:space="preserve">
+    <value>添加“玄龟壳”，用于死刑与全屏AOE。</value>
+  </data>
+  <data name="BLU_ST_Tank_ChelonianGate_Name" xml:space="preserve">
+    <value>玄龟壳</value>
+  </data>
+  <data name="BLU_ST_Tank_Desc" xml:space="preserve">
+    <value>将“哥布林拳”替换为一键单体坦克循环。</value>
+  </data>
+  <data name="BLU_ST_Tank_Devour_Desc" xml:space="preserve">
+    <value>添加“捕食”。</value>
+  </data>
+  <data name="BLU_ST_Tank_Devour_Name" xml:space="preserve">
+    <value>捕食</value>
+  </data>
+  <data name="BLU_ST_Tank_DragonForce_Desc" xml:space="preserve">
+    <value>添加“龙之力”，用于死刑与全屏AOE。</value>
+  </data>
+  <data name="BLU_ST_Tank_DragonForce_Name" xml:space="preserve">
+    <value>龙之力</value>
+  </data>
+  <data name="BLU_ST_Tank_FlyingSardine_Desc" xml:space="preserve">
+    <value>添加“投掷沙丁鱼”。</value>
+  </data>
+  <data name="BLU_ST_Tank_FlyingSardine_Name" xml:space="preserve">
+    <value>投掷沙丁鱼</value>
+  </data>
+  <data name="BLU_ST_Tank_FrogLegs_Desc" xml:space="preserve">
+    <value>添加“蛙腿”。</value>
+  </data>
+  <data name="BLU_ST_Tank_FrogLegs_Name" xml:space="preserve">
+    <value>蛙腿</value>
+  </data>
+  <data name="BLU_ST_Tank_Lucid_Desc" xml:space="preserve">
+    <value>添加“醒梦”。</value>
+  </data>
+  <data name="BLU_ST_Tank_Lucid_Name" xml:space="preserve">
+    <value>醒梦</value>
+  </data>
+  <data name="BLU_ST_Tank_MightyGuard_Desc" xml:space="preserve">
+    <value>添加“强力守护”。</value>
+  </data>
+  <data name="BLU_ST_Tank_MightyGuard_Name" xml:space="preserve">
+    <value>强力守护</value>
+  </data>
+  <data name="BLU_ST_Tank_Name" xml:space="preserve">
+    <value>坦克模式 - 单目标</value>
+  </data>
+  <data name="BLU_ST_Tank_Offguard_Desc" xml:space="preserve">
+    <value>添加“破防”。</value>
+  </data>
+  <data name="BLU_ST_Tank_Offguard_Name" xml:space="preserve">
+    <value>破防</value>
+  </data>
+  <data name="BLU_ST_Tank_Primals_Desc" xml:space="preserve">
+    <value>冷却完成时添加已装备的蛮神技能。</value>
+  </data>
+  <data name="BLU_ST_Tank_Primals_Name" xml:space="preserve">
+    <value>蛮神</value>
+  </data>
+  <data name="BLU_ST_Tank_SongOfTorment_Desc" xml:space="preserve">
+    <value>添加“苦闷之歌”。</value>
+  </data>
+  <data name="BLU_ST_Tank_SongOfTorment_Name" xml:space="preserve">
+    <value>苦闷之歌</value>
+  </data>
+  <data name="BLU_ST_Tank_StickyTongue_Desc" xml:space="preserve">
+    <value>添加“滑舌”。</value>
+  </data>
+  <data name="BLU_ST_Tank_StickyTongue_Name" xml:space="preserve">
+    <value>滑舌</value>
+  </data>
+  <data name="BST_Basic_Combo_Desc" xml:space="preserve">
+    <value>将“碎咬斧”替换为基础连击。</value>
+  </data>
+  <data name="BST_Basic_Combo_Name" xml:space="preserve">
+    <value>基础连击</value>
+  </data>
+  <data name="BST_Battlehorn_Lockout_Desc" xml:space="preserve">
+    <value>在战斗中且魔兽在场时，锁定兽笛。适合在迷宫中频繁更换魔兽、又不希望号角进入冷却的情况。</value>
+  </data>
+  <data name="BST_Battlehorn_Lockout_Name" xml:space="preserve">
+    <value>兽笛锁定</value>
+  </data>
+  <data name="BST_Borrow_Feature_Desc" xml:space="preserve">
+    <value>将“借用”替换为当前魔兽的借用技能。紧急更换借用技能可能更麻烦，请谨慎使用。</value>
+  </data>
+  <data name="BST_Borrow_Feature_Name" xml:space="preserve">
+    <value>借用</value>
+  </data>
+  <data name="BST_Capture_Helper_Desc" xml:space="preserve">
+    <value>当前目标不是可捕捉魔兽，或你已经解锁该魔兽时，锁定“捕捉”。免责声明：可能并不完美，检测方法仅为推测。</value>
+  </data>
+  <data name="BST_Capture_Helper_Name" xml:space="preserve">
+    <value>捕获辅助</value>
+  </data>
+  <data name="BST_Instinctual_Combo_Desc" xml:space="preserve">
+    <value>当“大招”就绪时，将“山崩斧”“寒风斧”“回旋斧”和“风啸斧”替换为“大招”。若大招属性不符或尚未准备好完成本能连击，则锁定这些技能。技能顺序优先叠到 2 层御兽之心和 1 层兽灵之心。</value>
+  </data>
+  <data name="BST_Instinctual_Combo_Name" xml:space="preserve">
+    <value>本能技</value>
+  </data>
+  <data name="BST_Intentional_Combo_Desc" xml:space="preserve">
+    <value>将“大招”替换为正确的本能技能以完成兽心技。技能顺序优先叠到 2 层御兽之心和 1 层兽灵之心。</value>
+  </data>
+  <data name="BST_Intentional_Combo_Name" xml:space="preserve">
+    <value>兽心技</value>
+  </data>
+  <data name="BST_SimpleMode_Desc" xml:space="preserve">
+    <value>将“碎击斩”替换为一键循环。适合该职业的新手。</value>
+  </data>
+  <data name="BST_SimpleMode_Name" xml:space="preserve">
+    <value>简单模式</value>
+  </data>
+  <data name="DRK_Retarget_Unmend_Desc" xml:space="preserve">
+    <value>会根据下方设置重定向“伤残”。</value>
+  </data>
+  <data name="DRK_Retarget_Unmend_Name" xml:space="preserve">
+    <value>伤残重定向功能</value>
+  </data>
+  <data name="EO_OrthosPotion_Desc" xml:space="preserve">
+    <value>将正统恢复药加入一键循环</value>
+  </data>
+  <data name="EO_OrthosPotion_Name" xml:space="preserve">
+    <value>正统优雷卡 - 正统恢复药</value>
+  </data>
+  <data name="GNB_RetargetLightningShot_Desc" xml:space="preserve">
+    <value>会根据下方设置重定向“闪雷弹”。</value>
+  </data>
+  <data name="GNB_RetargetLightningShot_Name" xml:space="preserve">
+    <value>闪雷弹重定向功能</value>
+  </data>
+  <data name="HoH_EmpyreanPotion_Desc" xml:space="preserve">
+    <value>将天之灵药加入一键循环</value>
+  </data>
+  <data name="HoH_EmpyreanPotion_Name" xml:space="preserve">
+    <value>天之御柱 - 天之灵药</value>
+  </data>
+  <data name="MCH_ST_Opener_BlockEarly_Desc" xml:space="preserve">
+    <value>非战斗时会换成“蛮勇”以等待倒数出现。
+主要用于在起手等待的倒数出现前先选中 Boss。
+仅建议在连续开怪时临时开启，不适合一直开着。</value>
+  </data>
+  <data name="MCH_ST_Opener_BlockEarly_Name" xml:space="preserve">
+    <value>等待倒数选项</value>
+  </data>
+  <data name="NIN_Anti_Rabbit_Desc" xml:space="preserve">
+    <value>极大降低忍术打出兔子的概率。延迟较高时可能导致卡GCD。</value>
+  </data>
+  <data name="NIN_Anti_Rabbit_Name" xml:space="preserve">
+    <value>防兔子选项</value>
+  </data>
+  <data name="PT_PilgrimsPotion_Desc" xml:space="preserve">
+    <value>将巡礼药加入一键循环</value>
+  </data>
+  <data name="PT_PilgrimsPotion_Name" xml:space="preserve">
+    <value>巡礼之路 - 巡礼药</value>
+  </data>
+  <data name="Phantom_BlackMage_Desc" xml:space="preserve">
+    <value>启用后，将辅助黑魔法师专用技能加入循环。</value>
+  </data>
+  <data name="Phantom_BlackMage_Name" xml:space="preserve">
+    <value>辅助黑魔法师技能</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultBlizzardIII_Desc" xml:space="preserve">
+    <value>将“魔冰封”加入循环（优先冰属性弱点）。</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultBlizzardIII_Name" xml:space="preserve">
+    <value>魔冰封</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultFireIII_Desc" xml:space="preserve">
+    <value>将“魔爆炎”加入循环（优先火属性弱点）。</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultFireIII_Name" xml:space="preserve">
+    <value>魔爆炎</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultFlare_Desc" xml:space="preserve">
+    <value>将“魔核爆”加入循环。</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultFlare_Name" xml:space="preserve">
+    <value>魔核爆</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultThunderIII_Desc" xml:space="preserve">
+    <value>将“魔暴雷”加入循环（优先雷属性弱点）。</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultThunderIII_Name" xml:space="preserve">
+    <value>魔暴雷</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultToad_Desc" xml:space="preserve">
+    <value>将“魔蛙变”加入循环（可选仅作为 AoE / 全屏AOE 减伤）。</value>
+  </data>
+  <data name="Phantom_BlackMage_OccultToad_Name" xml:space="preserve">
+    <value>魔蛙变</value>
+  </data>
+  <data name="Phantom_BlueMage_Desc" xml:space="preserve">
+    <value>启用后，将辅助青魔法师专用技能加入循环。</value>
+  </data>
+  <data name="Phantom_BlueMage_Name" xml:space="preserve">
+    <value>辅助青魔法师技能</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultAeroIII_Desc" xml:space="preserve">
+    <value>将“魔暴风”加入循环。</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultAeroIII_Name" xml:space="preserve">
+    <value>魔暴风</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultAeroII_Desc" xml:space="preserve">
+    <value>将“魔烈风”加入循环。</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultAeroII_Name" xml:space="preserve">
+    <value>魔烈风</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultAero_Desc" xml:space="preserve">
+    <value>将当前可用的最高级“魔疾风”加入循环。同一时间只能生效一个疾风技能。</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultAero_Name" xml:space="preserve">
+    <value>魔疾风</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultAquaBreath_Desc" xml:space="preserve">
+    <value>将“魔水流吐息”加入循环。</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultAquaBreath_Name" xml:space="preserve">
+    <value>魔水流吐息</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultMightyGuard_Desc" xml:space="preserve">
+    <value>将“魔强力守护”加入循环。</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultMightyGuard_Name" xml:space="preserve">
+    <value>魔强力守护</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultMissile_Desc" xml:space="preserve">
+    <value>将“魔导弹”加入循环。</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultMissile_Name" xml:space="preserve">
+    <value>魔导弹</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultWhiteWind_Desc" xml:space="preserve">
+    <value>将“魔白风”加入循环。</value>
+  </data>
+  <data name="Phantom_BlueMage_OccultWhiteWind_Name" xml:space="preserve">
+    <value>魔白风</value>
+  </data>
+  <data name="Phantom_Dancer_SteadfastStance_Desc" xml:space="preserve">
+    <value>将“坚定之姿”加入循环（护盾）。</value>
+  </data>
+  <data name="Phantom_Dancer_SteadfastStance_Name" xml:space="preserve">
+    <value>坚定之姿</value>
+  </data>
+  <data name="Phantom_Dragoon_Desc" xml:space="preserve">
+    <value>启用后，将辅助龙骑士专用技能加入循环。</value>
+  </data>
+  <data name="Phantom_Dragoon_Lance_Desc" xml:space="preserve">
+    <value>将“贯穿”加入循环。</value>
+  </data>
+  <data name="Phantom_Dragoon_Lance_Name" xml:space="preserve">
+    <value>贯穿</value>
+  </data>
+  <data name="Phantom_Dragoon_Name" xml:space="preserve">
+    <value>辅助龙骑士技能</value>
+  </data>
+  <data name="Phantom_Dragoon_OccultJump_Desc" xml:space="preserve">
+    <value>将“魔跳跃”加入循环。</value>
+  </data>
+  <data name="Phantom_Dragoon_OccultJump_Name" xml:space="preserve">
+    <value>魔跳跃</value>
+  </data>
+  <data name="Phantom_Necromancer_ChaosDrive_Desc" xml:space="preserve">
+    <value>将“混沌驱动”加入循环（优先雷属性弱点）。</value>
+  </data>
+  <data name="Phantom_Necromancer_ChaosDrive_Name" xml:space="preserve">
+    <value>混沌驱动</value>
+  </data>
+  <data name="Phantom_Necromancer_DeepFreeze_Desc" xml:space="preserve">
+    <value>将“深度冻结”加入循环（优先冰属性弱点）。</value>
+  </data>
+  <data name="Phantom_Necromancer_DeepFreeze_Name" xml:space="preserve">
+    <value>深度冻结</value>
+  </data>
+  <data name="Phantom_Necromancer_Desc" xml:space="preserve">
+    <value>启用后，将辅助死灵法师专用技能加入循环。</value>
+  </data>
+  <data name="Phantom_Necromancer_Doomsday_Desc" xml:space="preserve">
+    <value>将“末日”加入循环。</value>
+  </data>
+  <data name="Phantom_Necromancer_Doomsday_Name" xml:space="preserve">
+    <value>末日</value>
+  </data>
+  <data name="Phantom_Necromancer_DrainTouch_Desc" xml:space="preserve">
+    <value>将“吸取之触”加入循环（输出、治疗或紧急模式）。</value>
+  </data>
+  <data name="Phantom_Necromancer_DrainTouch_Name" xml:space="preserve">
+    <value>吸取之触</value>
+  </data>
+  <data name="Phantom_Necromancer_HellWind_Desc" xml:space="preserve">
+    <value>将“地狱之风”加入循环（优先风属性弱点）。</value>
+  </data>
+  <data name="Phantom_Necromancer_HellWind_Name" xml:space="preserve">
+    <value>地狱之风</value>
+  </data>
+  <data name="Phantom_Necromancer_Name" xml:space="preserve">
+    <value>辅助死灵法师技能</value>
+  </data>
+  <data name="Phantom_Ninja_Desc" xml:space="preserve">
+    <value>启用后，将辅助忍者专用技能加入循环。</value>
+  </data>
+  <data name="Phantom_Ninja_FlameScroll_Desc" xml:space="preserve">
+    <value>目标带有火属性弱点时，将“炎之卷”加入循环。</value>
+  </data>
+  <data name="Phantom_Ninja_FlameScroll_Name" xml:space="preserve">
+    <value>炎之卷</value>
+  </data>
+  <data name="Phantom_Ninja_FumaShuriken_Desc" xml:space="preserve">
+    <value>将“风魔手里剑”加入循环。</value>
+  </data>
+  <data name="Phantom_Ninja_FumaShuriken_Name" xml:space="preserve">
+    <value>风魔手里剑</value>
+  </data>
+  <data name="Phantom_Ninja_Image_Desc" xml:space="preserve">
+    <value>将“分身”加入循环。</value>
+  </data>
+  <data name="Phantom_Ninja_Image_Name" xml:space="preserve">
+    <value>分身</value>
+  </data>
+  <data name="Phantom_Ninja_LightningScroll_Desc" xml:space="preserve">
+    <value>目标带有雷属性弱点时，将“雷之卷”加入循环。</value>
+  </data>
+  <data name="Phantom_Ninja_LightningScroll_Name" xml:space="preserve">
+    <value>雷之卷</value>
+  </data>
+  <data name="Phantom_Ninja_Name" xml:space="preserve">
+    <value>辅助忍者技能</value>
+  </data>
+  <data name="Phantom_Ninja_Smoke_Desc" xml:space="preserve">
+    <value>将“烟雾”加入循环。</value>
+  </data>
+  <data name="Phantom_Ninja_Smoke_Name" xml:space="preserve">
+    <value>烟雾</value>
+  </data>
+  <data name="Phantom_Oracle_Invulnerability_Desc" xml:space="preserve">
+    <value>将“无敌”加入循环（可选保留给陨石）。</value>
+  </data>
+  <data name="Phantom_Oracle_Invulnerability_Name" xml:space="preserve">
+    <value>无敌</value>
+  </data>
+  <data name="Phantom_Oracle_PhantomDoom_Desc" xml:space="preserve">
+    <value>将“幻影死亡宣告”加入循环。</value>
+  </data>
+  <data name="Phantom_Oracle_PhantomDoom_Name" xml:space="preserve">
+    <value>幻影死亡宣告</value>
+  </data>
+  <data name="Phantom_Oracle_PhantomRejuvenation_Desc" xml:space="preserve">
+    <value>将“幻影再生”加入循环。</value>
+  </data>
+  <data name="Phantom_Oracle_PhantomRejuvenation_Name" xml:space="preserve">
+    <value>幻影再生</value>
+  </data>
+  <data name="Phantom_Oracle_Recuperation_Desc" xml:space="preserve">
+    <value>当你有可驱散的死亡宣告时，将“康复”加入循环。</value>
+  </data>
+  <data name="Phantom_Oracle_Recuperation_Name" xml:space="preserve">
+    <value>康复</value>
+  </data>
+  <data name="Phantom_RedMage_Desc" xml:space="preserve">
+    <value>启用后，将辅助赤魔法师专用技能加入循环。</value>
+  </data>
+  <data name="Phantom_RedMage_Name" xml:space="preserve">
+    <value>辅助赤魔法师技能</value>
+  </data>
+  <data name="Phantom_RedMage_OccultBlizzardII_Desc" xml:space="preserve">
+    <value>将“魔冰冻”加入循环（优先冰属性弱点）。</value>
+  </data>
+  <data name="Phantom_RedMage_OccultBlizzardII_Name" xml:space="preserve">
+    <value>魔冰冻</value>
+  </data>
+  <data name="Phantom_RedMage_OccultCureII_Desc" xml:space="preserve">
+    <value>将“魔救疗”加入循环。</value>
+  </data>
+  <data name="Phantom_RedMage_OccultCureII_Name" xml:space="preserve">
+    <value>魔救疗</value>
+  </data>
+  <data name="Phantom_RedMage_OccultCureII_Retarget_Desc" xml:space="preserve">
+    <value>重定向“魔救疗”。当队伍中有人低于上方滑块时重定向。</value>
+  </data>
+  <data name="Phantom_RedMage_OccultCureII_Retarget_Name" xml:space="preserve">
+    <value>魔救疗重定向</value>
+  </data>
+  <data name="Phantom_RedMage_OccultFireII_Desc" xml:space="preserve">
+    <value>将“魔烈炎”加入循环（优先火属性弱点）。</value>
+  </data>
+  <data name="Phantom_RedMage_OccultFireII_Name" xml:space="preserve">
+    <value>魔烈炎</value>
+  </data>
+  <data name="Phantom_RedMage_OccultLibra_Desc" xml:space="preserve">
+    <value>将“魔侦测”加入循环。</value>
+  </data>
+  <data name="Phantom_RedMage_OccultLibra_Name" xml:space="preserve">
+    <value>魔侦测</value>
+  </data>
+  <data name="Phantom_RedMage_OccultLibra_Refresh_Desc" xml:space="preserve">
+    <value>在弱点消失前重新施加“魔侦测”，而不是等其完全结束后再补。</value>
+  </data>
+  <data name="Phantom_RedMage_OccultLibra_Refresh_Name" xml:space="preserve">
+    <value>提前刷新</value>
+  </data>
+  <data name="Phantom_RedMage_OccultThunderII_Desc" xml:space="preserve">
+    <value>将“魔震雷”加入循环（优先雷属性弱点）。</value>
+  </data>
+  <data name="Phantom_RedMage_OccultThunderII_Name" xml:space="preserve">
+    <value>魔震雷</value>
+  </data>
+  <data name="Phantom_Summoner_Desc" xml:space="preserve">
+    <value>启用后，将辅助召唤师专用技能加入循环。</value>
+  </data>
+  <data name="Phantom_Summoner_EarthenWall_Desc" xml:space="preserve">
+    <value>检测到全屏AOE来袭时使用“大地之墙”。</value>
+  </data>
+  <data name="Phantom_Summoner_EarthenWall_Name" xml:space="preserve">
+    <value>大地之墙</value>
+  </data>
+  <data name="Phantom_Summoner_Hellfire_Desc" xml:space="preserve">
+    <value>将“地狱之火炎”加入循环（优先火属性弱点）。</value>
+  </data>
+  <data name="Phantom_Summoner_Hellfire_Name" xml:space="preserve">
+    <value>地狱之火炎</value>
+  </data>
+  <data name="Phantom_Summoner_JudgmentBolt_Desc" xml:space="preserve">
+    <value>将“制裁之雷”加入循环（优先雷属性弱点）。</value>
+  </data>
+  <data name="Phantom_Summoner_JudgmentBolt_Name" xml:space="preserve">
+    <value>制裁之雷</value>
+  </data>
+  <data name="Phantom_Summoner_Megaflare_Desc" xml:space="preserve">
+    <value>将“百万核爆”加入循环。</value>
+  </data>
+  <data name="Phantom_Summoner_Megaflare_Name" xml:space="preserve">
+    <value>百万核爆</value>
+  </data>
+  <data name="Phantom_Summoner_Name" xml:space="preserve">
+    <value>辅助召唤师技能</value>
+  </data>
+  <data name="Phantom_Summoner_Thunderstorm_Desc" xml:space="preserve">
+    <value>将“雷暴”加入循环（优先风属性弱点）。</value>
+  </data>
+  <data name="Phantom_Summoner_Thunderstorm_Name" xml:space="preserve">
+    <value>雷暴</value>
+  </data>
+  <data name="Phantom_WhiteMage_Desc" xml:space="preserve">
+    <value>启用后，将辅助白魔法师专用技能加入循环。</value>
+  </data>
+  <data name="Phantom_WhiteMage_Name" xml:space="preserve">
+    <value>辅助白魔法师技能</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultBlink_Desc" xml:space="preserve">
+    <value>将“魔闪现”加入循环。</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultBlink_Name" xml:space="preserve">
+    <value>魔闪现</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultCureIII_Desc" xml:space="preserve">
+    <value>将“魔愈疗”加入循环。</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultCureIII_Name" xml:space="preserve">
+    <value>魔愈疗</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultCureII_Desc" xml:space="preserve">
+    <value>将“魔救疗”加入循环。</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultCureII_Name" xml:space="preserve">
+    <value>魔救疗</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultHoly_Desc" xml:space="preserve">
+    <value>将“魔神圣”加入循环。</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultHoly_Name" xml:space="preserve">
+    <value>魔神圣</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultRaise_Desc" xml:space="preserve">
+    <value>将“魔复活”加入循环，并重定向到复活目标栈。</value>
+  </data>
+  <data name="Phantom_WhiteMage_OccultRaise_Name" xml:space="preserve">
+    <value>魔复活</value>
+  </data>
+  <data name="PoTD_SustainingPotion_Desc" xml:space="preserve">
+    <value>将持续恢复药加入一键循环</value>
+  </data>
+  <data name="PoTD_SustainingPotion_Name" xml:space="preserve">
+    <value>死者宫殿 - 持续恢复药</value>
+  </data>
+  <data name="SGE_Raidwide_Desc" xml:space="preserve">
+    <value>一组工具，用于在检测到 Boss 全屏AOE时尝试施放技能。
+这对大多数但并非全部全屏AOE有效，也不能替代对机制的学习。</value>
+  </data>
+  <data name="SGE_Raidwide_EPrognosis_Desc" xml:space="preserve">
+    <value>当检测到 Boss 正在读条全屏AOE且均衡预后的护盾检查通过时，会尝试施放护盾。
+将用于4个主要连击中。</value>
+  </data>
+  <data name="SGE_Raidwide_EPrognosis_Name" xml:space="preserve">
+    <value>均衡预后选项</value>
+  </data>
+  <data name="SGE_Raidwide_Holos_Desc" xml:space="preserve">
+    <value>当检测到 Boss 正在读条全屏AOE时，会尝试施放“整体防御”。
+将用于4个主要连击中。</value>
+  </data>
+  <data name="SGE_Raidwide_Holos_Name" xml:space="preserve">
+    <value>整体防御选项</value>
+  </data>
+  <data name="SGE_Raidwide_Kerachole_Desc" xml:space="preserve">
+    <value>当检测到 Boss 正在读条全屏AOE时，会尝试施放“坚角清汁”。
+将用于4个主要连击中。</value>
+  </data>
+  <data name="SGE_Raidwide_Kerachole_Name" xml:space="preserve">
+    <value>坚角清汁选项</value>
+  </data>
+  <data name="SGE_Raidwide_Name" xml:space="preserve">
+    <value>Boss 全屏AOE选项</value>
+  </data>
+  <data name="WAR_RetargetTomahawk_Desc" xml:space="preserve">
+    <value>会根据下方设置重定向“飞斧”。</value>
+  </data>
+  <data name="WAR_RetargetTomahawk_Name" xml:space="preserve">
+    <value>飞斧重定向功能</value>
   </data>
 </root>

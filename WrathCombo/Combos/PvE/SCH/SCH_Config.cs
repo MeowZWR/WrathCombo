@@ -23,18 +23,18 @@ internal partial class SCH
                     DrawBossOnlyChoice(SCH_ST_DPS_OpenerContent);
                     DrawOpenerPotionChoice(SCH_Opener_Potion);
                     DrawOpenerPrepullBlockChoice(SCH_Opener_PrepullBlock);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
-                    DrawRadioButton(SCH_ST_DPS_OpenerOption, "Dissipation First", "Uses Dissipation first, then Aetherflow", 0, descriptionAsTooltip: true);
-                    DrawRadioButton(SCH_ST_DPS_OpenerOption, "Aetherflow First", "Uses Aetherflow first, then Dissipation", 1, descriptionAsTooltip: true);
+                    DrawRadioButton(SCH_ST_DPS_OpenerOption, SCH_Config.DissipationFirst, SCH_Config.DissipationFirstDesc, 0, descriptionAsTooltip: true);
+                    DrawRadioButton(SCH_ST_DPS_OpenerOption, SCH_Config.AetherflowFirst, SCH_Config.AetherflowFirstDesc, 1, descriptionAsTooltip: true);
                     break;
 
                 case Preset.SCH_ST_ADV_DPS:
-                    DrawHorizontalRadioButton(SCH_ST_DPS_Adv_Actions, "On Ruin/Broils", "Apply options to Ruin and all Broils.", 0,
+                    DrawHorizontalRadioButton(SCH_ST_DPS_Adv_Actions, SCH_Config.OnRuinBroils, SCH_Config.OnRuinBroilsDesc, 0,
                         descriptionColor: ImGuiColors.DalamudWhite);
-                    DrawHorizontalRadioButton(SCH_ST_DPS_Adv_Actions, "On Bio/Bio II/Biolysis", "Apply options to Bio and Biolysis.", 1,
+                    DrawHorizontalRadioButton(SCH_ST_DPS_Adv_Actions, SCH_Config.OnBio, SCH_Config.OnBioDesc, 1,
                         descriptionColor: ImGuiColors.DalamudWhite);
-                    DrawHorizontalRadioButton(SCH_ST_DPS_Adv_Actions, "On Broil II", "Apply options to Broil II.", 2,
+                    DrawHorizontalRadioButton(SCH_ST_DPS_Adv_Actions, SCH_Config.OnBroilII, SCH_Config.OnBroilIIDesc, 2,
                         descriptionColor: ImGuiColors.DalamudWhite);
                     break;
 
@@ -61,7 +61,7 @@ internal partial class SCH
                     ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
 
                     DrawHorizontalRadioButton(SCH_ST_DPS_ChainStratagemSubOption,
-                        Generics.NonBosses, "Only applies the HP check above to non-bosses.\nAllows you to only stop DoTing early when it's not a boss.", 0);
+                        Generics.NonBosses, SCH_Config.HpCheckNonBossesDot, 0);
 
                     DrawHorizontalRadioButton(SCH_ST_DPS_ChainStratagemSubOption,
                         Generics.AllEnemies, Generics.HPCheckAllEnemies, 1);
@@ -71,10 +71,10 @@ internal partial class SCH
                     break;
 
                 case Preset.SCH_ST_ADV_DPS_EnergyDrain:
-                    DrawSliderInt(0, 60, SCH_ST_DPS_EnergyDrain, "Aetherflow remaining cooldown");
+                    DrawSliderInt(0, 60, SCH_ST_DPS_EnergyDrain, SCH_Config.AetherflowRemainingCd);
 
                     DrawAdditionalBoolChoice(SCH_ST_DPS_EnergyDrain_Burst,
-                        "Energy Drain Burst", "Holds Energy Drain when Chain Stratagem is ready or has less than 10 seconds cooldown remaining.");
+                        SCH_Config.EnergyDrainBurst, SCH_Config.EnergyDrainBurstDesc);
                     break;
 
                 case Preset.SCH_AoE_ADV_DPS_Lucid:
@@ -83,7 +83,7 @@ internal partial class SCH
 
                 case Preset.SCH_AoE_ADV_DPS_ChainStrat:
                     DrawAdditionalBoolChoice(SCH_AoE_DPS_ChainStratagemBanefulOption,
-                        "Baneful Only", "Will only use Chain Strategem when high enough level to use Baneful Impaction");
+                        SCH_Config.BanefulOnly, SCH_Config.BanefulOnlyDesc);
 
                     DrawSliderInt(0, 100, SCH_AoE_DPS_ChainStratagemOption, Generics.StopEnemyHpPercent);
 
@@ -92,7 +92,7 @@ internal partial class SCH
                     ImGui.TextColored(ImGuiColors.DalamudYellow, Generics.EnemyTypeCheck);
 
                     DrawHorizontalRadioButton(SCH_AoE_DPS_ChainStratagemSubOption,
-                        Generics.NonBosses, "Only applies the HP check above to non-bosses.\nAllows you to only stop DoTing early when it's not a boss.", 0);
+                        Generics.NonBosses, SCH_Config.HpCheckNonBossesDot, 0);
 
                     DrawHorizontalRadioButton(SCH_AoE_DPS_ChainStratagemSubOption,
                         Generics.AllEnemies, Generics.HPCheckAllEnemies, 1);
@@ -102,14 +102,14 @@ internal partial class SCH
                     break;
 
                 case Preset.SCH_AoE_ADV_DPS_EnergyDrain:
-                    DrawSliderInt(0, 60, SCH_AoE_DPS_EnergyDrain, "Aetherflow remaining cooldown");
+                    DrawSliderInt(0, 60, SCH_AoE_DPS_EnergyDrain, SCH_Config.AetherflowRemainingCd);
 
                     DrawAdditionalBoolChoice(SCH_AoE_DPS_EnergyDrain_Burst,
-                        "Energy Drain Burst", "Holds Energy Drain when Chain Stratagem is ready or has less than 10 seconds cooldown remaining.");
+                        SCH_Config.EnergyDrainBurst, SCH_Config.EnergyDrainBurstDesc);
                     break;
 
                 case Preset.SCH_AoE_ADV_DPS_DoT:
-                    DrawSliderInt(0, 100, SCH_AoE_ADV_DPS_DoT_HPThreshold, "Target HP% to stop using (0 = Use Always, 100 = Never)");
+                    DrawSliderInt(0, 100, SCH_AoE_ADV_DPS_DoT_HPThreshold, SCH_Config.StopUsingTargetHpAlwaysNever);
                     ImGui.Indent();
                     DrawRoundedSliderFloat(0, 5, SCH_AoE_ADV_DPS_DoT_Reapply, Generics.StopSeconds, digits: 1);
                     ImGui.Unindent();
@@ -121,7 +121,7 @@ internal partial class SCH
                 case Preset.SCH_ST_Heal:
 
                     ImGui.Indent();
-                    DrawAdditionalBoolChoice(SCH_ST_Heal_IncludeShields, "Advanced Option: Include Shields in HP Percent Sliders", "");
+                    DrawAdditionalBoolChoice(SCH_ST_Heal_IncludeShields, SCH_Config.IncludeShieldsAdvanced, "");
                     ImGui.Unindent();
 
                     break;
@@ -151,8 +151,8 @@ internal partial class SCH
 
                 case Preset.SCH_ST_Heal_Aetherpact:
                     DrawSliderInt(0, 100, SCH_ST_Heal_AetherpactOption, Generics.StopFriendlyHpPercent100);
-                    DrawSliderInt(0, 100, SCH_ST_Heal_AetherpactDissolveOption, "Stop using when above HP %.");
-                    DrawSliderInt(10, 100, SCH_ST_Heal_AetherpactFairyGauge, "Minimal Fairy Gauge to start using Aetherpact", sliderIncrement: Tens);
+                    DrawSliderInt(0, 100, SCH_ST_Heal_AetherpactDissolveOption, SCH_Config.StopUsingAboveHp);
+                    DrawSliderInt(10, 100, SCH_ST_Heal_AetherpactFairyGauge, SCH_Config.MinFairyGaugeAetherpact, sliderIncrement: Tens);
                     DrawPriorityInput(SCH_ST_Heals_Priority, 12, 3, FormatAndCache(Generics.Action_Priority, Aetherpact.ActionName()));
                     break;
 
@@ -208,12 +208,12 @@ internal partial class SCH
                         FormatAndCache(Generics.Job0ShieldCheck, Job.SGE.Name()),
                         FormatAndCache(Generics.Job0ShieldCheckDesc, Job.SGE.Name()), 3, 1
                     );
-                    DrawHorizontalMultiChoice(SCH_ST_Heal_AldoquimOpts, "Emergency Tactics", "Will use Emergency tactics before Adloquim when below set threshold", 3, 2);
+                    DrawHorizontalMultiChoice(SCH_ST_Heal_AldoquimOpts, EmergencyTactics.ActionName(), SCH_Config.EmergencyTacticsDesc, 3, 2);
 
                     if (SCH_ST_Heal_AldoquimOpts[2])
                     {
                         ImGui.Indent();
-                        DrawSliderInt(0, 100, SCH_ST_Heal_AdloquiumOption_Emergency, "Start using Emergency Tactics when below HP %.");
+                        DrawSliderInt(0, 100, SCH_ST_Heal_AdloquiumOption_Emergency, SCH_Config.StartEmergencyTacticsBelowHp);
                         ImGui.Unindent();
                     }
 
@@ -232,12 +232,12 @@ internal partial class SCH
                     break;
 
                 case Preset.SCH_AoE_Heal:
-                    ImGui.TextUnformatted("Note: Succor will always be available.");
-                    ImGui.TextUnformatted("These options are to provide optional priority to Succor or to set up Emergency tactics option.");
-                    DrawSliderInt(0, 100, SCH_AoE_Heal_SuccorShieldOption, "Shield Check: Will use when less than set percentage of party have shields.", sliderIncrement: 25);
+                    ImGui.TextUnformatted(SCH_Config.SuccorAlwaysAvailable);
+                    ImGui.TextUnformatted(SCH_Config.SuccorPriorityNote);
+                    DrawSliderInt(0, 100, SCH_AoE_Heal_SuccorShieldOption, SCH_Config.ShieldCheckPartyPercent, sliderIncrement: 25);
                     DrawPriorityInput(SCH_AoE_Heals_Priority, 8, 7, FormatAndCache(Generics.Action_Priority, Succor.ActionName()));
-                    DrawHorizontalMultiChoice(SCH_AoE_Heal_Succor_Options, EmergencyTactics.ActionName(), "If more than the set percentage of the party has shields, will use Emergency Tactics before Succor", 2, 0);
-                    DrawHorizontalMultiChoice(SCH_AoE_Heal_Succor_Options, Recitation.ActionName(), "Will use Recitation to buff Succor", 2, 1);
+                    DrawHorizontalMultiChoice(SCH_AoE_Heal_Succor_Options, EmergencyTactics.ActionName(), SCH_Config.EmergencyTacticsBeforeSuccor, 2, 0);
+                    DrawHorizontalMultiChoice(SCH_AoE_Heal_Succor_Options, Recitation.ActionName(), SCH_Config.RecitationBuffSuccor, 2, 1);
                     break;
 
                 case Preset.SCH_AoE_Heal_WhisperingDawn:
@@ -272,18 +272,18 @@ internal partial class SCH
 
                 case Preset.SCH_AoE_Heal_Indomitability:
                     DrawSliderInt(0, 100, SCH_AoE_Heal_IndomitabilityOption, Generics.StartUsingWhenBelowPartyAverageHPSetTo100ToDisableThisCheck);
-                    DrawAdditionalBoolChoice(SCH_AoE_Heal_Indomitability_Recitation, "Recitation Option", "Will use Recitation to buff Indomitability.");
+                    DrawAdditionalBoolChoice(SCH_AoE_Heal_Indomitability_Recitation, FormatAndCache(Generics._0Option, Recitation.ActionName()), SCH_Config.RecitationBuffIndomitability);
                     DrawPriorityInput(SCH_AoE_Heals_Priority, 8, 5, FormatAndCache(Generics.Action_Priority, Indomitability.ActionName()));
                     break;
 
                 case Preset.SCH_AoE_Heal_Aetherflow:
                     DrawAdditionalBoolChoice(SCH_AoE_Heal_Aetherflow_Indomitability,
-                        "Indomitability Ready Only Option", "Only uses Aetherflow if Indomitability is ready to use.");
+                        SCH_Config.ReadyOnlyOption, FormatAndCache(SCH_Config.ReadyOnlyDesc, Aetherflow.ActionName()));
                     break;
 
                 case Preset.SCH_AoE_Heal_Dissipation:
                     DrawAdditionalBoolChoice(SCH_AoE_Heal_Dissipation_Indomitability,
-                        "Indomitability Ready Only Option", "Only uses Dissipation if Indomitability is ready to use.");
+                        SCH_Config.ReadyOnlyOption, FormatAndCache(SCH_Config.ReadyOnlyDesc, Dissipation.ActionName()));
                     break;
 
                 #endregion
@@ -295,28 +295,28 @@ internal partial class SCH
                     break;
                     
                 case Preset.SCH_Aetherflow:
-                    DrawRadioButton(SCH_Aetherflow_Display, "Show Aetherflow On Energy Drain Only", "", 0);
-                    DrawRadioButton(SCH_Aetherflow_Display, "Show Aetherflow On All Aetherflow Skills", "", 1);
+                    DrawRadioButton(SCH_Aetherflow_Display, SCH_Config.ShowAetherflowEnergyDrainOnly, "", 0);
+                    DrawRadioButton(SCH_Aetherflow_Display, SCH_Config.ShowAetherflowAllSkills, "", 1);
                     break;
 
                 case Preset.SCH_Aetherflow_Recite:
-                    DrawAdditionalBoolChoice(SCH_Aetherflow_Recite_Excog, "On Excogitation", "", isConditionalChoice: true);
+                    DrawAdditionalBoolChoice(SCH_Aetherflow_Recite_Excog, FormatAndCache(Generics.On0, Excogitation.ActionName()), "", isConditionalChoice: true);
                     if (SCH_Aetherflow_Recite_Excog)
                     {
                         ImGui.Indent();
                         ImGui.Spacing();
-                        DrawRadioButton(SCH_Aetherflow_Recite_ExcogMode, "Only when out of Aetherflow Stacks", "", 0);
-                        DrawRadioButton(SCH_Aetherflow_Recite_ExcogMode, "Always when available", "", 1);
+                        DrawRadioButton(SCH_Aetherflow_Recite_ExcogMode, SCH_Config.OutOfAetherflowStacks, "", 0);
+                        DrawRadioButton(SCH_Aetherflow_Recite_ExcogMode, SCH_Config.AlwaysWhenAvailable, "", 1);
                         ImGui.Unindent();
                     }
 
-                    DrawAdditionalBoolChoice(SCH_Aetherflow_Recite_Indom, "On Indominability", "", isConditionalChoice: true);
+                    DrawAdditionalBoolChoice(SCH_Aetherflow_Recite_Indom, FormatAndCache(Generics.On0, Indomitability.ActionName()), "", isConditionalChoice: true);
                     if (SCH_Aetherflow_Recite_Indom)
                     {
                         ImGui.Indent();
                         ImGui.Spacing();
-                        DrawRadioButton(SCH_Aetherflow_Recite_IndomMode, "Only when out of Aetherflow Stacks", "", 0);
-                        DrawRadioButton(SCH_Aetherflow_Recite_IndomMode, "Always when available", "", 1);
+                        DrawRadioButton(SCH_Aetherflow_Recite_IndomMode, SCH_Config.OutOfAetherflowStacks, "", 0);
+                        DrawRadioButton(SCH_Aetherflow_Recite_IndomMode, SCH_Config.AlwaysWhenAvailable, "", 1);
                         ImGui.Unindent();
                     }
                     break;
@@ -329,26 +329,25 @@ internal partial class SCH
                     break;
 
                 case Preset.SCH_Raidwide_Succor:
-                    DrawAdditionalBoolChoice(SCH_Raidwide_Succor_Recitation, "Recitation Option", "Use Recitation to buff before the Raidwide Succor.");
+                    DrawAdditionalBoolChoice(SCH_Raidwide_Succor_Recitation, FormatAndCache(Generics._0Option, Recitation.ActionName()), SCH_Config.RecitationRaidwideSuccor);
                     break;
 
                 case Preset.SCH_Retarget_SacredSoil:
-                    DrawHorizontalMultiChoice(SCH_Retarget_SacredSoilOptions, Generics.EnemyHardTarget, "Will place under hard target if it is an Enemy.", 2, 0);
-                    DrawHorizontalMultiChoice(SCH_Retarget_SacredSoilOptions, Generics.AllyHardTarget, "Will place under hard target if it is an Ally.", 2, 1);
+                    DrawHorizontalMultiChoice(SCH_Retarget_SacredSoilOptions, Generics.EnemyHardTarget, SCH_Config.PlaceUnderEnemyHardTarget, 2, 0);
+                    DrawHorizontalMultiChoice(SCH_Retarget_SacredSoilOptions, Generics.AllyHardTarget, SCH_Config.PlaceUnderAllyHardTarget, 2, 1);
                     break;
 
                 case Preset.SCH_Mit_ST:
-                    DrawHorizontalMultiChoice(SCH_Mit_STOptions, Recitation.ActionName(), "Will Recitation before Adloquium if available.", 3, 0);
-                    DrawHorizontalMultiChoice(SCH_Mit_STOptions, DeploymentTactics.ActionName(), "Will spread Adloquium crit shield if available.", 3, 1);
-                    DrawHorizontalMultiChoice(SCH_Mit_STOptions, Excogitation.ActionName(), "Will use Excogitation if available.", 3, 2);
+                    DrawHorizontalMultiChoice(SCH_Mit_STOptions, Recitation.ActionName(), SCH_Config.RecitationBeforeAdlo, 3, 0);
+                    DrawHorizontalMultiChoice(SCH_Mit_STOptions, DeploymentTactics.ActionName(), SCH_Config.SpreadAdloCritShield, 3, 1);
+                    DrawHorizontalMultiChoice(SCH_Mit_STOptions, Excogitation.ActionName(), FormatAndCache(SCH_Config.UseIfAvailable, Excogitation.ActionName()), 3, 2);
                     break;
 
                 case Preset.SCH_Mit_AoE:
-                    DrawHorizontalMultiChoice(SCH_Mit_AoEOptions, FeyIllumination.ActionName(), "Will activate Fey Illumination before Succor", 4, 0);
-                    DrawHorizontalMultiChoice(SCH_Mit_AoEOptions, "Crit Adloquium Deployment", "Will Recitation into Adloquium and Deployment tactics in place of Succor" +
-                        "\nThis will be targeted at yourself for simplicity and reliability.", 4, 1);
-                    DrawHorizontalMultiChoice(SCH_Mit_AoEOptions, Expedient.ActionName(), "Will use Expedient if available.", 4, 2);
-                    DrawHorizontalMultiChoice(SCH_Mit_AoEOptions, "Summon Seraph Consolation", "Will summon Seraph if available and use Consolation for more shield.", 4, 3);
+                    DrawHorizontalMultiChoice(SCH_Mit_AoEOptions, FeyIllumination.ActionName(), SCH_Config.FeyIlluminationBeforeSuccor, 4, 0);
+                    DrawHorizontalMultiChoice(SCH_Mit_AoEOptions, SCH_Config.CritAdloDeployment, SCH_Config.CritAdloDeploymentDesc, 4, 1);
+                    DrawHorizontalMultiChoice(SCH_Mit_AoEOptions, Expedient.ActionName(), FormatAndCache(SCH_Config.UseIfAvailable, Expedient.ActionName()), 4, 2);
+                    DrawHorizontalMultiChoice(SCH_Mit_AoEOptions, SCH_Config.SummonSeraphConsolation, SCH_Config.SummonSeraphConsolationDesc, 4, 3);
                     break;
 
                     #endregion

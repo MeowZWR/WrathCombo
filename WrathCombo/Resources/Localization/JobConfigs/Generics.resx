@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -637,5 +637,364 @@ NOTE: This could possibly get you killed</value>
   </data>
   <data name="_0Option" xml:space="preserve">
     <value>{0} Option</value>
+  </data>
+  <data name="AdditionalOptionsCondition" xml:space="preserve">
+    <value>
+Condition: {0}</value>
+  </data>
+  <data name="AdditionalOptionsTooltip" xml:space="preserve">
+    <value>This setting has additional options depending on its value.</value>
+  </data>
+  <data name="AddToTheStack" xml:space="preserve">
+    <value>Add to the Stack:</value>
+  </data>
+  <data name="CasualContent" xml:space="preserve">
+    <value>Casual Content</value>
+  </data>
+  <data name="CustomStackDropdownHelp" xml:space="preserve">
+    <value>Click this dropdown to open the list of available Target options.
+Click any entry to add it to your Custom Stack, at the bottom.
+There is a Textbox that says 'Filter...' at the top, type into this to search the list.</value>
+  </data>
+  <data name="EasiestContent" xml:space="preserve">
+    <value>Easiest Content</value>
+  </data>
+  <data name="HardContent" xml:space="preserve">
+    <value>'Hard' Content</value>
+  </data>
+  <data name="HardCoreContent" xml:space="preserve">
+    <value>HardCore Content</value>
+  </data>
+  <data name="HardestContent" xml:space="preserve">
+    <value>Hardest Content</value>
+  </data>
+  <data name="IncludePotion" xml:space="preserve">
+    <value>Include Potion?</value>
+  </data>
+  <data name="IncludePotionDesc" xml:space="preserve">
+    <value>Adds the strongest potion appropriate for your job to the opener.</value>
+  </data>
+  <data name="IncludePrepullBlocks" xml:space="preserve">
+    <value>Include Pre-pull Blocks?</value>
+  </data>
+  <data name="IncludePrepullBlocksDesc" xml:space="preserve">
+    <value>Adds Cease to the opener that will wait for correct countdown timings.</value>
+  </data>
+  <data name="MidCoreContent" xml:space="preserve">
+    <value>MidCore Content</value>
+  </data>
+  <data name="ResetAllPrioritiesToDefault" xml:space="preserve">
+    <value>Reset all priorities to Default</value>
+  </data>
+  <data name="ResetToDefault" xml:space="preserve">
+    <value>Reset to Default</value>
+  </data>
+  <data name="SelectATargetToAdd" xml:space="preserve">
+    <value>Select a Target to Add</value>
+  </data>
+  <data name="SelectDifficultyAppliesTo" xml:space="preserve">
+    <value>Select what difficulty the above should apply to:</value>
+  </data>
+  <data name="SmallerNumberHigherPriority" xml:space="preserve">
+    <value>Smaller Number = Higher Priority</value>
+  </data>
+  <data name="SoftCoreContent" xml:space="preserve">
+    <value>SoftCore Content</value>
+  </data>
+  <data name="Target_Self" xml:space="preserve">
+    <value>Self</value>
+  </data>
+  <data name="Target_HardTarget" xml:space="preserve">
+    <value>Hard Target</value>
+  </data>
+  <data name="Target_SoftTarget" xml:space="preserve">
+    <value>Soft Target</value>
+  </data>
+  <data name="Target_SoftTargetIfMissingHP" xml:space="preserve">
+    <value>Soft Target (If Missing HP)</value>
+  </data>
+  <data name="Target_FocusTarget" xml:space="preserve">
+    <value>Focus Target</value>
+  </data>
+  <data name="Target_FocusTargetIfMissingHP" xml:space="preserve">
+    <value>Focus Target (If Missing HP)</value>
+  </data>
+  <data name="Target_TargetsTarget" xml:space="preserve">
+    <value>Targets Target</value>
+  </data>
+  <data name="Target_UIMouseOverTarget" xml:space="preserve">
+    <value>UI-MouseOver Target</value>
+  </data>
+  <data name="Target_ModelMouseOverTarget" xml:space="preserve">
+    <value>Field-MouseOver Target</value>
+  </data>
+  <data name="Target_Chocobo" xml:space="preserve">
+    <value>Chocobo</value>
+  </data>
+  <data name="Target_AnyEnemy" xml:space="preserve">
+    <value>Any Enemy</value>
+  </data>
+  <data name="Target_NearestEnemyTarget" xml:space="preserve">
+    <value>Nearest Enemy Target</value>
+  </data>
+  <data name="Target_NearestEnemyOver5YalmsAway" xml:space="preserve">
+    <value>Nearest Enemy Over 5 Yalms Away</value>
+  </data>
+  <data name="Target_NearestEnemyOver5YalmsAwayNotTargetingPlayer" xml:space="preserve">
+    <value>Nearest Enemy Over 5 Yalms Away Not Targeting Player</value>
+  </data>
+  <data name="Target_FurthestEnemyOver5YalmsAway" xml:space="preserve">
+    <value>Furthest Enemy Over 5 Yalms Away</value>
+  </data>
+  <data name="Target_FurthestEnemyOver5YalmsAwayNotTargetingPlayer" xml:space="preserve">
+    <value>Furthest Enemy Over 5 Yalms Away Not Targeting Player</value>
+  </data>
+  <data name="Target_NearestEnemyToTarget" xml:space="preserve">
+    <value>Nearest Enemy To Target</value>
+  </data>
+  <data name="Target_LowestHPEnemy" xml:space="preserve">
+    <value>Lowest HP Enemy</value>
+  </data>
+  <data name="Target_LowestHPEnemyIfNotInvuln" xml:space="preserve">
+    <value>Lowest HP Enemy If Not Invuln</value>
+  </data>
+  <data name="Target_LowestHPPEnemy" xml:space="preserve">
+    <value>Lowest HP% Enemy</value>
+  </data>
+  <data name="Target_LowestHPPEnemyIfNotInvuln" xml:space="preserve">
+    <value>Lowest HP% Enemy If Not Invuln</value>
+  </data>
+  <data name="Target_InterruptableEnemy" xml:space="preserve">
+    <value>Interruptable Enemy</value>
+  </data>
+  <data name="Target_LastHardTarget" xml:space="preserve">
+    <value>Last Hard Target</value>
+  </data>
+  <data name="Target_LastHostileHardTarget" xml:space="preserve">
+    <value>Last Hostile Hard Target</value>
+  </data>
+  <data name="Target_MostRecentAttacker" xml:space="preserve">
+    <value>Most Recent Attacker</value>
+  </data>
+  <data name="Target_KardionTarget" xml:space="preserve">
+    <value>Kardion Target</value>
+  </data>
+  <data name="Target_AnyDeadPartyMember" xml:space="preserve">
+    <value>Any Dead Party Member</value>
+  </data>
+  <data name="Target_AnyDeadNonPartyMember" xml:space="preserve">
+    <value>Any Dead Non Party Member</value>
+  </data>
+  <data name="Target_AnyCleansableAlly" xml:space="preserve">
+    <value>Any Cleansable Ally</value>
+  </data>
+  <data name="Target_LowestHPAlly" xml:space="preserve">
+    <value>Lowest HP Ally</value>
+  </data>
+  <data name="Target_LowestHPAllyIfMissingHP" xml:space="preserve">
+    <value>Lowest HP Ally (If Missing HP)</value>
+  </data>
+  <data name="Target_LowestHPPAlly" xml:space="preserve">
+    <value>Lowest HP% Ally</value>
+  </data>
+  <data name="Target_LowestHPPAllyIfMissingHP" xml:space="preserve">
+    <value>Lowest HP% Ally (If Missing HP)</value>
+  </data>
+  <data name="Target_LowestHPAllyOutOfParty" xml:space="preserve">
+    <value>Lowest HP Ally Out Of Party</value>
+  </data>
+  <data name="Target_LowestHPAllyIfMissingHPOutOfParty" xml:space="preserve">
+    <value>Lowest HP Ally (If Missing HP) Out Of Party</value>
+  </data>
+  <data name="Target_LowestHPPAllyOutOfParty" xml:space="preserve">
+    <value>Lowest HP% Ally Out Of Party</value>
+  </data>
+  <data name="Target_LowestHPPAllyIfMissingHPOutOfParty" xml:space="preserve">
+    <value>Lowest HP% Ally (If Missing HP) Out Of Party</value>
+  </data>
+  <data name="Target_AnySupport" xml:space="preserve">
+    <value>Any Support</value>
+  </data>
+  <data name="Target_AnyLivingSupport" xml:space="preserve">
+    <value>Any Living Support</value>
+  </data>
+  <data name="Target_AnyDPS" xml:space="preserve">
+    <value>Any DPS</value>
+  </data>
+  <data name="Target_AnyTank" xml:space="preserve">
+    <value>Any Tank</value>
+  </data>
+  <data name="Target_AnyLivingTank" xml:space="preserve">
+    <value>Any Living Tank</value>
+  </data>
+  <data name="Target_AnyHealer" xml:space="preserve">
+    <value>Any Healer</value>
+  </data>
+  <data name="Target_AnyLivingHealer" xml:space="preserve">
+    <value>Any Living Healer</value>
+  </data>
+  <data name="Target_AnyRaiser" xml:space="preserve">
+    <value>Any Raiser</value>
+  </data>
+  <data name="Target_AnyRaiserDPS" xml:space="preserve">
+    <value>Any Raiser DPS</value>
+  </data>
+  <data name="Target_AnyMeleeDPS" xml:space="preserve">
+    <value>Any Melee DPS</value>
+  </data>
+  <data name="Target_AnyRangedDPS" xml:space="preserve">
+    <value>Any Ranged DPS</value>
+  </data>
+  <data name="Target_AnyPhysRangeDPS" xml:space="preserve">
+    <value>Any Phys Range DPS</value>
+  </data>
+  <data name="Target_AnyMagicalDPS" xml:space="preserve">
+    <value>Any Magical DPS</value>
+  </data>
+  <data name="Target_AnyDeadTankIfNoneAlive" xml:space="preserve">
+    <value>Any Dead Tank (If None Alive)</value>
+  </data>
+  <data name="Target_AnyDeadHealerIfNoneAlive" xml:space="preserve">
+    <value>Any Dead Healer (If None Alive)</value>
+  </data>
+  <data name="Target_AnyDeadRaiserIfNoneAlive" xml:space="preserve">
+    <value>Any Dead Raiser (If None Alive)</value>
+  </data>
+  <data name="Target_AnyDeadRaiserDPSIfNoneAlive" xml:space="preserve">
+    <value>Any Dead Raiser DPS (If None Alive)</value>
+  </data>
+  <data name="Target_AnyPureHealer" xml:space="preserve">
+    <value>Any Pure Healer</value>
+  </data>
+  <data name="Target_AnyShieldHealer" xml:space="preserve">
+    <value>Any Shield Healer</value>
+  </data>
+  <data name="Target_AnySelfishDPS" xml:space="preserve">
+    <value>Any Selfish DPS</value>
+  </data>
+  <data name="Target_PartyMember1" xml:space="preserve">
+    <value>Party Member 1</value>
+  </data>
+  <data name="Target_PartyMember2" xml:space="preserve">
+    <value>Party Member 2</value>
+  </data>
+  <data name="Target_PartyMember3" xml:space="preserve">
+    <value>Party Member 3</value>
+  </data>
+  <data name="Target_PartyMember4" xml:space="preserve">
+    <value>Party Member 4</value>
+  </data>
+  <data name="Target_PartyMember5" xml:space="preserve">
+    <value>Party Member 5</value>
+  </data>
+  <data name="Target_PartyMember6" xml:space="preserve">
+    <value>Party Member 6</value>
+  </data>
+  <data name="Target_PartyMember7" xml:space="preserve">
+    <value>Party Member 7</value>
+  </data>
+  <data name="Target_PartyMember8" xml:space="preserve">
+    <value>Party Member 8</value>
+  </data>
+  <data name="TargetRaise_AnyDeadPartyMember" xml:space="preserve">
+    <value>Any Party Member</value>
+  </data>
+  <data name="TargetRaise_AnyDeadNonPartyMember" xml:space="preserve">
+    <value>Any Non Party Member</value>
+  </data>
+  <data name="TargetRaise_AnyDeadTankIfNoneAlive" xml:space="preserve">
+    <value>Any Tank (If None Alive)</value>
+  </data>
+  <data name="TargetRaise_AnyDeadHealerIfNoneAlive" xml:space="preserve">
+    <value>Any Healer (If None Alive)</value>
+  </data>
+  <data name="TargetRaise_AnyDeadRaiserIfNoneAlive" xml:space="preserve">
+    <value>Any Raiser (If None Alive)</value>
+  </data>
+  <data name="TargetRaise_AnyDeadRaiserDPSIfNoneAlive" xml:space="preserve">
+    <value>Any Raiser DPS (If None Alive)</value>
+  </data>
+  <data name="SelectOpener" xml:space="preserve">
+    <value>Select Opener</value>
+  </data>
+  <data name="ActionSettings" xml:space="preserve">
+    <value>{0} Settings</value>
+  </data>
+  <data name="RequirePartyLabel" xml:space="preserve">
+    <value>Require party</value>
+  </data>
+  <data name="UseAlwaysLabel" xml:space="preserve">
+    <value>Use Always</value>
+  </data>
+  <data name="AvoidBosses" xml:space="preserve">
+    <value>Avoid Bosses</value>
+  </data>
+  <data name="NearbyEnemyCount" xml:space="preserve">
+    <value>How many enemies should be nearby? (0 = No Requirement)</value>
+  </data>
+  <data name="HPPercentToUseAtOrBelow" xml:space="preserve">
+    <value>HP% to use at or below</value>
+  </data>
+  <data name="SelectDifficultyActionIn" xml:space="preserve">
+    <value>Select what difficulties {0} should be used in:</value>
+  </data>
+  <data name="IncludeMitigations" xml:space="preserve">
+    <value>Include Mitigations</value>
+  </data>
+  <data name="ExcludeMitigations" xml:space="preserve">
+    <value>Exclude Mitigations</value>
+  </data>
+  <data name="EnablesMitigationsSimple" xml:space="preserve">
+    <value>Enables the use of mitigations in Simple Mode.</value>
+  </data>
+  <data name="DisablesMitigationsSimple" xml:space="preserve">
+    <value>Disables the use of mitigations in Simple Mode.</value>
+  </data>
+  <data name="EnablesMitigationsAdvanced" xml:space="preserve">
+    <value>Enables the use of advanced mitigations</value>
+  </data>
+  <data name="DisablesMitigationsAdvanced" xml:space="preserve">
+    <value>Disables the use of advanced mitigations</value>
+  </data>
+  <data name="ArmsLengthRegardless" xml:space="preserve">
+    <value>Will use Arm's Length regardless of the type of enemy.</value>
+  </data>
+  <data name="ArmsLengthAvoidBosses" xml:space="preserve">
+    <value>Will try not to use Arm's Length when in a boss fight.</value>
+  </data>
+  <data name="OffTankSelfNote" xml:space="preserve">
+    <value>Note: If you are Off-Tanking, and want to use this ability on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.
+If you don't, it would go to the main tank.
+If you don't use those Features for your personal mitigation, you may not want to enable this.</value>
+  </data>
+  <data name="EarlyBuffWindowOpener" xml:space="preserve">
+    <value>Early Buff Window Opener</value>
+  </data>
+  <data name="EarlyBuffWindowOpenerDesc" xml:space="preserve">
+    <value>Front-loads burst to align with an early (1st GCD) party buff window.</value>
+  </data>
+  <data name="SelectPullAction" xml:space="preserve">
+    <value>Select Pull Action</value>
+  </data>
+  <data name="SelectDifficultySlidersApplyTo" xml:space="preserve">
+    <value>Select what difficulty the above sliders should apply to:</value>
+  </data>
+  <data name="UsageOptions" xml:space="preserve">
+    <value>Usage options:</value>
+  </data>
+  <data name="EarlyBuffOpener" xml:space="preserve">
+    <value>Early Buff Opener</value>
+  </data>
+  <data name="EarlyBuffOpenerDesc" xml:space="preserve">
+    <value>Moves the buff window forward about 1 GCD.</value>
+  </data>
+  <data name="TargetSettings" xml:space="preserve">
+    <value>Target Settings</value>
+  </data>
+  <data name="OptionsToTryToRetarget0ToBeforeSelf" xml:space="preserve">
+    <value>Options to try to Retarget {0} to before Self:</value>
+  </data>
+  <data name="SelectDifficultyFor0" xml:space="preserve">
+    <value>Select what content difficulties {0} should be used in:</value>
   </data>
 </root>

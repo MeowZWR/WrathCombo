@@ -117,87 +117,107 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Tooltip_ConflictingPlugins" xml:space="preserve">
-    <value>已知以下插件会与 {0} 冲突：
-
-{1}
-
-建议禁用这些插件，或禁用其循环相关
-组件，以避免出现意外行为和错误。</value>
+  <data name="Adjusted248Opener" xml:space="preserve">
+    <value>2.48 调整标准起手</value>
   </data>
-  <data name="Tooltip_ConflictingPluginSettings" xml:space="preserve">
-    <value>你已启用的以下插件设置已知会与
-{0} 的设置冲突：
-{1}
-
-建议禁用这些插件，或
-在插件中移除冲突设置，
-以避免出现意外行为和错误。</value>
+  <data name="Standard249Comfy" xml:space="preserve">
+    <value>2.49 舒适标准起手</value>
   </data>
-  <data name="Tooltip_ConflictingWrathSettings" xml:space="preserve">
-    <value>已知以下 Wrath 设置会与 {0} 的设置冲突：
-{1}
-
-建议禁用这些设置，以避免出现意外行为和错误。</value>
+  <data name="RenewTimeForDots" xml:space="preserve">
+    <value>持续伤害刷新时间（秒）。</value>
   </data>
-  <data name="Tooltip_Conflicts_Reason" xml:space="preserve">
-    <value>- 设置：{0}
-    问题：{1}</value>
+  <data name="IronJawsOption" xml:space="preserve">
+    <value>伶牙俐齿选项</value>
   </data>
-  <data name="Tooltip_DalamudConfigConflicts" xml:space="preserve">
-    <value>你的 Dalamud 配置中存在冲突：
-</value>
+  <data name="IronJawsOptionDesc" xml:space="preserve">
+    <value>启用用伶牙俐齿刷新持续伤害</value>
   </data>
-  <data name="Tooltip_GameConflicts" xml:space="preserve">
-    <value>已知以下游戏设置会与 {0} 的设置冲突：
-{1}
-
-建议修改这些设置，以避免出现意外行为和错误。</value>
+  <data name="DotApplicationOption" xml:space="preserve">
+    <value>持续伤害施加选项</value>
   </data>
-  <data name="Tooltip_TargettingConflicts" xml:space="preserve">
-    <value>你在以下插件中的配置会与
-{0} 已启用的技能重定向冲突：
-{1}
-
-建议禁用这些插件，或
-在其设置中移除冲突技能，或
-在 {0} 中禁用该技能的重定向，
-以避免出现意外行为和错误。</value>
+  <data name="DotApplicationOptionDesc" xml:space="preserve">
+    <value>启用在起手循环外施加持续伤害</value>
   </data>
-  <data name="Tooltip_TargettingConflicts_Action" xml:space="preserve">
-    <value>        - {0}</value>
+  <data name="RagingJawsOption" xml:space="preserve">
+    <value>猛者强击快照选项</value>
   </data>
-  <data name="Tooltip_TargettingConflicts_Plugin" xml:space="preserve">
-    <value>- {0} {1}
-    该处与 {2} 同时重定向的技能：
-{3}</value>
+  <data name="RagingJawsOptionDesc" xml:space="preserve">
+    <value>在猛者强击剩余时间内启用持续伤害快照</value>
   </data>
-  <data name="Warning_UnknownConflictType" xml:space="preserve">
-    <value>未知冲突类型：</value>
+  <data name="MultiDotOption" xml:space="preserve">
+    <value>多目标持续伤害选项</value>
   </data>
-  <data name="Wrath_Combo" xml:space="preserve">
-    <value>Wrath Combo</value>
-    <comment>Plugin Name</comment>
+  <data name="MultiDotOptionDesc" xml:space="preserve">
+    <value>最多对 3 个目标维持持续伤害。</value>
   </data>
-  <data name="Button_CollapseSidebar" xml:space="preserve">
-    <value>收起侧边栏</value>
+  <data name="RagingJawsRenewTime" xml:space="preserve">
+    <value>猛者强击快照：刷新时间（秒）。
+建议 5，若刷新落在光明神窗口外则逐步调高</value>
   </data>
-  <data name="Button_ExpandSidebar" xml:space="preserve">
-    <value>展开侧边栏</value>
+  <data name="StopBuffsBelowHp" xml:space="preserve">
+    <value>对低于此 HP% 的目标停止使用增益（0% = 始终使用，100% = 从不使用）。</value>
   </data>
-  <data name="Button_PvEFeatures" xml:space="preserve">
-    <value>PvE 功能</value>
+  <data name="StopBuffsBelowHpAoE" xml:space="preserve">
+    <value>对低于此 HP% 的目标停止使用增益（0 = 始终使用，100 = 从不使用）。</value>
   </data>
-  <data name="Button_PvPFeatures" xml:space="preserve">
-    <value>PvP 功能</value>
+  <data name="RagingStrikesOption" xml:space="preserve">
+    <value>猛者强击选项</value>
   </data>
-  <data name="Button_AutoRotation" xml:space="preserve">
-    <value>自动循环</value>
+  <data name="AddsRagingStrikes" xml:space="preserve">
+    <value>加入猛者强击</value>
   </data>
-  <data name="Button_Settings" xml:space="preserve">
-    <value>设置</value>
+  <data name="BattlevoiceOption" xml:space="preserve">
+    <value>战斗之声选项</value>
   </data>
-  <data name="Button_About" xml:space="preserve">
-    <value>关于</value>
+  <data name="AddsBattleVoice" xml:space="preserve">
+    <value>加入战斗之声</value>
+  </data>
+  <data name="BarrageOption" xml:space="preserve">
+    <value>纷乱箭选项</value>
+  </data>
+  <data name="AddsBarrage" xml:space="preserve">
+    <value>加入纷乱箭</value>
+  </data>
+  <data name="RadiantFinaleOption" xml:space="preserve">
+    <value>光明神的最终乐章选项</value>
+  </data>
+  <data name="AddsRadiantFinale" xml:space="preserve">
+    <value>加入光明神的最终乐章</value>
+  </data>
+  <data name="SecondWindHpThreshold" xml:space="preserve">
+    <value>低于此 HP% 时使用内丹。</value>
+  </data>
+  <data name="PartyCleanseOption" xml:space="preserve">
+    <value>队伍净化选项</value>
+  </data>
+  <data name="PartyCleanseOptionDesc" xml:space="preserve">
+    <value>当队伍中有人存在可净化减益时，按队伍列表重定向使用光阴神的礼赞凯歌。</value>
+  </data>
+  <data name="AddsEmpyrealArrow" xml:space="preserve">
+    <value>加入九天连箭</value>
+  </data>
+  <data name="AddsPitchPerfect" xml:space="preserve">
+    <value>加入完美音调</value>
+  </data>
+  <data name="AddsBloodletterMaxCharges" xml:space="preserve">
+    <value>充能满时加入失血箭</value>
+  </data>
+  <data name="AddsSidewinder" xml:space="preserve">
+    <value>加入侧风诱导箭</value>
+  </data>
+  <data name="AddsRainOfDeath" xml:space="preserve">
+    <value>充能满时加入死亡箭雨；等级不足时改为失血箭。</value>
+  </data>
+  <data name="IronJawsAlternate" xml:space="preserve">
+    <value>伶牙俐齿备用</value>
+  </data>
+  <data name="IronJawsAlternateDesc" xml:space="preserve">
+    <value>仅在减益即将结束时显示伶牙俐齿。</value>
+  </data>
+  <data name="ApexOption" xml:space="preserve">
+    <value>绝峰箭选项</value>
+  </data>
+  <data name="ApexOptionDesc" xml:space="preserve">
+    <value>可用时将绝峰箭与爆破箭加入伶牙俐齿。</value>
   </data>
 </root>

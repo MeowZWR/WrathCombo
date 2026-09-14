@@ -117,19 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DoubleLunarOpener" xml:space="preserve">
-    <value>双阴</value>
+  <data name="OnStonesGlares" xml:space="preserve">
+    <value>在飞石/闪耀上</value>
   </data>
-  <data name="DoubleLunarOpenerDesc" xml:space="preserve">
-    <value>使用双阴起手循环</value>
+  <data name="OnStonesGlaresDesc" xml:space="preserve">
+    <value>将选项应用于所有飞石与闪耀。</value>
   </data>
-  <data name="Repalce0With1When2IsOnCooldown" xml:space="preserve">
-    <value>当 {2} 处于冷却中时，将 {0} 替换为 {1}。</value>
+  <data name="OnAerosDia" xml:space="preserve">
+    <value>在疾风/天辉上</value>
   </data>
-  <data name="SolarLunarOpener" xml:space="preserve">
-    <value>阴阳</value>
+  <data name="OnAerosDiaDesc" xml:space="preserve">
+    <value>将选项应用于所有疾风与天辉。</value>
   </data>
-  <data name="SolarLunarOpenerDesc" xml:space="preserve">
-    <value>使用阳/阴起手循环。</value>
+  <data name="OnStoneII" xml:space="preserve">
+    <value>在坚石上</value>
+  </data>
+  <data name="OnStoneIIDesc" xml:space="preserve">
+    <value>将选项应用于坚石。</value>
+  </data>
+  <data name="HoldForBurst" xml:space="preserve">
+    <value>留给爆发</value>
+  </data>
+  <data name="HoldForBurstDesc" xml:space="preserve">
+    <value>会尽量为爆发保留且不溢出。
+血百合层数满时将无法使用安慰之心治疗。</value>
+  </data>
+  <data name="UseImmediately" xml:space="preserve">
+    <value>立即使用</value>
+  </data>
+  <data name="UseImmediatelyDesc" xml:space="preserve">
+    <value>立即使用，以确保可以自由使用安慰之心治疗。</value>
+  </data>
+  <data name="LilyOvercapSeconds" xml:space="preserve">
+    <value>百合层数溢出前多少秒使用狂喜之心</value>
+  </data>
+  <data name="BalanceChargesOption" xml:space="preserve">
+    <value>平衡充能选项</value>
+  </data>
+  <data name="TetraBalanceDesc" xml:space="preserve">
+    <value>仅当天福充能大于或等于神祝祷充能时使用。</value>
+  </data>
+  <data name="BenisonBalanceDesc" xml:space="preserve">
+    <value>仅当神祝祷充能大于或等于天福充能时使用。</value>
+  </data>
+  <data name="Cure3MinAllies" xml:space="preserve">
+    <value>愈疗目标范围内的最少队友数</value>
+  </data>
+  <data name="MpToBeOver" xml:space="preserve">
+    <value>MP 需高于</value>
+  </data>
+  <data name="TetraHpThreshold" xml:space="preserve">
+    <value>目标 HP% 低于此值时使用天福</value>
   </data>
 </root>

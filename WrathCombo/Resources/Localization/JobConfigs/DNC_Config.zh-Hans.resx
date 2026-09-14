@@ -99,220 +99,220 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="AntiDriftOptions" xml:space="preserve">
-    <value>Anti-Drift Options:     (hover each for more info)</value>
+    <value>防偏移选项：（将鼠标悬停在各项上查看说明）</value>
   </data>
   <data name="GCDLabel" xml:space="preserve">
-    <value>GCD: </value>
+    <value>GCD：</value>
   </data>
   <data name="ForcedTripleWeave" xml:space="preserve">
-    <value>Forced Triple Weave</value>
+    <value>强制三次能力技插入</value>
   </data>
   <data name="ForcedTripleWeaveDesc" xml:space="preserve">
-    <value>Forces a triple weave of Flourish and Fan Dance 3 + 4 during non-opener burst windows.
-Fixes SS/FM drift where you use a gcd when SS/FM is on a 0.5sec CD.
-Recommended anti-drift option.</value>
+    <value>在非起手爆发窗口强制三次插入百花争艳与扇舞3+4。
+修复标准舞步/百花争艳在 0.5 秒冷却时仍打出 GCD 导致的偏移。
+推荐的防偏移选项。</value>
   </data>
   <data name="HoldBeforeStandardStep" xml:space="preserve">
-    <value>Hold before Standard Step</value>
+    <value>标准舞步前停手</value>
   </data>
   <data name="HoldBeforeStandardStepDesc" xml:space="preserve">
-    <value>Will hold GCDs for Standard Step if it is going to come off cooldown before your next GCD.
-This WILL give you down-time.
-ONLY recommended if you have extra skill speed, but can be used as an anti-drift option.</value>
+    <value>若标准舞步会在下一个 GCD 前转好，则停手等待。
+这会造成空转。
+仅建议技能速度偏高时使用，也可作为防偏移选项。</value>
   </data>
   <data name="Both" xml:space="preserve">
-    <value>Both</value>
+    <value>两者都用</value>
   </data>
   <data name="BothDesc" xml:space="preserve">
-    <value>Will use both options from above.
-This WILL give you down-time.
-NOT recommended, but can be the answer if neither of the above options work for you.</value>
+    <value>同时使用以上两个选项。
+这会造成空转。
+不推荐，但当以上选项都不适合时可作备选。</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>None</value>
+    <value>无</value>
   </data>
   <data name="NoneDesc" xml:space="preserve">
-    <value>Will not use any anti-drift options.
-This WILL cause drift. NOT recommended.</value>
+    <value>不使用任何防偏移选项。
+这会导致偏移。不推荐。</value>
   </data>
   <data name="Recommended" xml:space="preserve">
-    <value>(Recommended)</value>
+    <value>（推荐）</value>
   </data>
   <data name="PartnerInfo" xml:space="preserve">
-    <value>This will check through your party members, and select the most desirable Partner, based on The Balance's priority list as well as stuff like Rez Sickness and Damage Downs.</value>
+    <value>会检查队员，并根据 The Balance 的优先级以及复活虚弱、伤害降低等状态，选择最合适的舞伴。</value>
   </data>
   <data name="NoSupport" xml:space="preserve">
-    <value>NO SUPPORT is provided for setting up this feature!</value>
+    <value>此功能的设置不提供任何支持！</value>
   </data>
   <data name="CustomDanceHelp" xml:space="preserve">
-    <value>You can change the respective actions by inputting action IDs below for each dance step.
-The defaults are Cascade, Flourish, Fan Dance, and Fan Dance II.
-If set to 0, they will reset to these actions.
-(You can get Action IDs with Garland Tools by searching for the action and clicking the cog.)</value>
+    <value>可通过在下方为每个舞步输入技能 ID 来更改对应技能。
+默认分别为瀑泻、百花争艳、扇舞、扇舞·其二。
+设为 0 会重置为这些技能。
+（可在 Garland Tools 搜索技能并点击齿轮获取技能 ID。）</value>
   </data>
   <data name="EmboiteReplacement" xml:space="preserve">
-    <value>(Red) Emboite replacement Action ID</value>
+    <value>（红）蔷薇曲脚步替换技能 ID</value>
   </data>
   <data name="EntrechatReplacement" xml:space="preserve">
-    <value>(Blue) Entrechat replacement Action ID</value>
+    <value>（蓝）小鸟交叠跳替换技能 ID</value>
   </data>
   <data name="JeteReplacement" xml:space="preserve">
-    <value>(Green) Jete replacement Action ID</value>
+    <value>（绿）绿叶小踢腿替换技能 ID</value>
   </data>
   <data name="PirouetteReplacement" xml:space="preserve">
-    <value>(Yellow) Pirouette replacement Action ID</value>
+    <value>（黄）金冠趾尖转替换技能 ID</value>
   </data>
   <data name="WillLetConflict" xml:space="preserve">
-    <value>This WILL let you set up a conflict!</value>
+    <value>这可能会造成功能冲突！</value>
   </data>
   <data name="DoubleCheckConflicts" xml:space="preserve">
-    <value>Double check the actions you are setting do not conflict with other combos you are using, or enable the feature below!</value>
+    <value>请再次确认所设技能不会与其他连击冲突，或启用下方功能！</value>
   </data>
   <data name="SelectOpenerContent" xml:space="preserve">
-    <value>Select what kind of content to use this opener in:</value>
+    <value>选择此起手循环适用的内容类型：</value>
   </data>
   <data name="Standard15s" xml:space="preserve">
-    <value>Standard: 15s Countdown</value>
+    <value>标准：15 秒倒计时</value>
   </data>
   <data name="Standard15sDesc" xml:space="preserve">
-    <value>Requires at least a 15s cooldown
-and that you start Standard Step at 15s.</value>
+    <value>至少需要 15 秒倒计时，
+并在 15 秒时开始标准舞步。</value>
   </data>
   <data name="Standard7s" xml:space="preserve">
-    <value>Standard: 7s Countdown</value>
+    <value>标准：7 秒倒计时</value>
   </data>
   <data name="Standard7sDesc" xml:space="preserve">
-    <value>Requires at least a 7s cooldown
-and that you start Standard Step at 7s.
-Performs worse than 15s.</value>
+    <value>至少需要 7 秒倒计时，
+并在 7 秒时开始标准舞步。
+表现弱于 15 秒版本。</value>
   </data>
   <data name="Technical30s" xml:space="preserve">
-    <value>Technical: 30s Countdown</value>
+    <value>技巧：30 秒倒计时</value>
   </data>
   <data name="Technical30sDesc" xml:space="preserve">
-    <value>Requires a 30s cooldown
-and that you start Standard Step at 30s.
-Not generally recommended.
-Will align buffs worse than Standard 15s.
-Not recommended if Standard Step would pull.</value>
+    <value>需要 30 秒倒计时，
+并在 30 秒时开始标准舞步。
+一般不推荐。
+增益对齐弱于标准 15 秒。
+若标准舞步会开怪则不推荐。</value>
   </data>
   <data name="Technical7s" xml:space="preserve">
-    <value>Technical: 7s Countdown</value>
+    <value>技巧：7 秒倒计时</value>
   </data>
   <data name="Technical7sDesc" xml:space="preserve">
-    <value>Requires at least a 7s cooldown.
-Does NOT contain Standard Step.
-Not generally recommended.</value>
+    <value>至少需要 7 秒倒计时。
+不包含标准舞步。
+一般不推荐。</value>
   </data>
   <data name="Technical7sAlt" xml:space="preserve">
-    <value>Technical: 7s Countdown (Alternative)</value>
+    <value>技巧：7 秒倒计时（备选）</value>
   </data>
   <data name="PrioritizeFocusTarget" xml:space="preserve">
-    <value>Prioritize your Focus Target</value>
+    <value>优先焦点目标</value>
   </data>
   <data name="PrioritizeFocusTargetDescShort" xml:space="preserve">
-    <value>If you have a focus target that is within range, it will be prioritized over The Balance's suggested Dance Partner.</value>
+    <value>若焦点目标在范围内，将优先于 The Balance 建议的舞伴。</value>
   </data>
   <data name="PrioritizeFocusTargetDescFull" xml:space="preserve">
-    <value>If you have a focus target that is within range, alive, and has no rez sickness or damage down, it will be prioritized over The Balance's suggested Dance Partner.</value>
+    <value>若焦点目标在范围内、存活且没有复活虚弱或伤害降低，将优先于 The Balance 建议的舞伴。</value>
   </data>
   <data name="Esprit" xml:space="preserve">
-    <value>Esprit</value>
+    <value>伶俐</value>
   </data>
   <data name="TargetHPStopStandardStep" xml:space="preserve">
-    <value>Target HP% to stop using Standard Step below</value>
+    <value>目标 HP% 低于此值时停止使用标准舞步</value>
   </data>
   <data name="TargetHPStopTechnicalStep" xml:space="preserve">
-    <value>Target HP% to stop using Technical Step below</value>
+    <value>目标 HP% 低于此值时停止使用技巧舞步</value>
   </data>
   <data name="IncludeStandardStep" xml:space="preserve">
-    <value>Include Standard Step</value>
+    <value>包含标准舞步</value>
   </data>
   <data name="IncludeStandardStepDesc" xml:space="preserve">
-    <value>Will include Standard Step itself,
-dance steps, and Finish into the rotation.</value>
+    <value>会将标准舞步本身、
+舞步与结束舞步纳入循环。</value>
   </data>
   <data name="ExcludeStandardStep" xml:space="preserve">
-    <value>Exclude Standard Step</value>
+    <value>排除标准舞步</value>
   </data>
   <data name="ExcludeStandardStepDesc" xml:space="preserve">
-    <value>Will ONLY include the dance steps, and Finish;
-YOU will need to manually press Standard Step.</value>
+    <value>仅包含舞步与结束舞步；
+需要你手动按下标准舞步。</value>
   </data>
   <data name="IncludeTechnicalStep" xml:space="preserve">
-    <value>Include Technical Step</value>
+    <value>包含技巧舞步</value>
   </data>
   <data name="IncludeTechnicalStepDesc" xml:space="preserve">
-    <value>Will include Technical Step itself,
-dance steps, and Finish into the rotation.</value>
+    <value>会将技巧舞步本身、
+舞步与结束舞步纳入循环。</value>
   </data>
   <data name="ExcludeTechnicalStep" xml:space="preserve">
-    <value>Exclude Technical Step</value>
+    <value>排除技巧舞步</value>
   </data>
   <data name="ExcludeTechnicalStepDesc" xml:space="preserve">
-    <value>Will ONLY include the dance steps, and Finish;
-YOU will need to manually press Technical Step.</value>
+    <value>仅包含舞步与结束舞步；
+需要你手动按下技巧舞步。</value>
   </data>
   <data name="DumpFeathersHP" xml:space="preserve">
-    <value>Target HP% to dump all pooled feathers below</value>
+    <value>目标 HP% 低于此值时倾泻全部积累的幻扇</value>
   </data>
   <data name="UseTillanaNormally" xml:space="preserve">
-    <value>Use Tillana Normally</value>
+    <value>正常使用提拉纳</value>
   </data>
   <data name="UseTillanaNormallyDesc" xml:space="preserve">
-    <value>Will use Tillana as recommended by The Balance.
-Can allow Tillana to drift out of burst windows.</value>
+    <value>按 The Balance 建议使用提拉纳。
+可能导致提拉纳偏离爆发窗口。</value>
   </data>
   <data name="UseNormallyPreventDrops" xml:space="preserve">
-    <value>Use Normally, but Prevent Drops</value>
+    <value>正常使用，但防止掉落</value>
   </data>
   <data name="UseNormallyPreventDropsDesc" xml:space="preserve">
-    <value>Will use Tillana as recommended by The Balance,
-but will also use it if about to expire.
-Not really recommended.</value>
+    <value>按 The Balance 建议使用提拉纳，
+但即将过期时也会使用。
+不太推荐。</value>
   </data>
   <data name="FavorTillanaOverEsprit" xml:space="preserve">
-    <value>Favor Tillana over Esprit</value>
+    <value>优先提拉纳而非伶俐</value>
   </data>
   <data name="FavorTillanaOverEspritDesc" xml:space="preserve">
-    <value>Will perform Tillana over Saber or Dance of the Dawn, even if above 50 Esprit.
-Can prevent Tillana from drifting out of burst windows.
-Should be used with Saber Dance's Esprit slider being &gt;50.
-NOT recommended. Only for Esprit-Micro-Managers.</value>
+    <value>即使伶俐高于 50，也会优先打出提拉纳而非剑舞或拂晓舞。
+可防止提拉纳偏离爆发窗口。
+应配合剑舞的伶俐滑块 &gt;50 使用。
+不推荐。仅适合精细管理伶俐的玩家。</value>
   </data>
   <data name="CuringWaltzHP" xml:space="preserve">
-    <value>Curing Waltz HP%</value>
+    <value>治疗之华尔兹 HP%</value>
   </data>
   <data name="SecondWindHP" xml:space="preserve">
-    <value>Second Wind HP%</value>
+    <value>内丹 HP%</value>
   </data>
   <data name="PartnerOptimalOptions" xml:space="preserve">
-    <value>Action to Show when Partner is Optimal Options:     (hover each for more info)</value>
+    <value>舞伴已为最优时显示的技能：（将鼠标悬停在各项上查看说明）</value>
   </data>
   <data name="LetGameDecide" xml:space="preserve">
-    <value>Let Game Decide</value>
+    <value>由游戏决定</value>
   </data>
   <data name="LetGameDecideDesc" xml:space="preserve">
-    <value>Will not change the action shown in the hotbar from what FFXIV puts there.
-When you have a Dance Partner, it will show Ending, as usual.
+    <value>不改变热键栏上游戏显示的技能。
+已有舞伴时仍会照常显示结束。
 
-This is the default behavior.</value>
+这是默认行为。</value>
   </data>
   <data name="ClosedPosition" xml:space="preserve">
-    <value>Closed Position</value>
+    <value>闭式舞姿</value>
   </data>
   <data name="ClosedPositionDesc" xml:space="preserve">
-    <value>When your current partner is optimal Closed Position will be shown.
-This will block you from using Closed Position or Ending
-(unless you hard target a friendly other than your partner)</value>
+    <value>当前舞伴已为最优时显示闭式舞姿。
+这会阻止你使用闭式舞姿或结束
+（除非你硬选中舞伴以外的友方）</value>
   </data>
   <data name="BlockInput" xml:space="preserve">
-    <value>Block Input</value>
+    <value>屏蔽输入</value>
   </data>
   <data name="BlockInputDesc" xml:space="preserve">
-    <value>When your current partner is optimal, the input will be blocked.
-This will block you from using Closed Position or Ending.
+    <value>当前舞伴已为最优时屏蔽输入。
+这会阻止你使用闭式舞姿或结束。
 
-This is the recommended option, to keep you from mistakenly switching partners.</value>
+推荐此选项，以免误换舞伴。</value>
   </data>
 </root>

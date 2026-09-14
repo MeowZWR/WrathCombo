@@ -27,35 +27,35 @@ internal partial class BLU
             {
                 case Preset.BLU_ST_DPS_Opener:
                     DrawBossOnlyChoice(BLU_Balance_Content);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(BLU_SelectedOpener,
-                        "Winged Opener",
-                        "Winged Reprobation opener. Standard 2.50 spell speed.", 0, descriptionAsTooltip: true);
+                        BLU_Config.WingedOpener,
+                        BLU_Config.WingedOpenerDesc, 0, descriptionAsTooltip: true);
                     DrawRadioButton(BLU_SelectedOpener,
-                        "DoT Opener",
-                        "Mortal Flame or Breath of Magic instead of Winged Reprobation. Requires 2.20 or faster spell speed.",
+                        BLU_Config.DoTOpener,
+                        BLU_Config.DoTOpenerDesc,
                         1, descriptionAsTooltip: true);
 
                     DrawOpenerPrepullBlockChoice(BLU_Opener_PrepullBlock);
                     DrawAdditionalBoolChoice(BLU_ManualJKick,
-                        "Input J Kick yourself",
-                        "Skips J Kick in the opener and 1-button primals so you can gap-close with it. Reopeners will not wait for J Kick.");
+                        BLU_Config.InputJKickYourself,
+                        BLU_Config.InputJKickYourselfDesc);
                     break;
 
                 case Preset.BLU_NewMoonFluteOpener:
                     DrawAdditionalBoolChoice(BLU_ManualJKick,
-                        "Input J Kick yourself",
-                        "Skips J Kick in this opener so you can gap-close with it. Reopeners will not wait for J Kick.");
+                        BLU_Config.InputJKickYourself,
+                        BLU_Config.InputJKickYourselfOpenerOnlyDesc);
                     break;
 
                 case Preset.BLU_PrimalCombo:
-                    ImGuiEx.TextUnderlined("Primals to use on this button");
-                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, FeatherRain.ActionName(), "Use Feather Rain.", 5, 0);
-                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, Eruption.ActionName(), "Use Eruption.", 5, 1);
-                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, ShockStrike.ActionName(), "Use Shock Strike.", 5, 2);
-                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, RoseOfDestruction.ActionName(), "Use Rose of Destruction.", 5, 3);
-                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, GlassDance.ActionName(), "Use Glass Dance.", 5, 4);
+                    ImGuiEx.TextUnderlined(BLU_Config.PrimalsToUse);
+                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, FeatherRain.ActionName(), BLU_Config.UseFeatherRain, 5, 0);
+                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, Eruption.ActionName(), BLU_Config.UseEruption, 5, 1);
+                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, ShockStrike.ActionName(), BLU_Config.UseShockStrike, 5, 2);
+                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, RoseOfDestruction.ActionName(), BLU_Config.UseRoseOfDestruction, 5, 3);
+                    DrawHorizontalMultiChoice(BLU_PrimalCombo_Spells, GlassDance.ActionName(), BLU_Config.UseGlassDance, 5, 4);
                     break;
 
                 case Preset.BLU_ST_DPS_SongOfTorment:

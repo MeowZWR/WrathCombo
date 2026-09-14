@@ -5,6 +5,7 @@ using ECommons.DalamudServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WrathCombo.Resources.Localization.UI.MainWindow;
 
 #endregion
 
@@ -133,35 +134,13 @@ public class Conflict
     public string[] ConflictMessageParts =>
         ConflictType switch
         {
-            ConflictType.Combo => [ComboConflictStart, ComboConflictEnd],
-            ConflictType.Targeting => [TargetingConflictStart, TargetingConflictEnd],
-            ConflictType.Settings => [SettingsConflictStart, SettingsConflictEnd],
-            ConflictType.WrathSetting => [WrathConflictStart, WrathConflictEnd],
-            ConflictType.GameSetting => [GameConflictStart, GameConflictEnd],
-            ConflictType.Dalamud => [DalamudConflictStart, DalamudConflictEnd],
+            ConflictType.Combo => [MainWindowUI.Conflict_Combo_Start, MainWindowUI.Conflict_Combo_End],
+            ConflictType.Targeting => [MainWindowUI.Conflict_Targeting_Start, MainWindowUI.Conflict_Targeting_End],
+            ConflictType.Settings => [MainWindowUI.Conflict_Settings_Start, MainWindowUI.Conflict_Settings_End],
+            ConflictType.WrathSetting => [MainWindowUI.Conflict_Wrath_Start, MainWindowUI.Conflict_Wrath_End],
+            ConflictType.GameSetting => [MainWindowUI.Conflict_Game_Start, MainWindowUI.Conflict_Game_End],
+            ConflictType.Dalamud => [MainWindowUI.Conflict_Dalamud_Start, MainWindowUI.Conflict_Dalamud_End],
             _ => throw new ArgumentOutOfRangeException(nameof(ConflictType),
-                $"Unknown conflict type: {ConflictType}"),
+                $"{MainWindowUI.Warning_UnknownConflictType} {ConflictType}"),
         };
-
-    #region UI Display Strings
-
-    private const string ComboConflictStart = "Conflicting Combo";
-    private const string ComboConflictEnd = "Plugin(s) Detected!";
-
-    private const string TargetingConflictStart = "Conflicting Action";
-    private const string TargetingConflictEnd = "Retargeting Detected!";
-
-    private const string SettingsConflictStart = "Conflicting Plugin";
-    private const string SettingsConflictEnd = "Setting(s) Detected!";
-
-    private const string WrathConflictStart = "Conflicting Wrath";
-    private const string WrathConflictEnd = "Setting(s) Detected!";
-
-    private const string GameConflictStart = "Conflicting Game";
-    private const string GameConflictEnd = "Setting(s) Detected!";
-
-    private const string DalamudConflictStart = "Dalamud Conflicts";
-    private const string DalamudConflictEnd = "Setting(s) Detected!";
-
-    #endregion
 }

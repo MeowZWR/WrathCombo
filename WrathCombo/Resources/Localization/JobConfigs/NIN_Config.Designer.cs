@@ -59,5 +59,401 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dynamic True North.
+        /// </summary>
+        internal static string DynamicTrueNorth {
+            get {
+                return ResourceManager.GetString("DynamicTrueNorth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dynamic choice of combo finisher based on position and available charges. Go to Flank to build charges, Rear to spend them. Prevents overcap or waste and will use true north as needed..
+        /// </summary>
+        internal static string DynamicTrueNorthDesc {
+            get {
+                return ResourceManager.GetString("DynamicTrueNorthDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Focus on using {0} to use Kazematoi when target is below Health %.
+        /// </summary>
+        internal static string BurnKazematoi {
+            get {
+                return ResourceManager.GetString("BurnKazematoi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard Opener - 4th GCD {0}.
+        /// </summary>
+        internal static string StandardOpener4thGcd {
+            get {
+                return ResourceManager.GetString("StandardOpener4thGcd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard Opener - 3rd GCD {0}.
+        /// </summary>
+        internal static string StandardOpener3rdGcd {
+            get {
+                return ResourceManager.GetString("StandardOpener3rdGcd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buff Rush.
+        /// </summary>
+        internal static string BuffRush {
+            get {
+                return ResourceManager.GetString("BuffRush", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop using on targets below this HP % (0% = always use, 100% = never use)..
+        /// </summary>
+        internal static string StopUsingBelowHp {
+            get {
+                return ResourceManager.GetString("StopUsingBelowHp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raiton Pooling.
+        /// </summary>
+        internal static string RaitonPooling {
+            get {
+                return ResourceManager.GetString("RaitonPooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will Pool the charges, saving them for Trick Window.
+        /// </summary>
+        internal static string TrickWindowPooling {
+            get {
+                return ResourceManager.GetString("TrickWindowPooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raiton Uptime.
+        /// </summary>
+        internal static string RaitonUptime {
+            get {
+                return ResourceManager.GetString("RaitonUptime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will Use Raiton when out of Melee range of the target, This can negatively affect your burst windows.
+        /// </summary>
+        internal static string RaitonUptimeDesc {
+            get {
+                return ResourceManager.GetString("RaitonUptimeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the amount of time remaining on Trick Attack cooldown before trying to set up with Suiton..
+        /// </summary>
+        internal static string SuitonSetup {
+            get {
+                return ResourceManager.GetString("SuitonSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto TCJ Option.
+        /// </summary>
+        internal static string AutoTcj {
+            get {
+                return ResourceManager.GetString("AutoTcj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will automatically Fuma Shuriken then Raiton then Suiton.
+        /// </summary>
+        internal static string AutoTcjStDesc {
+            get {
+                return ResourceManager.GetString("AutoTcjStDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bhavacakra Pooling.
+        /// </summary>
+        internal static string BhavacakraPooling {
+            get {
+                return ResourceManager.GetString("BhavacakraPooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will pool Ninki for the buff windows, while preventing overcap.
+        /// </summary>
+        internal static string NinkiPoolingDesc {
+            get {
+                return ResourceManager.GetString("NinkiPoolingDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forked Raiju.
+        /// </summary>
+        internal static string ForkedRaiju {
+            get {
+                return ResourceManager.GetString("ForkedRaiju", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allows the Use of forked Raiju instead of Fleeting if out of melee range. (Gap Closer).
+        /// </summary>
+        internal static string ForkedRaijuDesc {
+            get {
+                return ResourceManager.GetString("ForkedRaijuDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set a HP% threshold for when {0} will be used..
+        /// </summary>
+        internal static string HpThresholdFor {
+            get {
+                return ResourceManager.GetString("HpThresholdFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raidwide Option.
+        /// </summary>
+        internal static string RaidwideOption {
+            get {
+                return ResourceManager.GetString("RaidwideOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Shade Shift when Raidwide casting is detected regardless of health.
+        /// </summary>
+        internal static string ShadeShiftRaidwideDesc {
+            get {
+                return ResourceManager.GetString("ShadeShiftRaidwideDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Katon Pooling.
+        /// </summary>
+        internal static string KatonPooling {
+            get {
+                return ResourceManager.GetString("KatonPooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Katon Uptime.
+        /// </summary>
+        internal static string KatonUptime {
+            get {
+                return ResourceManager.GetString("KatonUptime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will Use Katon when out of Melee range of the target, This can negatively affect your burst windows.
+        /// </summary>
+        internal static string KatonUptimeDesc {
+            get {
+                return ResourceManager.GetString("KatonUptimeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the amount of time remaining on Trick Attack cooldown before trying to set up with Huton..
+        /// </summary>
+        internal static string HutonSetup {
+            get {
+                return ResourceManager.GetString("HutonSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets the max remaining HP percentage of the current target to cast Doton..
+        /// </summary>
+        internal static string DotonMaxHp {
+            get {
+                return ResourceManager.GetString("DotonMaxHp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How Long Standing still before using Doton (in seconds):.
+        /// </summary>
+        internal static string DotonTimeStill {
+            get {
+                return ResourceManager.GetString("DotonTimeStill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will output TCJ actions in the following order {0} buff less than {1}s = [{2} -&gt; {3} -&gt; {0}] {0} buff more than {1}s = [{2} -&gt; {4} -&gt; {5}].
+        /// </summary>
+        internal static string AutoTcjAoeDesc {
+            get {
+                return ResourceManager.GetString("AutoTcjAoeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doton Remaining Timer For Doton Path.
+        /// </summary>
+        internal static string DotonRemainingTimer {
+            get {
+                return ResourceManager.GetString("DotonRemainingTimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hellfrog Pooling.
+        /// </summary>
+        internal static string HellfrogPooling {
+            get {
+                return ResourceManager.GetString("HellfrogPooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mudra Path Set 1.
+        /// </summary>
+        internal static string MudraPathSet1 {
+            get {
+                return ResourceManager.GetString("MudraPathSet1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1. {0} Mudras -&gt; {1}, {2}/{3}, {4} ({5} under {6}). {7} Mudras -&gt; {1}, {8}, {9}. {10} Mudras -&gt; {1}, {11}/{12}, {5}.
+        /// </summary>
+        internal static string MudraPathSet1Desc {
+            get {
+                return ResourceManager.GetString("MudraPathSet1Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mudra Path Set 2.
+        /// </summary>
+        internal static string MudraPathSet2 {
+            get {
+                return ResourceManager.GetString("MudraPathSet2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2. {0} Mudras -&gt; {1}, {2}/{3}, {4}. {5} Mudras -&gt; {1}, {6}, {7}. {8} Mudras -&gt; {1}, {9}/{10}, {11} ({4} under {12})..
+        /// </summary>
+        internal static string MudraPathSet2Desc {
+            get {
+                return ResourceManager.GetString("MudraPathSet2Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Mug when in Combat.
+        /// </summary>
+        internal static string MugInCombat {
+            get {
+                return ResourceManager.GetString("MugInCombat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Quick Toggle.
+        /// </summary>
+        internal static string HideQuickToggle {
+            get {
+                return ResourceManager.GetString("HideQuickToggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instantly toggles off hidden so you can use it to reset mudra cooldown..
+        /// </summary>
+        internal static string HideQuickToggleDesc {
+            get {
+                return ResourceManager.GetString("HideQuickToggleDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level Check.
+        /// </summary>
+        internal static string LevelCheck {
+            get {
+                return ResourceManager.GetString("LevelCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will only toggle hidden if you above level 45 and can Suiton for Shadowwalker..
+        /// </summary>
+        internal static string LevelCheckDesc {
+            get {
+                return ResourceManager.GetString("LevelCheckDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Trick Attack when hidden or has Shadowwalker buff..
+        /// </summary>
+        internal static string AddTrickAttackDesc {
+            get {
+                return ResourceManager.GetString("AddTrickAttackDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mug First.
+        /// </summary>
+        internal static string MugFirst {
+            get {
+                return ResourceManager.GetString("MugFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will only show Trick Attack if Mug is on cooldown..
+        /// </summary>
+        internal static string MugFirstDesc {
+            get {
+                return ResourceManager.GetString("MugFirstDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blocks input while in Mudra..
+        /// </summary>
+        internal static string BlocksInputMudra {
+            get {
+                return ResourceManager.GetString("BlocksInputMudra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blocks input while in Mudra or Current Target already has Feint.
+        /// </summary>
+        internal static string BlocksInputMudraOrFeint {
+            get {
+                return ResourceManager.GetString("BlocksInputMudraOrFeint", resourceCulture);
+            }
+        }
     }
 }

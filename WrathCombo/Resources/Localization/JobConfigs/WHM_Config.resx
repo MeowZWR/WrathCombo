@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
 		Microsoft ResX Schema
@@ -98,4 +98,56 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="OnStonesGlares" xml:space="preserve">
+    <value>On Stones/Glares</value>
+  </data>
+  <data name="OnStonesGlaresDesc" xml:space="preserve">
+    <value>Apply options to all Stones and Glares.</value>
+  </data>
+  <data name="OnAerosDia" xml:space="preserve">
+    <value>On Aeros/Dia</value>
+  </data>
+  <data name="OnAerosDiaDesc" xml:space="preserve">
+    <value>Apply options to all Aeros And Dia.</value>
+  </data>
+  <data name="OnStoneII" xml:space="preserve">
+    <value>On Stone II</value>
+  </data>
+  <data name="OnStoneIIDesc" xml:space="preserve">
+    <value>Apply options to Stone II.</value>
+  </data>
+  <data name="HoldForBurst" xml:space="preserve">
+    <value>Hold for Burst</value>
+  </data>
+  <data name="HoldForBurstDesc" xml:space="preserve">
+    <value>Will attempt to hold for burst as long as possible without overcapping. 
+Will prevent afflatus heals from being possible when at full Blood Lily stacks.</value>
+  </data>
+  <data name="UseImmediately" xml:space="preserve">
+    <value>Use Immediately</value>
+  </data>
+  <data name="UseImmediatelyDesc" xml:space="preserve">
+    <value>Will Use Immediately to make sure you are free to use Afflatus heals. </value>
+  </data>
+  <data name="LilyOvercapSeconds" xml:space="preserve">
+    <value>Time in Seconds to use Afflatus Rapture before overcapping Lily stacks</value>
+  </data>
+  <data name="BalanceChargesOption" xml:space="preserve">
+    <value>Balance Charges Option</value>
+  </data>
+  <data name="TetraBalanceDesc" xml:space="preserve">
+    <value>Will only use if Tetra Charges are greater than or equal to Divine Benison Charges.</value>
+  </data>
+  <data name="BenisonBalanceDesc" xml:space="preserve">
+    <value>Will only use if Divine Benison Charges are greater than or equal to Tetragrammaton Charges.</value>
+  </data>
+  <data name="Cure3MinAllies" xml:space="preserve">
+    <value>Minimum Number of allies in range of Cure 3 target</value>
+  </data>
+  <data name="MpToBeOver" xml:space="preserve">
+    <value>MP to be over</value>
+  </data>
+  <data name="TetraHpThreshold" xml:space="preserve">
+    <value>Target HP% to use Tetra below)</value>
+  </data>
 </root>

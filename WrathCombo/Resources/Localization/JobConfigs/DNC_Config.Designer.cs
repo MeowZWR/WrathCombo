@@ -59,5 +59,545 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anti-Drift Options:     (hover each for more info).
+        /// </summary>
+        internal static string AntiDriftOptions {
+            get {
+                return ResourceManager.GetString("AntiDriftOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GCD: .
+        /// </summary>
+        internal static string GCDLabel {
+            get {
+                return ResourceManager.GetString("GCDLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forced Triple Weave.
+        /// </summary>
+        internal static string ForcedTripleWeave {
+            get {
+                return ResourceManager.GetString("ForcedTripleWeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forces a triple weave of Flourish and Fan Dance 3 + 4 during non-opener burst windows. Fixes SS/FM drift where you use a.
+        /// </summary>
+        internal static string ForcedTripleWeaveDesc {
+            get {
+                return ResourceManager.GetString("ForcedTripleWeaveDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hold before Standard Step.
+        /// </summary>
+        internal static string HoldBeforeStandardStep {
+            get {
+                return ResourceManager.GetString("HoldBeforeStandardStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will hold GCDs for Standard Step if it is going to come off cooldown before your next GCD. This WILL give you down-time..
+        /// </summary>
+        internal static string HoldBeforeStandardStepDesc {
+            get {
+                return ResourceManager.GetString("HoldBeforeStandardStepDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Both.
+        /// </summary>
+        internal static string Both {
+            get {
+                return ResourceManager.GetString("Both", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use both options from above. This WILL give you down-time. NOT recommended, but can be the answer if neither of the.
+        /// </summary>
+        internal static string BothDesc {
+            get {
+                return ResourceManager.GetString("BothDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will not use any anti-drift options. This WILL cause drift. NOT recommended..
+        /// </summary>
+        internal static string NoneDesc {
+            get {
+                return ResourceManager.GetString("NoneDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Recommended).
+        /// </summary>
+        internal static string Recommended {
+            get {
+                return ResourceManager.GetString("Recommended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will check through your party members, and select the most desirable Partner, based on The Balance's priority list .
+        /// </summary>
+        internal static string PartnerInfo {
+            get {
+                return ResourceManager.GetString("PartnerInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NO SUPPORT is provided for setting up this feature!.
+        /// </summary>
+        internal static string NoSupport {
+            get {
+                return ResourceManager.GetString("NoSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can change the respective actions by inputting action IDs below for each dance step. The defaults are Cascade, Flour.
+        /// </summary>
+        internal static string CustomDanceHelp {
+            get {
+                return ResourceManager.GetString("CustomDanceHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Red) Emboite replacement Action ID.
+        /// </summary>
+        internal static string EmboiteReplacement {
+            get {
+                return ResourceManager.GetString("EmboiteReplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Blue) Entrechat replacement Action ID.
+        /// </summary>
+        internal static string EntrechatReplacement {
+            get {
+                return ResourceManager.GetString("EntrechatReplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Green) Jete replacement Action ID.
+        /// </summary>
+        internal static string JeteReplacement {
+            get {
+                return ResourceManager.GetString("JeteReplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Yellow) Pirouette replacement Action ID.
+        /// </summary>
+        internal static string PirouetteReplacement {
+            get {
+                return ResourceManager.GetString("PirouetteReplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This WILL let you set up a conflict!.
+        /// </summary>
+        internal static string WillLetConflict {
+            get {
+                return ResourceManager.GetString("WillLetConflict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Double check the actions you are setting do not conflict with other combos you are using, or enable the feature below!.
+        /// </summary>
+        internal static string DoubleCheckConflicts {
+            get {
+                return ResourceManager.GetString("DoubleCheckConflicts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select what kind of content to use this opener in:.
+        /// </summary>
+        internal static string SelectOpenerContent {
+            get {
+                return ResourceManager.GetString("SelectOpenerContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard: 15s Countdown.
+        /// </summary>
+        internal static string Standard15s {
+            get {
+                return ResourceManager.GetString("Standard15s", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requires at least a 15s cooldown and that you start Standard Step at 15s..
+        /// </summary>
+        internal static string Standard15sDesc {
+            get {
+                return ResourceManager.GetString("Standard15sDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard: 7s Countdown.
+        /// </summary>
+        internal static string Standard7s {
+            get {
+                return ResourceManager.GetString("Standard7s", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requires at least a 7s cooldown and that you start Standard Step at 7s. Performs worse than 15s..
+        /// </summary>
+        internal static string Standard7sDesc {
+            get {
+                return ResourceManager.GetString("Standard7sDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical: 30s Countdown.
+        /// </summary>
+        internal static string Technical30s {
+            get {
+                return ResourceManager.GetString("Technical30s", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requires a 30s cooldown and that you start Standard Step at 30s. Not generally recommended. Will align buffs worse than .
+        /// </summary>
+        internal static string Technical30sDesc {
+            get {
+                return ResourceManager.GetString("Technical30sDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical: 7s Countdown.
+        /// </summary>
+        internal static string Technical7s {
+            get {
+                return ResourceManager.GetString("Technical7s", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requires at least a 7s cooldown. Does NOT contain Standard Step. Not generally recommended..
+        /// </summary>
+        internal static string Technical7sDesc {
+            get {
+                return ResourceManager.GetString("Technical7sDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical: 7s Countdown (Alternative).
+        /// </summary>
+        internal static string Technical7sAlt {
+            get {
+                return ResourceManager.GetString("Technical7sAlt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prioritize your Focus Target.
+        /// </summary>
+        internal static string PrioritizeFocusTarget {
+            get {
+                return ResourceManager.GetString("PrioritizeFocusTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have a focus target that is within range, it will be prioritized over The Balance's suggested Dance Partner..
+        /// </summary>
+        internal static string PrioritizeFocusTargetDescShort {
+            get {
+                return ResourceManager.GetString("PrioritizeFocusTargetDescShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have a focus target that is within range, alive, and has no rez sickness or damage down, it will be prioritized o.
+        /// </summary>
+        internal static string PrioritizeFocusTargetDescFull {
+            get {
+                return ResourceManager.GetString("PrioritizeFocusTargetDescFull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esprit.
+        /// </summary>
+        internal static string Esprit {
+            get {
+                return ResourceManager.GetString("Esprit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target HP% to stop using Standard Step below.
+        /// </summary>
+        internal static string TargetHPStopStandardStep {
+            get {
+                return ResourceManager.GetString("TargetHPStopStandardStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target HP% to stop using Technical Step below.
+        /// </summary>
+        internal static string TargetHPStopTechnicalStep {
+            get {
+                return ResourceManager.GetString("TargetHPStopTechnicalStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Standard Step.
+        /// </summary>
+        internal static string IncludeStandardStep {
+            get {
+                return ResourceManager.GetString("IncludeStandardStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will include Standard Step itself, dance steps, and Finish into the rotation..
+        /// </summary>
+        internal static string IncludeStandardStepDesc {
+            get {
+                return ResourceManager.GetString("IncludeStandardStepDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Standard Step.
+        /// </summary>
+        internal static string ExcludeStandardStep {
+            get {
+                return ResourceManager.GetString("ExcludeStandardStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will ONLY include the dance steps, and Finish; YOU will need to manually press Standard Step..
+        /// </summary>
+        internal static string ExcludeStandardStepDesc {
+            get {
+                return ResourceManager.GetString("ExcludeStandardStepDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Technical Step.
+        /// </summary>
+        internal static string IncludeTechnicalStep {
+            get {
+                return ResourceManager.GetString("IncludeTechnicalStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will include Technical Step itself, dance steps, and Finish into the rotation..
+        /// </summary>
+        internal static string IncludeTechnicalStepDesc {
+            get {
+                return ResourceManager.GetString("IncludeTechnicalStepDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Technical Step.
+        /// </summary>
+        internal static string ExcludeTechnicalStep {
+            get {
+                return ResourceManager.GetString("ExcludeTechnicalStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will ONLY include the dance steps, and Finish; YOU will need to manually press Technical Step..
+        /// </summary>
+        internal static string ExcludeTechnicalStepDesc {
+            get {
+                return ResourceManager.GetString("ExcludeTechnicalStepDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target HP% to dump all pooled feathers below.
+        /// </summary>
+        internal static string DumpFeathersHP {
+            get {
+                return ResourceManager.GetString("DumpFeathersHP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Tillana Normally.
+        /// </summary>
+        internal static string UseTillanaNormally {
+            get {
+                return ResourceManager.GetString("UseTillanaNormally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use Tillana as recommended by The Balance. Can allow Tillana to drift out of burst windows..
+        /// </summary>
+        internal static string UseTillanaNormallyDesc {
+            get {
+                return ResourceManager.GetString("UseTillanaNormallyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Normally, but Prevent Drops.
+        /// </summary>
+        internal static string UseNormallyPreventDrops {
+            get {
+                return ResourceManager.GetString("UseNormallyPreventDrops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use Tillana as recommended by The Balance, but will also use it if about to expire. Not really recommended..
+        /// </summary>
+        internal static string UseNormallyPreventDropsDesc {
+            get {
+                return ResourceManager.GetString("UseNormallyPreventDropsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favor Tillana over Esprit.
+        /// </summary>
+        internal static string FavorTillanaOverEsprit {
+            get {
+                return ResourceManager.GetString("FavorTillanaOverEsprit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will perform Tillana over Saber or Dance of the Dawn, even if above 50 Esprit. Can prevent Tillana from drifting out of .
+        /// </summary>
+        internal static string FavorTillanaOverEspritDesc {
+            get {
+                return ResourceManager.GetString("FavorTillanaOverEspritDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Curing Waltz HP%.
+        /// </summary>
+        internal static string CuringWaltzHP {
+            get {
+                return ResourceManager.GetString("CuringWaltzHP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second Wind HP%.
+        /// </summary>
+        internal static string SecondWindHP {
+            get {
+                return ResourceManager.GetString("SecondWindHP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action to Show when Partner is Optimal Options:     (hover each for more info).
+        /// </summary>
+        internal static string PartnerOptimalOptions {
+            get {
+                return ResourceManager.GetString("PartnerOptimalOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Let Game Decide.
+        /// </summary>
+        internal static string LetGameDecide {
+            get {
+                return ResourceManager.GetString("LetGameDecide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will not change the action shown in the hotbar from what FFXIV puts there. When you have a Dance Partner, it will show E.
+        /// </summary>
+        internal static string LetGameDecideDesc {
+            get {
+                return ResourceManager.GetString("LetGameDecideDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closed Position.
+        /// </summary>
+        internal static string ClosedPosition {
+            get {
+                return ResourceManager.GetString("ClosedPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When your current partner is optimal Closed Position will be shown. This will block you from using Closed Position or En.
+        /// </summary>
+        internal static string ClosedPositionDesc {
+            get {
+                return ResourceManager.GetString("ClosedPositionDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Block Input.
+        /// </summary>
+        internal static string BlockInput {
+            get {
+                return ResourceManager.GetString("BlockInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When your current partner is optimal, the input will be blocked. This will block you from using Closed Position or Endin.
+        /// </summary>
+        internal static string BlockInputDesc {
+            get {
+                return ResourceManager.GetString("BlockInputDesc", resourceCulture);
+            }
+        }
     }
 }

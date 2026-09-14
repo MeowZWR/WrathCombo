@@ -21,6 +21,7 @@ using WrathCombo.Attributes;
 using WrathCombo.AutoRotation;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Extensions;
+using WrathCombo.Resources.Localization.UI.Misc;
 using WrathCombo.Services;
 
 namespace WrathCombo.Native;
@@ -79,12 +80,27 @@ public sealed unsafe class CustomAction : IDisposable
         NamePtr = ActionRowPtr + (nint)rowSize;
     }
 
+    public void UpdateTexts(string name, string description)
+    {
+        Name = name;
+        Description = description;
+        if (ActionRowPtr != 0)
+        {
+            NativeMemory.Free((void*)ActionRowPtr);
+            NativeMemory.Free((void*)TransientRowPtr);
+            ActionRowPtr = 0;
+            TransientRowPtr = 0;
+            NamePtr = 0;
+        }
+        CreateAction();
+    }
+
     public uint Id { get; }
-    public string Name { get; }
+    public string Name { get; private set; }
     public uint IconId { get; set; }
     public string? CustomIconPath { get; }
     public Action? OnClick { get; set; }
-    public string Description { get; }
+    public string Description { get; private set; }
 
     public uint ItemId { get; set; }
 
@@ -418,15 +434,15 @@ public sealed unsafe class CustomActionSetup : IDisposable
         EzSignatureHelper.Initialize(this);
         AddonActionBarBase_ReceiveEventHook?.Enable();
         Manager = new(Svc.SigScanner, Svc.Hook, Svc.Texture, Svc.Framework);
-        _singleTargetDPS = new(All.SingleTargetDPS, "Single Target DPS", "This is for the Single Target DPS combos.", 1504, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/SingleTargetDPS.png"));
-        _aoeDPS = new(All.AoEDPS, "AoE DPS", "This is for the AoE DPS combos.", 1505, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/AoEDPS.png"));
-        _singleTargeHeals = new(All.SingleTargetHeals, "Single Target Heals", "This is for the Single Target Heal combos.", 1508, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/SingleTargetHeals.png"));
-        _aoeHeals = new(All.AoeHeals, "AoE Heals", "This is for the AoE Heal combos.", 1510, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/AoEHeals.png"));
-        _items = new(All.Items, "Item Not Found", "Users shouldn't see this", 1511);
-        _newSavageBlade = new(All.Cease, "Cease!", "God says no! We don't want you to use actions currently.", 1512, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/NewSavageBlade.png"));
-        _autoOn = new(All.AutoOn, "Auto-Rotation Enable", "Enables auto-rotation.", 1523, onClick: () => AutoRotationController.ToggleAutoRotation(true), customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/WrathAutoOn.png"));
-        _autoOff = new(All.AutoOff, "Auto-Rotation Disable", "Disables auto-rotation.", 1526, onClick: () => AutoRotationController.ToggleAutoRotation(false), customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/WrathAutoOff.png"));
-        _autoToggle = new(All.AutoToggle, "Auto-Rotation Toggle", "Switches between enabled and disabled for auto-rotation", 1527, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/WrathAutoToggle.png"));
+        _singleTargetDPS = new(All.SingleTargetDPS, MiscUI.CustomAction_ST_DPS, MiscUI.CustomAction_ST_DPS_Desc, 1504, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/SingleTargetDPS.png"));
+        _aoeDPS = new(All.AoEDPS, MiscUI.CustomAction_AoE_DPS, MiscUI.CustomAction_AoE_DPS_Desc, 1505, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/AoEDPS.png"));
+        _singleTargeHeals = new(All.SingleTargetHeals, MiscUI.CustomAction_ST_Heals, MiscUI.CustomAction_ST_Heals_Desc, 1508, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/SingleTargetHeals.png"));
+        _aoeHeals = new(All.AoeHeals, MiscUI.CustomAction_AoE_Heals, MiscUI.CustomAction_AoE_Heals_Desc, 1510, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/AoEHeals.png"));
+        _items = new(All.Items, MiscUI.CustomAction_ItemNotFound, MiscUI.CustomAction_ItemNotFound_Desc, 1511);
+        _newSavageBlade = new(All.Cease, MiscUI.CustomAction_Cease, MiscUI.CustomAction_Cease_Desc, 1512, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/NewSavageBlade.png"));
+        _autoOn = new(All.AutoOn, MiscUI.CustomAction_AutoOn, MiscUI.CustomAction_AutoOn_Desc, 1523, onClick: () => AutoRotationController.ToggleAutoRotation(true), customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/WrathAutoOn.png"));
+        _autoOff = new(All.AutoOff, MiscUI.CustomAction_AutoOff, MiscUI.CustomAction_AutoOff_Desc, 1526, onClick: () => AutoRotationController.ToggleAutoRotation(false), customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/WrathAutoOff.png"));
+        _autoToggle = new(All.AutoToggle, MiscUI.CustomAction_AutoToggle, MiscUI.CustomAction_AutoToggle_Desc, 1527, customIconPath: Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName!, "Resources/WrathAutoToggle.png"));
 
         Manager.Register(_singleTargetDPS, _aoeDPS, _singleTargeHeals, _aoeHeals, _items, _newSavageBlade, _autoOn, _autoOff, _autoToggle);
     }
@@ -491,6 +507,65 @@ public class CustomActionHelper()
             CustomActionType.AoEHeals => All.AoeHeals,
             _ => throw new NotImplementedException(),
         };
+    }
+
+    public static void RefreshLocalizedTexts()
+    {
+        if (P?.CustomActions?.Manager == null)
+            return;
+
+        foreach (var act in P.CustomActions.Manager.Actions)
+        {
+            if (TryGetLocalized(act.Id, out var name, out var description))
+                act.UpdateTexts(name, description);
+        }
+    }
+
+    public static bool TryGetLocalized(uint id, out string name, out string description)
+    {
+        switch (id)
+        {
+            case All.SingleTargetDPS:
+                name = MiscUI.CustomAction_ST_DPS;
+                description = MiscUI.CustomAction_ST_DPS_Desc;
+                return true;
+            case All.AoEDPS:
+                name = MiscUI.CustomAction_AoE_DPS;
+                description = MiscUI.CustomAction_AoE_DPS_Desc;
+                return true;
+            case All.SingleTargetHeals:
+                name = MiscUI.CustomAction_ST_Heals;
+                description = MiscUI.CustomAction_ST_Heals_Desc;
+                return true;
+            case All.AoeHeals:
+                name = MiscUI.CustomAction_AoE_Heals;
+                description = MiscUI.CustomAction_AoE_Heals_Desc;
+                return true;
+            case All.Items:
+                name = MiscUI.CustomAction_ItemNotFound;
+                description = MiscUI.CustomAction_ItemNotFound_Desc;
+                return true;
+            case All.Cease:
+                name = MiscUI.CustomAction_Cease;
+                description = MiscUI.CustomAction_Cease_Desc;
+                return true;
+            case All.AutoOn:
+                name = MiscUI.CustomAction_AutoOn;
+                description = MiscUI.CustomAction_AutoOn_Desc;
+                return true;
+            case All.AutoOff:
+                name = MiscUI.CustomAction_AutoOff;
+                description = MiscUI.CustomAction_AutoOff_Desc;
+                return true;
+            case All.AutoToggle:
+                name = MiscUI.CustomAction_AutoToggle;
+                description = MiscUI.CustomAction_AutoToggle_Desc;
+                return true;
+            default:
+                name = null!;
+                description = null!;
+                return false;
+        }
     }
 
     /// <summary>

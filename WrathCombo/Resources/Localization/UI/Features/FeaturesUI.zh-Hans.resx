@@ -187,4 +187,19 @@
   <data name="Label_searchLabelText" xml:space="preserve">
     <value>搜索：</value>
   </data>
+  <data name="RegularJobs" xml:space="preserve">
+    <value>常规职业</value>
+  </data>
+  <data name="LimitedJobsAndMisc" xml:space="preserve">
+    <value>限定职业及其他</value>
+  </data>
+  <data name="WaitThisIsntJob" xml:space="preserve">
+    <value>等一下……这不是{0}。带我离开这里！</value>
+  </data>
+  <data name="Search_Behave" xml:space="preserve">
+    <value>注意言行！</value>
+  </data>
+  <data name="Search_InvalidKeyword" xml:space="preserve">
+    <value>请确认关键词有效。</value>
+  </data>
 </root>

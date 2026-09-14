@@ -46,30 +46,30 @@ internal partial class SMN
             {
                 #region Single Target
                 case Preset.SMN_ST_Simple_Combo:
-                    DrawHorizontalRadioButton(SMN_ST_Simple_Combo_Gapclose, "Safe Mode (Will not gap close)", "Will only use Crimson Cyclone when in Melee Range", 0);
-                    DrawHorizontalRadioButton(SMN_ST_Simple_Combo_Gapclose, "Standard Rotation", "Will gap close with Crimson Cyclone.", 1 );
+                    DrawHorizontalRadioButton(SMN_ST_Simple_Combo_Gapclose, SMN_Config.SafeModeNoGapclose, SMN_Config.SafeModeNoGapcloseDesc, 0);
+                    DrawHorizontalRadioButton(SMN_ST_Simple_Combo_Gapclose, SMN_Config.StandardRotation, SMN_Config.StandardRotationDesc, 1 );
                     break;
                 
                 case Preset.SMN_AoE_Simple_Combo:
-                    DrawHorizontalRadioButton(SMN_AoE_Simple_Combo_Gapclose, "Safe Mode (Will not gap close)", "Will only use Crimson Cyclone when in Melee Range", 0);
-                    DrawHorizontalRadioButton(SMN_AoE_Simple_Combo_Gapclose, "Standard Rotation", "Will gap close with Crimson Cyclone.", 1 );
+                    DrawHorizontalRadioButton(SMN_AoE_Simple_Combo_Gapclose, SMN_Config.SafeModeNoGapclose, SMN_Config.SafeModeNoGapcloseDesc, 0);
+                    DrawHorizontalRadioButton(SMN_AoE_Simple_Combo_Gapclose, SMN_Config.StandardRotation, SMN_Config.StandardRotationDesc, 1 );
                     break;
                     
                 case Preset.SMN_ST_Advanced_Combo:
-                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, "On Ruin 1, 2, and 3", "", 0);
-                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, "On Ruin 1 and 2 Only", "Alternative DPS Mode. Leaves Ruin 3 alone for pure DPS.", 1);
+                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, SMN_Config.OnRuin123, "", 0);
+                    DrawRadioButton(SMN_ST_Advanced_Combo_AltMode, SMN_Config.OnRuin12Only, SMN_Config.OnRuin12OnlyDesc, 1);
                     break;
 
                 case Preset.SMN_ST_Advanced_Combo_Balance_Opener:
                     DrawBossOnlyChoice(SMN_Balance_Content);
                     DrawOpenerPotionChoice(SMN_Opener_Potion);
                     DrawOpenerPrepullBlockChoice(SMN_Opener_PrepullBlock);
-                    ImGuiEx.TextUnderlined("Swiftcast Settings");
+                    ImGuiEx.TextUnderlined(SMN_Config.SwiftcastSettings);
                     ImGui.Spacing();
-                    DrawRadioButton(SMN_Opener_SkipSwiftcast, "Use Swiftcast",
-                        "Will use Swiftcast in opener to try and snapshot in pots for lower gcds", 1, descriptionAsTooltip: true);
-                    DrawRadioButton(SMN_Opener_SkipSwiftcast, "Skip Swiftcast",
-                        "Will not use swiftcast in opener for higher gcds", 2, descriptionAsTooltip: true);
+                    DrawRadioButton(SMN_Opener_SkipSwiftcast, SMN_Config.UseSwiftcast,
+                        SMN_Config.UseSwiftcastDesc, 1, descriptionAsTooltip: true);
+                    DrawRadioButton(SMN_Opener_SkipSwiftcast, SMN_Config.SkipSwiftcast,
+                        SMN_Config.SkipSwiftcastDesc, 2, descriptionAsTooltip: true);
                     break;
 
                 case Preset.SMN_ST_Advanced_Combo_Titan:
@@ -88,10 +88,10 @@ internal partial class SMN
                     break;
 
                 case Preset.SMN_ST_Advanced_Combo_DemiEgiMenu_SwiftcastEgi:
-                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Garuda", "Swiftcasts Slipstream", 1);
-                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Ifrit", "Swiftcasts Ruby Ruin/Ruby Rite", 2);
-                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, "Flexible (SpS) Option",
-                        "Swiftcasts the first available Egi when Swiftcast is ready.", 3);
+                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, SMN_Config.Garuda, SMN_Config.SwiftcastsSlipstream, 1);
+                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, SMN_Config.Ifrit, SMN_Config.SwiftcastsRubyRuin, 2);
+                    DrawHorizontalRadioButton(SMN_ST_SwiftcastPhase, SMN_Config.FlexibleSpsOption,
+                        SMN_Config.FlexibleSpsOptionDesc, 3);
                     break;
 
                 case Preset.SMN_ST_Advanced_Combo_Lucid:
@@ -100,14 +100,14 @@ internal partial class SMN
                     break;
 
                 case Preset.SMN_ST_Advanced_Combo_Egi_AstralFlow:
-                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Mountain Buster", "", 4, 0);
-                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Crimson Cyclone", "", 4, 1);
-                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Crimson Strike", "", 4, 3);
-                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, "Add Slipstream", "", 4, 2);
+                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, SMN_Config.AddMountainBuster, "", 4, 0);
+                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, SMN_Config.AddCrimsonCyclone, "", 4, 1);
+                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, SMN_Config.AddCrimsonStrike, "", 4, 3);
+                    DrawHorizontalMultiChoice(SMN_ST_Egi_AstralFlow, SMN_Config.AddSlipstream, "", 4, 2);
 
                     if (SMN_ST_Egi_AstralFlow[1])
                     {
-                        DrawSliderInt(0, 25, SMN_ST_CrimsonCycloneMeleeDistance, " Maximum range to use Crimson Cyclone.");
+                        DrawSliderInt(0, 25, SMN_ST_CrimsonCycloneMeleeDistance, SMN_Config.MaxRangeCrimsonCyclone);
                     }
                     break;
                 #endregion
@@ -129,10 +129,10 @@ internal partial class SMN
                     break;
 
                 case Preset.SMN_AoE_Advanced_Combo_DemiEgiMenu_SwiftcastEgi:
-                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Garuda", "Swiftcasts Slipstream", 1);
-                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Ifrit", "Swiftcasts Ruby Ruin/Ruby Rite", 2);
-                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, "Flexible (SpS) Option",
-                        "Swiftcasts the first available Egi when Swiftcast is ready.", 3);
+                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, SMN_Config.Garuda, SMN_Config.SwiftcastsSlipstream, 1);
+                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, SMN_Config.Ifrit, SMN_Config.SwiftcastsRubyRuin, 2);
+                    DrawHorizontalRadioButton(SMN_AoE_SwiftcastPhase, SMN_Config.FlexibleSpsOption,
+                        SMN_Config.FlexibleSpsOptionDesc, 3);
                     break;
 
                 case Preset.SMN_AoE_Advanced_Combo_Lucid:
@@ -141,14 +141,14 @@ internal partial class SMN
                     break;
 
                 case Preset.SMN_AoE_Advanced_Combo_Egi_AstralFlow:
-                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Mountain Buster", "", 4, 0);
-                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Crimson Cyclone", "", 4, 1);
-                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Crimson Strike", "", 4, 3);
-                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, "Add Slipstream", "", 4, 2);
+                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, SMN_Config.AddMountainBuster, "", 4, 0);
+                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, SMN_Config.AddCrimsonCyclone, "", 4, 1);
+                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, SMN_Config.AddCrimsonStrike, "", 4, 3);
+                    DrawHorizontalMultiChoice(SMN_AoE_Egi_AstralFlow, SMN_Config.AddSlipstream, "", 4, 2);
 
                     if (SMN_AoE_Egi_AstralFlow[1])
                     {
-                        DrawSliderInt(0, 25, SMN_AoE_CrimsonCycloneMeleeDistance, " Maximum range to use Crimson Cyclone.");
+                        DrawSliderInt(0, 25, SMN_AoE_CrimsonCycloneMeleeDistance, SMN_Config.MaxRangeCrimsonCyclone);
                     }
                     break;
                     #endregion

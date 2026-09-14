@@ -99,140 +99,140 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="DissipationFirst" xml:space="preserve">
-    <value>Dissipation First</value>
+    <value>先转化</value>
   </data>
   <data name="DissipationFirstDesc" xml:space="preserve">
-    <value>Uses Dissipation first, then Aetherflow</value>
+    <value>先使用转化，再使用以太超流</value>
   </data>
   <data name="AetherflowFirst" xml:space="preserve">
-    <value>Aetherflow First</value>
+    <value>先以太超流</value>
   </data>
   <data name="AetherflowFirstDesc" xml:space="preserve">
-    <value>Uses Aetherflow first, then Dissipation</value>
+    <value>先使用以太超流，再使用转化</value>
   </data>
   <data name="OnRuinBroils" xml:space="preserve">
-    <value>On Ruin/Broils</value>
+    <value>在毁灭/毁荡上</value>
   </data>
   <data name="OnRuinBroilsDesc" xml:space="preserve">
-    <value>Apply options to Ruin and all Broils.</value>
+    <value>将选项应用于毁灭及所有毁荡。</value>
   </data>
   <data name="OnBio" xml:space="preserve">
-    <value>On Bio/Bio II/Biolysis</value>
+    <value>在毒菌/猛毒菌/蛊毒法上</value>
   </data>
   <data name="OnBioDesc" xml:space="preserve">
-    <value>Apply options to Bio and Biolysis.</value>
+    <value>将选项应用于毒菌和蛊毒法。</value>
   </data>
   <data name="OnBroilII" xml:space="preserve">
-    <value>On Broil II</value>
+    <value>在气炎法上</value>
   </data>
   <data name="OnBroilIIDesc" xml:space="preserve">
-    <value>Apply options to Broil II.</value>
+    <value>将选项应用于气炎法。</value>
   </data>
   <data name="HpCheckNonBossesDot" xml:space="preserve">
-    <value>Only applies the HP check above to non-bosses.
-Allows you to only stop DoTing early when it's not a boss.</value>
+    <value>仅对非首领敌人应用上述 HP 检查。
+这样你可以只在非首领时提前停补 DoT。</value>
   </data>
   <data name="AetherflowRemainingCd" xml:space="preserve">
-    <value>Aetherflow remaining cooldown</value>
+    <value>以太超流剩余冷却</value>
   </data>
   <data name="EnergyDrainBurst" xml:space="preserve">
-    <value>Energy Drain Burst</value>
+    <value>能量吸收爆发</value>
   </data>
   <data name="EnergyDrainBurstDesc" xml:space="preserve">
-    <value>Holds Energy Drain when Chain Stratagem is ready or has less than 10 seconds cooldown remaining.</value>
+    <value>连环计可用或剩余冷却不足 10 秒时，会保留能量吸收。</value>
   </data>
   <data name="BanefulOnly" xml:space="preserve">
-    <value>Baneful Only</value>
+    <value>仅埋伏之毒</value>
   </data>
   <data name="BanefulOnlyDesc" xml:space="preserve">
-    <value>Will only use Chain Strategem when high enough level to use Baneful Impaction</value>
+    <value>仅在等级足够使用埋伏之毒时才使用连环计</value>
   </data>
   <data name="StopUsingTargetHpAlwaysNever" xml:space="preserve">
-    <value>Target HP% to stop using (0 = Use Always, 100 = Never)</value>
+    <value>目标 HP% 低于此值时停止使用（0 = 始终使用，100 = 从不）</value>
   </data>
   <data name="IncludeShieldsAdvanced" xml:space="preserve">
-    <value>Advanced Option: Include Shields in HP Percent Sliders</value>
+    <value>高级选项：在 HP% 滑块中包括护盾</value>
   </data>
   <data name="StopUsingAboveHp" xml:space="preserve">
-    <value>Stop using when above HP %.</value>
+    <value>HP% 高于此值时停止使用。</value>
   </data>
   <data name="MinFairyGaugeAetherpact" xml:space="preserve">
-    <value>Minimal Fairy Gauge to start using Aetherpact</value>
+    <value>开始使用以太契约所需的最低小仙女量谱</value>
   </data>
   <data name="EmergencyTacticsDesc" xml:space="preserve">
-    <value>Will use Emergency tactics before Adloquim when below set threshold</value>
+    <value>低于设定阈值时，会在鼓舞激励之策前使用应急战术</value>
   </data>
   <data name="StartEmergencyTacticsBelowHp" xml:space="preserve">
-    <value>Start using Emergency Tactics when below HP %.</value>
+    <value>HP% 低于此值时开始使用应急战术。</value>
   </data>
   <data name="SuccorAlwaysAvailable" xml:space="preserve">
-    <value>Note: Succor will always be available.</value>
+    <value>注意：士气高扬之策始终可用。</value>
   </data>
   <data name="SuccorPriorityNote" xml:space="preserve">
-    <value>These options are to provide optional priority to Succor or to set up Emergency tactics option.</value>
+    <value>这些选项用于为士气高扬之策设置可选优先级，或配置应急战术。</value>
   </data>
   <data name="ShieldCheckPartyPercent" xml:space="preserve">
-    <value>Shield Check: Will use when less than set percentage of party have shields.</value>
+    <value>护盾检查：当拥有护盾的队员比例低于设定百分比时使用。</value>
   </data>
   <data name="EmergencyTacticsBeforeSuccor" xml:space="preserve">
-    <value>If more than the set percentage of the party has shields, will use Emergency Tactics before Succor</value>
+    <value>若拥有护盾的队员比例高于设定百分比，会在士气高扬之策前使用应急战术</value>
   </data>
   <data name="RecitationBuffSuccor" xml:space="preserve">
-    <value>Will use Recitation to buff Succor</value>
+    <value>会使用秘策强化士气高扬之策</value>
   </data>
   <data name="RecitationBuffIndomitability" xml:space="preserve">
-    <value>Will use Recitation to buff Indomitability.</value>
+    <value>会使用秘策强化不屈不挠之策。</value>
   </data>
   <data name="ReadyOnlyOption" xml:space="preserve">
-    <value>Indomitability Ready Only Option</value>
+    <value>仅不屈不挠之策可用时</value>
   </data>
   <data name="ReadyOnlyDesc" xml:space="preserve">
-    <value>Only uses {0} if Indomitability is ready to use.</value>
+    <value>仅在不屈不挠之策可用时使用“{0}”。</value>
   </data>
   <data name="ShowAetherflowEnergyDrainOnly" xml:space="preserve">
-    <value>Show Aetherflow On Energy Drain Only</value>
+    <value>仅在能量吸收上显示以太超流</value>
   </data>
   <data name="ShowAetherflowAllSkills" xml:space="preserve">
-    <value>Show Aetherflow On All Aetherflow Skills</value>
+    <value>在所有以太超流技能上显示以太超流</value>
   </data>
   <data name="OutOfAetherflowStacks" xml:space="preserve">
-    <value>Only when out of Aetherflow Stacks</value>
+    <value>仅在以太超流层数耗尽时</value>
   </data>
   <data name="AlwaysWhenAvailable" xml:space="preserve">
-    <value>Always when available</value>
+    <value>只要可用就使用</value>
   </data>
   <data name="RecitationRaidwideSuccor" xml:space="preserve">
-    <value>Use Recitation to buff before the Raidwide Succor.</value>
+    <value>在全屏士气高扬之策前使用秘策强化。</value>
   </data>
   <data name="PlaceUnderEnemyHardTarget" xml:space="preserve">
-    <value>Will place under hard target if it is an Enemy.</value>
+    <value>硬目标是敌人时，会放在其脚下。</value>
   </data>
   <data name="PlaceUnderAllyHardTarget" xml:space="preserve">
-    <value>Will place under hard target if it is an Ally.</value>
+    <value>硬目标是队友时，会放在其脚下。</value>
   </data>
   <data name="RecitationBeforeAdlo" xml:space="preserve">
-    <value>Will Recitation before Adloquium if available.</value>
+    <value>可用时会在鼓舞激励之策前使用秘策。</value>
   </data>
   <data name="SpreadAdloCritShield" xml:space="preserve">
-    <value>Will spread Adloquium crit shield if available.</value>
+    <value>可用时会扩散鼓舞激励之策的暴击护盾。</value>
   </data>
   <data name="UseIfAvailable" xml:space="preserve">
-    <value>Will use {0} if available.</value>
+    <value>可用时使用“{0}”。</value>
   </data>
   <data name="FeyIlluminationBeforeSuccor" xml:space="preserve">
-    <value>Will activate Fey Illumination before Succor</value>
+    <value>会在士气高扬之策前开启异想的幻光</value>
   </data>
   <data name="CritAdloDeployment" xml:space="preserve">
-    <value>Crit Adloquium Deployment</value>
+    <value>暴击鼓舞展开</value>
   </data>
   <data name="CritAdloDeploymentDesc" xml:space="preserve">
-    <value>Will Recitation into Adloquium and Deployment tactics in place of Succor
-This will be targeted at yourself for simplicity and reliability.</value>
+    <value>会用秘策 + 鼓舞激励之策 + 展开战术代替士气高扬之策
+为简单可靠，目标为自己。</value>
   </data>
   <data name="SummonSeraphConsolation" xml:space="preserve">
-    <value>Summon Seraph Consolation</value>
+    <value>炽天召唤慰藉</value>
   </data>
   <data name="SummonSeraphConsolationDesc" xml:space="preserve">
-    <value>Will summon Seraph if available and use Consolation for more shield.</value>
+    <value>可用时召唤炽天，并使用慰藉补充护盾。</value>
   </data>
 </root>

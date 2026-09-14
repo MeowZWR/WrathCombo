@@ -171,4 +171,10 @@
     <value>若启用了任一复活功能的重定向，
 这是 Wrath 尝试选择复活目标的顺序。</value>
   </data>
+  <data name="HelpText_StackPriority" xml:space="preserve">
+    <value>优先级从上到下。
+向下滚动可查看全部条目。
+点击上移/下移按钮调整列表顺序。
+点击 X 按钮可从列表中移除条目。</value>
+  </data>
 </root>

@@ -1569,5 +1569,429 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
                 return ResourceManager.GetString("WillOnlyWeaveThisAction", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Condition: {0}.
+        /// </summary>
+        internal static string AdditionalOptionsCondition {
+            get {
+                return ResourceManager.GetString("AdditionalOptionsCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This setting has additional options depending on its value..
+        /// </summary>
+        internal static string AdditionalOptionsTooltip {
+            get {
+                return ResourceManager.GetString("AdditionalOptionsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to the Stack:.
+        /// </summary>
+        internal static string AddToTheStack {
+            get {
+                return ResourceManager.GetString("AddToTheStack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Casual Content.
+        /// </summary>
+        internal static string CasualContent {
+            get {
+                return ResourceManager.GetString("CasualContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click this dropdown to open the list of available Target options.
+        /// </summary>
+        internal static string CustomStackDropdownHelp {
+            get {
+                return ResourceManager.GetString("CustomStackDropdownHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Easiest Content.
+        /// </summary>
+        internal static string EasiestContent {
+            get {
+                return ResourceManager.GetString("EasiestContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 'Hard' Content.
+        /// </summary>
+        internal static string HardContent {
+            get {
+                return ResourceManager.GetString("HardContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HardCore Content.
+        /// </summary>
+        internal static string HardCoreContent {
+            get {
+                return ResourceManager.GetString("HardCoreContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardest Content.
+        /// </summary>
+        internal static string HardestContent {
+            get {
+                return ResourceManager.GetString("HardestContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Potion?.
+        /// </summary>
+        internal static string IncludePotion {
+            get {
+                return ResourceManager.GetString("IncludePotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds the strongest potion appropriate for your job to the opener..
+        /// </summary>
+        internal static string IncludePotionDesc {
+            get {
+                return ResourceManager.GetString("IncludePotionDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Pre-pull Blocks?.
+        /// </summary>
+        internal static string IncludePrepullBlocks {
+            get {
+                return ResourceManager.GetString("IncludePrepullBlocks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds Cease to the opener that will wait for correct countdown timings..
+        /// </summary>
+        internal static string IncludePrepullBlocksDesc {
+            get {
+                return ResourceManager.GetString("IncludePrepullBlocksDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MidCore Content.
+        /// </summary>
+        internal static string MidCoreContent {
+            get {
+                return ResourceManager.GetString("MidCoreContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all priorities to Default.
+        /// </summary>
+        internal static string ResetAllPrioritiesToDefault {
+            get {
+                return ResourceManager.GetString("ResetAllPrioritiesToDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset to Default.
+        /// </summary>
+        internal static string ResetToDefault {
+            get {
+                return ResourceManager.GetString("ResetToDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a Target to Add.
+        /// </summary>
+        internal static string SelectATargetToAdd {
+            get {
+                return ResourceManager.GetString("SelectATargetToAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select what difficulty the above should apply to:.
+        /// </summary>
+        internal static string SelectDifficultyAppliesTo {
+            get {
+                return ResourceManager.GetString("SelectDifficultyAppliesTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Smaller Number = Higher Priority.
+        /// </summary>
+        internal static string SmallerNumberHigherPriority {
+            get {
+                return ResourceManager.GetString("SmallerNumberHigherPriority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SoftCore Content.
+        /// </summary>
+        internal static string SoftCoreContent {
+            get {
+                return ResourceManager.GetString("SoftCoreContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Opener.
+        /// </summary>
+        internal static string SelectOpener {
+            get {
+                return ResourceManager.GetString("SelectOpener", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Settings.
+        /// </summary>
+        internal static string ActionSettings {
+            get {
+                return ResourceManager.GetString("ActionSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Require party.
+        /// </summary>
+        internal static string RequirePartyLabel {
+            get {
+                return ResourceManager.GetString("RequirePartyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Always.
+        /// </summary>
+        internal static string UseAlwaysLabel {
+            get {
+                return ResourceManager.GetString("UseAlwaysLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avoid Bosses.
+        /// </summary>
+        internal static string AvoidBosses {
+            get {
+                return ResourceManager.GetString("AvoidBosses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How many enemies should be nearby? (0 = No Requirement).
+        /// </summary>
+        internal static string NearbyEnemyCount {
+            get {
+                return ResourceManager.GetString("NearbyEnemyCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HP% to use at or below.
+        /// </summary>
+        internal static string HPPercentToUseAtOrBelow {
+            get {
+                return ResourceManager.GetString("HPPercentToUseAtOrBelow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select what difficulties {0} should be used in:.
+        /// </summary>
+        internal static string SelectDifficultyActionIn {
+            get {
+                return ResourceManager.GetString("SelectDifficultyActionIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Mitigations.
+        /// </summary>
+        internal static string IncludeMitigations {
+            get {
+                return ResourceManager.GetString("IncludeMitigations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Mitigations.
+        /// </summary>
+        internal static string ExcludeMitigations {
+            get {
+                return ResourceManager.GetString("ExcludeMitigations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables the use of mitigations in Simple Mode.
+        /// </summary>
+        internal static string EnablesMitigationsSimple {
+            get {
+                return ResourceManager.GetString("EnablesMitigationsSimple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables the use of mitigations in Simple Mode.
+        /// </summary>
+        internal static string DisablesMitigationsSimple {
+            get {
+                return ResourceManager.GetString("DisablesMitigationsSimple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables the use of advanced mitigations.
+        /// </summary>
+        internal static string EnablesMitigationsAdvanced {
+            get {
+                return ResourceManager.GetString("EnablesMitigationsAdvanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables the use of advanced mitigations.
+        /// </summary>
+        internal static string DisablesMitigationsAdvanced {
+            get {
+                return ResourceManager.GetString("DisablesMitigationsAdvanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use Arm's Length regardless of the type of enemy.
+        /// </summary>
+        internal static string ArmsLengthRegardless {
+            get {
+                return ResourceManager.GetString("ArmsLengthRegardless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will try not to use Arm's Length when in a boss fight.
+        /// </summary>
+        internal static string ArmsLengthAvoidBosses {
+            get {
+                return ResourceManager.GetString("ArmsLengthAvoidBosses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: If you are Off-Tanking, and want to use this ability on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.
+        /// </summary>
+        internal static string OffTankSelfNote {
+            get {
+                return ResourceManager.GetString("OffTankSelfNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Early Buff Window Opener.
+        /// </summary>
+        internal static string EarlyBuffWindowOpener {
+            get {
+                return ResourceManager.GetString("EarlyBuffWindowOpener", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Front-loads burst to align with an early (1st GCD) party buff window.
+        /// </summary>
+        internal static string EarlyBuffWindowOpenerDesc {
+            get {
+                return ResourceManager.GetString("EarlyBuffWindowOpenerDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Pull Action.
+        /// </summary>
+        internal static string SelectPullAction {
+            get {
+                return ResourceManager.GetString("SelectPullAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select what difficulty the above sliders should apply to:.
+        /// </summary>
+        internal static string SelectDifficultySlidersApplyTo {
+            get {
+                return ResourceManager.GetString("SelectDifficultySlidersApplyTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usage options:.
+        /// </summary>
+        internal static string UsageOptions {
+            get {
+                return ResourceManager.GetString("UsageOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Early Buff Opener.
+        /// </summary>
+        internal static string EarlyBuffOpener {
+            get {
+                return ResourceManager.GetString("EarlyBuffOpener", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moves the buff window forward about 1 GCD..
+        /// </summary>
+        internal static string EarlyBuffOpenerDesc {
+            get {
+                return ResourceManager.GetString("EarlyBuffOpenerDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Settings.
+        /// </summary>
+        internal static string TargetSettings {
+            get {
+                return ResourceManager.GetString("TargetSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options to try to Retarget {0} to before Self:.
+        /// </summary>
+        internal static string OptionsToTryToRetarget0ToBeforeSelf {
+            get {
+                return ResourceManager.GetString("OptionsToTryToRetarget0ToBeforeSelf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select what content difficulties {0} should be used in:.
+        /// </summary>
+        internal static string SelectDifficultyFor0 {
+            get {
+                return ResourceManager.GetString("SelectDifficultyFor0", resourceCulture);
+            }
+        }
+
     }
 }

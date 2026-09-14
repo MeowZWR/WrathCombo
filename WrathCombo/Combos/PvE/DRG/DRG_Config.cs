@@ -18,7 +18,7 @@ internal partial class DRG
                 case Preset.DRG_ST_Opener:
                     DrawBossOnlyChoice(DRG_BalanceContent);
                     DrawOpenerPotionChoice(DRG_Opener_Potion);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(DRG_SelectedOpener,
                         Generics.StandardOpener, Generics.UsesStandardOpener, 0, descriptionAsTooltip: true);

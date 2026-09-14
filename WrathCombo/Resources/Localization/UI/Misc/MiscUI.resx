@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -170,5 +170,160 @@
   </data>
   <data name="Deep_Dungeon" xml:space="preserve">
     <value>Deep Dungeon</value>
+  </data>
+  <data name="MajorChangesTitle" xml:space="preserve">
+    <value>Wrath Combo | New Changes</value>
+  </data>
+  <data name="TankMitOverhaulTitle" xml:space="preserve">
+    <value>Tank In-Combo Mitigation Has Been Overhauled and Moved</value>
+  </data>
+  <data name="TankMitYouHadConfigured" xml:space="preserve">
+    <value>You had one of these tanks configured! Please Read!</value>
+  </data>
+  <data name="TankMitBody" xml:space="preserve">
+    <value>Tanks have had their In-Combo Mitigation completely overhauled.
+No longer is their mitigation settings in each combo, and no longer is mitigation entirely triggered by HP%.
+Mitigation is now in its own Section, under the Advanced Combos, and those options apply to the Advanced Combos
+if they have 'Include Mitigations' checked.
+(Simple Modes will use the recommended values for these settings, if 'Include Mitigations' is checked there)
+
+You can find these moved mitigation settings here:
+PvE Features &gt; [Tank of choice] &gt; Advanced Mitigation Options
+
+Make sure Mitigation is enabled in combos for these to work:
+PvE Features &gt; [Tank of choice] &gt; Advanced/Simple Combo &gt; Include Mitigations</value>
+  </data>
+  <data name="SearchForMitigation" xml:space="preserve">
+    <value>(then just search for 'Mitigation')</value>
+  </data>
+  <data name="OpenDRKConfig" xml:space="preserve">
+    <value>&gt; Open Dark Knight's Config</value>
+  </data>
+  <data name="OpenGNBConfig" xml:space="preserve">
+    <value>&gt; Open Gun Breaker's Config</value>
+  </data>
+  <data name="OpenPLDConfig" xml:space="preserve">
+    <value>&gt; Open Paladin's Config</value>
+  </data>
+  <data name="OpenWARConfig" xml:space="preserve">
+    <value>&gt; Open Warrior's Config</value>
+  </data>
+  <data name="RaidwideTankbusterTitle" xml:space="preserve">
+    <value>Raidwide-Detection Improved, Tankbuster Detection Added</value>
+  </data>
+  <data name="RaidwideTankbusterBody" xml:space="preserve">
+    <value>Raidwide detection has been improved to now also check for nearby
+stack marker visual effects, in addition to the existing raidwide cast detection.
+(No change by you is needed for this, it's just expanded now)
+
+Tankbuster detection has been added by checking for visual effects!
+Options to mitigate as a tank for these is in the new mitigation options above.
+
+Find the new tankbuster mitigation options here:
+PvE Features &gt; [Tank of choice] &gt; Advanced Mitigation Options &gt; Boss Encounter
+(can also search for 'Tankbuster' in your tank's configuration)</value>
+  </data>
+  <data name="CloseAndDoNotShow" xml:space="preserve">
+    <value>Close and Do Not Show again</value>
+  </data>
+  <data name="CustomActionsIntro" xml:space="preserve">
+    <value>This section contains a range of bespoke "Custom Actions" which can be used as replacements for either base action replacements or specific macros.</value>
+  </data>
+  <data name="RotationButtons" xml:space="preserve">
+    <value>Rotation Buttons</value>
+  </data>
+  <data name="RotationButtonsDesc" xml:space="preserve">
+    <value>These buttons replace the need to replace actions for all features marked as either Simple or Advanced. Enable the type of combo you're wanting to use custom actions for, and drag the icon to your hotbar.
+
+This frees up the actions for manual use, for example, for downtime where you only want to use 1-2-3 combos, or for healers to always have access to basic healing actions.</value>
+  </data>
+  <data name="TableAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="TableDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DontOverrideIcons" xml:space="preserve">
+    <value>Don't Override Icons with Job Actions (drag action to hotbar again to take effect)</value>
+  </data>
+  <data name="DontOverrideIconsHelp" xml:space="preserve">
+    <value>This will hide all combo outputs on custom actions, leaving only these icons showing. This is not advised if you wish to see the real actions being output by the combos on your hotbar, and should only be used if you feel it's something you want.</value>
+  </data>
+  <data name="UtilityButtons" xml:space="preserve">
+    <value>Utility Buttons</value>
+  </data>
+  <data name="UtilityButtonsDesc" xml:space="preserve">
+    <value>These are buttons which serve to control the plugin in some way. Just drag the icon to your hotbar to use them.</value>
+  </data>
+  <data name="BLUNote" xml:space="preserve">
+    <value>Please note that even if you do not have all the required spells active, you may still use these features.
+Any spells you do not have active will be skipped over so if a feature is not working as intended then
+please try and enable more required spells.</value>
+  </data>
+  <data name="UnknownAction" xml:space="preserve">
+    <value>Unknown Action</value>
+  </data>
+  <data name="UnknownTrait" xml:space="preserve">
+    <value>Unknown Trait</value>
+  </data>
+  <data name="UnknownStatus" xml:space="preserve">
+    <value>Unknown Status</value>
+  </data>
+  <data name="UnknownItem" xml:space="preserve">
+    <value>Unknown Item</value>
+  </data>
+  <data name="CustomAction_ST_DPS" xml:space="preserve">
+    <value>Single Target DPS</value>
+  </data>
+  <data name="CustomAction_ST_DPS_Desc" xml:space="preserve">
+    <value>This is for the Single Target DPS combos.</value>
+  </data>
+  <data name="CustomAction_AoE_DPS" xml:space="preserve">
+    <value>AoE DPS</value>
+  </data>
+  <data name="CustomAction_AoE_DPS_Desc" xml:space="preserve">
+    <value>This is for the AoE DPS combos.</value>
+  </data>
+  <data name="CustomAction_ST_Heals" xml:space="preserve">
+    <value>Single Target Heals</value>
+  </data>
+  <data name="CustomAction_ST_Heals_Desc" xml:space="preserve">
+    <value>This is for the Single Target Heal combos.</value>
+  </data>
+  <data name="CustomAction_AoE_Heals" xml:space="preserve">
+    <value>AoE Heals</value>
+  </data>
+  <data name="CustomAction_AoE_Heals_Desc" xml:space="preserve">
+    <value>This is for the AoE Heal combos.</value>
+  </data>
+  <data name="CustomAction_ItemNotFound" xml:space="preserve">
+    <value>Item Not Found</value>
+  </data>
+  <data name="CustomAction_ItemNotFound_Desc" xml:space="preserve">
+    <value>Users shouldn't see this</value>
+  </data>
+  <data name="CustomAction_Cease" xml:space="preserve">
+    <value>Cease!</value>
+  </data>
+  <data name="CustomAction_Cease_Desc" xml:space="preserve">
+    <value>God says no! We don't want you to use actions currently.</value>
+  </data>
+  <data name="CustomAction_AutoOn" xml:space="preserve">
+    <value>Auto-Rotation Enable</value>
+  </data>
+  <data name="CustomAction_AutoOn_Desc" xml:space="preserve">
+    <value>Enables auto-rotation.</value>
+  </data>
+  <data name="CustomAction_AutoOff" xml:space="preserve">
+    <value>Auto-Rotation Disable</value>
+  </data>
+  <data name="CustomAction_AutoOff_Desc" xml:space="preserve">
+    <value>Disables auto-rotation.</value>
+  </data>
+  <data name="CustomAction_AutoToggle" xml:space="preserve">
+    <value>Auto-Rotation Toggle</value>
+  </data>
+  <data name="CustomAction_AutoToggle_Desc" xml:space="preserve">
+    <value>Switches between enabled and disabled for auto-rotation</value>
   </data>
 </root>

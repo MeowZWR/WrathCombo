@@ -10,6 +10,9 @@ using System.Linq;
 using System.Resources;
 using System.Threading;
 using WrathCombo.Core;
+using WrathCombo.Data.Conflicts;
+using WrathCombo.Native;
+using WrathCombo.Resources.Localization.Content;
 using WrathCombo.Resources.Localization.JobConfigs;
 using WrathCombo.Resources.Localization.Misc;
 using WrathCombo.Resources.Localization.Presets;
@@ -50,7 +53,7 @@ namespace WrathCombo.Window
         // Cache the game culture.
         private static CultureInfo _gameCulture = Svc.PluginInterface.UiLanguage.ToCulture();
 
-        public static ClientLanguage LangFromCulture = Svc.ClientState.ClientLanguage;
+        public static ClientLanguage LangFromCulture = ClientLanguageFromCulture(_gameCulture);
 
         // Expose TextInfo for formatting purposes (Job Names)
         public static TextInfo TextFormatting => _gameCulture.TextInfo;
@@ -69,6 +72,7 @@ namespace WrathCombo.Window
             SettingsUI.Culture = _gameCulture;
             SettingsCfgUI.Culture = _gameCulture;
             MiscStrings.Culture = _gameCulture;
+            OccultCrescent.Culture = _gameCulture;
 
             // Job Configs
             Generics.Culture = _gameCulture;
@@ -95,16 +99,9 @@ namespace WrathCombo.Window
             VPR_Config.Culture = _gameCulture;
             WAR_Config.Culture = _gameCulture;
             WHM_Config.Culture = _gameCulture;
+            BST_Config.Culture = _gameCulture;
 
-            LangFromCulture = _gameCulture.TwoLetterISOLanguageName switch
-            {
-                "en" => ClientLanguage.English,
-                "de" => ClientLanguage.German,
-                "ja" => ClientLanguage.Japanese,
-                "fr" => ClientLanguage.French,
-                "zh-Hans" or "zh-Hant" => (ClientLanguage)4,
-                _ => LangFromCulture
-            };
+            LangFromCulture = ClientLanguageFromCulture(_gameCulture);
 
             Svc.Log.Debug($"LangFromCulture {LangFromCulture}");
 
@@ -116,7 +113,19 @@ namespace WrathCombo.Window
             Settings.SettingsList.Clear();
             Setting.CachedSettings.Clear();
             FormatCache.Clear();
+            CustomActionHelper.RefreshLocalizedTexts();
+            ConflictingPlugins.ClearCache();
         }
+
+        private static ClientLanguage ClientLanguageFromCulture(CultureInfo culture) => culture.Name switch
+        {
+            "en" => ClientLanguage.English,
+            "de" => ClientLanguage.German,
+            "ja" => ClientLanguage.Japanese,
+            "fr" => ClientLanguage.French,
+            "zh-Hans" => (ClientLanguage)4,
+            _ => Svc.ClientState.ClientLanguage
+        };
 
         /// <summary>
         /// Takes known Dalamud string codes and maps to CultureInfo, with a fallback to English.
@@ -240,19 +249,19 @@ namespace WrathCombo.Window
             private static readonly ConcurrentDictionary<uint, string> _itemNameCache = new();
 
             public static string GetActionName(uint actionId)
-                => _actionNameCache.GetOrAdd(actionId, Svc.Data.GetExcelSheet<Action>(LangFromCulture).GetRowOrDefault(actionId)?.Name.ToString() ?? P.CustomActions.Manager.Actions.FirstOrDefault(x => x.Id == actionId)?.Name ?? "Unknown Action");
+                => _actionNameCache.GetOrAdd(actionId, Svc.Data.GetExcelSheet<Action>(LangFromCulture).GetRowOrDefault(actionId)?.Name.ToString() ?? P.CustomActions.Manager.Actions.FirstOrDefault(x => x.Id == actionId)?.Name ?? MiscUI.UnknownAction);
 
             public static string GetTraitName(uint traitId)
-                => _traitNameCache.GetOrAdd(traitId, Svc.Data.GetExcelSheet<Trait>(LangFromCulture).GetRowOrDefault(traitId)?.Name.ToString() ?? "Unknown Trait");
+                => _traitNameCache.GetOrAdd(traitId, Svc.Data.GetExcelSheet<Trait>(LangFromCulture).GetRowOrDefault(traitId)?.Name.ToString() ?? MiscUI.UnknownTrait);
 
             public static string GetStatusName(uint statusId)
-                => _statusNameCache.GetOrAdd(statusId, Svc.Data.GetExcelSheet<Status>(LangFromCulture).GetRowOrDefault(statusId)?.Name.ToString() ?? "Unknown Status");
+                => _statusNameCache.GetOrAdd(statusId, Svc.Data.GetExcelSheet<Status>(LangFromCulture).GetRowOrDefault(statusId)?.Name.ToString() ?? MiscUI.UnknownStatus);
 
             public static string GetItemName(uint itemId)
             {
                 if (itemId > 1_000_000)
                     itemId -= 1_000_000;
-                return _itemNameCache.GetOrAdd(itemId, Svc.Data.GetExcelSheet<Item>(LangFromCulture).GetRowOrDefault(itemId)?.Name.ToString() ?? "Unknown Item");
+                return _itemNameCache.GetOrAdd(itemId, Svc.Data.GetExcelSheet<Item>(LangFromCulture).GetRowOrDefault(itemId)?.Name.ToString() ?? MiscUI.UnknownItem);
             }
 
             public static void Clear()

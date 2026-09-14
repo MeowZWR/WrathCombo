@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -186,5 +186,20 @@ affecting this action will Conflict and may cause issues.</value>
   </data>
   <data name="Label_searchLabelText" xml:space="preserve">
     <value>Search:</value>
+  </data>
+  <data name="RegularJobs" xml:space="preserve">
+    <value>Regular Jobs</value>
+  </data>
+  <data name="LimitedJobsAndMisc" xml:space="preserve">
+    <value>Limited Jobs and Misc</value>
+  </data>
+  <data name="WaitThisIsntJob" xml:space="preserve">
+    <value>Wait... this isn't {0}. Get me out of here!</value>
+  </data>
+  <data name="Search_Behave" xml:space="preserve">
+    <value>Behave!</value>
+  </data>
+  <data name="Search_InvalidKeyword" xml:space="preserve">
+    <value>Make sure your keyword is valid.</value>
   </data>
 </root>

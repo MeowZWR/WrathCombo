@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
 		Microsoft ResX Schema
@@ -98,4 +98,58 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="BurnBossHp" xml:space="preserve">
+    <value>Stop pooling charges and burn bosses below this HP % (0% = Don't Burn).</value>
+  </data>
+  <data name="SecondGcdStarryMuse" xml:space="preserve">
+    <value>2nd GCD {0}</value>
+  </data>
+  <data name="ThirdGcdStarryMuse" xml:space="preserve">
+    <value>3rd GCD {0}</value>
+  </data>
+  <data name="OpenerTimeoutNote" xml:space="preserve">
+    <value>Opener Failure Timeout (in Settings Tab) Must be set to 5+ seconds for opener to function due to long initial spell cast.</value>
+  </data>
+  <data name="AddLucidBelowMp" xml:space="preserve">
+    <value>Add Lucid Dreaming when below this MP</value>
+  </data>
+  <data name="DontUseIfMoving" xml:space="preserve">
+    <value>Dont Use if Moving</value>
+  </data>
+  <data name="DontUseIfMovingDesc" xml:space="preserve">
+    <value>Will only use if not moving.</value>
+  </data>
+  <data name="StopScenicMuseBelowHp" xml:space="preserve">
+    <value>Stop using Scenic Muse on targets below this HP % (0% = always use, 100% = never use).</value>
+  </data>
+  <data name="HammerTimeRemaining" xml:space="preserve">
+    <value>Time Remaining on Hammer Time (seconds) to use combo. 30 = Use Immediately.</value>
+  </data>
+  <data name="HealthStopDrawingMotif" xml:space="preserve">
+    <value>Health % to stop Drawing Motif</value>
+  </data>
+  <data name="BothSingleTargetAoe" xml:space="preserve">
+    <value>Both Single Target &amp; AoE</value>
+  </data>
+  <data name="ReplacesBoth0And1" xml:space="preserve">
+    <value>Replaces both {0} &amp; {1}</value>
+  </data>
+  <data name="SingleTargetOnly" xml:space="preserve">
+    <value>Single Target Only</value>
+  </data>
+  <data name="ReplaceOnly0" xml:space="preserve">
+    <value>Replace only {0}</value>
+  </data>
+  <data name="AoeOnly" xml:space="preserve">
+    <value>AoE Only</value>
+  </data>
+  <data name="MogFeature" xml:space="preserve">
+    <value>{0} Feature</value>
+  </data>
+  <data name="AddWhenFullyDrawnOffCd" xml:space="preserve">
+    <value>Add {0} when fully drawn and off cooldown.</value>
+  </data>
+  <data name="AddWhenUnderEffect" xml:space="preserve">
+    <value>Add {0} when under the effect of {1}.</value>
+  </data>
 </root>

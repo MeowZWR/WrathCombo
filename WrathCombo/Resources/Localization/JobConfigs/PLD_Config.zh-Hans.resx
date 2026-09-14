@@ -117,19 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DoubleLunarOpener" xml:space="preserve">
-    <value>双阴</value>
+  <data name="SmartHolySpirit" xml:space="preserve">
+    <value>智能圣灵</value>
   </data>
-  <data name="DoubleLunarOpenerDesc" xml:space="preserve">
-    <value>使用双阴起手循环</value>
-  </data>
-  <data name="Repalce0With1When2IsOnCooldown" xml:space="preserve">
-    <value>当 {2} 处于冷却中时，将 {0} 替换为 {1}。</value>
-  </data>
-  <data name="SolarLunarOpener" xml:space="preserve">
-    <value>阴阳</value>
-  </data>
-  <data name="SolarLunarOpenerDesc" xml:space="preserve">
-    <value>使用阳/阴起手循环。</value>
+  <data name="SmartHolySpiritDesc" xml:space="preserve">
+    <value>可用时将投盾替换为圣灵。
+必须处于神圣之力效果中或未移动。
+重定向功能也会应用于圣灵。</value>
   </data>
 </root>

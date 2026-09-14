@@ -145,10 +145,4 @@
   <data name="Replace0WithFullCombo" xml:space="preserve">
     <value>将“{0}”替换为完整的祖灵之牙 - 祖灵之蛇连击。</value>
   </data>
-  <data name="EarlyBuffOpener" xml:space="preserve">
-    <value>早期增益起手循环</value>
-  </data>
-  <data name="UseEarlyBuffOpener" xml:space="preserve">
-    <value>使用早期增益起手循环。</value>
-  </data>
 </root>

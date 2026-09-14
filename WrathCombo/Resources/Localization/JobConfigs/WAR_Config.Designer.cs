@@ -59,5 +59,275 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player HP% to use Equilibrium at or below when incoming tankbuster is detected..
+        /// </summary>
+        internal static string EquilibriumTankbusterHp {
+            get {
+                return ResourceManager.GetString("EquilibriumTankbusterHp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Vengeance First.
+        /// </summary>
+        internal static string UseVengeanceFirst {
+            get {
+                return ResourceManager.GetString("UseVengeanceFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses Vengeance before Rampart.
+        /// </summary>
+        internal static string UseVengeanceFirstDesc {
+            get {
+                return ResourceManager.GetString("UseVengeanceFirstDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use Thrill Of Battle as extra tankbuster mitigation if under this HP%.
+        /// </summary>
+        internal static string ThrillTankbusterHp {
+            get {
+                return ResourceManager.GetString("ThrillTankbusterHp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align Thrill Of Battle.
+        /// </summary>
+        internal static string AlignThrillOfBattle {
+            get {
+                return ResourceManager.GetString("AlignThrillOfBattle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tries to align Thrill Of Battle with Rampart for tankbusters..
+        /// </summary>
+        internal static string AlignThrillOfBattleDesc {
+            get {
+                return ResourceManager.GetString("AlignThrillOfBattleDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Gapclosers.
+        /// </summary>
+        internal static string UseGapclosers {
+            get {
+                return ResourceManager.GetString("UseGapclosers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses Onslaughts use in opener..
+        /// </summary>
+        internal static string UseGapclosersDesc {
+            get {
+                return ResourceManager.GetString("UseGapclosersDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Gapclosers.
+        /// </summary>
+        internal static string NoGapclosers {
+            get {
+                return ResourceManager.GetString("NoGapclosers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skips Onslaughts use in opener..
+        /// </summary>
+        internal static string NoGapclosersDesc {
+            get {
+                return ResourceManager.GetString("NoGapclosersDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seconds remaining before refreshing {0} buff:.
+        /// </summary>
+        internal static string SurgingTempestRefresh {
+            get {
+                return ResourceManager.GetString("SurgingTempestRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use when Beast Gauge is less than or equal to:.
+        /// </summary>
+        internal static string BeastGaugeLessOrEqual {
+            get {
+                return ResourceManager.GetString("BeastGaugeLessOrEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Burst Pooling.
+        /// </summary>
+        internal static string BurstPooling {
+            get {
+                return ResourceManager.GetString("BurstPooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pools gauge for use in burst windows. Will spend to prevent overcap, and dump after Berserk/Inner Release.
+        /// </summary>
+        internal static string BurstPoolingDesc {
+            get {
+                return ResourceManager.GetString("BurstPoolingDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pool in boss encounter Only.
+        /// </summary>
+        internal static string PoolBossOnly {
+            get {
+                return ResourceManager.GetString("PoolBossOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will spend at 50 Gauge outside of Boss encounter.
+        /// </summary>
+        internal static string PoolBossOnlyDesc {
+            get {
+                return ResourceManager.GetString("PoolBossOnlyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum Beast Gauge required to spend:.
+        /// </summary>
+        internal static string MinBeastGaugeSpend {
+            get {
+                return ResourceManager.GetString("MinBeastGaugeSpend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Early.
+        /// </summary>
+        internal static string Early {
+            get {
+                return ResourceManager.GetString("Early", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses Primal Rend ASAP.
+        /// </summary>
+        internal static string EarlyPrimalRend {
+            get {
+                return ResourceManager.GetString("EarlyPrimalRend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Late.
+        /// </summary>
+        internal static string Late {
+            get {
+                return ResourceManager.GetString("Late", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses Primal Rend after consumption of all Inner Release stacks.
+        /// </summary>
+        internal static string LatePrimalRend {
+            get {
+                return ResourceManager.GetString("LatePrimalRend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use when gauge is under or equal to.
+        /// </summary>
+        internal static string GaugeUnderOrEqual {
+            get {
+                return ResourceManager.GetString("GaugeUnderOrEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Smart Spender.
+        /// </summary>
+        internal static string SmartSpender {
+            get {
+                return ResourceManager.GetString("SmartSpender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use Fell Cleave in AoE when it would be a dps increase compared to Decimate..
+        /// </summary>
+        internal static string SmartSpenderDesc {
+            get {
+                return ResourceManager.GetString("SmartSpenderDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will not use Shake It Off unless there are 2 or more party members..
+        /// </summary>
+        internal static string RequirePartyShakeItOff {
+            get {
+                return ResourceManager.GetString("RequirePartyShakeItOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will not require a party for Shake It Off..
+        /// </summary>
+        internal static string UseAlwaysShakeItOff {
+            get {
+                return ResourceManager.GetString("UseAlwaysShakeItOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop usage if Target HP% is below set value. To disable this, set value to 0.
+        /// </summary>
+        internal static string FcIrStopHp {
+            get {
+                return ResourceManager.GetString("FcIrStopHp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use when Beast Gauge is less than or equal to:.
+        /// </summary>
+        internal static string BeastGaugeLessOrEqualMultiline {
+            get {
+                return ResourceManager.GetString("BeastGaugeLessOrEqualMultiline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: If you are Off-Tanking, and want to use Bloodwhetting on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation. You could also mouseover yourself in the party to use Bloodwhetting or raw Intuition in this case. If you don&apos;t, Nascent Flash would replace the combo, and it would go to the main tank. If you don&apos;t use those Features for your personal mitigation, you may not want to enable this..
+        /// </summary>
+        internal static string BloodwhettingOfftankNote {
+            get {
+                return ResourceManager.GetString("BloodwhettingOfftankNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time (In Seconds) remaining on Inner Strength to Lock out Arm&apos;s Length until..
+        /// </summary>
+        internal static string ArmsLengthInnerStrengthLockout {
+            get {
+                return ResourceManager.GetString("ArmsLengthInnerStrengthLockout", resourceCulture);
+            }
+        }
     }
 }

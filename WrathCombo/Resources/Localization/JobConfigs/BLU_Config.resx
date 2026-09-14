@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
 		Microsoft ResX Schema
@@ -98,4 +98,43 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="WingedOpener" xml:space="preserve">
+    <value>Winged Opener</value>
+  </data>
+  <data name="WingedOpenerDesc" xml:space="preserve">
+    <value>Winged Reprobation opener. Standard 2.50 spell speed.</value>
+  </data>
+  <data name="DoTOpener" xml:space="preserve">
+    <value>DoT Opener</value>
+  </data>
+  <data name="DoTOpenerDesc" xml:space="preserve">
+    <value>Mortal Flame or Breath of Magic instead of Winged Reprobation. Requires 2.20 or faster spell speed.</value>
+  </data>
+  <data name="InputJKickYourself" xml:space="preserve">
+    <value>Input J Kick yourself</value>
+  </data>
+  <data name="InputJKickYourselfDesc" xml:space="preserve">
+    <value>Skips J Kick in the opener and 1-button primals so you can gap-close with it. Reopeners will not wait for J Kick.</value>
+  </data>
+  <data name="InputJKickYourselfOpenerOnlyDesc" xml:space="preserve">
+    <value>Skips J Kick in this opener so you can gap-close with it. Reopeners will not wait for J Kick.</value>
+  </data>
+  <data name="PrimalsToUse" xml:space="preserve">
+    <value>Primals to use on this button</value>
+  </data>
+  <data name="UseFeatherRain" xml:space="preserve">
+    <value>Use Feather Rain.</value>
+  </data>
+  <data name="UseEruption" xml:space="preserve">
+    <value>Use Eruption.</value>
+  </data>
+  <data name="UseShockStrike" xml:space="preserve">
+    <value>Use Shock Strike.</value>
+  </data>
+  <data name="UseRoseOfDestruction" xml:space="preserve">
+    <value>Use Rose of Destruction.</value>
+  </data>
+  <data name="UseGlassDance" xml:space="preserve">
+    <value>Use Glass Dance.</value>
+  </data>
 </root>

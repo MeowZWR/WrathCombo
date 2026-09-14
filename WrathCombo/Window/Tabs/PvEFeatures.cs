@@ -58,7 +58,7 @@ internal class PvEFeatures : FeaturesWindow
                     kvp.Value[0].JobInfo.Role == Jobs.JobRole.DoL ||
                     kvp.Value[0].JobInfo.Role == Jobs.JobRole.DoH).ToList();
 
-                ImGuiExtensions.TextUnderlinedAndCentered("Regular Jobs");
+                ImGuiExtensions.TextUnderlinedAndCentered(FeaturesUI.RegularJobs);
                 DrawJobsTable("PvETableRegular", regularJobs);
 
                 if (regularJobs.Count > 0 && specialJobs.Count > 0)
@@ -67,7 +67,7 @@ internal class PvEFeatures : FeaturesWindow
                     ImGui.Spacing();
                 }
 
-                ImGuiExtensions.TextUnderlinedAndCentered("Limited Jobs and Misc");
+                ImGuiExtensions.TextUnderlinedAndCentered(FeaturesUI.LimitedJobsAndMisc);
                 DrawJobsTable("PvETableSpecial", specialJobs);
             }
             else
@@ -79,7 +79,7 @@ internal class PvEFeatures : FeaturesWindow
                 {
                     ImGuiEx.LineCentered(() =>
                     {
-                        if (ImGui.Button($"Wait... this isn't {OpenJob?.Name()}. Get me out of here!"))
+                        if (ImGui.Button(string.Format(FeaturesUI.WaitThisIsntJob, OpenJob?.Name())))
                         {
                             Service.Configuration.AprilFools2026 = false;
                             OpenJob = null;

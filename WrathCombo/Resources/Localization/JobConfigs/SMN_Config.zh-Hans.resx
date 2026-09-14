@@ -117,19 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DoubleLunarOpener" xml:space="preserve">
-    <value>双阴</value>
+  <data name="SafeModeNoGapclose" xml:space="preserve">
+    <value>安全模式（不会拉近距离）</value>
   </data>
-  <data name="DoubleLunarOpenerDesc" xml:space="preserve">
-    <value>使用双阴起手循环</value>
+  <data name="SafeModeNoGapcloseDesc" xml:space="preserve">
+    <value>仅在近战范围内使用深红旋风</value>
   </data>
-  <data name="Repalce0With1When2IsOnCooldown" xml:space="preserve">
-    <value>当 {2} 处于冷却中时，将 {0} 替换为 {1}。</value>
+  <data name="StandardRotation" xml:space="preserve">
+    <value>标准循环</value>
   </data>
-  <data name="SolarLunarOpener" xml:space="preserve">
-    <value>阴阳</value>
+  <data name="StandardRotationDesc" xml:space="preserve">
+    <value>会用深红旋风拉近距离。</value>
   </data>
-  <data name="SolarLunarOpenerDesc" xml:space="preserve">
-    <value>使用阳/阴起手循环。</value>
+  <data name="OnRuin123" xml:space="preserve">
+    <value>在毁灭 1、2、3 上</value>
+  </data>
+  <data name="OnRuin12Only" xml:space="preserve">
+    <value>仅在毁灭 1、2 上</value>
+  </data>
+  <data name="OnRuin12OnlyDesc" xml:space="preserve">
+    <value>备选输出模式。保留毁荡供手动输出。</value>
+  </data>
+  <data name="SwiftcastSettings" xml:space="preserve">
+    <value>即刻咏唱设置</value>
+  </data>
+  <data name="UseSwiftcast" xml:space="preserve">
+    <value>使用即刻咏唱</value>
+  </data>
+  <data name="UseSwiftcastDesc" xml:space="preserve">
+    <value>在起手中使用即刻咏唱，以便在较低 GCD 下吃爆发药快照</value>
+  </data>
+  <data name="SkipSwiftcast" xml:space="preserve">
+    <value>跳过即刻咏唱</value>
+  </data>
+  <data name="SkipSwiftcastDesc" xml:space="preserve">
+    <value>较高 GCD 时不在起手中使用即刻咏唱</value>
+  </data>
+  <data name="Garuda" xml:space="preserve">
+    <value>迦楼罗</value>
+  </data>
+  <data name="SwiftcastsSlipstream" xml:space="preserve">
+    <value>即刻咏唱螺旋气流</value>
+  </data>
+  <data name="Ifrit" xml:space="preserve">
+    <value>伊芙利特</value>
+  </data>
+  <data name="SwiftcastsRubyRuin" xml:space="preserve">
+    <value>即刻咏唱红宝石毁灭/红宝石核爆</value>
+  </data>
+  <data name="FlexibleSpsOption" xml:space="preserve">
+    <value>灵活（咏速）选项</value>
+  </data>
+  <data name="FlexibleSpsOptionDesc" xml:space="preserve">
+    <value>即刻咏唱就绪时，对第一个可用的蛮神召唤使用即刻。</value>
+  </data>
+  <data name="AddMountainBuster" xml:space="preserve">
+    <value>加入山崩</value>
+  </data>
+  <data name="AddCrimsonCyclone" xml:space="preserve">
+    <value>加入深红旋风</value>
+  </data>
+  <data name="AddCrimsonStrike" xml:space="preserve">
+    <value>加入深红强袭</value>
+  </data>
+  <data name="AddSlipstream" xml:space="preserve">
+    <value>加入螺旋气流</value>
+  </data>
+  <data name="MaxRangeCrimsonCyclone" xml:space="preserve">
+    <value>使用深红旋风的最大距离。</value>
   </data>
 </root>

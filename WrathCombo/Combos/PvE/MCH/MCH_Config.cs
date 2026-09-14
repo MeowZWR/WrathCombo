@@ -21,7 +21,7 @@ internal partial class MCH
                 case Preset.MCH_ST_Adv_Opener:
                     DrawBossOnlyChoice(MCH_Balance_Content);
                     DrawOpenerPotionChoice(MCH_Opener_Potion);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(MCH_SelectedOpener,
                         Generics.StandardOpener,
@@ -31,7 +31,7 @@ internal partial class MCH
                         MCH_Config.Early0Opener,
                         FormatAndCache(MCH_Config.UseEarly0Opener, Wildfire.ActionName()), 1, descriptionAsTooltip: true);
 
-                    ImGuiEx.TextUnderlined("Target Settings");
+                    ImGuiEx.TextUnderlined(Generics.TargetSettings);
                     ImGui.Spacing();
                     DrawRadioButton(MCH_HaveTarget,
                         Generics.HaveBattleTarget,

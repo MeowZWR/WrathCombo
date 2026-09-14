@@ -759,4 +759,23 @@
   <data name="UseExperimentalHP_warningMark" xml:space="preserve">
     <value>高度实验性，可能出现不良行为。请保持警惕并报告此情况。</value>
   </data>
+  <data name="PenaltyPause_Name" xml:space="preserve">
+    <value>惩罚机制锁定窗口</value>
+  </data>
+  <data name="PenaltyPause_defaultValue" xml:space="preserve">
+    <value>1.5</value>
+  </data>
+  <data name="PenaltyPause_helpMark" xml:space="preserve">
+    <value>检测到会对使用技能施加惩罚的机制（如热病、加速炸弹、石化视线等）且距判定还剩这么多时间时，会锁定热键栏上的连击。
+
+部分机制可能会覆盖此数值。
+
+设置为 0 以禁用。</value>
+  </data>
+  <data name="PenaltyPause_recommendedValue" xml:space="preserve">
+    <value>与服务器延迟较高时可适当增大</value>
+  </data>
+  <data name="PenaltyPause_unitLabel" xml:space="preserve">
+    <value>秒</value>
+  </data>
 </root>

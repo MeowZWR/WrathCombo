@@ -117,4 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CycleBeasts" xml:space="preserve">
+    <value>循环魔兽</value>
+  </data>
+  <data name="CycleBeastsDesc" xml:space="preserve">
+    <value>战斗中会使用“最后一击”循环更换魔兽。若不想让魔兽进入冷却，也可改为手动切换。</value>
+  </data>
+  <data name="Infinitive" xml:space="preserve">
+    <value>是否打无限连击？</value>
+  </data>
+  <data name="InfinitiveDesc" xml:space="preserve">
+    <value>加入“鼓劲”/“声援”以打出无限连击。当你与魔兽都有 100 TP、至少 2 层御兽之心和 1 层兽灵之心，且鼓舞与激励喝彩均不在冷却时开始。50 级前也会做这套准备，50 级后会加入无限连击的终结技。</value>
+  </data>
+  <data name="MinTPPlayerBeast" xml:space="preserve">
+    <value>玩家与魔兽的最低 TP</value>
+  </data>
+  <data name="OnlyCurrentHorn" xml:space="preserve">
+    <value>仅替换已借用号角的技能</value>
+  </data>
+  <data name="OnlyCurrentHornDesc" xml:space="preserve">
+    <value>若你切换离开借用该技能的号角，则把技能还原为“借用”。</value>
+  </data>
 </root>

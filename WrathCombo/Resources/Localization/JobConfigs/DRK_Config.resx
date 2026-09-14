@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
 		Microsoft ResX Schema
@@ -98,4 +98,104 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="SelectTBNOnCD" xml:space="preserve">
+    <value>Select what difficulties TBN should be used on CD:</value>
+  </data>
+  <data name="UseShadowWallFirst" xml:space="preserve">
+    <value>Use ShadowWall/Shadowed Vigil First</value>
+  </data>
+  <data name="UseShadowWallFirstDesc" xml:space="preserve">
+    <value>Uses ShadowWall/Shadowed Vigil before Rampart</value>
+  </data>
+  <data name="AlignDarkMind" xml:space="preserve">
+    <value>Align Dark Mind</value>
+  </data>
+  <data name="AlignDarkMindDesc" xml:space="preserve">
+    <value>Tries to align Dark Mind with Rampart for tankbusters.
+(as it is lesser than Shadow Wall/Shadowed Vigil)</value>
+  </data>
+  <data name="UnmendStandard" xml:space="preserve">
+    <value>Unmend (Standard)</value>
+  </data>
+  <data name="UnmendStandardDesc" xml:space="preserve">
+    <value>Will use Unmend to pull, if selected.
+Should start at -1.0 seconds.
+
+Recommended by The Balance.</value>
+  </data>
+  <data name="Shadowstride" xml:space="preserve">
+    <value>Shadowstride</value>
+  </data>
+  <data name="ShadowstrideDesc" xml:space="preserve">
+    <value>Will use Shadowstride to pull, if selected.
+Should start at -0.7 seconds.</value>
+  </data>
+  <data name="HardSlash" xml:space="preserve">
+    <value>Hard Slash</value>
+  </data>
+  <data name="HardSlashDesc" xml:space="preserve">
+    <value>Will use Hard Slash to pull, if selected.
+Should start at 0.0 seconds.</value>
+  </data>
+  <data name="WillUseCooldownsRegardless" xml:space="preserve">
+    <value>Will use Cooldowns regardless of the type of enemy.</value>
+  </data>
+  <data name="OnlyBosses" xml:space="preserve">
+    <value>Only Bosses</value>
+  </data>
+  <data name="WillUseCooldownsOnlyBoss" xml:space="preserve">
+    <value>Will try to use Cooldowns only when you're in a boss fight.
+(Note: don't rely on this 100%, square sometimes marks enemies inconsistently)</value>
+  </data>
+  <data name="SendOnCooldown" xml:space="preserve">
+    <value>Send on Cooldown</value>
+  </data>
+  <data name="SendOnCooldownDesc" xml:space="preserve">
+    <value>Will use Delirium usages on cooldown. Recommended.</value>
+  </data>
+  <data name="TieToLivingShadow" xml:space="preserve">
+    <value>Tie to Living Shadow (for manual control)</value>
+  </data>
+  <data name="TieToLivingShadowDesc" xml:space="preserve">
+    <value>Will require Living Shadow to have been recently used before using even-minute Deliriums.
+(Odd-minute Delirium usage will proceed on cooldown)
+
+ONLY recommended if you want more manual control.
+(Does not apply to Blood Weapon)</value>
+  </data>
+  <data name="UseHalfway" xml:space="preserve">
+    <value>Use Halfway</value>
+  </data>
+  <data name="UseHalfwayDesc" xml:space="preserve">
+    <value>Will use Salt and Darkness about halfway through Salted Earth's duration, after more important oGCDs.
+Recommended.</value>
+  </data>
+  <data name="UseInstantly" xml:space="preserve">
+    <value>Use Instantly (for heavy movement)</value>
+  </data>
+  <data name="UseInstantlyDesc" xml:space="preserve">
+    <value>Will use Salt and Darkness as soon as possible (outside of the opener).
+Only Recommended for heavy movement fights, and only if you know you can fit your other oGCDs in.</value>
+  </data>
+  <data name="UseInstantlyAoEDesc" xml:space="preserve">
+    <value>Will use Salt and Darkness as soon as possible.</value>
+  </data>
+  <data name="ManaSaveTBNAlways" xml:space="preserve">
+    <value>Mana to always save for TBN (0 = Use All). Spent freely until you have The Blackest Night.</value>
+  </data>
+  <data name="SecondsBeforeBurst" xml:space="preserve">
+    <value>Seconds before Burst to save (allowing capping)</value>
+  </data>
+  <data name="ManaSaveTBN" xml:space="preserve">
+    <value>Mana to save for TBN (0 = Use All). Spent freely until you have The Blackest Night.</value>
+  </data>
+  <data name="DarkMissionaryRequirePartyDesc" xml:space="preserve">
+    <value>Will not use Dark Missionary unless there are 2 or more party members.</value>
+  </data>
+  <data name="DarkMissionaryUseAlwaysDesc" xml:space="preserve">
+    <value>Will not require a party for Dark Missionary.</value>
+  </data>
+  <data name="UseAtOrAbove" xml:space="preserve">
+    <value># to use at or above</value>
+  </data>
 </root>

@@ -98,99 +98,104 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-  <data name="EquilibriumTankbusterHp" xml:space="preserve">
-    <value>Player HP% to use Equilibrium at or below when incoming tankbuster is detected.</value>
+  <data name="SelectTBNOnCD" xml:space="preserve">
+    <value>选择应在哪些难度下冷却转好即用至黑之夜：</value>
   </data>
-  <data name="UseVengeanceFirst" xml:space="preserve">
-    <value>Use Vengeance First</value>
+  <data name="UseShadowWallFirst" xml:space="preserve">
+    <value>优先使用暗影墙/暗影卫戍</value>
   </data>
-  <data name="UseVengeanceFirstDesc" xml:space="preserve">
-    <value>Uses Vengeance before Rampart</value>
+  <data name="UseShadowWallFirstDesc" xml:space="preserve">
+    <value>在铁壁之前使用暗影墙/暗影卫戍</value>
   </data>
-  <data name="ThrillTankbusterHp" xml:space="preserve">
-    <value>Will use Thrill Of Battle as extra tankbuster mitigation if under this HP%</value>
+  <data name="AlignDarkMind" xml:space="preserve">
+    <value>对齐弃明投暗</value>
   </data>
-  <data name="AlignThrillOfBattle" xml:space="preserve">
-    <value>Align Thrill Of Battle</value>
+  <data name="AlignDarkMindDesc" xml:space="preserve">
+    <value>尝试将弃明投暗与铁壁对齐以应对死刑。
+（因其效果弱于暗影墙/暗影卫戍）</value>
   </data>
-  <data name="AlignThrillOfBattleDesc" xml:space="preserve">
-    <value>Tries to align Thrill Of Battle with Rampart for tankbusters.</value>
+  <data name="UnmendStandard" xml:space="preserve">
+    <value>伤残（标准）</value>
   </data>
-  <data name="UseGapclosers" xml:space="preserve">
-    <value>Use Gapclosers</value>
+  <data name="UnmendStandardDesc" xml:space="preserve">
+    <value>若选择此项，将使用伤残开怪。
+应在 -1.0 秒开始。
+
+The Balance 推荐。</value>
   </data>
-  <data name="UseGapclosersDesc" xml:space="preserve">
-    <value>Uses Onslaughts use in opener.</value>
+  <data name="Shadowstride" xml:space="preserve">
+    <value>暗影步</value>
   </data>
-  <data name="NoGapclosers" xml:space="preserve">
-    <value>No Gapclosers</value>
+  <data name="ShadowstrideDesc" xml:space="preserve">
+    <value>若选择此项，将使用暗影步开怪。
+应在 -0.7 秒开始。</value>
   </data>
-  <data name="NoGapclosersDesc" xml:space="preserve">
-    <value>Skips Onslaughts use in opener.</value>
+  <data name="HardSlash" xml:space="preserve">
+    <value>重斩</value>
   </data>
-  <data name="SurgingTempestRefresh" xml:space="preserve">
-    <value> Seconds remaining before refreshing {0} buff:</value>
+  <data name="HardSlashDesc" xml:space="preserve">
+    <value>若选择此项，将使用重斩开怪。
+应在 0.0 秒开始。</value>
   </data>
-  <data name="BeastGaugeLessOrEqual" xml:space="preserve">
-    <value> Use when Beast Gauge is less than or equal to:</value>
+  <data name="WillUseCooldownsRegardless" xml:space="preserve">
+    <value>无论敌人类型都会使用冷却技能。</value>
   </data>
-  <data name="BurstPooling" xml:space="preserve">
-    <value>Burst Pooling </value>
+  <data name="OnlyBosses" xml:space="preserve">
+    <value>仅首领</value>
   </data>
-  <data name="BurstPoolingDesc" xml:space="preserve">
-    <value>Pools gauge for use in burst windows. Will spend to prevent overcap, and dump after Berserk/Inner Release</value>
+  <data name="WillUseCooldownsOnlyBoss" xml:space="preserve">
+    <value>尽量仅在首领战中使用冷却技能。
+（注意：不要 100% 依赖此项，官方有时对敌人的标记并不一致）</value>
   </data>
-  <data name="PoolBossOnly" xml:space="preserve">
-    <value>Pool in boss encounter Only</value>
+  <data name="SendOnCooldown" xml:space="preserve">
+    <value>冷却转好即用</value>
   </data>
-  <data name="PoolBossOnlyDesc" xml:space="preserve">
-    <value>Will spend at 50 Gauge outside of Boss encounter</value>
+  <data name="SendOnCooldownDesc" xml:space="preserve">
+    <value>血乱冷却转好即用。推荐。</value>
   </data>
-  <data name="MinBeastGaugeSpend" xml:space="preserve">
-    <value> Minimum Beast Gauge required to spend:</value>
+  <data name="TieToLivingShadow" xml:space="preserve">
+    <value>绑定掠影示现（便于手动控制）</value>
   </data>
-  <data name="Early" xml:space="preserve">
-    <value>Early</value>
+  <data name="TieToLivingShadowDesc" xml:space="preserve">
+    <value>偶数分钟的血乱需最近使用过掠影示现后才会打出。
+（奇数分钟的血乱仍会冷却转好即用）
+
+仅在你希望更多手动控制时推荐。
+（不适用于嗜血）</value>
   </data>
-  <data name="EarlyPrimalRend" xml:space="preserve">
-    <value>Uses Primal Rend ASAP</value>
+  <data name="UseHalfway" xml:space="preserve">
+    <value>中途使用</value>
   </data>
-  <data name="Late" xml:space="preserve">
-    <value>Late</value>
+  <data name="UseHalfwayDesc" xml:space="preserve">
+    <value>在腐秽大地持续约一半、并插入更重要的能力技之后使用腐秽黑暗。
+推荐。</value>
   </data>
-  <data name="LatePrimalRend" xml:space="preserve">
-    <value>Uses Primal Rend after consumption of all Inner Release stacks</value>
+  <data name="UseInstantly" xml:space="preserve">
+    <value>立即使用（适合高机动战斗）</value>
   </data>
-  <data name="GaugeUnderOrEqual" xml:space="preserve">
-    <value>Use when gauge is under or equal to</value>
+  <data name="UseInstantlyDesc" xml:space="preserve">
+    <value>将尽快使用腐秽黑暗（起手循环外）。
+仅推荐用于高机动战斗，且你需确认能塞进其他能力技。</value>
   </data>
-  <data name="SmartSpender" xml:space="preserve">
-    <value>Smart Spender </value>
+  <data name="UseInstantlyAoEDesc" xml:space="preserve">
+    <value>将尽快使用腐秽黑暗。</value>
   </data>
-  <data name="SmartSpenderDesc" xml:space="preserve">
-    <value>Will use Fell Cleave in AoE when it would be a dps increase compared to Decimate.</value>
+  <data name="ManaSaveTBNAlways" xml:space="preserve">
+    <value>始终为至黑之夜预留的魔力（0 = 全部使用）。在习得至黑之夜前可自由消耗。</value>
   </data>
-  <data name="RequirePartyShakeItOff" xml:space="preserve">
-    <value>Will not use Shake It Off unless there are 2 or more party members.</value>
+  <data name="SecondsBeforeBurst" xml:space="preserve">
+    <value>爆发前预留秒数（允许溢出）</value>
   </data>
-  <data name="UseAlwaysShakeItOff" xml:space="preserve">
-    <value>Will not require a party for Shake It Off.</value>
+  <data name="ManaSaveTBN" xml:space="preserve">
+    <value>为至黑之夜预留的魔力（0 = 全部使用）。在习得至黑之夜前可自由消耗。</value>
   </data>
-  <data name="FcIrStopHp" xml:space="preserve">
-    <value> Stop usage if Target HP% is below set value.
- To disable this, set value to 0</value>
+  <data name="DarkMissionaryRequirePartyDesc" xml:space="preserve">
+    <value>队伍人数不足 2 人时不使用暗黑布道。</value>
   </data>
-  <data name="BeastGaugeLessOrEqualMultiline" xml:space="preserve">
-    <value> Use when Beast Gauge is
- less than or equal to:</value>
+  <data name="DarkMissionaryUseAlwaysDesc" xml:space="preserve">
+    <value>使用暗黑布道不需要队伍。</value>
   </data>
-  <data name="BloodwhettingOfftankNote" xml:space="preserve">
-    <value>Note: If you are Off-Tanking, and want to use Bloodwhetting on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.
-You could also mouseover yourself in the party to use Bloodwhetting or raw Intuition in this case.
-If you don't, Nascent Flash would replace the combo, and it would go to the main tank.
-If you don't use those Features for your personal mitigation, you may not want to enable this.</value>
-  </data>
-  <data name="ArmsLengthInnerStrengthLockout" xml:space="preserve">
-    <value>Time (In Seconds) remaining on Inner Strength to Lock out Arm's Length until.</value>
+  <data name="UseAtOrAbove" xml:space="preserve">
+    <value>高于或等于此数值时使用</value>
   </data>
 </root>

@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using WrathCombo.Core;
 using static WrathCombo.CustomComboNS.Functions.CustomComboFunctions;
+using WrathCombo.Resources.Localization.UI.Misc;
 using WrathCombo.Services;
 using Vector4 = System.Numerics.Vector4;
 
@@ -26,7 +27,7 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
     /// <summary>
     ///     Create a major changes window, with some settings about it.
     /// </summary>
-    public MajorChangesWindow() : base("Wrath Combo | New Changes")
+    public MajorChangesWindow() : base(MiscUI.MajorChangesTitle)
     {
         PluginLog.Debug(
             "MajorChangesWindow: " +
@@ -51,41 +52,26 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
     /// </summary>
     public override void Draw()
     {
-        PadOutMinimumWidthFor("Wrath Combo | New Changes");
+        PadOutMinimumWidthFor(MiscUI.MajorChangesTitle);
 
         #region Tanks
 
-        ImGuiEx.TextUnderlined("Tank In-Combo Mitigation Has Been Overhauled and " +
-            "Moved");
+        ImGuiEx.TextUnderlined(MiscUI.TankMitOverhaulTitle);
         if (WasUsingOldDRKConfigs || WasUsingOldGNBConfigs ||
             WasUsingOldPLDConfigs || WasUsingOldWARConfigs)
             ImGuiEx.Text(ImGuiColors.DalamudYellow,
-                "You had one of these tanks configured! Please Read!");
-        ImGuiEx.Text(
-            "Tanks have had their In-Combo Mitigation completely overhauled.\n" +
-            "No longer is their mitigation settings in each combo, and " +
-            "no longer is mitigation entirely triggered by HP%.\n" +
-            "Mitigation is now in its own Section, under the Advanced Combos, " +
-            "and those options apply to the Advanced Combos\nif they have " +
-            "'Include Mitigations' checked.\n" +
-            "(Simple Modes will use the recommended values for these settings, " +
-            "if 'Include Mitigations' is checked there)" +
-            "\n\n" +
-            "You can find these moved mitigation settings here:\n" +
-            "PvE Features > [Tank of choice] > Advanced Mitigation Options\n\n" +
-            "Make sure Mitigation is enabled in combos for these to work:\n" +
-            "PvE Features > [Tank of choice] > Advanced/Simple Combo > Include " +
-            "Mitigations");
+                MiscUI.TankMitYouHadConfigured);
+        ImGuiEx.Text(MiscUI.TankMitBody);
         ImGui.NewLine();
-        if (ImGui.Button("> Open Dark Knight's Config##majorSettings2"))
+        if (ImGui.Button(MiscUI.OpenDRKConfig + "##majorSettings2"))
             P.HandleOpenCommand(["DRK"], forceOpen: true);
         ImGui.SameLine();
-        ImGui.Text("(then just search for 'Mitigation')");
-        if (ImGui.Button("> Open Gun Breaker's Config##majorSettings2"))
+        ImGui.Text(MiscUI.SearchForMitigation);
+        if (ImGui.Button(MiscUI.OpenGNBConfig + "##majorSettings2"))
             P.HandleOpenCommand(["GNB"], forceOpen: true);
-        if (ImGui.Button("> Open Paladin's Config##majorSettings3"))
+        if (ImGui.Button(MiscUI.OpenPLDConfig + "##majorSettings3"))
             P.HandleOpenCommand(["PLD"], forceOpen: true);
-        if (ImGui.Button("> Open Warrior's Config##majorSettings4"))
+        if (ImGui.Button(MiscUI.OpenWARConfig + "##majorSettings4"))
             P.HandleOpenCommand(["WAR"], forceOpen: true);
 
         #endregion
@@ -96,21 +82,8 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
 
         #region Raidwides/Tankbusters
         
-        ImGuiEx.TextUnderlined("Raidwide-Detection Improved, Tankbuster Detection Added");
-        ImGuiEx.Text(
-            "Raidwide detection has been improved to now also check for nearby\n" +
-            "stack marker visual effects, in addition to the existing raidwide " +
-            "cast detection.\n" +
-            "(No change by you is needed for this, it's just expanded now)" +
-            "\n\n" +
-            "Tankbuster detection has been added by checking for visual effects!\n" +
-            "Options to mitigate as a tank for these is in the new mitigation " +
-            "options above.\n\n" +
-            "Find the new tankbuster mitigation options here:\n" +
-            "PvE Features > [Tank of choice] > Advanced Mitigation Options > " +
-            "Boss Encounter\n" +
-            "(can also search for 'Tankbuster' in your tank's configuration)"
-        );
+        ImGuiEx.TextUnderlined(MiscUI.RaidwideTankbusterTitle);
+        ImGuiEx.Text(MiscUI.RaidwideTankbusterBody);
 
         #endregion
 
@@ -119,10 +92,10 @@ internal class MajorChangesWindow : Dalamud.Interface.Windowing.Window
         ImGuiEx.Spacing(new System.Numerics.Vector2(0, 20));
         ImGui.Separator();
         ImGuiHelpers.CenterCursorFor(
-            ImGuiHelpers.GetButtonSize("Close and Do Not Show again").X
+            ImGuiHelpers.GetButtonSize(MiscUI.CloseAndDoNotShow).X
             //+ ImGui.GetStyle().ItemSpacing.X * 2
         );
-        if (ImGui.Button("Close and Do Not Show again"))
+        if (ImGui.Button(MiscUI.CloseAndDoNotShow))
         {
             Service.Configuration.HideMajorChangesForVersion = Version;
             Service.Configuration.Save();

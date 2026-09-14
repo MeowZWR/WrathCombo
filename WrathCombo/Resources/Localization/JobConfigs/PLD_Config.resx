@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
 		Microsoft ResX Schema
@@ -98,4 +98,12 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+  <data name="SmartHolySpirit" xml:space="preserve">
+    <value>Smart Holy Spirit</value>
+  </data>
+  <data name="SmartHolySpiritDesc" xml:space="preserve">
+    <value>Replaces Shield Lob with Holy Spirit when available. 
+Must be under the effect of Divine Might or not moving.
+Retargeting features will also apply to Holy Spirit.</value>
+  </data>
 </root>

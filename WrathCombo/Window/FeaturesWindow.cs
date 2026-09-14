@@ -367,14 +367,14 @@ internal class FeaturesWindow : ConfigWindow
 
         if (UsableSearch == "erp")
         {
-            ImGuiEx.LineCentered(() => { ImGui.Text("Behave!"); });
+            ImGuiEx.LineCentered(() => { ImGui.Text(FeaturesUI.Search_Behave); });
             return;
         }
 
-        var error = "Nothing matched your search.";
+        var error = FeaturesUI.Info_pvpNothing;
 
         if (UsableSearch.StartsWith('!'))
-            error += "\nMake sure your keyword is valid.";
+            error += "\n" + FeaturesUI.Search_InvalidKeyword;
 
         ImGuiEx.LineCentered(() => { ImGui.Text(error); });
     }

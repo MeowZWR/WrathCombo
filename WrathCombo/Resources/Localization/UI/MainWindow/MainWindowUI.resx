@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -175,6 +175,110 @@ to prevent unexpected behavior and bugs.</value>
   <data name="Warning_UnknownConflictType" xml:space="preserve">
     <value>Unknown conflict type:</value>
   </data>
+  <data name="Conflict_Combo_Start" xml:space="preserve">
+    <value>Conflicting Combo</value>
+  </data>
+  <data name="Conflict_Combo_End" xml:space="preserve">
+    <value>Plugin(s) Detected!</value>
+  </data>
+  <data name="Conflict_Targeting_Start" xml:space="preserve">
+    <value>Conflicting Action</value>
+  </data>
+  <data name="Conflict_Targeting_End" xml:space="preserve">
+    <value>Retargeting Detected!</value>
+  </data>
+  <data name="Conflict_Settings_Start" xml:space="preserve">
+    <value>Conflicting Plugin</value>
+  </data>
+  <data name="Conflict_Settings_End" xml:space="preserve">
+    <value>Setting(s) Detected!</value>
+  </data>
+  <data name="Conflict_Wrath_Start" xml:space="preserve">
+    <value>Conflicting Wrath</value>
+  </data>
+  <data name="Conflict_Wrath_End" xml:space="preserve">
+    <value>Setting(s) Detected!</value>
+  </data>
+  <data name="Conflict_Game_Start" xml:space="preserve">
+    <value>Conflicting Game</value>
+  </data>
+  <data name="Conflict_Game_End" xml:space="preserve">
+    <value>Setting(s) Detected!</value>
+  </data>
+  <data name="Conflict_Dalamud_Start" xml:space="preserve">
+    <value>Dalamud Conflicts</value>
+  </data>
+  <data name="Conflict_Dalamud_End" xml:space="preserve">
+    <value>Setting(s) Detected!</value>
+  </data>
+  <data name="Conflict_BossMod_AutorotationTargeting" xml:space="preserve">
+    <value>Autorotation Preset is enabled WITH targeting [remove 'Automatic Targeting' from preset or use a non-default preset]</value>
+  </data>
+  <data name="Conflict_BossMod_AiAutoTarget" xml:space="preserve">
+    <value>AI is enabled without disabling auto-target [check 'Disable auto-target']</value>
+  </data>
+  <data name="Conflict_BossMod_ManualQueueing" xml:space="preserve">
+    <value>Manual Queueing is Enabled [uncheck 'Use custom queueing']</value>
+  </data>
+  <data name="Conflict_BossMod_AutorotationRotations" xml:space="preserve">
+    <value>Autorotation Preset is enabled WITH job rotations [remove rotations from preset or use a non-default preset]</value>
+  </data>
+  <data name="Conflict_BMR_AiTargeting" xml:space="preserve">
+    <value>AI is enabled WITH targeting [check 'Manual targeting']</value>
+  </data>
+  <data name="Conflict_BMR_AiAutoTarget" xml:space="preserve">
+    <value>AI is enabled without disabling auto-target [check 'Manual Targeting']</value>
+  </data>
+  <data name="Conflict_BMR_SmartAbilityTargeting" xml:space="preserve">
+    <value>Smart Ability Targeting is Enabled [uncheck 'Use Smart Ability Targeting']</value>
+  </data>
+  <data name="Conflict_Redirect_GroundMouseover" xml:space="preserve">
+    <value>Options &gt; Treat all ground-targeted actions as mouseovers</value>
+  </data>
+  <data name="Conflict_Redirect_FriendlyMouseover" xml:space="preserve">
+    <value>Options &gt; Treat all friendly actions as mouseovers</value>
+  </data>
+  <data name="Conflict_Redirect_HostileMouseover" xml:space="preserve">
+    <value>Options &gt; Treat all hostile actions as mouseovers</value>
+  </data>
+  <data name="Conflict_Redirect_Bunnies" xml:space="preserve">
+    <value>Whole Plugin - Could be causing Bunnies [Reload or Disable Redirect]</value>
+  </data>
+  <data name="Conflict_ReAction_AllActions" xml:space="preserve">
+    <value>Stacks &gt; {0} &gt; 'All Actions' is retargeted</value>
+  </data>
+  <data name="Conflict_ReAction_HarmfulActions" xml:space="preserve">
+    <value>Stacks &gt; {0} &gt; 'All Harmful Actions' is retargeted</value>
+  </data>
+  <data name="Conflict_ReAction_BeneficialActions" xml:space="preserve">
+    <value>Stacks &gt; {0} &gt; 'All Beneficial Actions' is retargeted</value>
+  </data>
+  <data name="Conflict_ReActionEx_AutoTarget" xml:space="preserve">
+    <value>Other Settings &gt; Enable Auto Target</value>
+  </data>
+  <data name="Conflict_Targeting_Stack" xml:space="preserve">
+    <value>{0}    (stack: {1})</value>
+  </data>
+  <data name="Conflict_Game_AutoFace" xml:space="preserve">
+    <value>Character Configuration &gt; Control Settings &gt; Target &gt; Target Settings &gt; Automatically face target when using action.    You will have to manually face the target, outside of Auto Rotation, for actions to execute.</value>
+  </data>
+  <data name="Conflict_Game_GroundDoublePress" xml:space="preserve">
+    <value>Character Configuration &gt; Control Settings &gt; Target &gt; Ground Targeting Settings &gt; Press action twice to execute.    Ground Actions cannot be Retargeted without additional click.</value>
+  </data>
+  <data name="Conflict_Wrath_ReplacingOffNoAutos" xml:space="preserve">
+    <value>Action Replacing OFF    Your current job has no Combos enabled in Auto-Mode; Wrath cannot work in this state.</value>
+  </data>
+  <data name="Conflict_Wrath_ReplacingOffPvP" xml:space="preserve">
+    <value>Action Replacing OFF    Your current job has PvP Combos on, and you're in a PVP zone; Wrath cannot work in this state.</value>
+  </data>
+  <data name="Conflict_Dalamud_OpenerDTR" xml:space="preserve">
+    <value>Opener DTR Disabled
+
+You have the Opener DTR hidden in Dalamud settings, this will not show.</value>
+  </data>
+  <data name="Conflict_Combo_AutorotationQueueing" xml:space="preserve">
+    <value>Autorotation module is queueing actions</value>
+  </data>
   <data name="Wrath_Combo" xml:space="preserve">
     <value>Wrath Combo</value>
     <comment>Plugin Name</comment>
@@ -199,5 +303,14 @@ to prevent unexpected behavior and bugs.</value>
   </data>
   <data name="Button_About" xml:space="preserve">
     <value>About</value>
+  </data>
+  <data name="Button_CustomActions" xml:space="preserve">
+    <value>Custom Actions</value>
+  </data>
+  <data name="Tip_DragActionToHotbar" xml:space="preserve">
+    <value>Tip: If a combo replaces an action, you can drag the action directly from this window to your hotbar!</value>
+  </data>
+  <data name="Button_CustomActionIconsCredit" xml:space="preserve">
+    <value>Additional custom action icons by alexisoffline</value>
   </data>
 </root>

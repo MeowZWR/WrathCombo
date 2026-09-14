@@ -20,7 +20,7 @@ internal partial class MNK
                 case Preset.MNK_STUseOpener:
                     DrawBossOnlyChoice(MNK_Balance_Content);
                     DrawOpenerPotionChoice(MNK_Opener_Potion);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(MNK_SelectedOpener,
                         MNK_Config.DoubleLunarOpener,

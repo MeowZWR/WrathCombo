@@ -117,19 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DoubleLunarOpener" xml:space="preserve">
-    <value>双阴</value>
+  <data name="BurnBossHp" xml:space="preserve">
+    <value>首领 HP% 低于此值时停止囤积充能并倾泻（0% = 不倾泻）。</value>
   </data>
-  <data name="DoubleLunarOpenerDesc" xml:space="preserve">
-    <value>使用双阴起手循环</value>
+  <data name="SecondGcdStarryMuse" xml:space="preserve">
+    <value>第 2 个 GCD {0}</value>
   </data>
-  <data name="Repalce0With1When2IsOnCooldown" xml:space="preserve">
-    <value>当 {2} 处于冷却中时，将 {0} 替换为 {1}。</value>
+  <data name="ThirdGcdStarryMuse" xml:space="preserve">
+    <value>第 3 个 GCD {0}</value>
   </data>
-  <data name="SolarLunarOpener" xml:space="preserve">
-    <value>阴阳</value>
+  <data name="OpenerTimeoutNote" xml:space="preserve">
+    <value>因起手第一个魔法咏唱较长，设置页中的起手失败超时必须设为 5 秒以上，起手才能正常运作。</value>
   </data>
-  <data name="SolarLunarOpenerDesc" xml:space="preserve">
-    <value>使用阳/阴起手循环。</value>
+  <data name="AddLucidBelowMp" xml:space="preserve">
+    <value>MP 低于此值时加入醒梦</value>
+  </data>
+  <data name="DontUseIfMoving" xml:space="preserve">
+    <value>移动时不使用</value>
+  </data>
+  <data name="DontUseIfMovingDesc" xml:space="preserve">
+    <value>仅在未移动时使用。</value>
+  </data>
+  <data name="StopScenicMuseBelowHp" xml:space="preserve">
+    <value>对低于此 HP% 的目标停止使用风景构想（0% = 始终使用，100% = 从不使用）。</value>
+  </data>
+  <data name="HammerTimeRemaining" xml:space="preserve">
+    <value>重锤敲打剩余时间（秒）内使用连击。30 = 立即使用。</value>
+  </data>
+  <data name="HealthStopDrawingMotif" xml:space="preserve">
+    <value>停止描绘彩绘的 HP%</value>
+  </data>
+  <data name="BothSingleTargetAoe" xml:space="preserve">
+    <value>单体与范围皆可</value>
+  </data>
+  <data name="ReplacesBoth0And1" xml:space="preserve">
+    <value>同时替换 {0} 与 {1}</value>
+  </data>
+  <data name="SingleTargetOnly" xml:space="preserve">
+    <value>仅单体</value>
+  </data>
+  <data name="ReplaceOnly0" xml:space="preserve">
+    <value>仅替换 {0}</value>
+  </data>
+  <data name="AoeOnly" xml:space="preserve">
+    <value>仅范围</value>
+  </data>
+  <data name="MogFeature" xml:space="preserve">
+    <value>{0}功能</value>
+  </data>
+  <data name="AddWhenFullyDrawnOffCd" xml:space="preserve">
+    <value>完全绘成且冷却完毕时加入 {0}。</value>
+  </data>
+  <data name="AddWhenUnderEffect" xml:space="preserve">
+    <value>处于 {1} 效果时加入 {0}。</value>
   </data>
 </root>

@@ -99,145 +99,145 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="DynamicTrueNorth" xml:space="preserve">
-    <value>Dynamic True North</value>
+    <value>动态真北</value>
   </data>
   <data name="DynamicTrueNorthDesc" xml:space="preserve">
-    <value>Dynamic choice of combo finisher based on position and available charges.
-Go to Flank to build charges, Rear to spend them. 
-Prevents overcap or waste and will use true north as needed.</value>
+    <value>根据身位和可用层数动态选择连击终结技。
+去侧身积攒层数，去背后消耗层数。
+防止溢出或浪费，并在需要时使用真北。</value>
   </data>
   <data name="BurnKazematoi" xml:space="preserve">
-    <value>Focus on using {0} to use Kazematoi when target is below Health %</value>
+    <value>当目标生命值低于设定百分比时，优先使用“{0}”消耗风缠</value>
   </data>
   <data name="StandardOpener4thGcd" xml:space="preserve">
-    <value>Standard Opener - 4th GCD {0}</value>
+    <value>标准起手循环 - 第 4 个 GCD {0}</value>
   </data>
   <data name="StandardOpener3rdGcd" xml:space="preserve">
-    <value>Standard Opener - 3rd GCD {0}</value>
+    <value>标准起手循环 - 第 3 个 GCD {0}</value>
   </data>
   <data name="BuffRush" xml:space="preserve">
-    <value>Buff Rush</value>
+    <value>爆发赶buff</value>
   </data>
   <data name="StopUsingBelowHp" xml:space="preserve">
-    <value>Stop using on targets below this HP % (0% = always use, 100% = never use).</value>
+    <value>对低于此 HP% 的目标停止使用（0% = 始终使用，100% = 从不使用）。</value>
   </data>
   <data name="RaitonPooling" xml:space="preserve">
-    <value>Raiton Pooling</value>
+    <value>雷遁之术囤积</value>
   </data>
   <data name="TrickWindowPooling" xml:space="preserve">
-    <value>Will Pool the charges, saving them for Trick Window</value>
+    <value>会囤积充能，留给攻其不备窗口使用</value>
   </data>
   <data name="RaitonUptime" xml:space="preserve">
-    <value>Raiton Uptime</value>
+    <value>雷遁之术保持输出</value>
   </data>
   <data name="RaitonUptimeDesc" xml:space="preserve">
-    <value>Will Use Raiton when out of Melee range of the target, 
-This can negatively affect your burst windows</value>
+    <value>目标不在近战范围时使用雷遁之术，
+这可能会影响你的爆发窗口</value>
   </data>
   <data name="SuitonSetup" xml:space="preserve">
-    <value>Set the amount of time remaining on Trick Attack cooldown before trying to set up with Suiton.</value>
+    <value>在攻其不备剩余冷却达到该时间时，用水遁之术提前铺垫。</value>
   </data>
   <data name="AutoTcj" xml:space="preserve">
-    <value>Auto TCJ Option</value>
+    <value>自动天地人选项</value>
   </data>
   <data name="AutoTcjStDesc" xml:space="preserve">
-    <value>Will automatically Fuma Shuriken then Raiton then Suiton</value>
+    <value>会自动打出风魔手里剑 → 雷遁之术 → 水遁之术</value>
   </data>
   <data name="BhavacakraPooling" xml:space="preserve">
-    <value>Bhavacakra Pooling</value>
+    <value>六道轮回囤积</value>
   </data>
   <data name="NinkiPoolingDesc" xml:space="preserve">
-    <value>Will pool Ninki for the buff windows, while preventing overcap</value>
+    <value>会为爆发窗口囤积忍气，同时防止溢出</value>
   </data>
   <data name="ForkedRaiju" xml:space="preserve">
-    <value>Forked Raiju</value>
+    <value>月影雷兽爪</value>
   </data>
   <data name="ForkedRaijuDesc" xml:space="preserve">
-    <value>Allows the Use of forked Raiju instead of Fleeting if out of melee range. (Gap Closer)</value>
+    <value>目标不在近战范围时，允许使用月影雷兽爪代替月影雷兽牙。（冲近）</value>
   </data>
   <data name="HpThresholdFor" xml:space="preserve">
-    <value>Set a HP% threshold for when {0} will be used.</value>
+    <value>设置使用“{0}”的 HP% 阈值。</value>
   </data>
   <data name="RaidwideOption" xml:space="preserve">
-    <value>Raidwide Option</value>
+    <value>全屏技能选项</value>
   </data>
   <data name="ShadeShiftRaidwideDesc" xml:space="preserve">
-    <value>Use Shade Shift when Raidwide casting is detected regardless of health</value>
+    <value>检测到全屏读条时，无视生命值使用残影</value>
   </data>
   <data name="KatonPooling" xml:space="preserve">
-    <value>Katon Pooling</value>
+    <value>火遁之术囤积</value>
   </data>
   <data name="KatonUptime" xml:space="preserve">
-    <value>Katon Uptime</value>
+    <value>火遁之术保持输出</value>
   </data>
   <data name="KatonUptimeDesc" xml:space="preserve">
-    <value>Will Use Katon when out of Melee range of the target, 
-This can negatively affect your burst windows</value>
+    <value>目标不在近战范围时使用火遁之术，
+这可能会影响你的爆发窗口</value>
   </data>
   <data name="HutonSetup" xml:space="preserve">
-    <value>Set the amount of time remaining on Trick Attack cooldown before trying to set up with Huton.</value>
+    <value>在攻其不备剩余冷却达到该时间时，用风遁之术提前铺垫。</value>
   </data>
   <data name="DotonMaxHp" xml:space="preserve">
-    <value>Sets the max remaining HP percentage of the current target to cast Doton.</value>
+    <value>当前目标剩余 HP 百分比低于此值时不再施放土遁之术。</value>
   </data>
   <data name="DotonTimeStill" xml:space="preserve">
-    <value>How Long Standing still before using Doton (in seconds):</value>
+    <value>使用土遁之术前需要站立多久（秒）：</value>
   </data>
   <data name="AutoTcjAoeDesc" xml:space="preserve">
-    <value>Will output TCJ actions in the following order
-{0} buff less than {1}s = [{2} -&gt; {3} -&gt; {0}]
-{0} buff more than {1}s = [{2} -&gt; {4} -&gt; {5}]</value>
+    <value>天地人技能按以下顺序打出
+{0} 增益少于 {1} 秒 = [{2} → {3} → {0}]
+{0} 增益多于 {1} 秒 = [{2} → {4} → {5}]</value>
   </data>
   <data name="DotonRemainingTimer" xml:space="preserve">
-    <value>Doton Remaining Timer For Doton Path</value>
+    <value>走土遁路线所需的土遁剩余时间</value>
   </data>
   <data name="HellfrogPooling" xml:space="preserve">
-    <value>Hellfrog Pooling</value>
+    <value>通灵之术·大虾蟆囤积</value>
   </data>
   <data name="MudraPathSet1" xml:space="preserve">
-    <value>Mudra Path Set 1</value>
+    <value>结印路线组 1</value>
   </data>
   <data name="MudraPathSet1Desc" xml:space="preserve">
-    <value>1. {0} Mudras -&gt; {1}, {2}/{3}, {4} ({5} under {6}).
-{7} Mudras -&gt; {1}, {8}, {9}.
-{10} Mudras -&gt; {1}, {11}/{12}, {5}</value>
+    <value>1. {0} 结印 → {1}、{2}/{3}、{4}（{6} 期间为 {5}）。
+{7} 结印 → {1}、{8}、{9}。
+{10} 结印 → {1}、{11}/{12}、{5}</value>
   </data>
   <data name="MudraPathSet2" xml:space="preserve">
-    <value>Mudra Path Set 2</value>
+    <value>结印路线组 2</value>
   </data>
   <data name="MudraPathSet2Desc" xml:space="preserve">
-    <value>2. {0} Mudras -&gt; {1}, {2}/{3}, {4}.
-{5} Mudras -&gt; {1}, {6}, {7}.
-{8} Mudras -&gt; {1}, {9}/{10}, {11} ({4} under {12}).</value>
+    <value>2. {0} 结印 → {1}、{2}/{3}、{4}。
+{5} 结印 → {1}、{6}、{7}。
+{8} 结印 → {1}、{9}/{10}、{11}（{12} 期间为 {4}）。</value>
   </data>
   <data name="MugInCombat" xml:space="preserve">
-    <value>Adds Mug when in Combat</value>
+    <value>战斗中加入夺取</value>
   </data>
   <data name="HideQuickToggle" xml:space="preserve">
-    <value>Hide Quick Toggle</value>
+    <value>隐遁快速开关</value>
   </data>
   <data name="HideQuickToggleDesc" xml:space="preserve">
-    <value>Instantly toggles off hidden so you can use it to reset mudra cooldown.</value>
+    <value>立即关闭隐遁状态，以便用它重置结印冷却。</value>
   </data>
   <data name="LevelCheck" xml:space="preserve">
-    <value>Level Check</value>
+    <value>等级检查</value>
   </data>
   <data name="LevelCheckDesc" xml:space="preserve">
-    <value>Will only toggle hidden if you above level 45 and can Suiton for Shadowwalker.</value>
+    <value>仅在 45 级以上、可用水遁之术获得影渡时，才会切换隐遁。</value>
   </data>
   <data name="AddTrickAttackDesc" xml:space="preserve">
-    <value>Adds Trick Attack when hidden or has Shadowwalker buff.</value>
+    <value>处于隐遁或拥有影渡时加入攻其不备。</value>
   </data>
   <data name="MugFirst" xml:space="preserve">
-    <value>Mug First</value>
+    <value>先打夺取</value>
   </data>
   <data name="MugFirstDesc" xml:space="preserve">
-    <value>Will only show Trick Attack if Mug is on cooldown.</value>
+    <value>仅在夺取冷却中时显示攻其不备。</value>
   </data>
   <data name="BlocksInputMudra" xml:space="preserve">
-    <value>Blocks input while in Mudra.</value>
+    <value>结印期间阻止输入。</value>
   </data>
   <data name="BlocksInputMudraOrFeint" xml:space="preserve">
-    <value>Blocks input while in Mudra or Current Target already has Feint</value>
+    <value>结印期间或当前目标已有牵制时阻止输入</value>
   </data>
 </root>

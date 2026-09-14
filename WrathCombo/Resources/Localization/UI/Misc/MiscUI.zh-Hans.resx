@@ -156,4 +156,172 @@
   <data name="Raise" xml:space="preserve">
     <value>复活</value>
   </data>
+  <data name="DPS" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="Deep_Dungeon" xml:space="preserve">
+    <value>深层迷宫</value>
+  </data>
+  <data name="Healer" xml:space="preserve">
+    <value>治疗</value>
+  </data>
+  <data name="Miscellaneous" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Tank" xml:space="preserve">
+    <value>坦克</value>
+  </data>
+  <data name="MajorChangesTitle" xml:space="preserve">
+    <value>Wrath Combo | 重大更新</value>
+  </data>
+  <data name="TankMitOverhaulTitle" xml:space="preserve">
+    <value>坦克连击内减伤已重构并迁移</value>
+  </data>
+  <data name="TankMitYouHadConfigured" xml:space="preserve">
+    <value>你配置过这些坦克之一！请仔细阅读！</value>
+  </data>
+  <data name="TankMitBody" xml:space="preserve">
+    <value>坦克的连击内减伤已完全重构。
+减伤设置不再放在每个连击里，也不再完全由 HP% 触发。
+减伤现已独立成区，位于进阶连击下；若勾选了“包含减伤”，这些选项会应用于进阶连击。
+（简易模式若勾选“包含减伤”，会使用这些设置的推荐值）
+
+迁移后的减伤设置在这里：
+PvE 功能 &gt; [对应坦克] &gt; 进阶减伤选项
+
+请确保连击中已启用减伤，这些设置才会生效：
+PvE 功能 &gt; [对应坦克] &gt; 进阶/简易连击 &gt; 包含减伤</value>
+  </data>
+  <data name="SearchForMitigation" xml:space="preserve">
+    <value>（然后搜索“减伤”即可）</value>
+  </data>
+  <data name="OpenDRKConfig" xml:space="preserve">
+    <value>&gt; 打开暗黑骑士配置</value>
+  </data>
+  <data name="OpenGNBConfig" xml:space="preserve">
+    <value>&gt; 打开绝枪战士配置</value>
+  </data>
+  <data name="OpenPLDConfig" xml:space="preserve">
+    <value>&gt; 打开骑士配置</value>
+  </data>
+  <data name="OpenWARConfig" xml:space="preserve">
+    <value>&gt; 打开战士配置</value>
+  </data>
+  <data name="RaidwideTankbusterTitle" xml:space="preserve">
+    <value>全屏伤害检测已改进，并新增死刑检测</value>
+  </data>
+  <data name="RaidwideTankbusterBody" xml:space="preserve">
+    <value>全屏伤害检测现已同时检查附近的分摊标记特效，而不只是读条。
+（你无需改动任何设置，只是检测范围扩大了）
+
+已通过特效检测新增死刑识别！
+坦克对应的减伤选项就在上方的新减伤设置中。
+
+新的死刑减伤选项在这里：
+PvE 功能 &gt; [对应坦克] &gt; 进阶减伤选项 &gt; 首领战
+（也可以在该坦克配置中搜索“死刑”）</value>
+  </data>
+  <data name="CloseAndDoNotShow" xml:space="preserve">
+    <value>关闭且不再显示</value>
+  </data>
+  <data name="CustomActionsIntro" xml:space="preserve">
+    <value>此区域包含一系列定制的“自定义技能”，可用于替代基础技能替换或特定宏。</value>
+  </data>
+  <data name="RotationButtons" xml:space="preserve">
+    <value>循环按键</value>
+  </data>
+  <data name="RotationButtonsDesc" xml:space="preserve">
+    <value>这些按键可替代所有标记为简易或进阶功能的技能替换。启用你想用自定义技能的连击类型，然后将图标拖到热键栏。
+
+这样就能把原技能留给手动使用，例如停手阶段只打 1-2-3，或治疗职业随时使用基础治疗技能。</value>
+  </data>
+  <data name="TableAction" xml:space="preserve">
+    <value>技能</value>
+  </data>
+  <data name="TableDescription" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="DontOverrideIcons" xml:space="preserve">
+    <value>不要用职业技能覆盖图标（需再次将技能拖到热键栏才会生效）</value>
+  </data>
+  <data name="DontOverrideIconsHelp" xml:space="preserve">
+    <value>这会隐藏自定义技能上的所有连击输出，只显示这些图标。若你希望在热键栏看到连击实际打出的技能，不建议启用；仅在你确实需要时使用。</value>
+  </data>
+  <data name="UtilityButtons" xml:space="preserve">
+    <value>实用按键</value>
+  </data>
+  <data name="UtilityButtonsDesc" xml:space="preserve">
+    <value>这些按键用于以某种方式控制插件。将图标拖到热键栏即可使用。</value>
+  </data>
+  <data name="BLUNote" xml:space="preserve">
+    <value>请注意：即使未启用全部所需技能，你仍可使用这些功能。
+未启用的技能会被跳过；若功能表现不符合预期，
+请尝试启用更多所需技能。</value>
+  </data>
+  <data name="UnknownAction" xml:space="preserve">
+    <value>未知技能</value>
+  </data>
+  <data name="UnknownTrait" xml:space="preserve">
+    <value>未知特性</value>
+  </data>
+  <data name="UnknownStatus" xml:space="preserve">
+    <value>未知状态</value>
+  </data>
+  <data name="UnknownItem" xml:space="preserve">
+    <value>未知物品</value>
+  </data>
+  <data name="CustomAction_ST_DPS" xml:space="preserve">
+    <value>单体输出</value>
+  </data>
+  <data name="CustomAction_ST_DPS_Desc" xml:space="preserve">
+    <value>用于单体输出连击。</value>
+  </data>
+  <data name="CustomAction_AoE_DPS" xml:space="preserve">
+    <value>群体输出</value>
+  </data>
+  <data name="CustomAction_AoE_DPS_Desc" xml:space="preserve">
+    <value>用于群体输出连击。</value>
+  </data>
+  <data name="CustomAction_ST_Heals" xml:space="preserve">
+    <value>单体治疗</value>
+  </data>
+  <data name="CustomAction_ST_Heals_Desc" xml:space="preserve">
+    <value>用于单体治疗连击。</value>
+  </data>
+  <data name="CustomAction_AoE_Heals" xml:space="preserve">
+    <value>群体治疗</value>
+  </data>
+  <data name="CustomAction_AoE_Heals_Desc" xml:space="preserve">
+    <value>用于群体治疗连击。</value>
+  </data>
+  <data name="CustomAction_ItemNotFound" xml:space="preserve">
+    <value>未找到物品</value>
+  </data>
+  <data name="CustomAction_ItemNotFound_Desc" xml:space="preserve">
+    <value>用户不应看到此项</value>
+  </data>
+  <data name="CustomAction_Cease" xml:space="preserve">
+    <value>停手！</value>
+  </data>
+  <data name="CustomAction_Cease_Desc" xml:space="preserve">
+    <value>当前不允许使用技能。</value>
+  </data>
+  <data name="CustomAction_AutoOn" xml:space="preserve">
+    <value>启用自动循环</value>
+  </data>
+  <data name="CustomAction_AutoOn_Desc" xml:space="preserve">
+    <value>启用自动循环。</value>
+  </data>
+  <data name="CustomAction_AutoOff" xml:space="preserve">
+    <value>关闭自动循环</value>
+  </data>
+  <data name="CustomAction_AutoOff_Desc" xml:space="preserve">
+    <value>关闭自动循环。</value>
+  </data>
+  <data name="CustomAction_AutoToggle" xml:space="preserve">
+    <value>切换自动循环</value>
+  </data>
+  <data name="CustomAction_AutoToggle_Desc" xml:space="preserve">
+    <value>在启用与关闭自动循环之间切换</value>
+  </data>
 </root>

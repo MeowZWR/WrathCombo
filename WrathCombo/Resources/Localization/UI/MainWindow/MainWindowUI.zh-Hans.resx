@@ -175,6 +175,110 @@
   <data name="Warning_UnknownConflictType" xml:space="preserve">
     <value>未知冲突类型：</value>
   </data>
+  <data name="Conflict_Combo_Start" xml:space="preserve">
+    <value>检测到</value>
+  </data>
+  <data name="Conflict_Combo_End" xml:space="preserve">
+    <value>冲突的连击插件</value>
+  </data>
+  <data name="Conflict_Targeting_Start" xml:space="preserve">
+    <value>检测到</value>
+  </data>
+  <data name="Conflict_Targeting_End" xml:space="preserve">
+    <value>冲突的技能重定向</value>
+  </data>
+  <data name="Conflict_Settings_Start" xml:space="preserve">
+    <value>检测到</value>
+  </data>
+  <data name="Conflict_Settings_End" xml:space="preserve">
+    <value>冲突的插件设置</value>
+  </data>
+  <data name="Conflict_Wrath_Start" xml:space="preserve">
+    <value>检测到</value>
+  </data>
+  <data name="Conflict_Wrath_End" xml:space="preserve">
+    <value>冲突的 Wrath 设置</value>
+  </data>
+  <data name="Conflict_Game_Start" xml:space="preserve">
+    <value>检测到</value>
+  </data>
+  <data name="Conflict_Game_End" xml:space="preserve">
+    <value>冲突的游戏设置</value>
+  </data>
+  <data name="Conflict_Dalamud_Start" xml:space="preserve">
+    <value>检测到</value>
+  </data>
+  <data name="Conflict_Dalamud_End" xml:space="preserve">
+    <value>冲突的 Dalamud 设置</value>
+  </data>
+  <data name="Conflict_BossMod_AutorotationTargeting" xml:space="preserve">
+    <value>已启用带自动选目标的自动循环预设 [请从预设中移除“Automatic Targeting”，或改用非默认预设]</value>
+  </data>
+  <data name="Conflict_BossMod_AiAutoTarget" xml:space="preserve">
+    <value>已启用 AI 但未关闭自动选目标 [勾选“Disable auto-target”]</value>
+  </data>
+  <data name="Conflict_BossMod_ManualQueueing" xml:space="preserve">
+    <value>已启用手动排队 [取消勾选“Use custom queueing”]</value>
+  </data>
+  <data name="Conflict_BossMod_AutorotationRotations" xml:space="preserve">
+    <value>已启用带职业循环的自动循环预设 [请从预设中移除循环，或改用非默认预设]</value>
+  </data>
+  <data name="Conflict_BMR_AiTargeting" xml:space="preserve">
+    <value>已启用带选目标的 AI [勾选“Manual targeting”]</value>
+  </data>
+  <data name="Conflict_BMR_AiAutoTarget" xml:space="preserve">
+    <value>已启用 AI 但未关闭自动选目标 [勾选“Manual Targeting”]</value>
+  </data>
+  <data name="Conflict_BMR_SmartAbilityTargeting" xml:space="preserve">
+    <value>已启用智能技能选目标 [取消勾选“Use Smart Ability Targeting”]</value>
+  </data>
+  <data name="Conflict_Redirect_GroundMouseover" xml:space="preserve">
+    <value>选项 &gt; 将所有地面目标技能视为鼠标悬停</value>
+  </data>
+  <data name="Conflict_Redirect_FriendlyMouseover" xml:space="preserve">
+    <value>选项 &gt; 将所有友方技能视为鼠标悬停</value>
+  </data>
+  <data name="Conflict_Redirect_HostileMouseover" xml:space="preserve">
+    <value>选项 &gt; 将所有敌对技能视为鼠标悬停</value>
+  </data>
+  <data name="Conflict_Redirect_Bunnies" xml:space="preserve">
+    <value>整个插件 — 可能导致“兔子”问题 [重载或禁用 Redirect]</value>
+  </data>
+  <data name="Conflict_ReAction_AllActions" xml:space="preserve">
+    <value>堆叠 &gt; {0} &gt; “All Actions” 已被重定向</value>
+  </data>
+  <data name="Conflict_ReAction_HarmfulActions" xml:space="preserve">
+    <value>堆叠 &gt; {0} &gt; “All Harmful Actions” 已被重定向</value>
+  </data>
+  <data name="Conflict_ReAction_BeneficialActions" xml:space="preserve">
+    <value>堆叠 &gt; {0} &gt; “All Beneficial Actions” 已被重定向</value>
+  </data>
+  <data name="Conflict_ReActionEx_AutoTarget" xml:space="preserve">
+    <value>其他设置 &gt; Enable Auto Target</value>
+  </data>
+  <data name="Conflict_Targeting_Stack" xml:space="preserve">
+    <value>{0}    （堆叠：{1}）</value>
+  </data>
+  <data name="Conflict_Game_AutoFace" xml:space="preserve">
+    <value>角色设置 &gt; 操作设置 &gt; 目标 &gt; 目标设置 &gt; 发动技能时自动面向目标。    在自动循环之外，你必须手动面向目标，技能才会发动。</value>
+  </data>
+  <data name="Conflict_Game_GroundDoublePress" xml:space="preserve">
+    <value>角色设置 &gt; 操作设置 &gt; 目标 &gt; 地面目标设置 &gt; 在地面目标模式中按下同一个地面目标技能时发动该技能。    地面目标技能在额外点击前无法被重定向。</value>
+  </data>
+  <data name="Conflict_Wrath_ReplacingOffNoAutos" xml:space="preserve">
+    <value>技能替换已关闭    当前职业没有在自动模式中启用任何连击；Wrath 无法在此状态下工作。</value>
+  </data>
+  <data name="Conflict_Wrath_ReplacingOffPvP" xml:space="preserve">
+    <value>技能替换已关闭    当前职业启用了 PvP 连击，且你正处于 PvP 区域；Wrath 无法在此状态下工作。</value>
+  </data>
+  <data name="Conflict_Dalamud_OpenerDTR" xml:space="preserve">
+    <value>起手 DTR 已隐藏
+
+你已在 Dalamud 设置中隐藏起手 DTR，因此不会显示。</value>
+  </data>
+  <data name="Conflict_Combo_AutorotationQueueing" xml:space="preserve">
+    <value>自动循环模块正在排队技能</value>
+  </data>
   <data name="Wrath_Combo" xml:space="preserve">
     <value>Wrath Combo</value>
     <comment>Plugin Name</comment>
@@ -199,5 +303,14 @@
   </data>
   <data name="Button_About" xml:space="preserve">
     <value>关于</value>
+  </data>
+  <data name="Button_CustomActions" xml:space="preserve">
+    <value>自定义技能</value>
+  </data>
+  <data name="Tip_DragActionToHotbar" xml:space="preserve">
+    <value>提示：如果连击替换了某个技能，你可以直接从这个窗口把该技能拖到热键栏！</value>
+  </data>
+  <data name="Button_CustomActionIconsCredit" xml:space="preserve">
+    <value>额外自定义技能图标由 alexisoffline 提供</value>
   </data>
 </root>

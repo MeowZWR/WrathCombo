@@ -34,8 +34,8 @@ internal partial class OccultCrescent
                     DrawSliderInt(1, 100, Phantom_Knight_Pray_Health,
                         Generics.StopFriendlyHpPercent100, 200);
                     DrawAdditionalBoolChoice(Phantom_Knight_Pray_KeepUp,
-                        "Keep Pray up",
-                        "Also use Pray whenever the buff is missing, not only below the HP threshold.");
+                        Resources.Localization.Content.OccultCrescent.KeepPrayUp,
+                        Resources.Localization.Content.OccultCrescent.KeepPrayUpDesc);
                     DrawStatusRefreshSlider();
                     break;
                 case Preset.Phantom_Knight_OccultHeal:
@@ -46,8 +46,8 @@ internal partial class OccultCrescent
                     DrawSliderInt(1, 100, Phantom_Knight_Pledge_Health,
                         Generics.StopFriendlyHpPercent100, 200);
                     DrawAdditionalBoolChoice(Phantom_Knight_Pledge_SelfOnly,
-                        "Self only",
-                        "When disabled, prefers the lowest-HP party member under the threshold.");
+                        Generics.SelfOnly,
+                        Resources.Localization.Content.OccultCrescent.PledgeSelfOnlyDesc);
                     break;
                 case Preset.Phantom_Bard_MightyMarch:
                     DrawSliderInt(1, 100, Phantom_Bard_MightyMarch_Health,
@@ -63,17 +63,17 @@ internal partial class OccultCrescent
 
                 case Preset.Phantom_Monk_PhantomKick:
                     DrawSliderInt(1, 15, Phantom_Monk_PhantomKick_Distance,
-                        "Max target distance (yalms) to use Phantom Kick", 200);
+                        Resources.Localization.Content.OccultCrescent.MaxTargetDistancePhantomKick, 200);
                     break;
 
                 case Preset.Phantom_Oracle_Blessing:
                     DrawSliderInt(1, 100, Phantom_Oracle_Blessing_Health,
-                        "Self or average party HP % at or below which to use Blessing", 200);
+                        Resources.Localization.Content.OccultCrescent.BlessingHpThreshold, 200);
                     break;
 
                 case Preset.Phantom_Oracle_PhantomJudgment:
                     DrawSliderInt(1, 100, Phantom_Oracle_Judgment_PartyHP,
-                        "Self or average party HP % at or below which to prioritize Judgment as a heal", 200);
+                        Resources.Localization.Content.OccultCrescent.JudgmentHealHpThreshold, 200);
                     break;
 
                 case Preset.Phantom_Oracle_Starfall:
@@ -88,8 +88,8 @@ internal partial class OccultCrescent
 
                 case Preset.Phantom_Oracle_Invulnerability:
                     DrawAdditionalBoolChoice(Phantom_Oracle_SaveInvulnForStarfall,
-                        "Save for Starfall",
-                        "Use Invulnerability before Starfall when Prediction of Starfall is up.");
+                        Resources.Localization.Content.OccultCrescent.SaveForStarfall,
+                        Resources.Localization.Content.OccultCrescent.SaveForStarfallDesc);
                     if (!Phantom_Oracle_SaveInvulnForStarfall)
                     {
                         DrawSliderInt(1, 100, Phantom_Oracle_Invulnerability_Health,
@@ -99,15 +99,15 @@ internal partial class OccultCrescent
 
                 case Preset.Phantom_Geomancer_Suspend:
                     DrawAdditionalBoolChoice(Phantom_Geomancer_Suspend_InCombat,
-                        "In combat", "Use Suspend while in combat.");
+                        Resources.Localization.Content.OccultCrescent.InCombat, Resources.Localization.Content.OccultCrescent.InCombatDesc);
                     DrawAdditionalBoolChoice(Phantom_Geomancer_Suspend_OutOfCombat,
-                        "Out of combat", "Use Suspend while out of combat.");
+                        Resources.Localization.Content.OccultCrescent.OutOfCombat, Resources.Localization.Content.OccultCrescent.OutOfCombatDesc);
                     break;
 
                 case Preset.Phantom_BlackMage_OccultToad:
                     DrawAdditionalBoolChoice(Phantom_BlackMage_OccultToad_RequireAoE,
-                        "Only as AoE mit",
-                        "Only use Occult Toad with 2+ targets in range, or when raidwide damage is incoming.");
+                        Resources.Localization.Content.OccultCrescent.OnlyAsAoEMit,
+                        Resources.Localization.Content.OccultCrescent.OnlyAsAoEMitDesc);
                     break;
 
                 case Preset.Phantom_Monk_Counterstance:
@@ -121,13 +121,13 @@ internal partial class OccultCrescent
 
                 case Preset.Phantom_RedMage_OccultLibra_Refresh:
                     DrawSliderInt(1, 60, Phantom_RedMage_OccultLibra_RefreshRemaining,
-                        "Refresh Occult Libra when remaining time is at or below this many seconds.",
+                        Resources.Localization.Content.OccultCrescent.RefreshOccultLibra,
                         200);
                     break;
 
                 case Preset.Phantom_MysticKnight_BlazingSpellblade:
                     DrawStatusRefreshSlider(
-                        "Blazing Spellblade also refreshes at 30s remaining so other Spellblades do not take its cooldown.");
+                        Resources.Localization.Content.OccultCrescent.BlazingSpellbladeRefreshNote);
                     break;
 
                 case Preset.Phantom_Ranger_OccultUnicorn:
@@ -170,7 +170,7 @@ internal partial class OccultCrescent
                     DrawSliderInt(1, 100, Phantom_Chemist_OccultPotion_Health,
                         Generics.StopFriendlyHpPercent100, 200);
                     DrawAdditionalBoolChoice(Phantom_Chemist_OccultPotion_SelfOnly,
-                        "Self only", "When disabled, also triggers if the lowest party member is below the HP threshold.");
+                        Generics.SelfOnly, Resources.Localization.Content.OccultCrescent.PotionSelfOnlyDesc);
                     break;
 
                 case Preset.Phantom_Chemist_OccultEther:
@@ -181,7 +181,7 @@ internal partial class OccultCrescent
                     DrawSliderInt(1, 10000, Phantom_Chemist_OccultEther_MP,
                         Generics.MPLessOrEqual, sliderIncrement: SliderIncrements.Hundreds);
                     DrawAdditionalBoolChoice(Phantom_Chemist_OccultEther_SelfOnly,
-                        "Self only", "When disabled, also triggers if any party member is below the MP threshold.");
+                        Generics.SelfOnly, Resources.Localization.Content.OccultCrescent.EtherSelfOnlyDesc);
                     break;
 
                 case Preset.Phantom_Chemist_OccultElixir:
@@ -240,18 +240,18 @@ internal partial class OccultCrescent
                     break;
                 case Preset.Phantom_RedMage_OccultCureII_Retarget:
                     DrawAdditionalBoolChoice(Phantom_RedMage_Retarget_OutOfParty, 
-                        "Retarget to Out of Party Players", 
-                        "Also retargets if anyone outside your party falls below this HP%");
+                        Resources.Localization.Content.OccultCrescent.RetargetOutOfParty, 
+                        Resources.Localization.Content.OccultCrescent.RetargetOutOfPartyDesc);
                     break;
                 case Preset.Phantom_Necromancer_DrainTouch:
                     ImGui.Indent();
-                    ImGui.Text("Drain Touch usage:");
+                    ImGui.Text(Resources.Localization.Content.OccultCrescent.DrainTouchUsage);
                     DrawHorizontalRadioButton(Phantom_Necromancer_DrainTouch_Mode,
-                        "DPS", "Use for damage (respects Restrict to Buff).", 0);
+                        Resources.Localization.Content.OccultCrescent.DrainTouchDps, Resources.Localization.Content.OccultCrescent.DrainTouchDpsDesc, 0);
                     DrawHorizontalRadioButton(Phantom_Necromancer_DrainTouch_Mode,
-                        "Heal", "Only when your HP is at or below the heal threshold.", 1);
+                        Resources.Localization.Content.OccultCrescent.DrainTouchHeal, Resources.Localization.Content.OccultCrescent.DrainTouchHealDesc, 1);
                     DrawHorizontalRadioButton(Phantom_Necromancer_DrainTouch_Mode,
-                        "Emergency", "Only when your HP is at or below the emergency threshold.", 2);
+                        Resources.Localization.Content.OccultCrescent.DrainTouchEmergency, Resources.Localization.Content.OccultCrescent.DrainTouchEmergencyDesc, 2);
                     ImGui.Unindent();
                     if (Phantom_Necromancer_DrainTouch_Mode == 1)
                     {
@@ -267,38 +267,38 @@ internal partial class OccultCrescent
 
                 case Preset.Phantom_Necromancer:
                     ImGui.Indent();
-                    ImGui.Text("Necromancer spells while Drain Touch is active:");
+                    ImGui.Text(Resources.Localization.Content.OccultCrescent.NecroSpellsDuringDrain);
                     DrawHorizontalRadioButton(Phantom_Necromancer_SpellDuringDrainTouch,
-                        "Only when inactive",
-                        "Cast Deep Freeze / Hell Wind / Chaos Drive / Doomsday only while Drain Touch is down.", 0);
+                        Resources.Localization.Content.OccultCrescent.OnlyWhenInactive,
+                        Resources.Localization.Content.OccultCrescent.OnlyWhenInactiveDesc, 0);
                     DrawHorizontalRadioButton(Phantom_Necromancer_SpellDuringDrainTouch,
-                        "Only when active",
-                        "Cast those spells only during the Drain Touch buff.", 1);
+                        Resources.Localization.Content.OccultCrescent.OnlyWhenActive,
+                        Resources.Localization.Content.OccultCrescent.OnlyWhenActiveDesc, 1);
                     DrawHorizontalRadioButton(Phantom_Necromancer_SpellDuringDrainTouch,
-                        "Either",
-                        "Ignore Drain Touch buff for spell usage.", 2);
+                        Resources.Localization.Content.OccultCrescent.Either,
+                        Resources.Localization.Content.OccultCrescent.EitherDesc, 2);
                     ImGui.Unindent();
                     break;
 
                 case Preset.Phantom_Gladiator_Defend:
                     DrawAdditionalBoolChoice(Phantom_Gladiator_DefendOnlyAtMaxFervor,
-                        "Only at 4 Finishing Fervor",
-                        "Keep Defend for when you have full Finishing Fervor stacks.");
+                        Resources.Localization.Content.OccultCrescent.OnlyAt4FinishingFervor,
+                        Resources.Localization.Content.OccultCrescent.OnlyAt4FinishingFervorDesc);
                     break;
 
                 case Preset.Phantom_Cannoneer_DarkCannon:
                 case Preset.Phantom_Cannoneer_ShockCannon:
                     ImGui.Indent();
-                    ImGui.Text("When both Blind and Paralysis can apply:");
+                    ImGui.Text(Resources.Localization.Content.OccultCrescent.WhenBothBlindParalysis);
                     DrawHorizontalRadioButton(Phantom_Cannoneer_DarkShockPrefer,
-                        "Prefer Dark Cannon", "Blind", 0);
+                        Resources.Localization.Content.OccultCrescent.PreferDarkCannon, Resources.Localization.Content.OccultCrescent.Blind, 0);
                     DrawHorizontalRadioButton(Phantom_Cannoneer_DarkShockPrefer,
-                        "Prefer Shock Cannon", "Paralysis", 1);
-                    ImGui.Text("When neither can apply (immune / capped):");
+                        Resources.Localization.Content.OccultCrescent.PreferShockCannon, Resources.Localization.Content.OccultCrescent.Paralysis, 1);
+                    ImGui.Text(Resources.Localization.Content.OccultCrescent.WhenNeitherCanApply);
                     DrawHorizontalRadioButton(Phantom_Cannoneer_DarkShockImmunePrefer,
-                        "Use Dark Cannon", "", 0);
+                        Resources.Localization.Content.OccultCrescent.UseDarkCannon, "", 0);
                     DrawHorizontalRadioButton(Phantom_Cannoneer_DarkShockImmunePrefer,
-                        "Use Shock Cannon", "", 1);
+                        Resources.Localization.Content.OccultCrescent.UseShockCannon, "", 1);
                     ImGui.Unindent();
                     break;
             }
@@ -307,7 +307,7 @@ internal partial class OccultCrescent
         private static void DrawStatusRefreshSlider(string extraNote = "")
         {
             DrawSliderInt(0, 15, Phantom_StatusRefresh_Remaining,
-                "Refresh this buff or debuff when remaining time is at or below this many seconds. 0 waits until it drops.",
+                Resources.Localization.Content.OccultCrescent.StatusRefreshSlider,
                 200);
             if (extraNote.Length > 0)
                 ImGui.TextWrapped(extraNote);

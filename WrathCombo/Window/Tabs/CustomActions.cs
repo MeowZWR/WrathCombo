@@ -8,6 +8,7 @@ using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 using System.Numerics;
 using WrathCombo.Combos.PvE;
 using WrathCombo.Native;
+using WrathCombo.Resources.Localization.UI.Misc;
 using WrathCombo.Services;
 
 namespace WrathCombo.Window.Tabs
@@ -21,13 +22,12 @@ namespace WrathCombo.Window.Tabs
         internal unsafe static new void Draw()
         {
             Vector2 gap = new Vector2(16f.Scale());
-            ImGuiEx.TextWrapped($@"This section contains a range of bespoke ""Custom Actions"" which can be used as replacements for either base action replacements or specific macros.");
+            ImGuiEx.TextWrapped(MiscUI.CustomActionsIntro);
 
             ImGui.Separator();
 
-            ImGuiEx.TextUnderlined($"Rotation Buttons");
-            ImGuiEx.TextWrapped($"These buttons replace the need to replace actions for all features marked as either Simple or Advanced. Enable the type of combo you're wanting to use custom actions for, and drag the icon to your hotbar.\n\n" +
-                $"This frees up the actions for manual use, for example, for downtime where you only want to use 1-2-3 combos, or for healers to always have access to basic healing actions.");
+            ImGuiEx.TextUnderlined(MiscUI.RotationButtons);
+            ImGuiEx.TextWrapped(MiscUI.RotationButtonsDesc);
 
             ImGui.Dummy(gap);
 
@@ -36,9 +36,9 @@ namespace WrathCombo.Window.Tabs
                 if (!table)
                     return;
 
-                ImGui.TableSetupColumn("Setting", ImGuiTableColumnFlags.WidthFixed);
-                ImGui.TableSetupColumn("Action", ImGuiTableColumnFlags.WidthFixed);
-                ImGui.TableSetupColumn("Description", ImGuiTableColumnFlags.WidthFixed, ImGui.GetContentRegionAvail().X);
+                ImGui.TableSetupColumn(MiscUI.Setting, ImGuiTableColumnFlags.WidthFixed);
+                ImGui.TableSetupColumn(MiscUI.TableAction, ImGuiTableColumnFlags.WidthFixed);
+                ImGui.TableSetupColumn(MiscUI.TableDescription, ImGuiTableColumnFlags.WidthFixed, ImGui.GetContentRegionAvail().X);
 
                 foreach (var act in P.CustomActions.Manager.Actions)
                 {
@@ -50,15 +50,15 @@ namespace WrathCombo.Window.Tabs
             }
 
 
-            if (ImGuiEx.CheckboxWrapped($"Don't Override Icons with Job Actions (drag action to hotbar again to take effect)", ref Service.Configuration.CustomActionSettings.AlwaysShowIcon))
+            if (ImGuiEx.CheckboxWrapped(MiscUI.DontOverrideIcons, ref Service.Configuration.CustomActionSettings.AlwaysShowIcon))
                 Service.Configuration.Save();
 
-            ImGuiComponents.HelpMarker("This will hide all combo outputs on custom actions, leaving only these icons showing. This is not advised if you wish to see the real actions being output by the combos on your hotbar, and should only be used if you feel it's something you want.");
+            ImGuiComponents.HelpMarker(MiscUI.DontOverrideIconsHelp);
 
             ImGui.Dummy(gap);
 
-            ImGuiEx.TextUnderlined("Utility Buttons");
-            ImGuiEx.TextWrapped($"These are buttons which serve to control the plugin in some way. Just drag the icon to your hotbar to use them.");
+            ImGuiEx.TextUnderlined(MiscUI.UtilityButtons);
+            ImGuiEx.TextWrapped(MiscUI.UtilityButtonsDesc);
 
             ImGui.Dummy(gap);
 

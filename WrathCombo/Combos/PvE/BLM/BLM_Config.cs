@@ -20,7 +20,7 @@ internal partial class BLM
                     DrawBossOnlyChoice(BLM_Balance_Content);
                     DrawOpenerPotionChoice(BLM_Opener_Potion);
                     DrawOpenerPrepullBlockChoice(BLM_Opener_PrepullBlock);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(BLM_SelectedOpener,
                         Generics.StandardOpener,

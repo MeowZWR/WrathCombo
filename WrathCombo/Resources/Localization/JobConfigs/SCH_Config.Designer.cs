@@ -59,5 +59,410 @@ namespace WrathCombo.Resources.Localization.JobConfigs {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dissipation First.
+        /// </summary>
+        internal static string DissipationFirst {
+            get {
+                return ResourceManager.GetString("DissipationFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses Dissipation first, then Aetherflow.
+        /// </summary>
+        internal static string DissipationFirstDesc {
+            get {
+                return ResourceManager.GetString("DissipationFirstDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aetherflow First.
+        /// </summary>
+        internal static string AetherflowFirst {
+            get {
+                return ResourceManager.GetString("AetherflowFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses Aetherflow first, then Dissipation.
+        /// </summary>
+        internal static string AetherflowFirstDesc {
+            get {
+                return ResourceManager.GetString("AetherflowFirstDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Ruin/Broils.
+        /// </summary>
+        internal static string OnRuinBroils {
+            get {
+                return ResourceManager.GetString("OnRuinBroils", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply options to Ruin and all Broils..
+        /// </summary>
+        internal static string OnRuinBroilsDesc {
+            get {
+                return ResourceManager.GetString("OnRuinBroilsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Bio/Bio II/Biolysis.
+        /// </summary>
+        internal static string OnBio {
+            get {
+                return ResourceManager.GetString("OnBio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply options to Bio and Biolysis..
+        /// </summary>
+        internal static string OnBioDesc {
+            get {
+                return ResourceManager.GetString("OnBioDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Broil II.
+        /// </summary>
+        internal static string OnBroilII {
+            get {
+                return ResourceManager.GetString("OnBroilII", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply options to Broil II..
+        /// </summary>
+        internal static string OnBroilIIDesc {
+            get {
+                return ResourceManager.GetString("OnBroilIIDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only applies the HP check above to non-bosses. Allows you to only stop DoTing early when it&apos;s not a boss..
+        /// </summary>
+        internal static string HpCheckNonBossesDot {
+            get {
+                return ResourceManager.GetString("HpCheckNonBossesDot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aetherflow remaining cooldown.
+        /// </summary>
+        internal static string AetherflowRemainingCd {
+            get {
+                return ResourceManager.GetString("AetherflowRemainingCd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy Drain Burst.
+        /// </summary>
+        internal static string EnergyDrainBurst {
+            get {
+                return ResourceManager.GetString("EnergyDrainBurst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holds Energy Drain when Chain Stratagem is ready or has less than 10 seconds cooldown remaining..
+        /// </summary>
+        internal static string EnergyDrainBurstDesc {
+            get {
+                return ResourceManager.GetString("EnergyDrainBurstDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baneful Only.
+        /// </summary>
+        internal static string BanefulOnly {
+            get {
+                return ResourceManager.GetString("BanefulOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will only use Chain Strategem when high enough level to use Baneful Impaction.
+        /// </summary>
+        internal static string BanefulOnlyDesc {
+            get {
+                return ResourceManager.GetString("BanefulOnlyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target HP% to stop using (0 = Use Always, 100 = Never).
+        /// </summary>
+        internal static string StopUsingTargetHpAlwaysNever {
+            get {
+                return ResourceManager.GetString("StopUsingTargetHpAlwaysNever", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Option: Include Shields in HP Percent Sliders.
+        /// </summary>
+        internal static string IncludeShieldsAdvanced {
+            get {
+                return ResourceManager.GetString("IncludeShieldsAdvanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop using when above HP %..
+        /// </summary>
+        internal static string StopUsingAboveHp {
+            get {
+                return ResourceManager.GetString("StopUsingAboveHp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimal Fairy Gauge to start using Aetherpact.
+        /// </summary>
+        internal static string MinFairyGaugeAetherpact {
+            get {
+                return ResourceManager.GetString("MinFairyGaugeAetherpact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use Emergency tactics before Adloquim when below set threshold.
+        /// </summary>
+        internal static string EmergencyTacticsDesc {
+            get {
+                return ResourceManager.GetString("EmergencyTacticsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start using Emergency Tactics when below HP %..
+        /// </summary>
+        internal static string StartEmergencyTacticsBelowHp {
+            get {
+                return ResourceManager.GetString("StartEmergencyTacticsBelowHp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: Succor will always be available..
+        /// </summary>
+        internal static string SuccorAlwaysAvailable {
+            get {
+                return ResourceManager.GetString("SuccorAlwaysAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These options are to provide optional priority to Succor or to set up Emergency tactics option..
+        /// </summary>
+        internal static string SuccorPriorityNote {
+            get {
+                return ResourceManager.GetString("SuccorPriorityNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shield Check: Will use when less than set percentage of party have shields..
+        /// </summary>
+        internal static string ShieldCheckPartyPercent {
+            get {
+                return ResourceManager.GetString("ShieldCheckPartyPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If more than the set percentage of the party has shields, will use Emergency Tactics before Succor.
+        /// </summary>
+        internal static string EmergencyTacticsBeforeSuccor {
+            get {
+                return ResourceManager.GetString("EmergencyTacticsBeforeSuccor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use Recitation to buff Succor.
+        /// </summary>
+        internal static string RecitationBuffSuccor {
+            get {
+                return ResourceManager.GetString("RecitationBuffSuccor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use Recitation to buff Indomitability..
+        /// </summary>
+        internal static string RecitationBuffIndomitability {
+            get {
+                return ResourceManager.GetString("RecitationBuffIndomitability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indomitability Ready Only Option.
+        /// </summary>
+        internal static string ReadyOnlyOption {
+            get {
+                return ResourceManager.GetString("ReadyOnlyOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only uses {0} if Indomitability is ready to use..
+        /// </summary>
+        internal static string ReadyOnlyDesc {
+            get {
+                return ResourceManager.GetString("ReadyOnlyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Aetherflow On Energy Drain Only.
+        /// </summary>
+        internal static string ShowAetherflowEnergyDrainOnly {
+            get {
+                return ResourceManager.GetString("ShowAetherflowEnergyDrainOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Aetherflow On All Aetherflow Skills.
+        /// </summary>
+        internal static string ShowAetherflowAllSkills {
+            get {
+                return ResourceManager.GetString("ShowAetherflowAllSkills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only when out of Aetherflow Stacks.
+        /// </summary>
+        internal static string OutOfAetherflowStacks {
+            get {
+                return ResourceManager.GetString("OutOfAetherflowStacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always when available.
+        /// </summary>
+        internal static string AlwaysWhenAvailable {
+            get {
+                return ResourceManager.GetString("AlwaysWhenAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Recitation to buff before the Raidwide Succor..
+        /// </summary>
+        internal static string RecitationRaidwideSuccor {
+            get {
+                return ResourceManager.GetString("RecitationRaidwideSuccor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will place under hard target if it is an Enemy..
+        /// </summary>
+        internal static string PlaceUnderEnemyHardTarget {
+            get {
+                return ResourceManager.GetString("PlaceUnderEnemyHardTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will place under hard target if it is an Ally..
+        /// </summary>
+        internal static string PlaceUnderAllyHardTarget {
+            get {
+                return ResourceManager.GetString("PlaceUnderAllyHardTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will Recitation before Adloquium if available..
+        /// </summary>
+        internal static string RecitationBeforeAdlo {
+            get {
+                return ResourceManager.GetString("RecitationBeforeAdlo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will spread Adloquium crit shield if available..
+        /// </summary>
+        internal static string SpreadAdloCritShield {
+            get {
+                return ResourceManager.GetString("SpreadAdloCritShield", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will use {0} if available..
+        /// </summary>
+        internal static string UseIfAvailable {
+            get {
+                return ResourceManager.GetString("UseIfAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will activate Fey Illumination before Succor.
+        /// </summary>
+        internal static string FeyIlluminationBeforeSuccor {
+            get {
+                return ResourceManager.GetString("FeyIlluminationBeforeSuccor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crit Adloquium Deployment.
+        /// </summary>
+        internal static string CritAdloDeployment {
+            get {
+                return ResourceManager.GetString("CritAdloDeployment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will Recitation into Adloquium and Deployment tactics in place of Succor This will be targeted at yourself for simplicity and reliability..
+        /// </summary>
+        internal static string CritAdloDeploymentDesc {
+            get {
+                return ResourceManager.GetString("CritAdloDeploymentDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summon Seraph Consolation.
+        /// </summary>
+        internal static string SummonSeraphConsolation {
+            get {
+                return ResourceManager.GetString("SummonSeraphConsolation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will summon Seraph if available and use Consolation for more shield..
+        /// </summary>
+        internal static string SummonSeraphConsolationDesc {
+            get {
+                return ResourceManager.GetString("SummonSeraphConsolationDesc", resourceCulture);
+            }
+        }
     }
 }

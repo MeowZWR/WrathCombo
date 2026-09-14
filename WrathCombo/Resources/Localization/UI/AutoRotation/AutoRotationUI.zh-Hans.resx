@@ -371,4 +371,28 @@
   <data name="Include_Shields_Helptext" xml:space="preserve">
     <value>在所有 HP 检查中包含护盾百分比。</value>
   </data>
+  <data name="AutomaticActivationHeader" xml:space="preserve">
+    <value>自动启用设置</value>
+  </data>
+  <data name="Checkbox_TreasureHuntPriority" xml:space="preserve">
+    <value>优先按寻宝击杀顺序</value>
+  </data>
+  <data name="CombatSettingHeader" xml:space="preserve">
+    <value>战斗设置</value>
+  </data>
+  <data name="HelpText_TreasureHuntPriority" xml:space="preserve">
+    <value>当敌人名牌带有数字标记（1–5）时，自动循环只会攻击剩余编号最小的目标直至其死亡。用于宝图害虫；其他出现该标记的场合同样适用。</value>
+  </data>
+  <data name="OnlyAoEManualTargetSet" xml:space="preserve">
+    <value>仅在设置手动目标后使用 AoE</value>
+  </data>
+  <data name="OnlyAoEManualTargetSetHelp" xml:space="preserve">
+    <value>仍会对最佳目标使用 AoE，但必须先设置硬目标（之后可能会切换到最佳目标）。</value>
+  </data>
+  <data name="PauseNoTarget" xml:space="preserve">
+    <value>无目标时暂停连击动作</value>
+  </data>
+  <data name="PauseNoTargetHelp" xml:space="preserve">
+    <value>在所选目标模式下没有选中目标时，暂停所有来自连击的动作。适合在无目标时阻止对自己释放的技能。</value>
+  </data>
 </root>

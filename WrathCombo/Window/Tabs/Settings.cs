@@ -173,11 +173,7 @@ internal class Settings : ConfigWindow
         var label = setting.Name;
         float cursorXAfterInput = 0;
 
-        const string stackHelp =
-            "The priority goes from top to bottom.\n" +
-            "Scroll down to see all of your items.\n" +
-            "Click the Up and Down buttons to move items in the list.\n" +
-            "Click the X button to remove an item from the list.";
+        var stackHelp = SettingsUI.HelpText_StackPriority;
 
         #endregion
 

@@ -1,5 +1,6 @@
 ﻿using Dalamud.Interface.Colors;
 using ECommons.ExcelServices;
+using WrathCombo.Resources.Localization.UI.Misc;
 namespace WrathCombo.Window.MessagesNS;
 
 internal static class Messages
@@ -8,7 +9,7 @@ internal static class Messages
     {
         if (job is Job.BLU) //Blue Mage ID
         {
-            ImGui.TextColored(ImGuiColors.ParsedPink, $"Please note that even if you do not have all the required spells active, you may still use these features.\nAny spells you do not have active will be skipped over so if a feature is not working as intended then\nplease try and enable more required spells.");
+            ImGui.TextColored(ImGuiColors.ParsedPink, MiscUI.BLUNote);
         }
 
         return true;

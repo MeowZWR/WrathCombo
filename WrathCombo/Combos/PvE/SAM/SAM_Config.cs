@@ -67,7 +67,7 @@ internal partial class SAM
                         ImGui.SetTooltip(FormatAndCache(SAM_Config.DelaySavageBlade, All.Cease.ActionName()));
 
                     ImGuiEx.Spacing(new Vector2(0, 10));
-                    ImGuiEx.TextUnderlined($"{Gyoten.ActionName()} Settings");
+                    ImGuiEx.TextUnderlined(FormatAndCache(Generics.ActionSettings, Gyoten.ActionName()));
                     ImGui.Spacing();
                     DrawRadioButton(SAM_ST_Opener_IncludeGyoten,
                         FormatAndCache(SAM_Config.Include2x0, Gyoten.ActionName()),

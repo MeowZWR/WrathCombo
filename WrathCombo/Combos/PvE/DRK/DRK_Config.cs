@@ -41,49 +41,49 @@ internal partial class DRK
 
                 case Preset.DRK_ST_Simple:
                     DrawHorizontalRadioButton(DRK_ST_SimpleMitigation,
-                        "Include Mitigations",
-                        "Enables the use of mitigations in Simple Mode.",
+                        Generics.IncludeMitigations,
+                        Generics.EnablesMitigationsSimple,
                         (int)SimpleMitigation.On);
 
                     DrawHorizontalRadioButton(DRK_ST_SimpleMitigation,
-                        "Exclude Mitigations",
-                        "Disables the use of mitigations in Simple Mode.",
+                        Generics.ExcludeMitigations,
+                        Generics.DisablesMitigationsSimple,
                         (int)SimpleMitigation.Off);
                     break;
 
                 case Preset.DRK_AoE_Simple:
                     DrawHorizontalRadioButton(DRK_AoE_SimpleMitigation,
-                        "Include Mitigations",
-                        "Enables the use of mitigations in Simple Mode.",
+                        Generics.IncludeMitigations,
+                        Generics.EnablesMitigationsSimple,
                         (int)SimpleMitigation.On);
 
                     DrawHorizontalRadioButton(DRK_AoE_SimpleMitigation,
-                        "Exclude Mitigations",
-                        "Disables the use of mitigations in Simple Mode.",
+                        Generics.ExcludeMitigations,
+                        Generics.DisablesMitigationsSimple,
                         (int)SimpleMitigation.Off);
                     break;
 
                 case Preset.DRK_ST_Adv:
                     DrawHorizontalRadioButton(DRK_ST_AdvancedMitigation,
-                        "Include Mitigations",
-                        "Enables the use of advanced mitigations",
+                        Generics.IncludeMitigations,
+                        Generics.EnablesMitigationsAdvanced,
                         (int)SimpleMitigation.On);
 
                     DrawHorizontalRadioButton(DRK_ST_AdvancedMitigation,
-                        "Exclude Mitigations",
-                        "Disables the use of advanced mitigations",
+                        Generics.ExcludeMitigations,
+                        Generics.DisablesMitigationsAdvanced,
                         (int)SimpleMitigation.Off);
                     break;
 
                 case Preset.DRK_AoE_Adv:
                     DrawHorizontalRadioButton(DRK_AoE_AdvancedMitigation,
-                        "Include Mitigations",
-                        "Enables the use of advanced mitigations",
+                        Generics.IncludeMitigations,
+                        Generics.EnablesMitigationsAdvanced,
                         (int)SimpleMitigation.On);
 
                     DrawHorizontalRadioButton(DRK_AoE_AdvancedMitigation,
-                        "Exclude Mitigations",
-                        "Disables the use of advanced mitigations ",
+                        Generics.ExcludeMitigations,
+                        Generics.DisablesMitigationsAdvanced,
                         (int)SimpleMitigation.Off);
                     break;
 
@@ -103,7 +103,7 @@ internal partial class DRK
                 case Preset.DRK_Mitigation_NonBoss_LivingDead:
                     DrawSliderInt(1, 100,
                         DRK_Mit_NonBoss_LivingDead_Health,
-                        startUsingAtDescription,
+                        Generics.HPPercentToUseAtOrBelow,
                         itemWidth: medium, sliderIncrement: SliderIncrements.Fives);
                     break;
 
@@ -111,7 +111,7 @@ internal partial class DRK
                     DrawDifficultyMultiChoice(
                         DRK_Mit_Boss_BlackestNight_OnCD_Difficulty,
                         DRK_Boss_Mit_DifficultyListSet,
-                        "Select what difficulties TBN should be used on CD:");
+                        DRK_Config.SelectTBNOnCD);
                     DrawSliderInt(1, 100,
                         DRK_Mit_Boss_BlackestNight_Health,
                         Generics.StopFriendlyHpPercent100,
@@ -142,8 +142,8 @@ internal partial class DRK
                         Generics.SelectWhatKindOfContentThisOptionAppliesTo);
                     DrawAdditionalBoolChoice(
                         DRK_Mit_Boss_ShadowWall_First,
-                        "Use ShadowWall/Shadowed Vigil First",
-                        "Uses ShadowWall/Shadowed Vigil before Rampart",
+                        DRK_Config.UseShadowWallFirst,
+                        DRK_Config.UseShadowWallFirstDesc,
                         indentDescription: true);
                     break;
 
@@ -159,9 +159,8 @@ internal partial class DRK
                         decimals: 0);
                     ImGui.Unindent();
                     DrawAdditionalBoolChoice(DRK_Mit_Boss_DarkMind_Align,
-                        "Align Dark Mind",
-                        "Tries to align Dark Mind with Rampart for tankbusters.\n" +
-                        "(as it is lesser than Shadow Wall/Shadowed Vigil)",
+                        DRK_Config.AlignDarkMind,
+                        DRK_Config.AlignDarkMindDesc,
                         indentDescription: true);
                     break;
 
@@ -193,38 +192,34 @@ internal partial class DRK
                 case Preset.DRK_ST_BalanceOpener:
                     DrawBossOnlyChoice(DRK_ST_OpenerDifficulty);
                     DrawOpenerPotionChoice(DRK_Opener_Potion);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(DRK_SelectedOpener,
-                        "Standard opener",
-                        "Uses the Standard opener.",
+                        Generics.StandardOpener,
+                        Generics.UsesStandardOpener,
                         outputValue: 0,
                         descriptionAsTooltip: true);
                     DrawRadioButton(DRK_SelectedOpener,
-                        "Early Buff Window Opener",
-                        "Front-loads burst to align with an early (1st GCD) party buff window.",
+                        Generics.EarlyBuffWindowOpener,
+                        Generics.EarlyBuffWindowOpenerDesc,
                         outputValue: 1,
                         descriptionAsTooltip: true);
                     ImGui.Spacing();
-                    ImGuiEx.TextUnderlined("Select Pull Action");
+                    ImGuiEx.TextUnderlined(Generics.SelectPullAction);
                     ImGui.Spacing();
                     DrawRadioButton(DRK_ST_OpenerAction,
-                        "Unmend (Standard)",
-                        "Will use Unmend to pull, if selected.\n" +
-                        "Should start at -1.0 seconds.\n\n" +
-                        "Recommended by The Balance.",
+                        DRK_Config.UnmendStandard,
+                        DRK_Config.UnmendStandardDesc,
                         outputValue: (int)PullAction.Unmend,
                         descriptionAsTooltip: true);
                     DrawRadioButton(DRK_ST_OpenerAction,
-                        "Shadowstride",
-                        "Will use Shadowstride to pull, if selected.\n" +
-                        "Should start at -0.7 seconds.",
+                        DRK_Config.Shadowstride,
+                        DRK_Config.ShadowstrideDesc,
                         outputValue: (int)PullAction.Shadowstride,
                         descriptionAsTooltip: true);
                     DrawRadioButton(DRK_ST_OpenerAction,
-                        "Hard Slash",
-                        "Will use Hard Slash to pull, if selected.\n" +
-                        "Should start at 0.0 seconds.",
+                        DRK_Config.HardSlash,
+                        DRK_Config.HardSlashDesc,
                         outputValue: (int)PullAction.HardSlash,
                         descriptionAsTooltip: true);
 
@@ -234,12 +229,11 @@ internal partial class DRK
                 case Preset.DRK_ST_CDs:
                     DrawHorizontalRadioButton(
                         DRK_ST_CDsBossRequirement, Generics.AllEnemies,
-                        "Will use Cooldowns regardless of the type of enemy.",
+                        DRK_Config.WillUseCooldownsRegardless,
                         outputValue: (int)BossRequirement.Off, itemWidth: 125f);
                     DrawHorizontalRadioButton(
-                        DRK_ST_CDsBossRequirement, "Only Bosses",
-                        "Will try to use Cooldowns only when you're in a boss fight.\n" +
-                        "(Note: don't rely on this 100%, square sometimes marks enemies inconsistently)",
+                        DRK_ST_CDsBossRequirement, DRK_Config.OnlyBosses,
+                        DRK_Config.WillUseCooldownsOnlyBoss,
                         outputValue: (int)BossRequirement.On, itemWidth: 125f);
 
                     break;
@@ -264,31 +258,25 @@ internal partial class DRK
                     DrawDifficultyMultiChoice(
                         DRK_ST_DeliriumThresholdDifficulty,
                         DRK_ST_DeliriumThresholdDifficultyListSet,
-                        overrideText: "Select what difficulty the above " +
-                                      "sliders should apply to:"
+                        overrideText: Generics.SelectDifficultySlidersApplyTo
                     );
 
                     ImGuiEx.Spacing(new Vector2(0f, 10f));
 
                     ImGui.Indent();
-                    ImGui.Text("Usage options:");
+                    ImGui.Text(Generics.UsageOptions);
                     ImGui.Unindent();
                     ImGui.Dummy(new Vector2(20f, 0f).Scale());
                     UserConfig.DrawHorizontalRadioButton(
                         DRK_ST_DeliriumTieToLS,
-                        "Send on Cooldown",
-                        "Will use Delirium usages on cooldown. Recommended.",
+                        DRK_Config.SendOnCooldown,
+                        DRK_Config.SendOnCooldownDesc,
                         outputValue: (int)LSTieIn.Off,
                         descriptionColor: ImGuiColors.DalamudWhite);
                     UserConfig.DrawHorizontalRadioButton(
                         DRK_ST_DeliriumTieToLS,
-                        "Tie to Living Shadow " +
-                        "(for manual control)",
-                        "Will require Living Shadow to have been recently used " +
-                        "before using even-minute Deliriums.\n" +
-                        "(Odd-minute Delirium usage will proceed on cooldown)\n\n" +
-                        "ONLY recommended if you want more manual control.\n" +
-                        "(Does not apply to Blood Weapon)",
+                        DRK_Config.TieToLivingShadow,
+                        DRK_Config.TieToLivingShadowDesc,
                         outputValue: (int)LSTieIn.On,
                         descriptionColor: ImGuiColors.DalamudWhite);
 
@@ -298,19 +286,14 @@ internal partial class DRK
                     ImGui.Dummy(new Vector2(10f, 0f).Scale());
                     UserConfig.DrawHorizontalRadioButton(
                         DRK_ST_DarknessInstant,
-                        "Use Halfway",
-                        "Will use Salt and Darkness about halfway through " +
-                        "Salted Earth's duration, after more important oGCDs.\n" +
-                        "Recommended.",
+                        DRK_Config.UseHalfway,
+                        DRK_Config.UseHalfwayDesc,
                         outputValue: (int)SaltAndDarknessInstant.Off,
                         descriptionColor: ImGuiColors.DalamudWhite);
                     UserConfig.DrawHorizontalRadioButton(
                         DRK_ST_DarknessInstant,
-                        "Use Instantly (for heavy movement)",
-                        "Will use Salt and Darkness as soon as possible " +
-                        "(outside of the opener).\n" +
-                        "Only Recommended for heavy movement fights, " +
-                        "and only if you know you can fit your other oGCDs in.",
+                        DRK_Config.UseInstantly,
+                        DRK_Config.UseInstantlyDesc,
                         outputValue: (int)SaltAndDarknessInstant.On,
                         descriptionColor: ImGuiColors.DalamudWhite);
 
@@ -334,13 +317,13 @@ internal partial class DRK
 
                 case Preset.DRK_ST_Sp_BloodOvercap:
                     DrawSliderInt(50, 100, DRK_ST_BloodOvercapThreshold,
-                        startUsingAboveDescription,
+                        DRK_Config.UseAtOrAbove,
                         itemWidth: medium, sliderIncrement: SliderIncrements.Fives);
                     break;
 
                 case Preset.DRK_ST_Sp_Edge:
                     DrawSliderInt(0, 3000, DRK_ST_ManaSpenderPooling,
-                        "Mana to always save for TBN (0 = Use All). Spent freely until you have The Blackest Night.",
+                        DRK_Config.ManaSaveTBNAlways,
                         itemWidth: biggest,
                         sliderIncrement: SliderIncrements.Thousands);
                     DrawDifficultyMultiChoice(
@@ -352,7 +335,7 @@ internal partial class DRK
 
                 case Preset.DRK_ST_Sp_ManaOvercap:
                     DrawSliderInt(0, 30, DRK_ST_BurstSoonThreshold,
-                        "Seconds before Burst to save (allowing capping)",
+                        DRK_Config.SecondsBeforeBurst,
                         itemWidth: little, sliderIncrement: SliderIncrements.Fives);
 
                     break;
@@ -394,16 +377,14 @@ internal partial class DRK
                     ImGui.Dummy(new Vector2(10f, 0f).Scale());
                     UserConfig.DrawHorizontalRadioButton(
                         DRK_AoE_DarknessInstant,
-                        "Use Halfway",
-                        "Will use Salt and Darkness about halfway through " +
-                        "Salted Earth's duration, after more important oGCDs.\n" +
-                        "Recommended.",
+                        DRK_Config.UseHalfway,
+                        DRK_Config.UseHalfwayDesc,
                         outputValue: (int)SaltAndDarknessInstant.Off,
                         descriptionColor: ImGuiColors.DalamudWhite);
                     UserConfig.DrawHorizontalRadioButton(
                         DRK_AoE_DarknessInstant,
-                        "Use Instantly (for heavy movement)",
-                        "Will use Salt and Darkness as soon as possible.",
+                        DRK_Config.UseInstantly,
+                        DRK_Config.UseInstantlyAoEDesc,
                         outputValue: (int)SaltAndDarknessInstant.On,
                         descriptionColor: ImGuiColors.DalamudWhite);
 
@@ -423,14 +404,14 @@ internal partial class DRK
 
                 case Preset.DRK_AoE_Sp_BloodOvercap:
                     DrawSliderInt(50, 100, DRK_AoE_BloodOvercapThreshold,
-                        startUsingAboveDescription,
+                        DRK_Config.UseAtOrAbove,
                         itemWidth: medium, sliderIncrement: SliderIncrements.Fives);
 
                     break;
 
                 case Preset.DRK_AoE_Sp_Flood:
                     DrawSliderInt(0, 3000, DRK_AoE_ManaSpenderPooling,
-                        "Mana to save for TBN (0 = Use All). Spent freely until you have The Blackest Night.",
+                        DRK_Config.ManaSaveTBN,
                         itemWidth: biggest,
                         sliderIncrement: SliderIncrements.Thousands);
 
@@ -444,11 +425,11 @@ internal partial class DRK
                     DrawDifficultyMultiChoice(
                         DRK_Mit_EmergencyLivingDead_Difficulty,
                         DRK_Mit_EmergencyLivingDead_DifficultyListSet,
-                        "Select what difficulties Emergency Living Dead should be used in:"
+                        FormatAndCache(Generics.SelectDifficultyActionIn, LivingDead.ActionName())
                     );
 
                     DrawSliderInt(1, 100, DRK_Mit_LivingDead_Health,
-                        startUsingAtDescription,
+                        Generics.HPPercentToUseAtOrBelow,
                         itemWidth: medium, sliderIncrement: SliderIncrements.Ones);
 
                     break;
@@ -456,7 +437,7 @@ internal partial class DRK
                 case Preset.DRK_Mit_TheBlackestNight:
                     DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 0,
-                        "The Blackest Night Priority:");
+                        FormatAndCache(Generics.Action_Priority, BlackestNight.ActionName()));
 
                     break;
 
@@ -467,14 +448,14 @@ internal partial class DRK
 
                     DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 1,
-                        "Oblation Priority:");
+                        FormatAndCache(Generics.Action_Priority, Oblation.ActionName()));
 
                     break;
 
                 case Preset.DRK_Mit_Reprisal:
                     DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 2,
-                        "Reprisal Priority:");
+                        FormatAndCache(Generics.Action_Priority, Role.Reprisal.ActionName()));
 
                     break;
 
@@ -482,33 +463,33 @@ internal partial class DRK
                     ImGui.Indent();
                     DrawHorizontalRadioButton(
                         DRK_Mit_DarkMissionary_PartyRequirement,
-                        "Require party",
-                        "Will not use Dark Missionary unless there are 2 or more party members.",
+                        Generics.RequirePartyLabel,
+                        DRK_Config.DarkMissionaryRequirePartyDesc,
                         outputValue: (int)PartyRequirement.Yes, itemWidth: medium);
                     DrawHorizontalRadioButton(
                         DRK_Mit_DarkMissionary_PartyRequirement,
-                        "Use Always",
-                        "Will not require a party for Dark Missionary.",
+                        Generics.UseAlwaysLabel,
+                        DRK_Config.DarkMissionaryUseAlwaysDesc,
                         outputValue: (int)PartyRequirement.No, itemWidth: medium);
                     ImGui.Unindent();
 
                     DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 3,
-                        "Dark Missionary Priority:");
+                        FormatAndCache(Generics.Action_Priority, DarkMissionary.ActionName()));
 
                     break;
 
                 case Preset.DRK_Mit_Rampart:
                     DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 4,
-                        "Rampart Priority:");
+                        FormatAndCache(Generics.Action_Priority, Role.Rampart.ActionName()));
 
                     break;
 
                 case Preset.DRK_Mit_DarkMind:
                     DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 5,
-                        "Dark Mind Priority:");
+                        FormatAndCache(Generics.Action_Priority, DarkMind.ActionName()));
 
                     break;
 
@@ -516,21 +497,21 @@ internal partial class DRK
                     ImGui.Indent();
                     DrawHorizontalRadioButton(
                         DRK_Mit_ArmsLength_Boss, Generics.AllEnemies,
-                        "Will use Arm's Length regardless of the type of enemy.",
+                        Generics.ArmsLengthRegardless,
                         outputValue: (int)BossAvoidance.Off, itemWidth: 125f);
                     DrawHorizontalRadioButton(
-                        DRK_Mit_ArmsLength_Boss, "Avoid Bosses",
-                        "Will try not to use Arm's Length when in a boss fight.",
+                        DRK_Mit_ArmsLength_Boss, Generics.AvoidBosses,
+                        Generics.ArmsLengthAvoidBosses,
                         outputValue: (int)BossAvoidance.On, itemWidth: 125f);
                     ImGui.Unindent();
 
                     DrawSliderInt(0, 5, DRK_Mit_ArmsLength_EnemyCount,
-                        "How many enemies should be nearby? (0 = No Requirement)",
+                        Generics.NearbyEnemyCount,
                         itemWidth: little, sliderIncrement: SliderIncrements.Ones);
 
                     DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 6,
-                        "Arm's Length Priority:");
+                        FormatAndCache(Generics.Action_Priority, Role.ArmsLength.ActionName()));
 
                     break;
 
@@ -541,7 +522,7 @@ internal partial class DRK
 
                     DrawPriorityInput(DRK_Mit_Priorities,
                         numberMitigationOptions, 7,
-                        "Shadow Wall / Vigil Priority:");
+                        FormatAndCache(Generics.Action_Priority, $"{ShadowWall.ActionName()} / {ShadowedVigil.ActionName()}"));
 
                     break;
 
@@ -552,24 +533,20 @@ internal partial class DRK
                 case Preset.DRK_Retarget_TBN_TT:
                     ImGui.Indent(34f.Scale());
                     ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                        "Note: If you are Off-Tanking, and want to use this ability on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.\n" +
-                        "If you don't, it would go to the main tank.\n" +
-                        "If you don't use those Features for your personal mitigation, you may not want to enable this.");
+                        Generics.OffTankSelfNote);
                     ImGui.Unindent(34f.Scale());
                     break;
 
                 case Preset.DRK_Retarget_Oblation_TT:
                     ImGui.Indent(34f.Scale());
                     ImGuiEx.TextWrapped(ImGuiColors.DalamudGrey,
-                        "Note: If you are Off-Tanking, and want to use this ability on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.\n" +
-                        "If you don't, it would go to the main tank.\n" +
-                        "If you don't use those Features for your personal mitigation, you may not want to enable this.");
+                        Generics.OffTankSelfNote);
                     ImGui.Unindent(34f.Scale());
                     break;
 
                 case Preset.DRK_Retarget_Oblation_DoubleProtection:
                     DrawSliderInt(0, 5, DRK_RetargetOblationDuration,
-                        "Time Remaining on Oblation to allow within\n(0 = Oblation must not be on the target)");
+                        FormatAndCache(Generics.TimeRemainingOn0, Oblation.ActionName()));
                     break;
                 
                 case Preset.DRK_Retarget_Unmend:
@@ -615,14 +592,6 @@ internal partial class DRK
 
         /// Biggest bar width
         private const float biggest = 200f;
-
-        /// Bar Description for HP% to start using
-        private const string startUsingAtDescription =
-            "HP% to use at or below";
-
-        /// Bar Description for # to start using above
-        private const string startUsingAboveDescription =
-            "# to use at or above";
 
         /// <summary>
         ///     Whether abilities should be restricted to bosses or not.

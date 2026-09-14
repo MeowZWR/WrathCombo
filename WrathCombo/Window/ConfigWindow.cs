@@ -242,7 +242,7 @@ internal class ConfigWindow : Dalamud.Interface.Windowing.Window
             OpenWindow = OpenWindow.AutoRotation;
 
         ImGui.Spacing();
-        if (ImGui.Selectable("Custom Actions", OpenWindow == OpenWindow.CustomActions))
+        if (ImGui.Selectable(MainWindowUI.Button_CustomActions, OpenWindow == OpenWindow.CustomActions))
             OpenWindow = OpenWindow.CustomActions;
 
         ImGui.Spacing();
@@ -281,7 +281,7 @@ internal class ConfigWindow : Dalamud.Interface.Windowing.Window
         if (OpenWindow == OpenWindow.None)
             OpenWindow = OpenWindow.PvE;
 
-        ImGui.TextWrapped($"Tip: If a combo replaces an action, you can drag the action directly from this window to your hotbar!"); //Todo Remove this after some time once people are used to it.
+        ImGui.TextWrapped(MainWindowUI.Tip_DragActionToHotbar); //Todo Remove this after some time once people are used to it.
 
         switch (OpenWindow)
         {
@@ -298,7 +298,7 @@ internal class ConfigWindow : Dalamud.Interface.Windowing.Window
                 PunishGui.AboutTab.Draw(P.Name);
                 ImGuiEx.LineCentered(() =>
                 {
-                    if (ImGuiEx.Button($"Additional custom action icons by alexisoffline"))
+                    if (ImGuiEx.Button(MainWindowUI.Button_CustomActionIconsCredit))
                     {
                         Process.Start(new ProcessStartInfo()
                         {

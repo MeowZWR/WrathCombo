@@ -19,6 +19,7 @@ using WrathCombo.Data;
 using WrathCombo.Resources.Localization.JobConfigs;
 using WrathCombo.Services;
 using WrathCombo.Window.Tabs;
+using static WrathCombo.Window.Text;
 namespace WrathCombo.Window.Functions;
 
 public static class UserConfig
@@ -92,7 +93,7 @@ public static class UserConfig
                     if (ImGui.IsItemHovered())
                     {
                         ImGui.BeginTooltip();
-                        ImGui.TextUnformatted($"This setting has additional options depending on its value.{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\nCondition: {additonalChoiceCondition}")}");
+                        ImGui.TextUnformatted($"{Generics.AdditionalOptionsTooltip}{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : FormatAndCache(Generics.AdditionalOptionsCondition, additonalChoiceCondition))}");
                         ImGui.EndTooltip();
                     }
                 }
@@ -138,10 +139,10 @@ public static class UserConfig
         using var contextMenu = ImRaii.Popup($"##ResetConfig{config}{occurrence}");
         if (!contextMenu) return;
 
-        var allText = UserData.MasterList[config] is UserIntArray
-            ? " all priorities"
-            : "";
-        if (ImGui.MenuItem($"Reset{allText} to Default"))
+        var resetLabel = UserData.MasterList[config] is UserIntArray
+            ? Generics.ResetAllPrioritiesToDefault
+            : Generics.ResetToDefault;
+        if (ImGui.MenuItem(resetLabel))
             ResetToDefault(config);
     }
 
@@ -211,7 +212,7 @@ public static class UserConfig
                     if (ImGui.IsItemHovered())
                     {
                         ImGui.BeginTooltip();
-                        ImGui.TextUnformatted($"This setting has additional options depending on its value.{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\nCondition: {additonalChoiceCondition}")}");
+                        ImGui.TextUnformatted($"{Generics.AdditionalOptionsTooltip}{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : FormatAndCache(Generics.AdditionalOptionsCondition, additonalChoiceCondition))}");
                         ImGui.EndTooltip();
                     }
                 }
@@ -299,7 +300,7 @@ public static class UserConfig
                     if (ImGui.IsItemHovered())
                     {
                         ImGui.BeginTooltip();
-                        ImGui.TextUnformatted($"This setting has additional options depending on its value.{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : $"\nCondition: {additonalChoiceCondition}")}");
+                        ImGui.TextUnformatted($"{Generics.AdditionalOptionsTooltip}{(string.IsNullOrEmpty(additonalChoiceCondition) ? "" : FormatAndCache(Generics.AdditionalOptionsCondition, additonalChoiceCondition))}");
                         ImGui.EndTooltip();
                     }
                 }
@@ -639,19 +640,19 @@ public static class UserConfig
         ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-            ? "Select what difficulty the above should apply to:"
+            ? Generics.SelectDifficultyAppliesTo
             : overrideText);
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
         DrawHorizontalMultiChoice(
-            config, "Easiest Content",
+            config, Generics.EasiestContent,
             ContentCheck.BottomHalfContentList,
             totalChoices: 2, choice: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalMultiChoice(
-            config, "Hardest Content",
+            config, Generics.HardestContent,
             ContentCheck.TopHalfContentList,
             totalChoices: 2, choice: 1,
             descriptionColor: ImGuiColors.DalamudYellow
@@ -683,19 +684,19 @@ public static class UserConfig
         ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-            ? "Select what difficulty the above should apply to:"
+            ? Generics.SelectDifficultyAppliesTo
             : overrideText);
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
         DrawHorizontalMultiChoice(
-            config, "Casual Content",
+            config, Generics.CasualContent,
             ContentCheck.CasualContentList,
             totalChoices: 2, choice: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalMultiChoice(
-            config, "'Hard' Content",
+            config, Generics.HardContent,
             ContentCheck.HardContentList,
             totalChoices: 2, choice: 1,
             descriptionColor: ImGuiColors.DalamudYellow
@@ -730,25 +731,25 @@ public static class UserConfig
         ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudYellow);
         ImGui.Indent();
         ImGui.TextUnformatted(overrideText.IsNullOrEmpty()
-            ? "Select what difficulty the above should apply to:"
+            ? Generics.SelectDifficultyAppliesTo
             : overrideText);
         ImGui.PopStyleColor();
         ImGui.Unindent();
 
         DrawHorizontalMultiChoice(
-            config, "SoftCore Content",
+            config, Generics.SoftCoreContent,
             ContentCheck.SoftCoreContentList,
             totalChoices: 3, choice: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalMultiChoice(
-            config, "MidCore Content",
+            config, Generics.MidCoreContent,
             ContentCheck.MidCoreContentList,
             totalChoices: 3, choice: 1,
             descriptionColor: ImGuiColors.DalamudYellow
         );
         DrawHorizontalMultiChoice(
-            config, "HardCore Content",
+            config, Generics.HardCoreContent,
             ContentCheck.HardCoreContentList,
             totalChoices: 3, choice: 2,
             descriptionColor: ImGuiColors.DalamudYellow
@@ -779,20 +780,20 @@ public static class UserConfig
         using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudYellow))
         {
             ImGui.Text(overrideText.IsNullOrEmpty()
-                ? "Select what kind of content this option applies to:"
+                ? Generics.SelectWhatKindOfContentThisOptionAppliesTo
                 : overrideText);
         }
 
         DrawHorizontalBoolRadioButton(
             config, Generics.AllContent,
-            "Applies to all content in the game.",
+            Generics.AllContentDescription,
             choice: 0,
             descriptionColor: ImGuiColors.DalamudYellow
         );
 
         DrawHorizontalBoolRadioButton(
-            config, "Boss Only Content",
-            "Only applies in instances where you directly fight a boss. Excludes many A Realm Reborn & Heavensward raids that include trash.",
+            config, Generics.BossOnlyContent,
+            Generics.BossOnlyDescription,
             choice: 1,
             descriptionColor: ImGuiColors.DalamudYellow
         );
@@ -846,7 +847,7 @@ public static class UserConfig
 
     internal static void DrawOpenerPrepullBlockChoice(UserBool config)
     {
-        if (DrawAdditionalBoolChoice(config, "Include Pre-pull Blocks?", "Adds Cease to the opener that will wait for correct countdown timings."))
+        if (DrawAdditionalBoolChoice(config, Generics.IncludePrepullBlocks, Generics.IncludePrepullBlocksDesc))
         {
             if (PvEFeatures.OpenJob == Player.Job)
                 WrathOpener.CurrentOpener?.ResetOpener(true);
@@ -857,7 +858,7 @@ public static class UserConfig
     {
         using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.HealerGreen))
         {
-            DrawAdditionalBoolChoice(config, "Include Potion?", "Adds the strongest potion appropriate for your job to the opener.");
+            DrawAdditionalBoolChoice(config, Generics.IncludePotion, Generics.IncludePotionDesc);
         }
     }
 
@@ -920,7 +921,7 @@ public static class UserConfig
         if (ImGui.IsItemHovered() && !ImGui.IsItemClicked(ImGuiMouseButton.Right))
         {
             ImGui.BeginTooltip();
-            ImGui.Text("Smaller Number = Higher Priority");
+            ImGui.Text(Generics.SmallerNumberHigherPriority);
             ImGui.EndTooltip();
         }
         ImGui.Unindent();
@@ -942,7 +943,7 @@ public static class UserConfig
     private static float _customStackIconGroupWidth = ImGui.CalcTextSize("x").X;
     private static float _customStackTallestProperty = ImGui.CalcTextSize("I").Y;
     private static float _customStackLongestProperty =
-        ImGui.CalcTextSize("Lowest HP% Ally (If Missing HP)").X;
+        ImGui.CalcTextSize(GetLocalizedString("Target_LowestHPPAllyIfMissingHP", Generics.ResourceManager) ?? "Lowest HP% Ally (If Missing HP)").X;
 
     public static void DrawCustomStackManager
     (string stackName,
@@ -1003,13 +1004,13 @@ public static class UserConfig
             #region Adding to the Stack
 
         ImGuiEx.Spacing(new Vector2(5f.Scale(), 0));
-        ImGui.Text("Add to the Stack:");
+        ImGui.Text(Generics.AddToTheStack);
         ImGui.SameLine();
         DrawItemAdding(stackName, targetsToRemoveIfStringContains,
             ref customStackSetting,
             ref _customStackLongestProperty, ref _customStackTallestProperty,
             thisIsForRaiseStack);
-        ImGuiComponents.HelpMarker("Click this dropdown to open the list of available Target options.\nClick any entry to add it to your Custom Stack, at the bottom.\nThere is a Textbox that says 'Filter...' at the top, type into this to search the list.");
+        ImGuiComponents.HelpMarker(Generics.CustomStackDropdownHelp);
 
             #endregion
 
@@ -1167,7 +1168,7 @@ public static class UserConfig
     {
             #region Combo Variables
 
-        var defaultLabel = "Select a Target to Add";
+        var defaultLabel = Generics.SelectATargetToAdd;
         var minSize = ImGui.CalcTextSize(defaultLabel).X;
 
         // List of ally-related SimpleTarget properties
@@ -1244,10 +1245,22 @@ public static class UserConfig
     (string propertyName,
         bool thisIsForRaiseStack = false)
     {
+        if (propertyName == "default")
+            return Generics.SelectATargetToAdd;
+
+        if (thisIsForRaiseStack)
+        {
+            var raise = GetLocalizedString($"TargetRaise_{propertyName}", Generics.ResourceManager, returnNull: true);
+            if (raise != null)
+                return raise;
+        }
+
+        var localized = GetLocalizedString($"Target_{propertyName}", Generics.ResourceManager, returnNull: true);
+        if (localized != null)
+            return localized;
+
         var name = propertyName switch
         {
-            "default" => "Select a Target to Add",
-            // Handle special cases
             "UIMouseOverTarget" => "UI-MouseOver Target",
             "ModelMouseOverTarget" => "Field-MouseOver Target",
             "LowestHPAlly" => "Lowest HP Ally",
@@ -1255,7 +1268,6 @@ public static class UserConfig
             "LowestHPPAlly" => "Lowest HP% Ally",
             "LowestHPPAllyIfMissingHP" => "Lowest HP% Ally If Missing HP",
             "AnyDeadRaiserDPSIfNoneAlive" => "Any Dead Raiser DPS If None Alive",
-            // Format the rest with Regex
             _ => Regex.Replace(propertyName,
                 @"(?<=[a-z])(?=[A-Z0-9])", " "),
         };
@@ -1295,16 +1307,16 @@ public static class HealStackExtensions
 
         var stackText = "";
         if (Service.Configuration.UseUIMouseoverOverridesInDefaultHealStack)
-            stackText += "UI-MouseOver Target" + separator;
+            stackText += UserConfig.TargetDisplayNameFromPropertyName("UIMouseOverTarget") + separator;
         if (Service.Configuration.UseFieldMouseoverOverridesInDefaultHealStack)
-            stackText += "Field-MouseOver Target" + separator;
-        stackText += "Soft Target" + separator;
-        stackText += "Hard Target" + separator;
+            stackText += UserConfig.TargetDisplayNameFromPropertyName("ModelMouseOverTarget") + separator;
+        stackText += UserConfig.TargetDisplayNameFromPropertyName("SoftTarget") + separator;
+        stackText += UserConfig.TargetDisplayNameFromPropertyName("HardTarget") + separator;
         if (Service.Configuration.UseFocusTargetOverrideInDefaultHealStack)
-            stackText += "Focus Target" + separator;
+            stackText += UserConfig.TargetDisplayNameFromPropertyName("FocusTarget") + separator;
         if (Service.Configuration.UseLowestHPOverrideInDefaultHealStack)
-            stackText += "Lowest HP% Ally" + separator;
-        stackText += "Self";
+            stackText += UserConfig.TargetDisplayNameFromPropertyName("LowestHPPAlly") + separator;
+        stackText += UserConfig.TargetDisplayNameFromPropertyName("Self");
         return stackText;
     }
 }

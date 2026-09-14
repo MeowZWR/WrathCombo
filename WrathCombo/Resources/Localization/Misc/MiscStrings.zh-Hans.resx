@@ -129,4 +129,7 @@
   <data name="MultiHit" xml:space="preserve">
     <value>多段攻击</value>
   </data>
+  <data name="BuffOnlyList" xml:space="preserve">
+    <value>DRK、PLD、WAR、AST、MNK、DRG、NIN、BRD 是唯一可能适合此选项的职业</value>
+  </data>
 </root>

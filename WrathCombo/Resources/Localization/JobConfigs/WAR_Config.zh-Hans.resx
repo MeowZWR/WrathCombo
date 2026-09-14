@@ -99,98 +99,97 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="EquilibriumTankbusterHp" xml:space="preserve">
-    <value>Player HP% to use Equilibrium at or below when incoming tankbuster is detected.</value>
+    <value>检测到死刑读条时，玩家 HP% 达到或低于此值使用泰然自若。</value>
   </data>
   <data name="UseVengeanceFirst" xml:space="preserve">
-    <value>Use Vengeance First</value>
+    <value>优先使用复仇</value>
   </data>
   <data name="UseVengeanceFirstDesc" xml:space="preserve">
-    <value>Uses Vengeance before Rampart</value>
+    <value>在铁壁之前使用复仇</value>
   </data>
   <data name="ThrillTankbusterHp" xml:space="preserve">
-    <value>Will use Thrill Of Battle as extra tankbuster mitigation if under this HP%</value>
+    <value>低于此 HP% 时，会将战栗作为额外死刑减伤使用</value>
   </data>
   <data name="AlignThrillOfBattle" xml:space="preserve">
-    <value>Align Thrill Of Battle</value>
+    <value>对齐战栗</value>
   </data>
   <data name="AlignThrillOfBattleDesc" xml:space="preserve">
-    <value>Tries to align Thrill Of Battle with Rampart for tankbusters.</value>
+    <value>尝试将战栗与铁壁对齐，用于死刑减伤。</value>
   </data>
   <data name="UseGapclosers" xml:space="preserve">
-    <value>Use Gapclosers</value>
+    <value>使用冲近</value>
   </data>
   <data name="UseGapclosersDesc" xml:space="preserve">
-    <value>Uses Onslaughts use in opener.</value>
+    <value>在起手循环中使用猛攻。</value>
   </data>
   <data name="NoGapclosers" xml:space="preserve">
-    <value>No Gapclosers</value>
+    <value>不使用冲近</value>
   </data>
   <data name="NoGapclosersDesc" xml:space="preserve">
-    <value>Skips Onslaughts use in opener.</value>
+    <value>起手循环中跳过猛攻。</value>
   </data>
   <data name="SurgingTempestRefresh" xml:space="preserve">
-    <value> Seconds remaining before refreshing {0} buff:</value>
+    <value> 刷新“{0}”增益前的剩余秒数：</value>
   </data>
   <data name="BeastGaugeLessOrEqual" xml:space="preserve">
-    <value> Use when Beast Gauge is less than or equal to:</value>
+    <value> 兽魂量谱小于或等于时使用：</value>
   </data>
   <data name="BurstPooling" xml:space="preserve">
-    <value>Burst Pooling </value>
+    <value>爆发囤积 </value>
   </data>
   <data name="BurstPoolingDesc" xml:space="preserve">
-    <value>Pools gauge for use in burst windows. Will spend to prevent overcap, and dump after Berserk/Inner Release</value>
+    <value>为爆发窗口囤积量谱。会为防止溢出而消耗，并在狂暴/原初的解放后清空</value>
   </data>
   <data name="PoolBossOnly" xml:space="preserve">
-    <value>Pool in boss encounter Only</value>
+    <value>仅在首领战囤积</value>
   </data>
   <data name="PoolBossOnlyDesc" xml:space="preserve">
-    <value>Will spend at 50 Gauge outside of Boss encounter</value>
+    <value>非首领战时会在 50 兽魂时消耗</value>
   </data>
   <data name="MinBeastGaugeSpend" xml:space="preserve">
-    <value> Minimum Beast Gauge required to spend:</value>
+    <value> 消耗所需的最低兽魂：</value>
   </data>
   <data name="Early" xml:space="preserve">
-    <value>Early</value>
+    <value>尽早</value>
   </data>
   <data name="EarlyPrimalRend" xml:space="preserve">
-    <value>Uses Primal Rend ASAP</value>
+    <value>尽快使用蛮荒崩裂</value>
   </data>
   <data name="Late" xml:space="preserve">
-    <value>Late</value>
+    <value>延后</value>
   </data>
   <data name="LatePrimalRend" xml:space="preserve">
-    <value>Uses Primal Rend after consumption of all Inner Release stacks</value>
+    <value>在原初的解放层数全部消耗后再使用蛮荒崩裂</value>
   </data>
   <data name="GaugeUnderOrEqual" xml:space="preserve">
-    <value>Use when gauge is under or equal to</value>
+    <value>量谱小于或等于时使用</value>
   </data>
   <data name="SmartSpender" xml:space="preserve">
-    <value>Smart Spender </value>
+    <value>智能消耗 </value>
   </data>
   <data name="SmartSpenderDesc" xml:space="preserve">
-    <value>Will use Fell Cleave in AoE when it would be a dps increase compared to Decimate.</value>
+    <value>在多目标中，当裂石飞环比地毁人亡更赚时改用裂石飞环。</value>
   </data>
   <data name="RequirePartyShakeItOff" xml:space="preserve">
-    <value>Will not use Shake It Off unless there are 2 or more party members.</value>
+    <value>队伍人数少于 2 人时不会使用摆脱。</value>
   </data>
   <data name="UseAlwaysShakeItOff" xml:space="preserve">
-    <value>Will not require a party for Shake It Off.</value>
+    <value>使用摆脱不要求组队。</value>
   </data>
   <data name="FcIrStopHp" xml:space="preserve">
-    <value> Stop usage if Target HP% is below set value.
- To disable this, set value to 0</value>
+    <value> 目标 HP% 低于设定值时停止使用。
+ 设为 0 可禁用此检查</value>
   </data>
   <data name="BeastGaugeLessOrEqualMultiline" xml:space="preserve">
-    <value> Use when Beast Gauge is
- less than or equal to:</value>
+    <value> 兽魂量谱小于或等于时使用：</value>
   </data>
   <data name="BloodwhettingOfftankNote" xml:space="preserve">
-    <value>Note: If you are Off-Tanking, and want to use Bloodwhetting on yourself, the expectation would be that you do so via the One-Button Mitigation Feature or the Mitigation options in your rotation.
-You could also mouseover yourself in the party to use Bloodwhetting or raw Intuition in this case.
-If you don't, Nascent Flash would replace the combo, and it would go to the main tank.
-If you don't use those Features for your personal mitigation, you may not want to enable this.</value>
+    <value>注意：如果你是副坦克，并且想对自己使用原初的血气，预期你会通过一键减伤功能或循环中的减伤选项来实现。
+这种情况下也可以在队伍列表中鼠标悬停自己来使用原初的血气或原初的直觉。
+否则原初的勇猛会替换连击，并打向主坦克。
+如果你不使用这些功能做个人减伤，可能不该启用此项。</value>
   </data>
   <data name="ArmsLengthInnerStrengthLockout" xml:space="preserve">
-    <value>Time (In Seconds) remaining on Inner Strength to Lock out Arm's Length until.</value>
+    <value>刚毅剩余时间（秒）内锁定亲疏自行。</value>
   </data>
 </root>

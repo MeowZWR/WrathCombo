@@ -117,19 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DoubleLunarOpener" xml:space="preserve">
-    <value>双阴</value>
+  <data name="WingedOpener" xml:space="preserve">
+    <value>有翼谴责起手</value>
   </data>
-  <data name="DoubleLunarOpenerDesc" xml:space="preserve">
-    <value>使用双阴起手循环</value>
+  <data name="WingedOpenerDesc" xml:space="preserve">
+    <value>有翼谴责起手。标准 2.50 咏速。</value>
   </data>
-  <data name="Repalce0With1When2IsOnCooldown" xml:space="preserve">
-    <value>当 {2} 处于冷却中时，将 {0} 替换为 {1}。</value>
+  <data name="DoTOpener" xml:space="preserve">
+    <value>持续伤害起手</value>
   </data>
-  <data name="SolarLunarOpener" xml:space="preserve">
-    <value>阴阳</value>
+  <data name="DoTOpenerDesc" xml:space="preserve">
+    <value>用致命火焰或魔法吐息替代有翼谴责。需要 2.20 或更快咏速。</value>
   </data>
-  <data name="SolarLunarOpenerDesc" xml:space="preserve">
-    <value>使用阳/阴起手循环。</value>
+  <data name="InputJKickYourself" xml:space="preserve">
+    <value>自行输入正义飞踢</value>
+  </data>
+  <data name="InputJKickYourselfDesc" xml:space="preserve">
+    <value>在起手与一键蛮神中跳过正义飞踢，以便你用它拉近距离。再起手不会等待正义飞踢。</value>
+  </data>
+  <data name="InputJKickYourselfOpenerOnlyDesc" xml:space="preserve">
+    <value>在此起手中跳过正义飞踢，以便你用它拉近距离。再起手不会等待正义飞踢。</value>
+  </data>
+  <data name="PrimalsToUse" xml:space="preserve">
+    <value>此按键要使用的蛮神技能</value>
+  </data>
+  <data name="UseFeatherRain" xml:space="preserve">
+    <value>使用飞翎雨。</value>
+  </data>
+  <data name="UseEruption" xml:space="preserve">
+    <value>使用地火喷发。</value>
+  </data>
+  <data name="UseShockStrike" xml:space="preserve">
+    <value>使用轰雷。</value>
+  </data>
+  <data name="UseRoseOfDestruction" xml:space="preserve">
+    <value>使用斗灵弹蔷薇。</value>
+  </data>
+  <data name="UseGlassDance" xml:space="preserve">
+    <value>使用冰雪乱舞。</value>
   </data>
 </root>

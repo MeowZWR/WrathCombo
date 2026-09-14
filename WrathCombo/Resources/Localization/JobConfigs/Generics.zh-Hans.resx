@@ -586,4 +586,397 @@
   <data name="WastePrevention" xml:space="preserve">
     <value>防止浪费选项</value>
   </data>
+  <data name="ChargePool0" xml:space="preserve">
+    <value>为手动使用保留多少个“{0}”。
+设置为 0 以禁用此检查。</value>
+  </data>
+  <data name="FurthestOOR" xml:space="preserve">
+    <value>5y 外最远</value>
+  </data>
+  <data name="FurthestOORRetarget" xml:space="preserve">
+    <value>会对 5y 外最远的敌对目标使用 {0}。</value>
+  </data>
+  <data name="Mouseover" xml:space="preserve">
+    <value>鼠标悬停</value>
+  </data>
+  <data name="MouseoverRetargetHostile" xml:space="preserve">
+    <value>会将 {0} 重定向到鼠标悬停目标（若为敌对）。优先级最高。</value>
+  </data>
+  <data name="NearestOOR" xml:space="preserve">
+    <value>5y 外最近</value>
+  </data>
+  <data name="NearestOORRetarget" xml:space="preserve">
+    <value>会对 5y 外最近的敌对目标使用 {0}。</value>
+  </data>
+  <data name="RangeBasedTargeting" xml:space="preserve">
+    <value>基于距离的目标选择</value>
+  </data>
+  <data name="RangeBasedTargetingDesc" xml:space="preserve">
+    <value>选择重定向到 5y 外最近或最远的敌人。</value>
+  </data>
+  <data name="SmartTargeting" xml:space="preserve">
+    <value>智能目标</value>
+  </data>
+  <data name="SmartTargetingNotTargetingPlayer" xml:space="preserve">
+    <value>“最近”与“最远”选项将只选择未以玩家为目标的敌人。</value>
+  </data>
+  <data name="AdditionalOptionsCondition" xml:space="preserve">
+    <value>
+条件：{0}</value>
+  </data>
+  <data name="AdditionalOptionsTooltip" xml:space="preserve">
+    <value>此设置的值会影响其他选项。</value>
+  </data>
+  <data name="AddToTheStack" xml:space="preserve">
+    <value>添加到堆栈：</value>
+  </data>
+  <data name="CasualContent" xml:space="preserve">
+    <value>休闲内容</value>
+  </data>
+  <data name="CustomStackDropdownHelp" xml:space="preserve">
+    <value>点击此下拉菜单打开可用目标列表。
+点击任意条目将其添加到自定义堆栈底部。
+顶部有一个写着“筛选...”的文本框，可输入以搜索列表。</value>
+  </data>
+  <data name="EasiestContent" xml:space="preserve">
+    <value>最简单内容</value>
+  </data>
+  <data name="HardContent" xml:space="preserve">
+    <value>“困难”内容</value>
+  </data>
+  <data name="HardCoreContent" xml:space="preserve">
+    <value>高难内容</value>
+  </data>
+  <data name="HardestContent" xml:space="preserve">
+    <value>最困难内容</value>
+  </data>
+  <data name="IncludePotion" xml:space="preserve">
+    <value>包含爆发药？</value>
+  </data>
+  <data name="IncludePotionDesc" xml:space="preserve">
+    <value>在起手循环中加入适合你职业的最强爆发药。</value>
+  </data>
+  <data name="IncludePrepullBlocks" xml:space="preserve">
+    <value>包含预拉停手？</value>
+  </data>
+  <data name="IncludePrepullBlocksDesc" xml:space="preserve">
+    <value>在起手循环中加入 Cease，以等待正确的倒计时。</value>
+  </data>
+  <data name="MidCoreContent" xml:space="preserve">
+    <value>中难内容</value>
+  </data>
+  <data name="ResetAllPrioritiesToDefault" xml:space="preserve">
+    <value>重置所有优先级为默认值</value>
+  </data>
+  <data name="ResetToDefault" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="SelectATargetToAdd" xml:space="preserve">
+    <value>选择要添加的目标</value>
+  </data>
+  <data name="SelectDifficultyAppliesTo" xml:space="preserve">
+    <value>选择上述设置适用的难度：</value>
+  </data>
+  <data name="SmallerNumberHigherPriority" xml:space="preserve">
+    <value>数字越小优先级越高</value>
+  </data>
+  <data name="SoftCoreContent" xml:space="preserve">
+    <value>低难内容</value>
+  </data>
+  <data name="Target_Self" xml:space="preserve">
+    <value>自身</value>
+  </data>
+  <data name="Target_HardTarget" xml:space="preserve">
+    <value>硬目标</value>
+  </data>
+  <data name="Target_SoftTarget" xml:space="preserve">
+    <value>软目标</value>
+  </data>
+  <data name="Target_SoftTargetIfMissingHP" xml:space="preserve">
+    <value>软目标（仅缺 HP）</value>
+  </data>
+  <data name="Target_FocusTarget" xml:space="preserve">
+    <value>焦点目标</value>
+  </data>
+  <data name="Target_FocusTargetIfMissingHP" xml:space="preserve">
+    <value>焦点目标（仅缺 HP）</value>
+  </data>
+  <data name="Target_TargetsTarget" xml:space="preserve">
+    <value>目标的目标</value>
+  </data>
+  <data name="Target_UIMouseOverTarget" xml:space="preserve">
+    <value>UI 鼠标悬停目标</value>
+  </data>
+  <data name="Target_ModelMouseOverTarget" xml:space="preserve">
+    <value>场地鼠标悬停目标</value>
+  </data>
+  <data name="Target_Chocobo" xml:space="preserve">
+    <value>陆行鸟</value>
+  </data>
+  <data name="Target_AnyEnemy" xml:space="preserve">
+    <value>任意敌人</value>
+  </data>
+  <data name="Target_NearestEnemyTarget" xml:space="preserve">
+    <value>最近敌人</value>
+  </data>
+  <data name="Target_NearestEnemyOver5YalmsAway" xml:space="preserve">
+    <value>5 米外最近敌人</value>
+  </data>
+  <data name="Target_NearestEnemyOver5YalmsAwayNotTargetingPlayer" xml:space="preserve">
+    <value>5 米外最近且未以玩家为目标的敌人</value>
+  </data>
+  <data name="Target_FurthestEnemyOver5YalmsAway" xml:space="preserve">
+    <value>5 米外最远敌人</value>
+  </data>
+  <data name="Target_FurthestEnemyOver5YalmsAwayNotTargetingPlayer" xml:space="preserve">
+    <value>5 米外最远且未以玩家为目标的敌人</value>
+  </data>
+  <data name="Target_NearestEnemyToTarget" xml:space="preserve">
+    <value>距当前目标最近的敌人</value>
+  </data>
+  <data name="Target_LowestHPEnemy" xml:space="preserve">
+    <value>最低 HP 敌人</value>
+  </data>
+  <data name="Target_LowestHPEnemyIfNotInvuln" xml:space="preserve">
+    <value>最低 HP 且无无敌的敌人</value>
+  </data>
+  <data name="Target_LowestHPPEnemy" xml:space="preserve">
+    <value>最低 HP% 敌人</value>
+  </data>
+  <data name="Target_LowestHPPEnemyIfNotInvuln" xml:space="preserve">
+    <value>最低 HP% 且无无敌的敌人</value>
+  </data>
+  <data name="Target_InterruptableEnemy" xml:space="preserve">
+    <value>可打断的敌人</value>
+  </data>
+  <data name="Target_LastHardTarget" xml:space="preserve">
+    <value>上一个硬目标</value>
+  </data>
+  <data name="Target_LastHostileHardTarget" xml:space="preserve">
+    <value>上一个敌对硬目标</value>
+  </data>
+  <data name="Target_MostRecentAttacker" xml:space="preserve">
+    <value>最近攻击者</value>
+  </data>
+  <data name="Target_KardionTarget" xml:space="preserve">
+    <value>心关目标</value>
+  </data>
+  <data name="Target_AnyDeadPartyMember" xml:space="preserve">
+    <value>任意已阵亡队员</value>
+  </data>
+  <data name="Target_AnyDeadNonPartyMember" xml:space="preserve">
+    <value>任意已阵亡非队员</value>
+  </data>
+  <data name="Target_AnyCleansableAlly" xml:space="preserve">
+    <value>任意可净化队友</value>
+  </data>
+  <data name="Target_LowestHPAlly" xml:space="preserve">
+    <value>最低 HP 队友</value>
+  </data>
+  <data name="Target_LowestHPAllyIfMissingHP" xml:space="preserve">
+    <value>最低 HP 队友（仅缺 HP）</value>
+  </data>
+  <data name="Target_LowestHPPAlly" xml:space="preserve">
+    <value>最低 HP% 队友</value>
+  </data>
+  <data name="Target_LowestHPPAllyIfMissingHP" xml:space="preserve">
+    <value>最低 HP% 队友（仅缺 HP）</value>
+  </data>
+  <data name="Target_LowestHPAllyOutOfParty" xml:space="preserve">
+    <value>队伍外最低 HP 友方</value>
+  </data>
+  <data name="Target_LowestHPAllyIfMissingHPOutOfParty" xml:space="preserve">
+    <value>队伍外最低 HP 友方（仅缺 HP）</value>
+  </data>
+  <data name="Target_LowestHPPAllyOutOfParty" xml:space="preserve">
+    <value>队伍外最低 HP% 友方</value>
+  </data>
+  <data name="Target_LowestHPPAllyIfMissingHPOutOfParty" xml:space="preserve">
+    <value>队伍外最低 HP% 友方（仅缺 HP）</value>
+  </data>
+  <data name="Target_AnySupport" xml:space="preserve">
+    <value>任意辅助</value>
+  </data>
+  <data name="Target_AnyLivingSupport" xml:space="preserve">
+    <value>任意存活辅助</value>
+  </data>
+  <data name="Target_AnyDPS" xml:space="preserve">
+    <value>任意输出</value>
+  </data>
+  <data name="Target_AnyTank" xml:space="preserve">
+    <value>任意坦克</value>
+  </data>
+  <data name="Target_AnyLivingTank" xml:space="preserve">
+    <value>任意存活坦克</value>
+  </data>
+  <data name="Target_AnyHealer" xml:space="preserve">
+    <value>任意治疗</value>
+  </data>
+  <data name="Target_AnyLivingHealer" xml:space="preserve">
+    <value>任意存活治疗</value>
+  </data>
+  <data name="Target_AnyRaiser" xml:space="preserve">
+    <value>任意能复活者</value>
+  </data>
+  <data name="Target_AnyRaiserDPS" xml:space="preserve">
+    <value>任意能复活的输出</value>
+  </data>
+  <data name="Target_AnyMeleeDPS" xml:space="preserve">
+    <value>任意近战输出</value>
+  </data>
+  <data name="Target_AnyRangedDPS" xml:space="preserve">
+    <value>任意远程输出</value>
+  </data>
+  <data name="Target_AnyPhysRangeDPS" xml:space="preserve">
+    <value>任意物理远程输出</value>
+  </data>
+  <data name="Target_AnyMagicalDPS" xml:space="preserve">
+    <value>任意魔法输出</value>
+  </data>
+  <data name="Target_AnyDeadTankIfNoneAlive" xml:space="preserve">
+    <value>任意已阵亡坦克（若无存活坦克）</value>
+  </data>
+  <data name="Target_AnyDeadHealerIfNoneAlive" xml:space="preserve">
+    <value>任意已阵亡治疗（若无存活治疗）</value>
+  </data>
+  <data name="Target_AnyDeadRaiserIfNoneAlive" xml:space="preserve">
+    <value>任意已阵亡能复活者（若无存活）</value>
+  </data>
+  <data name="Target_AnyDeadRaiserDPSIfNoneAlive" xml:space="preserve">
+    <value>任意已阵亡能复活输出（若无存活）</value>
+  </data>
+  <data name="Target_AnyPureHealer" xml:space="preserve">
+    <value>任意纯奶</value>
+  </data>
+  <data name="Target_AnyShieldHealer" xml:space="preserve">
+    <value>任意盾奶</value>
+  </data>
+  <data name="Target_AnySelfishDPS" xml:space="preserve">
+    <value>任意利己输出</value>
+  </data>
+  <data name="Target_PartyMember1" xml:space="preserve">
+    <value>队员 1</value>
+  </data>
+  <data name="Target_PartyMember2" xml:space="preserve">
+    <value>队员 2</value>
+  </data>
+  <data name="Target_PartyMember3" xml:space="preserve">
+    <value>队员 3</value>
+  </data>
+  <data name="Target_PartyMember4" xml:space="preserve">
+    <value>队员 4</value>
+  </data>
+  <data name="Target_PartyMember5" xml:space="preserve">
+    <value>队员 5</value>
+  </data>
+  <data name="Target_PartyMember6" xml:space="preserve">
+    <value>队员 6</value>
+  </data>
+  <data name="Target_PartyMember7" xml:space="preserve">
+    <value>队员 7</value>
+  </data>
+  <data name="Target_PartyMember8" xml:space="preserve">
+    <value>队员 8</value>
+  </data>
+  <data name="TargetRaise_AnyDeadPartyMember" xml:space="preserve">
+    <value>任意队员</value>
+  </data>
+  <data name="TargetRaise_AnyDeadNonPartyMember" xml:space="preserve">
+    <value>任意非队员</value>
+  </data>
+  <data name="TargetRaise_AnyDeadTankIfNoneAlive" xml:space="preserve">
+    <value>任意坦克（若无存活坦克）</value>
+  </data>
+  <data name="TargetRaise_AnyDeadHealerIfNoneAlive" xml:space="preserve">
+    <value>任意治疗（若无存活治疗）</value>
+  </data>
+  <data name="TargetRaise_AnyDeadRaiserIfNoneAlive" xml:space="preserve">
+    <value>任意能复活者（若无存活）</value>
+  </data>
+  <data name="TargetRaise_AnyDeadRaiserDPSIfNoneAlive" xml:space="preserve">
+    <value>任意能复活输出（若无存活）</value>
+  </data>
+  <data name="SelectOpener" xml:space="preserve">
+    <value>选择起手循环</value>
+  </data>
+  <data name="ActionSettings" xml:space="preserve">
+    <value>{0} 设置</value>
+  </data>
+  <data name="RequirePartyLabel" xml:space="preserve">
+    <value>需要队伍</value>
+  </data>
+  <data name="UseAlwaysLabel" xml:space="preserve">
+    <value>始终使用</value>
+  </data>
+  <data name="AvoidBosses" xml:space="preserve">
+    <value>避开首领</value>
+  </data>
+  <data name="NearbyEnemyCount" xml:space="preserve">
+    <value>附近需要多少敌人？（0 = 无要求）</value>
+  </data>
+  <data name="HPPercentToUseAtOrBelow" xml:space="preserve">
+    <value>HP% 低于或等于此值时使用</value>
+  </data>
+  <data name="SelectDifficultyActionIn" xml:space="preserve">
+    <value>选择“{0}”应在哪些难度中使用：</value>
+  </data>
+  <data name="IncludeMitigations" xml:space="preserve">
+    <value>包含减伤</value>
+  </data>
+  <data name="ExcludeMitigations" xml:space="preserve">
+    <value>排除减伤</value>
+  </data>
+  <data name="EnablesMitigationsSimple" xml:space="preserve">
+    <value>在简易模式中启用减伤。</value>
+  </data>
+  <data name="DisablesMitigationsSimple" xml:space="preserve">
+    <value>在简易模式中禁用减伤。</value>
+  </data>
+  <data name="EnablesMitigationsAdvanced" xml:space="preserve">
+    <value>启用高级减伤</value>
+  </data>
+  <data name="DisablesMitigationsAdvanced" xml:space="preserve">
+    <value>禁用高级减伤</value>
+  </data>
+  <data name="ArmsLengthRegardless" xml:space="preserve">
+    <value>无论敌人类型都会使用亲疏自行。</value>
+  </data>
+  <data name="ArmsLengthAvoidBosses" xml:space="preserve">
+    <value>首领战中尽量不使用亲疏自行。</value>
+  </data>
+  <data name="OffTankSelfNote" xml:space="preserve">
+    <value>注意：如果你是副坦，并希望对自己使用此技能，预期做法是通过一键减伤功能或循环中的减伤选项来使用。
+否则，它会施放到主坦身上。
+如果你不使用这些功能作为个人减伤，则可能不适合启用此项。</value>
+  </data>
+  <data name="EarlyBuffWindowOpener" xml:space="preserve">
+    <value>提前爆发窗口起手</value>
+  </data>
+  <data name="EarlyBuffWindowOpenerDesc" xml:space="preserve">
+    <value>将爆发前置，以对齐提前（第 1 个 GCD）的队伍增益窗口。</value>
+  </data>
+  <data name="SelectPullAction" xml:space="preserve">
+    <value>选择开怪技能</value>
+  </data>
+  <data name="SelectDifficultySlidersApplyTo" xml:space="preserve">
+    <value>选择上述滑块适用的难度：</value>
+  </data>
+  <data name="UsageOptions" xml:space="preserve">
+    <value>使用选项：</value>
+  </data>
+  <data name="EarlyBuffOpener" xml:space="preserve">
+    <value>提前爆发起手</value>
+  </data>
+  <data name="EarlyBuffOpenerDesc" xml:space="preserve">
+    <value>将爆发窗口提前约 1 个 GCD。</value>
+  </data>
+  <data name="TargetSettings" xml:space="preserve">
+    <value>目标设置</value>
+  </data>
+  <data name="OptionsToTryToRetarget0ToBeforeSelf" xml:space="preserve">
+    <value>在自身之前尝试将 {0} 重定向到：</value>
+  </data>
+  <data name="SelectDifficultyFor0" xml:space="preserve">
+    <value>选择应在哪些内容难度中使用 {0}：</value>
+  </data>
 </root>

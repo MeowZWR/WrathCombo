@@ -99,170 +99,170 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="UseNebulaFirst" xml:space="preserve">
-    <value>Use Nebula First</value>
+    <value>优先使用星云</value>
   </data>
   <data name="UseNebulaFirstDesc" xml:space="preserve">
-    <value>Uses Nebula before Rampart</value>
+    <value>在铁壁之前使用星云</value>
   </data>
   <data name="CamouflageHP" xml:space="preserve">
-    <value>Will use Camouflage as extra tankbuster mitigation if under this HP%</value>
+    <value>HP% 低于此值时，将使用伪装作为额外死刑减伤</value>
   </data>
   <data name="AlignCamouflage" xml:space="preserve">
-    <value>Align Camouflage</value>
+    <value>对齐伪装</value>
   </data>
   <data name="AlignCamouflageDesc" xml:space="preserve">
-    <value>Tries to align Camouflage with Rampart for tankbusters.</value>
+    <value>尝试将伪装与铁壁对齐以应对死刑。</value>
   </data>
   <data name="NormalAction" xml:space="preserve">
-    <value>Normal {0}</value>
+    <value>普通“{0}”</value>
   </data>
   <data name="NormalActionOpenerDesc" xml:space="preserve">
-    <value>Uses {0} normally in all openers</value>
+    <value>在所有起手中正常使用“{0}”</value>
   </data>
   <data name="EarlyAction" xml:space="preserve">
-    <value>Early {0}</value>
+    <value>提前“{0}”</value>
   </data>
   <data name="EarlyActionOpenerDesc" xml:space="preserve">
-    <value>Uses {0} as soon as possible in all openers</value>
+    <value>在所有起手中尽快使用“{0}”</value>
   </data>
   <data name="IncludeOvercapProtection" xml:space="preserve">
-    <value>Include Overcap Protection</value>
+    <value>包含防溢出</value>
   </data>
   <data name="IncludeOvercapProtectionDesc" xml:space="preserve">
-    <value>Includes {0} to prevent overcapping on cartridges</value>
+    <value>包含“{0}”以防止晶壤溢出</value>
   </data>
   <data name="ExcludeOvercapProtection" xml:space="preserve">
-    <value>Exclude Overcap Protection</value>
+    <value>排除防溢出</value>
   </data>
   <data name="ExcludeOvercapProtectionDesc" xml:space="preserve">
-    <value>Excludes {0}, regardless of cartridge count</value>
+    <value>无论晶壤数量如何，都不使用“{0}”</value>
   </data>
   <data name="PrecedeAction" xml:space="preserve">
-    <value>Precede {0}</value>
+    <value>前置“{0}”</value>
   </data>
   <data name="PrecedeActionDesc" xml:space="preserve">
-    <value>Allow preceding {0} with {1} for a buffed {2} ({3}) - ONLY APPLIES TO 2.50</value>
+    <value>允许用“{1}”前置“{0}”，以打出带增益的“{2}”（{3}）——仅适用于 2.50</value>
   </data>
   <data name="DontPrecedeAction" xml:space="preserve">
-    <value>Don't Precede {0}</value>
+    <value>不前置“{0}”</value>
   </data>
   <data name="DontPrecedeActionDesc" xml:space="preserve">
-    <value>Forbid preceding {0} with {1}</value>
+    <value>禁止用“{1}”前置“{0}”</value>
   </data>
   <data name="HoldForBurst" xml:space="preserve">
-    <value>Hold for Burst</value>
+    <value>为爆发保留</value>
   </data>
   <data name="HoldOneChargeForBurstDesc" xml:space="preserve">
-    <value>Holds one charge of {0} for at least one usage inside of {1}</value>
+    <value>保留一层“{0}”，确保在“{1}”期间至少使用一次</value>
   </data>
   <data name="DontHoldForBurst" xml:space="preserve">
-    <value>Don't Hold for Burst</value>
+    <value>不为爆发保留</value>
   </data>
   <data name="DontHoldChargesForBurstDesc" xml:space="preserve">
-    <value>Does not hold any charges of {0} for {1}</value>
+    <value>不为“{1}”保留任何“{0}”层数</value>
   </data>
   <data name="HoldForAction" xml:space="preserve">
-    <value>Hold for {0}</value>
+    <value>为“{0}”保留</value>
   </data>
   <data name="HoldForProcsDesc" xml:space="preserve">
-    <value>Holds {0} if you have any {1} procs available to avoid loss</value>
+    <value>若有可用的“{1}”触发则保留“{0}”，以免浪费</value>
   </data>
   <data name="DontHoldForAction" xml:space="preserve">
-    <value>Don't Hold for {0}</value>
+    <value>不为“{0}”保留</value>
   </data>
   <data name="DontHoldForProcsDesc" xml:space="preserve">
-    <value>Uses {0} regardless of any {1} procs currently available</value>
+    <value>无论当前是否有“{1}”触发都使用“{0}”</value>
   </data>
   <data name="HoldUnder" xml:space="preserve">
-    <value>Hold under {0}</value>
+    <value>在“{0}”期间保留</value>
   </data>
   <data name="HoldUnderBuffDesc" xml:space="preserve">
-    <value>Holds {0} when under {1} buff</value>
+    <value>处于“{1}”增益时保留“{0}”</value>
   </data>
   <data name="DontHoldUnder" xml:space="preserve">
-    <value>Don't Hold under {0}</value>
+    <value>在“{0}”期间不保留</value>
   </data>
   <data name="DontHoldUnderBuffDesc" xml:space="preserve">
-    <value>Uses {0} regardless of {1} buff</value>
+    <value>无论是否有“{1}”增益都使用“{0}”</value>
   </data>
   <data name="AoENoMercyStop" xml:space="preserve">
-    <value> Stop usage if Target HP% is below set value.
- To disable this, set value to 0</value>
+    <value> 若目标 HP% 低于设定值则停止使用。
+ 设为 0 可禁用此项</value>
   </data>
   <data name="IncludeBurstStrike" xml:space="preserve">
-    <value>Include Burst Strike</value>
+    <value>包含爆发击</value>
   </data>
   <data name="IncludeBurstStrikeDesc" xml:space="preserve">
-    <value>Includes {0} instead when {1} is unavailable</value>
+    <value>当“{1}”不可用时改为使用“{0}”</value>
   </data>
   <data name="ExcludeBurstStrike" xml:space="preserve">
-    <value>Exclude Burst Strike</value>
+    <value>排除爆发击</value>
   </data>
   <data name="ExcludeBurstStrikeDesc" xml:space="preserve">
-    <value>Excludes {0} when {1} is unavailable</value>
+    <value>当“{1}”不可用时不使用“{0}”</value>
   </data>
   <data name="NormalUsage" xml:space="preserve">
-    <value>Normal Usage</value>
+    <value>正常使用</value>
   </data>
   <data name="NormalUsageDesc" xml:space="preserve">
-    <value>Uses {0} normally</value>
+    <value>正常使用“{0}”</value>
   </data>
   <data name="LateUsage" xml:space="preserve">
-    <value>Late Usage</value>
+    <value>延后使用</value>
   </data>
   <data name="LateUsageDesc" xml:space="preserve">
-    <value>Uses {0} as the last GCD in burst</value>
+    <value>在爆发中作为最后一个 GCD 使用“{0}”</value>
   </data>
   <data name="HeartOfLightRequirePartyDesc" xml:space="preserve">
-    <value>Will not use Heart of Light unless there are 2 or more party members.</value>
+    <value>队伍人数不足 2 人时不使用光之心。</value>
   </data>
   <data name="HeartOfLightUseAlwaysDesc" xml:space="preserve">
-    <value>Will not require a party for Heart of Light.</value>
+    <value>使用光之心不需要队伍。</value>
   </data>
   <data name="WeaveOnly" xml:space="preserve">
-    <value>Weave-Only</value>
+    <value>仅插入</value>
   </data>
   <data name="WeaveOnlyDesc" xml:space="preserve">
-    <value>Uses cooldowns only when inside a weave window (excludes No Mercy)</value>
+    <value>仅在能力技窗口内使用冷却技能（不包括无情）</value>
   </data>
   <data name="OnCooldown" xml:space="preserve">
-    <value>On Cooldown</value>
+    <value>冷却转好即用</value>
   </data>
   <data name="OnCooldownDesc" xml:space="preserve">
-    <value>Uses cooldowns as soon as possible</value>
+    <value>尽快使用冷却技能</value>
   </data>
   <data name="ReplaceGnashingFang" xml:space="preserve">
-    <value>Replace Gnashing Fang</value>
+    <value>替换烈牙</value>
   </data>
   <data name="ReplaceGnashingFangDesc" xml:space="preserve">
-    <value>Use this feature as intended on {0}</value>
+    <value>按设计在“{0}”上使用此功能</value>
   </data>
   <data name="ReplaceNoMercy" xml:space="preserve">
-    <value>Replace No Mercy</value>
+    <value>替换无情</value>
   </data>
   <data name="ReplaceNoMercyDesc" xml:space="preserve">
-    <value>Use this feature instead on {0}
-WARNING: This WILL conflict with 'No Mercy Features'!</value>
+    <value>改为在“{0}”上使用此功能
+警告：这会与“无情功能”冲突！</value>
   </data>
   <data name="HoldUntilBuffedDesc" xml:space="preserve">
-    <value>Holds {0} until buffed by {1}</value>
+    <value>保留“{0}”直至获得“{1}”增益</value>
   </data>
   <data name="UseRegardlessOfBuffDesc" xml:space="preserve">
-    <value>Uses {0} regardless of {1} buff</value>
+    <value>无论是否有“{1}”增益都使用“{0}”</value>
   </data>
   <data name="AllProcs" xml:space="preserve">
-    <value>All Procs</value>
+    <value>全部触发</value>
   </data>
   <data name="AllProcsDesc" xml:space="preserve">
-    <value>Uses all {0} procs available as soon as possible</value>
+    <value>尽快使用所有可用的“{0}”触发</value>
   </data>
   <data name="OnlyHypervelocity" xml:space="preserve">
-    <value>Only Hypervelocity</value>
+    <value>仅超高速</value>
   </data>
   <data name="OnlyProcDesc" xml:space="preserve">
-    <value>Only uses {0} regardless of other {1} procs currently available</value>
+    <value>无论是否有其他“{1}”触发，仅使用“{0}”</value>
   </data>
   <data name="OnlyFatedBrand" xml:space="preserve">
-    <value>Only Fated Brand</value>
+    <value>仅命运之印</value>
   </data>
 </root>

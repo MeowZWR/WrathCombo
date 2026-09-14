@@ -153,4 +153,139 @@
   <data name="BuffOnlyList" xml:space="preserve">
       <value>DRK, PLD, WAR, AST, MNK, DRG, NIN, BRD, are the only jobs this is likely to be a good option for</value>
   </data>
+  <data name="KeepPrayUp" xml:space="preserve">
+    <value>Keep Pray up</value>
+  </data>
+  <data name="KeepPrayUpDesc" xml:space="preserve">
+    <value>Also use Pray whenever the buff is missing, not only below the HP threshold.</value>
+  </data>
+  <data name="PledgeSelfOnlyDesc" xml:space="preserve">
+    <value>When disabled, prefers the lowest-HP party member under the threshold.</value>
+  </data>
+  <data name="MaxTargetDistancePhantomKick" xml:space="preserve">
+    <value>Max target distance (yalms) to use Phantom Kick</value>
+  </data>
+  <data name="BlessingHpThreshold" xml:space="preserve">
+    <value>Self or average party HP % at or below which to use Blessing</value>
+  </data>
+  <data name="JudgmentHealHpThreshold" xml:space="preserve">
+    <value>Self or average party HP % at or below which to prioritize Judgment as a heal</value>
+  </data>
+  <data name="SaveForStarfall" xml:space="preserve">
+    <value>Save for Starfall</value>
+  </data>
+  <data name="SaveForStarfallDesc" xml:space="preserve">
+    <value>Use Invulnerability before Starfall when Prediction of Starfall is up.</value>
+  </data>
+  <data name="InCombat" xml:space="preserve">
+    <value>In combat</value>
+  </data>
+  <data name="InCombatDesc" xml:space="preserve">
+    <value>Use Suspend while in combat.</value>
+  </data>
+  <data name="OutOfCombat" xml:space="preserve">
+    <value>Out of combat</value>
+  </data>
+  <data name="OutOfCombatDesc" xml:space="preserve">
+    <value>Use Suspend while out of combat.</value>
+  </data>
+  <data name="OnlyAsAoEMit" xml:space="preserve">
+    <value>Only as AoE mit</value>
+  </data>
+  <data name="OnlyAsAoEMitDesc" xml:space="preserve">
+    <value>Only use Occult Toad with 2+ targets in range, or when raidwide damage is incoming.</value>
+  </data>
+  <data name="RefreshOccultLibra" xml:space="preserve">
+    <value>Refresh Occult Libra when remaining time is at or below this many seconds.</value>
+  </data>
+  <data name="BlazingSpellbladeRefreshNote" xml:space="preserve">
+    <value>Blazing Spellblade also refreshes at 30s remaining so other Spellblades do not take its cooldown.</value>
+  </data>
+  <data name="StatusRefreshSlider" xml:space="preserve">
+    <value>Refresh this buff or debuff when remaining time is at or below this many seconds. 0 waits until it drops.</value>
+  </data>
+  <data name="PotionSelfOnlyDesc" xml:space="preserve">
+    <value>When disabled, also triggers if the lowest party member is below the HP threshold.</value>
+  </data>
+  <data name="EtherSelfOnlyDesc" xml:space="preserve">
+    <value>When disabled, also triggers if any party member is below the MP threshold.</value>
+  </data>
+  <data name="RetargetOutOfParty" xml:space="preserve">
+    <value>Retarget to Out of Party Players</value>
+  </data>
+  <data name="RetargetOutOfPartyDesc" xml:space="preserve">
+    <value>Also retargets if anyone outside your party falls below this HP%</value>
+  </data>
+  <data name="DrainTouchUsage" xml:space="preserve">
+    <value>Drain Touch usage:</value>
+  </data>
+  <data name="DrainTouchDps" xml:space="preserve">
+    <value>DPS</value>
+  </data>
+  <data name="DrainTouchDpsDesc" xml:space="preserve">
+    <value>Use for damage (respects Restrict to Buff).</value>
+  </data>
+  <data name="DrainTouchHeal" xml:space="preserve">
+    <value>Heal</value>
+  </data>
+  <data name="DrainTouchHealDesc" xml:space="preserve">
+    <value>Only when your HP is at or below the heal threshold.</value>
+  </data>
+  <data name="DrainTouchEmergency" xml:space="preserve">
+    <value>Emergency</value>
+  </data>
+  <data name="DrainTouchEmergencyDesc" xml:space="preserve">
+    <value>Only when your HP is at or below the emergency threshold.</value>
+  </data>
+  <data name="NecroSpellsDuringDrain" xml:space="preserve">
+    <value>Necromancer spells while Drain Touch is active:</value>
+  </data>
+  <data name="OnlyWhenInactive" xml:space="preserve">
+    <value>Only when inactive</value>
+  </data>
+  <data name="OnlyWhenInactiveDesc" xml:space="preserve">
+    <value>Cast Deep Freeze / Hell Wind / Chaos Drive / Doomsday only while Drain Touch is down.</value>
+  </data>
+  <data name="OnlyWhenActive" xml:space="preserve">
+    <value>Only when active</value>
+  </data>
+  <data name="OnlyWhenActiveDesc" xml:space="preserve">
+    <value>Cast those spells only during the Drain Touch buff.</value>
+  </data>
+  <data name="Either" xml:space="preserve">
+    <value>Either</value>
+  </data>
+  <data name="EitherDesc" xml:space="preserve">
+    <value>Ignore Drain Touch buff for spell usage.</value>
+  </data>
+  <data name="OnlyAt4FinishingFervor" xml:space="preserve">
+    <value>Only at 4 Finishing Fervor</value>
+  </data>
+  <data name="OnlyAt4FinishingFervorDesc" xml:space="preserve">
+    <value>Keep Defend for when you have full Finishing Fervor stacks.</value>
+  </data>
+  <data name="WhenBothBlindParalysis" xml:space="preserve">
+    <value>When both Blind and Paralysis can apply:</value>
+  </data>
+  <data name="PreferDarkCannon" xml:space="preserve">
+    <value>Prefer Dark Cannon</value>
+  </data>
+  <data name="Blind" xml:space="preserve">
+    <value>Blind</value>
+  </data>
+  <data name="PreferShockCannon" xml:space="preserve">
+    <value>Prefer Shock Cannon</value>
+  </data>
+  <data name="Paralysis" xml:space="preserve">
+    <value>Paralysis</value>
+  </data>
+  <data name="WhenNeitherCanApply" xml:space="preserve">
+    <value>When neither can apply (immune / capped):</value>
+  </data>
+  <data name="UseDarkCannon" xml:space="preserve">
+    <value>Use Dark Cannon</value>
+  </data>
+  <data name="UseShockCannon" xml:space="preserve">
+    <value>Use Shock Cannon</value>
+  </data>
 </root>

@@ -24,7 +24,7 @@ internal partial class SGE
                 case Preset.SGE_ST_Adv_DPS_Opener:
                     DrawBossOnlyChoice(SGE_Balance_Content);
                     DrawOpenerPotionChoice(SGE_Opener_Potion);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(SGE_SelectedOpener,
                         FormatAndCache(Generics.Action_Opener, Toxikon.ActionName()),

@@ -78,7 +78,7 @@ internal partial class RDM
                     DrawBossOnlyChoice(RDM_BalanceOpener_Content);
                     DrawOpenerPotionChoice(RDM_Opener_Potion);
                     DrawOpenerPrepullBlockChoice(RDM_Opener_PrepullBlock);
-                    ImGuiEx.TextUnderlined("Select Opener");
+                    ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(RDM_Opener_Selection, Generics.StandardOpener,
                         RDM_Config.RDMOpenerWarning, 0, descriptionAsTooltip: true);
