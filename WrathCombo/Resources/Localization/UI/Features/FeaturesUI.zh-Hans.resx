@@ -202,4 +202,13 @@
   <data name="Search_InvalidKeyword" xml:space="preserve">
     <value>请确认关键词有效。</value>
   </data>
+  <data name="Hover_BurstToggle" xml:space="preserve">
+    <value>将此选项加入或移出由 `/wrath burst custom` 切换的选项列表</value>
+  </data>
+  <data name="IncludedBurst" xml:space="preserve">
+    <value>此选项当前已包含在爆发切换中。</value>
+  </data>
+  <data name="ExcludedBurst" xml:space="preserve">
+    <value>此选项当前*未*包含在爆发切换中。</value>
+  </data>
 </root>
