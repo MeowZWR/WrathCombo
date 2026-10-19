@@ -109,14 +109,13 @@ internal partial class WAR
                 case Preset.WAR_ST_BalanceOpener:
                     DrawBossOnlyChoice(WAR_BalanceOpener_Content);
                     DrawOpenerPotionChoice(WAR_Opener_Potion);
-                    DrawOpenerPrepullBlockChoice(WAR_Opener_PrepullBlock);
-
                     ImGuiEx.TextUnderlined(FormatAndCache(Generics.ActionSettings, Onslaught.ActionName()));
                     ImGui.Spacing();
                     DrawRadioButton(WAR_ST_BalanceOpener_GapcloserChoice,
                         WAR_Config.UseGapclosers, WAR_Config.UseGapclosersDesc, 1, descriptionAsTooltip: true);
                     DrawRadioButton(WAR_ST_BalanceOpener_GapcloserChoice,
                         WAR_Config.NoGapclosers, WAR_Config.NoGapclosersDesc, 0, descriptionAsTooltip: true);
+                    DrawOpenerPrepullBlockChoice(WAR_Opener_PrepullBlock);
                     break;
 
                 case Preset.WAR_ST_StormsEye:

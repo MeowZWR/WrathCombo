@@ -81,13 +81,13 @@ internal partial class NIN
                 case Preset.NIN_ST_AdvancedMode_BalanceOpener:
                     DrawBossOnlyChoice(NIN_Balance_Content);
                     DrawOpenerPotionChoice(NIN_Opener_Potion);
-                    DrawOpenerPrepullBlockChoice(NIN_Opener_PrepullBlock);
                     ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(NIN_Adv_Opener_Selection, FormatAndCache(NIN_Config.StandardOpener4thGcd, KunaisBane.ActionName()), "", 0, descriptionAsTooltip: true);
                     DrawRadioButton(NIN_Adv_Opener_Selection, FormatAndCache(NIN_Config.StandardOpener3rdGcd, Dokumori.ActionName()), "", 1, descriptionAsTooltip: true);
                     DrawRadioButton(NIN_Adv_Opener_Selection, FormatAndCache(NIN_Config.StandardOpener3rdGcd, KunaisBane.ActionName()), "", 2, descriptionAsTooltip: true);
                     DrawRadioButton(NIN_Adv_Opener_Selection, NIN_Config.BuffRush, "", 3, descriptionAsTooltip: true);
+                    DrawOpenerPrepullBlockChoice(NIN_Opener_PrepullBlock);
                     break;
 
                 case Preset.NIN_ST_AdvancedMode_Mug:

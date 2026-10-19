@@ -227,12 +227,16 @@ public sealed partial class WrathCombo : IDalamudPlugin
         RegisterCommands();
 
         DtrBarEntry ??= Svc.DtrBar.Get("Wrath Combo");
-        DtrBarEntry.OnClick = (_) =>
+        DtrBarEntry.OnClick = (c) =>
         {
-            AutoRotationController.ToggleAutoRotation(!Service.Configuration.RotationConfig.Enabled);
+            if (c.ClickType == MouseClickType.Right)
+                HandleOpenCommand(tab: ConfigWindow.OpenWindow, forceOpen: true);
+            else
+                AutoRotationController.ToggleAutoRotation(!Service.Configuration.RotationConfig.Enabled);
         };
         DtrBarEntry.Tooltip = new SeString(
-        new TextPayload("Click to toggle Wrath Combo's Auto-Rotation.\n"),
+        new TextPayload("Left Click to toggle Wrath Combo's Auto-Rotation.\n"),
+        new TextPayload("Right Click to toggle Wrath Combo's UI.\n"),
         new TextPayload("Disable this icon in /xlsettings -> Server Info Bar"));
 
         OpenerDtr ??= Svc.DtrBar.Get("Wrath Combo Opener");

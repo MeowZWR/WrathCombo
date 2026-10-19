@@ -62,13 +62,13 @@ internal partial class PCT
                 case Preset.PCT_ST_Advanced_Openers:
                     DrawBossOnlyChoice(PCT_Balance_Content);
                     DrawOpenerPotionChoice(PCT_Opener_Potion);
-                    DrawOpenerPrepullBlockChoice(PCT_Opener_PrepullBlock);
                     ImGuiEx.TextUnderlined(Generics.SelectOpener);
                     ImGui.Spacing();
                     DrawRadioButton(PCT_Opener_Choice, FormatAndCache(PCT_Config.SecondGcdStarryMuse, StarryMuse.ActionName()),
                         PCT_Config.OpenerTimeoutNote, 0, descriptionAsTooltip: true);
                     DrawRadioButton(PCT_Opener_Choice, FormatAndCache(PCT_Config.ThirdGcdStarryMuse, StarryMuse.ActionName()),
                         PCT_Config.OpenerTimeoutNote, 1, descriptionAsTooltip: true);
+                    DrawOpenerPrepullBlockChoice(PCT_Opener_PrepullBlock);
                     break;
 
                 case Preset.PCT_ST_AdvancedMode_LucidDreaming:

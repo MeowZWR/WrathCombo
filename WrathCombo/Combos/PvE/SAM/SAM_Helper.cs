@@ -646,8 +646,7 @@ internal partial class SAM
 
         protected static bool TendoKaeshiUnavailable() =>
             !HasStatusEffect(Buffs.TsubameReady) &&
-            !HasStatusEffect(Buffs.TendoKaeshiSetsugekkaReady) &&
-            !JustUsed(TendoSetsugekka);
+            !HasStatusEffect(Buffs.TendoKaeshiSetsugekkaReady);
 
         protected static bool ShohaUnavailable() =>
             MeditationStacks < 3 &&
@@ -717,8 +716,7 @@ internal partial class SAM
             () => KaeshiSetsugekka // 21
         ];
 
-        public SAMLvl80Opener() =>
-            SkipSteps.Add(([20], ShohaUnavailable));
+        public SAMLvl80Opener() => SkipSteps.Add(([20], ShohaUnavailable));
 
         public override bool HasCooldowns() =>
             base.HasCooldowns() &&
@@ -760,8 +758,7 @@ internal partial class SAM
 
         public override List<int> AllowUpgradeSteps { get; set; } = [20];
 
-        public SAMLvl90Opener() =>
-            SkipSteps.Add(([16], ShohaUnavailable));
+        public SAMLvl90Opener() => SkipSteps.Add(([16], ShohaUnavailable));
 
         public override bool HasCooldowns() =>
             base.HasCooldowns() &&
@@ -853,8 +850,8 @@ internal partial class SAM
             () => Shinten, // 21
             () => TendoSetsugekka, // 22
             () => Shoha, // 23
-            () => Yukikaze, // 24
-            () => TendoKaeshiSetsugekka, // 25
+            () => TendoKaeshiSetsugekka, // 24
+            () => Kasha, //25
             () => Gyofu, // 26
             () => Yukikaze // 27
         ];
@@ -863,7 +860,7 @@ internal partial class SAM
         {
             SkipSteps.Add(([19, 21], () => !ActionReady(Shinten)));
             SkipSteps.Add(([9, 22], () => SenCount is not 3 && !(SenCount is 2 && JustUsed(Yukikaze))));
-            SkipSteps.Add(([11, 25], TendoKaeshiUnavailable));
+            SkipSteps.Add(([11, 24], TendoKaeshiUnavailable));
             SkipSteps.Add(([23], ShohaUnavailable));
         }
 

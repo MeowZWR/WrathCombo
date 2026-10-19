@@ -1,7 +1,4 @@
-#region
-
 using Dalamud.Interface.Colors;
-using Dalamud.Interface.Utility.Raii;
 using ECommons.ImGuiMethods;
 using System.Linq;
 using System.Numerics;
@@ -13,13 +10,6 @@ using WrathCombo.Services;
 using WrathCombo.Window.Functions;
 using static WrathCombo.Window.Functions.UserConfig;
 using static WrathCombo.Window.Text;
-
-// ReSharper disable SwitchStatementMissingSomeEnumCasesNoDefault
-// ReSharper disable InconsistentNaming
-// ReSharper disable CheckNamespace
-// ReSharper disable ClassNeverInstantiated.Global
-
-#endregion
 
 namespace WrathCombo.Combos.PvE;
 
@@ -184,11 +174,11 @@ internal partial class DNC
                     DrawRadioButton(DNC_ST_OpenerSelection,
                         DNC_Config.Technical7s,
                         DNC_Config.Technical7sDesc,
-                        (int)Openers.SevenPlusSecondTech, descriptionAsTooltip: true);
+                        (int)Openers.SevenSecondTech, descriptionAsTooltip: true);
                     DrawRadioButton(DNC_ST_OpenerSelection,
                         DNC_Config.Technical7sAlt,
-                        DNC_Config.Technical7sDesc,
-                        (int)Openers.SevenSecondTech, descriptionAsTooltip: true);
+                        "Requires at least a 7s countdown and Standard Step performed beforehand.\nCountdown timer should then be approximately 3s less than the current cooldown of Finishing Move.\nNot generally recommended, only for coordinated use only.",
+                        (int)Openers.SevenPlusSecondTech, descriptionAsTooltip: true);
 
                     DrawAdditionalBoolChoice(DNC_ST_OpenerOption_Peloton,
                         FormatAndCache(Generics.Include0, Peloton.ActionName()), "");

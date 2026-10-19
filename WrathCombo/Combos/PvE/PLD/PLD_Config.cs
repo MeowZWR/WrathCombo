@@ -110,7 +110,6 @@ internal partial class PLD
                     DrawRadioButton(PLD_ST_AdvancedMode_BalanceOpener_Intervene,
                         FormatAndCache(Generics.DontUse0, Intervene.ActionName()),
                         FormatAndCache(Generics.GapcloseSkip, Intervene.ActionName()), 1, descriptionAsTooltip: true);
-
                     DrawOpenerPrepullBlockChoice(PLD_Opener_PrepullBlock);
                     break;
 

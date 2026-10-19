@@ -98,6 +98,10 @@ namespace WrathCombo.Extensions
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            // Stops the ambiguity issues with ECommons
+            public bool HasStatus(uint id) => chara.HasStatus(id, false);
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool HasStatus(uint id, bool anyOwner = false) =>
                 chara.Status(id, anyOwner) is not null;
 
@@ -269,6 +273,9 @@ namespace WrathCombo.Extensions
         /// </summary>
         extension(IGameObject? obj)
         {
+            // Stops the ambiguity issues with ECommons
+            public bool HasStatus(uint id) => obj.HasStatus(id, false);
+
             public IStatus? Status(uint id, bool anyOwner = false) =>
                 (obj as IBattleChara).Status(id, anyOwner);
 

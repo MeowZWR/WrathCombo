@@ -113,9 +113,9 @@ internal partial class NIN
                 {
                     not MudraFlags.None => SecondMudra switch
                     {
-                        MudraFlags.TenSecond => HasKassatsu ? GokaMekkyaku : Katon,
+                        MudraFlags.TenSecond => ActionLearned(GokaMekkyaku) && HasKassatsu ? GokaMekkyaku : Katon,
                         MudraFlags.ChiSecond => Raiton,
-                        MudraFlags.JinSecond => HasKassatsu ? HyoshoRanryu : Hyoton,
+                        MudraFlags.JinSecond => ActionLearned(HyoshoRanryu) && HasKassatsu ? HyoshoRanryu : Hyoton,
                         _ => 0
                     },
 
@@ -193,8 +193,6 @@ internal partial class NIN
     internal static bool DotonStoppedMoving => TimeStoodStill >= TimeSpan.FromSeconds(DotonTimeStill);
     internal static float DotonTimeStill => AoESimpleMode ? 1.5f : NIN_AoE_AdvancedMode_Ninjitsus_Doton_TimeStill;
 
-    internal static bool CanUseFumaShuriken => ActionReady(Ten);
-
     internal static bool CanUseRaiton => ActionLearned(Raiton) && ActionReady(Ten) &&
                                          (!HasKassatsu || IsNotEnabled(Preset.NIN_ST_AdvancedMode_Ninjitsus_Hyosho) && !STSimpleMode || !ActionLearned(HyoshoRanryu)) && //Use kassatsu on it if Hyosho isn't selected.
                                          (TrickDebuff || // Buff Window
@@ -220,10 +218,10 @@ internal partial class NIN
 
     internal static bool CanUseHuton => ActionLearned(Huton) && ActionReady(Ten) && !LocalPlayer.HasStatus(Buffs.ShadowWalker);
 
-    internal static bool CanUseHyoshoRanryu => ActionLearned(HyoshoRanryu) && ActionReady(Ten) && HasKassatsu &&
+    internal static bool CanUseHyoshoRanryu => ActionLearned(HyoshoRanryu) && HasKassatsu &&
                                                (BuffWindow || IsNotEnabled(Preset.NIN_ST_AdvancedMode_TrickAttack) && !STSimpleMode || KassatsuRemaining < 3);
 
-    internal static bool CanUseGokaMekkyaku => ActionLearned(GokaMekkyaku) && ActionReady(Ten) && HasKassatsu &&
+    internal static bool CanUseGokaMekkyaku => ActionLearned(GokaMekkyaku) && HasKassatsu &&
                                                (BuffWindow || IsNotEnabled(Preset.NIN_ST_AdvancedMode_TrickAttack) && !STSimpleMode || KassatsuRemaining < 3);
 
     #endregion
@@ -487,15 +485,14 @@ internal partial class NIN
 
         public bool CastFumaShuriken(ref uint actionID) // Ten
         {
-            if (CurrentMudra is MudraState.None or MudraState.CastingFumaShuriken)
+            if (ActionLearned(FumaShuriken) && CurrentMudra is MudraState.None or MudraState.CastingFumaShuriken)
             {
-                // Finish the Mudra
-                if (LastMudra is Ten or TenCombo)
+                if (FirstMudra is not MudraFlags.None)
                 {
                     actionID = FumaShuriken;
                     return true;
                 }
-                // Start the Mudra
+
                 CurrentMudra = MudraState.CastingFumaShuriken;
                 actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? TenCombo : Ten;
                 return true;
@@ -510,19 +507,20 @@ internal partial class NIN
 
         public bool CastRaiton(ref uint actionID) // Ten Chi
         {
-            if (Raiton.LevelChecked() && CurrentMudra is MudraState.None or MudraState.CastingRaiton)
+            if (ActionLearned(Raiton) && CurrentMudra is MudraState.None or MudraState.CastingRaiton)
             {
-                // Finish the Mudra
-                switch (LastMudra)
+                if (MudraUsed(Chi))
                 {
-                    case Ten or TenCombo or Jin or JinCombo:
-                        actionID = ChiCombo;
-                        return true;
-                    case Chi or ChiCombo: //Chi == Bailout Fuma
-                        actionID = Raiton;
-                        return true;
+                    actionID = JutsuFromFlags;
+                    return true;
                 }
-                // Start the Mudra
+
+                if (FirstMudra is not MudraFlags.None)
+                {
+                    actionID = ChiCombo;
+                    return true;
+                }
+
                 CurrentMudra = MudraState.CastingRaiton;
                 actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? TenCombo : Ten;
                 return true;
@@ -537,24 +535,35 @@ internal partial class NIN
 
         public bool CastSuiton(ref uint actionID) //Ten Chi Jin
         {
-            if (Suiton.LevelChecked() && CurrentMudra is MudraState.None or MudraState.CastingSuiton)
+            if (ActionLearned(Suiton) && CurrentMudra is MudraState.None or MudraState.CastingSuiton)
             {
-                //Finish the Mudra
-                switch (LastMudra)
+                if (MudraUsed(Jin))
                 {
-                    case Ten or TenCombo:
-                        actionID = ChiCombo;
-                        return true;
-                    case Chi or ChiCombo: //Chi == Bailout Hyoten
-                        actionID = JinCombo;
-                        return true;
-                    case Jin or JinCombo: //Jin == Bailout Fuma
-                        actionID = Suiton;
-                        return true;
+                    actionID = JutsuFromFlags;
+                    return true;
                 }
-                // Start the Mudra
+
+                if (SecondMudra is not MudraFlags.None)
+                {
+                    actionID = JinCombo;
+                    return true;
+                }
+
+                if (FirstMudra is not MudraFlags.None)
+                {
+                    switch (FirstMudra)
+                    {
+                        case MudraFlags.TenFirst:
+                            actionID = ChiCombo;
+                            return true;
+                        case MudraFlags.ChiFirst:
+                            actionID = TenCombo;
+                            return true;
+                    }
+                }
+
                 CurrentMudra = MudraState.CastingSuiton;
-                actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? TenCombo : Ten;
+                actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? TenCombo : Ten; // Start with Ten, but handle alternative Chi starter above cause users gonna user
                 return true;
             }
             CurrentMudra = MudraState.None;
@@ -567,19 +576,20 @@ internal partial class NIN
 
         public bool CastHyoshoRanryu(ref uint actionID) // Ten Jin
         {
-            if (HyoshoRanryu.LevelChecked() && CurrentMudra is MudraState.None or MudraState.CastingHyoshoRanryu)
+            if (ActionLearned(HyoshoRanryu) && CurrentMudra is MudraState.None or MudraState.CastingHyoshoRanryu)
             {
-                //Finish the Mudra
-                switch (LastMudra)
+                if (MudraUsed(Jin))
                 {
-                    case Ten or TenCombo or Chi or ChiCombo:
-                        actionID = JinCombo;
-                        return true;
-                    case Jin or JinCombo: //Jin == Bailout to Fuma
-                        actionID = HyoshoRanryu;
-                        return true;
+                    actionID = JutsuFromFlags;
+                    return true;
                 }
-                // Start the Mudra
+
+                if (FirstMudra is not MudraFlags.None)
+                {
+                    actionID = JinCombo;
+                    return true;
+                }
+
                 CurrentMudra = MudraState.CastingHyoshoRanryu;
                 actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? TenCombo : Ten;
                 return true;
@@ -594,19 +604,20 @@ internal partial class NIN
 
         public bool CastKaton(ref uint actionID) // Jin Ten
         {
-            if (Katon.LevelChecked() && CurrentMudra is MudraState.None or MudraState.CastingKaton)
+            if (ActionLearned(Katon) && CurrentMudra is MudraState.None or MudraState.CastingKaton)
             {
-                //Finish the Mudra
-                switch (LastMudra)
+                if (MudraUsed(Ten))
                 {
-                    case Jin or JinCombo or Chi or ChiCombo:
-                        actionID = TenCombo;
-                        return true;
-                    case Ten or TenCombo: //Ten == Bailout to Fuma
-                        actionID = Katon;
-                        return true;
+                    actionID = JutsuFromFlags;
+                    return true;
                 }
-                // Start the Mudra
+
+                if (FirstMudra is not MudraFlags.None)
+                {
+                    actionID = TenCombo;
+                    return true;
+                }
+
                 CurrentMudra = MudraState.CastingKaton;
                 actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? ChiCombo : Chi;
                 return true;
@@ -621,22 +632,33 @@ internal partial class NIN
 
         public bool CastDoton(ref uint actionID) // Jin Ten Chi
         {
-            if (Doton.LevelChecked() && CurrentMudra is MudraState.None or MudraState.CastingDoton)
+            if (ActionLearned(Doton) && CurrentMudra is MudraState.None or MudraState.CastingDoton)
             {
-                //Finish the Mudra
-                switch (LastMudra)
+                if (MudraUsed(Chi))
                 {
-                    case Jin or JinCombo:
-                        actionID = TenCombo;
-                        return true;
-                    case Ten or TenCombo: // Ten == Bailout to Raiton
-                        actionID = ChiCombo;
-                        return true;
-                    case Chi or ChiCombo: //Chi == Bailout Fuma
-                        actionID = Doton;
-                        return true;
+                    actionID = JutsuFromFlags;
+                    return true;
                 }
-                // Start the Mudra
+
+                if (SecondMudra is not MudraFlags.None)
+                {
+                    actionID = ChiCombo;
+                    return true;
+                }
+
+                if (FirstMudra is not MudraFlags.None)
+                {
+                    switch (FirstMudra)
+                    {
+                        case MudraFlags.TenFirst:
+                            actionID = JinCombo;
+                            return true;
+                        case MudraFlags.JinFirst:
+                            actionID = TenCombo;
+                            return true;
+                    }
+                }
+
                 CurrentMudra = MudraState.CastingDoton;
                 actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? JinCombo : Jin;
                 return true;
@@ -651,22 +673,33 @@ internal partial class NIN
 
         public bool CastHuton(ref uint actionID) // Jin Chi Ten
         {
-            if (Huton.LevelChecked() && CurrentMudra is MudraState.None or MudraState.CastingHuton)
+            if (ActionLearned(Huton) && CurrentMudra is MudraState.None or MudraState.CastingHuton)
             {
-                //Finish the Mudra
-                switch (LastMudra)
+                if (MudraUsed(Ten))
                 {
-                    case Jin or JinCombo:
-                        actionID = ChiCombo;
-                        return true;
-                    case Chi or ChiCombo: //Chi == Bailout katon
-                        actionID = TenCombo;
-                        return true;
-                    case Ten or TenCombo: // Ten == Bailout to Fuma
-                        actionID = Huton;
-                        return true;
+                    actionID = JutsuFromFlags;
+                    return true;
                 }
-                // Start the Mudra
+
+                if (SecondMudra is not MudraFlags.None)
+                {
+                    actionID = TenCombo;
+                    return true;
+                }
+
+                if (FirstMudra is not MudraFlags.None)
+                {
+                    switch (FirstMudra)
+                    {
+                        case MudraFlags.JinFirst:
+                            actionID = ChiCombo;
+                            return true;
+                        case MudraFlags.ChiFirst:
+                            actionID = JinCombo;
+                            return true;
+                    }
+                }
+
                 CurrentMudra = MudraState.CastingHuton;
                 actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? JinCombo : Jin;
                 return true;
@@ -681,19 +714,20 @@ internal partial class NIN
 
         public bool CastGokaMekkyaku(ref uint actionID) // Jin Ten
         {
-            if (GokaMekkyaku.LevelChecked() && CurrentMudra is MudraState.None or MudraState.CastingGokaMekkyaku)
+            if (ActionLearned(GokaMekkyaku) && CurrentMudra is MudraState.None or MudraState.CastingGokaMekkyaku)
             {
-                //Finish the Mudra
-                switch (LastMudra)
+                if (MudraUsed(Ten))
                 {
-                    case Jin or JinCombo or Chi or ChiCombo:
-                        actionID = TenCombo;
-                        return true;
-                    case Ten or TenCombo: // Ten == Bailout to Fuma
-                        actionID = GokaMekkyaku;
-                        return true;
+                    actionID = JutsuFromFlags;
+                    return true;
                 }
-                // Start the Mudra
+
+                if (FirstMudra is not MudraFlags.None)
+                {
+                    actionID = TenCombo;
+                    return true;
+                }
+
                 CurrentMudra = MudraState.CastingGokaMekkyaku;
                 actionID = LocalPlayer.HasStatus(Buffs.Kassatsu) ? JinCombo : Jin;
                 return true;
